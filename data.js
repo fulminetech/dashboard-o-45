@@ -1584,3 +1584,7 @@ setInterval(() => {
 // module.exports = {
 //     machine, payload, watchproxy, startmodbus
 // }
+
+module.exports = {
+    payload
+}

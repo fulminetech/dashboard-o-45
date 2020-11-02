@@ -9,6 +9,11 @@ const Influx = require('influxdb-nodejs');
 const { query } = require("express");
 const client = new Influx(`http://${host}:8086/new`);
 
+const {
+    payload
+} = require('./data.js')
+
+
 // Serve NPM modules
 app.use('/charts', express.static(__dirname + '/node_modules/chart.js/dist/'));
 app.use('/charts/plugin', express.static(__dirname + '/node_modules/chartjs-plugin-zoom/'));
@@ -121,6 +126,31 @@ app.get("/api/search/average/csv/:batch", (req, res) => {
     passbatch(r)
 });
 
+app.get("/api/search/rotation/:rotationn", (req, res) => {
+    // select * from "payload" where "rotation" = 7
+    const r = parseInt(req.params.rotationn)
+
+    passbatch(r)
+
+    async function passbatch(r) {
+        client.query(`${payload.batch}.history`)
+            .where('rotation', r)
+            .then(data => {
+                let payload1 = Object.values(data.results[0].series[0].values[0]);
+                // let payload1 = Object.values(data);
+                console.log(`[ RESPONSE:  ${payload1} ]`);
+                if (typeof payload1 === "object") {
+                    res.send(payload1)
+                }
+            })
+            .catch(console.error);
+    };
+});
+
+app.use("/api/payload", (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.json(payload);
+});
 
 // Start Server
 const port = 3000;

@@ -31,7 +31,7 @@ var payload;
 setInterval(() => {
     punchno();
     payload = {
-        batch: "TEST-3",
+        batch: "TEST-4",
         data_number: i, // Rotation Number
         rotation_no: 0,
         present_punch: ii,
