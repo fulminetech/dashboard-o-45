@@ -713,8 +713,6 @@ function startmodbus() {
     }, 100);
 }
 
-startmodbus()
-
 async function fetchpayload() {
     // const res = await fetch(payloadURL);
     // const res1 = await fetch(machineURL);
@@ -1586,5 +1584,5 @@ setInterval(() => {
 // }
 
 module.exports = {
-    payload
+    payload, startmodbus
 }

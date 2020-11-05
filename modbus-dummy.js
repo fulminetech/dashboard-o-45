@@ -31,7 +31,7 @@ var payload;
 setInterval(() => {
     punchno();
     payload = {
-        batch: "TEST-4",
+        batch: "TEST-5",
         data_number: i, // Rotation Number
         rotation_no: 0,
         present_punch: ii,
@@ -59,6 +59,7 @@ setInterval(() => {
             main_forceline: 0,
             pre_forceline: 0,
             ejn_forceline: 0,
+            operator: "DEFAULT",
         },
         stats: {
             status: "ONLINE",
@@ -66,7 +67,9 @@ setInterval(() => {
             tablets_per_hour: 0,
             rpm: 2,
             active_punches: 0,
-            dwell: 0
+            dwell: 0,
+            batch: "DEFAULT",
+            receipe_id: "NOT SET"
         },
         punch1: {
             LHS: {
@@ -700,7 +703,7 @@ setInterval(() => {
         }
     };
     randomIntFromIntervall()
-}, 1000);
+}, 3000);
 
 
 setInterval(() => {
@@ -713,6 +716,31 @@ app.use("/api/payload", (req, res) => {
     res.json(payload);
 });
 
+app.get("/control/limit/:preLHSup/:preLHSlow/:mainLHSup/:mainLHSlow/:preRHSup/:preRHSlow/:mainRHSup/:mainRHSlow", (req, res) => {
+    const a = req.params.preLHSup;
+    const b = req.params.preLHSlow;
+    const c = req.params.mainLHSup;
+    const d = req.params.mainLHSlow;
+    const e = req.params.preRHSup;
+    const f = req.params.preRHSlow;
+    const g = req.params.mainRHSup;
+    const h = req.params.mainRHSlow;
+
+
+    payload.machine.LHS.precompression_upperlimit = a;
+    payload.machine.LHS.precompression_lowerlimit = b;
+    payload.machine.LHS.maincompression_upperlimit = c;
+    payload.machine.LHS.maincompression_lowerlimit = d;
+    payload.machine.RHS.precompression_upperlimit = e;
+    payload.machine.RHS.precompression_lowerlimit = f;
+    payload.machine.RHS.maincompression_upperlimit = g;
+    payload.machine.RHS.maincompression_lowerlimit = h;
+
+    res.header('Access-Control-Allow-Origin', '*');
+    return res.json({ message: `[ UPDATED LIMITS ]` });
+});
+
+ 
 // Start Server
 const port = 3128;
 app.listen(port, () => console.log(`Server running on port ${port} 👑`));

@@ -10,7 +10,7 @@ const { query } = require("express");
 const client = new Influx(`http://${host}:8086/new`);
 
 const {
-    payload
+    payload, startmodbus
 } = require('./data.js')
 
 
@@ -24,6 +24,10 @@ app.use('/font', express.static(__dirname + '/node_modules/@fortawesome/fontawes
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/html/index.html"));
+});
+
+app.get("/onboard", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html/onboard.html"));
 });
 
 app.get("/history", (req, res) => {
@@ -41,6 +45,34 @@ app.get("/audit", (req, res) => {
 app.get("/settings", (req, res) => {
     res.sendFile(path.join(__dirname + "/html/settings.html"));
 });
+
+app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
+    const a = req.params.namee;
+    const b = req.params.machinee;
+    const c = req.params.recepiee;
+    const d = req.params.batchh;
+
+    payload.machine.operator_name = a;
+    payload.machine.machine_id = b;
+    payload.stats.recipie_id = c;
+    payload.stats.batch = d;
+
+    client.queryRaw(`select "rotation" from "${d}.history" ORDER BY time DESC LIMIT 1`)
+        .then(data => {
+            var response = data.results[0].series[0].values[0];
+            var previousrtn = parseInt(response[1]);
+            console.log(previousrtn)
+            if (previousrtn > 1) {
+                payload.rotation_no = previousrtn;
+            }
+        })
+        .catch(console.error);
+
+    // watchproxy();
+    startmodbus();
+    return res.json({ message: `[ ONBOARDED BATCH: ${d} ]` });
+});
+
 
 // --++ Gives List of Batches ++--
 

@@ -11,7 +11,7 @@ console.log('Start:', noww)
 var startTime = + new Date();
 
 var payload = {
-    batch: 0,
+    batch: "DEFAULT",
     data_number: 0, // Rotation Number
     rotation_no: 0,
     present_punch: 0,
@@ -39,6 +39,8 @@ var payload = {
         main_forceline: 0,
         pre_forceline: 0,
         ejn_forceline: 0,
+        operator: "DEFAULT",
+        machine_id: 1,
     },
     stats: {
         status: "OFFLINE",
@@ -46,7 +48,9 @@ var payload = {
         tablets_per_hour: 0,
         rpm: 0,
         active_punches: 0,
-        dwell: 0
+        dwell: 0,
+        batch: "DEFAULT",
+        receipe_id: "NOT SET"
     },
     punch1: {
         LHS: {
