@@ -47,6 +47,8 @@ var payload = {
         count: 0,
         tablets_per_hour: 0,
         rpm: 0,
+        turretLHS: 0,
+        turretRHS: 0,
         active_punches: 0,
         dwell: 0,
         batch: "DEFAULT",
@@ -687,7 +689,8 @@ var payload = {
 // Modbus TCP configs
 var client = new ModbusRTU();
 const slaveID = 1;
-const ip = "10.0.0.103"
+// const ip = "10.0.0.103"
+const ip = "192.168.0.65"
 
 // Modbus Addresses
 const precompressionLHS_address = 6097;
@@ -696,11 +699,11 @@ const maincompressionLHS_address = 6297;
 const maincompressionRHS_address = 6697;
 // const ejectionLHS_address = 6297;
 // const ejectionRHS_address = 6697;
-const avg_address = 7300; 
+const avg_address = 7300;
 const status_address = 2589;
 
 const time_address = 4196;
-const stats_address = 8096;
+const stats_address = 37768;
 
 // Modbus 'state' constants
 var MBS_STATE_INIT = "State init";
@@ -710,33 +713,41 @@ var MBS_STATE_GOOD_READ_PRELHS = "State good pre LHS (read)";
 var MBS_STATE_GOOD_READ_PRERHS = "State good pre RHS (read)";
 var MBS_STATE_GOOD_READ_MAINLHS = "State good main LHS (read)";
 var MBS_STATE_GOOD_READ_MAINRHS = "State good main RHS (read)";
-var MBS_STATE_GOOD_READ_EJNLHS = "State good ejn LHS (read)";
-var MBS_STATE_GOOD_READ_EJNRHS = "State good ejn RHS (read)";
 var MBS_STATE_GOOD_READ_AVG = "State good avg (read)";
 var MBS_STATE_GOOD_READ_STATUS = "State good status (read)";
 var MBS_STATE_GOOD_READ_STATS = "State good stats (read)";
+
+var MBS_STATE_GOOD_WRITE_STATS = "State good stats (write)";
+var MBS_STATE_GOOD_WRITE_STATUS = "State good status (write)";
 
 var MBS_STATE_FAIL_READ_TIME = "State fail time (read)";
 var MBS_STATE_FAIL_READ_PRELHS = "State fail pre LHS (read)";
 var MBS_STATE_FAIL_READ_PRERHS = "State fail pre RHS (read)";
 var MBS_STATE_FAIL_READ_MAINLHS = "State fail main LHS (read)";
 var MBS_STATE_FAIL_READ_MAINRHS = "State fail main RHS (read)";
-var MBS_STATE_FAIL_READ_EJNLHS = "State fail ejn LHS (read)";
-var MBS_STATE_FAIL_READ_EJNRHS = "State fail ejn RHS (read)";
 var MBS_STATE_FAIL_READ_AVG = "State fail avg (read)";
 var MBS_STATE_FAIL_READ_STATUS = "State fail status (read)";
 var MBS_STATE_FAIL_READ_STATS = "State fail stats (read)";
+
+var MBS_STATE_FAIL_WRITE_STATS = "State fail stats (write)";
+var MBS_STATE_FAIL_WRITE_STATUS = "State fail status (write)";
 
 var MBS_STATE_GOOD_CONNECT = "State good (port)";
 var MBS_STATE_FAIL_CONNECT = "State fail (port)";
 
 var mbsState = MBS_STATE_INIT;
 
+var WRITE_STATUS
+var WRITE_STATS
+
 var mbsTimeout = 5000;
-var mbsScan = 10;
+var mbsScan = 12;
 
 let readfailed = 0;
 let failcounter = 100;
+
+let writefailed = 0;
+let failcounter_w = 3;
 
 let timecheck = 3;
 let timetemp = 0;
@@ -745,7 +756,7 @@ let timetemp = 0;
 var connectClient = function () {
 
     // close port (NOTE: important in order not to create multiple connections)
-    //client.close();
+    client.close();
 
     // set requests parameters
     client.setID(slaveID);
@@ -755,7 +766,6 @@ var connectClient = function () {
     client.connectTCP(ip)
         .then(function () {
             mbsState = MBS_STATE_GOOD_CONNECT;
-
             console.log(`[ CONNECTED ]`)
         })
         .then(function () {
@@ -809,42 +819,39 @@ var runModbus = function () {
             nextAction = readpreLHS;
             break;
 
-        case MBS_STATE_GOOD_READ_PRELHS || MBS_STATE_FAIL_READ_PRELHS:
+        case MBS_STATE_GOOD_READ_PRELHS:
             nextAction = readpreRHS;
             break;
 
-        case MBS_STATE_GOOD_READ_PRERHS || MBS_STATE_FAIL_READ_PRERHS:
+        case MBS_STATE_GOOD_READ_PRERHS:
             nextAction = readmainLHS;
             break;
 
-        case MBS_STATE_GOOD_READ_MAINLHS || MBS_STATE_FAIL_READ_MAINLHS:
+        case MBS_STATE_GOOD_READ_MAINLHS:
             nextAction = readmainRHS;
             break;
-
-        // case MBS_STATE_GOOD_READ_MAINRHS || MBS_STATE_FAIL_READ_MAINRHS:
-        //     nextAction = readejnLHS;
-        //     break;
-
-        // case MBS_STATE_GOOD_READ_EJNLHS || MBS_STATE_FAIL_READ_EJNLHS:
-        //     nextAction = readejnRHS;
-        //     break;
-
-        // case MBS_STATE_GOOD_READ_EJNRHS || MBS_STATE_FAIL_READ_EJNRHS:
         
-        case MBS_STATE_GOOD_READ_MAINRHS || MBS_STATE_FAIL_READ_MAINRHS:
+        case MBS_STATE_GOOD_READ_MAINRHS:
             nextAction = readavg;
             break;
 
-        case MBS_STATE_GOOD_READ_AVG || MBS_STATE_FAIL_READ_AVG:
+        case MBS_STATE_GOOD_READ_AVG:
             nextAction = readstatus;
             break;
 
-        case MBS_STATE_GOOD_READ_STATUS || MBS_STATE_FAIL_READ_STATUS:
+        case MBS_STATE_GOOD_READ_STATUS:
             nextAction = readstats;
             break;
-        
-        
-        case MBS_STATE_GOOD_READ_STATS || MBS_STATE_FAIL_READ_STATS:
+
+        case MBS_STATE_GOOD_READ_STATS:
+            nextAction = readpreLHS;
+            break;
+
+        case MBS_STATE_GOOD_WRITE_STATS || MBS_STATE_FAIL_WRITE_STATS:
+            nextAction = readpreLHS;
+            break;
+
+        case MBS_STATE_GOOD_WRITE_STATUS || MBS_STATE_FAIL_WRITE_STATUS:
             nextAction = readpreLHS;
             break;
 
@@ -852,22 +859,23 @@ var runModbus = function () {
             nextAction = connectClient;
             break;
 
-        default:
-        // nothing to do, keep scanning until actionable case
+        case WRITE_STATS:
+            nextAction = writestats;
+            break;
 
+        case WRITE_STATUS:
+            nextAction = writestatus;
+            break;
+            
+        // nothing to do, keep scanning until actionable case
+        default:
     }
 
     // console.log(mbsState);
     // console.log(nextAction);
 
-    payload.stats.status = "ONLINE";
+    // payload.stats.status = "ONLINE";
 
-    if (readfailed > failcounter) {
-        readfailed = 0;
-        restartprodmodbus();
-    }
-
-    // execute "next action" function if defined
     if (nextAction !== undefined) {
         nextAction();
     } else {
@@ -878,245 +886,247 @@ var runModbus = function () {
     setTimeout(runModbus, mbsScan);
 }
 
+runModbus()
+
 var readpreLHS = function () {
+    mbsState = MBS_STATE_GOOD_READ_PRELHS;
+
     client.readHoldingRegisters(precompressionLHS_address, 45)
         .then(function (precompressionLHS) {
-            console.log((+ new Date() - startTime) / 1000, '1! Precompression:', precompressionLHS.data[0]);
-            payload.punch1.LHS.precompression = precompressionLHS.data[0] / 100;
-            payload.punch2.LHS.precompression = precompressionLHS.data[1] / 100;
-            payload.punch3.LHS.precompression = precompressionLHS.data[2] / 100;
-            payload.punch4.LHS.precompression = precompressionLHS.data[3] / 100;
-            payload.punch5.LHS.precompression = precompressionLHS.data[4] / 100;
-            payload.punch6.LHS.precompression = precompressionLHS.data[5] / 100;
-            payload.punch7.LHS.precompression = precompressionLHS.data[6] / 100;
-            payload.punch8.LHS.precompression = precompressionLHS.data[7] / 100;
-            payload.punch9.LHS.precompression = precompressionLHS.data[8] / 100;
-            payload.punch10.LHS.precompression = precompressionLHS.data[9] / 100;
-            payload.punch11.LHS.precompression = precompressionLHS.data[10] / 100;
-            payload.punch12.LHS.precompression = precompressionLHS.data[11] / 100;
-            payload.punch13.LHS.precompression = precompressionLHS.data[12] / 100;
-            payload.punch14.LHS.precompression = precompressionLHS.data[13] / 100;
-            payload.punch15.LHS.precompression = precompressionLHS.data[14] / 100;
-            payload.punch16.LHS.precompression = precompressionLHS.data[15] / 100;
-            payload.punch17.LHS.precompression = precompressionLHS.data[16] / 100;
-            payload.punch18.LHS.precompression = precompressionLHS.data[17] / 100;
-            payload.punch19.LHS.precompression = precompressionLHS.data[18] / 100;
-            payload.punch20.LHS.precompression = precompressionLHS.data[19] / 100;
-            payload.punch21.LHS.precompression = precompressionLHS.data[20] / 100;
-            payload.punch22.LHS.precompression = precompressionLHS.data[21] / 100;
-            payload.punch23.LHS.precompression = precompressionLHS.data[22] / 100;
-            payload.punch24.LHS.precompression = precompressionLHS.data[23] / 100;
-            payload.punch25.LHS.precompression = precompressionLHS.data[24] / 100;
-            payload.punch26.LHS.precompression = precompressionLHS.data[25] / 100;
-            payload.punch27.LHS.precompression = precompressionLHS.data[26] / 100;
-            payload.punch28.LHS.precompression = precompressionLHS.data[27] / 100;
-            payload.punch29.LHS.precompression = precompressionLHS.data[28] / 100;
-            payload.punch30.LHS.precompression = precompressionLHS.data[29] / 100;
-            payload.punch31.LHS.precompression = precompressionLHS.data[30] / 100;
-            payload.punch32.LHS.precompression = precompressionLHS.data[31] / 100;
-            payload.punch33.LHS.precompression = precompressionLHS.data[32] / 100;
-            payload.punch34.LHS.precompression = precompressionLHS.data[33] / 100;
-            payload.punch35.LHS.precompression = precompressionLHS.data[34] / 100;
-            payload.punch36.LHS.precompression = precompressionLHS.data[35] / 100;
-            payload.punch37.LHS.precompression = precompressionLHS.data[36] / 100;
-            payload.punch38.LHS.precompression = precompressionLHS.data[37] / 100;
-            payload.punch39.LHS.precompression = precompressionLHS.data[38] / 100;
-            payload.punch40.LHS.precompression = precompressionLHS.data[39] / 100;
-            payload.punch41.LHS.precompression = precompressionLHS.data[40] / 100;
-            payload.punch42.LHS.precompression = precompressionLHS.data[41] / 100;
-            payload.punch43.LHS.precompression = precompressionLHS.data[42] / 100;
-            payload.punch44.LHS.precompression = precompressionLHS.data[43] / 100;
-            payload.punch45.LHS.precompression = precompressionLHS.data[44] / 100;
+            // console.log((+ new Date() - startTime) / 1000, '1! Precompression:', precompressionLHS.data[0]);
+            payload.punch1.LHS.precompression = precompressionLHS.data[0] // 100;
+            payload.punch2.LHS.precompression = precompressionLHS.data[1] // 100;
+            payload.punch3.LHS.precompression = precompressionLHS.data[2] // 100;
+            payload.punch4.LHS.precompression = precompressionLHS.data[3] // 100;
+            payload.punch5.LHS.precompression = precompressionLHS.data[4] // 100;
+            payload.punch6.LHS.precompression = precompressionLHS.data[5] // 100;
+            payload.punch7.LHS.precompression = precompressionLHS.data[6] // 100;
+            payload.punch8.LHS.precompression = precompressionLHS.data[7] // 100;
+            payload.punch9.LHS.precompression = precompressionLHS.data[8] // 100;
+            payload.punch10.LHS.precompression = precompressionLHS.data[9] // 100;
+            payload.punch11.LHS.precompression = precompressionLHS.data[10] // 100;
+            payload.punch12.LHS.precompression = precompressionLHS.data[11] // 100;
+            payload.punch13.LHS.precompression = precompressionLHS.data[12] // 100;
+            payload.punch14.LHS.precompression = precompressionLHS.data[13] // 100;
+            payload.punch15.LHS.precompression = precompressionLHS.data[14] // 100;
+            payload.punch16.LHS.precompression = precompressionLHS.data[15] // 100;
+            payload.punch17.LHS.precompression = precompressionLHS.data[16] // 100;
+            payload.punch18.LHS.precompression = precompressionLHS.data[17] // 100;
+            payload.punch19.LHS.precompression = precompressionLHS.data[18] // 100;
+            payload.punch20.LHS.precompression = precompressionLHS.data[19] // 100;
+            payload.punch21.LHS.precompression = precompressionLHS.data[20] // 100;
+            payload.punch22.LHS.precompression = precompressionLHS.data[21] // 100;
+            payload.punch23.LHS.precompression = precompressionLHS.data[22] // 100;
+            payload.punch24.LHS.precompression = precompressionLHS.data[23] // 100;
+            payload.punch25.LHS.precompression = precompressionLHS.data[24] // 100;
+            payload.punch26.LHS.precompression = precompressionLHS.data[25] // 100;
+            payload.punch27.LHS.precompression = precompressionLHS.data[26] // 100;
+            payload.punch28.LHS.precompression = precompressionLHS.data[27] // 100;
+            payload.punch29.LHS.precompression = precompressionLHS.data[28] // 100;
+            payload.punch30.LHS.precompression = precompressionLHS.data[29] // 100;
+            payload.punch31.LHS.precompression = precompressionLHS.data[30] // 100;
+            payload.punch32.LHS.precompression = precompressionLHS.data[31] // 100;
+            payload.punch33.LHS.precompression = precompressionLHS.data[32] // 100;
+            payload.punch34.LHS.precompression = precompressionLHS.data[33] // 100;
+            payload.punch35.LHS.precompression = precompressionLHS.data[34] // 100;
+            payload.punch36.LHS.precompression = precompressionLHS.data[35] // 100;
+            payload.punch37.LHS.precompression = precompressionLHS.data[36] // 100;
+            payload.punch38.LHS.precompression = precompressionLHS.data[37] // 100;
+            payload.punch39.LHS.precompression = precompressionLHS.data[38] // 100;
+            payload.punch40.LHS.precompression = precompressionLHS.data[39] // 100;
+            payload.punch41.LHS.precompression = precompressionLHS.data[40] // 100;
+            payload.punch42.LHS.precompression = precompressionLHS.data[41] // 100;
+            payload.punch43.LHS.precompression = precompressionLHS.data[42] // 100;
+            payload.punch44.LHS.precompression = precompressionLHS.data[43] // 100;
+            payload.punch45.LHS.precompression = precompressionLHS.data[44] // 100;
 
-            mbsState = MBS_STATE_GOOD_READ_PRELHS;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
-            console.error('[ #1 Precompression LHS Garbage ]')
-            mbsState = MBS_STATE_FAIL_READ_PRELHS;
+            // console.error('[ #1 Precompression LHS Garbage ]')
             readfailed++;
             //console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
 }
 
 var readpreRHS = function () {
+    mbsState = MBS_STATE_GOOD_READ_PRERHS;
+
     client.readHoldingRegisters(precompressionRHS_address, 45)
         .then(function (precompressionRHS) {
             // console.log("Pre RHS: ",precompressionRHS.data)
-            payload.punch1.RHS.precompression = precompressionRHS.data[0] / 100;
-            payload.punch2.RHS.precompression = precompressionRHS.data[1] / 100;
-            payload.punch3.RHS.precompression = precompressionRHS.data[2] / 100;
-            payload.punch4.RHS.precompression = precompressionRHS.data[3] / 100;
-            payload.punch5.RHS.precompression = precompressionRHS.data[4] / 100;
-            payload.punch6.RHS.precompression = precompressionRHS.data[5] / 100;
-            payload.punch7.RHS.precompression = precompressionRHS.data[6] / 100;
-            payload.punch8.RHS.precompression = precompressionRHS.data[7] / 100;
-            payload.punch9.RHS.precompression = precompressionRHS.data[8] / 100;
-            payload.punch10.RHS.precompression = precompressionRHS.data[9] / 100;
-            payload.punch11.RHS.precompression = precompressionRHS.data[10] / 100;
-            payload.punch12.RHS.precompression = precompressionRHS.data[11] / 100;
-            payload.punch13.RHS.precompression = precompressionRHS.data[12] / 100;
-            payload.punch14.RHS.precompression = precompressionRHS.data[13] / 100;
-            payload.punch15.RHS.precompression = precompressionRHS.data[14] / 100;
-            payload.punch16.RHS.precompression = precompressionRHS.data[15] / 100;
-            payload.punch17.RHS.precompression = precompressionRHS.data[16] / 100;
-            payload.punch18.RHS.precompression = precompressionRHS.data[17] / 100;
-            payload.punch19.RHS.precompression = precompressionRHS.data[18] / 100;
-            payload.punch20.RHS.precompression = precompressionRHS.data[19] / 100;
-            payload.punch21.RHS.precompression = precompressionRHS.data[20] / 100;
-            payload.punch22.RHS.precompression = precompressionRHS.data[21] / 100;
-            payload.punch23.RHS.precompression = precompressionRHS.data[22] / 100;
-            payload.punch24.RHS.precompression = precompressionRHS.data[23] / 100;
-            payload.punch25.RHS.precompression = precompressionRHS.data[24] / 100;
-            payload.punch26.RHS.precompression = precompressionRHS.data[25] / 100;
-            payload.punch27.RHS.precompression = precompressionRHS.data[26] / 100;
-            payload.punch28.RHS.precompression = precompressionRHS.data[27] / 100;
-            payload.punch29.RHS.precompression = precompressionRHS.data[28] / 100;
-            payload.punch30.RHS.precompression = precompressionRHS.data[29] / 100;
-            payload.punch31.RHS.precompression = precompressionRHS.data[30] / 100;
-            payload.punch32.RHS.precompression = precompressionRHS.data[31] / 100;
-            payload.punch33.RHS.precompression = precompressionRHS.data[32] / 100;
-            payload.punch34.RHS.precompression = precompressionRHS.data[33] / 100;
-            payload.punch35.RHS.precompression = precompressionRHS.data[34] / 100;
-            payload.punch36.RHS.precompression = precompressionRHS.data[35] / 100;
-            payload.punch37.RHS.precompression = precompressionRHS.data[36] / 100;
-            payload.punch38.RHS.precompression = precompressionRHS.data[37] / 100;
-            payload.punch39.RHS.precompression = precompressionRHS.data[38] / 100;
-            payload.punch40.RHS.precompression = precompressionRHS.data[39] / 100;
-            payload.punch41.RHS.precompression = precompressionRHS.data[40] / 100;
-            payload.punch42.RHS.precompression = precompressionRHS.data[41] / 100;
-            payload.punch43.RHS.precompression = precompressionRHS.data[42] / 100;
-            payload.punch44.RHS.precompression = precompressionRHS.data[43] / 100;
-            payload.punch45.RHS.precompression = precompressionRHS.data[44] / 100;
+            payload.punch1.RHS.precompression = precompressionRHS.data[0] // 100;
+            payload.punch2.RHS.precompression = precompressionRHS.data[1] // 100;
+            payload.punch3.RHS.precompression = precompressionRHS.data[2] // 100;
+            payload.punch4.RHS.precompression = precompressionRHS.data[3] // 100;
+            payload.punch5.RHS.precompression = precompressionRHS.data[4] // 100;
+            payload.punch6.RHS.precompression = precompressionRHS.data[5] // 100;
+            payload.punch7.RHS.precompression = precompressionRHS.data[6] // 100;
+            payload.punch8.RHS.precompression = precompressionRHS.data[7] // 100;
+            payload.punch9.RHS.precompression = precompressionRHS.data[8] // 100;
+            payload.punch10.RHS.precompression = precompressionRHS.data[9] // 100;
+            payload.punch11.RHS.precompression = precompressionRHS.data[10] // 100;
+            payload.punch12.RHS.precompression = precompressionRHS.data[11] // 100;
+            payload.punch13.RHS.precompression = precompressionRHS.data[12] // 100;
+            payload.punch14.RHS.precompression = precompressionRHS.data[13] // 100;
+            payload.punch15.RHS.precompression = precompressionRHS.data[14] // 100;
+            payload.punch16.RHS.precompression = precompressionRHS.data[15] // 100;
+            payload.punch17.RHS.precompression = precompressionRHS.data[16] // 100;
+            payload.punch18.RHS.precompression = precompressionRHS.data[17] // 100;
+            payload.punch19.RHS.precompression = precompressionRHS.data[18] // 100;
+            payload.punch20.RHS.precompression = precompressionRHS.data[19] // 100;
+            payload.punch21.RHS.precompression = precompressionRHS.data[20] // 100;
+            payload.punch22.RHS.precompression = precompressionRHS.data[21] // 100;
+            payload.punch23.RHS.precompression = precompressionRHS.data[22] // 100;
+            payload.punch24.RHS.precompression = precompressionRHS.data[23] // 100;
+            payload.punch25.RHS.precompression = precompressionRHS.data[24] // 100;
+            payload.punch26.RHS.precompression = precompressionRHS.data[25] // 100;
+            payload.punch27.RHS.precompression = precompressionRHS.data[26] // 100;
+            payload.punch28.RHS.precompression = precompressionRHS.data[27] // 100;
+            payload.punch29.RHS.precompression = precompressionRHS.data[28] // 100;
+            payload.punch30.RHS.precompression = precompressionRHS.data[29] // 100;
+            payload.punch31.RHS.precompression = precompressionRHS.data[30] // 100;
+            payload.punch32.RHS.precompression = precompressionRHS.data[31] // 100;
+            payload.punch33.RHS.precompression = precompressionRHS.data[32] // 100;
+            payload.punch34.RHS.precompression = precompressionRHS.data[33] // 100;
+            payload.punch35.RHS.precompression = precompressionRHS.data[34] // 100;
+            payload.punch36.RHS.precompression = precompressionRHS.data[35] // 100;
+            payload.punch37.RHS.precompression = precompressionRHS.data[36] // 100;
+            payload.punch38.RHS.precompression = precompressionRHS.data[37] // 100;
+            payload.punch39.RHS.precompression = precompressionRHS.data[38] // 100;
+            payload.punch40.RHS.precompression = precompressionRHS.data[39] // 100;
+            payload.punch41.RHS.precompression = precompressionRHS.data[40] // 100;
+            payload.punch42.RHS.precompression = precompressionRHS.data[41] // 100;
+            payload.punch43.RHS.precompression = precompressionRHS.data[42] // 100;
+            payload.punch44.RHS.precompression = precompressionRHS.data[43] // 100;
+            payload.punch45.RHS.precompression = precompressionRHS.data[44] // 100;
 
-            mbsState = MBS_STATE_GOOD_READ_PRERHS;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
-            console.error('[ #1 Precompression RHS Garbage ]')
-            mbsState = MBS_STATE_FAIL_READ_PRERHS;
+            // console.error('[ #1 Precompression RHS Garbage ]')
             readfailed++;
             //console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
 }
 
 var readmainLHS = function () {
+    mbsState = MBS_STATE_GOOD_READ_MAINLHS;
+
     client.readHoldingRegisters(maincompressionLHS_address, 45)
         .then(function (maincompressionLHS) {
             // console.log("Main LHS: ",maincompressionLHS.data)
-            payload.punch1.LHS.maincompression = maincompressionLHS.data[0] / 100;
-            payload.punch2.LHS.maincompression = maincompressionLHS.data[1] / 100;
-            payload.punch3.LHS.maincompression = maincompressionLHS.data[2] / 100;
-            payload.punch4.LHS.maincompression = maincompressionLHS.data[3] / 100;
-            payload.punch5.LHS.maincompression = maincompressionLHS.data[4] / 100;
-            payload.punch6.LHS.maincompression = maincompressionLHS.data[5] / 100;
-            payload.punch7.LHS.maincompression = maincompressionLHS.data[6] / 100;
-            payload.punch8.LHS.maincompression = maincompressionLHS.data[7] / 100;
-            payload.punch9.LHS.maincompression = maincompressionLHS.data[8] / 100;
-            payload.punch10.LHS.maincompression = maincompressionLHS.data[9] / 100;
-            payload.punch11.LHS.maincompression = maincompressionLHS.data[10] / 100;
-            payload.punch12.LHS.maincompression = maincompressionLHS.data[11] / 100;
-            payload.punch13.LHS.maincompression = maincompressionLHS.data[12] / 100;
-            payload.punch14.LHS.maincompression = maincompressionLHS.data[13] / 100;
-            payload.punch15.LHS.maincompression = maincompressionLHS.data[14] / 100;
-            payload.punch16.LHS.maincompression = maincompressionLHS.data[15] / 100;
-            payload.punch17.LHS.maincompression = maincompressionLHS.data[16] / 100;
-            payload.punch18.LHS.maincompression = maincompressionLHS.data[17] / 100;
-            payload.punch19.LHS.maincompression = maincompressionLHS.data[18] / 100;
-            payload.punch20.LHS.maincompression = maincompressionLHS.data[19] / 100;
-            payload.punch21.LHS.maincompression = maincompressionLHS.data[20] / 100;
-            payload.punch22.LHS.maincompression = maincompressionLHS.data[21] / 100;
-            payload.punch23.LHS.maincompression = maincompressionLHS.data[22] / 100;
-            payload.punch24.LHS.maincompression = maincompressionLHS.data[23] / 100;
-            payload.punch25.LHS.maincompression = maincompressionLHS.data[24] / 100;
-            payload.punch26.LHS.maincompression = maincompressionLHS.data[25] / 100;
-            payload.punch27.LHS.maincompression = maincompressionLHS.data[26] / 100;
-            payload.punch28.LHS.maincompression = maincompressionLHS.data[27] / 100;
-            payload.punch29.LHS.maincompression = maincompressionLHS.data[28] / 100;
-            payload.punch30.LHS.maincompression = maincompressionLHS.data[29] / 100;
-            payload.punch31.LHS.maincompression = maincompressionLHS.data[30] / 100;
-            payload.punch32.LHS.maincompression = maincompressionLHS.data[31] / 100;
-            payload.punch33.LHS.maincompression = maincompressionLHS.data[32] / 100;
-            payload.punch34.LHS.maincompression = maincompressionLHS.data[33] / 100;
-            payload.punch35.LHS.maincompression = maincompressionLHS.data[34] / 100;
-            payload.punch36.LHS.maincompression = maincompressionLHS.data[35] / 100;
-            payload.punch37.LHS.maincompression = maincompressionLHS.data[36] / 100;
-            payload.punch38.LHS.maincompression = maincompressionLHS.data[37] / 100;
-            payload.punch39.LHS.maincompression = maincompressionLHS.data[38] / 100;
-            payload.punch40.LHS.maincompression = maincompressionLHS.data[39] / 100;
-            payload.punch41.LHS.maincompression = maincompressionLHS.data[40] / 100;
-            payload.punch42.LHS.maincompression = maincompressionLHS.data[41] / 100;
-            payload.punch43.LHS.maincompression = maincompressionLHS.data[42] / 100;
-            payload.punch44.LHS.maincompression = maincompressionLHS.data[43] / 100;
-            payload.punch45.LHS.maincompression = maincompressionLHS.data[44] / 100;
+            payload.punch1.LHS.maincompression = maincompressionLHS.data[0] // 100;
+            payload.punch2.LHS.maincompression = maincompressionLHS.data[1] // 100;
+            payload.punch3.LHS.maincompression = maincompressionLHS.data[2] // 100;
+            payload.punch4.LHS.maincompression = maincompressionLHS.data[3] // 100;
+            payload.punch5.LHS.maincompression = maincompressionLHS.data[4] // 100;
+            payload.punch6.LHS.maincompression = maincompressionLHS.data[5] // 100;
+            payload.punch7.LHS.maincompression = maincompressionLHS.data[6] // 100;
+            payload.punch8.LHS.maincompression = maincompressionLHS.data[7] // 100;
+            payload.punch9.LHS.maincompression = maincompressionLHS.data[8] // 100;
+            payload.punch10.LHS.maincompression = maincompressionLHS.data[9] // 100;
+            payload.punch11.LHS.maincompression = maincompressionLHS.data[10] // 100;
+            payload.punch12.LHS.maincompression = maincompressionLHS.data[11] // 100;
+            payload.punch13.LHS.maincompression = maincompressionLHS.data[12] // 100;
+            payload.punch14.LHS.maincompression = maincompressionLHS.data[13] // 100;
+            payload.punch15.LHS.maincompression = maincompressionLHS.data[14] // 100;
+            payload.punch16.LHS.maincompression = maincompressionLHS.data[15] // 100;
+            payload.punch17.LHS.maincompression = maincompressionLHS.data[16] // 100;
+            payload.punch18.LHS.maincompression = maincompressionLHS.data[17] // 100;
+            payload.punch19.LHS.maincompression = maincompressionLHS.data[18] // 100;
+            payload.punch20.LHS.maincompression = maincompressionLHS.data[19] // 100;
+            payload.punch21.LHS.maincompression = maincompressionLHS.data[20] // 100;
+            payload.punch22.LHS.maincompression = maincompressionLHS.data[21] // 100;
+            payload.punch23.LHS.maincompression = maincompressionLHS.data[22] // 100;
+            payload.punch24.LHS.maincompression = maincompressionLHS.data[23] // 100;
+            payload.punch25.LHS.maincompression = maincompressionLHS.data[24] // 100;
+            payload.punch26.LHS.maincompression = maincompressionLHS.data[25] // 100;
+            payload.punch27.LHS.maincompression = maincompressionLHS.data[26] // 100;
+            payload.punch28.LHS.maincompression = maincompressionLHS.data[27] // 100;
+            payload.punch29.LHS.maincompression = maincompressionLHS.data[28] // 100;
+            payload.punch30.LHS.maincompression = maincompressionLHS.data[29] // 100;
+            payload.punch31.LHS.maincompression = maincompressionLHS.data[30] // 100;
+            payload.punch32.LHS.maincompression = maincompressionLHS.data[31] // 100;
+            payload.punch33.LHS.maincompression = maincompressionLHS.data[32] // 100;
+            payload.punch34.LHS.maincompression = maincompressionLHS.data[33] // 100;
+            payload.punch35.LHS.maincompression = maincompressionLHS.data[34] // 100;
+            payload.punch36.LHS.maincompression = maincompressionLHS.data[35] // 100;
+            payload.punch37.LHS.maincompression = maincompressionLHS.data[36] // 100;
+            payload.punch38.LHS.maincompression = maincompressionLHS.data[37] // 100;
+            payload.punch39.LHS.maincompression = maincompressionLHS.data[38] // 100;
+            payload.punch40.LHS.maincompression = maincompressionLHS.data[39] // 100;
+            payload.punch41.LHS.maincompression = maincompressionLHS.data[40] // 100;
+            payload.punch42.LHS.maincompression = maincompressionLHS.data[41] // 100;
+            payload.punch43.LHS.maincompression = maincompressionLHS.data[42] // 100;
+            payload.punch44.LHS.maincompression = maincompressionLHS.data[43] // 100;
+            payload.punch45.LHS.maincompression = maincompressionLHS.data[44] // 100;
 
-            mbsState = MBS_STATE_GOOD_READ_MAINLHS;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
-            console.error('[ #2 Maincompression LHS Garbage ]')
-            mbsState = MBS_STATE_FAIL_READ_MAINLHS;
+            // console.error('[ #2 Maincompression LHS Garbage ]')
             readfailed++;
             //console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
 }
 
 var readmainRHS = function () {
+    mbsState = MBS_STATE_GOOD_READ_MAINRHS;
+
     client.readHoldingRegisters(maincompressionRHS_address, 45)
         .then(function (maincompressionRHS) {
             // console.log("Main RHS: ",maincompressionRHS.data)
-            payload.punch1.RHS.maincompression = maincompressionRHS.data[0] / 100;
-            payload.punch2.RHS.maincompression = maincompressionRHS.data[1] / 100;
-            payload.punch3.RHS.maincompression = maincompressionRHS.data[2] / 100;
-            payload.punch4.RHS.maincompression = maincompressionRHS.data[3] / 100;
-            payload.punch5.RHS.maincompression = maincompressionRHS.data[4] / 100;
-            payload.punch6.RHS.maincompression = maincompressionRHS.data[5] / 100;
-            payload.punch7.RHS.maincompression = maincompressionRHS.data[6] / 100;
-            payload.punch8.RHS.maincompression = maincompressionRHS.data[7] / 100;
-            payload.punch9.RHS.maincompression = maincompressionRHS.data[8] / 100;
-            payload.punch10.RHS.maincompression = maincompressionRHS.data[9] / 100;
-            payload.punch11.RHS.maincompression = maincompressionRHS.data[10] / 100;
-            payload.punch12.RHS.maincompression = maincompressionRHS.data[11] / 100;
-            payload.punch13.RHS.maincompression = maincompressionRHS.data[12] / 100;
-            payload.punch14.RHS.maincompression = maincompressionRHS.data[13] / 100;
-            payload.punch15.RHS.maincompression = maincompressionRHS.data[14] / 100;
-            payload.punch16.RHS.maincompression = maincompressionRHS.data[15] / 100;
-            payload.punch17.RHS.maincompression = maincompressionRHS.data[16] / 100;
-            payload.punch18.RHS.maincompression = maincompressionRHS.data[17] / 100;
-            payload.punch19.RHS.maincompression = maincompressionRHS.data[18] / 100;
-            payload.punch20.RHS.maincompression = maincompressionRHS.data[19] / 100;
-            payload.punch21.RHS.maincompression = maincompressionRHS.data[20] / 100;
-            payload.punch22.RHS.maincompression = maincompressionRHS.data[21] / 100;
-            payload.punch23.RHS.maincompression = maincompressionRHS.data[22] / 100;
-            payload.punch24.RHS.maincompression = maincompressionRHS.data[23] / 100;
-            payload.punch25.RHS.maincompression = maincompressionRHS.data[24] / 100;
-            payload.punch26.RHS.maincompression = maincompressionRHS.data[25] / 100;
-            payload.punch27.RHS.maincompression = maincompressionRHS.data[26] / 100;
-            payload.punch28.RHS.maincompression = maincompressionRHS.data[27] / 100;
-            payload.punch29.RHS.maincompression = maincompressionRHS.data[28] / 100;
-            payload.punch30.RHS.maincompression = maincompressionRHS.data[29] / 100;
-            payload.punch31.RHS.maincompression = maincompressionRHS.data[30] / 100;
-            payload.punch32.RHS.maincompression = maincompressionRHS.data[31] / 100;
-            payload.punch33.RHS.maincompression = maincompressionRHS.data[32] / 100;
-            payload.punch34.RHS.maincompression = maincompressionRHS.data[33] / 100;
-            payload.punch35.RHS.maincompression = maincompressionRHS.data[34] / 100;
-            payload.punch36.RHS.maincompression = maincompressionRHS.data[35] / 100;
-            payload.punch37.RHS.maincompression = maincompressionRHS.data[36] / 100;
-            payload.punch38.RHS.maincompression = maincompressionRHS.data[37] / 100;
-            payload.punch39.RHS.maincompression = maincompressionRHS.data[38] / 100;
-            payload.punch40.RHS.maincompression = maincompressionRHS.data[39] / 100;
-            payload.punch41.RHS.maincompression = maincompressionRHS.data[40] / 100;
-            payload.punch42.RHS.maincompression = maincompressionRHS.data[41] / 100;
-            payload.punch43.RHS.maincompression = maincompressionRHS.data[42] / 100;
-            payload.punch44.RHS.maincompression = maincompressionRHS.data[43] / 100;
-            payload.punch45.RHS.maincompression = maincompressionRHS.data[44] / 100;
+            payload.punch1.RHS.maincompression = maincompressionRHS.data[0] // 100;
+            payload.punch2.RHS.maincompression = maincompressionRHS.data[1] // 100;
+            payload.punch3.RHS.maincompression = maincompressionRHS.data[2] // 100;
+            payload.punch4.RHS.maincompression = maincompressionRHS.data[3] // 100;
+            payload.punch5.RHS.maincompression = maincompressionRHS.data[4] // 100;
+            payload.punch6.RHS.maincompression = maincompressionRHS.data[5] // 100;
+            payload.punch7.RHS.maincompression = maincompressionRHS.data[6] // 100;
+            payload.punch8.RHS.maincompression = maincompressionRHS.data[7] // 100;
+            payload.punch9.RHS.maincompression = maincompressionRHS.data[8] // 100;
+            payload.punch10.RHS.maincompression = maincompressionRHS.data[9] // 100;
+            payload.punch11.RHS.maincompression = maincompressionRHS.data[10] // 100;
+            payload.punch12.RHS.maincompression = maincompressionRHS.data[11] // 100;
+            payload.punch13.RHS.maincompression = maincompressionRHS.data[12] // 100;
+            payload.punch14.RHS.maincompression = maincompressionRHS.data[13] // 100;
+            payload.punch15.RHS.maincompression = maincompressionRHS.data[14] // 100;
+            payload.punch16.RHS.maincompression = maincompressionRHS.data[15] // 100;
+            payload.punch17.RHS.maincompression = maincompressionRHS.data[16] // 100;
+            payload.punch18.RHS.maincompression = maincompressionRHS.data[17] // 100;
+            payload.punch19.RHS.maincompression = maincompressionRHS.data[18] // 100;
+            payload.punch20.RHS.maincompression = maincompressionRHS.data[19] // 100;
+            payload.punch21.RHS.maincompression = maincompressionRHS.data[20] // 100;
+            payload.punch22.RHS.maincompression = maincompressionRHS.data[21] // 100;
+            payload.punch23.RHS.maincompression = maincompressionRHS.data[22] // 100;
+            payload.punch24.RHS.maincompression = maincompressionRHS.data[23] // 100;
+            payload.punch25.RHS.maincompression = maincompressionRHS.data[24] // 100;
+            payload.punch26.RHS.maincompression = maincompressionRHS.data[25] // 100;
+            payload.punch27.RHS.maincompression = maincompressionRHS.data[26] // 100;
+            payload.punch28.RHS.maincompression = maincompressionRHS.data[27] // 100;
+            payload.punch29.RHS.maincompression = maincompressionRHS.data[28] // 100;
+            payload.punch30.RHS.maincompression = maincompressionRHS.data[29] // 100;
+            payload.punch31.RHS.maincompression = maincompressionRHS.data[30] // 100;
+            payload.punch32.RHS.maincompression = maincompressionRHS.data[31] // 100;
+            payload.punch33.RHS.maincompression = maincompressionRHS.data[32] // 100;
+            payload.punch34.RHS.maincompression = maincompressionRHS.data[33] // 100;
+            payload.punch35.RHS.maincompression = maincompressionRHS.data[34] // 100;
+            payload.punch36.RHS.maincompression = maincompressionRHS.data[35] // 100;
+            payload.punch37.RHS.maincompression = maincompressionRHS.data[36] // 100;
+            payload.punch38.RHS.maincompression = maincompressionRHS.data[37] // 100;
+            payload.punch39.RHS.maincompression = maincompressionRHS.data[38] // 100;
+            payload.punch40.RHS.maincompression = maincompressionRHS.data[39] // 100;
+            payload.punch41.RHS.maincompression = maincompressionRHS.data[40] // 100;
+            payload.punch42.RHS.maincompression = maincompressionRHS.data[41] // 100;
+            payload.punch43.RHS.maincompression = maincompressionRHS.data[42] // 100;
+            payload.punch44.RHS.maincompression = maincompressionRHS.data[43] // 100;
+            payload.punch45.RHS.maincompression = maincompressionRHS.data[44] // 100;
 
-            mbsState = MBS_STATE_GOOD_READ_MAINRHS;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
-            console.error('[ #2 Maincompression RHS Garbage ]')
-            mbsState = MBS_STATE_FAIL_READ_MAINRHS;
+            // console.error('[ #2 Maincompression RHS Garbage ]')
             readfailed++;
             //console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -1243,6 +1253,8 @@ var readejnRHS = function () {
 }
 
 var readavg = function () {
+    mbsState = MBS_STATE_GOOD_READ_AVG;
+
     client.readHoldingRegisters(avg_address, 15)
         .then(function (avg) {
             // console.log("AVG data: ",avg.data)
@@ -1253,21 +1265,22 @@ var readavg = function () {
             // payload.ejectionLHS_avg = avg.data[1] / 100;
             // payload.ejectionRHS_avg = avg.data[1] / 100;
 
-            mbsState = MBS_STATE_GOOD_READ_AVG;
+            
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
-            console.error('[ #4 Avg Garbage ]')
-            mbsState = MBS_STATE_FAIL_READ_AVG;
+            // console.error('[ #4 Avg Garbage ]')
             readfailed++;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
 }
 
 var readstatus = function () {
+    mbsState = MBS_STATE_GOOD_READ_STATUS;
+
     client.readCoils(status_address, 45)
         .then(function (punch_status) {
-        // console.log("STATUS: ", punch_status.data)
+            // console.log("STATUS: ", punch_status.data)
             payload.punch1.LHS.status = punch_status.data[0];
             payload.punch2.LHS.status = punch_status.data[1];
             payload.punch3.LHS.status = punch_status.data[2];
@@ -1314,68 +1327,73 @@ var readstatus = function () {
             payload.punch44.LHS.status = punch_status.data[43];
             payload.punch45.LHS.status = punch_status.data[44];
 
-
-            mbsState = MBS_STATE_GOOD_READ_STATUS;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
-            console.error('[ #6 Status Garbage ]')
-            mbsState = MBS_STATE_FAIL_READ_STATUS;
+            // console.error('[ #6 Status Garbage ]')
             readfailed++;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
 }
 
-var readstats = function () {
-    client.readHoldingRegisters(stats_address, 40)
-        .then(function (stats_data) {
-            // console.log("STATS: ",stats_data.data)
+var stats_data_; 
 
-            // // Active Punches
-            // machine.stats.active_punches = ((active_punches + 1) / 32); // if 0-255
-            var active_punches = stats_data.data[0];
-            payload.stats.active_punches = active_punches;
+var processStats = function (stats_data_) {
+    var stats_data = {
+        data: [] 
+    } 
 
-            // // Current rotation
-            var data_number = stats_data.data[1]; // 32-bit 
-            // var data_number_mul = stats_data.data[2]; // Multiplier
-            // if (data_number_mul == 0) {
-            //     payload.data_number = data_number;
-            // }
-            // else {
-            //     payload.data_number = ((2 ^ 16 * data_number_mul) + data_number);
-            // }
+    console.log(stats_data_)
 
-            // // // Present Punch
-            payload.present_punch = stats_data.data[5];
+    stats_data.data = stats_data_
 
-            // // // Production count
-            // // // Formula: [ punch count x rpm x time ]
 
-            var reg1 = stats_data.data[6];
-            var reg2 = stats_data.data[7];
 
-            if (reg2 == 0) {
-                payload.stats.count = reg1;
-            } else {
-                payload.stats.count = (((2 ** 16) * reg2) + reg1);
-            }
+    // // Active Punches
+    // machine.stats.active_punches = ((active_punches + 1) / 32); // if 0-255
+    var active_punches = stats_data.data[0];
+    payload.stats.active_punches = active_punches;
 
-            // // // Tablet per hour [ Max: 8x60x60=28800 ]
-            tablets_per_hour = (payload.stats.active_punches * payload.stats.rpm * 60);
-            payload.stats.tablets_per_hour = tablets_per_hour;
+    // // Current rotation
+    var data_number = stats_data.data[1]; // 32-bit 
+    // var data_number_mul = stats_data.data[2]; // Multiplier
+    // if (data_number_mul == 0) {
+    //     payload.data_number = data_number;
+    // }
+    // else {
+    //     payload.data_number = ((2 ^ 16 * data_number_mul) + data_number);
+    // }
 
-            payload.stats.rpm = stats_data.data[14] / 10;
+    // // // Present Punch
+    payload.present_punch = stats_data.data[5];
 
-            // // Compression Limits
-            payload.machine.LHS.precompression_upperlimit = stats_data.data[15] / 100;
-            payload.machine.LHS.precompression_lowerlimit = stats_data.data[16] / 100;
-            payload.machine.LHS.maincompression_upperlimit = stats_data.data[17] / 100;
-            payload.machine.LHS.maincompression_lowerlimit = stats_data.data[18] / 100;
-            payload.machine.RHS.precompression_upperlimit = stats_data.data[19] / 100;
-            payload.machine.RHS.precompression_lowerlimit = stats_data.data[20] / 100;
-            payload.machine.RHS.maincompression_upperlimit = stats_data.data[21] / 100;
-            payload.machine.RHS.maincompression_lowerlimit = stats_data.data[22] / 100;
+    // // // Production count
+    // // // Formula: [ punch count x rpm x time ]
+
+    var reg1 = stats_data.data[6];
+    var reg2 = stats_data.data[7];
+
+    if (reg2 == 0) {
+        payload.stats.count = reg1;
+    } else {
+        payload.stats.count = (((2 ** 16) * reg2) + reg1);
+    }
+
+    // // // Tablet per hour [ Max: 8x60x60=28800 ]
+    tablets_per_hour = (payload.stats.active_punches * payload.stats.rpm * 60);
+    payload.stats.tablets_per_hour = tablets_per_hour;
+
+    payload.stats.rpm = stats_data.data[14] / 10;
+
+    // // Compression Limits
+    payload.machine.LHS.precompression_upperlimit = stats_data.data[15] / 100;
+    payload.machine.LHS.precompression_lowerlimit = stats_data.data[16] / 100;
+    payload.machine.LHS.maincompression_upperlimit = stats_data.data[17] / 100;
+    payload.machine.LHS.maincompression_lowerlimit = stats_data.data[18] / 100;
+    payload.machine.RHS.precompression_upperlimit = stats_data.data[19] / 100;
+    payload.machine.RHS.precompression_lowerlimit = stats_data.data[20] / 100;
+    payload.machine.RHS.maincompression_upperlimit = stats_data.data[21] / 100;
+    payload.machine.RHS.maincompression_lowerlimit = stats_data.data[22] / 100;
             // payload.machine.LHS.ejection_upperlimit = stats_data.data[19] / 100;
             // payload.machine.RHS.ejection_upperlimit = stats_data.data[19] / 100;
 
@@ -1383,23 +1401,56 @@ var readstats = function () {
             // payload.machine.pre_forceline = stats_data.data[23] / 100;
             // payload.machine.ejn_forceline = stats_data.data[24] / 100;
 
-            mbsState = MBS_STATE_GOOD_READ_STATS;
+}
+
+var readstats = function () {
+    mbsState = MBS_STATE_GOOD_READ_STATS;
+
+    client.readHoldingRegisters(stats_address, 40)
+        .then(function (stats_data) {
+            // console.log("STATS: ",stats_data.data)
+            stats_data_ = stats_data.data
+            processStats(stats_data_)
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
-            console.error('[ #7 Stats Garbage ]')
-            mbsState = MBS_STATE_FAIL_READ_STATS;
+            // console.error('[ #7 Stats Garbage ]')
             readfailed++;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
+}
 
-    // client.writeRegisters(8146, tablets_per_hour)
-    //     .catch(function (e) {
-    //         console.error('[ #8 Tablet per hour Write Failed ]')
-    //         mbsState = MBS_STATE_FAIL_READ_STATS;
-    //         readfailed++;
-    //         // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
-    //     })
+
+var offset_stats;
+var set_stats;
+
+var writestats = function () {
+
+    client.writeRegisters(stats_address + offset_stats, [set_stats])
+        .then(function (d) {
+            console.log(`New value ${set_stats}`);
+            mbsState = MBS_STATE_GOOD_WRITE_STATS;
+        })
+        .catch(function (e) {
+            mbsState = MBS_STATE_FAIL_WRITE_STATS;
+            console.log(e.message);
+        })
+}
+
+var offset_status;
+var set_status;
+
+var writestatus = function () {
+
+    client.writeCoil(status_address + offset_status, set_status)
+        .then(function (d) {
+            console.log(`Address ${status_address} set to ${set_status}`, d);
+            mbsState = MBS_STATE_GOOD_WRITE_STATUS;
+        })
+        .catch(function (e) {
+            console.log(e.message);
+            mbsState = MBS_STATE_FAIL_WRITE_STATUS;
+        })
 }
 
 function restartprodmodbus() {
@@ -1414,6 +1465,91 @@ app.use("/api/payload", (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.json(payload);
+});
+
+app.get("/set/limit/:parameter/:value", (req, res) => {
+    const a = req.params.parameter;
+    const b = req.params.value;
+    
+    if (a == "preLHSup") {
+        offset_stats = 15 
+        set_stats = b
+        payload.machine.LHS.precompression_upperlimit = b;
+    } else if (a == "preLHSlow") {
+        offset_stats = 16
+        set_stats = b
+        payload.machine.LHS.precompression_lowerlimit = b;
+    } else if (a == "mainLHSup") {
+        offset_stats = 17 
+        set_stats = b
+        payload.machine.LHS.maincompression_upperlimit = b;
+    } else if (a == "mainLHSlow") {
+        offset_stats = 18 
+        set_stats = b
+        payload.machine.LHS.maincompression_lowerlimit = b;
+    } else if (a == "preRHSup") {
+        offset_stats = 19 
+        set_stats = b
+        payload.machine.RHS.precompression_upperlimit = b;
+    } else if (a == "preRHSlow") {
+        offset_stats = 20 
+        set_stats = b
+        payload.machine.RHS.precompression_lowerlimit = b;
+    } else if (a == "mainRHSup") {
+        offset_stats = 21 
+        set_stats = b
+        payload.machine.RHS.maincompression_upperlimit = b;
+    } else if (a == "mainRHSlow") {
+        offset_stats = 22 
+        set_stats = b
+        payload.machine.RHS.maincompression_lowerlimit = b;
+    } 
+    
+    mbsState = WRITE_STATS;
+
+    res.header('Access-Control-Allow-Origin', '*');
+    return res.json({ message: `[ UPDATED ${a} to ${b} ]` });
+});
+
+app.get("/set/status/:punch/:value", (req, res) => {
+    const a = parseInt(req.params.punch);
+    const b = req.params.value;
+    
+    offset_status = a - 1;
+    if (b == 'true') {
+        set_status = Boolean(true)
+    } else if (b == 'false') {
+        set_status = Boolean(false)
+    }
+    
+    writestatus()
+
+    res.header('Access-Control-Allow-Origin', '*');
+    return res.json({ message: `[ UPDATED ${a} to ${b} ]` });
+});
+
+app.get("/set/:parameter/:value", (req, res) => {
+    const a = req.params.parameter;
+    const b = req.params.value;
+
+    if (a == "rpm") {
+        offset_stats = 30
+        set_stats = b
+        payload.stats.rpm = b;
+    } else if (a == "feederLHS") {
+        offset_stats = 31
+        set_stats = b
+        payload.stats.turretLHS = b;
+    } else if (a == "feederRHS") {
+        offset_stats = 32
+        set_stats = b
+        payload.stats.turretRHS = b;
+    } 
+
+    writestats()
+
+    res.header('Access-Control-Allow-Origin', '*');
+    return res.json({ message: `[ UPDATED ${a} to ${b} ]` });
 });
 
 // Start Server

@@ -716,30 +716,6 @@ app.use("/api/payload", (req, res) => {
     res.json(payload);
 });
 
-app.get("/control/limit/:preLHSup/:preLHSlow/:mainLHSup/:mainLHSlow/:preRHSup/:preRHSlow/:mainRHSup/:mainRHSlow", (req, res) => {
-    const a = req.params.preLHSup;
-    const b = req.params.preLHSlow;
-    const c = req.params.mainLHSup;
-    const d = req.params.mainLHSlow;
-    const e = req.params.preRHSup;
-    const f = req.params.preRHSlow;
-    const g = req.params.mainRHSup;
-    const h = req.params.mainRHSlow;
-
-
-    payload.machine.LHS.precompression_upperlimit = a;
-    payload.machine.LHS.precompression_lowerlimit = b;
-    payload.machine.LHS.maincompression_upperlimit = c;
-    payload.machine.LHS.maincompression_lowerlimit = d;
-    payload.machine.RHS.precompression_upperlimit = e;
-    payload.machine.RHS.precompression_lowerlimit = f;
-    payload.machine.RHS.maincompression_upperlimit = g;
-    payload.machine.RHS.maincompression_lowerlimit = h;
-
-    res.header('Access-Control-Allow-Origin', '*');
-    return res.json({ message: `[ UPDATED LIMITS ]` });
-});
-
  
 // Start Server
 const port = 3128;
