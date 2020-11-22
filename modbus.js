@@ -10,6 +10,14 @@ var noww = new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
 console.log('Start:', noww)
 var startTime = + new Date();
 
+const fieldSchema = {
+    batch: 's',
+    operator: 's',
+    parameter: 's',
+    oldvalue: 's',
+    newvalue: 's',
+};
+
 var payload = {
     batch: "DEFAULT",
     data_number: 0, // Rotation Number
@@ -40,19 +48,27 @@ var payload = {
         pre_forceline: 0,
         ejn_forceline: 0,
         operator: "DEFAULT",
-        machine_id: 1,
+        machine_id: "1",
     },
     stats: {
         status: "OFFLINE",
+        receipe_id: "NOT SET",
         count: 0,
         tablets_per_hour: 0,
         rpm: 0,
+        rpm_amp: 0,
         turretLHS: 0,
+        turretLHS_amp: 0,
         turretRHS: 0,
+        turretRHS_amp: 0,
+        LHSdepth: 0,
+        RHSdepth: 0,
+        pressure_set:0,
+        pressure_actual:0,
+        lubetime_set:0,
+        lubetime_actual:0,
         active_punches: 0,
         dwell: 0,
-        batch: "DEFAULT",
-        receipe_id: "NOT SET"
     },
     punch1: {
         LHS: {
@@ -1383,8 +1399,12 @@ var processStats = function (stats_data_) {
     tablets_per_hour = (payload.stats.active_punches * payload.stats.rpm * 60);
     payload.stats.tablets_per_hour = tablets_per_hour;
 
-    payload.stats.rpm = stats_data.data[14] / 10;
-
+    payload.stats.rpm = stats_data.data[30];
+    payload.stats.turretLHS = stats_data.data[31];
+    payload.stats.turretRHS = stats_data.data[32];
+    payload.stats.lubetime_set = stats_data.data[33] / 100
+    payload.stats.pressure_set = stats_data.data[34] / 10;
+    
     // // Compression Limits
     payload.machine.LHS.precompression_upperlimit = stats_data.data[15] / 100;
     payload.machine.LHS.precompression_lowerlimit = stats_data.data[16] / 100;
@@ -1400,13 +1420,21 @@ var processStats = function (stats_data_) {
             // payload.machine.main_forceline = stats_data.data[22] / 100;
             // payload.machine.pre_forceline = stats_data.data[23] / 100;
             // payload.machine.ejn_forceline = stats_data.data[24] / 100;
+    payload.stats.rpm_amp = stats_data.data[41] /100;
+    payload.stats.turretLHS_amp = stats_data.data[42] /100;
+    payload.stats.turretRHS_amp = stats_data.data[43] / 100;
+    
+    payload.stats.LHSdepth = stats_data.data[44] /10;
+    payload.stats.RHSdepth = stats_data.data[45] /10;
+    payload.stats.lubetime_actual = stats_data.data[46] /10;
+    payload.stats.pressure_actual = stats_data.data[47] /10;
 
 }
 
 var readstats = function () {
     mbsState = MBS_STATE_GOOD_READ_STATS;
 
-    client.readHoldingRegisters(stats_address, 40)
+    client.readHoldingRegisters(stats_address, 50)
         .then(function (stats_data) {
             // console.log("STATS: ",stats_data.data)
             stats_data_ = stats_data.data
@@ -1419,7 +1447,6 @@ var readstats = function () {
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
 }
-
 
 var offset_stats;
 var set_stats;
@@ -1470,38 +1497,62 @@ app.use("/api/payload", (req, res) => {
 app.get("/set/limit/:parameter/:value", (req, res) => {
     const a = req.params.parameter;
     const b = req.params.value;
-    
+    const c;
+
+    writelog = () => {
+        client.write(`operationlogs`)
+            .tag({
+            })
+            .field({
+                batch: payload.batch,  // 2
+                operator: payload.machine.operator,  // 2
+                parameter: a,  // 2
+                oldvalue: c,  // 2
+                newvalue: b,  // 2
+            })
+            .then(() => console.info('[ BATCH ENTRY DONE ]'))
+            .catch(console.error);
+    }
+
     if (a == "preLHSup") {
         offset_stats = 15 
         set_stats = b
+        c = payload.machine.LHS.precompression_upperlimit 
         payload.machine.LHS.precompression_upperlimit = b;
     } else if (a == "preLHSlow") {
         offset_stats = 16
         set_stats = b
+        c = payload.machine.LHS.precompression_lowerlimit 
         payload.machine.LHS.precompression_lowerlimit = b;
     } else if (a == "mainLHSup") {
         offset_stats = 17 
         set_stats = b
+        c = payload.machine.LHS.maincompression_upperlimit 
         payload.machine.LHS.maincompression_upperlimit = b;
     } else if (a == "mainLHSlow") {
         offset_stats = 18 
         set_stats = b
+        c = payload.machine.LHS.maincompression_lowerlimit 
         payload.machine.LHS.maincompression_lowerlimit = b;
     } else if (a == "preRHSup") {
         offset_stats = 19 
         set_stats = b
+        c = payload.machine.RHS.precompression_upperlimit 
         payload.machine.RHS.precompression_upperlimit = b;
     } else if (a == "preRHSlow") {
         offset_stats = 20 
         set_stats = b
+        c = payload.machine.RHS.precompression_lowerlimit
         payload.machine.RHS.precompression_lowerlimit = b;
     } else if (a == "mainRHSup") {
         offset_stats = 21 
         set_stats = b
+        c = payload.machine.RHS.maincompression_upperlimit
         payload.machine.RHS.maincompression_upperlimit = b;
     } else if (a == "mainRHSlow") {
         offset_stats = 22 
         set_stats = b
+        c = payload.machine.RHS.maincompression_lowerlimit 
         payload.machine.RHS.maincompression_lowerlimit = b;
     } 
     
@@ -1531,21 +1582,73 @@ app.get("/set/status/:punch/:value", (req, res) => {
 app.get("/set/:parameter/:value", (req, res) => {
     const a = req.params.parameter;
     const b = req.params.value;
+    const c;
 
     if (a == "rpm") {
         offset_stats = 30
         set_stats = b
+        c = payload.stats.rpm
         payload.stats.rpm = b;
     } else if (a == "feederLHS") {
         offset_stats = 31
         set_stats = b
+        c = payload.stats.turretLHS
         payload.stats.turretLHS = b;
     } else if (a == "feederRHS") {
         offset_stats = 32
         set_stats = b
+        c = payload.stats.turretRHS
         payload.stats.turretRHS = b;
     } 
-
+    else if (a == "pressure") {
+        offset_stats = 34
+        set_stats = b,
+        c = payload.stats.pressure_set
+        payload.stats.pressure_set = b;
+    } 
+    else if (a == "lubetime") {
+        offset_stats = 33
+        set_stats = b
+        c = payload.stats.lubetime_set
+        payload.stats.lubetime_set = b;
+    } 
+    else if (a == "machine" && b =="start") {
+        offset_status = 33
+        set_status = true
+        writestatus()
+        // payload.stats.lubetime_set = b;
+    } 
+    else if (a == "machine" && b =="stop") {
+        offset_status = 33
+        set_status = false
+        writestatus()
+        // payload.stats.lubetime_set = b;
+    } 
+    else if (a == "machine" && b =="inch") {
+        offset_status = 33
+        set_status = true // Toggle
+        writestatus()
+        // payload.stats.lubetime_set = b;
+    } 
+    else if (a == "powerpack" && b =="start") {
+        offset_status = 33
+        set_status = true
+        writestatus()
+        // payload.stats.lubetime_set = b;
+    } 
+    else if (a == "powerpack" && b =="stop") {
+        offset_status = 33
+        set_status = false
+        writestatus()
+        // payload.stats.lubetime_set = b;
+    } 
+    else if (a == "powerpack" && b =="drain") {
+        offset_status = 33
+        set_status = true // Toggle
+        writestatus()
+        // payload.stats.lubetime_set = b;
+    } 
+    
     writestats()
 
     res.header('Access-Control-Allow-Origin', '*');

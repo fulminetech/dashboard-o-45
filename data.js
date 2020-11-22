@@ -7,7 +7,7 @@ const { exec } = require('child_process');
 // const proxy = new Gpio(26, 'in', 'falling', { debounceTimeout: 10 });
 
 var host = "http://localhost";
-var os = require("os");
+// var os = require("os");
 // var hostname = os.networkInterfaces()
 // var ip_address_wifi = hostname.wlan0[0].address;
 // var ip_address_4G = hostname.ppp0[0].address;
@@ -35,7 +35,7 @@ var noww = new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
 console.log(`[ STARTING INFLUX : ${noww} ]`)
 
 var payload = {
-    batch: 0,
+    batch: "DEFAULT",
     data_number: 0, // Rotation Number
     rotation_no: 0,
     present_punch: 0,
@@ -64,7 +64,7 @@ var payload = {
         pre_forceline: 0,
         ejn_forceline: 0,
         operator_name: "DEFAULT",
-        machine_id: "DEFAULT",
+        machine_id: "1",
     },
     stats: {
         status: "OFFLINE",
@@ -72,6 +72,17 @@ var payload = {
         count: 0,
         tablets_per_hour: 0,
         rpm: 0,
+        rpm_amp: 0,
+        turretLHS: 0,
+        turretLHS_amp: 0,
+        turretRHS: 0,
+        turretRHS_amp: 0,
+        LHSdepth: 0,
+        RHSdepth: 0,
+        pressure_set: 0,
+        pressure_actual: 0,
+        lubetime_set: 0,
+        lubetime_actual: 0,
         active_punches: 0,
         dwell: 0
     },
@@ -708,6 +719,7 @@ var payload = {
 };
 
 function startmodbus() {
+
     setInterval(() => {
         fetchpayload()
     }, 100);
@@ -728,8 +740,7 @@ async function fetchpayload() {
 
             payload1 = data;
             // console.log(payload1)
-
-            payload.batch = payload1.batch
+            // payload.batch = payload1.batch
             payload.data_number = payload1.data_number
             payload.rotation_no = payload1.rotation_no
             payload.present_punch = payload1.present_punch
@@ -752,10 +763,23 @@ async function fetchpayload() {
             payload.machine.main_forceline = payload1.machine.main_forceline
             payload.machine.pre_forceline = payload1.machine.pre_forceline
             payload.machine.ejn_forceline = payload1.machine.ejn_forceline
-            payload.stats.status = payload1.stats.status
+            // payload.stats.status = payload1.stats.status
             payload.stats.count = payload1.stats.count
             payload.stats.tablets_per_hour = payload1.stats.tablets_per_hour
             payload.stats.rpm = payload1.stats.rpm
+            payload.stats.rpm_amp = payload1.stats.rpm_amp
+            payload.stats.turretLHS = payload1.stats.turretLHS
+            payload.stats.turretLHS_amp = payload1.stats.turretLHS_amp
+            payload.stats.turretRHS = payload1.stats.turretRHS
+            payload.stats.turretRHS_amp = payload1.stats.turretRHS_amp
+            
+            payload.stats.LHSdepth = payload1.stats.LHSdepth
+            payload.stats.RHSdepth = payload1.stats.RHSdepth
+            payload.stats.pressure_set = payload1.stats.pressure_set
+            payload.stats.pressure_actual = payload1.stats.pressure_actual
+            payload.stats.lubetime_set = payload1.stats.lubetime_set
+            payload.stats.lubetime_actual = payload1.stats.lubetime_actual
+
             payload.stats.active_punches = payload1.stats.active_punches
             payload.stats.dwell = payload1.stats.dwell
             payload.punch1.LHS.precompression = payload1.punch1.LHS.precompression / 100
@@ -1551,12 +1575,6 @@ writeMachine = () => {
         .catch(console.error);
 };
 
-setInterval(() => {
-    writeHistory()
-    writeAverage()
-    writeMachine()
-}, 3000);
-
 // write every 10 mins
 // writemachine = () => {
 //     setTimeout(() => {
@@ -1567,22 +1585,29 @@ setInterval(() => {
 //     }, 600000);
 // };
 
-// var watchproxy = function () {
-//     writemachine();
-//     proxy.watch((err, value) => {
-//         if (err) {
-//             throw err;
-//         }
-//         machine.stats.status = "ONLINE";
-//         payload.rotation_no++;
-//         writePayload();
-//     });
-// }
+var watchproxy = function () {
+    setInterval(() => {
+        writeHistory()
+        writeAverage()
+        writeMachine()
+    }, 3000);
+    
+    payload.stats.status = "ONLINE";
+    
+    // writemachine();
+    // proxy.watch((err, value) => {
+    //     if (err) {
+    //         throw err;
+    //     }
+    //     payload.rotation_no++;
+    //     writePayload();
+    // });
+}
 
 // module.exports = {
 //     machine, payload, watchproxy, startmodbus
 // }
 
 module.exports = {
-    payload, startmodbus
+    payload, startmodbus, watchproxy
 }
