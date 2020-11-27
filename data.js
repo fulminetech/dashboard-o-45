@@ -3,8 +3,8 @@ const fetch = require('cross-fetch');
 const { exec } = require('child_process');
 // const CronJob = require('cron').CronJob;
 
-// const Gpio = require('onoff').Gpio;
-// const proxy = new Gpio(26, 'in', 'falling', { debounceTimeout: 10 });
+const Gpio = require('onoff').Gpio;
+const proxy = new Gpio(26, 'in', 'falling', { debounceTimeout: 10 });
 
 var host = "http://localhost";
 // var os = require("os");
@@ -719,15 +719,12 @@ var payload = {
 };
 
 function startmodbus() {
-
     setInterval(() => {
         fetchpayload()
     }, 100);
 }
 
 async function fetchpayload() {
-    // const res = await fetch(payloadURL);
-    // const res1 = await fetch(machineURL);
 
     fetch(payloadURL)
         .then(res => {
@@ -741,7 +738,7 @@ async function fetchpayload() {
             payload1 = data;
             // console.log(payload1)
             // payload.batch = payload1.batch
-            payload.data_number = payload1.data_number
+            // payload.data_number = payload1.data_number
             payload.rotation_no = payload1.rotation_no
             payload.present_punch = payload1.present_punch
             payload.precompressionLHS_avg = payload1.precompressionLHS_avg
@@ -1576,37 +1573,30 @@ writeMachine = () => {
 };
 
 // write every 10 mins
-// writemachine = () => {
-//     setTimeout(() => {
-//         fluxmachine();
-//     }, 2000);
-//     setInterval(() => {
-//         fluxmachine();
-//     }, 600000);
-// };
+writemachine = () => {
+    setTimeout(() => {
+        writeMachine();
+    }, 2000);
+    setInterval(() => {
+        writeMachine();
+    }, 600000);
+};
 
 var watchproxy = function () {
-    setInterval(() => {
-        writeHistory()
-        writeAverage()
-        writeMachine()
-    }, 3000);
-    
-    payload.stats.status = "ONLINE";
-    
-    // writemachine();
-    // proxy.watch((err, value) => {
-    //     if (err) {
-    //         throw err;
-    //     }
-    //     payload.rotation_no++;
-    //     writePayload();
-    // });
+    writemachine();
+    console.log("Watching proxy")
+   
+    proxy.watch((err, value) => {
+        if (err) {
+            throw err;
+        }
+        payload.data_number++;
+        console.log("DATA")
+        writeHistory();
+        writeAverage();
+    });
 }
 
-// module.exports = {
-//     machine, payload, watchproxy, startmodbus
-// }
 
 module.exports = {
     payload, startmodbus, watchproxy

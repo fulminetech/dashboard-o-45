@@ -83,16 +83,19 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
     payload.machine.machine_id = b;
     payload.stats.recipie_id = c;
     payload.batch = d;
-    
+    payload.stats.status = "ONLINE",
+        
     flux.write(`batchlist`)
         .tag({
         })
         .field({
             batch: d,  // 2
+            operator: a,  // 2
+            parameter: "Process",  // 2
+            newvalue: "ONLINE"
         })
         .then(() => console.info('[ BATCH ENTRY DONE ]'))
         .catch(console.error);
-
     
     watchproxy();
     startmodbus();
@@ -194,7 +197,6 @@ app.get("/api/search/average/:batch", (req, res) => {
 app.get("/api/search/average/csv/:batch", (req, res) => {
     // select * from "payload" where "rotation" = 7
     const r = req.params.batch
-
     async function passbatch(r) {
         client.queryRaw(`select "rotation", "preLHSavg", "mainLHSavg", "ejnLHSavg", "preRHSavg", "mainRHSavg", "ejnRHSavg" from "${r}.average"`)
             .then(data => {
@@ -281,8 +283,8 @@ app.get("/report/average/now", (req, res) => {
 
 app.get("/report/average/generate", (req, res) => {
     (async () => {
-        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser' });
-        const browser = await puppeteer.launch({ product: 'chrome' });
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser' });
+        // const browser = await puppeteer.launch({ product: 'chrome' });
         const page = await browser.newPage();
         await page.goto(`http://${host}:5000/report/template`, { waitUntil: 'networkidle0' });
         await page.pdf({ path: `batch_${report.batch}_from_${report.from}_to_${report.to}.pdf`, format: 'A4' });

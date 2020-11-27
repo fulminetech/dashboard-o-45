@@ -717,6 +717,7 @@ const maincompressionRHS_address = 6697;
 // const ejectionRHS_address = 6697;
 const avg_address = 7300;
 const status_address = 2589;
+const button_address = 2468;
 
 const time_address = 4196;
 const stats_address = 37768;
@@ -757,7 +758,7 @@ var WRITE_STATUS
 var WRITE_STATS
 
 var mbsTimeout = 5000;
-var mbsScan = 12;
+var mbsScan = 30;
 
 let readfailed = 0;
 let failcounter = 100;
@@ -772,7 +773,7 @@ let timetemp = 0;
 var connectClient = function () {
 
     // close port (NOTE: important in order not to create multiple connections)
-    client.close();
+    // client.close();
 
     // set requests parameters
     client.setID(slaveID);
@@ -907,8 +908,9 @@ runModbus()
 var readpreLHS = function () {
     mbsState = MBS_STATE_GOOD_READ_PRELHS;
 
-    client.readHoldingRegisters(precompressionLHS_address, 45)
+    client.readHoldingRegisters(6097, 45)
         .then(function (precompressionLHS) {
+            // console.log("LHS PRE ",precompressionLHS.data)
             // console.log((+ new Date() - startTime) / 1000, '1! Precompression:', precompressionLHS.data[0]);
             payload.punch1.LHS.precompression = precompressionLHS.data[0] // 100;
             payload.punch2.LHS.precompression = precompressionLHS.data[1] // 100;
@@ -1092,7 +1094,7 @@ var readmainRHS = function () {
 
     client.readHoldingRegisters(maincompressionRHS_address, 45)
         .then(function (maincompressionRHS) {
-            // console.log("Main RHS: ",maincompressionRHS.data)
+            console.log("Main RHS: ",maincompressionRHS.data)
             payload.punch1.RHS.maincompression = maincompressionRHS.data[0] // 100;
             payload.punch2.RHS.maincompression = maincompressionRHS.data[1] // 100;
             payload.punch3.RHS.maincompression = maincompressionRHS.data[2] // 100;
@@ -1359,13 +1361,11 @@ var processStats = function (stats_data_) {
         data: [] 
     } 
 
-    console.log(stats_data_)
+    // console.log(stats_data_)
 
     stats_data.data = stats_data_
 
-
-
-    // // Active Punches
+    // Active Punches
     // machine.stats.active_punches = ((active_punches + 1) / 32); // if 0-255
     var active_punches = stats_data.data[0];
     payload.stats.active_punches = active_punches;
@@ -1402,7 +1402,7 @@ var processStats = function (stats_data_) {
     payload.stats.rpm = stats_data.data[30];
     payload.stats.turretLHS = stats_data.data[31];
     payload.stats.turretRHS = stats_data.data[32];
-    payload.stats.lubetime_set = stats_data.data[33] / 100
+    payload.stats.lubetime_set = stats_data.data[33]
     payload.stats.pressure_set = stats_data.data[34] / 10;
     
     // // Compression Limits
@@ -1480,6 +1480,19 @@ var writestatus = function () {
         })
 }
 
+var writebutton = function () {
+
+    client.writeCoil(button_address + offset_status, set_status)
+        .then(function (d) {
+            console.log(`Address ${status_address} set to ${set_status}`, d);
+            mbsState = MBS_STATE_GOOD_WRITE_STATUS;
+        })
+        .catch(function (e) {
+            console.log(e.message);
+            mbsState = MBS_STATE_FAIL_WRITE_STATUS;
+        })
+}
+
 function restartprodmodbus() {
     exec(restart1Command, (err, stdout, stderr) => {
         // handle err if you like!
@@ -1497,7 +1510,7 @@ app.use("/api/payload", (req, res) => {
 app.get("/set/limit/:parameter/:value", (req, res) => {
     const a = req.params.parameter;
     const b = req.params.value;
-    const c;
+    var c;
 
     writelog = () => {
         client.write(`operationlogs`)
@@ -1582,75 +1595,78 @@ app.get("/set/status/:punch/:value", (req, res) => {
 app.get("/set/:parameter/:value", (req, res) => {
     const a = req.params.parameter;
     const b = req.params.value;
-    const c;
+    var c;
 
     if (a == "rpm") {
         offset_stats = 30
         set_stats = b
         c = payload.stats.rpm
         payload.stats.rpm = b;
+        writestats()
     } else if (a == "feederLHS") {
         offset_stats = 31
         set_stats = b
         c = payload.stats.turretLHS
         payload.stats.turretLHS = b;
+        writestats()
     } else if (a == "feederRHS") {
         offset_stats = 32
         set_stats = b
         c = payload.stats.turretRHS
         payload.stats.turretRHS = b;
+        writestats()
     } 
     else if (a == "pressure") {
         offset_stats = 34
         set_stats = b,
         c = payload.stats.pressure_set
         payload.stats.pressure_set = b;
+        writestats()
     } 
     else if (a == "lubetime") {
         offset_stats = 33
         set_stats = b
         c = payload.stats.lubetime_set
         payload.stats.lubetime_set = b;
+        writestats()
     } 
     else if (a == "machine" && b =="start") {
-        offset_status = 33
+        offset_status = 15
         set_status = true
-        writestatus()
+        writebutton()
         // payload.stats.lubetime_set = b;
     } 
     else if (a == "machine" && b =="stop") {
-        offset_status = 33
+        offset_status = 16
         set_status = false
-        writestatus()
+        writebutton()
         // payload.stats.lubetime_set = b;
     } 
     else if (a == "machine" && b =="inch") {
-        offset_status = 33
+        offset_status = 10
         set_status = true // Toggle
-        writestatus()
+        writebutton()
         // payload.stats.lubetime_set = b;
     } 
     else if (a == "powerpack" && b =="start") {
-        offset_status = 33
+        offset_status = 0
         set_status = true
-        writestatus()
+        writebutton()
         // payload.stats.lubetime_set = b;
     } 
     else if (a == "powerpack" && b =="stop") {
-        offset_status = 33
+        offset_status = 1
         set_status = false
-        writestatus()
+        writebutton()
         // payload.stats.lubetime_set = b;
     } 
     else if (a == "powerpack" && b =="drain") {
-        offset_status = 33
+        offset_status = 3
         set_status = true // Toggle
-        writestatus()
+        writebutton()
         // payload.stats.lubetime_set = b;
     } 
     
-    writestats()
-
     res.header('Access-Control-Allow-Origin', '*');
     return res.json({ message: `[ UPDATED ${a} to ${b} ]` });
 });
