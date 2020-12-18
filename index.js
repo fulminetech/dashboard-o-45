@@ -12,9 +12,9 @@ const { query } = require("express");
 const client = new Influx(`http://${host}:8086/new`);
 const flux = new Influx(`http://${host}:8086/perm`);
 
-const {
-    payload, startmodbus, watchproxy
-} = require('./data.js')
+// const {
+//     payload, startmodbus, watchproxy
+// } = require('./data.js')
 
 
 // Serve NPM modules
@@ -24,6 +24,7 @@ app.use('/plugin', express.static(__dirname + '/node_modules/hammerjs/'));
 app.use('/css', express.static(__dirname + '/node_modules/tailwindcss/dist/'));
 app.use('/font', express.static(__dirname + '/node_modules/@fortawesome/fontawesome-free/'));
 app.use('/env', express.static(__dirname + '/html/'));
+app.use('/favicon_io', express.static(__dirname + '/favicon_io/'));
 
 
 app.get("/", (req, res) => {
@@ -51,6 +52,14 @@ app.get("/graphLHS", (req, res) => {
 
 app.get("/graphRHS", (req, res) => {
     res.sendFile(path.join(__dirname + "/html/graphRHS.html"));
+});
+
+app.get("/dido", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html/dido.html"));
+});
+
+app.get("/do", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html/do.html"));
 });
 
 app.get("/onboard", (req, res) => {
