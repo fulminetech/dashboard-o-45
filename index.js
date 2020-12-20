@@ -31,6 +31,14 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/html/login.html"));
 });
 
+app.get("/users", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html/users.html"));
+});
+
+app.get("/recipe", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html/recipe.html"));
+});
+
 app.get("/audit", (req, res) => {
     res.sendFile(path.join(__dirname + "/html/audit.html"));
 });
