@@ -11,9 +11,9 @@ const { query } = require("express");
 const client = new Influx(`http://${host}:8086/new`);
 const flux = new Influx(`http://${host}:8086/perm`);
 
-// const {
-//     payload, startmodbus, watchproxy
-// } = require('./data.js')
+const {
+    payload, startmodbus, watchproxy
+} = require('./data.js')
 
 
 // Serve NPM modules
