@@ -1,0 +1,501 @@
+<!--This template is based on: https://dribbble.com/shots/6531694-Marketing-Dashboard by Gregoire Vella -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VFD</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <!-- NPM package includes -->
+    <link href="/font/css/all.css" rel="stylesheet">
+    <script src="/charts/Chart.bundle.min.js"></script>
+    <script src="/charts/plugin/chartjs-plugin-zoom.min.js"></script>
+    <script src="/plugin/hammer.min.js"></script>
+    <link href="/css/tailwind.min.css" rel="stylesheet">
+    <script src="/env/env.js"></script>
+
+    <!-- sidebar -->
+    <style>
+        #sidebar {
+            transition: ease-in-out all .1s;
+            z-index: 9999;
+        }
+
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+
+        #sidebar:hover {
+            width: 180px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Modal CSS -->
+    <style>
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+
+        body.modal-active {
+            overflow-x: hidden;
+            overflow-y: visible !important;
+        }
+    </style>
+
+    <!-- Toggle Button CSS -->
+    <style>
+        .toggle__dot {
+            top: -.25rem;
+            left: -.25rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:checked~.toggle__dot {
+            transform: translateX(100%);
+            background-color: #48bb78;
+        }
+    </style>
+
+</head>
+
+<body class="flex bg-gray-100 select-none font-sans">
+
+    <!-- Side bar-->
+    <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center static fixed shadow">
+
+        <ul class="list-reset">
+            <li class="my-2 md:my-0">
+                <a href="/pid"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-home fa-fw mr-3 text-xl"></i><span
+                        class="w-full inline-block text-lg">PID</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/vfd"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-indigo-400 text-xl"></i><span
+                        class="w-full inline-block text-lg">VFD</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <div class="flex flex-1 flex-grow max-w-full pl-16">
+
+        <!--Dash Content -->
+        <div id="dash-content"
+            class="bg-gray-200 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm flex flex-wrap content-start">
+
+            <!-- Options -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">VFD Status</h5>
+                            <h3 id="status" class="font-bold uppercase text-3xl">Offline</h3>
+                        </div>
+
+                        <!-- Search Button -->
+                        <div class="p-3">
+                            <button
+                                class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                onclick="inch()"> MANUAL </button>
+                        </div>
+
+                        <div class="p-3">
+                            <button
+                                class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                onclick="inch()"> START </button>
+                        </div>
+
+                        <!-- Search Button -->
+                        <div class="p-3">
+                            <button
+                                class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                onclick="inch()"> STOP </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-1 w-full">
+                <div onclick="location.href='/pid'"
+                    class="cursor-pointer border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-500">Configs</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-1 w-full">
+                <div onclick="location.href='/pid'"
+                    class="cursor-pointer border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-500">Schedules</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-1 w-full">
+                <div onclick="location.href='/pid-history'"
+                    class="cursor-pointer border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-500">History</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Main Container -->
+        <div class="w-full p-10">
+
+            <!-- Metric Cards -->
+            <div class="grid grid-cols-6 gap-1">
+
+                <!-- Thermocouple -->
+                <div class="flex items-center">
+                    <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                        <div class="flex flex-col">
+                            <div class="flex-1 items-left text-gray-700">
+                                <h5 class="font-bold uppercase text-xl">Speed</h5>
+                                <h3 class="font-bold mt-2 text-lg">Frequency:<a id="pressure_metric"></a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Temperature -->
+                <div class="flex items-center">
+                    <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                        <div class="flex flex-col">
+                            <div class="flex-1 items-left text-gray-700">
+                                <h5 class="font-bold uppercase text-xl">Direction</h5>
+                                <h3 class="font-bold mt-2 text-lg"><a id="lube_metric">Forward</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Tolerance Table-->
+            <div class="border-b p-3">
+                <h5 class="font-bold text-black">Information:</h5>
+            </div>
+            <div class="p-5 border border-gray-400 rounded shadowborder border-gray-400 rounded shadow">
+                <table class="w-full p-3 text-gray-700">
+                    <thead>
+
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td class="text-center border-b border-gray-300 py-2  uppercase text-blue-900">Start time
+                            </td>
+                            <td id="preLHS_upper" class="border-b  text-center  border-gray-300">1</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center border-gray-400 py-2 uppercase text-blue-900">Ellapsed Time</td>
+                            <td id="preLHS_lower" class="border-gray-400  text-center">2</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center border-gray-400 py-2 uppercase text-blue-900">On Time</td>
+                            <td id="preLHS_lower" class="border-gray-400  text-center">3</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center border-gray-400 py-2 uppercase text-blue-900">Off Time</td>
+                            <td id="preLHS_lower" class="border-gray-400  text-center">3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Set: Parameters -->
+            <div class="border-b mt-5 p-3">
+                <h5 class="font-bold text-black">Set: Parameters</h5>
+            </div>
+            <div class="flex grid grid-cols-4 p-3 ">
+
+                <div class="flex flex-col">
+                    <h3> Frequency (Hz) </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3">
+                            <input id="pressure"
+                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
+                        </div>
+                        <div class="p-3">
+                            <button
+                                class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                onclick="updatepressure()">
+                                SET
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col">
+                    <h3> On Time </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3">
+                            <input id="lubetime"
+                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatelubetime()">
+                        </div>
+                        <div class="p-3">
+                            <button
+                                class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                onclick="updatelubetime()">
+                                SET
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col">
+                    <h3> Off Time </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3">
+                            <input id="rpmTurret"
+                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updaterpmT()">
+                        </div>
+                        <div class="p-3">
+                            <button
+                                class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                onclick="updaterpmT()">
+                                SET
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Average Compression Trend-->
+            <div class="border-b p-3">
+                <h5 class="font-bold text-black">Frequency Trend :</h5>
+            </div>
+            <div class="p-3">
+                <canvas id="avg_his_compression_graph" class="chartjs" height="100rem"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Average Compression Trend -->
+    <script>
+        var avg_his_graphcanvas = document.getElementById("avg_his_compression_graph");
+        var avg_his_graphdata = {
+            labels: [],
+            datasets: [
+                {
+                    label: "",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "palegreen",
+                    borderColor: "palegreen",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Relay 1",
+                    yAxisID: 'B',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "olivedrab",
+                    borderColor: "olivedrab",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Relay 2",
+                    yAxisID: 'B',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "plum",
+                    borderColor: "plum",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [],
+                }
+            ],
+        };
+        var avg_his_graphoptions = {
+            animation: false,
+            responsive: true,
+            showTooltips: true,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Temperature (°C)'
+                    },
+                    id: 'A',
+                    type: 'linear',
+                    position: 'left',
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 15,
+                        max: 100
+                    }
+                },
+                {
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Temperature (°F)'
+                    },
+                    id: 'B',
+                    type: 'linear',
+                    position: 'right',
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 15,
+                        max: 100
+                    }
+                }],
+                xAxes: [{
+                    type: 'time',
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Time'
+                    },
+                    time: {
+                        displayFormats: {
+                            millisecond: 'YYYY-MM-DDTHH:mm:ss'
+                        }
+                    }
+                }],
+            },
+            plugins: {
+                zoom: {
+                    // Container for pan options
+                    pan: {
+                        // Boolean to enable panning
+                        enabled: true,
+
+                        // Panning directions. Remove the appropriate direction to disable
+                        // Eg. 'y' would only allow panning in the y direction
+                        // A function that is called as the user is panning and returns the
+                        // available directions can also be used:
+                        //   mode: function({ chart }) {
+                        //     return 'xy';
+                        //   },
+                        mode: 'x',
+
+                        // On category scale, factor of pan velocity
+                        speed: 20,
+
+                        // Minimal pan distance required before actually applying pan
+                        threshold: 10,
+
+                    },
+
+                    // Container for zoom options
+                    zoom: {
+                        // Boolean to enable zooming
+                        enabled: true,
+
+                        // Zooming directions. Remove the appropriate direction to disable 
+                        // Eg. 'y' would only allow zooming in the y direction
+                        mode: 'x',
+
+                        // Speed of zoom via mouse wheel
+                        // (percentage of zoom on a wheel event)
+                        speed: 0.1,
+
+                        // On category scale, minimal zoom level before actually applying zoom
+                        sensitivity: 3,
+                    }
+                }
+            },
+            legend: {
+                onClick: function (e, legendItem) {
+                    var index = legendItem.datasetIndex;
+                    var ci = this.chart;
+                    var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
+
+                    console.log(index)
+
+                    ci.data.datasets.forEach(function (e, i) {
+                        var meta = ci.getDatasetMeta(i);
+
+                        if (i !== index) {
+                            if (!alreadyHidden) {
+                                meta.hidden = meta.hidden === null ? !meta.hidden : null;
+                            } else if (meta.hidden === null) {
+                                meta.hidden = true;
+                            }
+                        } else if (i === index) {
+                            meta.hidden = null;
+                        }
+
+                    });
+
+                    ci.update();
+                },
+                display: true,
+                position: 'top',
+                labels: {
+                    fontSize: 15,
+                }
+            },
+        };
+        var avg_his_compression_graph = Chart.Line(avg_his_graphcanvas, {
+            data: avg_his_graphdata,
+            options: avg_his_graphoptions,
+        });
+
+    </script>
+
+</body>
+
+</html>

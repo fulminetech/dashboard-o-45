@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 var path = require('path');
 const puppeteer = require('puppeteer');
-var path = require('path');
 
 const host = "localhost"
 
