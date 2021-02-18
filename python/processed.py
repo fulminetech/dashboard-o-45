@@ -11,10 +11,16 @@ import requests
 
 import random
 randomlist = []
-# Generates list of 5 elemets between 60 and 100
+# Generates list of 45 elemets between 60 and 100
 for i in range(0,45):
     n = random.randint(60,100)
     randomlist.append(n)
+
+randomavg = []
+# Generates list of 45 elemets between 60 and 100
+for i in range(0,6):
+    n = random.randint(60,100)
+    randomavg.append(n)
 
 # Limits for processing the data
 PLHS_LL = 50
@@ -51,6 +57,7 @@ payload = {
     'avg': []
 }
 
+payload['connection'] = True
 payload['pLHS_data'] = randomlist
 payload['pRHS_data'] = randomlist
 payload['mLHS_data'] = randomlist
@@ -58,8 +65,8 @@ payload['mRHS_data'] = randomlist
 payload['eLHS_data'] = randomlist
 payload['eRHS_data'] = randomlist
 
-# payload['pstatus'] = 
-# payload['avg'] = 
+payload['pstatus'] = [True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True]
+payload['avg'] = randomavg
 
 # print(payload)
 # print(processedlist)

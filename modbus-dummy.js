@@ -705,7 +705,6 @@ setInterval(() => {
     randomIntFromIntervall()
 }, 3000);
 
-
 setInterval(() => {
     i++
 }, 3000);
@@ -716,7 +715,6 @@ app.use("/api/payload", (req, res) => {
     res.json(payload);
 });
 
- 
 // Start Server
 const port = 3128;
 app.listen(port, () => console.log(`Server running on port ${port} 👑`));
