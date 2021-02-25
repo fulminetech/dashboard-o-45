@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 var path = require('path');
 const puppeteer = require('puppeteer');
-
+var cors = require('cors')
 const host = "localhost"
 
 // Influx Imports
@@ -15,6 +15,7 @@ const {
     payload, startmodbus, watchproxy
 } = require('./data.js')
 
+app.use(cors({ origin: "*" }));
 
 // Serve NPM modules
 app.use('/charts', express.static(__dirname + '/node_modules/chart.js/dist/'));
@@ -42,7 +43,12 @@ app.get("/audit", (req, res) => {
     res.sendFile(path.join(__dirname + "/html/audit.html"));
 });
 
+app.get("/alarm", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html/alarm.html"));
+});
+
 app.get("/dashboard", (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
     res.sendFile(path.join(__dirname + "/html/index.html"));
 });
 
@@ -69,6 +75,10 @@ app.get("/do", (req, res) => {
     res.sendFile(path.join(__dirname + "/html/do.html"));
 });
 
+app.get("/io_maintanience", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html/io_maintanience.html"));
+});
+
 app.get("/onboard", (req, res) => {
     res.sendFile(path.join(__dirname + "/html/onboard.html"));
 });
@@ -87,6 +97,26 @@ app.get("/audit", (req, res) => {
 
 app.get("/settings", (req, res) => {
     res.sendFile(path.join(__dirname + "/html/settings.html"));
+});
+
+app.get("/settings_recipie", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html/settings_recipie.html"));
+});
+
+app.get("/settings_awc", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html/settings_awc.html"));
+});
+
+app.get("/settings_limit", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html/settings_limit.html"));
+});
+
+app.get("/settings_setup", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html/settings_setup.html"));
+});
+
+app.get("/settings_user", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html/settings_user.html"));
 });
 
 app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
@@ -299,8 +329,8 @@ app.get("/report/average/now", (req, res) => {
 
 app.get("/report/average/generate", (req, res) => {
     (async () => {
-        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser' });
-        // const browser = await puppeteer.launch({ product: 'chrome' });
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser' });
+        const browser = await puppeteer.launch({ product: 'chrome' });
         const page = await browser.newPage();
         await page.goto(`http://${host}:5000/report/template`, { waitUntil: 'networkidle0' });
         await page.pdf({ path: `batch_${report.batch}_from_${report.from}_to_${report.to}.pdf`, format: 'A4' });

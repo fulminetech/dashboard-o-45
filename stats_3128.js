@@ -4,10 +4,18 @@ const { exec } = require('child_process');
 const restart1Command = "pm2 restart prod-modbus"
 
 const app = express();
+var cors = require('cors')
+app.use(cors({ origin: "*" }));
+
+const {
+    importpayload 
+} = require('./data.js')
+
+const host = "localhost"
 
 const Influx = require('influxdb-nodejs');
 const { setInterval } = require('timers');
-const flux = new Influx(`${host}:8086/new`);
+const flux = new Influx(`http://${host}:8086/new`);
 
 // Timestamp for which returns current date and time 
 var noww = new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
@@ -18,7 +26,7 @@ var startTime = + new Date();
 var client = new ModbusRTU();
 const slaveID = 1;
 // const ip = "10.0.0.103"
-const ip = "192.168.0.65"
+const ip = "192.168.0.100"
 
 // Modbus Addresses
 const status_address = 2589;
@@ -29,6 +37,9 @@ const stats_address = 37768;
 
 // Modbus 'state' constants
 var MBS_STATE_INIT = "State init";
+
+var MBS_STATE_FAIL_READ_TIME = "Time read failed"
+var MBS_STATE_GOOD_READ_TIME = "Time read good"
 
 var MBS_STATE_GOOD_READ_AVG = "State good avg (read)";
 var MBS_STATE_GOOD_READ_STATUS = "State good status (read)";
@@ -47,12 +58,14 @@ var MBS_STATE_FAIL_WRITE_STATUS = "State fail status (write)";
 var MBS_STATE_GOOD_CONNECT = "State good (port)";
 var MBS_STATE_FAIL_CONNECT = "State fail (port)";
 
+var WRITE_STATUS
+
 var mbsState = MBS_STATE_INIT;
 
 var WRITE_STATS
 
 var mbsTimeout = 5000;
-var mbsScan = 30;
+var mbsScan = 50;
 
 let readfailed = 0;
 let failcounter = 100;
@@ -65,6 +78,7 @@ let timetemp = 0;
 
 var payload = {
     connection: false,
+    batch: "Not set",
     rotation_no: 0,
     present_punch: 0,
     machine: {
@@ -85,6 +99,7 @@ var payload = {
         main_forceline: 0,
         pre_forceline: 0,
         ejn_forceline: 0,
+        operator: 'Not Set'
     },
     stats: {
         count: 0,
@@ -109,31 +124,6 @@ var payload = {
     }
 };
 
-// Operator log write
-var write = {
-    parameter: "",
-    old_value: "",
-    new_value: "",
-    batch: "",
-    user: "",
-    userlevel: ""
-}
-
-writeLog = () => {
-    flux.write(`${payload.batch}.log`)
-        .tag({
-        })
-        .field({
-            batch: write.batch,
-            parameter: write.parameter,
-            old_value: write.old_value,
-            new_value: write.new_value,
-            user: write.user,
-            userlevel: write.userlevel
-        })
-        .then(() => console.info(`[ LOG WRITE SUCESSFUL ${payload.data_number} ]`))
-        .catch(console.error);
-}
 
 // Make connection
 var connectClient = function () {
@@ -428,17 +418,17 @@ app.get("/api/set/limit/:parameter/:value", (req, res) => {
     var c;
 
     writelog = () => {
-        client.write(`operationlogs`)
+        flux.write(`operationlogs`)
             .tag({
             })
             .field({
-                batch: payload.batch,  // 2
-                operator: payload.machine.operator,  // 2
+                batch: importpayload.batch,  // 2
+                operator: importpayload.machine.operator_name,  // 2
                 parameter: a,  // 2
                 oldvalue: c,  // 2
                 newvalue: b,  // 2
             })
-            .then(() => console.info('[ BATCH ENTRY DONE ]'))
+            .then(() => console.info('[ LOG ENTRY DONE ]'))
             .catch(console.error);
     }
 
@@ -447,41 +437,49 @@ app.get("/api/set/limit/:parameter/:value", (req, res) => {
         set_stats = b
         c = payload.machine.LHS.precompression_upperlimit
         payload.machine.LHS.precompression_upperlimit = b;
+        writelog()
     } else if (a == "preLHSlow") {
         offset_stats = 16
         set_stats = b
         c = payload.machine.LHS.precompression_lowerlimit
         payload.machine.LHS.precompression_lowerlimit = b;
+        writelog()
     } else if (a == "mainLHSup") {
         offset_stats = 17
         set_stats = b
         c = payload.machine.LHS.maincompression_upperlimit
         payload.machine.LHS.maincompression_upperlimit = b;
+        writelog()
     } else if (a == "mainLHSlow") {
         offset_stats = 18
         set_stats = b
         c = payload.machine.LHS.maincompression_lowerlimit
         payload.machine.LHS.maincompression_lowerlimit = b;
+        writelog()
     } else if (a == "preRHSup") {
         offset_stats = 19
         set_stats = b
         c = payload.machine.RHS.precompression_upperlimit
         payload.machine.RHS.precompression_upperlimit = b;
+        writelog()
     } else if (a == "preRHSlow") {
         offset_stats = 20
         set_stats = b
         c = payload.machine.RHS.precompression_lowerlimit
         payload.machine.RHS.precompression_lowerlimit = b;
+        writelog()
     } else if (a == "mainRHSup") {
         offset_stats = 21
         set_stats = b
         c = payload.machine.RHS.maincompression_upperlimit
         payload.machine.RHS.maincompression_upperlimit = b;
+        writelog()
     } else if (a == "mainRHSlow") {
         offset_stats = 22
         set_stats = b
         c = payload.machine.RHS.maincompression_lowerlimit
         payload.machine.RHS.maincompression_lowerlimit = b;
+        writelog()
     }
 
     mbsState = WRITE_STATS;
@@ -514,24 +512,42 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     const b = req.params.value;
     var c;
 
+    writelog = () => {
+        flux.write(`operationlogs`)
+            .tag({
+            })
+            .field({
+                batch: importpayload.batch,  // 2
+                operator: importpayload.machine.operator_name,  // 2
+                parameter: a,  // 2
+                oldvalue: c,  // 2
+                newvalue: b,  // 2
+            })
+            .then(() => console.info('[ LOG ENTRY DONE ]'))
+            .catch(console.error);
+    }
+
     if (a == "rpm") {
         offset_stats = 30
         set_stats = b
         c = payload.stats.rpm
         payload.stats.rpm = b;
         writestats()
+        writelog()
     } else if (a == "feederLHS") {
         offset_stats = 31
         set_stats = b
         c = payload.stats.turretLHS
         payload.stats.turretLHS = b;
         writestats()
+        writelog()
     } else if (a == "feederRHS") {
         offset_stats = 32
         set_stats = b
         c = payload.stats.turretRHS
         payload.stats.turretRHS = b;
         writestats()
+        writelog()
     }
     else if (a == "pressure") {
         offset_stats = 34
@@ -539,6 +555,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
             c = payload.stats.pressure_set
         payload.stats.pressure_set = b;
         writestats()
+        writelog()
     }
     else if (a == "lubetime") {
         offset_stats = 33
@@ -546,45 +563,47 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.stats.lubetime_set
         payload.stats.lubetime_set = b;
         writestats()
+        writelog()
     }
     else if (a == "machine" && b == "start") {
         offset_status = 15
         set_status = true
         writebutton()
+        writelog()
         // payload.stats.lubetime_set = b;
     }
     else if (a == "machine" && b == "stop") {
         offset_status = 16
         set_status = false
         writebutton()
-        // payload.stats.lubetime_set = b;
+        writelog()
     }
     else if (a == "machine" && b == "inch") {
         offset_status = 10
         set_status = true // Toggle
         writebutton()
-        // payload.stats.lubetime_set = b;
+        // writelog()
     }
     else if (a == "powerpack" && b == "start") {
         offset_status = 0
         set_status = true
         writebutton()
-        // payload.stats.lubetime_set = b;
+        writelog()
     }
     else if (a == "powerpack" && b == "stop") {
         offset_status = 1
         set_status = false
         writebutton()
-        // payload.stats.lubetime_set = b;
+        writelog()
     }
     else if (a == "powerpack" && b == "drain") {
         offset_status = 3
         set_status = true // Toggle
         writebutton()
-        // payload.stats.lubetime_set = b;
+        writelog()
     }
 
-    res.header('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     return res.json({ message: `[ UPDATED ${a} to ${b} ]` });
 });
 

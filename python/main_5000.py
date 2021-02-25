@@ -14,7 +14,7 @@ app = Flask(__name__)
 api = Api(app)
 
 # Modbus TCP parameters
-SERVER_HOST = "192.168.0.65"
+SERVER_HOST = "192.168.0.100"
 SERVER_PORT = 502
 # Scan time in seconds
 MBSCAN = 3
@@ -36,12 +36,18 @@ MAIN_R_ADDR = 6697
 EJNC_R_ADDR = 6597
 
 TIME_ADDR = 4196
-AVGC_ADDR = 6496
+
+#ML. PL, EJ, MR, PR, ER
+AVGC_ADDR = 6497
 STUS_ADDR = 2589
-STAT_ADDR = 37768
+# STAT_ADDR = 37768
+
+# MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL
+LIMIT_ADDR = 37783
+
 
 # Modbus Write addresses 
-RWRITE_ADDR = 37768
+RWRITE_ADDR = 37768 // 5000
 RWRITE_OFST = 15
 RWRITE_VALU = 4500
 
@@ -59,7 +65,8 @@ payload = {
     'mRHS_data': [],
     'eLHS_data': [],
     'eRHS_data': [],
-    'avg': []
+    'avg': [],
+    'limit': []
 }
 
 global x
@@ -79,6 +86,7 @@ def connect():
                 logging.info("Main    : Creating Modbus thread")
                 x = threading.Thread(target=xyz, args=(1,), daemon=True)
                 x.start()
+                
 
 def ptime():
     regs = c.read_holding_registers(TIME_ADDR, 6)
@@ -91,7 +99,7 @@ def ptime():
         x = 'pLHS'
 
 def pLHS():
-    regs = c.read_holding_registers(PREC_L_ADDR, 44)
+    regs = c.read_holding_registers(PREC_L_ADDR, 45)
     global x
     if regs:
         # pLHS = [ x/100 for x in regs]
@@ -104,7 +112,7 @@ def pLHS():
         x = 'pRHS'
 
 def pRHS():
-    regs = c.read_holding_registers(PREC_R_ADDR, 44)
+    regs = c.read_holding_registers(PREC_R_ADDR, 45)
     global x
     if regs:
         # pRHS = [ x/100 for x in regs]
@@ -117,7 +125,7 @@ def pRHS():
         x = 'mLHS'
 
 def mLHS():
-    regs = c.read_holding_registers(MAIN_L_ADDR, 44)
+    regs = c.read_holding_registers(MAIN_L_ADDR, 45)
     global x
     if regs:
         # mLHS = [ x/100 for x in regs]
@@ -130,7 +138,7 @@ def mLHS():
         x = 'mRHS'
 
 def mRHS():
-    regs = c.read_holding_registers(MAIN_R_ADDR, 44)
+    regs = c.read_holding_registers(MAIN_R_ADDR, 45)
     global x
     if regs:
         # mRHS = [ x/100 for x in regs]
@@ -143,7 +151,7 @@ def mRHS():
         x = 'eLHS'
 
 def eLHS():
-    regs = c.read_holding_registers(EJNC_L_ADDR, 44)
+    regs = c.read_holding_registers(EJNC_L_ADDR, 45)
     global x
     if regs:
         # eLHS = [ x/100 for x in regs]
@@ -156,7 +164,7 @@ def eLHS():
         x = 'eRHS'
 
 def eRHS():
-    regs = c.read_holding_registers(EJNC_R_ADDR, 44)
+    regs = c.read_holding_registers(EJNC_R_ADDR, 45)
     global x
     if regs:
         # eLHS = [ x/100 for x in regs]
@@ -181,6 +189,20 @@ def avg():
         logging.error("avg Read Failed")
         x = 'pstatus'
 
+def limit():
+    # MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL
+    regs = c.read_holding_registers(LIMIT_ADDR, 12)
+    global x
+    if regs:
+        # limit = [ x/100 for x in regs]
+        # payload['limit'] = limit
+        # logging.debug('Success!: limit')
+        payload['limit'] = regs
+        x = 'limit'
+    else:
+        logging.error("limit Read Failed")
+        x = 'limit' 
+
 def pstatus():
     regs = c.read_coils(STUS_ADDR, 44)
     global x
@@ -201,7 +223,7 @@ def start():
 def xyz(name):
     logging.info("Thread %s: starting", name)
     while True: 
-        start()
+        # start()
         pLHS()
         pRHS()
         mLHS()
@@ -210,7 +232,9 @@ def xyz(name):
         eRHS()
         pstatus()
         avg()
-        end()
+        limit()
+        time.sleep(0.1)
+        # end()
 
 # Class for Payload API
 class Payload(Resource):

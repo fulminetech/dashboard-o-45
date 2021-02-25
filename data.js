@@ -3,8 +3,8 @@ const fetch = require('cross-fetch');
 const { exec } = require('child_process');
 // const CronJob = require('cron').CronJob;
 
-const Gpio = require('onoff').Gpio;
-const proxy = new Gpio(26, 'in', 'falling', { debounceTimeout: 10 });
+// const Gpio = require('onoff').Gpio;
+// const proxy = new Gpio(26, 'in', 'falling', { debounceTimeout: 10 });
 
 var host = "http://localhost";
 // var os = require("os");
@@ -30,7 +30,7 @@ function date() {
 }
 
 var i = 0
-const payloadURL = `${host}:3128/api/payload`;
+const payloadURL = `${host}:3129/api/payload`;
 var noww = new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
 console.log(`[ STARTING INFLUX : ${noww} ]`)
 
@@ -1586,18 +1586,34 @@ var watchproxy = function () {
     writemachine();
     console.log("Watching proxy")
    
-    proxy.watch((err, value) => {
-        if (err) {
-            throw err;
-        }
-        payload.data_number++;
-        console.log("DATA")
-        writeHistory();
-        writeAverage();
-    });
+    // proxy.watch((err, value) => {
+    //     if (err) {
+    //         throw err;
+    //     }
+        // payload.data_number++;
+    //     console.log("DATA")
+        // writeHistory();
+        // writeAverage();
+    // });
 }
 
+// Test code 
+setInterval(() => {
+    // proxy.watch((err, value) => {
+    //     if (err) {
+    //         throw err;
+    //     }
+    payload.data_number++;
+    //     console.log("DATA")
+    writeHistory();
+    writeAverage();
+    // });
+    
+}, 1000);
+
+
+var importpayload = payload
 
 module.exports = {
-    payload, startmodbus, watchproxy
+    payload, importpayload, startmodbus, watchproxy
 }
