@@ -1611,9 +1611,6 @@ setInterval(() => {
     
 }, 1000);
 
-
-var importpayload = payload
-
 module.exports = {
-    payload, importpayload, startmodbus, watchproxy
+    payload, startmodbus, watchproxy
 }

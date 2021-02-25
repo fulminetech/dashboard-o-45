@@ -3,13 +3,12 @@ const express = require("express");
 const { exec } = require('child_process');
 const restart1Command = "pm2 restart prod-modbus"
 
+const fetch = require('cross-fetch');
+const payloadURL = `${host}:5000/api/payload`;
+
 const app = express();
 var cors = require('cors')
 app.use(cors({ origin: "*" }));
-
-const {
-    importpayload 
-} = require('./data.js')
 
 const host = "localhost"
 
@@ -416,14 +415,29 @@ app.get("/api/set/limit/:parameter/:value", (req, res) => {
     const a = req.params.parameter;
     const b = req.params.value;
     var c;
+    var payload1
+
+    fetch(payloadURL)
+        .then(res => {
+            if (res.status >= 400) {
+                throw new Error("Bad response from server");
+            }
+            return res.json();
+        })
+        .then(data => {
+            payload1 = data;
+        })
+        .catch(err => {
+            console.error("[ MODBUS SERVER OFFLINE ]");
+        });
 
     writelog = () => {
         flux.write(`operationlogs`)
             .tag({
             })
             .field({
-                batch: importpayload.batch,  // 2
-                operator: importpayload.machine.operator_name,  // 2
+                batch: payload1.batch,  // 2
+                operator: payload1.machine.operator_name,  // 2
                 parameter: a,  // 2
                 oldvalue: c,  // 2
                 newvalue: b,  // 2
@@ -511,14 +525,29 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     const a = req.params.parameter;
     const b = req.params.value;
     var c;
+    var payload1
+
+    fetch(payloadURL)
+        .then(res => {
+            if (res.status >= 400) {
+                throw new Error("Bad response from server");
+            }
+            return res.json();
+        })
+        .then(data => {
+            payload1 = data;
+        })
+        .catch(err => {
+            console.error("[ MODBUS SERVER OFFLINE ]");
+        });
 
     writelog = () => {
         flux.write(`operationlogs`)
             .tag({
             })
             .field({
-                batch: importpayload.batch,  // 2
-                operator: importpayload.machine.operator_name,  // 2
+                batch: payload1.batch,  // 2
+                operator: payload1.machine.operator_name,  // 2
                 parameter: a,  // 2
                 oldvalue: c,  // 2
                 newvalue: b,  // 2
