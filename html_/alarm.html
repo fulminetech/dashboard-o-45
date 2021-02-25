@@ -1,0 +1,552 @@
+<!--This template is based on: https://dribbble.com/shots/6531694-Marketing-Dashboard by Gregoire Vella -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard - 45</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link href="/font/css/all.css" rel="stylesheet">
+    <link href="/css/tailwind.min.css" rel="stylesheet">
+    <script src="/env/env.js"></script>
+
+    <!-- sidebar -->
+    <style>
+        #sidebar {
+            transition: ease-in-out all .1s;
+            z-index: 9999;
+        }
+
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+
+        #sidebar:hover {
+            width: 180px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+
+</head>
+
+<body class="flex bg-gray-100 select-none font-sans">
+
+    <!-- Side bar-->
+    <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center static fixed shadow">
+
+        <ul class="list-reset">
+            <li class="my-2 md:my-0">
+                <a href="/dashboard"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-home fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Dashboard</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/graphLHS"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Graph:
+                        LHS</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/graphRHS"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">Graph:
+                        RHS</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/history"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-history fa-fw mr-3 text-xl"></i><span class="w-full pb-1 text-lg">History</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/dido" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-exchange-alt fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">DI/DO</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/analytics"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-folder fa-fw mr-3 text-indigo-400 text-xl"></i><span
+                        class="w-full inline-block text-lg">Reports</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Settings</span>
+                </a>
+            </li>
+        
+        </ul>
+
+
+    </div>
+
+    <div class="flex flex-1 max-w-full pl-16">
+
+        <!--Dash Content -->
+        <div id="dash-content"
+            class="bg-gray-200 py-3 px-2 lg:py-0 w-full xl:w-80 lg:max-w-sm flex flex-wrap content-start">
+
+            <!-- Batch Report -->
+            <div class="w-1 w-full">
+                <div onclick="location.href='/analytics'"
+                    class="cursor-pointer border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-500">Batch Report</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Audit Report -->
+            <div class="w-1 w-full">
+                <div onclick="location.href='/audit'"
+                    class="cursor-pointer border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1">
+                            <h5 class="font-bold uppercase text-gray-500">Audit Report</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Alarm Report -->
+            <div class="w-1 w-full">
+                <div onclick="location.href='/alarm'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1">
+                            <h5 class="font-bold uppercase text-gray-700">Alarm Report</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Batch List -->
+            <div class="w-full overflow-y-auto select-text p-3" style="height:30vh;">
+                <div class="border border-gray-400 bg-white rounded shadow">
+                    <div class="border-b border-gray-400 p-3">
+                        <h5 class="font-bold uppercase text-center text-xl text-black">Total
+                            Batches:
+                            <a id="batchcount" class="font-bold text-xl text-black">0
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="px-5 pb-3">
+                        <table class="table-fixed w-full text-center text-black" height="170rem">
+                            <thead>
+                                <tr>
+                                    <th class="text-center py-3" style="width:60px">Index</th>
+                                    <th class="text-center py-3">Batch Name</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="batchlist">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Graph Content -->
+        <div id="main-content" class="w-full flex-1">
+
+            <div class="flex flex-1 flex-wrap">
+                <div class="w-full p-6 ">
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">Enter Batch Number:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-col">
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SEARCH
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                    
+                    <!-- Export:  -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">Export:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-wrap p-3">
+                    
+                            <!-- PDF report Button -->
+                            <div class="py-3">
+                                <button id="generatepdfreport"
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateReport()">
+                                    PDF report
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-wrap p-3">
+                    
+                            <!-- Excel Button -->
+                            <div class="py-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="csvexport()">
+                                    Excel EXPORT
+                                </button>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!--"Container" for the graphs"-->
+                    <div class="max-w-full">
+
+                        <!-- Rotation Avg List -->
+                        <div class="w-full p-3">
+                            <div class="border border-gray-400 rounded shadow overflow-auto">
+                                <div class="px-5 pb-5">
+                                    <table class="table-fixed w-full text-center text-black" height="170rem">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center border-b py-3">Date and Time</th>
+                                                <th class="text-center border-b py-3">Description</th>
+                                                <th class="text-center border-b py-3">Status</th>
+                                                <th class="text-center border-b py-3">Username</th>
+                                                <th class="text-center border-b py-3">Userlevel</th>
+                                                <th class="text-center border-b py-3">Batch</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody id="avgtable">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Update Batch details -->
+    <script>
+        
+        batchtable()
+
+        async function batchtable() {
+            const batchResponse = await fetch(batchURL);
+            const batch = await batchResponse.json();
+
+            document.getElementById("batchcount").innerHTML = batch.batchcount;
+
+            // console.log(batch.batchnames);
+
+            let batchlistt = batch.batchnames;
+
+            loadbatchlist();
+
+            function loadbatchlist() {
+                const batchListBody = document.getElementById('batchlist');
+                let batchHTML = '';
+
+                let i = -1;
+                let j = 0;
+                for (let batchh of batchlistt) {
+                    i++;
+                    j++;
+                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${j}</td><td class="border border-gray-400 px-4 py-2">${batchlistt[i]}</td></tr>`
+                }
+
+                batchListBody.innerHTML = batchHTML;
+            }
+        }
+    </script>
+
+    <!-- Search Avg Data -->
+    <script>
+        addEventListener("keydown", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+
+                searchBatch();
+
+            }
+        });
+
+        var element2 = document.getElementById("searchbatch");
+
+        async function searchBatch() {
+
+            var a = document.getElementById("batchname");
+            var name = "";
+            var i;
+            for (i = 0; i < a.length; i++) {
+                name += a.elements[i].value;
+            }
+
+            if (name == "") {
+
+            } else {
+
+                document.getElementById("searchbatch").innerText = "PLEASE WAIT";
+                element2.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${logsURL}${name}`
+
+                const avgData = await fetch(queryAvgURL);
+                const avggbatch = await avgData.json();
+                
+                let avglistt = avggbatch;
+                
+                function loadavglist() {
+                    const avgListBody = document.getElementById('avgtable');
+                    let avgHTML = '';
+                    
+                    let i = -1;
+                    let m = 0;
+                    for (let avgg of avglistt) {
+                        i++;
+                        m++;
+                        let avgdataa = avglistt[i]
+                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${m}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[0]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td></tr>`
+                    }
+
+                    avgListBody.innerHTML = avgHTML;
+                }
+
+                loadavglist();
+
+                document.getElementById("searchbatch").innerText = "SEARCH";
+                element2.classList.remove("cursor-not-allowed");
+
+            }
+        }
+
+        async function filterbutton() {
+
+            const avgListBody = document.getElementById('avgtable');
+            let avgHTML = '';
+            avgListBody.innerHTML = avgHTML;
+
+            var a = document.getElementById("fromRotationNumber");
+            var fromname = "";
+            var i;
+            for (i = 0; i < a.length; i++) {
+                fromname += a.elements[i].value;
+            }
+
+            var b = document.getElementById("toRotationNumber");
+            var toname = "";
+            var j;
+            for (j = 0; j < b.length; j++) {
+                toname += b.elements[j].value;
+            }
+
+            var c = document.getElementById("batchname");
+            var bname = "";
+            var k;
+            for (k = 0; k < c.length; k++) {
+                bname += c.elements[k].value;
+            }
+
+            const queryAvgURL = `${hostname}/api/search/average/csv/${bname}`
+
+            // console.log(bname);
+
+            const avgData = await fetch(queryAvgURL);
+            const avggbatch = await avgData.json();
+
+            // console.log(avggbatch)
+
+            let avglistt = avggbatch;
+
+            let from = fromname;
+            let to = toname;
+
+            function loadavglist() {
+                const avgListBody = document.getElementById('avgtable');
+                let avgHTML = '';
+
+                let i = -1;
+                let j = 0;
+
+                for (let avgg of avglistt) {
+                    i++;
+                    if (i >= from && i <= to) {
+                        j = i - 1;
+                        from++;
+                        let avgdataa = avggbatch[j]
+                        avgHTML += `<td class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td></tr>`
+                    } else if (i > to) {
+                        // await fetch(generatereportURL);
+                    }
+                }
+
+                avgListBody.innerHTML = avgHTML;
+            }
+
+            loadavglist();
+
+        }
+
+    </script>
+
+    <!-- Generate PDF Report -->
+    <script>
+        var element = document.getElementById("generatepdfreport");
+
+        var pdfgenerationtime = 10000;
+
+        async function generateReport() {
+
+            var a = document.getElementById("fromRotationNumber");
+            var fromname = "";
+            var i;
+            for (i = 0; i < a.length; i++) {
+                fromname += a.elements[i].value;
+            }
+
+            var b = document.getElementById("toRotationNumber");
+            var toname = "";
+            var j;
+            for (j = 0; j < b.length; j++) {
+                toname += b.elements[j].value;
+            }
+
+            var c = document.getElementById("batchname");
+            var bname = "";
+            var k;
+            for (k = 0; k < c.length; k++) {
+                bname += c.elements[k].value;
+            }
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                document.getElementById("generatepdfreport").innerText = "PLEASE WAIT";
+                element.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportAvgGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/average/download"
+                    document.getElementById("generatepdfreport").innerText = "PDF REPORT";
+                    element.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+    </script>
+
+    <!-- CSV Export -->
+    <script>
+        function exportToCsv(filename, rows) {
+            var processRow = function (row) {
+                var finalVal = '';
+                for (var j = 0; j < row.length; j++) {
+                    var innerValue = row[j] === null ? '' : row[j].toString();
+                    if (row[j] instanceof Date) {
+                        innerValue = row[j].toLocaleString();
+                    };
+                    var result = innerValue.replace(/"/g, '""');
+                    if (result.search(/("|,|\n)/g) >= 0)
+                        result = '"' + result + '"';
+                    if (j > 0)
+                        finalVal += ',';
+                    finalVal += result;
+                }
+                return finalVal + '\n';
+            };
+
+            var csvFile = '';
+            for (var i = 0; i < rows.length; i++) {
+                csvFile += processRow(rows[i]);
+            }
+
+            var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+            if (navigator.msSaveBlob) { // IE 10+
+                navigator.msSaveBlob(blob, filename);
+            } else {
+                var link = document.createElement("a");
+                if (link.download !== undefined) { // feature detection
+                    // Browsers that support HTML5 download attribute
+                    var url = URL.createObjectURL(blob);
+                    link.setAttribute("href", url);
+                    link.setAttribute("download", filename);
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            }
+        }
+
+        async function csvexport() {
+
+            var a = document.getElementById("batchname");
+            var name = "";
+            var i;
+            for (i = 0; i < a.length; i++) {
+                name += a.elements[i].value;
+            }
+
+            var csvAvgURL = `${searchAvgURL}csv/${name}`;
+
+            const batchResponse = await fetch(csvAvgURL);
+            const csvdata = await batchResponse.json();
+
+            csvdata[0] = ['Time', 'Rotation', 'Pre LHS Avg', 'Main LHS Avg', 'Ejn LHS Avg', 'Pre RHS Avg', 'Main RHS Avg', 'Ejn RHS Avg']
+
+            if (typeof csvdata !== 'undefined' && csvdata.length > 0) {
+                exportToCsv(`${name}.csv`, csvdata)
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

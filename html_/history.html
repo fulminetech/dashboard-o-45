@@ -1,0 +1,1315 @@
+<!--This template is based on: https://dribbble.com/shots/6531694-Marketing-Dashboard by Gregoire Vella -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard - 45</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link href="/font/css/all.css" rel="stylesheet">
+    <link href="/css/tailwind.min.css" rel="stylesheet">
+    <script src="/charts/Chart.bundle.min.js"></script>
+    <script src="/env/env.js"></script>
+    
+    <!-- sidebar -->
+    <style>
+        #sidebar {
+            transition: ease-in-out all .1s;
+            z-index: 9999;
+        }
+    
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+    
+        #sidebar:hover {
+            width: 180px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+    
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Modal CSS -->
+    <style>
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+    
+        body.modal-active {
+            overflow-x: hidden;
+            overflow-y: visible !important;
+        }
+    </style>
+
+    <!-- Toggle Button CSS -->
+    <style>
+        .toggle__dot {
+            top: -.25rem;
+            left: -.25rem;
+            transition: all 0.3s ease-in-out;
+        }
+    
+        input:checked~.toggle__dot {
+            transform: translateX(100%);
+            background-color: #48bb78;
+        }
+    </style>
+
+</head>
+
+<body class="flex bg-gray-100 select-none font-sans">
+
+    <!-- Side bar-->
+    <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center nunito static fixed shadow">
+
+        <ul class="list-reset">
+            <li class="my-2 md:my-0">
+                <a href="/dashboard" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-home fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Dashboard</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/graphLHS" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span
+                        class="w-full inline-block text-lg">Graph: LHS</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/graphRHS" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">Graph: RHS</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/history" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-history fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full pb-1 text-lg">History</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/dido" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-exchange-alt fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">DI/DO</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/analytics" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-folder fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Reports</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Settings</span>
+                </a>
+            </li>
+            
+
+        </ul>
+
+    </div>
+
+    <div class="flex flex-1 flex-grow content-start pl-16">
+
+        
+        <!--Dash Content -->
+        <div id="dash-content" class="bg-gray-200 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm content-start">
+            
+            <!-- Batch Number -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">Batch Number</h5>
+                            <h3 id="currentbatch" class="font-bold text-2xl">NOT SET</h3>
+                            <!-- <a id="currentbatch" class="font-bold text-xl text-black">
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rotation Number -->
+            <!-- Data Table -->
+            <!-- <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">Total Data</h5>
+                            <h3 id="rotation_number_metric" class="font-bold text-2xl">0</h3>
+                        </div>
+                        <div class="p-2">
+                            <button
+                                class="modal1-open text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded"
+                                onclick=""> TABLE </button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            
+            <!-- Input -->
+            <!-- <div class="border-b p-3">
+                <h5 class="font-bold text-black">Enter Data Number:</h5>
+            </div>
+            <div class="flex flex-wrap p-3">
+                <input id="searchRotationNumber"
+                    class="bg-white focus:outline-none focus:shadow-2xl border border-gray-300 rounded-lg py-2 px-2 block "
+                    type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+            </div>
+            <div class="flex-wrap flex p-3">
+                <button id="searchbatch"
+                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                    onclick="search()">
+                    SEARCH
+                </button>
+            </div> -->
+        </div>
+
+        <!--Graph Content -->
+        <div id="main-content" class="w-full flex-1">
+
+            <div class="flex flex-1 flex-wrap">
+
+                <div class="w-full xl:w-full p-6">
+                    <!--"Container" for the graphs"-->
+                    <div class="w-full  ">
+
+                        <!-- Search: Parameters -->
+                        <div class="border-b mt-2 p-3">
+                            <h5 class="font-bold text-black">Search: Parameters</h5>
+                        </div>
+                        
+                        <div class="flex grid grid-cols-3 p-3 ">
+                        
+                            <div class="flex flex-col">
+                                <h3> Data Number </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3">
+                                        <input id="searchRotationNumber"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                    </div>
+                                    <div class="p-3">
+                                        <button
+                                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="search()">
+                                            SEARCH
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+
+                        <!--Avg Trend Card-->
+                        <div class="border-b p-3">
+                            <h5 class="font-bold text-black">Average Compression Trend:</h5>
+                        </div>
+                        <div class="p-3">
+                            <canvas id="compression_avg_graph" class="chartjs" height="100rem"></canvas>
+                        </div>
+
+                        <!--Pre Compression Card-->
+                        <div class="border-b p-3">
+                            <h5 class="font-bold text-black">Pre Compression:</h5>
+                        </div>
+                        <div class="p-3">
+                            <canvas id="precompression_graph" class="chartjs" height="100rem"></canvas>
+                        </div>
+                        
+                        <!--Main Compression Card-->
+                        <div class="border-b p-3">
+                            <h5 class="font-bold text-black">Main Compression:</h5>
+                        </div>
+                        <div class="p-3">
+                            <canvas id="maincompression_graph" class="chartjs" height="100rem"></canvas>
+                        </div>
+                        
+                        <!--Ejection Compression Card-->
+                        <div class="border-b p-3">
+                            <h5 class="font-bold text-black">Ejection Compression:</h5>
+                        </div>
+                        <div class="p-3">
+                            <canvas id="ejncompression_graph" class="chartjs" height="100rem"></canvas>
+                        </div>
+                       
+                        <!--/Graph Card-->
+                    </div>
+
+                </div>
+
+                <div class="w-full xl:w-1/4 p-6 xl:max-w-4xl border-l-1 border-gray-300">
+                
+                    <!--"Container" for the graphs"-->
+                    <div class="max-w-sm lg:max-w-3xl xl:max-w-5xl">
+                
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Realtime Graph 2 -->
+    <script>
+
+        var punch = new Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45")
+
+        var pregraphcanvas = document.getElementById('precompression_graph');
+        var pregraphdata = {
+            labels: punch,
+            datasets: [
+                {
+                    label: "Pre Compression LHS",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "blue",
+                    borderColor: "#F0F6F7FF",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [ ],
+                },
+                {
+                    label: "Pre Compression RHS",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "cyan",
+                    borderColor: "#F0F6F7FF",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [ ],
+                },
+            ],
+        };
+        var pregraphoptions = {
+            tooltips: { enabled: true },
+            hover: { mode: null },
+            showTooltips: false,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 15,
+                        labelString: 'Compression (kN)'
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 15,
+                        labelString: 'Punch Number'
+                    },
+                }],
+            }, 
+        };
+        var pregraph = Chart.Bar(pregraphcanvas, {
+            data: pregraphdata,
+            options: pregraphoptions,
+        });
+
+        var maingraphcanvas = document.getElementById('maincompression_graph');
+        var maingraphdata = {
+            labels: punch,
+            datasets: [
+                {
+                    label: "Main Compression LHS",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "blue",
+                    borderColor: "#85B3D1FF",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [ ],
+                },
+                {
+                    label: "Main Compression RHS",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "cyan",
+                    borderColor: "#85B3D1FF",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [ ],
+                },
+            ],
+        };
+        var maingraphoptions = {
+            tooltips: { enabled: true },
+            hover: { mode: null },
+            showTooltips: false,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 15,
+                        labelString: 'Compression (kN)'
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Punch Number'
+                    },
+                }],
+            }, 
+        };
+        var maingraph = Chart.Bar(maingraphcanvas, {
+            data: maingraphdata,
+            options: maingraphoptions,
+        });
+
+        var ejngraphcanvas = document.getElementById('ejncompression_graph');
+        var ejngraphdata = {
+            labels: punch,
+            datasets: [
+                {
+                    label: "Ejection Compression LHS",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "blue",
+                    borderColor: "#85B3D1FF",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [ ],
+                },
+                {
+                    label: "Ejection Compression RHS",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "cyan",
+                    borderColor: "#85B3D1FF",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [ ],
+                },
+            ],
+        };
+        var ejngraphoptions = {
+            tooltips: { enabled: true },
+            hover: { mode: null },
+            showTooltips: false,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 15,
+                        labelString: 'Compression (kN)'
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'Punch Number'
+                    },
+                }],
+            }, 
+        };
+        var ejngraph = Chart.Bar(ejngraphcanvas, {
+            data: ejngraphdata,
+            options: ejngraphoptions,
+        });
+
+        
+
+        var graph3canvas = document.getElementById('compression_avg_graph');
+        var graph3data = {
+                labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+                datasets: [
+                    {
+                        label: "Pre Compression Average LHS",
+                        yAxisID: 'A',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "palegreen",
+                        borderColor: "palegreen",
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHitRadius: 10,
+                        data: [ ],
+                    },
+                    {
+                        label: "Pre Compression Average RHS",
+                        yAxisID: 'A',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "olivedrab",
+                        borderColor: "olivedrab",
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHitRadius: 10,
+                        data: [ ],
+                    },
+                    {
+                        label: "Main Compression Average LHS",
+                        yAxisID: 'A',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "plum",
+                        borderColor: "plum",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHitRadius: 10,
+                        data: [ ],
+                    },
+                    {
+                        label: "Main Compression Average RHS",
+                        yAxisID: 'A',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "RebeccaPurple",
+                        borderColor: "RebeccaPurple",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHitRadius: 10,
+                        data: [ ],
+                    },
+                    {
+                        label: "Ejection Compression Average LHS",
+                        yAxisID: 'A',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "lightblue",
+                        borderColor: "lightblue",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHitRadius: 10,
+                        data: [ ],
+                    },
+                    {
+                        label: "Ejection Compression Average RHS",
+                        yAxisID: 'A',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "darkblue",
+                        borderColor: "darkblue",
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointBackgroundColor: "#fff",
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHitRadius: 10,
+                        data: [ ],
+                    },
+                ],
+            };
+        var graph3option = {
+                showLines: true,
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            fontSize: 15,
+                            labelString: 'Compression (kN)'
+                        },
+                        id: 'A',
+                        type: 'linear',
+                        position: 'left',
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 15,
+                            max: 100
+                        }
+                    },],
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            fontSize: 15,
+                            labelString: 'Rotation Number'
+                        },
+                    }],
+                },
+
+            };
+        var graph3 = Chart.Line(graph3canvas, {
+                data: graph3data,
+                options: graph3option,
+            });
+
+    </script>
+
+    <!-- Search -->
+    <script>
+        
+        var currentBatch;
+
+        async function fetchpayloadapiHF() {
+            fetch(payloadURL)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+                    currentBatch = payload.batch;
+                    document.getElementById('currentbatch').innerHTML = currentBatch
+                    console.log(currentBatch)
+                })
+            .catch(function (error) {
+                // If there is any error you will catch them here
+                console.log("[ PAYLOAD FETCH ERROR ]", error)
+            });
+        };
+        fetchpayloadapiHF()
+
+        var currentrotation;
+
+        addEventListener("keydown", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                search()
+            }
+        });
+
+        async function search() {
+            var x = document.getElementById("searchRotationNumber").value;
+            var rtn = parseInt(x);
+
+            console.log(rtn);
+            querydb(rtn);
+
+            const queryAvgURL = `${hostname}/api/search/average/csv/${currentBatch}`
+            
+            console.log(queryAvgURL)
+            
+            const avgData = await fetch(queryAvgURL);
+            const avggbatch = await avgData.json();
+
+            let avglistt = avggbatch;
+            // console.log(avglistt)
+
+            var from = parseInt(rtn);
+            var to = from + 9;
+
+            console.log(from)
+            console.log(to)
+
+            function loadavglist() {
+
+                let i = -1;
+                let j = 1;
+                let k = 0;
+                let l = 0;
+                for (let avgg of avglistt) {
+                    i++;
+                    if (i >= from && i <= to) {
+                        l = i - 1;
+                        from++;
+                        let avgdataa = avggbatch[l]
+                        console.log(`RTN:${avgdataa[1]},PRELHS:${avgdataa[2]},PRERHS:${avgdataa[5]},MAINLHS:${avgdataa[3]},MAINRHS:${avgdataa[6]}`);
+
+                        graph3.data.labels[k] = avgdataa[1];
+                        graph3.data.datasets[0].data[k] = avgdataa[2];
+                        graph3.data.datasets[1].data[k] = avgdataa[5];
+                        graph3.data.datasets[2].data[k] = avgdataa[3];
+                        graph3.data.datasets[3].data[k] = avgdataa[6];
+
+                        graph3.update();
+                        k++;
+                        j++;
+                    } else if (i > to) {
+                        // await fetch(generatereportURL);
+                    }
+                }
+            }
+
+            loadavglist();
+
+        };
+
+        async function querydb(input_rotation) {
+            // Create Request URL
+            let requesturl = `${searchURL}${input_rotation}`
+
+            // Hit API
+            const searchResponse = await fetch(requesturl);
+            const payload = await searchResponse.json();
+            console.log(payload);
+
+            // Assigning variable as per array loacation
+            let batch        = 1
+            let p10LHSejn    = 2
+            let p10LHSmain   = 3
+            let p10LHSpre    = 4
+            let p10LHSstatus = 5
+            let p10RHSejn    = 6
+            let p10RHSmain   = 7
+            let p10RHSpre    = 8
+            let p10RHSstatus = 9
+            let p11LHSejn    = 10
+            let p11LHSmain   = 11
+            let p11LHSpre    = 12
+            let p11LHSstatus = 13
+            let p11RHSejn    = 14
+            let p11RHSmain   = 15
+            let p11RHSpre    = 16
+            let p11RHSstatus = 17
+            let p12LHSejn    = 18
+            let p12LHSmain   = 19
+            let p12LHSpre    = 20
+            let p12LHSstatus = 21
+            let p12RHSejn    = 22
+            let p12RHSmain   = 23
+            let p12RHSpre    = 24
+            let p12RHSstatus = 25
+            let p13LHSejn    = 26
+            let p13LHSmain   = 27
+            let p13LHSpre    = 28
+            let p13LHSstatus = 29
+            let p13RHSejn    = 30
+            let p13RHSmain   = 31
+            let p13RHSpre    = 32
+            let p13RHSstatus = 33
+            let p14LHSejn    = 34
+            let p14LHSmain   = 35
+            let p14LHSpre    = 36
+            let p14LHSstatus = 37
+            let p14RHSejn    = 38
+            let p14RHSmain   = 39
+            let p14RHSpre    = 40
+            let p14RHSstatus = 41
+            let p15LHSejn    = 42
+            let p15LHSmain   = 43
+            let p15LHSpre    = 44
+            let p15LHSstatus = 45
+            let p15RHSejn    = 46
+            let p15RHSmain   = 47
+            let p15RHSpre    = 48
+            let p15RHSstatus = 49
+            let p16LHSejn    = 50
+            let p16LHSmain   = 51
+            let p16LHSpre    = 52
+            let p16LHSstatus = 53
+            let p16RHSejn    = 54
+            let p16RHSmain   = 55
+            let p16RHSpre    = 56
+            let p16RHSstatus = 57
+            let p17LHSejn    = 58
+            let p17LHSmain   = 59
+            let p17LHSpre    = 60
+            let p17LHSstatus = 61
+            let p17RHSejn    = 62
+            let p17RHSmain   = 63
+            let p17RHSpre    = 64
+            let p17RHSstatus = 65
+            let p18LHSejn    = 66
+            let p18LHSmain   = 67
+            let p18LHSpre    = 68
+            let p18LHSstatus = 69
+            let p18RHSejn    = 70
+            let p18RHSmain   = 71
+            let p18RHSpre    = 72
+            let p18RHSstatus = 73
+            let p19LHSejn    = 74
+            let p19LHSmain   = 75
+            let p19LHSpre    = 76
+            let p19LHSstatus = 77
+            let p19RHSejn    = 78
+            let p19RHSmain   = 79
+            let p19RHSpre    = 80
+            let p19RHSstatus = 81
+            let p1LHSejn     = 82
+            let p1LHSmain    = 83
+            let p1LHSpre     = 84
+            let p1LHSstatus  = 85
+            let p1RHSejn     = 86
+            let p1RHSmain    = 87
+            let p1RHSpre     = 88
+            let p1RHSstatus  = 89
+            let p20LHSejn    = 90
+            let p20LHSmain   = 91
+            let p20LHSpre    = 92
+            let p20LHSstatus = 93
+            let p20RHSejn    = 94
+            let p20RHSmain   = 95
+            let p20RHSpre    = 96
+            let p20RHSstatus = 97
+            let p21LHSejn    = 98
+            let p21LHSmain   = 99
+            let p21LHSpre    = 100
+            let p21LHSstatus = 101
+            let p21RHSejn    = 102
+            let p21RHSmain   = 103
+            let p21RHSpre    = 104
+            let p21RHSstatus = 105
+            let p22LHSejn    = 106
+            let p22LHSmain   = 107
+            let p22LHSpre    = 108
+            let p22LHSstatus = 109
+            let p22RHSejn    = 110
+            let p22RHSmain   = 111
+            let p22RHSpre    = 112
+            let p22RHSstatus = 113
+            let p23LHSejn    = 114
+            let p23LHSmain   = 115
+            let p23LHSpre    = 116
+            let p23LHSstatus = 117
+            let p23RHSejn    = 118
+            let p23RHSmain   = 119
+            let p23RHSpre    = 120
+            let p23RHSstatus = 121
+            let p24LHSejn    = 122
+            let p24LHSmain   = 123
+            let p24LHSpre    = 124
+            let p24LHSstatus = 125
+            let p24RHSejn    = 126
+            let p24RHSmain   = 127
+            let p24RHSpre    = 128
+            let p24RHSstatus = 129
+            let p25LHSejn    = 130
+            let p25LHSmain   = 131
+            let p25LHSpre    = 132
+            let p25LHSstatus = 133
+            let p25RHSejn    = 134
+            let p25RHSmain   = 135
+            let p25RHSpre    = 136
+            let p25RHSstatus = 137
+            let p26LHSejn    = 138
+            let p26LHSmain   = 139
+            let p26LHSpre    = 140
+            let p26LHSstatus = 141
+            let p26RHSejn    = 142
+            let p26RHSmain   = 143
+            let p26RHSpre    = 144
+            let p26RHSstatus = 145
+            let p27LHSejn    = 146
+            let p27LHSmain   = 147
+            let p27LHSpre    = 148
+            let p27LHSstatus = 149
+            let p27RHSejn    = 150
+            let p27RHSmain   = 151
+            let p27RHSpre    = 152
+            let p27RHSstatus = 153
+            let p28LHSejn    = 154
+            let p28LHSmain   = 155
+            let p28LHSpre    = 156
+            let p28LHSstatus = 157
+            let p28RHSejn    = 158
+            let p28RHSmain   = 159
+            let p28RHSpre    = 160
+            let p28RHSstatus = 161
+            let p29LHSejn    = 162
+            let p29LHSmain   = 163
+            let p29LHSpre    = 164
+            let p29LHSstatus = 165
+            let p29RHSejn    = 166
+            let p29RHSmain   = 167
+            let p29RHSpre    = 168
+            let p29RHSstatus = 169
+            let p2LHSejn     = 170
+            let p2LHSmain    = 171
+            let p2LHSpre     = 172
+            let p2LHSstatus  = 173
+            let p2RHSejn     = 174
+            let p2RHSmain    = 175
+            let p2RHSpre     = 176
+            let p2RHSstatus  = 177
+            let p30LHSejn    = 178
+            let p30LHSmain   = 179
+            let p30LHSpre    = 180
+            let p30LHSstatus = 181
+            let p30RHSejn    = 182
+            let p30RHSmain   = 183
+            let p30RHSpre    = 184
+            let p30RHSstatus = 185
+            let p31LHSejn    = 186
+            let p31LHSmain   = 187
+            let p31LHSpre    = 188
+            let p31LHSstatus = 189
+            let p31RHSejn    = 190
+            let p31RHSmain   = 191
+            let p31RHSpre    = 192
+            let p31RHSstatus = 193
+            let p32LHSejn    = 194
+            let p32LHSmain   = 195
+            let p32LHSpre    = 196
+            let p32LHSstatus = 197
+            let p32RHSejn    = 198
+            let p32RHSmain   = 199
+            let p32RHSpre    = 200
+            let p32RHSstatus = 201
+            let p33LHSejn    = 202
+            let p33LHSmain   = 203
+            let p33LHSpre    = 204
+            let p33LHSstatus = 205
+            let p33RHSejn    = 206
+            let p33RHSmain   = 207
+            let p33RHSpre    = 208
+            let p33RHSstatus = 209
+            let p34LHSejn    = 210
+            let p34LHSmain   = 211
+            let p34LHSpre    = 212
+            let p34LHSstatus = 213
+            let p34RHSejn    = 214
+            let p34RHSmain   = 215
+            let p34RHSpre    = 216
+            let p34RHSstatus = 217
+            let p35LHSejn    = 218
+            let p35LHSmain   = 219
+            let p35LHSpre    = 220
+            let p35LHSstatus = 221
+            let p35RHSejn    = 222
+            let p35RHSmain   = 223
+            let p35RHSpre    = 224
+            let p35RHSstatus = 225
+            let p36LHSejn    = 226
+            let p36LHSmain   = 227
+            let p36LHSpre    = 228
+            let p36LHSstatus = 229
+            let p36RHSejn    = 230
+            let p36RHSmain   = 231
+            let p36RHSpre    = 232
+            let p36RHSstatus = 233
+            let p37LHSejn    = 234
+            let p37LHSmain   = 235
+            let p37LHSpre    = 236
+            let p37LHSstatus = 237
+            let p37RHSejn    = 238
+            let p37RHSmain   = 239
+            let p37RHSpre    = 240
+            let p37RHSstatus = 241
+            let p38LHSejn    = 242
+            let p38LHSmain   = 243
+            let p38LHSpre    = 244
+            let p38LHSstatus = 245
+            let p38RHSejn    = 246
+            let p38RHSmain   = 247
+            let p38RHSpre    = 248
+            let p38RHSstatus = 249
+            let p39LHSejn    = 250
+            let p39LHSmain   = 251
+            let p39LHSpre    = 252
+            let p39LHSstatus = 253
+            let p39RHSejn    = 254
+            let p39RHSmain   = 255
+            let p39RHSpre    = 256
+            let p39RHSstatus = 257
+            let p3LHSejn     = 258
+            let p3LHSmain    = 259
+            let p3LHSpre     = 260
+            let p3LHSstatus  = 261
+            let p3RHSejn     = 262
+            let p3RHSmain    = 263
+            let p3RHSpre     = 264
+            let p3RHSstatus  = 265
+            let p40LHSejn    = 266
+            let p40LHSmain   = 267
+            let p40LHSpre    = 268
+            let p40LHSstatus = 269
+            let p40RHSejn    = 270
+            let p40RHSmain   = 271
+            let p40RHSpre    = 272
+            let p40RHSstatus = 273
+            let p41LHSejn    = 274
+            let p41LHSmain   = 275
+            let p41LHSpre    = 276
+            let p41LHSstatus = 277
+            let p41RHSejn    = 278
+            let p41RHSmain   = 279
+            let p41RHSpre    = 280
+            let p41RHSstatus = 281
+            let p42LHSejn    = 282
+            let p42LHSmain   = 283
+            let p42LHSpre    = 284
+            let p42LHSstatus = 285
+            let p42RHSejn    = 286
+            let p42RHSmain   = 287
+            let p42RHSpre    = 288
+            let p42RHSstatus = 289
+            let p43LHSejn    = 290
+            let p43LHSmain   = 291
+            let p43LHSpre    = 292
+            let p43LHSstatus = 293
+            let p43RHSejn    = 294
+            let p43RHSmain   = 295
+            let p43RHSpre    = 296
+            let p43RHSstatus = 297
+            let p44LHSejn    = 298
+            let p44LHSmain   = 299
+            let p44LHSpre    = 300
+            let p44LHSstatus = 301
+            let p44RHSejn    = 302
+            let p44RHSmain   = 303
+            let p44RHSpre    = 304
+            let p44RHSstatus = 305
+            let p45LHSejn    = 306
+            let p45LHSmain   = 307
+            let p45LHSpre    = 308
+            let p45LHSstatus = 309
+            let p45RHSejn    = 310
+            let p45RHSmain   = 311
+            let p45RHSpre    = 312
+            let p45RHSstatus = 313
+            let p4LHSejn     = 314
+            let p4LHSmain    = 315
+            let p4LHSpre     = 316
+            let p4LHSstatus  = 317
+            let p4RHSejn     = 318
+            let p4RHSmain    = 319
+            let p4RHSpre     = 320
+            let p4RHSstatus  = 321
+            let p5LHSejn     = 322
+            let p5LHSmain    = 323
+            let p5LHSpre     = 324
+            let p5LHSstatus  = 325
+            let p5RHSejn     = 326
+            let p5RHSmain    = 327
+            let p5RHSpre     = 328
+            let p5RHSstatus  = 329
+            let p6LHSejn     = 330
+            let p6LHSmain    = 331
+            let p6LHSpre     = 332
+            let p6LHSstatus  = 333
+            let p6RHSejn     = 334
+            let p6RHSmain    = 335
+            let p6RHSpre     = 336
+            let p6RHSstatus  = 337
+            let p7LHSejn     = 338
+            let p7LHSmain    = 339
+            let p7LHSpre     = 340
+            let p7LHSstatus  = 341
+            let p7RHSejn     = 342
+            let p7RHSmain    = 343
+            let p7RHSpre     = 344
+            let p7RHSstatus  = 345
+            let p8LHSejn     = 346
+            let p8LHSmain    = 347
+            let p8LHSpre     = 348
+            let p8LHSstatus  = 349
+            let p8RHSejn     = 350
+            let p8RHSmain    = 351
+            let p8RHSpre     = 352
+            let p8RHSstatus  = 353
+            let p9LHSejn     = 354
+            let p9LHSmain    = 355
+            let p9LHSpre     = 356
+            let p9LHSstatus  = 357
+            let p9RHSejn     = 358
+            let p9RHSmain    = 359
+            let p9RHSpre     = 360
+            let p9RHSstatus  = 361
+            let rotation     = 362
+
+            console.log(payload[batch])
+
+            // document.getElementById("p1-pre-search").innerHTML = payload[p1pre];
+            // document.getElementById("p2-pre-search").innerHTML = payload[p2pre];
+            // document.getElementById("p3-pre-search").innerHTML = payload[p3pre];
+            // document.getElementById("p4-pre-search").innerHTML = payload[p4pre];
+            // document.getElementById("p5-pre-search").innerHTML = payload[p5pre];
+            // document.getElementById("p6-pre-search").innerHTML = payload[p6pre];
+            // document.getElementById("p7-pre-search").innerHTML = payload[p7pre];
+            // document.getElementById("p8-pre-search").innerHTML = payload[p8pre];
+            // document.getElementById("avg-pre-search").innerHTML = payload[preavg];
+            // document.getElementById("p1-main-search").innerHTML = payload[p1main];
+            // document.getElementById("p2-main-search").innerHTML = payload[p2main];
+            // document.getElementById("p3-main-search").innerHTML = payload[p3main];
+            // document.getElementById("p4-main-search").innerHTML = payload[p4main];
+            // document.getElementById("p5-main-search").innerHTML = payload[p5main];
+            // document.getElementById("p6-main-search").innerHTML = payload[p6main];
+            // document.getElementById("p7-main-search").innerHTML = payload[p7main];
+            // document.getElementById("p8-main-search").innerHTML = payload[p8main];
+            // document.getElementById("avg-main-search").innerHTML = payload[mainavg];
+            // document.getElementById("p1-ejn-search").innerHTML = payload[p1ejn];
+            // document.getElementById("p2-ejn-search").innerHTML = payload[p2ejn];
+            // document.getElementById("p3-ejn-search").innerHTML = payload[p3ejn];
+            // document.getElementById("p4-ejn-search").innerHTML = payload[p4ejn];
+            // document.getElementById("p5-ejn-search").innerHTML = payload[p5ejn];
+            // document.getElementById("p6-ejn-search").innerHTML = payload[p6ejn];
+            // document.getElementById("p7-ejn-search").innerHTML = payload[p7ejn];
+            // document.getElementById("p8-ejn-search").innerHTML = payload[p8ejn];
+            // document.getElementById("avg-ejn-search").innerHTML = payload[ejnavg];
+
+
+            pregraph.data.datasets[0].data[0] = payload[p1LHSpre];
+            pregraph.data.datasets[0].data[1] = payload[p2LHSpre];
+            pregraph.data.datasets[0].data[2] = payload[p3LHSpre];
+            pregraph.data.datasets[0].data[3] = payload[p4LHSpre];
+            pregraph.data.datasets[0].data[4] = payload[p5LHSpre];
+            pregraph.data.datasets[0].data[5] = payload[p6LHSpre];
+            pregraph.data.datasets[0].data[6] = payload[p7LHSpre];
+            pregraph.data.datasets[0].data[7] = payload[p8LHSpre];
+            pregraph.data.datasets[0].data[8] = payload[p9LHSpre];
+            pregraph.data.datasets[0].data[9] = payload[p10LHSpre];
+            pregraph.data.datasets[0].data[10] = payload[p11LHSpre];
+            pregraph.data.datasets[0].data[11] = payload[p12LHSpre];
+            pregraph.data.datasets[0].data[12] = payload[p13LHSpre];
+            pregraph.data.datasets[0].data[13] = payload[p14LHSpre];
+            pregraph.data.datasets[0].data[14] = payload[p15LHSpre];
+            pregraph.data.datasets[0].data[15] = payload[p16LHSpre];
+            pregraph.data.datasets[0].data[16] = payload[p17LHSpre];
+            pregraph.data.datasets[0].data[17] = payload[p18LHSpre];
+            pregraph.data.datasets[0].data[18] = payload[p19LHSpre];
+            pregraph.data.datasets[0].data[19] = payload[p20LHSpre];
+            pregraph.data.datasets[0].data[20] = payload[p21LHSpre];
+            pregraph.data.datasets[0].data[21] = payload[p22LHSpre];
+            pregraph.data.datasets[0].data[22] = payload[p23LHSpre];
+            pregraph.data.datasets[0].data[23] = payload[p24LHSpre];
+            pregraph.data.datasets[0].data[24] = payload[p25LHSpre];
+            pregraph.data.datasets[0].data[25] = payload[p26LHSpre];
+            pregraph.data.datasets[0].data[26] = payload[p27LHSpre];
+            pregraph.data.datasets[0].data[27] = payload[p28LHSpre];
+            pregraph.data.datasets[0].data[28] = payload[p29LHSpre];
+            pregraph.data.datasets[0].data[29] = payload[p30LHSpre];
+            pregraph.data.datasets[0].data[30] = payload[p31LHSpre];
+            pregraph.data.datasets[0].data[31] = payload[p32LHSpre];
+            pregraph.data.datasets[0].data[32] = payload[p33LHSpre];
+            pregraph.data.datasets[0].data[33] = payload[p34LHSpre];
+            pregraph.data.datasets[0].data[34] = payload[p35LHSpre];
+            pregraph.data.datasets[0].data[35] = payload[p36LHSpre];
+            pregraph.data.datasets[0].data[36] = payload[p37LHSpre];
+            pregraph.data.datasets[0].data[37] = payload[p38LHSpre];
+            pregraph.data.datasets[0].data[38] = payload[p39LHSpre];
+            pregraph.data.datasets[0].data[39] = payload[p40LHSpre];
+            pregraph.data.datasets[0].data[40] = payload[p41LHSpre];
+            pregraph.data.datasets[0].data[41] = payload[p42LHSpre];
+            pregraph.data.datasets[0].data[42] = payload[p43LHSpre];
+            pregraph.data.datasets[0].data[43] = payload[p44LHSpre];
+            pregraph.data.datasets[0].data[44] = payload[p45LHSpre];
+
+            pregraph.data.datasets[1].data[0] = payload[p1RHSpre];
+            pregraph.data.datasets[1].data[1] = payload[p2RHSpre];
+            pregraph.data.datasets[1].data[2] = payload[p3RHSpre];
+            pregraph.data.datasets[1].data[3] = payload[p4RHSpre];
+            pregraph.data.datasets[1].data[4] = payload[p5RHSpre];
+            pregraph.data.datasets[1].data[5] = payload[p6RHSpre];
+            pregraph.data.datasets[1].data[6] = payload[p7RHSpre];
+            pregraph.data.datasets[1].data[7] = payload[p8RHSpre];
+            pregraph.data.datasets[1].data[8] = payload[p9RHSpre];
+            pregraph.data.datasets[1].data[9] = payload[p10RHSpre];
+            pregraph.data.datasets[1].data[10] = payload[p11RHSpre];
+            pregraph.data.datasets[1].data[11] = payload[p12RHSpre];
+            pregraph.data.datasets[1].data[12] = payload[p13RHSpre];
+            pregraph.data.datasets[1].data[13] = payload[p14RHSpre];
+            pregraph.data.datasets[1].data[14] = payload[p15RHSpre];
+            pregraph.data.datasets[1].data[15] = payload[p16RHSpre];
+            pregraph.data.datasets[1].data[16] = payload[p17RHSpre];
+            pregraph.data.datasets[1].data[17] = payload[p18RHSpre];
+            pregraph.data.datasets[1].data[18] = payload[p19RHSpre];
+            pregraph.data.datasets[1].data[19] = payload[p20RHSpre];
+            pregraph.data.datasets[1].data[20] = payload[p21RHSpre];
+            pregraph.data.datasets[1].data[21] = payload[p22RHSpre];
+            pregraph.data.datasets[1].data[22] = payload[p23RHSpre];
+            pregraph.data.datasets[1].data[23] = payload[p24RHSpre];
+            pregraph.data.datasets[1].data[24] = payload[p25RHSpre];
+            pregraph.data.datasets[1].data[25] = payload[p26RHSpre];
+            pregraph.data.datasets[1].data[26] = payload[p27RHSpre];
+            pregraph.data.datasets[1].data[27] = payload[p28RHSpre];
+            pregraph.data.datasets[1].data[28] = payload[p29RHSpre];
+            pregraph.data.datasets[1].data[29] = payload[p30RHSpre];
+            pregraph.data.datasets[1].data[30] = payload[p31RHSpre];
+            pregraph.data.datasets[1].data[31] = payload[p32RHSpre];
+            pregraph.data.datasets[1].data[32] = payload[p33RHSpre];
+            pregraph.data.datasets[1].data[33] = payload[p34RHSpre];
+            pregraph.data.datasets[1].data[34] = payload[p35RHSpre];
+            pregraph.data.datasets[1].data[35] = payload[p36RHSpre];
+            pregraph.data.datasets[1].data[36] = payload[p37RHSpre];
+            pregraph.data.datasets[1].data[37] = payload[p38RHSpre];
+            pregraph.data.datasets[1].data[38] = payload[p39RHSpre];
+            pregraph.data.datasets[1].data[39] = payload[p40RHSpre];
+            pregraph.data.datasets[1].data[40] = payload[p41RHSpre];
+            pregraph.data.datasets[1].data[41] = payload[p42RHSpre];
+            pregraph.data.datasets[1].data[42] = payload[p43RHSpre];
+            pregraph.data.datasets[1].data[43] = payload[p44RHSpre];
+            pregraph.data.datasets[1].data[44] = payload[p45RHSpre];
+
+            maingraph.data.datasets[0].data[0] = payload[p1LHSmain];
+            maingraph.data.datasets[0].data[1] = payload[p2LHSmain];
+            maingraph.data.datasets[0].data[2] = payload[p3LHSmain];
+            maingraph.data.datasets[0].data[3] = payload[p4LHSmain];
+            maingraph.data.datasets[0].data[4] = payload[p5LHSmain];
+            maingraph.data.datasets[0].data[5] = payload[p6LHSmain];
+            maingraph.data.datasets[0].data[6] = payload[p7LHSmain];
+            maingraph.data.datasets[0].data[7] = payload[p8LHSmain];
+            maingraph.data.datasets[0].data[8] = payload[p9LHSmain];
+            maingraph.data.datasets[0].data[9] = payload[p10LHSmain];
+            maingraph.data.datasets[0].data[10] = payload[p11LHSmain];
+            maingraph.data.datasets[0].data[11] = payload[p12LHSmain];
+            maingraph.data.datasets[0].data[12] = payload[p13LHSmain];
+            maingraph.data.datasets[0].data[13] = payload[p14LHSmain];
+            maingraph.data.datasets[0].data[14] = payload[p15LHSmain];
+            maingraph.data.datasets[0].data[15] = payload[p16LHSmain];
+            maingraph.data.datasets[0].data[16] = payload[p17LHSmain];
+            maingraph.data.datasets[0].data[17] = payload[p18LHSmain];
+            maingraph.data.datasets[0].data[18] = payload[p19LHSmain];
+            maingraph.data.datasets[0].data[19] = payload[p20LHSmain];
+            maingraph.data.datasets[0].data[20] = payload[p21LHSmain];
+            maingraph.data.datasets[0].data[21] = payload[p22LHSmain];
+            maingraph.data.datasets[0].data[22] = payload[p23LHSmain];
+            maingraph.data.datasets[0].data[23] = payload[p24LHSmain];
+            maingraph.data.datasets[0].data[24] = payload[p25LHSmain];
+            maingraph.data.datasets[0].data[25] = payload[p26LHSmain];
+            maingraph.data.datasets[0].data[26] = payload[p27LHSmain];
+            maingraph.data.datasets[0].data[27] = payload[p28LHSmain];
+            maingraph.data.datasets[0].data[28] = payload[p29LHSmain];
+            maingraph.data.datasets[0].data[29] = payload[p30LHSmain];
+            maingraph.data.datasets[0].data[30] = payload[p31LHSmain];
+            maingraph.data.datasets[0].data[31] = payload[p32LHSmain];
+            maingraph.data.datasets[0].data[32] = payload[p33LHSmain];
+            maingraph.data.datasets[0].data[33] = payload[p34LHSmain];
+            maingraph.data.datasets[0].data[34] = payload[p35LHSmain];
+            maingraph.data.datasets[0].data[35] = payload[p36LHSmain];
+            maingraph.data.datasets[0].data[36] = payload[p37LHSmain];
+            maingraph.data.datasets[0].data[37] = payload[p38LHSmain];
+            maingraph.data.datasets[0].data[38] = payload[p39LHSmain];
+            maingraph.data.datasets[0].data[39] = payload[p40LHSmain];
+            maingraph.data.datasets[0].data[40] = payload[p41LHSmain];
+            maingraph.data.datasets[0].data[41] = payload[p42LHSmain];
+            maingraph.data.datasets[0].data[42] = payload[p43LHSmain];
+            maingraph.data.datasets[0].data[43] = payload[p44LHSmain];
+            maingraph.data.datasets[0].data[44] = payload[p45LHSmain];
+
+            maingraph.data.datasets[1].data[0] = payload[p1RHSmain];
+            maingraph.data.datasets[1].data[1] = payload[p2RHSmain];
+            maingraph.data.datasets[1].data[2] = payload[p3RHSmain];
+            maingraph.data.datasets[1].data[3] = payload[p4RHSmain];
+            maingraph.data.datasets[1].data[4] = payload[p5RHSmain];
+            maingraph.data.datasets[1].data[5] = payload[p6RHSmain];
+            maingraph.data.datasets[1].data[6] = payload[p7RHSmain];
+            maingraph.data.datasets[1].data[7] = payload[p8RHSmain];
+            maingraph.data.datasets[1].data[8] = payload[p9RHSmain];
+            maingraph.data.datasets[1].data[9] = payload[p10RHSmain];
+            maingraph.data.datasets[1].data[10] = payload[p11RHSmain];
+            maingraph.data.datasets[1].data[11] = payload[p12RHSmain];
+            maingraph.data.datasets[1].data[12] = payload[p13RHSmain];
+            maingraph.data.datasets[1].data[13] = payload[p14RHSmain];
+            maingraph.data.datasets[1].data[14] = payload[p15RHSmain];
+            maingraph.data.datasets[1].data[15] = payload[p16RHSmain];
+            maingraph.data.datasets[1].data[16] = payload[p17RHSmain];
+            maingraph.data.datasets[1].data[17] = payload[p18RHSmain];
+            maingraph.data.datasets[1].data[18] = payload[p19RHSmain];
+            maingraph.data.datasets[1].data[19] = payload[p20RHSmain];
+            maingraph.data.datasets[1].data[20] = payload[p21RHSmain];
+            maingraph.data.datasets[1].data[21] = payload[p22RHSmain];
+            maingraph.data.datasets[1].data[22] = payload[p23RHSmain];
+            maingraph.data.datasets[1].data[23] = payload[p24RHSmain];
+            maingraph.data.datasets[1].data[24] = payload[p25RHSmain];
+            maingraph.data.datasets[1].data[25] = payload[p26RHSmain];
+            maingraph.data.datasets[1].data[26] = payload[p27RHSmain];
+            maingraph.data.datasets[1].data[27] = payload[p28RHSmain];
+            maingraph.data.datasets[1].data[28] = payload[p29RHSmain];
+            maingraph.data.datasets[1].data[29] = payload[p30RHSmain];
+            maingraph.data.datasets[1].data[30] = payload[p31RHSmain];
+            maingraph.data.datasets[1].data[31] = payload[p32RHSmain];
+            maingraph.data.datasets[1].data[32] = payload[p33RHSmain];
+            maingraph.data.datasets[1].data[33] = payload[p34RHSmain];
+            maingraph.data.datasets[1].data[34] = payload[p35RHSmain];
+            maingraph.data.datasets[1].data[35] = payload[p36RHSmain];
+            maingraph.data.datasets[1].data[36] = payload[p37RHSmain];
+            maingraph.data.datasets[1].data[37] = payload[p38RHSmain];
+            maingraph.data.datasets[1].data[38] = payload[p39RHSmain];
+            maingraph.data.datasets[1].data[39] = payload[p40RHSmain];
+            maingraph.data.datasets[1].data[40] = payload[p41RHSmain];
+            maingraph.data.datasets[1].data[41] = payload[p42RHSmain];
+            maingraph.data.datasets[1].data[42] = payload[p43RHSmain];
+            maingraph.data.datasets[1].data[43] = payload[p44RHSmain];
+            maingraph.data.datasets[1].data[44] = payload[p45RHSmain];
+            
+            pregraph.update();
+            maingraph.update();
+        }
+
+    </script>
+
+</body>
+
+</html>

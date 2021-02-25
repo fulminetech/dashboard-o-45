@@ -1,0 +1,756 @@
+<!--This template is based on: https://dribbble.com/shots/6531694-Marketing-Dashboard by Gregoire Vella -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard - 45</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <!-- NPM package includes -->
+    <link href="/font/css/all.css" rel="stylesheet">
+    <script src="/charts/Chart.bundle.min.js"></script>
+    <link href="/css/tailwind.min.css" rel="stylesheet">
+    <script src="/env/env.js"></script>
+
+    <!-- sidebar -->
+    <style>
+        #sidebar {
+            transition: ease-in-out all .1s;
+            z-index: 9999;
+        }
+
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+
+        #sidebar:hover {
+            width: 180px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Modal CSS -->
+    <style>
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+
+        body.modal-active {
+            overflow-x: hidden;
+            overflow-y: visible !important;
+        }
+    </style>
+
+    <!-- Toggle Button CSS -->
+    <style>
+        .toggle__dot {
+            top: -.25rem;
+            left: -.25rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:checked~.toggle__dot {
+            transform: translateX(100%);
+            background-color: #48bb78;
+        }
+    </style>
+
+</head>
+
+<body class="flex bg-gray-100 select-none font-sans">
+
+    <!-- Side bar-->
+    <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center static fixed shadow">
+
+        <ul class="list-reset">
+            <li class="my-2 md:my-0">
+                <a href="/dashboard" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-home fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Dashboard</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/graphLHS" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span
+                        class="w-full inline-block text-lg">Graph: LHS</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/graphRHS" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full inline-blocktext-lg">Graph: RHS</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/history" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-history fa-fw mr-3 text-xl"></i><span class="w-full pb-1 text-lg">History</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/dido" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-exchange-alt fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">DI/DO</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/analytics" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-folder fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Reports</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Settings</span>
+                </a>
+            </li>
+            
+        </ul>
+
+    </div>
+
+    <div class="flex flex-1 max-w-full pl-16">
+
+        <!--Dash Content -->
+        <div id="dash-content"
+            class="bg-gray-200 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm flex flex-wrap content-start">
+
+            <!-- Batch Number -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">Batch Number</h5>
+                            <h3 id="batch_number_metric" class="font-bold text-2xl">NOT SET</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RPM -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1">
+                            <h5 class="font-bold uppercase text-gray-700">Turret RPM</h5>
+                            <h3 id="rpm_metric" class="font-bold text-2xl">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rotation Number -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">Data Number</h5>
+                            <h3 id="rotation_number_metric" class="font-bold text-2xl">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="flex flex-col">
+                <h3> Pre Upper Tolerance </h3>
+                <div class="flex flex-row">
+                    <div class="py-3">
+                        <input id="pressure"
+                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
+                    </div>
+                    <div class="p-3">
+                        <button
+                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                            onclick="updatepressure()">
+                            SET
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <h3> Pre Lower Tolerance </h3>
+                <div class="flex flex-row">
+                    <div class="py-3">
+                        <input id="pressure"
+                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
+                    </div>
+                    <div class="p-3">
+                        <button
+                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                            onclick="updatepressure()">
+                            SET
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <h3> Main Upper Tolerance </h3>
+                <div class="flex flex-row">
+                    <div class="py-3">
+                        <input id="pressure"
+                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
+                    </div>
+                    <div class="p-3">
+                        <button
+                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                            onclick="updatepressure()">
+                            SET
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <h3> Main Lower Tolerance </h3>
+                <div class="flex flex-row">
+                    <div class="py-3">
+                        <input id="pressure"
+                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
+                    </div>
+                    <div class="p-3">
+                        <button
+                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                            onclick="updatepressure()">
+                            SET
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <h3> Ejn Upper Tolerance </h3>
+                <div class="flex flex-row">
+                    <div class="py-3">
+                        <input id="pressure"
+                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
+                    </div>
+                    <div class="p-3">
+                        <button
+                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                            onclick="updatepressure()">
+                            SET
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <h3> Ejn Lower Tolerance </h3>
+                <div class="flex flex-row">
+                    <div class="py-3">
+                        <input id="pressure"
+                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
+                    </div>
+                    <div class="p-3">
+                        <button
+                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                            onclick="updatepressure()">
+                            SET
+                        </button>
+                    </div>
+                </div>
+            </div> -->
+
+
+        </div>
+
+        <!--Graph Content -->
+        <div id="main-content" class="w-full flex-1">
+
+            <div class="w-full p-6 ">
+
+                <!--"Center Container"-->
+                <div class="max-w-full">
+
+                    <!--Pre Compression Graph RHS-->
+                    <div class="border-b p-1">
+                        <h5 class="font-bold text-black">Pre Compression RHS:</h5>
+                    </div>
+                    <div class="p-1">
+                        <canvas id="precompression_graph" class="chartjs" height="65rem"></canvas>
+                    </div>
+
+                    <!--Main Compression Graph RHS-->
+                    <div class="border-b p-1">
+                        <h5 class="font-bold text-black">Main Compression RHS:</h5>
+                    </div>
+                    <div class="p-1">
+                        <canvas id="maincompression_graph" class="chartjs" height="65rem"></canvas>
+                    </div>
+
+                    <!--Ejection Compression Graph RHS-->
+                    <div class="border-b p-1">
+                        <h5 class="font-bold text-black">Ejection Compression RHS:</h5>
+                    </div>
+                    <div class="p-1">
+                        <canvas id="ejncompression_graph" class="chartjs" height="65rem"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Graphs -->
+    <script>
+        var punch = new Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45")
+
+        var data_LHS_index = 0;
+        var data_RHS_index = 1;
+        var upper_LHS_index = 2;
+        var upper_RHS_index = 3;
+        var lower_LHS_index = 4;
+        var lower_RHS_index = 5;
+        var forceline_index = 6;
+
+
+        var pregraphcanvas = document.getElementById('precompression_graph');
+        var pregraphdata = {
+            labels: punch,
+            datasets: [
+                {
+                    label: "Pre Compression",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: [
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue"
+                    ],
+                    borderColor: "blue",
+                    data: [],
+                },
+                {
+                    label: "Upper Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Lower Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Force Line",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [],
+                    type: 'line',
+                },
+            ],
+        };
+        var pregraphoptions = {
+            animation: false,
+            legend: {
+                display: false,
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+            },
+            tooltips: { enabled: false },
+            hover: { mode: null },
+            showTooltips: false,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 15,
+                        labelString: 'Compression (kN)'
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 15,
+                        labelString: 'Punch Number'
+                    },
+                }],
+            },
+        };
+        var pregraph = Chart.Bar(pregraphcanvas, {
+            data: pregraphdata,
+            options: pregraphoptions,
+        });
+
+        var maingraphcanvas = document.getElementById('maincompression_graph');
+        var maingraphdata = {
+            labels: punch,
+            datasets: [
+                {
+                    label: "Main Compression",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: [
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue"
+                    ],
+                    borderColor: "blue",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Upper Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Lower Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Force Line",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    data: [],
+                    type: 'line',
+                },
+            ],
+        };
+        var maingraphoptions = {
+            animation: false,
+            legend: {
+                display: false,
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+            },
+            tooltips: { enabled: false },
+            hover: { mode: null },
+            showTooltips: false,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 15,
+                        labelString: 'Compression (kN)'
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 15,
+                        labelString: 'Punch Number'
+                    },
+                }],
+            },
+        };
+        var maingraph = Chart.Bar(maingraphcanvas, {
+            data: maingraphdata,
+            options: maingraphoptions,
+        });
+
+        var ejngraphcanvas = document.getElementById('ejncompression_graph');
+        var ejngraphdata = {
+            labels: punch,
+            datasets: [
+                {
+                    label: "Ejn Compression",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: [
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue",
+                        "blue"
+                    ],
+                    borderColor: "blue",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Upper Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Lower Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Force Line",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    data: [],
+                    type: 'line',
+                },
+            ],
+        };
+        var ejngraphoptions = {
+            animation: false,
+            legend: {
+                display: false,
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+            },
+            tooltips: { enabled: false },
+            hover: { mode: null },
+            showTooltips: false,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 15,
+                        labelString: 'Compression (kN)'
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }],
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 15,
+                        labelString: 'Punch Number'
+                    },
+                }],
+            },
+        };
+        var ejngraph = Chart.Bar(ejngraphcanvas, {
+            data: ejngraphdata,
+            options: ejngraphoptions,
+        });
+
+    </script>
+
+    <!-- New Graph script -->
+    <script>
+
+        async function fetchpayloadapiHF() {
+            fetch(processedurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    MRHS_LL = Array(45).fill(payload.limit[2])
+                    MRHS_UL = Array(45).fill(payload.limit[3])
+                    PRHS_LL = Array(45).fill(payload.limit[6])
+                    PRHS_UL = Array(45).fill(payload.limit[7])
+                    ERHS_LL = Array(45).fill(payload.limit[10])
+                    ERHS_UL = Array(45).fill(payload.limit[11])
+                    
+
+                    pregraph.data.datasets[0].data = payload.pRHS_data
+                    pregraph.data.datasets[0].backgroundColor = payload.pRHS_processed
+
+                    pregraph.data.datasets[1].data = PRHS_UL // payload.limit[0] // Upper 
+                    pregraph.data.datasets[2].data = PRHS_LL // payload.limit[0] // Lower
+
+                    maingraph.data.datasets[0].data = payload.mRHS_data
+                    maingraph.data.datasets[0].backgroundColor = payload.mRHS_processed
+
+                    maingraph.data.datasets[1].data = MRHS_UL // payload.limit[0] // Upper 
+                    maingraph.data.datasets[2].data = MRHS_LL // payload.limit[0] // Lower
+
+                    ejngraph.data.datasets[0].data = payload.eRHS_data
+                    ejngraph.data.datasets[0].backgroundColor = payload.eRHS_processed
+
+                    ejngraph.data.datasets[1].data = ERHS_UL // payload.limit[0] // Upper 
+                    ejngraph.data.datasets[2].data = ERHS_LL // payload.limit[0] // Lower
+
+                    pregraph.update();
+                    maingraph.update();
+                    ejngraph.update();
+
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        setInterval(() => {
+            fetchpayloadapiHF();
+        }, 100);
+    </script>
+
+    <!-- Update System info -->
+    <script>
+
+        async function updatelimits_PLU() {
+            var a = document.getElementById("preLHSup").value;
+
+            console.log(a)
+
+            var preLHSup = a * 100;
+
+            console.log(parseInt(preLHSup))
+
+            let submiturl = `${controlurl}/preLHSup/${preLHSup}`
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED preLHSup tolerance ] "))
+                .catch(console.error);
+
+        }
+
+        function updatelimits_PLL() {
+            var b = document.getElementById("preLHSlow").value;
+
+            var preLHSlow = b * 100;
+
+            submitt(parseInt(preLHSlow))
+
+            async function submitt(preLHSlow) {
+                let submiturl = `${controlurl}/preLHSlow/${preLHSlow}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED preLHSlow tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_MLU() {
+            var c = document.getElementById("mainLHSup").value;
+
+            var mainLHSup = c * 100;
+
+            submitt(parseInt(mainLHSup))
+
+            async function submitt(mainLHSup) {
+                let submiturl = `${controlurl}/mainLHSup/${mainLHSup}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED mainLHSup tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_MLL() {
+            var d = document.getElementById("mainLHSlow").value;
+
+            var mainLHSlow = d * 100;
+
+            submitt(parseInt(mainLHSlow))
+
+            async function submitt(mainLHSlow) {
+                let submiturl = `${controlurl}/mainLHSlow/${mainLHSlow}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED mainLHSlow tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

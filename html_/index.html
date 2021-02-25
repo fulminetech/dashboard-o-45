@@ -1,0 +1,1887 @@
+
+<!--This template is based on: https://dribbble.com/shots/6531694-Marketing-Dashboard by Gregoire Vella -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard - 45</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/favicon_io/site.webmanifest">
+
+    <!-- NPM package includes -->
+    <link href="/font/css/all.css" rel="stylesheet">
+    <script src="/charts/Chart.bundle.min.js"></script>
+    <script src="/charts/plugin/chartjs-plugin-zoom.min.js"></script>
+    <script src="/plugin/hammer.min.js"></script>
+    <link href="/css/tailwind.min.css" rel="stylesheet">
+    <script src="/env/env.js"></script>
+    
+    <!-- sidebar -->
+    <style>
+        #sidebar {
+            transition: ease-in-out all .1s;
+            z-index: 9999;
+        }
+        
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+        
+        #sidebar:hover {
+            width: 180px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+        
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Modal CSS -->
+    <style>
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+
+        body.modal-active {
+            overflow-x: hidden;
+            overflow-y: visible !important;
+        }
+    </style>
+
+    <!-- Toggle Button CSS -->
+    <style>
+        .toggle__dot {
+            top: -.25rem;
+            left: -.25rem;
+            transition: all 0.3s ease-in-out;
+        }
+    
+        input:checked~.toggle__dot {
+            transform: translateX(100%);
+            background-color: #48bb78;
+        }
+    </style>
+
+</head>
+
+<body class="flex bg-gray-100 select-none font-sans">
+
+    <!-- Side bar-->
+    <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center static fixed shadow">
+
+        <ul class="list-reset">
+            <li class="my-2 md:my-0">
+                <a href="/dashboard" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-home fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full inline-block text-lg">Dashboard</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/graphLHS" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Graph: LHS</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/graphRHS" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">Graph: RHS</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/history" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-history fa-fw mr-3 text-xl"></i><span class="w-full pb-1 text-lg">History</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/dido" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-exchange-alt fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">DI/DO</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/analytics" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-folder fa-fw mr-3 text-xl"></i><span
+                        class="w-full inline-block text-lg">Reports</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3 text-xl"></i><span 
+                    class="w-full inline-block text-lg">Settings</span>
+                </a>
+            </li>
+            
+            
+        </ul>
+
+    </div>
+
+    <div class="flex flex-1 flex-grow content-start pl-16">
+
+        <!--Dash Content -->
+        <div id="dash-content" class="bg-gray-200  py-3 px-2 max-h-screen w-full xl:w-64 flex flex-wrap content-start">
+
+            <!-- Machine Status -->
+            <div class="w-1 w-full">
+                <div class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">Machine Status</h5>
+                            <h3 id="status" class="font-bold uppercase text-3xl">Offline</h3>
+                        </div>
+                        <!-- Search Button -->
+                        <div class="p-3">
+                            <button
+                                class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                onclick="start()"> START </button>
+                            <button
+                                class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                onclick="stop()"> STOP </button>
+                        </div>
+                        
+                        <!-- Search Button -->
+                        <div class="p-3">
+                            <button
+                                class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                onclick="inch()"> INCHING </button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Power Pack Status -->
+            <div class="w-1 w-full">
+                <div class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">Power Pack</h5>
+                            <h3 id="status" class="font-bold uppercase text-3xl">Off</h3>
+                        </div>
+                        <!-- Search Button -->
+                        <div class="p-3">
+                            <button
+                                class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                onclick="startpower()"> START </button>
+                            <button
+                                class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                onclick="stoppower()"> STOP </button>
+                        </div>
+                        <!-- Search Button -->
+                        <div class="p-3">
+                            <button
+                                class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                onclick="drain()"> DRAIN </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Batch Number -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">Batch Number</h5>
+                            <h3 id="batch_number_metric" class="font-bold text-2xl">NOT SET</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rotation Number -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">Rotation Number</h5>
+                            <h3 id="rotation_number_metric" class="font-bold text-2xl">0</h3>
+                        </div>
+                        <!-- Data Table -->
+                        <div class="p-2">
+                            <button
+                                class="modal1-open text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded"
+                                onclick=""> TABLE </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dwell time -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">Dwell Time</h5>
+                            <h3 id="dwell_metric" class="font-bold text-2xl">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Present Punch Number -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">Present Punch [PRE LHS]</h5>
+                            <h3 id="punch_number_metric" class="font-bold text-2xl">0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Main Container -->
+        <div id="main-content" class="w-full flex-1">
+            <div class="flex flex-1 flex-wrap">
+                <div class="w-full p-6">
+
+                    <!--"Center Container"-->
+                    <div class="max-w-full">
+                        
+                        <!-- Metric Cards -->
+                        <div class="grid grid-cols-7 gap-1">
+                            <!-- Pressure -->
+                            <div class="flex items-center">
+                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                    <div class="flex flex-col">
+                                        <div class="flex-1 items-left text-gray-700">
+                                            <h5 class="font-bold uppercase text-xl">Pressure</h5>
+                                            <h3 class="font-bold mt-2 text-lg">SET: <a id="pressure_metric">0</a></h3>
+                                            <h3 class="font-bold text-lg">ACTUAL: <a id="pressure_act_metric">0</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Lubrication time -->
+                            <div class="flex items-center">
+                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                    <div class="flex flex-col">
+                                        <div class="flex-1 items-left text-gray-700">
+                                            <h5 class="font-bold uppercase text-xl">Lube time</h5>
+                                            <h3 class="font-bold mt-2 text-lg">SET: <a id="lube_metric">0</a></h3>
+                                            <h3 class="font-bold text-lg">ACTUAL: <a id="lube_act_metric">0</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Turret -->
+                            <div class="flex items-center">
+                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                    <div class="flex flex-col">
+                                        <div class="flex-1 items-left text-gray-700">
+                                            <h5 class="font-bold uppercase text-xl">Turret</h5>
+                                            <h3 class="font-bold mt-2 text-lg">RPM: <a id="rpm_metric">0</a></h3>
+                                            <h3 class="font-bold text-lg">Current [A]: <a id="turret_amp_metric">0</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Feeder LHS -->
+                            <div class="flex items-center">
+                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                    <div class="flex flex-col">
+                                        <div class="flex-1 items-left text-gray-700">
+                                            <h5 class="font-bold uppercase text-xl">Feeder LHS</h5>
+                                            <h3 class="font-bold mt-2 text-lg">RPM: <a id="feederLHS_metric">0</a></h3>
+                                            <h3 class="font-bold text-lg">Current [A]: <a id="feederLHS_amp_metric">0</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Feeder RHS -->
+                            <div class="flex items-center">
+                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                    <div class="flex flex-col">
+                                        <div class="flex-1 items-left text-gray-700">
+                                            <h5 class="font-bold uppercase text-xl">Feeder RHS</h5>
+                                            <h3 class="font-bold mt-2 text-lg">RPM: <a id="feederRHS_metric">0</a></h3>
+                                            <h3 class="font-bold text-lg">Current [A]: <a id="feederRHS_amp_metric">0</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Fill Depth -->
+                            <div class="flex items-center">
+                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                    <div class="flex flex-col">
+                                        <div class="flex-1 items-left text-gray-700">
+                                            <h5 class="font-bold uppercase text-xl">Fill Depth</h5>
+                                            <h3 class="font-bold mt-2 text-lg">LHS: <a id="LHS_depth_metric">0</a></h3>
+                                            <h3 class="font-bold text-lg">RHS: <a id="RHS_depth_metric">0</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Production -->
+                            <div class="flex items-center">
+                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                    <div class="flex flex-col">
+                                        <div class="flex-1 items-left text-gray-700">
+                                            <h5 class="font-bold uppercase text-xl ">Production</h5>
+                                            <h3 class="font-bold mt-2 text-lg">Count: <a id="count_metric">0</a></h3>
+                                            <h3 class="font-bold text-lg">Per Hour: <a id="production_per_hour_metric">0</a></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Set: Parameters -->
+                        <div class="border-b mt-5 p-3">
+                            <h5 class="font-bold text-black">Set: Parameters</h5>
+                        </div>
+                        
+                        <div class="flex grid grid-cols-5 p-3 ">
+                            
+                            <div class="flex flex-col">
+                                <h3> Pressure </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3" >
+                                        <input id="pressure"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
+                                    </div>
+                                    <div class="p-3">
+                                        <button
+                                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="updatepressure()">
+                                            SET
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col">
+                                <h3> Lubrication Time (secs) </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3" >
+                                        <input id="lubetime"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatelubetime()">
+                                    </div>
+                                    <div class="p-3">
+                                        <button
+                                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="updatelubetime()">
+                                            SET
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col">
+                                <h3> Turret RPM </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3" >
+                                        <input id="rpmTurret"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updaterpmT()">
+                                    </div>
+                                    <div class="p-3">
+                                        <button
+                                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="updaterpmT()">
+                                            SET
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col">
+                                <h3> Feeder RPM [LHS] </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3" >
+                                        <input id="rpmFeederLHS"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updaterpmFL()">
+                                    </div>
+                                    <div class="p-3">
+                                        <button
+                                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="updaterpmFL()">
+                                            SET
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col">
+                                <h3> Feeder RPM [RHS] </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3" >
+                                        <input id="rpmFeederRHS"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updaterpmFR()">
+                                    </div>
+                                    <div class="p-3">
+                                        <button
+                                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="updaterpmFR()">
+                                            SET
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <!--Average Compression Trend-->
+                        <div class="border-b p-3">
+                            <h5 class="font-bold text-black">Average Compression :</h5>
+                        </div>
+                        <div class="p-5 my-3 border border-gray-400 rounded shadow">
+                            <table class="w-full p-5 text-gray-700">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center border-b text-gray-700">Pre LHS </th>
+                                        <th class="text-center border-b text-gray-700">Pre RHS </th>
+                                        <th class="text-center border-b text-gray-700">Main LHS </th>
+                                        <th class="text-center border-b text-gray-700">Main RHS </th>
+                                        <th class="text-center border-b text-gray-700">Ejn LHS </th>
+                                        <th class="text-center border-b text-gray-700">Ejn RHS </th>
+                        
+                                    </tr>
+                                </thead>
+                        
+                                <tbody>
+                                    <tr>
+                                        <td id="avgg-preLHS" class="text-center border-gray-700">0</td>
+                                        <td id="avgg-preRHS" class="text-center border-gray-700">0</td>
+                                        <td id="avgg-mainLHS" class="text-center border-gray-700">0</td>
+                                        <td id="avgg-mainRHS" class="text-center border-gray-700">0</td>
+                                        <td id="avgg-ejnLHS" class="text-center border-gray-700">0</td>
+                                        <td id="avgg-ejnRHS" class="text-center border-gray-700">0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="p-3">
+                            <canvas id="avg_his_compression_graph" class="chartjs" height="100rem"></canvas>
+                        </div>
+                    
+                    </div>
+
+                </div>
+
+                <!--Modal 1 - Table-->
+                <div class="modal1 opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+                    <div class="modal1-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+                
+                    <div class="modal1-container bg-white w-4/5 mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                
+                        <!-- Add margin if you want to see some of the overlay behind the modal1-->
+                        <div class="modal1-content py-4 text-left px-6">
+            
+                            <div class="flex flex-row">
+                                <div class="p-5 w-1/3 border border-gray-400 rounded shadow">
+                                    <table class="w-full p-5 text-gray-700">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center text-blue-900">Punch</th>
+                                                <th class="text-center text-blue-900">Pre LHS</th>
+                                                <th class="text-center text-blue-900">Pre RHS</th>
+                                                <th class="text-center text-blue-900">Main LHS</th>
+                                                <th class="text-center text-blue-900">Main RHS</th>
+                
+                                            </tr>
+                                        </thead>
+                
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
+                                                    1</td>
+                                                <td id="p1-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p1-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p1-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p1-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    2</td>
+                                                <td id="p2-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p2-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p2-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p2-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    3</td>
+                                                <td id="p3-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p3-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p3-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p3-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    4</td>
+                                                <td id="p4-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p4-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p4-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p4-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    5</td>
+                                                <td id="p5-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p5-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p5-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p5-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    6</td>
+                                                <td id="p6-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p6-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p6-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p6-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    7</td>
+                                                <td id="p7-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p7-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p7-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p7-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    8</td>
+                                                <td id="p8-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p8-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p8-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p8-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    9</td>
+                                                <td id="p9-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p9-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p9-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p9-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    10</td>
+                                                <td id="p10-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p10-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p10-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p10-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    11</td>
+                                                <td id="p11-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p11-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p11-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p11-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    12</td>
+                                                <td id="p12-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p12-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p12-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p12-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    13</td>
+                                                <td id="p13-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p13-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p13-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p13-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    14</td>
+                                                <td id="p14-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p14-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p14-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p14-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    15</td>
+                                                <td id="p15-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p15-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p15-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p15-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                
+                                <div class="p-5 mx-5 w-1/3 border border-gray-400 rounded shadow">
+                                    <table class="w-full p-5 text-gray-700">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center text-blue-900">Punch</th>
+                                                <th class="text-center text-blue-900">Pre LHS</th>
+                                                <th class="text-center text-blue-900">Pre RHS</th>
+                                                <th class="text-center text-blue-900">Main LHS</th>
+                                                <th class="text-center text-blue-900">Main RHS</th>
+                
+                                            </tr>
+                                        </thead>
+                
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
+                                                    16</td>
+                                                <td id="p16-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p16-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p16-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p16-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    17</td>
+                                                <td id="p17-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p17-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p17-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p17-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    18</td>
+                                                <td id="p18-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p18-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p18-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p18-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    19</td>
+                                                <td id="p19-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p19-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p19-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p19-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    20</td>
+                                                <td id="p20-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p20-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p20-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p20-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    21</td>
+                                                <td id="p21-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p21-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p21-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p21-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    22</td>
+                                                <td id="p22-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p22-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p22-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p22-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    23</td>
+                                                <td id="p23-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p23-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p23-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p23-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    24</td>
+                                                <td id="p24-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p24-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p24-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p24-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    25</td>
+                                                <td id="p25-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p25-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p25-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p25-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    26</td>
+                                                <td id="p26-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p26-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p26-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p26-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    27</td>
+                                                <td id="p27-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p27-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p27-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p27-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    28</td>
+                                                <td id="p28-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p28-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p28-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p28-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    29</td>
+                                                <td id="p29-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p29-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p29-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p29-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    30</td>
+                                                <td id="p30-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p30-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p30-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p30-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                
+                                <div class="p-5 w-1/3 border border-gray-400 rounded shadow">
+                                    <table class="w-full p-5 text-gray-700">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center text-blue-900">Punch</th>
+                                                <th class="text-center text-blue-900">Pre LHS</th>
+                                                <th class="text-center text-blue-900">Pre RHS</th>
+                                                <th class="text-center text-blue-900">Main LHS</th>
+                                                <th class="text-center text-blue-900">Main RHS</th>
+                
+                                            </tr>
+                                        </thead>
+                
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
+                                                    31</td>
+                                                <td id="p31-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p31-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p31-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p31-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    32</td>
+                                                <td id="p32-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p32-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p32-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p32-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    33</td>
+                                                <td id="p33-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p33-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p33-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p33-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    34</td>
+                                                <td id="p34-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p34-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p34-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p34-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    35</td>
+                                                <td id="p35-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p35-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p35-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p35-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    36</td>
+                                                <td id="p36-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p36-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p36-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p36-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    37</td>
+                                                <td id="p37-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p37-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p37-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p37-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    38</td>
+                                                <td id="p38-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p38-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p38-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p38-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    39</td>
+                                                <td id="p39-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p39-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p39-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p39-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    40</td>
+                                                <td id="p40-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p40-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p40-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p40-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    41</td>
+                                                <td id="p41-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p41-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p41-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p41-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    42</td>
+                                                <td id="p42-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p42-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p42-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p42-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    43</td>
+                                                <td id="p43-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p43-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p43-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p43-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    44</td>
+                                                <td id="p44-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p44-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p44-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p44-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                    45</td>
+                                                <td id="p45-preLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p45-preRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p45-mainLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p45-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                
+                            </div>
+                
+                            <!--Footer-->
+                            <div class="flex justify-end mt-3">
+                                <button
+                                    class="modal1-close px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</button>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- APIs -->
+    <script>
+        var currentBatch;
+        var currentrotation;
+    </script>
+
+    
+    <!-- Average Compression Graph -->
+    <script>
+        var avg_his_graphcanvas = document.getElementById("avg_his_compression_graph");
+        var avg_his_graphdata = {
+                labels: [],
+                datasets: [
+                    {
+                        label: "Pre Compression LHS",
+                        yAxisID: 'A',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "palegreen",
+                        borderColor: "palegreen",
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10,
+                        data: [],
+                    },
+                    {
+                        label: "Pre Compression RHS",
+                        yAxisID: 'A',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "olivedrab",
+                        borderColor: "olivedrab",
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10,
+                        data: [],
+                    },
+                    {
+                        label: "Main Compression LHS",
+                        yAxisID: 'A',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "plum",
+                        borderColor: "plum",
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10,
+                        data: [],
+                    },
+                    {
+                        label: "Main Compression RHS",
+                        yAxisID: 'A',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "RebeccaPurple",
+                        borderColor: "RebeccaPurple",
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10,
+                        data: [],
+                    },
+                    {
+                        label: "Ejn Compression LHS",
+                        yAxisID: 'A',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "lightblue",
+                        borderColor: "lightblue",
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10,
+                        data: [],
+                    },
+                    {
+                        label: "Ejn Compression RHS",
+                        yAxisID: 'A',
+                        fill: false,
+                        lineTension: 0.1,
+                        backgroundColor: "darkblue",
+                        borderColor: "darkblue",
+                        pointBorderColor: "rgba(75,192,192,1)",
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                        pointHoverBorderColor: "rgba(220,220,220,1)",
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHitRadius: 10,
+                        data: [],
+                    },
+                ],
+            };
+        var avg_his_graphoptions = {
+                animation: false,
+                responsive: true,
+                showTooltips: true,
+                showLines: true,
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            fontSize: 20,
+                            labelString: 'Compression (kN)'
+                        },
+                        id: 'A',
+                        type: 'linear',
+                        position: 'left',
+                        ticks: {
+                            beginAtZero: true,
+                            fontSize: 15,
+                            max: 100
+                        }
+                    }],
+                    xAxes: [{
+                        type: 'time',
+                        display: false,
+                        time: {
+                            displayFormats: {
+                                millisecond: 'YYYY-MM-DDTHH:mm:ss'
+                            }
+                        }
+                    }],
+                },
+                plugins: {
+                    zoom: {
+                        // Container for pan options
+                        pan: {
+                            // Boolean to enable panning
+                            enabled: true,
+
+                            // Panning directions. Remove the appropriate direction to disable
+                            // Eg. 'y' would only allow panning in the y direction
+                            // A function that is called as the user is panning and returns the
+                            // available directions can also be used:
+                            //   mode: function({ chart }) {
+                            //     return 'xy';
+                            //   },
+                            mode: 'x',
+
+                            // On category scale, factor of pan velocity
+                            speed: 20,
+
+                            // Minimal pan distance required before actually applying pan
+                            threshold: 10,
+
+                        },
+
+                        // Container for zoom options
+                        zoom: {
+                            // Boolean to enable zooming
+                            enabled: true,
+
+                            // Zooming directions. Remove the appropriate direction to disable 
+                            // Eg. 'y' would only allow zooming in the y direction
+                            mode: 'x',
+
+                            // Speed of zoom via mouse wheel
+                            // (percentage of zoom on a wheel event)
+                            speed: 0.1,
+
+                            // On category scale, minimal zoom level before actually applying zoom
+                            sensitivity: 3,
+                        }
+                    }
+                },
+                legend: {
+                    onClick: function (e, legendItem) {
+                        var index = legendItem.datasetIndex;
+                        var ci = this.chart;
+                        var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
+
+                        console.log(index)
+
+                        ci.data.datasets.forEach(function (e, i) {
+                            var meta = ci.getDatasetMeta(i);
+
+                            if (i !== index) {
+                                if (!alreadyHidden) {
+                                    meta.hidden = meta.hidden === null ? !meta.hidden : null;
+                                } else if (meta.hidden === null) {
+                                    meta.hidden = true;
+                                }
+                            } else if (i === index) {
+                                meta.hidden = null;
+                            }
+
+                        });
+
+                        ci.update();
+                    },
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        fontSize: 15,
+                    }
+                },
+            };
+        var avg_his_compression_graph = Chart.Line(avg_his_graphcanvas, {
+                data: avg_his_graphdata,
+                options: avg_his_graphoptions,
+            });
+
+    </script>
+
+    <!-- modal script -->
+    <script>
+        var openmodal = document.querySelectorAll('.modal-open')
+        for (var i = 0; i < openmodal.length; i++) {
+            openmodal[i].addEventListener('click', function (event) {
+                event.preventDefault()
+                toggleModal()
+            })
+        }
+
+        const overlay = document.querySelector('.modal-overlay')
+        overlay.addEventListener('click', toggleModal)
+
+        var closemodal = document.querySelectorAll('.modal-close')
+        for (var i = 0; i < closemodal.length; i++) {
+            closemodal[i].addEventListener('click', toggleModal)
+        }
+
+        document.onkeydown = function (evt) {
+            evt = evt || window.event
+            var isEscape = false
+            if ("key" in evt) {
+                isEscape = (evt.key === "Escape" || evt.key === "Esc")
+            } else {
+                isEscape = (evt.keyCode === 27)
+            }
+            if (isEscape && document.body.classList.contains('modal-active')) {
+                toggleModal()
+            }
+        };
+
+        function toggleModal() {
+            const body = document.querySelector('body')
+            const modal = document.querySelector('.modal')
+            modal.classList.toggle('opacity-0')
+            modal.classList.toggle('pointer-events-none')
+            body.classList.toggle('modal-active')
+        }
+
+    </script>
+
+    <!-- modal 1 script -->
+    <script>
+        var openmodal1 = document.querySelectorAll('.modal1-open')
+        for (var i = 0; i < openmodal1.length; i++) {
+            openmodal1[i].addEventListener('click', function (event) {
+                event.preventDefault()
+                togglemodal1()
+            })
+        }
+
+        const overlay1 = document.querySelector('.modal1-overlay')
+        overlay1.addEventListener('click', togglemodal1)
+
+        var closemodal1 = document.querySelectorAll('.modal1-close')
+        for (var i = 0; i < closemodal1.length; i++) {
+            closemodal1[i].addEventListener('click', togglemodal1)
+        }
+
+        document.onkeydown = function (evt) {
+            evt = evt || window.event
+            var isEscape = false
+            if ("key" in evt) {
+                isEscape = (evt.key === "Escape" || evt.key === "Esc")
+            } else {
+                isEscape = (evt.keyCode === 27)
+            }
+            if (isEscape && document.body.classList.contains('modal1-active')) {
+                togglemodal1()
+            }
+        };
+
+        function togglemodal1() {
+            const body = document.querySelector('body')
+            const modal1 = document.querySelector('.modal1')
+            modal1.classList.toggle('opacity-0')
+            modal1.classList.toggle('pointer-events-none')
+            body.classList.toggle('modal1-active')
+        }
+
+    </script>
+
+    <!-- PAYLOAD API fetch -->
+    <script>
+        
+        var currentrpm;
+
+        async function fetchpayloadapiHF() {
+            fetch(payloadURL)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    // console.log(payload)
+
+                    document.getElementById("status").innerHTML = payload.stats.status;
+                    document.getElementById("batch_number_metric").innerHTML = payload.batch;
+                    currentBatch = payload.batch;
+                    document.getElementById("rotation_number_metric").innerHTML = payload.data_number;
+                    currentrotation = payload.data_number;
+                    document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
+                    
+                    document.getElementById("avgg-preLHS").innerHTML = payload.precompressionLHS_avg;
+                    document.getElementById("avgg-preRHS").innerHTML = payload.precompressionRHS_avg;
+                    document.getElementById("avgg-mainLHS").innerHTML = payload.maincompressionLHS_avg;
+                    document.getElementById("avgg-mainRHS").innerHTML = payload.maincompressionRHS_avg;
+
+                    document.getElementById("p1-preLHS").innerHTML =  payload.punch1.LHS.precompression;
+                    document.getElementById("p1-preRHS").innerHTML =  payload.punch1.RHS.precompression;
+                    document.getElementById("p1-mainLHS").innerHTML = payload.punch1.LHS.maincompression;
+                    document.getElementById("p1-mainRHS").innerHTML = payload.punch1.RHS.maincompression;
+                    document.getElementById("p2-preLHS").innerHTML =  payload.punch2.LHS.precompression;
+                    document.getElementById("p2-preRHS").innerHTML =  payload.punch2.RHS.precompression;
+                    document.getElementById("p2-mainLHS").innerHTML = payload.punch2.LHS.maincompression;
+                    document.getElementById("p2-mainRHS").innerHTML = payload.punch2.RHS.maincompression;
+                    document.getElementById("p3-preLHS").innerHTML =  payload.punch3.LHS.precompression;
+                    document.getElementById("p3-preRHS").innerHTML =  payload.punch3.RHS.precompression;
+                    document.getElementById("p3-mainLHS").innerHTML = payload.punch3.LHS.maincompression;
+                    document.getElementById("p3-mainRHS").innerHTML = payload.punch3.RHS.maincompression;
+                    document.getElementById("p4-preLHS").innerHTML =  payload.punch4.LHS.precompression;
+                    document.getElementById("p4-preRHS").innerHTML =  payload.punch4.RHS.precompression;
+                    document.getElementById("p4-mainLHS").innerHTML = payload.punch4.LHS.maincompression;
+                    document.getElementById("p4-mainRHS").innerHTML = payload.punch4.RHS.maincompression;
+                    document.getElementById("p5-preLHS").innerHTML =  payload.punch5.LHS.precompression;
+                    document.getElementById("p5-preRHS").innerHTML =  payload.punch5.RHS.precompression;
+                    document.getElementById("p5-mainLHS").innerHTML = payload.punch5.LHS.maincompression;
+                    document.getElementById("p5-mainRHS").innerHTML = payload.punch5.RHS.maincompression;
+                    document.getElementById("p6-preLHS").innerHTML =  payload.punch6.LHS.precompression;
+                    document.getElementById("p6-preRHS").innerHTML =  payload.punch6.RHS.precompression;
+                    document.getElementById("p6-mainLHS").innerHTML = payload.punch6.LHS.maincompression;
+                    document.getElementById("p6-mainRHS").innerHTML = payload.punch6.RHS.maincompression;
+                    document.getElementById("p7-preLHS").innerHTML =  payload.punch7.LHS.precompression;
+                    document.getElementById("p7-preRHS").innerHTML =  payload.punch7.RHS.precompression;
+                    document.getElementById("p7-mainLHS").innerHTML = payload.punch7.LHS.maincompression;
+                    document.getElementById("p7-mainRHS").innerHTML = payload.punch7.RHS.maincompression;
+                    document.getElementById("p8-preLHS").innerHTML =  payload.punch8.LHS.precompression;
+                    document.getElementById("p8-preRHS").innerHTML =  payload.punch8.RHS.precompression;
+                    document.getElementById("p8-mainLHS").innerHTML = payload.punch8.LHS.maincompression;
+                    document.getElementById("p8-mainRHS").innerHTML = payload.punch8.RHS.maincompression;
+                    document.getElementById("p9-preLHS").innerHTML =  payload.punch9.LHS.precompression;
+                    document.getElementById("p9-preRHS").innerHTML =  payload.punch9.RHS.precompression;
+                    document.getElementById("p9-mainLHS").innerHTML = payload.punch9.LHS.maincompression;
+                    document.getElementById("p9-mainRHS").innerHTML = payload.punch9.RHS.maincompression;
+                    document.getElementById("p10-preLHS").innerHTML =  payload.punch10.LHS.precompression;
+                    document.getElementById("p10-preRHS").innerHTML =  payload.punch10.RHS.precompression;
+                    document.getElementById("p10-mainLHS").innerHTML = payload.punch10.LHS.maincompression;
+                    document.getElementById("p10-mainRHS").innerHTML = payload.punch10.RHS.maincompression;
+                    document.getElementById("p11-preLHS").innerHTML =  payload.punch11.LHS.precompression;
+                    document.getElementById("p11-preRHS").innerHTML =  payload.punch11.RHS.precompression;
+                    document.getElementById("p11-mainLHS").innerHTML = payload.punch11.LHS.maincompression;
+                    document.getElementById("p11-mainRHS").innerHTML = payload.punch11.RHS.maincompression;
+                    document.getElementById("p12-preLHS").innerHTML =  payload.punch12.LHS.precompression;
+                    document.getElementById("p12-preRHS").innerHTML =  payload.punch12.RHS.precompression;
+                    document.getElementById("p12-mainLHS").innerHTML = payload.punch12.LHS.maincompression;
+                    document.getElementById("p12-mainRHS").innerHTML = payload.punch12.RHS.maincompression;
+                    document.getElementById("p13-preLHS").innerHTML =  payload.punch13.LHS.precompression;
+                    document.getElementById("p13-preRHS").innerHTML =  payload.punch13.RHS.precompression;
+                    document.getElementById("p13-mainLHS").innerHTML = payload.punch13.LHS.maincompression;
+                    document.getElementById("p13-mainRHS").innerHTML = payload.punch13.RHS.maincompression;
+                    document.getElementById("p14-preLHS").innerHTML =  payload.punch14.LHS.precompression;
+                    document.getElementById("p14-preRHS").innerHTML =  payload.punch14.RHS.precompression;
+                    document.getElementById("p14-mainLHS").innerHTML = payload.punch14.LHS.maincompression;
+                    document.getElementById("p14-mainRHS").innerHTML = payload.punch14.RHS.maincompression;
+                    document.getElementById("p15-preLHS").innerHTML =  payload.punch15.LHS.precompression;
+                    document.getElementById("p15-preRHS").innerHTML =  payload.punch15.RHS.precompression;
+                    document.getElementById("p15-mainLHS").innerHTML = payload.punch15.LHS.maincompression;
+                    document.getElementById("p15-mainRHS").innerHTML = payload.punch15.RHS.maincompression;
+                    document.getElementById("p16-preLHS").innerHTML =  payload.punch16.LHS.precompression;
+                    document.getElementById("p16-preRHS").innerHTML =  payload.punch16.RHS.precompression;
+                    document.getElementById("p16-mainLHS").innerHTML = payload.punch16.LHS.maincompression;
+                    document.getElementById("p16-mainRHS").innerHTML = payload.punch16.RHS.maincompression;
+                    document.getElementById("p17-preLHS").innerHTML =  payload.punch17.LHS.precompression;
+                    document.getElementById("p17-preRHS").innerHTML =  payload.punch17.RHS.precompression;
+                    document.getElementById("p17-mainLHS").innerHTML = payload.punch17.LHS.maincompression;
+                    document.getElementById("p17-mainRHS").innerHTML = payload.punch17.RHS.maincompression;
+                    document.getElementById("p18-preLHS").innerHTML =  payload.punch18.LHS.precompression;
+                    document.getElementById("p18-preRHS").innerHTML =  payload.punch18.RHS.precompression;
+                    document.getElementById("p18-mainLHS").innerHTML = payload.punch18.LHS.maincompression;
+                    document.getElementById("p18-mainRHS").innerHTML = payload.punch18.RHS.maincompression;
+                    document.getElementById("p19-preLHS").innerHTML =  payload.punch19.LHS.precompression;
+                    document.getElementById("p19-preRHS").innerHTML =  payload.punch19.RHS.precompression;
+                    document.getElementById("p19-mainLHS").innerHTML = payload.punch19.LHS.maincompression;
+                    document.getElementById("p19-mainRHS").innerHTML = payload.punch19.RHS.maincompression;
+                    document.getElementById("p20-preLHS").innerHTML =  payload.punch20.LHS.precompression;
+                    document.getElementById("p20-preRHS").innerHTML =  payload.punch20.RHS.precompression;
+                    document.getElementById("p20-mainLHS").innerHTML = payload.punch20.LHS.maincompression;
+                    document.getElementById("p20-mainRHS").innerHTML = payload.punch20.RHS.maincompression;
+                    document.getElementById("p21-preLHS").innerHTML =  payload.punch21.LHS.precompression;
+                    document.getElementById("p21-preRHS").innerHTML =  payload.punch21.RHS.precompression;
+                    document.getElementById("p21-mainLHS").innerHTML = payload.punch21.LHS.maincompression;
+                    document.getElementById("p21-mainRHS").innerHTML = payload.punch21.RHS.maincompression;
+                    document.getElementById("p22-preLHS").innerHTML =  payload.punch22.LHS.precompression;
+                    document.getElementById("p22-preRHS").innerHTML =  payload.punch22.RHS.precompression;
+                    document.getElementById("p22-mainLHS").innerHTML = payload.punch22.LHS.maincompression;
+                    document.getElementById("p22-mainRHS").innerHTML = payload.punch22.RHS.maincompression;
+                    document.getElementById("p23-preLHS").innerHTML =  payload.punch23.LHS.precompression;
+                    document.getElementById("p23-preRHS").innerHTML =  payload.punch23.RHS.precompression;
+                    document.getElementById("p23-mainLHS").innerHTML = payload.punch23.LHS.maincompression;
+                    document.getElementById("p23-mainRHS").innerHTML = payload.punch23.RHS.maincompression;
+                    document.getElementById("p24-preLHS").innerHTML =  payload.punch24.LHS.precompression;
+                    document.getElementById("p24-preRHS").innerHTML =  payload.punch24.RHS.precompression;
+                    document.getElementById("p24-mainLHS").innerHTML = payload.punch24.LHS.maincompression;
+                    document.getElementById("p24-mainRHS").innerHTML = payload.punch24.RHS.maincompression;
+                    document.getElementById("p25-preLHS").innerHTML =  payload.punch25.LHS.precompression;
+                    document.getElementById("p25-preRHS").innerHTML =  payload.punch25.RHS.precompression;
+                    document.getElementById("p25-mainLHS").innerHTML = payload.punch25.LHS.maincompression;
+                    document.getElementById("p25-mainRHS").innerHTML = payload.punch25.RHS.maincompression;
+                    document.getElementById("p26-preLHS").innerHTML =  payload.punch26.LHS.precompression;
+                    document.getElementById("p26-preRHS").innerHTML =  payload.punch26.RHS.precompression;
+                    document.getElementById("p26-mainLHS").innerHTML = payload.punch26.LHS.maincompression;
+                    document.getElementById("p26-mainRHS").innerHTML = payload.punch26.RHS.maincompression;
+                    document.getElementById("p27-preLHS").innerHTML =  payload.punch27.LHS.precompression;
+                    document.getElementById("p27-preRHS").innerHTML =  payload.punch27.RHS.precompression;
+                    document.getElementById("p27-mainLHS").innerHTML = payload.punch27.LHS.maincompression;
+                    document.getElementById("p27-mainRHS").innerHTML = payload.punch27.RHS.maincompression;
+                    document.getElementById("p28-preLHS").innerHTML =  payload.punch28.LHS.precompression;
+                    document.getElementById("p28-preRHS").innerHTML =  payload.punch28.RHS.precompression;
+                    document.getElementById("p28-mainLHS").innerHTML = payload.punch28.LHS.maincompression;
+                    document.getElementById("p28-mainRHS").innerHTML = payload.punch28.RHS.maincompression;
+                    document.getElementById("p29-preLHS").innerHTML =  payload.punch29.LHS.precompression;
+                    document.getElementById("p29-preRHS").innerHTML =  payload.punch29.RHS.precompression;
+                    document.getElementById("p29-mainLHS").innerHTML = payload.punch29.LHS.maincompression;
+                    document.getElementById("p29-mainRHS").innerHTML = payload.punch29.RHS.maincompression;
+                    document.getElementById("p30-preLHS").innerHTML =  payload.punch30.LHS.precompression;
+                    document.getElementById("p30-preRHS").innerHTML =  payload.punch30.RHS.precompression;
+                    document.getElementById("p30-mainLHS").innerHTML = payload.punch30.LHS.maincompression;
+                    document.getElementById("p30-mainRHS").innerHTML = payload.punch30.RHS.maincompression;
+                    document.getElementById("p31-preLHS").innerHTML =  payload.punch31.LHS.precompression;
+                    document.getElementById("p31-preRHS").innerHTML =  payload.punch31.RHS.precompression;
+                    document.getElementById("p31-mainLHS").innerHTML = payload.punch31.LHS.maincompression;
+                    document.getElementById("p31-mainRHS").innerHTML = payload.punch31.RHS.maincompression;
+                    document.getElementById("p32-preLHS").innerHTML =  payload.punch32.LHS.precompression;
+                    document.getElementById("p32-preRHS").innerHTML =  payload.punch32.RHS.precompression;
+                    document.getElementById("p32-mainLHS").innerHTML = payload.punch32.LHS.maincompression;
+                    document.getElementById("p32-mainRHS").innerHTML = payload.punch32.RHS.maincompression;
+                    document.getElementById("p33-preLHS").innerHTML =  payload.punch33.LHS.precompression;
+                    document.getElementById("p33-preRHS").innerHTML =  payload.punch33.RHS.precompression;
+                    document.getElementById("p33-mainLHS").innerHTML = payload.punch33.LHS.maincompression;
+                    document.getElementById("p33-mainRHS").innerHTML = payload.punch33.RHS.maincompression;
+                    document.getElementById("p34-preLHS").innerHTML =  payload.punch34.LHS.precompression;
+                    document.getElementById("p34-preRHS").innerHTML =  payload.punch34.RHS.precompression;
+                    document.getElementById("p34-mainLHS").innerHTML = payload.punch34.LHS.maincompression;
+                    document.getElementById("p34-mainRHS").innerHTML = payload.punch34.RHS.maincompression;
+                    document.getElementById("p35-preLHS").innerHTML =  payload.punch35.LHS.precompression;
+                    document.getElementById("p35-preRHS").innerHTML =  payload.punch35.RHS.precompression;
+                    document.getElementById("p35-mainLHS").innerHTML = payload.punch35.LHS.maincompression;
+                    document.getElementById("p35-mainRHS").innerHTML = payload.punch35.RHS.maincompression;
+                    document.getElementById("p36-preLHS").innerHTML =  payload.punch36.LHS.precompression;
+                    document.getElementById("p36-preRHS").innerHTML =  payload.punch36.RHS.precompression;
+                    document.getElementById("p36-mainLHS").innerHTML = payload.punch36.LHS.maincompression;
+                    document.getElementById("p36-mainRHS").innerHTML = payload.punch36.RHS.maincompression;
+                    document.getElementById("p37-preLHS").innerHTML =  payload.punch37.LHS.precompression;
+                    document.getElementById("p37-preRHS").innerHTML =  payload.punch37.RHS.precompression;
+                    document.getElementById("p37-mainLHS").innerHTML = payload.punch37.LHS.maincompression;
+                    document.getElementById("p37-mainRHS").innerHTML = payload.punch37.RHS.maincompression;
+                    document.getElementById("p38-preLHS").innerHTML =  payload.punch38.LHS.precompression;
+                    document.getElementById("p38-preRHS").innerHTML =  payload.punch38.RHS.precompression;
+                    document.getElementById("p38-mainLHS").innerHTML = payload.punch38.LHS.maincompression;
+                    document.getElementById("p38-mainRHS").innerHTML = payload.punch38.RHS.maincompression;
+                    document.getElementById("p39-preLHS").innerHTML =  payload.punch39.LHS.precompression;
+                    document.getElementById("p39-preRHS").innerHTML =  payload.punch39.RHS.precompression;
+                    document.getElementById("p39-mainLHS").innerHTML = payload.punch39.LHS.maincompression;
+                    document.getElementById("p39-mainRHS").innerHTML = payload.punch39.RHS.maincompression;
+                    document.getElementById("p40-preLHS").innerHTML =  payload.punch40.LHS.precompression;
+                    document.getElementById("p40-preRHS").innerHTML =  payload.punch40.RHS.precompression;
+                    document.getElementById("p40-mainLHS").innerHTML = payload.punch40.LHS.maincompression;
+                    document.getElementById("p40-mainRHS").innerHTML = payload.punch40.RHS.maincompression;
+                    document.getElementById("p41-preLHS").innerHTML = payload.punch41.LHS.precompression;
+                    document.getElementById("p41-preRHS").innerHTML = payload.punch41.RHS.precompression;
+                    document.getElementById("p41-mainLHS").innerHTML = payload.punch41.LHS.maincompression;
+                    document.getElementById("p41-mainRHS").innerHTML = payload.punch41.RHS.maincompression;
+                    document.getElementById("p42-preLHS").innerHTML = payload.punch42.LHS.precompression;
+                    document.getElementById("p42-preRHS").innerHTML = payload.punch42.RHS.precompression;
+                    document.getElementById("p42-mainLHS").innerHTML = payload.punch42.LHS.maincompression;
+                    document.getElementById("p42-mainRHS").innerHTML = payload.punch42.RHS.maincompression;
+                    document.getElementById("p43-preLHS").innerHTML = payload.punch43.LHS.precompression;
+                    document.getElementById("p43-preRHS").innerHTML = payload.punch43.RHS.precompression;
+                    document.getElementById("p43-mainLHS").innerHTML = payload.punch43.LHS.maincompression;
+                    document.getElementById("p43-mainRHS").innerHTML = payload.punch43.RHS.maincompression;
+                    document.getElementById("p44-preLHS").innerHTML = payload.punch44.LHS.precompression;
+                    document.getElementById("p44-preRHS").innerHTML = payload.punch44.RHS.precompression;
+                    document.getElementById("p44-mainLHS").innerHTML = payload.punch44.LHS.maincompression;
+                    document.getElementById("p44-mainRHS").innerHTML = payload.punch44.RHS.maincompression;
+                    document.getElementById("p45-preLHS").innerHTML = payload.punch45.LHS.precompression;
+                    document.getElementById("p45-preRHS").innerHTML = payload.punch45.RHS.precompression;
+                    document.getElementById("p45-mainLHS").innerHTML = payload.punch45.LHS.maincompression;
+                    document.getElementById("p45-mainRHS").innerHTML = payload.punch45.RHS.maincompression;
+
+                    // document.getElementById("ejnLHS_upper").innerHTML = payload.machine.LHS.ejection_upperlimit;
+                    // document.getElementById("ejnRHS_upper").innerHTML = payload.machine.RHS.ejection_upperlimit;
+
+                    avg_his_compression_graph.data.labels.push(formatted);
+
+                    avg_his_compression_graph.data.datasets[0].data.push(payload.precompressionLHS_avg);
+                    avg_his_compression_graph.data.datasets[1].data.push(payload.precompressionRHS_avg);
+                    avg_his_compression_graph.data.datasets[2].data.push(payload.maincompressionLHS_avg);
+                    avg_his_compression_graph.data.datasets[3].data.push(payload.maincompressionRHS_avg);
+                    avg_his_compression_graph.update();
+
+                    
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        setTimeout(() => {
+            setInterval(() => {
+                fetchpayloadapiHF();
+            }, 1000);
+        }, 700);
+    </script>
+
+    <!-- Stats API fetch -->
+    <script>
+
+        async function fetchpayloadapiLF() {
+            fetch(statsurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    // console.log(payload)
+
+                    document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
+                    document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
+                    document.getElementById("count_metric").innerHTML = payload.stats.count;
+                    document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
+                    document.getElementById("rpm_metric").innerHTML = payload.stats.rpm;
+                    document.getElementById("turret_amp_metric").innerHTML = payload.stats.rpm_amp;
+                    document.getElementById("feederRHS_metric").innerHTML = payload.stats.turretRHS;
+                    document.getElementById("feederRHS_amp_metric").innerHTML = payload.stats.turretRHS_amp;
+                    document.getElementById("feederLHS_metric").innerHTML = payload.stats.turretLHS;
+                    document.getElementById("feederLHS_amp_metric").innerHTML = payload.stats.turretLHS_amp;
+                    document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
+                    document.getElementById("LHS_depth_metric").innerHTML = payload.stats.LHSdepth;
+                    document.getElementById("RHS_depth_metric").innerHTML = payload.stats.RHSdepth;
+                    document.getElementById("pressure_metric").innerHTML = payload.stats.pressure_set;
+                    document.getElementById("pressure_act_metric").innerHTML = payload.stats.pressure_actual;
+                    document.getElementById("lube_metric").innerHTML = payload.stats.lubetime_set;
+                    document.getElementById("lube_act_metric").innerHTML = payload.stats.lubetime_actual;
+
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        setTimeout(() => {
+            fetchpayloadapiLF();
+            setInterval(() => {
+                fetchpayloadapiLF();
+            }, 2000);
+        }, 10);
+    </script>
+
+    <!-- Average Compression History graph -->
+    <script>
+    var last_preLHS_avg;
+    var last_preRHS_avg;
+    var last_mainLHS_avg;
+    var last_mainRHS_avg;
+    
+    var last_rotation
+
+    var date;
+    var formatted;
+
+    searchhistory()
+
+        async function searchhistory() {
+
+            setInterval(() => {
+                date = new Date();
+                //RFC 3339 format
+                formatted = date.toISOString();
+                // update_avg()
+            }, 1000);
+
+            const queryAvgURL = `${hostname}/api/search/average/csv/${currentBatch}`
+            
+            const avgData = await fetch(queryAvgURL);
+            const avggbatch = await avgData.json();
+
+            let avglistt = avggbatch;
+
+            currentrotation = 500;
+
+            var from = 0;
+            var to = currentrotation;
+
+            console.log(from)
+            console.log(to)
+
+            function loadavglist() {
+
+                let i = -1;
+                let j = 1;
+                let k = 0;
+                for (let avgg of avglistt) {
+                    i++;
+                    if (i >= from && i <= to && i > 0) {
+                        from++;
+                        let avgdataa = avggbatch[i]
+                        //console.log(`TIME:${avgdataa[0]},RTN:${avgdataa[1]},PRELHS:${avgdataa[2]},MAINLHS:${avgdataa[3]},PRERHS:${avgdataa[5]},MAINRHS:${avgdataa[6]}`);
+
+                        // avg_his_compression_graph.data.labels[k] = avgdataa[0];
+                        
+                        // avg_his_compression_graph.data.datasets[0].data[k] = avgdataa[2];
+                        // avg_his_compression_graph.data.datasets[1].data[k] = avgdataa[5];
+                        // avg_his_compression_graph.data.datasets[2].data[k] = avgdataa[3];
+                        // avg_his_compression_graph.data.datasets[3].data[k] = avgdataa[6];
+                        
+                        // avg_his_compression_graph.data.labels.push(avgdataa[0]);
+                        // avg_his_compression_graph.data.datasets[0].data.push(avgdataa[2]);
+                        // avg_his_compression_graph.data.datasets[1].data.push(avgdataa[5]);
+                        // avg_his_compression_graph.data.datasets[2].data.push(avgdataa[3]);
+                        // avg_his_compression_graph.data.datasets[3].data.push(avgdataa[6]);
+                        // avg_his_compression_graph.update();
+                        k++;
+                        j++;
+                    } else if (i > to) {
+                        // await fetch(generatereportURL);
+                    }
+                }
+            }
+
+            // loadavglist();
+        };
+
+    </script>
+
+    <!-- Update System info -->
+    <script>
+
+        async function updateLHSdepth() {
+            var a = document.getElementById("LHSdepth");
+
+            console.log(a)
+            
+            var LHSdepth = "";
+            var i;
+            for (i = 0; i < a.length; i++) {
+                LHSdepth += a.elements[i].value;
+            }
+
+            console.log(LHSdepth)
+
+            let submiturl = `${seturl}/LHSdepth/${LHSdepth}`
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED LHSdepth tolerance ] ") )
+                .catch(console.error);
+            
+        }
+
+        function updateRHSdepth() {
+            var b = document.getElementById("RHSdepth");
+
+            var RHSdepth = "";
+            var j;
+            for (j = 0; j < b.length; j++) {
+                RHSdepth += b.elements[j].value;
+            }
+
+            submitt(parseInt(RHSdepth))
+
+            async function submitt(RHSdepth) {
+                let submiturl = `${seturl}/RHSdepth/${RHSdepth}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED RHSdepth tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatepressure() {
+            var c = document.getElementById("pressure").value;
+            
+            console.log(c)
+
+            submitt( parseFloat(pressure) )
+            
+            function submitt(pressure) {
+                var pressure = c;
+                let submiturl = `${seturl}/pressure/${pressure}`
+                console.log(submiturl)
+                if (pressure <= 100 && pressure >= 1) {
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            // Code to check reult
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Please set value between 0.1 and 10.")
+                }
+            }
+
+        }
+
+        function updatelubetime() {
+            var d = document.getElementById("lubetime").value;
+
+            var lubetime = d;
+            
+            submitt(parseFloat(lubetime))
+
+            async function submitt(lubetime) {
+                let submiturl = `${seturl}/lubetime/${lubetime}`
+
+                console.log(submiturl)
+                if (lubetime <= 99 && lubetime >= 1) {
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED lubetime tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+                }
+                else {
+                    alert("Please set value between 1 and 99.")
+                }
+            }
+
+        }
+
+        function updaterpmT() {
+            var e = document.getElementById("rpmTurret").value; //
+            
+            var rpmTurret = e; 
+
+            submitt( parseInt(rpmTurret))
+
+            async function submitt(rpmTurret) {
+
+
+                let submiturl = `${seturl}/rpm/${rpmTurret}`
+
+                console.log(submiturl)
+
+                if( rpmTurret <= 40 && rpmTurret >= 7) {
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED rpmTurret tolerance ] ")
+                        }, 100))
+                        .catch(console.error);
+                } 
+                else {
+                    alert("Please set value between 7 and 40.")
+                }
+
+            }
+        }
+
+        function updaterpmFL() {
+            var f = document.getElementById("rpmFeederLHS").value;
+
+            var rpmFeederLHS = f ;
+            
+            submitt(parseInt(rpmFeederLHS))
+
+            async function submitt(rpmFeederLHS) {
+                let submiturl = `${seturl}/feederLHS/${rpmFeederLHS}`
+
+                console.log(submiturl)
+
+                if (rpmFeederLHS <= 70 && rpmFeederLHS >= 1) {
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED rpmFeederLHS tolerance ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+                else {
+                    alert("Please set value between 1 and 70.")
+                }
+            }
+        }
+
+        function updaterpmFR() {
+            var g = document.getElementById("rpmFeederRHS").value; // 
+
+            var rpmFeederRHS = g
+            
+            submitt(parseInt(rpmFeederRHS))
+            async function submitt(rpmFeederRHS) {
+                let submiturl = `${seturl}/feederRHS/${rpmFeederRHS}`
+
+                console.log(submiturl)
+
+                if (rpmFeederRHS <= 70 && rpmFeederRHS >= 1) {
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED rpmFeederRHS tolerance ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+                else {
+                    alert("Please set value between 1 and 70.")
+                }
+            }
+
+        }
+
+        function dummy() {
+            var h = document.getElementById("dummy");
+
+            var mainRHSlow = "";
+            var p;
+            for (p = 0; p < h.length; p++) {
+                mainRHSlow += h.elements[p].value;
+            }
+
+            submitt(parseInt(mainRHSlow))
+            async function submitt(mainRHSlow) {
+                let submiturl = `${controlurl}/mainRHSlow/${mainRHSlow}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED mainRHSlow tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+        }
+    </script>
+
+    <!-- Machine Control -->
+    <script>
+
+        async function start(){
+            let submiturl = `${seturl}/machine/start`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+        
+        async function stop(){
+            let submiturl = `${seturl}/machine/stop`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Stop ] "))
+                .catch(console.error);
+
+        }
+
+        async function inch(){
+            let submiturl = `${seturl}/machine/inch`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Inch ] "))
+                .catch(console.error);
+
+        }
+
+        async function startpower(){
+            let submiturl = `${seturl}/powerpack/start`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Start ] "))
+                .catch(console.error);
+
+        }
+
+        async function stoppower(){
+            let submiturl = `${seturl}/powerpack/stop`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Stop ] "))
+                .catch(console.error);
+
+        }
+
+        async function drain(){
+            let submiturl = `${seturl}/powerpack/drain`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+
+        }
+    </script>
+
+</body>
+
+</html>

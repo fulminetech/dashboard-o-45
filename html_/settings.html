@@ -1,0 +1,3111 @@
+<!--This template is based on: https://dribbble.com/shots/6531694-Marketing-Dashboard by Gregoire Vella -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard - 45</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link href="/font/css/all.css" rel="stylesheet">
+    <link href="/css/tailwind.min.css" rel="stylesheet">
+    <script src="/charts/Chart.bundle.min.js"></script>
+    <script src="/env/env.js"></script>
+    
+    <!-- sidebar -->
+    <style>
+        #sidebar {
+            transition: ease-in-out all .1s;
+            z-index: 9999;
+        }
+    
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+    
+        #sidebar:hover {
+            width: 180px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+    
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Toggle Button CSS -->
+    <style>
+        .toggle__dot {
+            top: -.25rem;
+            left: -.25rem;
+            transition: all 0.3s ease-in-out;
+        }
+    
+        input:checked~.toggle__dot {
+            transform: translateX(100%);
+            background-color: #48bb78;
+        }
+    </style>
+
+</head>
+
+<body class="flex bg-gray-100 select-none font-sans">
+
+    <!-- Side bar-->
+    <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center nunito static fixed shadow">
+
+        <ul class="list-reset">
+            <li class="my-2 md:my-0">
+                <a href="/dashboard"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-home fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Dashboard</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/graphLHS"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Graph:
+                        LHS</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/graphRHS"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">Graph:
+                        RHS</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/history"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-history fa-fw mr-3 text-xl"></i><span class="w-full pb-1 text-lg">History</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/dido" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-exchange-alt fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">DI/DO</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/analytics"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-folder fa-fw mr-3 text-xl"></i><span
+                        class="w-full inline-block text-lg">Reports</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings"
+                    class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full inline-block text-lg">Settings</span>
+                </a>
+            </li>
+        
+        </ul>
+
+    </div>
+
+    <div class="flex flex-row flex-wrap flex-1 flex-grow content-start pl-16">
+
+        <!--Dash Content -->
+        <div id="dash-content"
+            class="bg-gray-200 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm flex flex-wrap content-start">
+
+            <div class="w-1 w-full">
+                <div onclick="location.href='/settings'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-700">Punch Settings</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-1 w-full">
+                <div onclick="location.href='/settings_recipie'">
+                    <div
+                        class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                        <div class="flex flex-col text-center">
+                            <div class="flex-1 items-center">
+                                <h5 class="font-bold uppercase cursor-pointer text-gray-500">Recipie Setting</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-1 w-full">
+                <div onclick="location.href='/settings_awc'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">AWC Setting</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-1 w-full">
+                <div onclick="location.href='/settings_limit'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Limit Setup</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-1 w-full">
+                <div onclick="location.href='/settings_setup'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500"> Setup</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-1 w-full">
+                <div onclick="location.href='/settings_user'">
+                    <div
+                        class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                        <div class="flex flex-col text-center">
+                            <div class="flex-1 items-center">
+                                <h5 class="font-bold uppercase cursor-pointer text-gray-500">User Setting</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Graph Content -->
+        <div id="main-content" class="w-full flex-1">
+
+            <div class="flex flex-1 flex-wrap">
+
+                <div class="w-full p-6">
+
+                    <!--"Container" for the graphs"-->
+                    <div class="max-w-full ">
+
+                        <!--Tolerance Table-->
+                        <div class="border-b p-3">
+                            <h5 class="font-bold text-black">Tolerance:</h5>
+                        </div>
+                        <div class="p-5 border border-gray-400 rounded shadowborder border-gray-400 rounded shadow">
+                            <table class="w-full p-3 text-gray-700">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center text-blue-900"></th>
+                                        <th class="text-center text-blue-900">Pre LHS</th>
+                                        <th class="text-center text-blue-900">Pre RHS</th>
+                                        <th class="text-center text-blue-900">Main LHS</th>
+                                        <th class="text-center text-blue-900">Main RHS</th>
+                                    </tr>
+                                </thead>
+                        
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center border-b border-gray-300 py-2  uppercase text-blue-900">Upper</td>
+                                        <td id="preLHS_upper" class="border-b  text-center  border-gray-300"></td>
+                                        <td id="preRHS_upper" class="border-b  text-center border-gray-300"></td>
+                                        <td id="mainLHS_upper" class="border-b text-center  border-gray-300"></td>
+                                        <td id="mainRHS_upper" class="border-b text-center  border-gray-300"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center border-gray-400 py-2 uppercase text-blue-900">Lower</td>
+                                        <td id="preLHS_lower" class="border-gray-400  text-center"></td>
+                                        <td id="preRHS_lower" class="border-gray-400  text-center"></td>
+                                        <td id="mainLHS_lower" class="border-gray-400 text-center"></td>
+                                        <td id="mainRHS_lower" class="border-gray-400 text-center"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Set Tolerance -->
+                        <div class="border-b p-3">
+                            <h5 class="font-bold text-black">Set: Tolerance</h5>
+                        </div>
+                        <div class="flex grid grid-cols-4 p-3 ">
+                            
+                            <div class="flex ">
+                                <div class="py-3">
+                                    <input id="preLHSup" 
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="PRE LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_PLU()">
+                                </div>
+                                <div class="p-3 ">
+                                    <button
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="updatelimits_PLU()">SET</button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="preRHSup"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="PRE RHS Up" onkeydown="if (event.keyCode == 13) updatelimits_PRU()">
+                                </div>
+                                <div class="p-3">
+                                    <button
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="updatelimits_PRU()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="mainLHSup"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="Main LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_MLU()">
+                                </div>
+                                <div class="p-3">
+                                    <button
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="updatelimits_MLU()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+
+
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="mainRHSup"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="Main RHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_MRU()">
+                                </div>
+                                <div class="p-3">
+                                    <button
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="updatelimits_MRU()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        
+                            <div class="flex ">
+                                <div  class="py-3">
+                                    <input id="preLHSlow"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="PRE LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_PLL()">
+                                </div>
+                                <div class="p-3">
+                                    <button
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="updatelimits_PLL()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        
+                        
+                            <div class="flex flex-row">
+                                <div  class="py-3">
+                                    <input id="preRHSlow"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="PRE RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_PRL()">
+                                </div>
+                                <div class="p-3">
+                                    <button
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="updatelimits_PRL()"> SET
+                                    </button>
+                                </div>
+                            </div>
+
+
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="mainLHSlow"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="Main LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MLL()">
+                                </div>
+                                <div class="p-3">
+                                    <button
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="updatelimits_MLL()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-row">
+                                <div  class="py-3">
+                                    <input id="mainRHSlow"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="Main RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MRL()">
+                                </div>
+                                <div class="p-3">
+                                    <button
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="updatelimits_MRL()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active Punch selection -->
+                        <div class="w-full p-3 shadow">
+                            <div class="border border-gray-400 rounded shadow overflow-auto">
+                                <div class="border-b border-gray-400 p-3">
+                                    <h5 class="font-bold uppercase text-center text-2xl text-black">Active Punches:
+                                        <a id="active_punches" class="font-bold text-2xl text-black">
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div class="px-5 pb-5">
+                                    <table class="table-fixed w-full text-center text-black">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center border-b border-gray-400 py-3" style="width:80px"></th>
+                                                <th class="text-center border-b border-gray-400 py-3">Punch Number</th>
+                                                <th class="text-center border-b border-gray-400 pl-8 py-3">Toggle</th>
+                                                <th class="text-center border-b border-gray-400 py-3">Status</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr class="py-5">
+                                                <td id="punch1status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">1</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch1" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch1" type="checkbox" checked class="hidden" onclick="punch1()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch1_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch2status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">2</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch2" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch2" type="checkbox" checked class="hidden" onclick="punch2()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch2_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch3status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">3</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch3" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch3" type="checkbox" checked class="hidden" onclick="punch3()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch3_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch4status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">4</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch4" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch4" type="checkbox" checked class="hidden" onclick="punch4()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch4_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch5status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">5</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch5" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch5" type="checkbox" checked class="hidden" onclick="punch5()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch5_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch6status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">6</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch6" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch6" type="checkbox" checked class="hidden" onclick="punch6()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch6_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch7status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">7</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch7" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch7" type="checkbox" checked class="hidden" onclick="punch7()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch7_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch8status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">8</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch8" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch8" type="checkbox" checked class="hidden" onclick="punch8()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch8_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch9status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">9</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch9" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch9" type="checkbox" checked class="hidden" onclick="punch9()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch9_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch10status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">10</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch10" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch10" type="checkbox" checked class="hidden" onclick="punch10()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch10_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch11status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">11</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch11" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch11" type="checkbox" checked class="hidden" onclick="punch11()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch11_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch12status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">12</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch12" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch12" type="checkbox" checked class="hidden" onclick="punch12()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch12_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch13status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">13</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch13" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch13" type="checkbox" checked class="hidden" onclick="punch13()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch13_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch14status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">14</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch14" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch14" type="checkbox" checked class="hidden" onclick="punch14()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch14_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch15status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">15</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch15" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch15" type="checkbox" checked class="hidden" onclick="punch15()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch15_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch16status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">16</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch16" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch16" type="checkbox" checked class="hidden" onclick="punch16()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch16_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch17status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">17</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch17" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch17" type="checkbox" checked class="hidden" onclick="punch17()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch17_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch18status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">18</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch18" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch18" type="checkbox" checked class="hidden" onclick="punch18()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch18_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch19status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">19</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch19" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch19" type="checkbox" checked class="hidden" onclick="punch19()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch19_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch20status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">20</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch20" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch20" type="checkbox" checked class="hidden" onclick="punch20()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch20_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch21status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">21</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch21" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch21" type="checkbox" checked class="hidden" onclick="punch21()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch21_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch22status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">22</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch22" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch22" type="checkbox" checked class="hidden" onclick="punch22()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch22_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch23status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">23</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch23" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch23" type="checkbox" checked class="hidden" onclick="punch23()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch23_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch24status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">24</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch24" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch24" type="checkbox" checked class="hidden" onclick="punch24()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch24_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch25status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">25</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch25" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch25" type="checkbox" checked class="hidden" onclick="punch25()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch25_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch26status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">26</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch26" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch26" type="checkbox" checked class="hidden" onclick="punch26()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch26_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch27status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">27</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch27" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch27" type="checkbox" checked class="hidden" onclick="punch27()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch27_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch28status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">28</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch28" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch28" type="checkbox" checked class="hidden" onclick="punch28()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch28_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch29status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">29</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch29" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch29" type="checkbox" checked class="hidden" onclick="punch29()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch29_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch30status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">30</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch30" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch30" type="checkbox" checked class="hidden" onclick="punch30()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch30_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch31status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">31</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch31" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch31" type="checkbox" checked class="hidden" onclick="punch31()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch31_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch32status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">32</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch32" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch32" type="checkbox" checked class="hidden" onclick="punch32()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch32_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch33status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">33</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch33" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch33" type="checkbox" checked class="hidden" onclick="punch33()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch33_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch34status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">34</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch34" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch34" type="checkbox" checked class="hidden" onclick="punch34()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch34_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch35status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">35</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch35" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch35" type="checkbox" checked class="hidden" onclick="punch35()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch35_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch36status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">36</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch36" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch36" type="checkbox" checked class="hidden" onclick="punch36()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch36_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch37status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">37</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch37" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch37" type="checkbox" checked class="hidden" onclick="punch37()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch37_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch38status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">38</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch38" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch38" type="checkbox" checked class="hidden" onclick="punch38()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch38_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch39status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">39</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch39" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch39" type="checkbox" checked class="hidden" onclick="punch39()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch39_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch40status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">40</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch40" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch40" type="checkbox" checked class="hidden" onclick="punch40()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch40_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch41status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">41</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch41" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch41" type="checkbox" checked class="hidden" onclick="punch41()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch41_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch42status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">42</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch42" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch42" type="checkbox" checked class="hidden" onclick="punch42()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch42_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch43status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">43</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch43" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch43" type="checkbox" checked class="hidden" onclick="punch43()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch43_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch44status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">44</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch44" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch44" type="checkbox" checked class="hidden" onclick="punch44()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch44_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+                                            <tr class="py-5">
+                                                <td id="punch45status" class="text-left border border-gray-400 uppercase py-5 text-blue-900"></td>
+                                                <td class="border-b border-gray-400">45</td>
+                                                <td class="border-b items-center align-middle border-gray-400">
+                                                    <label for="punch45" class="cursor-pointer">
+                                                        <div class="xl:pl-40">
+                                                            <!-- toggle -->
+                                                            <div class="relative">
+                                                                <!-- input -->
+                                                                <input id="punch45" type="checkbox" checked class="hidden" onclick="punch45()" />
+                                                                <!-- line -->
+                                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                                </div>
+                                                                <!-- dot -->
+                                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </td>
+                                                <td id="punch45_current" class="border-b border-gray-400"></td>
+                                            </tr>
+                                            
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- PAYLOAD API fetch -->
+    <script>
+
+        var currentrpm;
+
+        async function fetchpayloadapiHF2() {
+            fetch(payloadURL)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    console.log(payload)
+
+                    // if (payload.stats.status == "ONLINE") {
+                    //     check()
+                    // } else {
+                    //     uncheck()
+                    // }
+
+                    // document.getElementById("status").innerHTML = payload.stats.status;
+                    // document.getElementById("batch_number_metric").innerHTML = payload.batch;
+                    // currentBatch = payload.batch;
+                    // document.getElementById("rotation_number_metric").innerHTML = payload.data_number;
+                    // currentrotation = payload.data_number;
+                    // document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
+                    // document.getElementById("count_metric").innerHTML = payload.stats.count;
+                    // document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
+                    // document.getElementById("rpm_metric").innerHTML = payload.stats.rpm;
+                    // currentrpm = payload.stats.rpm;
+                    // document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
+
+                    document.getElementById("mainLHS_upper").innerHTML = payload.machine.LHS.maincompression_upperlimit;
+                    document.getElementById("mainRHS_upper").innerHTML = payload.machine.RHS.maincompression_upperlimit;
+
+                    document.getElementById("mainLHS_lower").innerHTML = payload.machine.LHS.maincompression_lowerlimit;
+                    document.getElementById("mainRHS_lower").innerHTML = payload.machine.RHS.maincompression_lowerlimit;
+
+                    document.getElementById("preLHS_upper").innerHTML = payload.machine.LHS.precompression_upperlimit;
+                    document.getElementById("preRHS_upper").innerHTML = payload.machine.RHS.precompression_upperlimit;
+
+                    document.getElementById("preLHS_lower").innerHTML = payload.machine.LHS.precompression_lowerlimit;
+                    document.getElementById("preRHS_lower").innerHTML = payload.machine.RHS.precompression_lowerlimit;
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        setInterval(() => {
+            fetchpayloadapiHF2();
+        }, 1000);
+    </script>
+
+
+    <!-- Check Status -->
+    <script>
+        async function fetchpayloadapiHF() {
+            fetch(payloadURL)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    if (payload.punch1.LHS.status == true) {
+                        document.getElementById("punch1status").style.background = "lightgreen";
+                        document.getElementById("punch1").checked = true;
+                        document.getElementById("punch1_current").innerHTML = "ONLINE";
+                    } else if (payload.punch1.LHS.status == false) {
+                        document.getElementById("punch1status").style.background = "lightcoral";
+                        document.getElementById("punch1").checked = false;
+                        document.getElementById("punch1_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch2.LHS.status == true) {
+                        document.getElementById("punch2status").style.background = "lightgreen";
+                        document.getElementById("punch2").checked = true;
+                        document.getElementById("punch2_current").innerHTML = "ONLINE";
+                    } else if (payload.punch2.LHS.status == false) {
+                        document.getElementById("punch2status").style.background = "lightcoral";
+                        document.getElementById("punch2").checked = false;
+                        document.getElementById("punch2_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch3.LHS.status == true) {
+                        document.getElementById("punch3status").style.background = "lightgreen";
+                        document.getElementById("punch3").checked = true;
+                        document.getElementById("punch3_current").innerHTML = "ONLINE";
+                    } else if (payload.punch3.LHS.status == false) {
+                        document.getElementById("punch3status").style.background = "lightcoral";
+                        document.getElementById("punch3").checked = false;
+                        document.getElementById("punch3_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch4.LHS.status == true) {
+                        document.getElementById("punch4status").style.background = "lightgreen";
+                        document.getElementById("punch4").checked = true;
+                        document.getElementById("punch4_current").innerHTML = "ONLINE";
+                    } else if (payload.punch4.LHS.status == false) {
+                        document.getElementById("punch4status").style.background = "lightcoral";
+                        document.getElementById("punch4").checked = false;
+                        document.getElementById("punch4_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch5.LHS.status == true) {
+                        document.getElementById("punch5status").style.background = "lightgreen";
+                        document.getElementById("punch5").checked = true;
+                        document.getElementById("punch5_current").innerHTML = "ONLINE";
+                    } else if (payload.punch5.LHS.status == false) {
+                        document.getElementById("punch5status").style.background = "lightcoral";
+                        document.getElementById("punch5").checked = false;
+                        document.getElementById("punch5_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch6.LHS.status == true) {
+                        document.getElementById("punch6status").style.background = "lightgreen";
+                        document.getElementById("punch6").checked = true;
+                        document.getElementById("punch6_current").innerHTML = "ONLINE";
+                    } else if (payload.punch6.LHS.status == false) {
+                        document.getElementById("punch6status").style.background = "lightcoral";
+                        document.getElementById("punch6").checked = false;
+                        document.getElementById("punch6_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch7.LHS.status == true) {
+                        document.getElementById("punch7status").style.background = "lightgreen";
+                        document.getElementById("punch7").checked = true;
+                        document.getElementById("punch7_current").innerHTML = "ONLINE";
+                    } else if (payload.punch7.LHS.status == false) {
+                        document.getElementById("punch7status").style.background = "lightcoral";
+                        document.getElementById("punch7").checked = false;
+                        document.getElementById("punch7_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch8.LHS.status == true) {
+                        document.getElementById("punch8status").style.background = "lightgreen";
+                        document.getElementById("punch8").checked = true;
+                        document.getElementById("punch8_current").innerHTML = "ONLINE";
+                    } else if (payload.punch8.LHS.status == false) {
+                        document.getElementById("punch8status").style.background = "lightcoral";
+                        document.getElementById("punch8").checked = false;
+                        document.getElementById("punch8_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch9.LHS.status == true) {
+                        document.getElementById("punch9status").style.background = "lightgreen";
+                        document.getElementById("punch9").checked = true;
+                        document.getElementById("punch9_current").innerHTML = "ONLINE";
+                    } else if (payload.punch9.LHS.status == false) {
+                        document.getElementById("punch9status").style.background = "lightcoral";
+                        document.getElementById("punch9").checked = false;
+                        document.getElementById("punch9_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch10.LHS.status == true) {
+                        document.getElementById("punch10status").style.background = "lightgreen";
+                        document.getElementById("punch10").checked = true;
+                        document.getElementById("punch10_current").innerHTML = "ONLINE";
+                    } else if (payload.punch10.LHS.status == false) {
+                        document.getElementById("punch10status").style.background = "lightcoral";
+                        document.getElementById("punch10").checked = false;
+                        document.getElementById("punch10_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch11.LHS.status == true) {
+                        document.getElementById("punch11status").style.background = "lightgreen";
+                        document.getElementById("punch11").checked = true;
+                        document.getElementById("punch11_current").innerHTML = "ONLINE";
+                    } else if (payload.punch11.LHS.status == false) {
+                        document.getElementById("punch11status").style.background = "lightcoral";
+                        document.getElementById("punch11").checked = false;
+                        document.getElementById("punch11_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch12.LHS.status == true) {
+                        document.getElementById("punch12status").style.background = "lightgreen";
+                        document.getElementById("punch12").checked = true;
+                        document.getElementById("punch12_current").innerHTML = "ONLINE";
+                    } else if (payload.punch12.LHS.status == false) {
+                        document.getElementById("punch12status").style.background = "lightcoral";
+                        document.getElementById("punch12").checked = false;
+                        document.getElementById("punch12_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch13.LHS.status == true) {
+                        document.getElementById("punch13status").style.background = "lightgreen";
+                        document.getElementById("punch13").checked = true;
+                        document.getElementById("punch13_current").innerHTML = "ONLINE";
+                    } else if (payload.punch13.LHS.status == false) {
+                        document.getElementById("punch13status").style.background = "lightcoral";
+                        document.getElementById("punch13").checked = false;
+                        document.getElementById("punch13_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch14.LHS.status == true) {
+                        document.getElementById("punch14status").style.background = "lightgreen";
+                        document.getElementById("punch14").checked = true;
+                        document.getElementById("punch14_current").innerHTML = "ONLINE";
+                    } else if (payload.punch14.LHS.status == false) {
+                        document.getElementById("punch14status").style.background = "lightcoral";
+                        document.getElementById("punch14").checked = false;
+                        document.getElementById("punch14_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch15.LHS.status == true) {
+                        document.getElementById("punch15status").style.background = "lightgreen";
+                        document.getElementById("punch15").checked = true;
+                        document.getElementById("punch15_current").innerHTML = "ONLINE";
+                    } else if (payload.punch15.LHS.status == false) {
+                        document.getElementById("punch15status").style.background = "lightcoral";
+                        document.getElementById("punch15").checked = false;
+                        document.getElementById("punch15_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch16.LHS.status == true) {
+                        document.getElementById("punch16status").style.background = "lightgreen";
+                        document.getElementById("punch16").checked = true;
+                        document.getElementById("punch16_current").innerHTML = "ONLINE";
+                    } else if (payload.punch16.LHS.status == false) {
+                        document.getElementById("punch16status").style.background = "lightcoral";
+                        document.getElementById("punch16").checked = false;
+                        document.getElementById("punch16_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch17.LHS.status == true) {
+                        document.getElementById("punch17status").style.background = "lightgreen";
+                        document.getElementById("punch17").checked = true;
+                        document.getElementById("punch17_current").innerHTML = "ONLINE";
+                    } else if (payload.punch17.LHS.status == false) {
+                        document.getElementById("punch17status").style.background = "lightcoral";
+                        document.getElementById("punch17").checked = false;
+                        document.getElementById("punch17_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch18.LHS.status == true) {
+                        document.getElementById("punch18status").style.background = "lightgreen";
+                        document.getElementById("punch18").checked = true;
+                        document.getElementById("punch18_current").innerHTML = "ONLINE";
+                    } else if (payload.punch18.LHS.status == false) {
+                        document.getElementById("punch18status").style.background = "lightcoral";
+                        document.getElementById("punch18").checked = false;
+                        document.getElementById("punch18_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch19.LHS.status == true) {
+                        document.getElementById("punch19status").style.background = "lightgreen";
+                        document.getElementById("punch19").checked = true;
+                        document.getElementById("punch19_current").innerHTML = "ONLINE";
+                    } else if (payload.punch19.LHS.status == false) {
+                        document.getElementById("punch19status").style.background = "lightcoral";
+                        document.getElementById("punch19").checked = false;
+                        document.getElementById("punch19_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch20.LHS.status == true) {
+                        document.getElementById("punch20status").style.background = "lightgreen";
+                        document.getElementById("punch20").checked = true;
+                        document.getElementById("punch20_current").innerHTML = "ONLINE";
+                    } else if (payload.punch20.LHS.status == false) {
+                        document.getElementById("punch20status").style.background = "lightcoral";
+                        document.getElementById("punch20").checked = false;
+                        document.getElementById("punch20_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch21.LHS.status == true) {
+                        document.getElementById("punch21status").style.background = "lightgreen";
+                        document.getElementById("punch21").checked = true;
+                        document.getElementById("punch21_current").innerHTML = "ONLINE";
+                    } else if (payload.punch21.LHS.status == false) {
+                        document.getElementById("punch21status").style.background = "lightcoral";
+                        document.getElementById("punch21").checked = false;
+                        document.getElementById("punch21_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch22.LHS.status == true) {
+                        document.getElementById("punch22status").style.background = "lightgreen";
+                        document.getElementById("punch22").checked = true;
+                        document.getElementById("punch22_current").innerHTML = "ONLINE";
+                    } else if (payload.punch22.LHS.status == false) {
+                        document.getElementById("punch22status").style.background = "lightcoral";
+                        document.getElementById("punch22").checked = false;
+                        document.getElementById("punch22_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch23.LHS.status == true) {
+                        document.getElementById("punch23status").style.background = "lightgreen";
+                        document.getElementById("punch23").checked = true;
+                        document.getElementById("punch23_current").innerHTML = "ONLINE";
+                    } else if (payload.punch23.LHS.status == false) {
+                        document.getElementById("punch23status").style.background = "lightcoral";
+                        document.getElementById("punch23").checked = false;
+                        document.getElementById("punch23_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch24.LHS.status == true) {
+                        document.getElementById("punch24status").style.background = "lightgreen";
+                        document.getElementById("punch24").checked = true;
+                        document.getElementById("punch24_current").innerHTML = "ONLINE";
+                    } else if (payload.punch24.LHS.status == false) {
+                        document.getElementById("punch24status").style.background = "lightcoral";
+                        document.getElementById("punch24").checked = false;
+                        document.getElementById("punch24_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch25.LHS.status == true) {
+                        document.getElementById("punch25status").style.background = "lightgreen";
+                        document.getElementById("punch25").checked = true;
+                        document.getElementById("punch25_current").innerHTML = "ONLINE";
+                    } else if (payload.punch25.LHS.status == false) {
+                        document.getElementById("punch25status").style.background = "lightcoral";
+                        document.getElementById("punch25").checked = false;
+                        document.getElementById("punch25_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch26.LHS.status == true) {
+                        document.getElementById("punch26status").style.background = "lightgreen";
+                        document.getElementById("punch26").checked = true;
+                        document.getElementById("punch26_current").innerHTML = "ONLINE";
+                    } else if (payload.punch26.LHS.status == false) {
+                        document.getElementById("punch26status").style.background = "lightcoral";
+                        document.getElementById("punch26").checked = false;
+                        document.getElementById("punch26_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch27.LHS.status == true) {
+                        document.getElementById("punch27status").style.background = "lightgreen";
+                        document.getElementById("punch27").checked = true;
+                        document.getElementById("punch27_current").innerHTML = "ONLINE";
+                    } else if (payload.punch27.LHS.status == false) {
+                        document.getElementById("punch27status").style.background = "lightcoral";
+                        document.getElementById("punch27").checked = false;
+                        document.getElementById("punch27_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch28.LHS.status == true) {
+                        document.getElementById("punch28status").style.background = "lightgreen";
+                        document.getElementById("punch28").checked = true;
+                        document.getElementById("punch28_current").innerHTML = "ONLINE";
+                    } else if (payload.punch28.LHS.status == false) {
+                        document.getElementById("punch28status").style.background = "lightcoral";
+                        document.getElementById("punch28").checked = false;
+                        document.getElementById("punch28_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch29.LHS.status == true) {
+                        document.getElementById("punch29status").style.background = "lightgreen";
+                        document.getElementById("punch29").checked = true;
+                        document.getElementById("punch29_current").innerHTML = "ONLINE";
+                    } else if (payload.punch29.LHS.status == false) {
+                        document.getElementById("punch29status").style.background = "lightcoral";
+                        document.getElementById("punch29").checked = false;
+                        document.getElementById("punch29_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch30.LHS.status == true) {
+                        document.getElementById("punch30status").style.background = "lightgreen";
+                        document.getElementById("punch30").checked = true;
+                        document.getElementById("punch30_current").innerHTML = "ONLINE";
+                    } else if (payload.punch30.LHS.status == false) {
+                        document.getElementById("punch30status").style.background = "lightcoral";
+                        document.getElementById("punch30").checked = false;
+                        document.getElementById("punch30_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch31.LHS.status == true) {
+                        document.getElementById("punch31status").style.background = "lightgreen";
+                        document.getElementById("punch31").checked = true;
+                        document.getElementById("punch31_current").innerHTML = "ONLINE";
+                    } else if (payload.punch31.LHS.status == false) {
+                        document.getElementById("punch31status").style.background = "lightcoral";
+                        document.getElementById("punch31").checked = false;
+                        document.getElementById("punch31_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch32.LHS.status == true) {
+                        document.getElementById("punch32status").style.background = "lightgreen";
+                        document.getElementById("punch32").checked = true;
+                        document.getElementById("punch32_current").innerHTML = "ONLINE";
+                    } else if (payload.punch32.LHS.status == false) {
+                        document.getElementById("punch32status").style.background = "lightcoral";
+                        document.getElementById("punch32").checked = false;
+                        document.getElementById("punch32_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch33.LHS.status == true) {
+                        document.getElementById("punch33status").style.background = "lightgreen";
+                        document.getElementById("punch33").checked = true;
+                        document.getElementById("punch33_current").innerHTML = "ONLINE";
+                    } else if (payload.punch33.LHS.status == false) {
+                        document.getElementById("punch33status").style.background = "lightcoral";
+                        document.getElementById("punch33").checked = false;
+                        document.getElementById("punch33_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch34.LHS.status == true) {
+                        document.getElementById("punch34status").style.background = "lightgreen";
+                        document.getElementById("punch34").checked = true;
+                        document.getElementById("punch34_current").innerHTML = "ONLINE";
+                    } else if (payload.punch34.LHS.status == false) {
+                        document.getElementById("punch34status").style.background = "lightcoral";
+                        document.getElementById("punch34").checked = false;
+                        document.getElementById("punch34_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch35.LHS.status == true) {
+                        document.getElementById("punch35status").style.background = "lightgreen";
+                        document.getElementById("punch35").checked = true;
+                        document.getElementById("punch35_current").innerHTML = "ONLINE";
+                    } else if (payload.punch35.LHS.status == false) {
+                        document.getElementById("punch35status").style.background = "lightcoral";
+                        document.getElementById("punch35").checked = false;
+                        document.getElementById("punch35_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch36.LHS.status == true) {
+                        document.getElementById("punch36status").style.background = "lightgreen";
+                        document.getElementById("punch36").checked = true;
+                        document.getElementById("punch36_current").innerHTML = "ONLINE";
+                    } else if (payload.punch36.LHS.status == false) {
+                        document.getElementById("punch36status").style.background = "lightcoral";
+                        document.getElementById("punch36").checked = false;
+                        document.getElementById("punch36_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch37.LHS.status == true) {
+                        document.getElementById("punch37status").style.background = "lightgreen";
+                        document.getElementById("punch37").checked = true;
+                        document.getElementById("punch37_current").innerHTML = "ONLINE";
+                    } else if (payload.punch37.LHS.status == false) {
+                        document.getElementById("punch37status").style.background = "lightcoral";
+                        document.getElementById("punch37").checked = false;
+                        document.getElementById("punch37_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch38.LHS.status == true) {
+                        document.getElementById("punch38status").style.background = "lightgreen";
+                        document.getElementById("punch38").checked = true;
+                        document.getElementById("punch38_current").innerHTML = "ONLINE";
+                    } else if (payload.punch38.LHS.status == false) {
+                        document.getElementById("punch38status").style.background = "lightcoral";
+                        document.getElementById("punch38").checked = false;
+                        document.getElementById("punch38_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch39.LHS.status == true) {
+                        document.getElementById("punch39status").style.background = "lightgreen";
+                        document.getElementById("punch39").checked = true;
+                        document.getElementById("punch39_current").innerHTML = "ONLINE";
+                    } else if (payload.punch39.LHS.status == false) {
+                        document.getElementById("punch39status").style.background = "lightcoral";
+                        document.getElementById("punch39").checked = false;
+                        document.getElementById("punch39_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch40.LHS.status == true) {
+                        document.getElementById("punch40status").style.background = "lightgreen";
+                        document.getElementById("punch40").checked = true;
+                        document.getElementById("punch40_current").innerHTML = "ONLINE";
+                    } else if (payload.punch40.LHS.status == false) {
+                        document.getElementById("punch40status").style.background = "lightcoral";
+                        document.getElementById("punch40").checked = false;
+                        document.getElementById("punch40_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch41.LHS.status == true) {
+                        document.getElementById("punch41status").style.background = "lightgreen";
+                        document.getElementById("punch41").checked = true;
+                        document.getElementById("punch41_current").innerHTML = "ONLINE";
+                    } else if (payload.punch41.LHS.status == false) {
+                        document.getElementById("punch41status").style.background = "lightcoral";
+                        document.getElementById("punch41").checked = false;
+                        document.getElementById("punch41_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch42.LHS.status == true) {
+                        document.getElementById("punch42status").style.background = "lightgreen";
+                        document.getElementById("punch42").checked = true;
+                        document.getElementById("punch42_current").innerHTML = "ONLINE";
+                    } else if (payload.punch42.LHS.status == false) {
+                        document.getElementById("punch42status").style.background = "lightcoral";
+                        document.getElementById("punch42").checked = false;
+                        document.getElementById("punch42_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch43.LHS.status == true) {
+                        document.getElementById("punch43status").style.background = "lightgreen";
+                        document.getElementById("punch43").checked = true;
+                        document.getElementById("punch43_current").innerHTML = "ONLINE";
+                    } else if (payload.punch43.LHS.status == false) {
+                        document.getElementById("punch43status").style.background = "lightcoral";
+                        document.getElementById("punch43").checked = false;
+                        document.getElementById("punch43_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch44.LHS.status == true) {
+                        document.getElementById("punch44status").style.background = "lightgreen";
+                        document.getElementById("punch44").checked = true;
+                        document.getElementById("punch44_current").innerHTML = "ONLINE";
+                    } else if (payload.punch44.LHS.status == false) {
+                        document.getElementById("punch44status").style.background = "lightcoral";
+                        document.getElementById("punch44").checked = false;
+                        document.getElementById("punch44_current").innerHTML = "OFFLINE";
+                    }
+
+                    if (payload.punch45.LHS.status == true) {
+                        document.getElementById("punch45status").style.background = "lightgreen";
+                        document.getElementById("punch45").checked = true;
+                        document.getElementById("punch45_current").innerHTML = "ONLINE";
+                    } else if (payload.punch45.LHS.status == false) {
+                        document.getElementById("punch45status").style.background = "lightcoral";
+                        document.getElementById("punch45").checked = false;
+                        document.getElementById("punch45_current").innerHTML = "OFFLINE";
+                    }
+
+                    // console.log(payload)
+                })
+                .catch(function (error) {
+                        // If there is any error you will catch them here
+                        console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    })
+            }
+
+        fetchpayloadapiHF()
+
+        setInterval(() => {
+            fetchpayloadapiHF()
+        }, 1500);
+
+    </script>
+    
+    <!-- Update Status -->
+    <script>
+        async function punch1() {
+            var x = !document.getElementById("punch1").checked;
+        
+            if (x == false) {
+                let submiturl = `${statusurl}/1/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then( console.log(` [ punch1 is ${!x} ] `) )
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/1/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then( console.log(` [ punch1 is ${!x} ] `) )
+                    .catch(console.error);
+            }
+        }
+
+        async function punch2() {
+            var x = !document.getElementById("punch2").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/2/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch2 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/2/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch2 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch3() {
+            var x = !document.getElementById("punch3").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/3/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch3 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/3/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch3 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch4() {
+            var x = !document.getElementById("punch4").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/4/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch4 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/4/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch4 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch5() {
+            var x = !document.getElementById("punch5").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/5/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch5 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/5/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch5 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch6() {
+            var x = !document.getElementById("punch6").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/6/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch6 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/6/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch6 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch7() {
+            var x = !document.getElementById("punch7").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/7/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch7 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/7/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch7 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch8() {
+            var x = !document.getElementById("punch8").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/8/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch8 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/8/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch8 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch9() {
+            var x = !document.getElementById("punch9").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/9/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch9 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/9/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch9 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch10() {
+            var x = !document.getElementById("punch10").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/10/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch10 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/10/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch10 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch11() {
+            var x = !document.getElementById("punch11").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/11/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch11 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/11/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch11 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch12() {
+            var x = !document.getElementById("punch12").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/12/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch12 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/12/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch12 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch13() {
+            var x = !document.getElementById("punch13").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/13/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch13 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/13/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch13 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch14() {
+            var x = !document.getElementById("punch14").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/14/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch14 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/14/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch14 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch15() {
+            var x = !document.getElementById("punch15").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/15/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch15 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/15/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch15 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch16() {
+            var x = !document.getElementById("punch16").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/16/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch16 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/16/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch16 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch17() {
+            var x = !document.getElementById("punch17").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/17/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch17 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/17/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch17 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch18() {
+            var x = !document.getElementById("punch18").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/18/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch18 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/18/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch18 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch19() {
+            var x = !document.getElementById("punch19").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/19/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch19 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/19/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch19 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch20() {
+            var x = !document.getElementById("punch20").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/20/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch20 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/20/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch20 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch21() {
+            var x = !document.getElementById("punch21").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/21/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch21 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/21/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch21 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch22() {
+            var x = !document.getElementById("punch22").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/22/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch22 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/22/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch22 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch23() {
+            var x = !document.getElementById("punch23").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/23/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch23 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/23/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch23 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch24() {
+            var x = !document.getElementById("punch24").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/24/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch24 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/24/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch24 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch25() {
+            var x = !document.getElementById("punch25").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/25/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch25 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/25/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch25 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch26() {
+            var x = !document.getElementById("punch26").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/26/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch26 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/26/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch26 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch27() {
+            var x = !document.getElementById("punch27").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/27/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch27 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/27/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch27 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch28() {
+            var x = !document.getElementById("punch28").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/28/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch28 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/28/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch28 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch29() {
+            var x = !document.getElementById("punch29").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/29/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch29 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/29/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch29 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch30() {
+            var x = !document.getElementById("punch30").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/30/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch30 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/30/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch30 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch31() {
+            var x = !document.getElementById("punch31").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/31/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch31 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/31/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch31 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch32() {
+            var x = !document.getElementById("punch32").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/32/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch32 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/32/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch32 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch33() {
+            var x = !document.getElementById("punch33").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/33/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch33 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/33/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch33 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch34() {
+            var x = !document.getElementById("punch34").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/34/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch34 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/34/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch34 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch35() {
+            var x = !document.getElementById("punch35").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/35/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch35 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/35/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch35 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch36() {
+            var x = !document.getElementById("punch36").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/36/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch36 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/36/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch36 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch37() {
+            var x = !document.getElementById("punch37").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/37/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch37 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/37/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch37 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch38() {
+            var x = !document.getElementById("punch38").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/38/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch38 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/38/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch38 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch39() {
+            var x = !document.getElementById("punch39").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/39/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch39 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/39/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch39 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch40() {
+            var x = !document.getElementById("punch40").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/40/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch40 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/40/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch40 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch41() {
+            var x = !document.getElementById("punch41").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/41/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch41 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/41/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch41 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch42() {
+            var x = !document.getElementById("punch42").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/42/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch42 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/42/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch42 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch43() {
+            var x = !document.getElementById("punch43").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/43/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch43 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/43/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch43 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch44() {
+            var x = !document.getElementById("punch44").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/44/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch44 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/44/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch44 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        async function punch45() {
+            var x = !document.getElementById("punch45").checked;
+
+            if (x == false) {
+                let submiturl = `${statusurl}/45/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch45 is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${statusurl}/45/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ punch45 is ${!x} ] `))
+                    .catch(console.error);
+            }
+        }
+
+        
+    </script>
+
+    <!-- Update System info -->
+    <script>
+
+        async function updatelimits_PLU() {
+            var a = document.getElementById("preLHSup");
+
+            console.log(a)
+
+            var preLHSup = "";
+            var i;
+            for (i = 0; i < a.length; i++) {
+                preLHSup += a.elements[i].value;
+            }
+
+            console.log(preLHSup)
+
+            let submiturl = `${controlurl}/preLHSup/${preLHSup}`
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED preLHSup tolerance ] "))
+                .catch(console.error);
+
+        }
+
+        function updatelimits_PLL() {
+            var b = document.getElementById("preLHSlow");
+
+            var preLHSlow = "";
+            var j;
+            for (j = 0; j < b.length; j++) {
+                preLHSlow += b.elements[j].value;
+            }
+
+            submitt(parseInt(preLHSlow))
+
+            async function submitt(preLHSlow) {
+                let submiturl = `${controlurl}/preLHSlow/${preLHSlow}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED preLHSlow tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_MLU() {
+            var c = document.getElementById("mainLHSup");
+
+            var mainLHSup = "";
+            var k;
+            for (k = 0; k < c.length; k++) {
+                mainLHSup += c.elements[k].value;
+            }
+
+            submitt(parseInt(mainLHSup))
+
+            async function submitt(mainLHSup) {
+                let submiturl = `${controlurl}/mainLHSup/${mainLHSup}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED mainLHSup tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_MLL() {
+            var d = document.getElementById("mainLHSlow");
+
+            var mainLHSlow = "";
+            var l;
+            for (l = 0; l < d.length; l++) {
+                mainLHSlow += d.elements[l].value;
+            }
+            submitt(parseInt(mainLHSlow))
+
+            async function submitt(mainLHSlow) {
+                let submiturl = `${controlurl}/mainLHSlow/${mainLHSlow}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED mainLHSlow tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_PRU() {
+            var e = document.getElementById("preRHSup"); //
+
+            var preRHSup = "";
+            var m;
+            for (m = 0; m < e.length; m++) {
+                preRHSup += e.elements[m].value;
+            }
+
+            submitt(parseInt(preRHSup))
+
+            async function submitt(preRHSup) {
+                let submiturl = `${controlurl}/preRHSup/${preRHSup}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED preRHSup tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+        }
+
+        function updatelimits_PRL() {
+            var f = document.getElementById("preRHSlow");
+
+            var preRHSlow = "";
+            var n;
+            for (n = 0; n < f.length; n++) {
+                preRHSlow += f.elements[n].value;
+            }
+
+            submitt(parseInt(preRHSlow))
+
+            async function submitt(preRHSlow) {
+                let submiturl = `${controlurl}/preRHSlow/${preRHSlow}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED preRHSlow tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+        }
+
+        function updatelimits_MRU() {
+            var g = document.getElementById("mainRHSup"); // 
+
+            var mainRHSup = "";
+            var o;
+            for (o = 0; o < g.length; o++) {
+                mainRHSup += g.elements[o].value;
+            }
+
+            submitt(parseInt(mainRHSup))
+            async function submitt(mainRHSup) {
+                let submiturl = `${controlurl}/mainRHSup/${mainRHSup}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED mainRHSup tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_MRL() {
+            var h = document.getElementById("mainRHSlow");
+
+            var mainRHSlow = "";
+            var p;
+            for (p = 0; p < h.length; p++) {
+                mainRHSlow += h.elements[p].value;
+            }
+
+            submitt(parseInt(mainRHSlow))
+            async function submitt(mainRHSlow) {
+                let submiturl = `${controlurl}/mainRHSlow/${mainRHSlow}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED mainRHSlow tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
