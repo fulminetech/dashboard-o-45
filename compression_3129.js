@@ -730,7 +730,8 @@ var MBS_STATE_FAIL_CONNECT = "State fail (port)";
 var mbsState = MBS_STATE_INIT;
 
 var mbsTimeout = 5000;
-var mbsScan = 12;
+// var mbsScan = 12;
+var mbsScan = 30; // Modbus scan time
 
 let readfailed = 0;
 let failcounter = 100;

@@ -64,7 +64,7 @@ var mbsState = MBS_STATE_INIT;
 var WRITE_STATS
 
 var mbsTimeout = 5000;
-var mbsScan = 50;
+var mbsScan = 50; // Modbus scan time
 
 let readfailed = 0;
 let failcounter = 100;

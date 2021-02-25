@@ -17,7 +17,8 @@ api = Api(app)
 SERVER_HOST = "192.168.0.100"
 SERVER_PORT = 502
 # Scan time in seconds
-MBSCAN = 3
+# MBSCAN = 3
+MBSCAN = 10
 
 # define modbus server host, port
 c = ModbusClient()
