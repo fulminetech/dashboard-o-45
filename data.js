@@ -13,13 +13,6 @@ var host = "http://localhost";
 // var ip_address_4G = hostname.ppp0[0].address;
 // var ip_address = hostname.ppp0[0].address;
 
-// if (ip_address == "10.0.0.65") {
-//     host = "http://localhost"
-// } else {
-//     host = "https://localhost"
-// }
-// console.log(ip_address)
-
 const Influx = require('influxdb-nodejs');
 const { setInterval } = require('timers');
 const flux = new Influx(`${host}:8086/new`);
