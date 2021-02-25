@@ -1,7 +1,7 @@
 {
   "name": "dashboard-o-45",
-  "version": "1.0.0",
-  "description": "",
+  "version": "2.0.0",
+  "description": "All features implemeted (modbus read write) (csv pdf report) (datalogging)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
