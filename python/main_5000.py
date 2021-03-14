@@ -28,33 +28,22 @@ c.port(SERVER_PORT)
 #c.debug(True)
 
 # Modbus Read addresses 
-PREC_L_ADDR = 6097
-MAIN_L_ADDR = 6297
-EJNC_L_ADDR = 6197
+PREC_L_ADDR = 2000
+MAIN_L_ADDR = 2200
+EJNC_L_ADDR = 2800
 
-PREC_R_ADDR = 6497
-MAIN_R_ADDR = 6697
-EJNC_R_ADDR = 6597
+PREC_R_ADDR = 2400
+MAIN_R_ADDR = 2600
+EJNC_R_ADDR = 3000
 
-TIME_ADDR = 4196
+TIME_ADDR = 100
 
-#ML. PL, EJ, MR, PR, ER
-AVGC_ADDR = 6497
-STUS_ADDR = 2589
-# STAT_ADDR = 37768
+#ML. PL, EJ, MR, PR, ER 
+AVGC_ADDR = 3204
+STUS_ADDR = 540
 
 # MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL
-LIMIT_ADDR = 37783
-
-
-# Modbus Write addresses 
-RWRITE_ADDR = 37768 // 5000
-RWRITE_OFST = 15
-RWRITE_VALU = 4500
-
-CWRITE_ADDR = 2458
-CWRITE_OFST = 0
-CWRITE_VALU = False
+LIMIT_ADDR = 5210
 
 # Data format: Dictonary
 payload = {
@@ -178,7 +167,7 @@ def eRHS():
         x = 'avg'
 
 def avg():
-    regs = c.read_holding_registers(AVGC_ADDR, 6)
+    regs = c.read_holding_registers(AVGC_ADDR, 20)
     global x
     if regs:
         # avg = [ x/100 for x in regs]
@@ -191,8 +180,8 @@ def avg():
         x = 'pstatus'
 
 def limit():
-    # MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL
-    regs = c.read_holding_registers(LIMIT_ADDR, 12)
+    # MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL + Force line LHS PME, RHS PME
+    regs = c.read_holding_registers(LIMIT_ADDR, 18)
     global x
     if regs:
         # limit = [ x/100 for x in regs]

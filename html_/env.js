@@ -40,6 +40,8 @@ const restartURL = `${hostname}/restart/pm2-0`
 const logsURL = `${hostname}/api/search/logs/`
 
 // 4. data
+var opbatch
+const oplogs = `http://localhost:8086/query?pretty=true&db=new&q=select%20*%20from%20%22operationlogs%22%20where%20%22batch%22%20=%20%27${opbatch}%27`
 
 
 // compression

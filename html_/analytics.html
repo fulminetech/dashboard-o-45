@@ -381,6 +381,9 @@
                                                 <th class="text-center border-b py-3">PRE RHS AVG<br> (kN)</th>
                                                 <th class="text-center border-b py-3">MAIN LHS AVG<br> (kN)</th>
                                                 <th class="text-center border-b py-3">MAIN RHS AVG<br> (kN)</th>
+                                                <th class="text-center border-b py-3">EJN LHS AVG<br> (kN)</th>
+                                                <th class="text-center border-b py-3">EJN RHS AVG<br> (kN)</th>
+                                                
                                             </tr>
                                         </thead>
 
@@ -480,7 +483,7 @@
                     for (let avgg of avglistt) {
                         i++;
                         let avgdataa = avggbatch.data[i]
-                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td></tr>`
+                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[7]}</td></tr>`
                     }
 
                     avgListBody.innerHTML = avgHTML;

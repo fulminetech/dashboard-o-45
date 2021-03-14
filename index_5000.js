@@ -83,6 +83,10 @@ app.get("/onboard", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/onboard.html"));
 });
 
+app.get("/processsetup", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html_/processsetup.html"));
+});
+
 app.get("/history", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/history.html"));
 });

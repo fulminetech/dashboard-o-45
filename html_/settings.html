@@ -118,6 +118,17 @@
             class="bg-gray-200 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm flex flex-wrap content-start">
 
             <div class="w-1 w-full">
+                <div onclick="location.href='/processsetup'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Process Settings</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="w-1 w-full">
                 <div onclick="location.href='/settings'"
                     class="border-2 border-gray-400 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
@@ -198,168 +209,6 @@
 
                     <!--"Container" for the graphs"-->
                     <div class="max-w-full ">
-
-                        <!--Tolerance Table-->
-                        <div class="border-b p-3">
-                            <h5 class="font-bold text-black">Tolerance:</h5>
-                        </div>
-                        <div class="p-5 border border-gray-400 rounded shadowborder border-gray-400 rounded shadow">
-                            <table class="w-full p-3 text-gray-700">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center text-blue-900"></th>
-                                        <th class="text-center text-blue-900">Pre LHS</th>
-                                        <th class="text-center text-blue-900">Pre RHS</th>
-                                        <th class="text-center text-blue-900">Main LHS</th>
-                                        <th class="text-center text-blue-900">Main RHS</th>
-                                    </tr>
-                                </thead>
-                        
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center border-b border-gray-300 py-2  uppercase text-blue-900">Upper</td>
-                                        <td id="preLHS_upper" class="border-b  text-center  border-gray-300"></td>
-                                        <td id="preRHS_upper" class="border-b  text-center border-gray-300"></td>
-                                        <td id="mainLHS_upper" class="border-b text-center  border-gray-300"></td>
-                                        <td id="mainRHS_upper" class="border-b text-center  border-gray-300"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center border-gray-400 py-2 uppercase text-blue-900">Lower</td>
-                                        <td id="preLHS_lower" class="border-gray-400  text-center"></td>
-                                        <td id="preRHS_lower" class="border-gray-400  text-center"></td>
-                                        <td id="mainLHS_lower" class="border-gray-400 text-center"></td>
-                                        <td id="mainRHS_lower" class="border-gray-400 text-center"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <!-- Set Tolerance -->
-                        <div class="border-b p-3">
-                            <h5 class="font-bold text-black">Set: Tolerance</h5>
-                        </div>
-                        <div class="flex grid grid-cols-4 p-3 ">
-                            
-                            <div class="flex ">
-                                <div class="py-3">
-                                    <input id="preLHSup" 
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="PRE LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_PLU()">
-                                </div>
-                                <div class="p-3 ">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="updatelimits_PLU()">SET</button>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="preRHSup"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="PRE RHS Up" onkeydown="if (event.keyCode == 13) updatelimits_PRU()">
-                                </div>
-                                <div class="p-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="updatelimits_PRU()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="mainLHSup"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="Main LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_MLU()">
-                                </div>
-                                <div class="p-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="updatelimits_MLU()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-
-
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="mainRHSup"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="Main RHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_MRU()">
-                                </div>
-                                <div class="p-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="updatelimits_MRU()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        
-                            <div class="flex ">
-                                <div  class="py-3">
-                                    <input id="preLHSlow"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="PRE LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_PLL()">
-                                </div>
-                                <div class="p-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="updatelimits_PLL()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        
-                        
-                            <div class="flex flex-row">
-                                <div  class="py-3">
-                                    <input id="preRHSlow"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="PRE RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_PRL()">
-                                </div>
-                                <div class="p-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="updatelimits_PRL()"> SET
-                                    </button>
-                                </div>
-                            </div>
-
-
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="mainLHSlow"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="Main LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MLL()">
-                                </div>
-                                <div class="p-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="updatelimits_MLL()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        
-                            <div class="flex flex-row">
-                                <div  class="py-3">
-                                    <input id="mainRHSlow"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="Main RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MRL()">
-                                </div>
-                                <div class="p-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="updatelimits_MRL()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- Active Punch selection -->
                         <div class="w-full p-3 shadow">

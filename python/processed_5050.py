@@ -10,23 +10,27 @@ import numpy as np
 
 import requests
 
-# Limits for processing the data
-# MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL
+# Limits Sequence
+# PLHS_UL
+# PLHS_LL
+# MLHS_UL
+# MLHS_LL
+# ELHS_UL
+# ELHS_LL
 
-PLHS_LL = 50
-PLHS_UL = 70
-PRHS_LL = 50
-PRHS_UL = 70
+# PRHS_UL
+# PRHS_LL
+# MRHS_UL
+# MRHS_LL
+# ERHS_UL
+# ERHS_LL
 
-MLHS_LL = 20
-MLHS_UL = 70
-MRHS_LL = 20
-MRHS_UL = 70
-
-ELHS_LL = 50
-ELHS_UL = 70
-ERHS_LL = 50
-ERHS_UL = 70
+# PLHS_FL
+# MLHS_FL
+# ELHS_FL
+# PRHS_FL
+# MRHS_FL
+# ERHS_FL
 
 # Data format: Dictonary
 payload = {
@@ -50,10 +54,11 @@ payload = {
 def process(processedlist, lowerlimit, upperlimit):
     # Values above and below limits are set red and in between are blue
     for index, items in enumerate(processedlist):
-        if items > upperlimit or items < lowerlimit:
+        if items > upperlimit:
             processedlist[index] = "red"
+        elif items < lowerlimit:
+            processedlist[index] = "yellow"
         elif items >= lowerlimit and items <= upperlimit:
-        # elif:
             processedlist[index] = "blue"
     return processedlist
 
@@ -84,10 +89,14 @@ def processor():
     eRHS = [ x/100 for x in regs5]
 
     regs6 = response["avg"]
-    avg = [ x/100 for x in regs6]
+    avg = [x / 100 for x in regs6]
+    #ML. PL, EL, MR, PR, ER 
+    avg_new = [ avg[3], avg[0], avg[15], avg[11], avg[7], avg[19] ]
 
     regs7 = response["limit"]
-    limit = [ x/100 for x in regs7]
+    limit = [x / 100 for x in regs7]
+    # MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL
+    limit_new = [ limit[3], limit[2], limit[9], limit[8], limit[1], limit[0], limit[7], limit[6], limit[5], limit[4], limit[11], limit[10],  limit[12], limit[13],limit[14],limit[15], limit[16], limit[17] ]
 
     payload['connection'] = True
     payload['pLHS_data'] = pLHS 
@@ -97,8 +106,8 @@ def processor():
     payload['eLHS_data'] = eLHS
     payload['eRHS_data'] = eRHS
     payload['pstatus'] = response["pstatus"]
-    payload['avg'] = avg
-    payload['limit'] = limit
+    payload['avg'] = avg_new
+    payload['limit'] = limit_new
 
     # Copy of data from raw server
     pLHS_data = payload['pLHS_data'].copy()
@@ -109,12 +118,12 @@ def processor():
     eRHS_data = payload['eRHS_data'].copy()
 
     # MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL
-    payload['mLHS_processed'] = process(mLHS_data, limit[0], limit[1])
-    payload['mRHS_processed'] = process(mRHS_data, limit[2], limit[3])
-    payload['pLHS_processed'] = process(pLHS_data, limit[4], limit[5])
-    payload['pRHS_processed'] = process(pRHS_data, limit[6], limit[7])
-    payload['eLHS_processed'] = process(eLHS_data, limit[8], limit[9])
-    payload['eRHS_processed'] = process(eRHS_data, limit[10], limit[11])
+    payload['mLHS_processed'] = process(mLHS_data, limit_new[0], limit_new[1])
+    payload['mRHS_processed'] = process(mRHS_data, limit_new[2], limit_new[3])
+    payload['pLHS_processed'] = process(pLHS_data, limit_new[4], limit_new[5])
+    payload['pRHS_processed'] = process(pRHS_data, limit_new[6], limit_new[7])
+    payload['eLHS_processed'] = process(eLHS_data, limit_new[8], limit_new[9])
+    payload['eRHS_processed'] = process(eRHS_data, limit_new[10], limit_new[11])
 
 # print(payload)
 

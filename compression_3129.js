@@ -687,17 +687,18 @@ const slaveID = 1;
 const ip = "192.168.0.100"
 
 // Modbus Addresses
-const precompressionLHS_address = 6097;
-const precompressionRHS_address = 6497;
-const maincompressionLHS_address = 6297;
-const maincompressionRHS_address = 6697;
-// const ejectionLHS_address = 6297;
-// const ejectionRHS_address = 6697;
-const avg_address = 7300;
-const status_address = 2589;
+const precompressionLHS_address = 2000;
+const precompressionRHS_address = 2400;
+const maincompressionLHS_address = 2200;
+const maincompressionRHS_address = 2600;
+const ejectionLHS_address = 2800;
+const ejectionRHS_address = 3000;
 
-const time_address = 4196;
-const stats_address = 8096;
+const avg_address = 3204;
+const status_address = 540;
+
+const time_address = 100;
+const stats_address = 5000;
 
 // Modbus 'state' constants
 var MBS_STATE_INIT = "State init";
@@ -1241,15 +1242,15 @@ var readejnRHS = function () {
 }
 
 var readavg = function () {
-    client.readHoldingRegisters(avg_address, 15)
+    client.readHoldingRegisters(avg_address, 19)
         .then(function (avg) {
             // console.log("AVG data: ",avg.data)
             payload.precompressionLHS_avg = avg.data[0] / 100;
-            payload.maincompressionLHS_avg = avg.data[4] / 100;
-            payload.precompressionRHS_avg = avg.data[8] / 100;
-            payload.maincompressionRHS_avg = avg.data[12] / 100;
-            // payload.ejectionLHS_avg = avg.data[1] / 100;
-            // payload.ejectionRHS_avg = avg.data[1] / 100;
+            payload.maincompressionLHS_avg = avg.data[3] / 100;
+            payload.precompressionRHS_avg = avg.data[7] / 100;
+            payload.maincompressionRHS_avg = avg.data[11] / 100;
+            payload.ejectionLHS_avg = avg.data[15] / 100;
+            payload.ejectionRHS_avg = avg.data[19] / 100;
 
             mbsState = MBS_STATE_GOOD_READ_AVG;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
@@ -1376,10 +1377,6 @@ var readstats = function () {
             payload.machine.RHS.maincompression_lowerlimit = stats_data.data[22] / 100;
             // payload.machine.LHS.ejection_upperlimit = stats_data.data[19] / 100;
             // payload.machine.RHS.ejection_upperlimit = stats_data.data[19] / 100;
-
-            // payload.machine.main_forceline = stats_data.data[22] / 100;
-            // payload.machine.pre_forceline = stats_data.data[23] / 100;
-            // payload.machine.ejn_forceline = stats_data.data[24] / 100;
 
             mbsState = MBS_STATE_GOOD_READ_STATS;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)

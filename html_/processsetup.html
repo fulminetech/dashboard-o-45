@@ -96,19 +96,18 @@
             <li class="my-2 md:my-0">
                 <a href="/analytics"
                     class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-folder fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Reports</span>
+                    <i class="fas fa-folder fa-fw mr-3 text-xl"></i><span
+                        class="w-full inline-block text-lg">Reports</span>
                 </a>
             </li>
             <li class="my-2 md:my-0">
                 <a href="/settings"
                     class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fa fa-wrench fa-fw mr-3 text-indigo-400 text-xl"></i><span
-                        class="w-full inline-block text-lg">Settings</span>
+                    <i class="fa fa-wrench fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full inline-block text-lg">Settings</span>
                 </a>
             </li>
         
         </ul>
-
 
     </div>
 
@@ -117,18 +116,17 @@
         <!--Dash Content -->
         <div id="dash-content" class="bg-gray-200 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm flex flex-wrap content-start">
         
-
             <div class="w-1 w-full">
                 <div onclick="location.href='/processsetup'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Process Settings</h5>
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-700"> Process Settings</h5>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="w-1 w-full">
                 <div onclick="location.href='/settings'"
                     class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
@@ -177,10 +175,10 @@
         
             <div class="w-1 w-full">
                 <div onclick="location.href='/settings_setup'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-700"> Setup</h5>
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500"> Setup</h5>
                         </div>
                     </div>
                 </div>
@@ -206,390 +204,236 @@
         
             <div class="flex flex-1 flex-wrap">
                 <div class="w-full p-6 ">
-
+                
                     <!-- Search: Parameters -->
                     <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Maximum:</h5>
+                        <h5 class="font-bold text-black">Roller Setting: </h5>
                     </div>
-                
+            
+                    <div class="flex flex-wrap p-3">
+                        <h3> Roller Frequency: 1234 </h3>
+                    </div>
+
                     <div class="flex grid grid-cols-3 p-3 ">
                     
                         <div class="flex flex-col">
-                            <h3> Precompression: 100 kN </h3>
-                            
+                            <h3> Roller Frequency </h3>
+                            <!-- Upperlimit: 50 -->
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> Maincompression: 100 kN </h3>
-                            
+                            <h3> Select Roller </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="flex grid grid-cols-3">
+                    
+                    
+                        <div class="flex flex-wrap p-3">
+                    
+                            <!-- PDF report Button -->
+                            <div class="py-3">
+                                <button id="generatepdfreport"
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateReport()">
+                                    FORWARD RUN
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-wrap p-3">
+                    
+                            <!-- PDF report Button -->
+                            <div class="py-3">
+                                <button id="generatepdfreport"
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateReport()">
+                                    REVERSE RUN
+                                </button>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">Sampling Settings:</h5>
+                    </div>
+
+                    <div class="flex flex-wrap p-3">
+                        <h3> Status: Disabled </h3>
+                    </div>
+
+                    <div class="flex flex-wrap p-3">
+                        <h3> Sample Tablet Count: 1234 </h3>
+                    </div>
+                    
+                    <div class="flex flex-wrap p-3">
+                        <h3> No. of Sample Tablet: 1234 </h3>
+                    </div>
+                    
+                    <div class="flex flex-wrap p-3">
+                        <h3> Sampling Interval (Mins): 1234 </h3>
+                    </div>
+
+                    <div class="flex grid grid-cols-3">
+
+    
+                        <div class="flex flex-wrap p-3">
+                    
+                            <!-- PDF report Button -->
+                            <div class="py-3">
+                                <button id="generatepdfreport"
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateReport()">
+                                    Manual
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap p-3">
+                    
+                            <!-- PDF report Button -->
+                            <div class="py-3">
+                                <button id="generatepdfreport"
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateReport()">
+                                    Auto
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-wrap p-3">
+                    
+                            <!-- Excel Button -->
+                            <div class="py-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="csvexport()">
+                                    Sample
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-col">
+                            <h3> No. of Sample Tablet </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> Ejection: 100 kg </h3>                            
+                            <h3> Sampling Interval (Mins) </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-        
+                    
                     </div>
 
                     <!-- Search: Parameters -->
                     <div class="border-b mt-2 p-3">
                         <h5 class="font-bold text-black">Rejection Settings:</h5>
                     </div>
+
+                    <div class="flex flex-wrap p-3">
+                        <h3> Status: Disabled </h3>
+                    </div>
+
+                    <div class="flex grid grid-cols-3">
+
+                        <div class="flex flex-wrap p-3">
                     
-                    <div class="flex grid grid-cols-3 p-3 ">
-                    
-                        <div class="flex flex-col">
-                            <h3> Rejection By Air Start PPR </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Rejection By Air Stop PPR </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> LHS Pulse Offset for FLAP ON </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Rejection By Flap Start PPR </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
+                            <div class="py-3">
+                                <button id="generatepdfreport"
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateReport()">
+                                    BY FLAP
+                                </button>
                             </div>
                         </div>
                         
-                        <div class="flex flex-col">
-                            <h3> Rejection By Flap Stop PPR </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="flex flex-col">
-                            <h3> Rejection By Air Tablet Offset </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="flex flex-col">
-                            <h3> Rejection By Flap Tablet Offset </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="flex flex-col">
-                            <h3> Max Rejection for Machine Stop </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
+                        <div class="flex flex-wrap p-3">
+                    
+                            <!-- PDF report Button -->
+                            <div class="py-3">
+                                <button id="generatepdfreport"
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateReport()">
+                                    BY AIR
+                                </button>
                             </div>
                         </div>
                     
-                    </div>
+                        <div class="flex flex-wrap p-3">
+                    
+                            <!-- Excel Button -->
+                            <div class="py-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="csvexport()">
+                                    DISABLE
+                                </button>
+                            </div>
+                        </div>
 
-                    <!-- Search: Parameters -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Settings:</h5>
                     </div>
-                    
-                    <div class="flex grid grid-cols-3 p-3 ">
-                    
-                        <div class="flex flex-col">
-                            <h3> Encoder Pulse </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Set Pressure Drop (%) </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Set Pressure Increase (%) </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Dwell Time (sec) </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                    </div>
-
-                    <!-- Search: Parameters -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Head Flat: (mm)</h5>
-                    </div>
-                    
-                    <div class="flex grid grid-cols-3 p-3 ">
-                    
-                        <div class="flex flex-col">
-                            <h3> A </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> B </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> D </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                    </div>
-
-                    <!-- Search: Parameters -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">PCD: (mm)</h5>
-                    </div>
-                    
-                    <div class="flex grid grid-cols-3 p-3 ">
-                    
-                        <div class="flex flex-col">
-                            <h3> A </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> B </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> D </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                    </div>
-
                 
                 </div>
             

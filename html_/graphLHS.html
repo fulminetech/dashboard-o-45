@@ -151,120 +151,25 @@
                 <div class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase text-gray-700">Data Number</h5>
+                            <h5 class="font-bold uppercase text-gray-700">Rotation Number</h5>
                             <h3 id="rotation_number_metric" class="font-bold text-2xl">0</h3>
                         </div>
                     </div>
                 </div>
             </div>
-<!-- 
-            <div class="flex flex-col">
-                <h3> Pre Upper Tolerance </h3>
-                <div class="flex flex-row">
-                    <div class="py-3">
-                        <input id="pressure"
-                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
-                    </div>
-                    <div class="p-3">
-                        <button
-                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                            onclick="updatepressure()">
-                            SET
-                        </button>
+
+            <!-- Punch Number -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">Punch Number</h5>
+                            <h3 id="punch_number_metric" class="font-bold text-2xl">0</h3>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="flex flex-col">
-                <h3> Pre Lower Tolerance </h3>
-                <div class="flex flex-row">
-                    <div class="py-3">
-                        <input id="pressure"
-                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
-                    </div>
-                    <div class="p-3">
-                        <button
-                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                            onclick="updatepressure()">
-                            SET
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col">
-                <h3> Main Upper Tolerance </h3>
-                <div class="flex flex-row">
-                    <div class="py-3">
-                        <input id="pressure"
-                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
-                    </div>
-                    <div class="p-3">
-                        <button
-                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                            onclick="updatepressure()">
-                            SET
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col">
-                <h3> Main Lower Tolerance </h3>
-                <div class="flex flex-row">
-                    <div class="py-3">
-                        <input id="pressure"
-                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
-                    </div>
-                    <div class="p-3">
-                        <button
-                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                            onclick="updatepressure()">
-                            SET
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col">
-                <h3> Ejn Upper Tolerance </h3>
-                <div class="flex flex-row">
-                    <div class="py-3">
-                        <input id="pressure"
-                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
-                    </div>
-                    <div class="p-3">
-                        <button
-                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                            onclick="updatepressure()">
-                            SET
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex flex-col">
-                <h3> Ejn Lower Tolerance </h3>
-                <div class="flex flex-row">
-                    <div class="py-3">
-                        <input id="pressure"
-                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
-                    </div>
-                    <div class="p-3">
-                        <button
-                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                            onclick="updatepressure()">
-                            SET
-                        </button>
-                    </div>
-                </div>
-            </div> -->
 
             
         </div>
@@ -278,96 +183,184 @@
                 <div class="max-w-full">
 
                     <!--Tolerance Table-->
-                    <!-- <div class="border-b p-3">
+                    <div class="border-b p-3">
                         <h5 class="font-bold text-black">Tolerance:</h5>
                     </div>
                     <div class="p-5 border border-gray-400 rounded shadowborder border-gray-400 rounded shadow">
                         <table class="w-full p-3 text-gray-700">
                             <thead>
                                 <tr>
-                                    <th class="text-center border-b  text-blue-900">Pre LHS Upper</th>
-                                    <th class="text-center border-b  text-blue-900">Pre LHS Lower</th>
-                                    <th class="text-center border-b text-blue-900">Main LHS Upper</th>
-                                    <th class="text-center border-b text-blue-900">Main LHS Lower</th>
+                                    <th class="text-center text-blue-900"></th>
+                                    <th class="text-center text-blue-900">Pre Compression</th>
+                                    <th class="text-center text-blue-900">Main Compression</th>
+                                    <th class="text-center text-blue-900">Ejection Compression</th>
                                 </tr>
                             </thead>
                     
                             <tbody>
                                 <tr>
-                                    <td id="preLHS_upper" class=" text-center  border-gray-300"></td>
-                                    <td id="preLHS_lower" class=" text-center border-gray-300"></td>
-                                    <td id="mainLHS_upper" class=" text-center  border-gray-300"></td>
-                                    <td id="mainLHS_lower" class=" text-center  border-gray-300"></td>
+                                    <td class="text-center border-b border-gray-300 py-2  uppercase text-blue-900">Upper</td>
+                                    <td id="preLHS_upper" class="border-b  text-center  border-gray-300"></td>
+                                    <td id="mainLHS_upper" class="border-b text-center  border-gray-300"></td>
+                                    <td id="ejnLHS_upper" class="border-b  text-center border-gray-300"></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td class="text-center border-b  border-gray-400 py-2 uppercase text-blue-900">Lower</td>
+                                    <td id="preLHS_lower" class="border-b border-gray-400  text-center"></td>
+                                    <td id="mainLHS_lower" class="border-b border-gray-400 text-center"></td>
+                                    <td id="ejnLHS_lower" class="border-b border-gray-400  text-center"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center border-gray-400 py-2 uppercase text-blue-900">Force Line</td>
+                                    <td id="preLHS_fl" class="border-gray-400  text-center"></td>
+                                    <td id="mainLHS_fl" class="border-gray-400 text-center"></td>
+                                    <td id="ejnLHS_fl" class="border-gray-400  text-center"></td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div> -->
-
-
-                        <!-- Set Tolerance -->
-                        <!-- <div class="border-b p-3">
-                            <h5 class="font-bold text-black">Set: Tolerance</h5>
-                        </div> -->
-                        <!-- <div class="flex grid grid-cols-4 p-3 ">
-                            <div class="flex ">
-                                <div class="py-3">
-                                    <input id="preLHSup"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="PRE LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_PLU()">
-                                </div>
-                                <div class="p-3 ">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="updatelimits_PLU()">SET</button>
-                                </div>
+                    </div>
+                    
+                    <!-- Set Tolerance -->
+                    <div class="border-b p-3">
+                        <h5 class="font-bold text-black">Set: Tolerance</h5>
+                    </div>
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex ">
+                            <div class="py-3">
+                                <input id="preLHSup"
+                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                    type="number" placeholder="PRE LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_PLU()">
                             </div>
-
-                            <div class="flex ">
-                                <div class="py-3">
-                                    <input id="preLHSlow"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="PRE LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_PLL()">
-                                </div>
-                                <div class="p-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="updatelimits_PLL()">
-                                        SET
-                                    </button>
-                                </div>
+                            <div class="p-3 ">
+                                <button
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="updatelimits_PLU()">SET</button>
                             </div>
+                        </div>
+                    
+                        <div class="flex flex-row">
+                            <div class="py-3">
+                                <input id="mainLHSup"
+                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                    type="number" placeholder="Main LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_MLU()">
+                            </div>
+                            <div class="p-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="updatelimits_MLU()">
+                                    SET
+                                </button>
+                            </div>
+                        </div>
+                    
+                    
+                        <div class="flex flex-row">
+                            <div class="py-3">
+                                <input id="ejnLHSup"
+                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                    type="number" placeholder="Ejection LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_ELU()">
+                            </div>
+                            <div class="p-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="updatelimits_ELU()">
+                                    SET
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="flex ">
+                            <div class="py-3">
+                                <input id="preLHSlow"
+                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                    type="number" placeholder="PRE LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_PLL()">
+                            </div>
+                            <div class="p-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="updatelimits_PLL()">
+                                    SET
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-row">
+                            <div class="py-3">
+                                <input id="mainLHSlow"
+                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                    type="number" placeholder="Main LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MLL()">
+                            </div>
+                            <div class="p-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="updatelimits_MLL()">
+                                    SET
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-row">
+                            <div class="py-3">
+                                <input id="ejnLHSlow"
+                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                    type="number" placeholder="Ejection LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_ELL()">
+                            </div>
+                            <div class="p-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="updatelimits_ELL()">
+                                    SET
+                                </button>
+                            </div>
+                        </div>
                         
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="mainLHSup"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="Main LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_MLU()">
-                                </div>
-                                <div class="p-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="updatelimits_MLU()">
-                                        SET
-                                    </button>
-                                </div>
+                        <div class="flex ">
+                            <div class="py-3">
+                                <input id="preLHSfl"
+                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                    type="number" placeholder="PRE LHS Force Line" onkeydown="if (event.keyCode == 13) updatelimits_PLFL()">
                             </div>
-                        
-                           
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="mainLHSlow"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="Main LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MLL()">
-                                </div>
-                                <div class="p-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="updatelimits_MLL()">
-                                        SET
-                                    </button>
-                                </div>
+                            <div class="p-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="updatelimits_PLFL()">
+                                    SET
+                                </button>
                             </div>
-                        </div> -->
+                        </div>
+                    
+                        <div class="flex flex-row">
+                            <div class="py-3">
+                                <input id="mainLHSfl"
+                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                    type="number" placeholder="Main LHS Force Line" onkeydown="if (event.keyCode == 13) updatelimits_MLFL()">
+                            </div>
+                            <div class="p-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="updatelimits_MLFL()">
+                                    SET
+                                </button>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-row">
+                            <div class="py-3">
+                                <input id="ejnLHSfl"
+                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                    type="number" placeholder="Ejection LHS Force Line" onkeydown="if (event.keyCode == 13) updatelimits_ELFL()">
+                            </div>
+                            <div class="p-3">
+                                <button
+                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="updatelimits_ELFL()">
+                                    SET
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
                     <!--Pre Compression Graph LHS-->
                     <div class="border-b p-1">
@@ -694,6 +687,37 @@
 
     </script>
 
+    <!-- PAYLOAD API fetch -->
+    <script>
+
+        async function fetchpayloadapiHF() {
+                fetch(payloadURL)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        // Here you get the data to modify as you please
+                        payload = data
+                        // console.log(payload)
+                        document.getElementById("batch_number_metric").innerHTML = payload.batch;
+                        document.getElementById("rotation_number_metric").innerHTML = payload.data_number;
+                        document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
+                        document.getElementById("rpm_metric").innerHTML = payload.stats.rpm;
+                    })
+                    .catch(function (error) {
+                        // If there is any error you will catch them here
+                        console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            };
+
+            fetchpayloadapiHF()
+
+            setInterval(() => {
+                fetchpayloadapiHF();
+            }, 200);
+
+    
+    </script>
+
+
     <!-- New Graph script -->
     <script>
         
@@ -704,6 +728,17 @@
                     // Here you get the data to modify as you please
                     payload = data
 
+                    document.getElementById("mainLHS_lower").innerHTML = payload.limit[0];
+                    document.getElementById("mainLHS_upper").innerHTML = payload.limit[1];
+                    document.getElementById("preHS_lower").innerHTML = payload.limit[4];
+                    document.getElementById("preLHS_upper").innerHTML = payload.limit[5];
+                    document.getElementById("ejnLHS_lower").innerHTML = payload.limit[8];
+                    document.getElementById("ejnLHS_upper").innerHTML = payload.limit[9];
+                    
+                    // document.getElementById("preLHS_fl").innerHTML = payload.fl[];
+                    // document.getElementById("mainLHS_fl").innerHTML = payload.fl[];
+                    // document.getElementById("ejnLHS_fl").innerHTML = payload.fl[];
+                    
                     MLHS_LL = Array(45).fill(payload.limit[0])
                     MLHS_UL = Array(45).fill(payload.limit[1])
                     PLHS_LL = Array(45).fill(payload.limit[4])
@@ -743,6 +778,227 @@
         setInterval(() => {
             fetchpayloadapiHF();
         }, 50);
+    </script>
+
+    <!-- Update System info -->
+    <script>
+
+        async function updatelimits_PLU() {
+            var a = document.getElementById("preLHSup");
+
+            console.log(a)
+
+            var preLHSup = "";
+            var i;
+            for (i = 0; i < a.length; i++) {
+                preLHSup += a.elements[i].value;
+            }
+
+            console.log(preLHSup)
+
+            let submiturl = `${seturl}/LHS_PRE_TOLERANCE_UPPER/${preLHSup}`
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED LHS_PRE_TOLERANCE_UPPER tolerance ] "))
+                .catch(console.error);
+
+        }
+
+        function updatelimits_PLL() {
+            var b = document.getElementById("preLHSlow");
+
+            var preLHSlow = "";
+            var j;
+            for (j = 0; j < b.length; j++) {
+                preLHSlow += b.elements[j].value;
+            }
+
+            submitt(parseInt(preLHSlow))
+
+            async function submitt(preLHSlow) {
+                let submiturl = `${seturl}/LHS_PRE_TOLERANCE_LOWER/${preLHSlow}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED LHS_PRE_TOLERANCE_LOWER tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_MLU() {
+            var c = document.getElementById("mainLHSup");
+
+            var mainLHSup = "";
+            var k;
+            for (k = 0; k < c.length; k++) {
+                mainLHSup += c.elements[k].value;
+            }
+
+            submitt(parseInt(mainLHSup))
+
+            async function submitt(mainLHSup) {
+                let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_UPPER/${mainLHSup}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED LHS_MAIN_TOLERANCE_UPPER tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_MLL() {
+            var d = document.getElementById("mainLHSlow");
+
+            var mainLHSlow = "";
+            var l;
+            for (l = 0; l < d.length; l++) {
+                mainLHSlow += d.elements[l].value;
+            }
+            submitt(parseInt(mainLHSlow))
+
+            async function submitt(mainLHSlow) {
+                let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_LOWER/${mainLHSlow}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED LHS_MAIN_TOLERANCE_LOWER tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_ELU() {
+            var c = document.getElementById("ejnLHSup");
+
+            var ejnLHSup = "";
+            var k;
+            for (k = 0; k < c.length; k++) {
+                ejnLHSup += c.elements[k].value;
+            }
+
+            submitt(parseInt(ejnLHSup))
+
+            async function submitt(ejnLHSup) {
+                let submiturl = `${seturl}/LHS_EJN_TOLERANCE_UPPER/${ejnLHSup}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED LHS_EJN_TOLERANCE_UPPER tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_ELL() {
+            var d = document.getElementById("ejnLHSlow");
+
+            var ejnLHSlow = "";
+            var l;
+            for (l = 0; l < d.length; l++) {
+                ejnLHSlow += d.elements[l].value;
+            }
+            submitt(parseInt(ejnLHSlow))
+
+            async function submitt(ejnLHSlow) {
+                let submiturl = `${seturl}/LHS_EJN_TOLERANCE_LOWER/${ejnLHSlow}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED LHS_EJN_TOLERANCE_LOWER tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_PLFL() {
+                var f = document.getElementById("preLHSfl");
+
+                var preLHSfl = "";
+                var n;
+                for (n = 0; n < f.length; n++) {
+                    preLHSfl += f.elements[n].value;
+                }
+
+                submitt(parseInt(preLHSfl))
+
+                async function submitt(preLHSfl) {
+                    let submiturl = `${seturl}/RHS_PRE_FORCE_LINE/${preLHSfl}`
+
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED RHS_PRE_FORCE_LINE tolerance ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+            }
+
+            function updatelimits_MLFL() {
+                var h = document.getElementById("mainLHSfl");
+
+                var mainLHSfl = "";
+                var p;
+                for (p = 0; p < h.length; p++) {
+                    mainLHSfl += h.elements[p].value;
+                }
+
+                submitt(parseInt(mainLHSfl))
+                async function submitt(mainLHSfl) {
+                    let submiturl = `${seturl}/RHS_MAIN_FORCE_LINE/${mainLHSfl}`
+
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED RHS_MAIN_FORCE_LINE tolerance ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+            }
+
+            function updatelimits_ELFL() {
+                var c = document.getElementById("ejnLHSfl");
+
+                var ejnLHSfl = "";
+                var k;
+                for (k = 0; k < c.length; k++) {
+                    ejnLHSfl += c.elements[k].value;
+                }
+
+                submitt(parseInt(ejnLHSfl))
+
+                async function submitt(ejnLHSfl) {
+                    let submiturl = `${seturl}/RHS_EJN_FORCE_LINE/${ejnLHSfl}`
+
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED RHS_EJN_FORCE_LINE tolerance ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+
+            }
+        
+        
     </script>
 
 </body>
