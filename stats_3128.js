@@ -30,7 +30,7 @@ const ip = "192.168.0.100"
 
 // Modbus Addresses
 const status_address = 540;
-const button_address = 118;
+const button_address = 400;
 
 const time_address = 100;
 const stats_address = 5200;
@@ -428,7 +428,7 @@ var readstats = function () {
             payload.stats.FF_MODE = stats_data.data[3],
             payload.stats.lubrication.set_delay_min = stats_data.data[4],
             payload.stats.lubrication.set_delay_sec = stats_data.data[5],
-            payload.stats.pressure_set = stats_data.data[6],
+            payload.stats.pressure_set = stats_data.data[6] / 10,
             payload.stats.hydraulic.high_cutoff = stats_data.data[7]
             payload.stats.hydraulic.low_cutoff = stats_data.data[8]
 
@@ -542,7 +542,7 @@ var readstats = function () {
     setTimeout(() => {
         mbsState = MBS_STATE_GOOD_READ_STATS;
 
-        client.readHoldingRegisters(stats_read_address, 40)
+        client.readHoldingRegisters(stats_read_address, 41)
             .then(function (stats_data) {
                 // console.log("STATS: ",stats_data.data)
                 payload.stats.turret.F = stats_data.data[0]
@@ -1416,26 +1416,87 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writestats()
         writelog()
     } 
-    else if (a == "POWER_PACK_START_BUTTON" && b == "true") {
-        offset_button = 15
+    else if (a == "MACHINE_INCHING_BUTTON" && b == "true") {
+        offset_button = 20
         set_button = true
-        c = payload.button.POWER_PACK_START_BUTTON
+        c = payload.button.MACHINE_INCHING_BUTTON
+        
+        writebutton()
+        writelog()   
+    }
+    else if (a == "MACHINE_INCHING_BUTTON" && b == "false") {
+        offset_button = 20
+        set_button = false
+        c = payload.button.MACHINE_INCHING_BUTTON
+        
         writebutton()
         writelog()   
     }
     else if (a == "MACHINE_START_BUTTON" && b == "true") {
-        offset_button = 15
+        offset_button = 25
         set_button = true
         c = payload.button.MACHINE_START_BUTTON
         
         writebutton()
         writelog()   
     }
+    else if (a == "MACHINE_START_BUTTON" && b == "false") {
+        offset_button = 25
+        set_button = false
+        c = payload.button.MACHINE_START_BUTTON
+        
+        writebutton()
+        writelog()   
+    }
     else if (a == "MACHINE_STOP_BUTTON" && b == "true") {
-        offset_button = 15
+        offset_button = 26
         set_button = true
         c = payload.button.MACHINE_STOP_BUTTON
         
+        writebutton()
+        writelog()
+    }
+    else if (a == "MACHINE_STOP_BUTTON" && b == "false") {
+        offset_button = 26
+        set_button = false
+        c = payload.button.MACHINE_STOP_BUTTON
+        
+        writebutton()
+        writelog()
+    }
+    else if (a == "POWER_PACK_START_BUTTON" && b == "true") {
+        offset_button = 10
+        set_button = true
+        c = payload.button.POWER_PACK_START_BUTTON
+        writebutton()
+        writelog()   
+    }
+    else if (a == "POWER_PACK_START_BUTTON" && b == "false") {
+        offset_button = 10
+        set_button = false
+        c = payload.button.POWER_PACK_START_BUTTON
+        writebutton()
+        writelog()   
+    }
+    else if (a == "POWER_PACK_STOP_BUTTON" && b == "true") {
+        offset_button = 11
+        set_button = true
+        c = payload.button.POWER_PACK_STOP_BUTTON
+        writebutton()
+        writelog()   
+    }
+    else if (a == "POWER_PACK_STOP_BUTTON" && b == "false") {
+        offset_button = 11
+        set_button = false
+        c = payload.button.POWER_PACK_STOP_BUTTON
+        writebutton()
+        writelog()   
+    }
+    else if (a == "DRAIN_BUTTON" && b == "true") {
+        offset_button = 14
+        set_button = true
+        c = payload.button.DRAIN_BUTTON_HMI
+
         writebutton()
         writelog()
     }
@@ -1491,22 +1552,6 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         offset_button = 15
         set_button = true
         c = payload.button.LUBRICATION_PUMP_BUTTON_HMI
-        
-        writebutton()
-        writelog()
-    }
-    else if (a == "POWER_PACK_BUTTON_HMI" && b == "true") {
-        offset_button = 15
-        set_button = true
-        c = payload.button.POWER_PACK_BUTTON_HMI
-        
-        writebutton()
-        writelog()
-    }
-    else if (a == "DRAIN_BUTTON_HMI" && b == "true") {
-        offset_button = 15
-        set_button = true
-        c = payload.button.DRAIN_BUTTON_HMI
         
         writebutton()
         writelog()

@@ -143,17 +143,17 @@
                         <div class="p-3">
                             <button
                                 class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
-                                onclick="start()"> START </button>
+                                onmousedown="start()" onmouseup="unstart()"> START </button>
                             <button
                                 class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
-                                onclick="stop()"> STOP </button>
+                                onmousedown="stop()" onmouseup="unstop()"> STOP </button>
                         </div>
                         
                         <!-- Search Button -->
                         <div class="p-3">
                             <button
-                                class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
-                                onclick="inch()"> INCHING </button>
+                                class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded select-none"
+                                onmousedown="inch()" onmouseup="uninch()"> INCHING </button>
                         </div>
                         
                     </div>
@@ -172,16 +172,16 @@
                         <div class="p-3">
                             <button
                                 class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
-                                onclick="startpower()"> START </button>
+                                onmousedown="startpower()" onmouseup="unstartpower()"> START </button>
                             <button
                                 class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
-                                onclick="stoppower()"> STOP </button>
+                                onmousedown="stoppower()" onmouseup="unstoppower()"> STOP </button>
                         </div>
                         <!-- Search Button -->
                         <div class="p-3">
                             <button
                                 class="text-center bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
-                                onclick="drain()"> DRAIN </button>
+                                onmousedown="drain()" onmouseup="undrain()"> DRAIN </button>
                         </div>
                     </div>
                 </div>
@@ -355,7 +355,7 @@
                             <h5 class="font-bold text-black">Set: Parameters</h5>
                         </div>
                         
-                        <div class="flex grid grid-cols-5 p-3 ">
+                        <div class="flex grid grid-cols-4 p-3 ">
                             
                             <div class="flex flex-col">
                                 <h3> Pressure </h3>
@@ -369,24 +369,6 @@
                                         <button
                                             class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
                                             onclick="updatepressure()">
-                                            SET
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="flex flex-col">
-                                <h3> Lubrication Time (secs) </h3>
-                                <div class="flex flex-row">
-                                    <div class="py-3" >
-                                        <input id="lubetime"
-                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatelubetime()">
-                                    </div>
-                                    <div class="p-3">
-                                        <button
-                                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                            onclick="updatelubetime()">
                                             SET
                                         </button>
                                     </div>
@@ -1523,19 +1505,19 @@
                     document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
                     document.getElementById("count_metric").innerHTML = payload.stats.count;
                     document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
-                    document.getElementById("rpm_metric").innerHTML = payload.stats.rpm;
-                    document.getElementById("turret_amp_metric").innerHTML = payload.stats.rpm_amp;
-                    document.getElementById("feederRHS_metric").innerHTML = payload.stats.turretRHS;
-                    document.getElementById("feederRHS_amp_metric").innerHTML = payload.stats.turretRHS_amp;
-                    document.getElementById("feederLHS_metric").innerHTML = payload.stats.turretLHS;
-                    document.getElementById("feederLHS_amp_metric").innerHTML = payload.stats.turretLHS_amp;
+                    document.getElementById("rpm_metric").innerHTML = payload.stats.turret.RPM;
+                    document.getElementById("turret_amp_metric").innerHTML = payload.stats.turret.A;
+                    document.getElementById("feederRHS_metric").innerHTML = payload.stats.RHS_FF.RPM;
+                    document.getElementById("feederRHS_amp_metric").innerHTML = payload.stats.RHS_FF.A;
+                    document.getElementById("feederLHS_metric").innerHTML = payload.stats.LHS_FF.RPM;
+                    document.getElementById("feederLHS_amp_metric").innerHTML = payload.stats.LHS_FF.A;
                     document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
-                    document.getElementById("LHS_depth_metric").innerHTML = payload.stats.LHSdepth;
-                    document.getElementById("RHS_depth_metric").innerHTML = payload.stats.RHSdepth;
+                    document.getElementById("LHS_depth_metric").innerHTML = payload.stats.LHSdepth.value;
+                    document.getElementById("RHS_depth_metric").innerHTML = payload.stats.RHSdepth.value;
                     document.getElementById("pressure_metric").innerHTML = payload.stats.pressure_set;
-                    document.getElementById("pressure_act_metric").innerHTML = payload.stats.pressure_actual;
-                    document.getElementById("lube_metric").innerHTML = payload.stats.lubetime_set;
-                    document.getElementById("lube_act_metric").innerHTML = payload.stats.lubetime_actual;
+                    document.getElementById("pressure_act_metric").innerHTML = payload.stats.pressure.value;
+                    document.getElementById("lube_metric").innerHTML = payload.stats.lubrication.set_delay_min;
+                    document.getElementById("lube_act_metric").innerHTML = payload.stats.lubrication.remaining_time;
 
                 })
                 .catch(function (error) {
@@ -1685,9 +1667,10 @@
             
             function submitt(pressure) {
                 var pressure = c;
-                let submiturl = `${seturl}/pressure/${pressure}`
-                console.log(submiturl)
-                if (pressure <= 100 && pressure >= 1) {
+                if (pressure <= 10 && pressure >= 0.1) {
+                    pressure = pressure*10;
+                    let submiturl = `${seturl}/PRESSURE_TON/${pressure}`
+                    console.log(submiturl)
                     fetch(submiturl)
                         .then(setTimeout(() => {
                             console.log(" [ Request Sent // pending confirmation ] ")
@@ -1704,30 +1687,30 @@
 
         }
 
-        function updatelubetime() {
-            var d = document.getElementById("lubetime").value;
+        // function updatelubetime() {
+        //     var d = document.getElementById("lubetime").value;
 
-            var lubetime = d;
+        //     var lubetime = d;
             
-            submitt(parseFloat(lubetime))
+        //     submitt(parseFloat(lubetime))
 
-            async function submitt(lubetime) {
-                let submiturl = `${seturl}/lubetime/${lubetime}`
+        //     async function submitt(lubetime) {
+        //         let submiturl = `${seturl}/LUBE_TIME_DELAY_MINUTES/${lubetime}`
 
-                console.log(submiturl)
-                if (lubetime <= 99 && lubetime >= 1) {
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED lubetime tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-                }
-                else {
-                    alert("Please set value between 1 and 99.")
-                }
-            }
+        //         console.log(submiturl)
+        //         if (lubetime <= 99 && lubetime >= 1) {
+        //         await fetch(submiturl)
+        //             .then(setTimeout(() => {
+        //                 console.log(" [ UPDATED lubetime tolerance ] ")
+        //             }, 100))
+        //             .catch(console.error);
+        //         }
+        //         else {
+        //             alert("Please set value between 1 and 99.")
+        //         }
+        //     }
 
-        }
+        // }
 
         function updaterpmT() {
             var e = document.getElementById("rpmTurret").value; //
@@ -1739,7 +1722,7 @@
             async function submitt(rpmTurret) {
 
 
-                let submiturl = `${seturl}/rpm/${rpmTurret}`
+                let submiturl = `${seturl}/TURRET_RPM/${rpmTurret}`
 
                 console.log(submiturl)
 
@@ -1765,7 +1748,7 @@
             submitt(parseInt(rpmFeederLHS))
 
             async function submitt(rpmFeederLHS) {
-                let submiturl = `${seturl}/feederLHS/${rpmFeederLHS}`
+                let submiturl = `${seturl}/LHS_FORCE_FEEDER_RPM/${rpmFeederLHS}`
 
                 console.log(submiturl)
 
@@ -1789,7 +1772,7 @@
             
             submitt(parseInt(rpmFeederRHS))
             async function submitt(rpmFeederRHS) {
-                let submiturl = `${seturl}/feederRHS/${rpmFeederRHS}`
+                let submiturl = `${seturl}/RHS_FORCE_FEEDER_RPM/${rpmFeederRHS}`
 
                 console.log(submiturl)
 
@@ -1835,14 +1818,29 @@
     <script>
 
         async function start(){
-            let submiturl = `${seturl}/machine/start`
+            let submiturl = `${seturl}/MACHINE_START_BUTTON/true`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function unstart(){
+            let submiturl = `${seturl}/MACHINE_START_BUTTON/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
         
         async function stop(){
-            let submiturl = `${seturl}/machine/stop`
+            let submiturl = `${seturl}/MACHINE_STOP_BUTTON/true`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Stop ] "))
+                .catch(console.error);
+
+        }
+        
+        async function unstop(){
+            let submiturl = `${seturl}/MACHINE_STOP_BUTTON/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Stop ] "))
                 .catch(console.error);
@@ -1850,15 +1848,31 @@
         }
 
         async function inch(){
-            let submiturl = `${seturl}/machine/inch`
+            let submiturl = `${seturl}/MACHINE_INCHING_BUTTON/true`
             await fetch(submiturl)
                 .then(console.log("[ Machine Inch ] "))
                 .catch(console.error);
 
         }
 
+        async function uninch(){
+            let submiturl = `${seturl}/MACHINE_INCHING_BUTTON/false`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Inch Stop] "))
+                .catch(console.error);
+
+        }
+
         async function startpower(){
-            let submiturl = `${seturl}/powerpack/start`
+            let submiturl = `${seturl}/POWER_PACK_START_BUTTON/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Start ] "))
+                .catch(console.error);
+
+        }
+
+        async function unstartpower(){
+            let submiturl = `${seturl}/POWER_PACK_START_BUTTON/false`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Start ] "))
                 .catch(console.error);
@@ -1866,7 +1880,15 @@
         }
 
         async function stoppower(){
-            let submiturl = `${seturl}/powerpack/stop`
+            let submiturl = `${seturl}/POWER_PACK_STOP_BUTTON/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Stop ] "))
+                .catch(console.error);
+
+        }
+
+        async function unstoppower(){
+            let submiturl = `${seturl}/POWER_PACK_STOP_BUTTON/false`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Stop ] "))
                 .catch(console.error);
@@ -1874,7 +1896,15 @@
         }
 
         async function drain(){
-            let submiturl = `${seturl}/powerpack/drain`
+            let submiturl = `${seturl}/DRAIN_BUTTON/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+
+        }
+
+        async function undrain(){
+            let submiturl = `${seturl}/DRAIN_BUTTON/false`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Drain ] "))
                 .catch(console.error);
