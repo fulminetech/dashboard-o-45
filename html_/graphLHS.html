@@ -200,166 +200,61 @@
                             <tbody>
                                 <tr>
                                     <td class="text-center border-b border-gray-300 py-2  uppercase text-blue-900">Upper</td>
-                                    <td id="preLHS_upper" class="border-b  text-center  border-gray-300"></td>
-                                    <td id="mainLHS_upper" class="border-b text-center  border-gray-300"></td>
-                                    <td id="ejnLHS_upper" class="border-b  text-center border-gray-300"></td>
+                                    <td id="preLHS_upper" class="border-b  text-center  border-gray-300">
+                                        <input id="preLHSup"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="PRE LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_PLU()">
+                                    </td>
+                                    <td id="mainLHS_upper" class="border-b text-center  border-gray-300">
+                                        <input id="mainLHSup"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Main LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_MLU()">
+                                    </td>
+                                    <td id="ejnLHS_upper" class="border-b  text-center border-gray-300">
+                                        <input id="ejnLHSup"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Ejection LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_ELU()">
+                                    </td>
                                     
                                 </tr>
                                 <tr>
                                     <td class="text-center border-b  border-gray-400 py-2 uppercase text-blue-900">Lower</td>
-                                    <td id="preLHS_lower" class="border-b border-gray-400  text-center"></td>
-                                    <td id="mainLHS_lower" class="border-b border-gray-400 text-center"></td>
-                                    <td id="ejnLHS_lower" class="border-b border-gray-400  text-center"></td>
+                                    <td id="preLHS_lower" class="border-b border-gray-400  text-center">
+                                        <input id="preLHSlow"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="PRE LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_PLL()">
+                                    </td>
+                                    <td id="mainLHS_lower" class="border-b border-gray-400 text-center">
+                                        <input id="mainLHSlow"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Main LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MLL()">
+                                    </td>
+                                    <td id="ejnLHS_lower" class="border-b border-gray-400  text-center">
+                                        <input id="ejnLHSlow"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Ejection LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_ELL()">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="text-center border-gray-400 py-2 uppercase text-blue-900">Force Line</td>
-                                    <td id="preLHS_fl" class="border-gray-400  text-center"></td>
-                                    <td id="mainLHS_fl" class="border-gray-400 text-center"></td>
-                                    <td id="ejnLHS_fl" class="border-gray-400  text-center"></td>
+                                    <td id="preLHS_fl" class="border-gray-400  text-center">
+                                        <input id="preLHSfl"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="PRE LHS Force Line" onkeydown="if (event.keyCode == 13) updatelimits_PLFL()">
+                                    </td>
+                                    <td id="mainLHS_fl" class="border-gray-400 text-center">
+                                        <input id="mainLHSfl"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Main LHS Force Line" onkeydown="if (event.keyCode == 13) updatelimits_MLFL()">
+                                    </td>
+                                    <td id="ejnLHS_fl" class="border-gray-400  text-center">
+                                        <input id="ejnLHSfl"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Ejection LHS Force Line" onkeydown="if (event.keyCode == 13) updatelimits_ELFL()">
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                    
-                    <!-- Set Tolerance -->
-                    <div class="border-b p-3">
-                        <h5 class="font-bold text-black">Set: Tolerance</h5>
-                    </div>
-                    <div class="flex grid grid-cols-3 p-3 ">
-                    
-                        <div class="flex ">
-                            <div class="py-3">
-                                <input id="preLHSup"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="PRE LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_PLU()">
-                            </div>
-                            <div class="p-3 ">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_PLU()">SET</button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-row">
-                            <div class="py-3">
-                                <input id="mainLHSup"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="Main LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_MLU()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_MLU()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    
-                    
-                        <div class="flex flex-row">
-                            <div class="py-3">
-                                <input id="ejnLHSup"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="Ejection LHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_ELU()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_ELU()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex ">
-                            <div class="py-3">
-                                <input id="preLHSlow"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="PRE LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_PLL()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_PLL()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-row">
-                            <div class="py-3">
-                                <input id="mainLHSlow"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="Main LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MLL()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_MLL()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-row">
-                            <div class="py-3">
-                                <input id="ejnLHSlow"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="Ejection LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_ELL()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_ELL()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="flex ">
-                            <div class="py-3">
-                                <input id="preLHSfl"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="PRE LHS Force Line" onkeydown="if (event.keyCode == 13) updatelimits_PLFL()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_PLFL()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-row">
-                            <div class="py-3">
-                                <input id="mainLHSfl"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="Main LHS Force Line" onkeydown="if (event.keyCode == 13) updatelimits_MLFL()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_MLFL()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-row">
-                            <div class="py-3">
-                                <input id="ejnLHSfl"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="Ejection LHS Force Line" onkeydown="if (event.keyCode == 13) updatelimits_ELFL()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_ELFL()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
                     </div>
 
                     <!--Pre Compression Graph LHS-->

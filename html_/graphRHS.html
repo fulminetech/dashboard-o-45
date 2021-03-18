@@ -202,169 +202,63 @@
                             <tbody>
                                 <tr>
                                     <td class="text-center border-b border-gray-300 py-2  uppercase text-blue-900">Upper</td>
-                                    <td id="preRHS_upper" class="border-b  text-center  border-gray-300"></td>
-                                    <td id="mainRHS_upper" class="border-b text-center  border-gray-300"></td>
-                                    <td id="ejnRHS_upper" class="border-b  text-center border-gray-300"></td>
+                                    <td id="preRHS_upper" class="border-b  text-center  border-gray-300">
+                                        <input id="preRHSup"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="PRE RHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_PRU()">
+                                    </td>
+                                    <td id="mainRHS_upper" class="border-b text-center  border-gray-300">
+                                        <input id="mainRHSup"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Main RHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_MRU()">
+                                    </td>
+                                    <td id="ejnRHS_upper" class="border-b  text-center border-gray-300">
+                                        <input id="ejnRHSup"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Ejection RHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_ERU()">
+                                    </td>
                     
-                                </tr>
+                                </tr class="my-20">
                                 <tr>
                                     <td class="text-center border-b border-gray-400 py-2 uppercase text-blue-900">Lower</td>
-                                    <td id="preRHS_lower" class="border-b border-gray-400  text-center"></td>
-                                    <td id="mainRHS_lower" class="border-b border-gray-400 text-center"></td>
-                                    <td id="ejnRHS_lower" class="border-b border-gray-400  text-center"></td>
+                                    <td id="preRHS_lower" class="border-b border-gray-400  text-center">
+                                        <input id="preRHSlow"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="PRE RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_PRL()">
+                                    </td>
+                                    <td id="mainRHS_lower" class="border-b border-gray-400 text-center">
+                                        <input id="mainRHSlow"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Main RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MRL()">
+                                    </td>
+                                    <td id="ejnRHS_lower" class="border-b border-gray-400  text-center">
+                                        <input id="ejnRHSlow"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Main RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_ERL()">
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="text-center border-gray-400 py-2 uppercase text-blue-900">Force Line</td>
-                                    <td id="preRHS_fl" class="border-gray-400  text-center"></td>
-                                    <td id="mainRHS_fl" class="border-gray-400 text-center"></td>
-                                    <td id="ejnRHS_fl" class="border-gray-400  text-center"></td>
+                                    <td id="preRHS_fl" class="border-gray-400  text-center">
+                                        <input id="preRHSfl"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="PRE RHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_PRFL()">
+                                    </td>
+                                    <td id="mainRHS_fl" class="border-gray-400 text-center">
+                                        <input id="mainRHSfl"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Main RHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_MRFL()">
+                                    </td>
+                                    <td id="ejnRHS_fl" class="border-gray-400  text-center">
+                                        <input id="ejnRHSfl"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Ejection RHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_ERFL()">
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     
-                    <!-- Set Tolerance -->
-                    <div class="border-b p-3">
-                        <h5 class="font-bold text-black">Set: Tolerance</h5>
-                    </div>
-                    <div class="flex grid grid-cols-3 p-3 ">
-                    
-                        <div class="flex ">
-                            <div class="py-3">
-                                <input id="preRHSup"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="PRE RHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_PRU()">
-                            </div>
-                            <div class="p-3 ">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_PRU()">SET</button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-row">
-                            <div class="py-3">
-                                <input id="mainRHSup"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="Main RHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_MRU()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_MRU()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    
-                    
-                        <div class="flex flex-row">
-                            <div class="py-3">
-                                <input id="ejnRHSup"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="Ejection RHS Upper" onkeydown="if (event.keyCode == 13) updatelimits_ERU()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_ERU()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex ">
-                            <div class="py-3">
-                                <input id="preRHSlow"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="PRE RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_PRL()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_PRL()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-row">
-                            <div class="py-3">
-                                <input id="mainRHSlow"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="Main RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MRL()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_MRL()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-row">
-                            <div class="py-3">
-                                <input id="ejnRHSlow"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="Ejection RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_ERL()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_ERL()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                        
-                        
-                        <div class="flex ">
-                            <div class="py-3">
-                                <input id="preRHSfl"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="PRE RHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_PRFL()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_PRFL()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-row">
-                            <div class="py-3">
-                                <input id="mainRHSfl"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="Main RHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_MRFL()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_MRFL()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-row">
-                            <div class="py-3">
-                                <input id="ejnRHSfl"
-                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                    type="number" placeholder="Ejection RHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_ERFL()">
-                            </div>
-                            <div class="p-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-2 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="updatelimits_ERFL()">
-                                    SET
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
                     <!--Pre Compression Graph RHS-->
                     <div class="border-b p-1">
                         <h5 class="font-bold text-black">Pre Compression RHS:</h5>

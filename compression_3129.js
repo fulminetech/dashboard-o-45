@@ -21,6 +21,8 @@ var payload = {
     maincompressionRHS_avg: 0,
     ejectionLHS_avg: 0,
     ejectionRHS_avg: 0,
+    input: {},
+    output: {},
     machine: {
         LHS: {
             maincompression_upperlimit: 0,
@@ -693,6 +695,8 @@ const maincompressionLHS_address = 2200;
 const maincompressionRHS_address = 2600;
 const ejectionLHS_address = 2800;
 const ejectionRHS_address = 3000;
+const input_address = 24576;
+const output_address = 40960;
 
 const avg_address = 3204;
 const status_address = 540;
@@ -713,6 +717,8 @@ var MBS_STATE_GOOD_READ_EJNRHS = "State good ejn RHS (read)";
 var MBS_STATE_GOOD_READ_AVG = "State good avg (read)";
 var MBS_STATE_GOOD_READ_STATUS = "State good status (read)";
 var MBS_STATE_GOOD_READ_STATS = "State good stats (read)";
+var MBS_STATE_GOOD_READ_INPUT = "State good input (read)";
+var MBS_STATE_GOOD_READ_OUTPUT = "State good output (read)";
 
 var MBS_STATE_FAIL_READ_TIME = "State fail time (read)";
 var MBS_STATE_FAIL_READ_PRELHS = "State fail pre LHS (read)";
@@ -724,6 +730,8 @@ var MBS_STATE_FAIL_READ_EJNRHS = "State fail ejn RHS (read)";
 var MBS_STATE_FAIL_READ_AVG = "State fail avg (read)";
 var MBS_STATE_FAIL_READ_STATUS = "State fail status (read)";
 var MBS_STATE_FAIL_READ_STATS = "State fail stats (read)";
+var MBS_STATE_FAIL_READ_INPUT = "State fail input (read)";
+var MBS_STATE_FAIL_READ_OUTPUT = "State fail output (read)";
 
 var MBS_STATE_GOOD_CONNECT = "State good (port)";
 var MBS_STATE_FAIL_CONNECT = "State fail (port)";
@@ -732,7 +740,7 @@ var mbsState = MBS_STATE_INIT;
 
 var mbsTimeout = 5000;
 // var mbsScan = 12;
-var mbsScan = 30; // Modbus scan time
+var mbsScan = 50; // Modbus scan time
 
 let readfailed = 0;
 let failcounter = 100;
@@ -744,7 +752,7 @@ let timetemp = 0;
 var connectClient = function () {
 
     // close port (NOTE: important in order not to create multiple connections)
-    //client.close();
+    client.close();
 
     // set requests parameters
     client.setID(slaveID);
@@ -839,6 +847,14 @@ var runModbus = function () {
             break;
 
         case MBS_STATE_GOOD_READ_STATUS || MBS_STATE_FAIL_READ_STATUS:
+            nextAction = readinput;
+            break;
+
+        case MBS_STATE_GOOD_READ_INPUT || MBS_STATE_FAIL_READ_INPUT:
+            nextAction = readoutput;
+            break;
+
+        case MBS_STATE_GOOD_READ_OUTPUT || MBS_STATE_GOOD_READ_OUTPUT:
             nextAction = readstats;
             break;
 
@@ -1320,6 +1336,40 @@ var readstatus = function () {
         .catch(function (e) {
             console.error('[ #6 Status Garbage ]')
             mbsState = MBS_STATE_FAIL_READ_STATUS;
+            readfailed++;
+            // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
+        })
+}
+
+var readinput = function () {
+    client.readCoils(input_address, 90)
+        .then(function (input) {
+            // console.log("Input: ", input.data)
+            payload.input = input.data;
+            
+            mbsState = MBS_STATE_GOOD_READ_INPUT;
+            // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
+        })
+        .catch(function (e) {
+            console.error('[ #6 Input Garbage ]')
+            mbsState = MBS_STATE_FAIL_READ_INPUT;
+            readfailed++;
+            // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
+        })
+}
+
+var readoutput = function () {
+    client.readCoils(output_address, 90)
+        .then(function (output) {
+            // console.log("Output: ", output.data)
+            payload.output = output.data;
+            
+            mbsState = MBS_STATE_GOOD_READ_OUTPUT;
+            // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
+        })
+        .catch(function (e) {
+            console.error('[ #6 Output Garbage ]')
+            mbsState = MBS_STATE_GOOD_READ_OUTPUT;
             readfailed++;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
