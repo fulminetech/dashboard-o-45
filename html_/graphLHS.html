@@ -605,9 +605,9 @@
 
             fetchpayloadapiHF()
 
-            setInterval(() => {
-                fetchpayloadapiHF();
-            }, 200);
+            // setInterval(() => {
+            //     fetchpayloadapiHF();
+            // }, 200);
 
     
     </script>
@@ -670,9 +670,9 @@
                 });
         };
 
-        setInterval(() => {
-            fetchpayloadapiHF();
-        }, 50);
+        // setInterval(() => {
+        //     fetchpayloadapiHF();
+        // }, 50);
     </script>
 
     <!-- Update System info -->
@@ -845,54 +845,54 @@
                 }
             }
 
-            function updatelimits_MLFL() {
-                var h = document.getElementById("mainLHSfl");
+        function updatelimits_MLFL() {
+            var h = document.getElementById("mainLHSfl");
 
-                var mainLHSfl = "";
-                var p;
-                for (p = 0; p < h.length; p++) {
-                    mainLHSfl += h.elements[p].value;
-                }
-
-                submitt(parseInt(mainLHSfl))
-                async function submitt(mainLHSfl) {
-                    let submiturl = `${seturl}/RHS_MAIN_FORCE_LINE/${mainLHSfl}`
-
-                    console.log(submiturl)
-
-                    await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED RHS_MAIN_FORCE_LINE tolerance ] ")
-                        }, 100))
-                        .catch(console.error);
-                }
+            var mainLHSfl = "";
+            var p;
+            for (p = 0; p < h.length; p++) {
+                mainLHSfl += h.elements[p].value;
             }
 
-            function updatelimits_ELFL() {
-                var c = document.getElementById("ejnLHSfl");
+            submitt(parseInt(mainLHSfl))
+            async function submitt(mainLHSfl) {
+                let submiturl = `${seturl}/RHS_MAIN_FORCE_LINE/${mainLHSfl}`
 
-                var ejnLHSfl = "";
-                var k;
-                for (k = 0; k < c.length; k++) {
-                    ejnLHSfl += c.elements[k].value;
-                }
+                console.log(submiturl)
 
-                submitt(parseInt(ejnLHSfl))
-
-                async function submitt(ejnLHSfl) {
-                    let submiturl = `${seturl}/RHS_EJN_FORCE_LINE/${ejnLHSfl}`
-
-                    console.log(submiturl)
-
-                    await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED RHS_EJN_FORCE_LINE tolerance ] ")
-                        }, 100))
-                        .catch(console.error);
-                }
-
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED RHS_MAIN_FORCE_LINE tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
             }
-        
+        }
+
+        function updatelimits_ELFL() {
+            var c = document.getElementById("ejnLHSfl");
+
+            var ejnLHSfl = "";
+            var k;
+            for (k = 0; k < c.length; k++) {
+                ejnLHSfl += c.elements[k].value;
+            }
+
+            submitt(parseInt(ejnLHSfl))
+
+            async function submitt(ejnLHSfl) {
+                let submiturl = `${seturl}/RHS_EJN_FORCE_LINE/${ejnLHSfl}`
+
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(setTimeout(() => {
+                        console.log(" [ UPDATED RHS_EJN_FORCE_LINE tolerance ] ")
+                    }, 100))
+                    .catch(console.error);
+            }
+
+        }
+    
         
     </script>
 
