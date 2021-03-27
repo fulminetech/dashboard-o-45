@@ -7,6 +7,7 @@ const express = require("express");
 const app = express();
 var cors = require('cors')
 app.use(cors({ origin: "*" }));
+const host = "localhost"
 
 // Influx
 const Influx = require('influxdb-nodejs');
@@ -14,7 +15,6 @@ const { setInterval } = require('timers');
 const flux = new Influx(`http://${host}:8086/new`);
 
 // Fetch
-const host = "localhost"
 const fetch = require('cross-fetch'); // To get operator and batch details for logging
 const payloadURL = `${host}:5000/api/payload`;
 
