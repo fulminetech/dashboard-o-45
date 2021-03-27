@@ -206,6 +206,7 @@ var payload = {
         sampling: {
             NO_TABLET_SAMPLING: 0,
             SAMPLING_TIME_MINS: 0,
+            SAMPLE_COUNT: 0
         },
         roller: {
             frequency: 0,
@@ -474,6 +475,7 @@ var read_coils = function () {
 
                 payload.button.MANUAL_SAMPLE = stats_data.data[28],
                 payload.button.INITIAL_REJECTION = stats_data.data[29],
+                payload.button.FIRST_LAYER_SAMPLING = stats_data.data[30],
 
                 payload.button.GUARD_OPEN = stats_data.data[50],
                 payload.button.LUBRICATION_OIL_LOW = stats_data.data[51],
@@ -568,6 +570,7 @@ var read_regs = function () {
             payload.stats.awc.AWC_32bit_CORRECTION = stats_data.data[44]/100;
             payload.stats.sampling.NO_TABLET_SAMPLING = stats_data.data[57];
             payload.stats.sampling.SAMPLING_TIME_MINS = stats_data.data[58];
+            payload.stats.sampling.SAMPLE_COUNT = stats_data.data[58];
             payload.stats.roller.frequency = stats_data.data[61] / 100;
 
             payload.stats.roller.motor = stats_data.data[62];
@@ -693,8 +696,8 @@ var read_regs = function () {
             payload.stats.lubrication.remaining_time = stats_data.data[36]
             payload.stats.dwell = stats_data.data[40]
 
-            payload.stats.awc.Actual_LHS = stats_data.data[42]
-            payload.stats.awc.Actual_RHS = stats_data.data[43]
+            payload.stats.awc.actual_RHS = stats_data.data[42] / 100
+            payload.stats.awc.actual_LHS = stats_data.data[43] / 100
             
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -860,7 +863,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     } 
     else if (a == "LUBE_TIME_DELAY_SECONDS") {
         reg_offset_6000 = 5
-        reg_write_value = b
+        reg_write_value = b * 10
         c = payload.stats.lubrication.set_delay_sec
         write_regs()
         writelog()
@@ -1035,14 +1038,14 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     } 
     else if (a == "RHS_DOZER") {
         reg_offset_6000 = 39
-        reg_write_value = b
+        reg_write_value = b * 100
         c = payload.machine.RHS.dozer_position
         write_regs()
         writelog()
     } 
     else if (a == "LHS_DOZER") {
         reg_offset_6000 = 40
-        reg_write_value = b
+        reg_write_value = b * 100
         c = payload.machine.LHS.dozer_position
         write_regs()
         writelog()
@@ -1070,7 +1073,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     } 
     else if (a == "AWC_32bit_CORRECTION") {
         reg_offset_6000 = 44
-        reg_write_value = b
+        reg_write_value = b * 100
         c = payload.stats.awc.AWC_32bit_CORRECTION
         write_regs()
         writelog()
@@ -1091,7 +1094,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     } 
     else if (a == "ROLLER_VFD_FREQ") {
         reg_offset_6000 = 61
-        reg_write_value = b
+        reg_write_value = b *100
         c = payload.stats.roller.frequency
         write_regs()
         writelog()

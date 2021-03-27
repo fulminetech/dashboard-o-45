@@ -437,8 +437,8 @@
                                 <!-- Excel Button -->
                                 <div class="py-3">
                                     <button id="rejn_dsbl"
-                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onmousedown="button4x()">
+                                        class="bg-orange-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onmousedown="rejnbutton()">
                                         Rejection Disable
                                     </button>
                                 </div>
@@ -473,8 +473,8 @@
                                 <!-- Excel Button -->
                                 <div class="py-3">
                                     <button id="rejn_init"
-                                        class="bg-indigo-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onmousedown="button9()" onmouseup="button9x()">
+                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="initrejnbutton()">
                                         Initial Rejection
                                     </button>
                                 </div>
@@ -485,8 +485,8 @@
                                 <!-- Excel Button -->
                                 <div class="py-3">
                                     <button id="first_sampl"
-                                        class="bg-indigo-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onmousedown="button10()" onmouseup="button10x()">
+                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="firstsampbutton()">
                                         1st Layer Sampling
                                     </button>
                                 </div>
@@ -498,7 +498,7 @@
                                 <div class="py-3">
                                     <button id="man_samp"
                                         class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onmousedown="button5()" onmouseup="button5x()">
+                                        onclick="button6x()"> 
                                         Manual Sampling
                                     </button>
                                 </div>
@@ -510,7 +510,7 @@
                                 <div class="py-3">
                                     <button id="auto_samp"
                                         class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onmousedown="button6()" onmouseup="button6x()">
+                                        onclick="button6()"> 
                                         Auto Sampling
                                     </button>
                                 </div>
@@ -518,12 +518,12 @@
                         
                             <div class="flex flex-wrap p-3">
                         
-                                <!-- Excel Button -->
+                                <!-- Bi Layer Mode-->
                                 <div class="py-3">
                                     <button id="bi_mode"
-                                        class="bg-indigo-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onmousedown="button11()" onmouseup="button11x()">
-                                        Bi Layer Mode         
+                                        class="bg-orange-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="layer()"> 
+                                        BILAYER
                                     </button>
                                 </div>
                             </div>
@@ -534,7 +534,7 @@
                                 <div class="py-3">
                                     <button id="disable_awc"
                                         class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                        onmousedown="button1()" onmouseup="button1x()">
+                                        onclick="awc()"> 
                                         Disable AWC 
                                     </button>
                                 </div>
@@ -1404,6 +1404,7 @@
         var currentBatch;
         var currentrotation;
         var currentrpm;
+        var maindata;
 
         async function fetchpayloadapiHF() {
             fetch(payloadURL)
@@ -1641,6 +1642,8 @@
                 .then(function (data) {
                     // Here you get the data to modify as you please
                     payload = data
+                    
+                    maindata = data
 
                     // console.log(payload)
 
@@ -1655,15 +1658,15 @@
                     document.getElementById("feederLHS_metric").innerHTML = payload.stats.LHS_FF.RPM;
                     document.getElementById("feederLHS_amp_metric").innerHTML = payload.stats.LHS_FF.A;
                     document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
-                    document.getElementById("LHS_depth_metric").innerHTML = payload.stats.LHSdepth.value;
-                    document.getElementById("RHS_depth_metric").innerHTML = payload.stats.RHSdepth.value;
+                    document.getElementById("LHS_depth_metric").innerHTML = payload.stats.awc.actual_RHS
+                    document.getElementById("RHS_depth_metric").innerHTML = payload.stats.awc.actual_LHS
                     document.getElementById("pressure_metric").innerHTML = payload.stats.pressure.pressure_set
                     document.getElementById("pressure_act_metric").innerHTML = payload.stats.pressure.value;
                     document.getElementById("lube_metric").innerHTML = payload.stats.lubrication.set_delay_min;
                     document.getElementById("lube_act_metric").innerHTML = payload.stats.lubrication.remaining_time;
                     
-                    document.getElementById("LHS_depth_metric").innerHTML = payload.machine.LHS.dozer_position
-                    document.getElementById("RHS_depth_metric").innerHTML = payload.machine.RHS.dozer_position
+                    // document.getElementById("LHS_depth_metric").innerHTML = payload.machine.LHS.dozer_position
+                    // document.getElementById("RHS_depth_metric").innerHTML = payload.machine.RHS.dozer_position
 
                     document.getElementById("LHS_pre_roller").innerHTML = payload.stats.LHSweight.value
                     document.getElementById("RHS_pre_roller").innerHTML = payload.stats.RHSweight.value
@@ -1671,59 +1674,78 @@
                     document.getElementById("RHS_main_roller").innerHTML = payload.stats.RHSthickness.value
 
                     
-                    if (payload.stats.FF_MODE == 0) {
-                        document.getElementById("feeder_mode").innerHTML = "GRAVITY";
-                    } else {
-                        document.getElementById("feeder_mode").innerHTML = "FORCE";
-                    }
-
                     if (payload.button.REJECTION_BUTTON_HMI == true) {
                         document.getElementById("rejn_dsbl").innerHTML = "REJECTION DISABLE";
                     } else {
                         document.getElementById("rejn_dsbl").innerHTML = "REJECTION ENABLE";
                     }
                     
-                    if (payload.button.REJECTION_BUTTON_HMI == true) {
+                    if (payload.button.MONO_BI == true) {
                         document.getElementById("bi_mode").innerHTML = "BILAYER";
                     } else {
                         document.getElementById("bi_mode").innerHTML = "MONOLAYER";
                     }
                     
                     if (payload.button.AWC_ENABLE == true) {
-                        document.getElementById("disable_awc").innerHTML = "AWC DISABLE";
-                        document.getElementById("disable_awc").replace('bg-red-300', 'bg-green-300');
+                        document.getElementById("disable_awc").innerHTML = "DISABLE AWC";
+                        const div1 = document.getElementById("disable_awc").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("disable_awc").classList.add('bg-green-300');
                     } else {
-                        document.getElementById("disable_awc").innerHTML = "AWC ENABLE";
-                        document.getElementById("disable_awc").replace('bg-green-300', 'bg-red-300');
+                        document.getElementById("disable_awc").innerHTML = "ENABLE AWC";
+                        const div1 = document.getElementById("disable_awc").classList.add('bg-red-300');
+                        const div2 = document.getElementById("disable_awc").classList.remove('bg-green-300');
+                    }
+
+                    if (payload.button.INITIAL_REJECTION == true) {
+                        const div1 = document.getElementById("rejn_init").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("rejn_init").classList.add('bg-green-300');
+                    } else {
+                        const div1 = document.getElementById("rejn_init").classList.add('bg-red-300');
+                        const div2 = document.getElementById("rejn_init").classList.remove('bg-green-300');
                     }
                     
-                    if (payload.button.REJN_AIR_FLAP == true) {
-                        document.getElementById("rejn_flap").replace('bg-red-300', 'bg-green-300');
-                        document.getElementById("rejn_air").replace('bg-green-300', 'bg-red-300');
+                    if (payload.button.REJN_AIR_FLAP === true) {
+                        const div1 = document.getElementById("rejn_flap").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("rejn_flap").classList.add('bg-green-300');
+                        const div3 = document.getElementById("rejn_air").classList.remove('bg-green-300');
+                        const div4 = document.getElementById("rejn_air").classList.add('bg-red-300');
                     } else {
-                        document.getElementById("rejn_flap").replace('bg-green-300', 'bg-red-300');
-                        document.getElementById("rejn_air").replace('bg-red-300', 'bg-green-300');
+                        const div1 = document.getElementById("rejn_flap").classList.add('bg-red-300');
+                        const div2 = document.getElementById("rejn_flap").classList.remove('bg-green-300');
+                        const div3 = document.getElementById("rejn_air").classList.add('bg-green-300');
+                        const div4 = document.getElementById("rejn_air").classList.remove('bg-red-300');
+
                     }
-                    
+
                     if (payload.button.AUTO_SAMPLING == true) {
-                        document.getElementById("auto_samp").replace('bg-red-300', 'bg-green-300');
-                        document.getElementById("man_samp").replace('bg-green-300', 'bg-red-300');
+                        const div1 = document.getElementById("auto_samp").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("auto_samp").classList.add('bg-green-300');
+                        const div3 = document.getElementById("man_samp").classList.remove('bg-green-300');
+                        const div4 = document.getElementById("man_samp").classList.add('bg-red-300');
                     } else {
-                        document.getElementById("auto_samp").replace('bg-green-300', 'bg-red-300');
-                        document.getElementById("man_samp").replace('bg-red-300', 'bg-green-300');
+                        const div1 = document.getElementById("auto_samp").classList.add('bg-red-300');
+                        const div2 = document.getElementById("auto_samp").classList.remove('bg-green-300');
+                        const div3 = document.getElementById("man_samp").classList.add('bg-green-300');
+                        const div4 = document.getElementById("man_samp").classList.remove('bg-red-300');
                     }
                     
-                    // if (payload.button.INITIAL_REJECTION == true) {
-                    //     document.getElementById("rejn_init").replace('bg-red-300', 'bg-green-300');
-                    // } else {
-                    //     document.getElementById("rejn_init").replace('bg-green-300', 'bg-red-300');
-                    // }
+                    if (payload.button.FIRST_LAYER_SAMPLING == true) {
+                        const div1 = document.getElementById("first_sampl").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("first_sampl").classList.add('bg-green-300');
+                    } else {
+                        const div1 = document.getElementById("first_sampl").classList.add('bg-red-300');
+                        const div2 = document.getElementById("first_sampl").classList.remove('bg-green-300');
+                    }
                     
-                    // if (payload.button.FIRST_LAYER_SAMPLING == true) {
-                    //     document.getElementById("first_sampl").replace('bg-red-300', 'bg-green-300');
+                    
+                    // if (payload.button.AWC_ENABLE == true) {
+                    //     document.getElementById("disable_awc").innerHTML = "AWC DISABLE";
+                    //     document.getElementById("disable_awc").replace('bg-red-300', 'bg-green-300');
                     // } else {
-                    //     document.getElementById("first_sampl").replace('bg-green-300', 'bg-red-300');
+                    //     document.getElementById("disable_awc").innerHTML = "AWC ENABLE";
+                    //     document.getElementById("disable_awc").replace('bg-green-300', 'bg-red-300');
                     // }
+                
                     
                 })
                 .catch(function (error) {
@@ -1736,7 +1758,7 @@
             fetchpayloadapiLF();
             setInterval(() => {
                 fetchpayloadapiLF();
-            }, 2000);
+            }, 1000);
         }, 10);
     </script>
 
@@ -2180,6 +2202,7 @@
         }
 
         async function button4(){
+            
             let submiturl = `${seturl}/REJECTION_BUTTON_HMI/true`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Drain ] "))
@@ -2278,14 +2301,28 @@
         }
 
         async function button11(){
-            let submiturl = `${seturl}/BI_LAYER/true`
+            let submiturl = `${seturl}/MONO_BI/true`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Drain ] "))
                 .catch(console.error);
         }
 
         async function button11x(){
-            let submiturl = `${seturl}/BI_LAYER/false`
+            let submiturl = `${seturl}/MONO_BI/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+        
+        async function button12(){
+            let submiturl = `${seturl}/AWC_ENABLE/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button12x(){
+            let submiturl = `${seturl}/AWC_ENABLE/false`
             await fetch(submiturl)
                 .then(console.log("[ AWC_DISABLE ] "))
                 .catch(console.error);
@@ -2305,6 +2342,65 @@
                 .catch(console.error);
         }
 
+        async function rejnbutton(){
+            console.log()
+            var rejn = document.getElementById("rejn_dsbl").innerHTML
+
+            // console.log(rejn)
+            if (rejn  === "REJECTION ENABLE" ) {
+                button4()
+            } else {
+                button4x()
+            }
+        }
+
+        async function layer(){
+            console.log()
+            var rejn = document.getElementById("bi_mode").innerHTML
+
+            // console.log(rejn)
+            if (rejn  === "MONOLAYER" ) {
+                button11()
+            } else {
+                button11x()
+            }
+        }
+        
+        function initrejnbutton(){
+
+            console.log(maindata.button.INITIAL_REJECTION)
+
+            if (maindata.button.INITIAL_REJECTION  === true ) {
+                button9x()
+            } else {
+                button9()
+            }
+        }
+
+        function firstsampbutton(){
+
+            console.log(maindata.button.FIRST_LAYER_SAMPLING)
+
+            if (maindata.button.FIRST_LAYER_SAMPLING  === true ) {
+                button10x()
+            } else {
+                button10()
+            }
+        }
+
+        function awc(){
+            
+            if (maindata.button.AWC_ENABLE  === true ) {
+                button12x()
+            } else {
+                button12()
+            }
+        }
+        
+    </script>
+
+    <script>
+        
     </script>
 
 </body>

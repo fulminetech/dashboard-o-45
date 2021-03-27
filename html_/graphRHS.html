@@ -680,26 +680,31 @@
 
     <!-- PAYLOAD API fetch -->
     <script>
+        var mode
 
         async function mode_check() {
-                fetch(statsurl)
-                    .then((resp) => resp.json()) // Transform the data into json
-                    .then(function (data) {
-                        // Here you get the data to modify as you please
-                        payload = data
+            fetch(statsurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
 
-                        if (payload.button.MONO_BI == true) {
-                            document.getElementById("mode_metric").innerHTML = "BI-LAYER";
-                        } else {
-                            document.getElementById("mode_metric").innerHTML = "MONO";
-                        }
+                    mode = payload.button.MONO_BI
+                    console.log(mode)
 
-                    })
-                    .catch(function (error) {
-                        // If there is any error you will catch them here
-                        console.log("[ PAYLOAD FETCH ERROR ]", error)
-                    });
-            };
+                    if (mode == true) {
+                        document.getElementById("mode_metric").innerHTML = "BI-LAYER";
+                    }
+                    else if (mode == false) {
+                        document.getElementById("mode_metric").innerHTML = "MONO";
+                    }
+
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
 
         async function fetchpayloadapiLF() {
             fetch(payloadURL)
@@ -721,8 +726,9 @@
 
         fetchpayloadapiLF()
         mode_check()
-
+        
         setInterval(() => {
+            mode_check()
             fetchpayloadapiLF();
         }, 200);
 
@@ -754,7 +760,7 @@
                     AWC_MRHS_UL = Array(45).fill(payload.limit[24])
                     AWC_MRHS_LL = Array(45).fill(payload.limit[25])
 
-                    if (document.getElementById("mode_metric").innerHTML = "MONO") {
+                    if (document.getElementById("mode_metric").innerHTML == "MONO") {
                         maingraph.data.datasets[0].backgroundColor = payload.mRHS_processed
 
                         maingraph.data.datasets[1].data = MRHS_UL // payload.limit[0] // Upper 

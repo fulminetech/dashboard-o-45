@@ -203,9 +203,118 @@
         <div id="main-content" class="w-full flex-1">
         
             <div class="flex flex-1 flex-wrap">
-                <div class="w-full p-6 flex">
 
-                    <!-- RHS Tolerance Table-->
+                <div class="w-full p-6 flex">
+                
+                    <!--Mono Layer Setting-->
+                    <div
+                        class="p-5 mb-1 border w-1/3 bg-indigo-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
+                        <h5 class="font-bold uppercase mb-5 text-2xl text-center text-gray-700">Mono Layer AWC</h5>
+                        <table class="w-full p-3 text-gray-700">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-blue-900"></th>
+                                    <th class="text-center pb-3 text-blue-900">Discharge</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center  py-2 uppercase text-xl text-blue-900">Set Force</td>
+                                    <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                        <input id="mainFL"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Main LHS + RHS Force Line"
+                                            onkeydown="if (event.keyCode == 13) updatelimits_MLFL() && updatelimits_MRFL()">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC HIGH</td>
+                                    <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                        <input id="awc_high"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                            type="text" placeholder="AWC High">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC LOW</td>
+                                    <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                        <input id="awc_low"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                            type="text" placeholder="AWC LOW">
+                                    </td>
+                
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                
+                    <!-- BI LAYER SETTING-->
+                    <div
+                        class="p-5 mb-1 ml-5 w-2/3 border bg-pink-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
+                        <h5 class="font-bold uppercase mb-5 text-center text-2xl text-gray-700">BI LAYER AWC</h5>
+                        <table class="w-full p-3 text-gray-700">
+                            <thead>
+                                <tr>
+                                    <th class="text-center text-blue-900"></th>
+                                    <th class="text-center pb-3 text-blue-900">LHS Discharge</th>
+                                    <th class="text-center pb-3 text-blue-900">RHS Discharge</th>
+                                </tr>
+                            </thead>
+                
+                            <tbody>
+                                <tr>
+                                    <td class="text-center py-2  text-xl uppercase text-blue-900">Set Force</td>
+                                    <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                        <input id="preLHSfl"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="PRE LHS FORCE LINE"
+                                            onkeydown="if (event.keyCode == 13) updatelimits_PLFL()">
+                                    </td>
+                                    <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                        <input id="preRHSfl"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Pre RHS FORCE LINE"
+                                            onkeydown="if (event.keyCode == 13) updatelimits_PRFL()">
+                                    </td>
+                
+                                </tr>
+                                <tr>
+                                    <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC HIGH</td>
+                                    <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                        <input id="awc_high_LHS"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                            type="text" placeholder="AWC High LHS">
+                                    </td>
+                                    <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                        <input id="awc_high_RHS"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                            type="text" placeholder="AWC High RHS">
+                                    </td>
+                
+                                </tr>
+                                <tr>
+                                    <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC LOW</td>
+                                    <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                        <input id="awc_low_LHS"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                            type="text" placeholder="AWC Low LHS">
+                                    </td>
+                                    <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                        <input id="awc_low_RHS"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                            type="text" placeholder="AWC Low RHS">
+                                    </td>
+                
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                
+                </div>
+
+                <div class="w-full flex">
+
+                    <!-- Manual Weight SETTING-->
                     <div class="p-5 mb-5 w-1/2 ml-5 border bg-indigo-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
                         <h5 class="font-bold uppercase mb-5 text-center text-2xl text-gray-700">Manual Weight SETTING</h5>
                         <table class="w-full p-3 text-gray-700">
@@ -223,14 +332,14 @@
                                     <td id="preRHS_fl" class=" pb-5 px-3 text-center">
                                         <button id="generatepdfreport"
                                             class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                            onmousedown="Rweight_inc()" onmouseup="Rweight_incx()">
+                                            onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
                                             Weight +
                                         </button>
                                     </td>
                                     <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
                                         <button id="generatepdfreport"
                                             class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                            onmousedown="Lweight_inc()" onmouseup="Lweight_incx()">
+                                            onmousedown="Lweight_dec()" onmouseup="Lweight_decx()">
                                             Weight +
                                         </button>
                                     </td>
@@ -240,14 +349,14 @@
                                     <td id="preRHS_fl" class=" pb-5 px-3 text-center">
                                         <button id="generatepdfreport"
                                             class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                            onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                            onmousedown="Rweight_inc()" onmouseup="Rweight_incx()">
                                             Weight -
                                         </button>
                                     </td>
                                     <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
                                         <button id="generatepdfreport"
                                             class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                            onmousedown="Lweight_dec()" onmouseup="Lweight_decx()">
+                                            onmousedown="Lweight_inc()" onmouseup="Lweight_incx()">
                                             Weight -
                                         </button>
                                     </td>
@@ -317,8 +426,8 @@
                         </table>
                     </div>
 
-                    <!-- RHS Tolerance Table-->
-                    <div class="p-5 mb-5 w-1/2 ml-5 border bg-indigo-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
+                    <!-- AWC SETTING-->
+                    <div class="p-5 mb-5 w-1/2 mx-5 border bg-indigo-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
                         <h5 class="font-bold uppercase mb-5 text-center text-2xl text-gray-700">AWC SETTING</h5>
 
                         <div class="w-full grid grid-cols-2 p-3 ">
@@ -330,17 +439,6 @@
                                         <input id="avg_rtn"
                                             class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                             type="number" placeholder="" onkeydown="if (event.keyCode == 13) avg_rtn()">
-                                    </div>
-                                </div>
-                            </div>
-                        
-                            <div class="flex flex-col">
-                                <h3> Set Force </h3>
-                                <div class="flex flex-row">
-                                    <div class="py-3">
-                                        <input id="fromRotationNumber"
-                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                            type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
                                     </div>
                                 </div>
                             </div>
@@ -368,82 +466,18 @@
                             </div>
                         
                             <div class="flex flex-col">
-                                <h3> F+T </h3>
+                                <h3> AWC Correction (mm)</h3>
                                 <div class="flex flex-row">
                                     <div class="py-3">
-                                        <input id="fromRotationNumber"
+                                        <input id="awc_corr_mm"
                                             class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                            type="text" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                    </div>
-                                </div>
-                            </div>
-                        
-                            <div class="flex flex-col">
-                                <h3> F-T </h3>
-                                <div class="flex flex-row">
-                                    <div class="py-3">
-                                        <input id="fromRotationNumber"
-                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                            type="text" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                            type="number" placeholder="" onkeydown="if (event.keyCode == 13) awc_corr_mm()">
                                     </div>
                                 </div>
                             </div>
                         
                         </div>
                         
-                        <div class="flex grid grid-cols-2">
-                        
-                            <div class="flex flex-wrap p-3">
-                        
-                                <!-- PDF report Button -->
-                                <div class="py-3">
-                                    <button id="generatepdfreport"
-                                        class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="AWC_LHS_INC()">
-                                        LHS Weight +
-                                    </button>
-                                </div>
-                            </div>
-                        
-                            <div class="flex flex-wrap p-3">
-                        
-                                <!-- Excel Button -->
-                                <div class="py-3">
-                                    <button id="generatepdfreport"
-                                        class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="AWC_LHS_DEC()">
-                                        LHS Weight -
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="flex grid grid-cols-2">
-                        
-                            <div class="flex flex-wrap p-3">
-                        
-                                <!-- PDF report Button -->
-                                <div class="py-3">
-                                    <button id="generatepdfreport"
-                                        class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="AWC_RHS_INC()">
-                                        RHS Weight +
-                                    </button>
-                                </div>
-                            </div>
-                        
-                            <div class="flex flex-wrap p-3">
-                        
-                                <!-- Excel Button -->
-                                <div class="py-3">
-                                    <button id="generatepdfreport"
-                                        class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="AWC_RHS_DEC()">
-                                        RHS Weight -
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     
                 </div>
@@ -453,6 +487,66 @@
         </div>
     </div>
 
+    <!-- Tolerance Values script -->
+    <script>
+
+        async function fetchpayloadapiHF5() {
+            fetch(processedurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    MLHS_LL = payload.limit[0]
+                    MLHS_UL = payload.limit[1]
+                    PLHS_LL = payload.limit[4]
+                    PLHS_UL = payload.limit[5]
+                    ELHS_LL = payload.limit[8]
+                    ELHS_UL = payload.limit[9]
+                    PLHS_FL = payload.limit[12]
+                    MLHS_FL = payload.limit[13]
+                    ELHS_FL = payload.limit[14]
+                    AWC_PLHS_UL = payload.limit[18]
+                    AWC_PLHS_LL = payload.limit[19]
+                    AWC_MLHS_UL = payload.limit[20]
+                    AWC_MLHS_LL = payload.limit[21]
+                    MRHS_LL = payload.limit[2]
+                    MRHS_UL = payload.limit[3]
+                    PRHS_LL = payload.limit[6]
+                    PRHS_UL = payload.limit[7]
+                    ERHS_LL = payload.limit[10]
+                    ERHS_UL = payload.limit[11]
+                    PRHS_FL = payload.limit[15]
+                    MRHS_FL = payload.limit[16]
+                    ERHS_FL = payload.limit[17]
+                    AWC_PRHS_UL = payload.limit[22]
+                    AWC_PRHS_LL = payload.limit[23]
+                    AWC_MRHS_UL = payload.limit[24]
+                    AWC_MRHS_LL = payload.limit[25]
+
+                    
+                    document.getElementById("mainFL").value = MLHS_FL
+                    document.getElementById("awc_high").value = AWC_MLHS_UL
+                    document.getElementById("awc_low").value = AWC_MLHS_LL
+
+                    document.getElementById("preLHSfl").value = PLHS_FL
+                    document.getElementById("preRHSfl").value = PRHS_FL
+                    document.getElementById("awc_high_LHS").value = AWC_PLHS_UL
+                    document.getElementById("awc_high_RHS").value = AWC_PRHS_UL
+                    document.getElementById("awc_low_LHS").value = AWC_PLHS_LL
+                    document.getElementById("awc_low_RHS").value = AWC_PRHS_LL
+
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+
+        fetchpayloadapiHF5();
+
+    </script>
     
     <!-- PAYLOAD API fetch -->
     <script>
@@ -473,6 +567,7 @@
                     document.getElementById("avg_rtn").value = payload.stats.awc.AVG_RTN
                     document.getElementById("avg_tol").value = payload.stats.awc.AWC_TOLERANCE
                     document.getElementById("awc_corr").value = payload.stats.awc.AWC_MAX_CORRECTION
+                    document.getElementById("awc_corr_mm").value = payload.stats.awc.AWC_32bit_CORRECTION
 
                 })
                 .catch(function (error) {
@@ -481,9 +576,28 @@
                 });
         };
 
+        async function fetchpayloadapiHF3() {
+            fetch(statsurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    payload = data 
+
+                    console.log(payload.stats.awc.actual_LHS)
+                    document.getElementById("LHS_actual").value = payload.stats.awc.actual_LHS
+                    document.getElementById("RHS_actual").value = payload.stats.awc.actual_RHS
+                    
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        fetchpayloadapiHF2();
+
         setInterval(() => {
-            fetchpayloadapiHF2();
-        }, 1000);
+            fetchpayloadapiHF3();
+        }, 100);
         
     </script>
 
@@ -492,7 +606,7 @@
         function dozerRHS() {
                 var preLHSlow = document.getElementById("dozerRHS").value;
 
-                submitt(parseInt(preLHSlow))
+                submitt(parseFloat(preLHSlow))
 
                 async function submitt(preLHSlow) {
                     let submiturl = `${seturl}/RHS_DOZER/${preLHSlow}`
@@ -511,7 +625,7 @@
         function dozerLHS() {
                 var preLHSlow = document.getElementById("dozerLHS").value;
 
-                submitt(parseInt(preLHSlow))
+                submitt(parseFloat(preLHSlow))
 
                 async function submitt(preLHSlow) {
                     let submiturl = `${seturl}/LHS_DOZER/${preLHSlow}`
@@ -568,7 +682,7 @@
         function awc_corr() {
                 var preLHSlow = document.getElementById("awc_corr").value;
 
-                submitt(parseInt(preLHSlow))
+                submitt(parseFloat(preLHSlow))
 
                 async function submitt(preLHSlow) {
                     let submiturl = `${seturl}/AWC_MAX_CORRECTION/${preLHSlow}`
@@ -578,6 +692,25 @@
                     await fetch(submiturl)
                         .then(setTimeout(() => {
                             console.log(" [ UPDATED AWC_MAX_CORRECTION ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+
+            }
+
+        function awc_corr_mm() {
+                var preLHSlow = document.getElementById("awc_corr_mm").value;
+
+                submitt(parseFloat(preLHSlow))
+
+                async function submitt(preLHSlow) {
+                    let submiturl = `${seturl}/AWC_32bit_CORRECTION/${preLHSlow}`
+
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED AWC_32bit_CORRECTION ] ")
                         }, 100))
                         .catch(console.error);
                 }
@@ -645,7 +778,7 @@
         }
         
         async function runRHS() {
-                let submiturl = `${seturl}/RHS_FORCE_FEEDER_BUTTON_HMI/true`
+                let submiturl = `${seturl}/LHS_FORCE_FEEDER_BUTTON_HMI/true`
                 await fetch(submiturl)
                     .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
@@ -658,6 +791,81 @@
                 .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
+
+
+    function updatelimits_MLFL() {
+        var mainLHSfl = document.getElementById("mainFL").value;
+
+        submitt(parseInt(mainLHSfl))
+        async function submitt(mainLHSfl) {
+            let submiturl = `${seturl}/LHS_MAIN_FORCE_LINE/${mainLHSfl}`
+
+            console.log(submiturl)
+
+            await fetch(submiturl)
+                .then(setTimeout(() => {
+                    console.log(" [ UPDATED LHS_MAIN_FORCE_LINE tolerance ] ")
+                }, 100))
+                .catch(console.error);
+        }
+    }
+
+    function updatelimits_MRFL() {
+        var mainLHSfl = document.getElementById("mainFL").value;
+
+        submitt(parseInt(mainLHSfl))
+        async function submitt(mainLHSfl) {
+            let submiturl = `${seturl}/RHS_MAIN_FORCE_LINE/${mainLHSfl}`
+
+            console.log(submiturl)
+
+            await fetch(submiturl)
+                .then(setTimeout(() => {
+                    console.log(" [ UPDATED RHS_MAIN_FORCE_LINE tolerance ] ")
+                }, 100))
+                .catch(console.error);
+        }
+    }
+
+
+    function updatelimits_PLFL() {
+        var preLHSfl = document.getElementById("preLHSfl").value;
+
+        submitt(parseInt(preLHSfl))
+
+        async function submitt(preLHSfl) {
+            let submiturl = `${seturl}/LHS_PRE_FORCE_LINE/${preLHSfl}`
+
+            console.log(submiturl)
+
+            await fetch(submiturl)
+                .then(setTimeout(() => {
+                    console.log(" [ UPDATED LHS_PRE_FORCE_LINE tolerance ] ")
+                }, 100))
+                .catch(console.error);
+        }
+    }
+
+    function updatelimits_PRFL() {
+        var preLHSfl = document.getElementById("preRHSfl").value;
+
+        submitt(parseInt(preLHSfl))
+
+        async function submitt(preLHSfl) {
+            let submiturl = `${seturl}/RHS_PRE_FORCE_LINE/${preLHSfl}`
+
+            console.log(submiturl)
+
+            await fetch(submiturl)
+                .then(setTimeout(() => {
+                    console.log(" [ UPDATED RHS_PRE_FORCE_LINE tolerance ] ")
+                }, 100))
+                .catch(console.error);
+        }
+    }
+
+
+
         
     </script>
 
