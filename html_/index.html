@@ -75,6 +75,13 @@
         }
     </style>
 
+    <!-- Dropdown CSS -->
+    <style>
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    </style>
+
 </head>
 
 <body class="flex bg-gray-100 select-none font-sans">
@@ -115,7 +122,7 @@
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/settings" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                <a href="/processsetup" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <i class="fa fa-wrench fa-fw mr-3 text-xl"></i><span 
                     class="w-full inline-block text-lg">Settings</span>
                 </a>
@@ -129,7 +136,7 @@
     <div class="flex flex-1 flex-grow content-start pl-16">
 
         <!--Dash Content -->
-        <div id="dash-content" class="bg-gray-200  py-3 px-2 max-h-screen w-full xl:w-64 flex flex-wrap content-start">
+        <div id="dash-content" class="bg-gray-200  py-3 px-2 w-full xl:w-64 flex flex-wrap content-start">
 
             <!-- Batch Number -->
             <div class="w-1 w-full">
@@ -140,10 +147,9 @@
                             <h5 class="font-bold uppercase text-xl text-gray-700">Batch Number</h5>
                             <h3 id="batch_number_metric" class="font-bold text-2xl">NOT SET</h3>
                         </div>
-                        <!-- Search Button -->
                         <div class="p-3">
                             <button
-                                class="text-center bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded select-none"
+                                class="text-center bg-red-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded select-none"
                                 onmousedown="boff()" onmouseup="unboff()"> Batch Off </button>
                         </div>
                     </div>
@@ -163,6 +169,11 @@
                             <h5 class="font-bold uppercase text-xl text-gray-700">Tablet Per Hour</h5>
                             <h3 id="production_per_hour_metric" class="font-bold text-3xl">20000</h3>
                         </div>
+                        <div class="p-3">
+                            <button
+                                class="text-center bg-red-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded select-none"
+                                onmousedown="button7()" onmouseup="button7x()"> Count Reset </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -178,10 +189,10 @@
                         <!-- Search Button -->
                         <div class="p-3">
                             <button
-                                class="text-center bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-green-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
                                 onmousedown="start()" onmouseup="unstart()"> START </button>
                             <button
-                                class="text-center bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-red-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
                                 onmousedown="stop()" onmouseup="unstop()"> STOP </button>
                         </div>
                         
@@ -207,10 +218,10 @@
                         <!-- Search Button -->
                         <div class="p-3">
                             <button
-                                class="text-center bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-green-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
                                 onmousedown="startpower()" onmouseup="unstartpower()"> START </button>
                             <button
-                                class="text-center bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-red-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
                                 onmousedown="stoppower()" onmouseup="unstoppower()"> STOP </button>
                         </div>
                         <!-- Search Button -->
@@ -223,28 +234,65 @@
                 </div>
             </div>
 
-            <!-- Rotation Number -->
+            <!-- Feeder -->
             <div class="w-1 w-full">
                 <div
                     class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Feeder</h5>
+                            <h3 id="feeder_mode" class="font-bold uppercase text-2xl">GRAVITY</h3>
                         </div>
                         <!-- Search Button -->
                         <div class="p-3">
+                            <div class="p-2">
+                        
+                                <div class="dropdown inline-block relative">
+                                    <button class="bg-blue-100 border border-purple-500 text-xl text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center">
+                                        <span class="mr-1">MODE</span>
+                                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                        </svg>
+                                    </button>
+                                    <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
+                                        <li class=""><a class="rounded-t bg-gray-200 border border-purple-100 text-lg hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                                                onmousedown="gravity()">Gravity Mode</a></li>
+                                        <li class=""><a class="bg-gray-200 border border-purple-100 text-lg hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap"
+                                                onmousedown="force()">Force Mode</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                        
+                            </div>
+                        </div>
+
+                        <!-- Search Button -->
+                        <div class="p-3">
                             <button
-                                class="text-center bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-green-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
                                 onmousedown="startfeeder()" onmouseup="unstartfeeder()"> START </button>
                             <button
-                                class="text-center bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-red-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
                                 onmousedown="stopfeeder()" onmouseup="unstopfeeder()"> STOP </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compression Live Data -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-xl text-gray-700">Compression Live Data</h5>
+                        </div>
+                        
                         <!-- Search Button -->
                         <div class="p-3">
-                            <input id="FeederMode"
-                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                type="number" placeholder="Mode" onkeydown="if (event.keyCode == 13) setFeeder()">
+                            <button
+                                class="modal1-open text-center bg-blue-100 uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                onclick=""> VIEW TABLE </button>
                         </div>
                     </div>
                 </div>
@@ -261,33 +309,38 @@
                     <div class="max-w-full">
                         
                         <!-- Metric Cards -->
-                        <div class="grid grid-cols-7 gap-1">
+                        <div class="grid grid-cols-6 gap-1">
 
                             <!-- Production -->
                             <div class="flex h-20 items-center">
-                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                <div class="border border-gray-500 bg-blue-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
                                             <h3 class="font-bold mt-1 text-lg">Punch No: <a id="punch_number_metric">0</a></h3>
-                                            <h3 class="font-bold mt-5 text-lg">Rotation No: <a id="dwell_metric">0</a></h3>
-                                            <h3 class="font-bold mt-5 text-lg">Dwell Time (secs): <a id="dwell_metric">0</a></h3>
+                                            <h3 class="font-bold mt-3 text-lg">Rotation No:</h3>
+                                            <h3 class="font-bold mt-1 bg-white text-lg"><a id="rotation_number_metric">1000</a></h3>
+                                            <h3 class="font-bold mt-3 text-lg">Dwell Time (secs):</h3>
+                                            <h3 class="font-bold mt-1 bg-white text-lg"><a id="dwell_metric">1000</a></h3>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Fill Depth -->
+                            <!-- Pressure -->
                             <div class="flex h-20 items-center">
-                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                <div class="border border-gray-500 bg-yellow-300 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
-                                            <h5 class="font-bold uppercase  text-xl">Fill Depth</h5>
-                                            <h3 class="font-bold mt-3 text-lg">LHS [mm]:
-                                                <a id="LHS_depth_metric">0</a>
+                                            <h5 class="font-bold uppercase text-xl">Pressure</h5>
+                                            <h3 class="font-bold mt-2 text-lg">SET (kN):
+                                                <a id="pressure_metric">0</a>
                                             </h3>
-                                            <h3 class="font-bold mt-3 text-lg">RHS [mm]
-                                                <a id="RHS_depth_metric">0</a>
-                                            </h3>
+                                            <div class="py-3">
+                                                <input id="pressure"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
+                                            </div>
+                                            <h3 class="font-bold text-lg">ACTUAL: <a id="pressure_act_metric">0</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -295,11 +348,11 @@
 
                             <!-- Lubrication time -->
                             <div class="flex h-20 items-center">
-                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                <div class="border border-gray-500 bg-yellow-300 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
                                             <h5 class="font-bold uppercase text-xl">Lube time </h5>
-                                            <h3 class="font-bold mt-2 text-lg">SET: 
+                                            <h3 class="font-bold mt-2 text-lg">SET (mins):
                                                 <a id="lube_metric">0</a>
                                                 <div class="py-3">
                                                     <input id="lubetime"
@@ -313,28 +366,9 @@
                                 </div>
                             </div>
 
-                            <!-- Pressure -->
-                            <div class="flex h-20 items-center">
-                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
-                                    <div class="flex flex-col">
-                                        <div class="flex-1 items-left text-gray-700">
-                                            <h5 class="font-bold uppercase text-xl">Pressure</h5>
-                                            <h3 class="font-bold mt-2 text-lg">SET: 
-                                                <a id="pressure_metric">0</a></h3>
-                                                <div class="py-3">
-                                                    <input id="pressure"
-                                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                        type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updatepressure()">
-                                                </div>
-                                            <h3 class="font-bold text-lg">ACTUAL: <a id="pressure_act_metric">0</a></h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Turret -->
                             <div class="flex h-20 items-center">
-                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                <div class="border border-gray-500 bg-purple-300 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
                                             <h5 class="font-bold uppercase text-xl">Turret</h5>
@@ -345,7 +379,7 @@
                                                         class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                         type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updaterpmT()">
                                                 </div>
-                                            <h3 class="font-bold text-lg">Current [A]: <a id="turret_amp_metric">0</a></h3>
+                                            <h3 class="font-bold text-lg">Current: <a id="turret_amp_metric">0</a> A</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -353,18 +387,18 @@
 
                             <!-- Feeder LHS -->
                             <div class="flex h-20 items-center">
-                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                <div class="border border-gray-500 bg-purple-300 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
-                                            <h5 class="font-bold uppercase text-xl">Feeder LHS</h5>
-                                            <h3 class="font-bold mt-2 text-lg">RPM: 
+                                            <h5 class="font-bold uppercase text-xl">RHS Discharge</h5>
+                                            <h3 class="font-bold mt-2 text-lg">Feeder RPM: 
                                                 <a id="feederLHS_metric">0</a></h3>
                                                 <div class="py-3">
                                                     <input id="rpmFeederLHS"
                                                         class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                         type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updaterpmFL()">
                                                 </div>
-                                            <h3 class="font-bold text-lg">Current [A]: <a id="feederLHS_amp_metric">0</a></h3>
+                                            <h3 class="font-bold text-lg">Current: <a id="feederLHS_amp_metric">0</a> A</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -372,18 +406,18 @@
 
                             <!-- Feeder RHS -->
                             <div class="flex h-20 items-center">
-                                <div class="border border-gray-500 bg-white shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                <div class="border border-gray-500 bg-purple-300 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
-                                            <h5 class="font-bold uppercase text-xl">Feeder RHS</h5>
-                                            <h3 class="font-bold mt-2 text-lg">RPM: 
+                                            <h5 class="font-bold uppercase text-xl">LHS Discharge</h5>
+                                            <h3 class="font-bold mt-2 text-lg">Feeder RPM: 
                                                 <a id="feederRHS_metric">0</a></h3>
                                                 <div class="py-3">
                                                     <input id="rpmFeederRHS"
                                                         class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                         type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updaterpmFR()">
                                                 </div>
-                                            <h3 class="font-bold text-lg">Current [A]: <a id="feederRHS_amp_metric">0</a></h3>
+                                            <h3 class="font-bold text-lg">Current: <a id="feederRHS_amp_metric">0</a> A</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -396,51 +430,15 @@
                             <h5 class="font-bold text-black">Controls:</h5>
                         </div>
                         
-                        <div class="flex grid grid-cols-6">
-                        
+                        <div class="flex grid grid-cols-5">
+                         
                             <div class="flex flex-wrap p-3">
-                        
-                                <!-- PDF report Button -->
-                                <div class="py-3">
-                                    <button id="generatepdfreport"
-                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-12 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="generateReport()">
-                                        AWC Disable
-                                    </button>
-                                </div>
-                            </div>
-                        
-                            <div class="flex flex-wrap p-3">
-                        
+                            
                                 <!-- Excel Button -->
                                 <div class="py-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="csvexport()">
-                                        Rejection By Air
-                                    </button>
-                                </div>
-                            </div>
-                        
-                            <div class="flex flex-wrap p-3">
-                        
-                                <!-- Excel Button -->
-                                <div class="py-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="csvexport()">
-                                        Rejection By Flap
-                                    </button>
-                                </div>
-                            </div>
-                        
-                            <div class="flex flex-wrap p-3">
-                        
-                                <!-- Excel Button -->
-                                <div class="py-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="csvexport()">
+                                    <button id="rejn_dsbl"
+                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onmousedown="button4x()">
                                         Rejection Disable
                                     </button>
                                 </div>
@@ -450,9 +448,57 @@
                         
                                 <!-- Excel Button -->
                                 <div class="py-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="csvexport()">
+                                    <button id="rejn_air"
+                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onmousedown="button2x()">
+                                        Rejection By Air
+                                    </button>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-wrap p-3">
+                        
+                                <!-- Excel Button -->
+                                <div class="py-3">
+                                    <button id="rejn_flap"
+                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onmousedown="button2()">
+                                        Rejection By Flap
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap p-3">
+                            
+                                <!-- Excel Button -->
+                                <div class="py-3">
+                                    <button id="rejn_init"
+                                        class="bg-indigo-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onmousedown="button9()" onmouseup="button9x()">
+                                        Initial Rejection
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap p-3">
+                            
+                                <!-- Excel Button -->
+                                <div class="py-3">
+                                    <button id="first_sampl"
+                                        class="bg-indigo-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onmousedown="button10()" onmouseup="button10x()">
+                                        1st Layer Sampling
+                                    </button>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-wrap p-3">
+                        
+                                <!-- Excel Button -->
+                                <div class="py-3">
+                                    <button id="man_samp"
+                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onmousedown="button5()" onmouseup="button5x()">
                                         Manual Sampling
                                     </button>
                                 </div>
@@ -462,9 +508,9 @@
                         
                                 <!-- Excel Button -->
                                 <div class="py-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="csvexport()">
+                                    <button id="auto_samp"
+                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onmousedown="button6()" onmouseup="button6x()">
                                         Auto Sampling
                                     </button>
                                 </div>
@@ -474,88 +520,81 @@
                         
                                 <!-- Excel Button -->
                                 <div class="py-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="csvexport()">
-                                        Count Reset
+                                    <button id="bi_mode"
+                                        class="bg-indigo-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onmousedown="button11()" onmouseup="button11x()">
+                                        Bi Layer Mode         
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap p-3">
+                            
+                                <!-- PDF report Button -->
+                                <div class="py-3">
+                                    <button id="disable_awc"
+                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
+                                        onmousedown="button1()" onmouseup="button1x()">
+                                        Disable AWC 
                                     </button>
                                 </div>
                             </div>
                         
-                            <div class="flex flex-wrap p-3">
-                        
-                                <!-- Excel Button -->
-                                <div class="py-3">
-                                    <button
-                                        class="modal1-open text-center bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-6 border border-blue-500 hover:border-transparent rounded"
-                                        onclick=""> Compression TABLE </button>
-                                </div>
+                        </div>
+
+                        <!-- Depth -->
+                        <div class="border-b p-3">
+                            <h5 class="font-bold text-black">Depth (mm) :</h5>
+                        </div>
+                        <div class="p-5 my-3 border border-blue-500 bg-purple-300 rounded shadow">
+                            <div class="flex">
+                                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">RHS Discharge</h5>
+                                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">LHS Discharge</h5>
                             </div>
+                            <table class="w-full p-5 text-xl text-gray-700">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Fill Depth </th>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Pre Roller</th>
+                                        <th class="text-center uppercase pb-3 border-r border-gray-700 text-gray-700"> Main Roller</th>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Pre Roller</th>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Main Roller</th>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Fill Depth </th>
                         
-                            <div class="flex flex-wrap p-3">
+                                    </tr>
+                                </thead>
                         
-                                <!-- Excel Button -->
-                                <div class="py-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-12 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="csvexport()">
-                                        Batch Off
-                                    </button>
-                                </div>
-                            </div>
-                        
-                            <div class="flex flex-wrap p-3">
-                        
-                                <!-- Excel Button -->
-                                <div class="py-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="csvexport()">
-                                        Initial Rejection
-                                    </button>
-                                </div>
-                            </div>
-                        
-                            <div class="flex flex-wrap p-3">
-                        
-                                <!-- Excel Button -->
-                                <div class="py-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="csvexport()">
-                                        1st Layer Rejection
-                                    </button>
-                                </div>
-                            </div>
-                        
-                            <div class="flex flex-wrap p-3">
-                        
-                                <!-- Excel Button -->
-                                <div class="py-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="csvexport()">
-                                        Bi Layer
-                                    </button>
-                                </div>
-                            </div>
-                        
+                                <tbody>
+                                    <tr>
+                                        <td id="LHS_depth_metric" class="text-center border-gray-700">0</td>
+                                        <td id="LHS_pre_roller" class="text-center border-gray-700">0</td>
+                                        <td id="LHS_main_roller" class="text-center border-r border-gray-700">0</td>
+                                        <td id="RHS_pre_roller" class="text-center border-gray-700">0</td>
+                                        <td id="RHS_main_roller" class="text-center border-gray-700">0</td>
+                                        <td id="RHS_depth_metric" class="text-center border-gray-700">0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         
                         <!--Average Compression Trend-->
                         <div class="border-b p-3">
-                            <h5 class="font-bold text-black">Average Compression :</h5>
+                            <h5 class="font-bold text-black">Average Compression (kN) :</h5>
                         </div>
-                        <div class="p-5 my-3 border border-gray-400 rounded shadow">
+                        <div class="p-5 my-3 border border-blue-500 bg-green-300 rounded shadow">
+                            <div class="flex">
+                                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">RHS Discharge</h5>
+                                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">LHS Discharge</h5>
+                            </div>
                             <table class="w-full p-5 text-xl text-gray-700">
                                 <thead>
                                     <tr>
-                                        <th class="text-center border-b text-gray-700">Pre LHS </th>
-                                        <th class="text-center border-b text-gray-700">Pre RHS </th>
-                                        <th class="text-center border-b text-gray-700">Main LHS </th>
-                                        <th class="text-center border-b text-gray-700">Main RHS </th>
-                                        <th class="text-center border-b text-gray-700">Ejn LHS </th>
-                                        <th class="text-center border-b text-gray-700">Ejn RHS </th>
+                                        <th class="text-center pb-3 w-1/6 uppercase text-gray-700">Pre</th>
+                                        <th class="text-center pb-3 w-1/6 uppercase text-gray-700">Main</th>
+                                        <th class="text-center pb-3 w-1/6 uppercase border-r border-gray-700 text-gray-700">EJECTION</th>
+                                        <th class="text-center pb-3 w-1/6 uppercase text-gray-700">Pre</th>
+                                        <th class="text-center pb-3 w-1/6 uppercase text-gray-700">Main</th>
+                                        <th class="text-center pb-3 w-1/6 uppercase text-gray-700">EJECTION</th>
                         
                                     </tr>
                                 </thead>
@@ -563,10 +602,10 @@
                                 <tbody>
                                     <tr>
                                         <td id="avgg-preLHS" class="text-center border-gray-700">0</td>
-                                        <td id="avgg-preRHS" class="text-center border-gray-700">0</td>
                                         <td id="avgg-mainLHS" class="text-center border-gray-700">0</td>
+                                        <td id="avgg-ejnLHS" class="text-center border-r border-gray-700 border-gray-700">0</td>
+                                        <td id="avgg-preRHS" class="text-center border-gray-700">0</td>
                                         <td id="avgg-mainRHS" class="text-center border-gray-700">0</td>
-                                        <td id="avgg-ejnLHS" class="text-center border-gray-700">0</td>
                                         <td id="avgg-ejnRHS" class="text-center border-gray-700">0</td>
                                     </tr>
                                 </tbody>
@@ -1062,13 +1101,6 @@
         </div>
     </div>
 
-    <!-- APIs -->
-    <script>
-        var currentBatch;
-        var currentrotation;
-    </script>
-
-    
     <!-- Average Compression Graph -->
     <script>
         var avg_his_graphcanvas = document.getElementById("avg_his_compression_graph");
@@ -1190,7 +1222,7 @@
                         position: 'left',
                         ticks: {
                             beginAtZero: true,
-                            fontSize: 15,
+                            fontSize: 20,
                             max: 100
                         }
                     }],
@@ -1274,7 +1306,7 @@
                     display: true,
                     position: 'bottom',
                     labels: {
-                        fontSize: 15,
+                        fontSize: 20,
                     }
                 },
             };
@@ -1369,7 +1401,8 @@
 
     <!-- PAYLOAD API fetch -->
     <script>
-        
+        var currentBatch;
+        var currentrotation;
         var currentrpm;
 
         async function fetchpayloadapiHF() {
@@ -1624,11 +1657,74 @@
                     document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
                     document.getElementById("LHS_depth_metric").innerHTML = payload.stats.LHSdepth.value;
                     document.getElementById("RHS_depth_metric").innerHTML = payload.stats.RHSdepth.value;
-                    document.getElementById("pressure_metric").innerHTML = payload.stats.pressure_set;
+                    document.getElementById("pressure_metric").innerHTML = payload.stats.pressure.pressure_set
                     document.getElementById("pressure_act_metric").innerHTML = payload.stats.pressure.value;
                     document.getElementById("lube_metric").innerHTML = payload.stats.lubrication.set_delay_min;
                     document.getElementById("lube_act_metric").innerHTML = payload.stats.lubrication.remaining_time;
+                    
+                    document.getElementById("LHS_depth_metric").innerHTML = payload.machine.LHS.dozer_position
+                    document.getElementById("RHS_depth_metric").innerHTML = payload.machine.RHS.dozer_position
 
+                    document.getElementById("LHS_pre_roller").innerHTML = payload.stats.LHSweight.value
+                    document.getElementById("RHS_pre_roller").innerHTML = payload.stats.RHSweight.value
+                    document.getElementById("LHS_main_roller").innerHTML = payload.stats.LHSthickness.value
+                    document.getElementById("RHS_main_roller").innerHTML = payload.stats.RHSthickness.value
+
+                    
+                    if (payload.stats.FF_MODE == 0) {
+                        document.getElementById("feeder_mode").innerHTML = "GRAVITY";
+                    } else {
+                        document.getElementById("feeder_mode").innerHTML = "FORCE";
+                    }
+
+                    if (payload.button.REJECTION_BUTTON_HMI == true) {
+                        document.getElementById("rejn_dsbl").innerHTML = "REJECTION DISABLE";
+                    } else {
+                        document.getElementById("rejn_dsbl").innerHTML = "REJECTION ENABLE";
+                    }
+                    
+                    if (payload.button.REJECTION_BUTTON_HMI == true) {
+                        document.getElementById("bi_mode").innerHTML = "BILAYER";
+                    } else {
+                        document.getElementById("bi_mode").innerHTML = "MONOLAYER";
+                    }
+                    
+                    if (payload.button.AWC_ENABLE == true) {
+                        document.getElementById("disable_awc").innerHTML = "AWC DISABLE";
+                        document.getElementById("disable_awc").replace('bg-red-300', 'bg-green-300');
+                    } else {
+                        document.getElementById("disable_awc").innerHTML = "AWC ENABLE";
+                        document.getElementById("disable_awc").replace('bg-green-300', 'bg-red-300');
+                    }
+                    
+                    if (payload.button.REJN_AIR_FLAP == true) {
+                        document.getElementById("rejn_flap").replace('bg-red-300', 'bg-green-300');
+                        document.getElementById("rejn_air").replace('bg-green-300', 'bg-red-300');
+                    } else {
+                        document.getElementById("rejn_flap").replace('bg-green-300', 'bg-red-300');
+                        document.getElementById("rejn_air").replace('bg-red-300', 'bg-green-300');
+                    }
+                    
+                    if (payload.button.AUTO_SAMPLING == true) {
+                        document.getElementById("auto_samp").replace('bg-red-300', 'bg-green-300');
+                        document.getElementById("man_samp").replace('bg-green-300', 'bg-red-300');
+                    } else {
+                        document.getElementById("auto_samp").replace('bg-green-300', 'bg-red-300');
+                        document.getElementById("man_samp").replace('bg-red-300', 'bg-green-300');
+                    }
+                    
+                    // if (payload.button.INITIAL_REJECTION == true) {
+                    //     document.getElementById("rejn_init").replace('bg-red-300', 'bg-green-300');
+                    // } else {
+                    //     document.getElementById("rejn_init").replace('bg-green-300', 'bg-red-300');
+                    // }
+                    
+                    // if (payload.button.FIRST_LAYER_SAMPLING == true) {
+                    //     document.getElementById("first_sampl").replace('bg-red-300', 'bg-green-300');
+                    // } else {
+                    //     document.getElementById("first_sampl").replace('bg-green-300', 'bg-red-300');
+                    // }
+                    
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
@@ -1778,7 +1874,6 @@
             function submitt(pressure) {
                 var pressure = c;
                 if (pressure <= 10 && pressure >= 0.1) {
-                    pressure = pressure*10;
                     let submiturl = `${seturl}/PRESSURE_TON/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
@@ -2013,7 +2108,203 @@
                 .then(console.log("[ Powerpack Drain ] "))
                 .catch(console.error);
         }
-    
+        
+        async function startfeeder(){
+            let submiturl = `${seturl}/FORCE_FEEDER_START_BUTTON/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function unstartfeeder(){
+            let submiturl = `${seturl}/FORCE_FEEDER_START_BUTTON/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function stopfeeder(){
+            let submiturl = `${seturl}/FORCE_FEEDER_STOP_BUTTON/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function unstopfeeder(){
+            let submiturl = `${seturl}/FORCE_FEEDER_STOP_BUTTON/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function button1(){
+            let submiturl = `${seturl}/AWC_DISABLE/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button1x(){
+            let submiturl = `${seturl}/AWC_DISABLE/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function button2(){
+            let submiturl = `${seturl}/REJN_AIR_FLAP/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button2x(){
+            let submiturl = `${seturl}/REJN_AIR_FLAP/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function button3(){
+            let submiturl = `${seturl}/REJN_FLAP/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button3x(){
+            let submiturl = `${seturl}/REJN_FLAP/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function button4(){
+            let submiturl = `${seturl}/REJECTION_BUTTON_HMI/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button4x(){
+            let submiturl = `${seturl}/REJECTION_BUTTON_HMI/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function button5(){
+            let submiturl = `${seturl}/MANUAL_SAMPLING/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button5x(){
+            let submiturl = `${seturl}/MANUAL_SAMPLING/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function button6(){
+            let submiturl = `${seturl}/AUTO_SAMPLING/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button6x(){
+            let submiturl = `${seturl}/AUTO_SAMPLING/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function button7(){
+            let submiturl = `${seturl}/TABLET_COUNT_RESET/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button7x(){
+            let submiturl = `${seturl}/TABLET_COUNT_RESET/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function button8(){
+            let submiturl = `${seturl}/BATCH_OFF/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button8x(){
+            let submiturl = `${seturl}/BATCH_OFF/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function button9(){
+            let submiturl = `${seturl}/INITIAL_REJECTION/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button9x(){
+            let submiturl = `${seturl}/INITIAL_REJECTION/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function button10(){
+            let submiturl = `${seturl}/FIRST_LAYER_SAMPLING/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button10x(){
+            let submiturl = `${seturl}/FIRST_LAYER_SAMPLING/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function button11(){
+            let submiturl = `${seturl}/BI_LAYER/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button11x(){
+            let submiturl = `${seturl}/BI_LAYER/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+
+        async function gravity(){
+            let submiturl = `${seturl}/FORCE_FEEDER_MODE/0`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function force(){
+            let submiturl = `${seturl}/FORCE_FEEDER_MODE/1`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
     </script>
 
 </body>

@@ -32,6 +32,15 @@ import requests
 # MRHS_FL
 # ERHS_FL
 
+# AWC_PLHS_UL
+# AWC_PLHS_LL
+# AWC_MLHS_UL
+# AWC_MLHS_LL
+# AWC_PRHS_UL
+# AWC_PRHS_LL
+# AWC_MRHS_UL
+# AWC_MRHS_LL
+
 # Data format: Dictonary
 payload = {
     'connection': False,
@@ -55,9 +64,9 @@ def process(processedlist, lowerlimit, upperlimit):
     # Values above and below limits are set red and in between are blue
     for index, items in enumerate(processedlist):
         if items > upperlimit:
-            processedlist[index] = "red"
+            processedlist[index] = "#C0392B"
         elif items < lowerlimit:
-            processedlist[index] = "yellow"
+            processedlist[index] = "#F1C40F"
         elif items >= lowerlimit and items <= upperlimit:
             processedlist[index] = "blue"
     return processedlist
@@ -96,7 +105,7 @@ def processor():
     regs7 = response["limit"]
     limit = [x / 100 for x in regs7]
     # MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL
-    limit_new = [ limit[3], limit[2], limit[9], limit[8], limit[1], limit[0], limit[7], limit[6], limit[5], limit[4], limit[11], limit[10],  limit[12], limit[13],limit[14],limit[15], limit[16], limit[17] ]
+    limit_new = [ limit[3], limit[2], limit[9], limit[8], limit[1], limit[0], limit[7], limit[6], limit[5], limit[4], limit[11], limit[10],  limit[12], limit[13],limit[14],limit[15], limit[16], limit[17], limit[18], limit[19], limit[20], limit[21], limit[22], limit[23], limit[24], limit[25] ]
 
     payload['connection'] = True
     payload['pLHS_data'] = pLHS 

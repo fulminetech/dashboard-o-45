@@ -101,7 +101,7 @@
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/settings"
+                <a href="/processsetup"
                     class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <i class="fa fa-wrench fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full inline-block text-lg">Settings</span>
                 </a>
@@ -121,7 +121,18 @@
                     class="border-2 border-gray-400 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-700"> Process Settings</h5>
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-700"> Process Setup</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-1 w-full">
+                <div onclick="location.href='/settings_awc'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">AWC Setting</h5>
                         </div>
                     </div>
                 </div>
@@ -150,39 +161,6 @@
                     </div>
                 </div>
             </div>
-        
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings_awc'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">AWC Setting</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings_limit'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Limit Setup</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings_setup'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500"> Setup</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="w-1 w-full">
                 <div onclick="location.href='/settings_user'">
@@ -197,242 +175,361 @@
                 </div>
             </div>
         
+            <!-- <div class="w-1 w-full">
+                <div onclick="location.href='/settings_limit'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Limit Setup</h5>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        
+            <div class="w-1 w-full">
+                <div onclick="location.href='/settings_setup'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">ADEPT Setup</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
         </div>
 
         <!--Graph Content -->
         <div id="main-content" class="w-full flex-1">
         
-            <div class="flex flex-1 flex-wrap">
+            <div class="flex ">
                 <div class="w-full p-6 ">
+
+
+                    <div class="flex mb-5">
+                    
+                        <!-- Lubrication -->
+                        <div class="w-1/3 align-left">
+                            <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                <div class="flex flex-col">
+                                    <div class="flex-1 items-left text-gray-700">
+                                        <h5 class="font-bold text-center uppercase text-2xl">Lubrication Pump</h5>
+                                        <h3 class="font-bold mt-2 text-lg">ON time:
+                                        </h3>
+                                        <div class="py-3">
+                                            <input id="l_on"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) l_on()">
+                                        </div>
+                                        <h3 class="font-bold mt-2 text-lg">OFF time:
+                                        </h3>
+                                        <div class="py-3">
+                                            <input id="l_off"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) l_off()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Hydraulic Pressure Cut Off -->
+                        <div class="w-1/3 ml-5 align-left">
+                            <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                <div class="flex flex-col">
+                                    <div class="flex-1 items-left text-gray-700">
+                                        <h5 class="font-bold uppercase text-center text-2xl">Hydraulic Pressure Cut Off</h5>
+                                        <h3 class="font-bold mt-2 text-lg">High:
+                                        </h3>
+                                        <div class="py-3">
+                                            <input id="hyd_high"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) hyd_high()">
+                                        </div>
+                                        <h3 class="font-bold mt-2 text-lg">Low:
+                                        </h3>
+                                        <div class="py-3">
+                                            <input id="hyd_low"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) hyd_low()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <div class="flex">
+                        <!--Mono Layer Setting-->
+                        <div class="p-5 mb-5 border w-1/3 bg-indigo-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
+                            <h5 class="font-bold uppercase mb-5 text-2xl text-center text-gray-700">Mono Layer Setting</h5>
+                            <table class="w-full p-3 text-gray-700">
+                                <thead>
+                        
+                                </thead>
+                        
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center py-2 text-xl uppercase text-blue-900">Rejection High</td>
+                                        <td id="preLHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <input id="mainUP"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="MAIN LHS + RHS Upper"
+                                                onkeydown="if (event.keyCode == 13) updatelimits_MLU() && updatelimits_MRU() ">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Rejection Low</td>
+                                        <td id="preLHS_lower" class="border-b  pb-5 px-3 text-center">
+                                            <input id="mainLOW"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Main LHS + RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MLL() && updatelimits_MRL()">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Set Force</td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="mainFL"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Main LHS + RHS Force Line"
+                                                onkeydown="if (event.keyCode == 13) updatelimits_MLFL() && updatelimits_MRFL()">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC HIGH</td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="awc_high"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="AWC High">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC LOW</td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="awc_low"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="AWC LOW" >
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- BI LAYER SETTING-->
+                        <div class="p-5 mb-5 ml-5 w-2/3 border bg-pink-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
+                            <h5 class="font-bold uppercase mb-5 text-center text-2xl text-gray-700">BI LAYER SETTING</h5>
+                            <table class="w-full p-3 text-gray-700">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center text-blue-900"></th>
+                                        <th class="text-center pb-3 text-blue-900">LHS Discharge</th>
+                                        <th class="text-center pb-3 text-blue-900">RHS Discharge</th>
+                                    </tr>
+                                </thead>
+                        
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center  py-2  text-xl uppercase text-blue-900">Rejection High</td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <input id="preLHSup"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="PRE RHS Upper"
+                                                onkeydown="if (event.keyCode == 13) updatelimits_PLU()">
+                                        </td>
+                                        <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
+                                            <input id="preRHSup"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Pre RHS Upper"
+                                                onkeydown="if (event.keyCode == 13) updatelimits_PRU()">
+                                        </td>
+                                        
+                                    </tr class="my-20">
+                                    <tr>
+                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Rejection Low</td>
+                                        <td id="preRHS_lower" class=" pb-5 px-3 text-center">
+                                            <input id="preLHSlow"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="PRE LHS Low" onkeydown="if (event.keyCode == 13) updatelimits_PLL()">
+                                        </td>
+                                        <td id="mainRHS_lower" class=" pb-5 px-3 text-center">
+                                            <input id="preRHSlow"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Pre RHS Low"
+                                                onkeydown="if (event.keyCode == 13) updatelimits_PRL()">
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Set Force</td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="preLHSfl"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="PRE LHS FORCE LINE"
+                                                onkeydown="if (event.keyCode == 13) updatelimits_PLFL()">
+                                        </td>
+                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="preRHSfl"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Pre RHS FORCE LINE"
+                                                onkeydown="if (event.keyCode == 13) updatelimits_PRFL()">
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC HIGH</td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="awc_high_LHS"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="AWC High LHS" onkeydown="if (event.keyCode == 13) updatelimits_AWCH_LHS()">
+                                        </td>
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="awc_high_RHS"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="AWC High RHS" onkeydown="if (event.keyCode == 13) updatelimits_AWCH_RHS()">
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC LOW</td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="awc_low_LHS"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="AWC Low LHS" onkeydown="if (event.keyCode == 13) updatelimits_AWCL_LHS()">
+                                        </td>
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="awc_low_RHS"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="AWC Low RHS" onkeydown="if (event.keyCode == 13) updatelimits_AWCL_RHS()">
+                                        </td>
+                                                                                                
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+
+                    <div class="flex">
+                        <!-- Sampling -->
+                    <div class="w-1/2 align-left">
+                        <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                            <div class="flex flex-col">
+                                <div class="flex-1 items-left text-gray-700">
+                                    <h5 class="font-bold uppercase text-center text-2xl">Sampling Setting</h5>
+                                    <h3 class="font-bold mt-2 text-lg">Status:
+                                        <a id="sampl_status">DISABLED</a>
+                                    </h3>
+                                    <h3 class="font-bold mt-2 text-lg">Sample Tablet Count:
+                                        <a id="samp_tab_count">0</a>
+                                    </h3>
+                                    <h3 class="font-bold mt-5 text-lg">No. of Sample Tablet:
+                                    </h3>
+                                    <div class="py-3">
+                                        <input id="samp_tab_no"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) samp_tab_no()">
+                                    </div>
+                                    <h3 class="font-bold mt-2 text-lg">Sampling Interval (mins):</h3>
+                                    <div class="py-3">
+                                        <input id="samp_inter"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) samp_inter()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex grid grid-cols-3">
+                    
+                    
+                                <div class="flex p-3">
+                    
+                                    <!-- PDF report Button -->
+                                    <div class="pl-2">
+                                        <button id="generatepdfreport"
+                                            class="bg-blue-100 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="manual()">
+                                            Manual
+                                        </button>
+                                    </div>
+
+                                    <div class="pl-3">
+                                        <button id="generatepdfreport"
+                                            class="bg-blue-100 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="auto()">
+                                            Auto
+                                        </button>
+                                    </div>
+
+                                    <div class="pl-3">
+                                        <button id="generatepdfreport"
+                                            class="bg-blue-100 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
+                                            onmousedown="sample()" onmouseup="unsample()">
+                                            SAMPLE
+                                        </button>
+                                    </div>
+
+                                </div>
+                    
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Roller -->
+                    <div class="ml-5 w-1/2 align-left">
+                        <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                            <div class="flex flex-col">
+                                <div class="flex-1 items-left text-gray-700">
+                                    <h5 class="font-bold uppercase text-center text-2xl">Roller Setting</h5>
+                                    <h3 class="font-bold mt-3 text-lg">Roller Frequency (Hz) </h3>
+                                    <div class="py-3">
+                                        <input id="roller_freq"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) roller_freq()">
+                                    </div>
+
+                                    <h3 class="font-bold mt-5 text-lg">Roller Select:
+                                        <a id="roller_mode">0</a>
+                                    </h3>
+
+                                    <div class="mt-5">
+                                        <select class="text-3xl text-gray-700" name="roller" id="roller">
+                                            <option onkeydown="if (event.keyCode == 13) roller_1()" value="LPR">1: LHS DISCHARGE PRE ROLLER</option>
+                                            <option onkeydown="if (event.keyCode == 13) roller_2()" value="LMR">2: LHS DISCHARGE MAIN ROLLER</option>
+                                            <option onkeydown="if (event.keyCode == 13) roller_3()" value="RPR">3: RHS DISCHARGE PRE ROLLER</option>
+                                            <option onkeydown="if (event.keyCode == 13) roller_4()" value="RMR">4: RHS DISCHARGE MAIN ROLLER</option>
+                                        </select>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="flex mt-5 grid grid-cols-3">
+                    
+                    
+                                <div class="flex p-3">
+                    
+                                    <!-- PDF report Button -->
+                                    <div class="py-3">
+                                        <button id="generatepdfreport"
+                                            class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
+                                            onmousedown="up()" onmouseup="unup()">
+                                            UP
+                                        </button>
+                                    </div>
+
+                                    <!-- PDF report Button -->
+                                    <div class="py-3 pl-10">
+                                        <button id="generatepdfreport"
+                                            class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
+                                            onmousedown="down()" onmouseup="undown()">
+                                            DOWN
+                                        </button>
+                                    </div>
+                                </div>
                 
-                    <!-- Search: Parameters -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Roller Setting: </h5>
-                    </div>
-            
-                    <div class="flex flex-wrap p-3">
-                        <h3> Roller Frequency: 1234 </h3>
-                    </div>
-
-                    <div class="flex grid grid-cols-3 p-3 ">
-                    
-                        <div class="flex flex-col">
-                            <h3> Roller Frequency </h3>
-                            <!-- Upperlimit: 50 -->
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
                             </div>
                         </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Select Roller </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-
-
-                    <div class="flex grid grid-cols-3">
-                    
-                    
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- PDF report Button -->
-                            <div class="py-3">
-                                <button id="generatepdfreport"
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="generateReport()">
-                                    FORWARD RUN
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- PDF report Button -->
-                            <div class="py-3">
-                                <button id="generatepdfreport"
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="generateReport()">
-                                    REVERSE RUN
-                                </button>
-                            </div>
-                        </div>
-                    
-                    </div>
-
-                    <!-- Search: Parameters -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Sampling Settings:</h5>
-                    </div>
-
-                    <div class="flex flex-wrap p-3">
-                        <h3> Status: Disabled </h3>
-                    </div>
-
-                    <div class="flex flex-wrap p-3">
-                        <h3> Sample Tablet Count: 1234 </h3>
-                    </div>
-                    
-                    <div class="flex flex-wrap p-3">
-                        <h3> No. of Sample Tablet: 1234 </h3>
-                    </div>
-                    
-                    <div class="flex flex-wrap p-3">
-                        <h3> Sampling Interval (Mins): 1234 </h3>
-                    </div>
-
-                    <div class="flex grid grid-cols-3">
-
-    
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- PDF report Button -->
-                            <div class="py-3">
-                                <button id="generatepdfreport"
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="generateReport()">
-                                    Manual
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- PDF report Button -->
-                            <div class="py-3">
-                                <button id="generatepdfreport"
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="generateReport()">
-                                    Auto
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- Excel Button -->
-                            <div class="py-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="csvexport()">
-                                    Sample
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="flex grid grid-cols-3 p-3 ">
-                    
-                        <div class="flex flex-col">
-                            <h3> No. of Sample Tablet </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Sampling Interval (Mins) </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                    </div>
-
-                    <!-- Search: Parameters -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Rejection Settings:</h5>
-                    </div>
-
-                    <div class="flex flex-wrap p-3">
-                        <h3> Status: Disabled </h3>
-                    </div>
-
-                    <div class="flex grid grid-cols-3">
-
-                        <div class="flex flex-wrap p-3">
-                    
-                            <div class="py-3">
-                                <button id="generatepdfreport"
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="generateReport()">
-                                    BY FLAP
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- PDF report Button -->
-                            <div class="py-3">
-                                <button id="generatepdfreport"
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="generateReport()">
-                                    BY AIR
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- Excel Button -->
-                            <div class="py-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="csvexport()">
-                                    DISABLE
-                                </button>
-                            </div>
-                        </div>
-
                     </div>
                 
                 </div>
@@ -442,50 +539,88 @@
         </div>
     </div>
 
-    
-    <!-- PAYLOAD API fetch -->
+    <!-- Tolerance Values script -->
     <script>
 
-        var currentrpm;
-
-        async function fetchpayloadapiHF2() {
-            fetch(payloadURL)
+        async function fetchpayloadapiHF() {
+            fetch(processedurl)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
                     // Here you get the data to modify as you please
                     payload = data
 
-                    console.log(payload)
+                    MLHS_LL = payload.limit[0]
+                    MLHS_UL = payload.limit[1]
+                    PLHS_LL = payload.limit[4]
+                    PLHS_UL = payload.limit[5]
+                    ELHS_LL = payload.limit[8]
+                    ELHS_UL = payload.limit[9]
+                    PLHS_FL = payload.limit[12]
+                    MLHS_FL = payload.limit[13]
+                    ELHS_FL = payload.limit[14]
+                    AWC_PLHS_UL = payload.limit[18]
+                    AWC_PLHS_LL = payload.limit[19]
+                    AWC_MLHS_UL = payload.limit[20]
+                    AWC_MLHS_LL = payload.limit[21]
+                    MRHS_LL = payload.limit[2]
+                    MRHS_UL = payload.limit[3]
+                    PRHS_LL = payload.limit[6]
+                    PRHS_UL = payload.limit[7]
+                    ERHS_LL = payload.limit[10]
+                    ERHS_UL = payload.limit[11]
+                    PRHS_FL = payload.limit[15]
+                    MRHS_FL = payload.limit[16]
+                    ERHS_FL = payload.limit[17]
+                    AWC_PRHS_UL = payload.limit[22]
+                    AWC_PRHS_LL = payload.limit[23]
+                    AWC_MRHS_UL = payload.limit[24]
+                    AWC_MRHS_LL = payload.limit[25]
 
-                    // if (payload.stats.status == "ONLINE") {
-                    //     check()
-                    // } else {
-                    //     uncheck()
-                    // }
+                    document.getElementById("mainUP").value = MLHS_UL
+                    document.getElementById("mainLOW").value = MLHS_LL
+                    document.getElementById("mainFL").value = MLHS_FL
+                    document.getElementById("awc_high").value = AWC_MLHS_UL
+                    document.getElementById("awc_low").value = AWC_MLHS_LL
 
-                    // document.getElementById("status").innerHTML = payload.stats.status;
-                    // document.getElementById("batch_number_metric").innerHTML = payload.batch;
-                    // currentBatch = payload.batch;
-                    // document.getElementById("rotation_number_metric").innerHTML = payload.data_number;
-                    // currentrotation = payload.data_number;
-                    // document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
-                    // document.getElementById("count_metric").innerHTML = payload.stats.count;
-                    // document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
-                    // document.getElementById("rpm_metric").innerHTML = payload.stats.rpm;
-                    // currentrpm = payload.stats.rpm;
-                    // document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
+                    document.getElementById("preLHSup").value = PLHS_UL
+                    document.getElementById("preRHSup").value = PRHS_UL
+                    document.getElementById("preLHSlow").value = PLHS_LL
+                    document.getElementById("preRHSlow").value = PRHS_LL
+                    document.getElementById("preLHSfl").value = PLHS_FL
+                    document.getElementById("preRHSfl").value = PRHS_FL
+                    document.getElementById("awc_high_LHS").value = AWC_PLHS_UL
+                    document.getElementById("awc_high_RHS").value = AWC_PRHS_UL
+                    document.getElementById("awc_low_LHS").value = AWC_PLHS_LL
+                    document.getElementById("awc_low_RHS").value = AWC_PRHS_LL
 
-                    document.getElementById("mainLHS_upper").innerHTML = payload.machine.LHS.maincompression_upperlimit;
-                    document.getElementById("mainRHS_upper").innerHTML = payload.machine.RHS.maincompression_upperlimit;
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+        
+        async function fetchpayloadapiHF1() {
+            fetch(statsurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
 
-                    document.getElementById("mainLHS_lower").innerHTML = payload.machine.LHS.maincompression_lowerlimit;
-                    document.getElementById("mainRHS_lower").innerHTML = payload.machine.RHS.maincompression_lowerlimit;
-
-                    document.getElementById("preLHS_upper").innerHTML = payload.machine.LHS.precompression_upperlimit;
-                    document.getElementById("preRHS_upper").innerHTML = payload.machine.RHS.precompression_upperlimit;
-
-                    document.getElementById("preLHS_lower").innerHTML = payload.machine.LHS.precompression_lowerlimit;
-                    document.getElementById("preRHS_lower").innerHTML = payload.machine.RHS.precompression_lowerlimit;
+                    document.getElementById("l_on").value = payload.stats.lubrication.set_delay_min
+                    document.getElementById("l_off").value = payload.stats.lubrication.remaining_time
+                    
+                    document.getElementById("hyd_high").value = payload.stats.hydraulic.high_cutoff
+                    document.getElementById("hyd_low").value = payload.stats.hydraulic.low_cutoff
+                    
+                    document.getElementById("sampl_status").value = payload.button.MANUAL_SAMPLE
+                    // document.getElementById("samp_tab_count").value = payload.limit[0];
+                    document.getElementById("samp_tab_no").value = payload.stats.sampling.NO_TABLET_SAMPLING
+                    document.getElementById("samp_inter").value = payload.stats.sampling.SAMPLING_TIME_MINS
+                    
+                    document.getElementById("roller_freq").value = payload.stats.roller.frequency
+                    document.getElementById("roller_mode").value = payload.stats.roller.motor
+                    
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
@@ -494,1503 +629,126 @@
         };
 
         setInterval(() => {
-            fetchpayloadapiHF2();
-        }, 1000);
+            fetchpayloadapiHF();
+            fetchpayloadapiHF1();
+        }, 50);
     </script>
 
-
-    <!-- Check Status -->
-    <script>
-        async function fetchpayloadapiHF() {
-            fetch(payloadURL)
-                .then((resp) => resp.json()) // Transform the data into json
-                .then(function (data) {
-                    // Here you get the data to modify as you please
-                    payload = data
-
-                    if (payload.punch1.LHS.status == true) {
-                        document.getElementById("punch1status").style.background = "lightgreen";
-                        document.getElementById("punch1").checked = true;
-                        document.getElementById("punch1_current").innerHTML = "ONLINE";
-                    } else if (payload.punch1.LHS.status == false) {
-                        document.getElementById("punch1status").style.background = "lightcoral";
-                        document.getElementById("punch1").checked = false;
-                        document.getElementById("punch1_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch2.LHS.status == true) {
-                        document.getElementById("punch2status").style.background = "lightgreen";
-                        document.getElementById("punch2").checked = true;
-                        document.getElementById("punch2_current").innerHTML = "ONLINE";
-                    } else if (payload.punch2.LHS.status == false) {
-                        document.getElementById("punch2status").style.background = "lightcoral";
-                        document.getElementById("punch2").checked = false;
-                        document.getElementById("punch2_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch3.LHS.status == true) {
-                        document.getElementById("punch3status").style.background = "lightgreen";
-                        document.getElementById("punch3").checked = true;
-                        document.getElementById("punch3_current").innerHTML = "ONLINE";
-                    } else if (payload.punch3.LHS.status == false) {
-                        document.getElementById("punch3status").style.background = "lightcoral";
-                        document.getElementById("punch3").checked = false;
-                        document.getElementById("punch3_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch4.LHS.status == true) {
-                        document.getElementById("punch4status").style.background = "lightgreen";
-                        document.getElementById("punch4").checked = true;
-                        document.getElementById("punch4_current").innerHTML = "ONLINE";
-                    } else if (payload.punch4.LHS.status == false) {
-                        document.getElementById("punch4status").style.background = "lightcoral";
-                        document.getElementById("punch4").checked = false;
-                        document.getElementById("punch4_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch5.LHS.status == true) {
-                        document.getElementById("punch5status").style.background = "lightgreen";
-                        document.getElementById("punch5").checked = true;
-                        document.getElementById("punch5_current").innerHTML = "ONLINE";
-                    } else if (payload.punch5.LHS.status == false) {
-                        document.getElementById("punch5status").style.background = "lightcoral";
-                        document.getElementById("punch5").checked = false;
-                        document.getElementById("punch5_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch6.LHS.status == true) {
-                        document.getElementById("punch6status").style.background = "lightgreen";
-                        document.getElementById("punch6").checked = true;
-                        document.getElementById("punch6_current").innerHTML = "ONLINE";
-                    } else if (payload.punch6.LHS.status == false) {
-                        document.getElementById("punch6status").style.background = "lightcoral";
-                        document.getElementById("punch6").checked = false;
-                        document.getElementById("punch6_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch7.LHS.status == true) {
-                        document.getElementById("punch7status").style.background = "lightgreen";
-                        document.getElementById("punch7").checked = true;
-                        document.getElementById("punch7_current").innerHTML = "ONLINE";
-                    } else if (payload.punch7.LHS.status == false) {
-                        document.getElementById("punch7status").style.background = "lightcoral";
-                        document.getElementById("punch7").checked = false;
-                        document.getElementById("punch7_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch8.LHS.status == true) {
-                        document.getElementById("punch8status").style.background = "lightgreen";
-                        document.getElementById("punch8").checked = true;
-                        document.getElementById("punch8_current").innerHTML = "ONLINE";
-                    } else if (payload.punch8.LHS.status == false) {
-                        document.getElementById("punch8status").style.background = "lightcoral";
-                        document.getElementById("punch8").checked = false;
-                        document.getElementById("punch8_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch9.LHS.status == true) {
-                        document.getElementById("punch9status").style.background = "lightgreen";
-                        document.getElementById("punch9").checked = true;
-                        document.getElementById("punch9_current").innerHTML = "ONLINE";
-                    } else if (payload.punch9.LHS.status == false) {
-                        document.getElementById("punch9status").style.background = "lightcoral";
-                        document.getElementById("punch9").checked = false;
-                        document.getElementById("punch9_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch10.LHS.status == true) {
-                        document.getElementById("punch10status").style.background = "lightgreen";
-                        document.getElementById("punch10").checked = true;
-                        document.getElementById("punch10_current").innerHTML = "ONLINE";
-                    } else if (payload.punch10.LHS.status == false) {
-                        document.getElementById("punch10status").style.background = "lightcoral";
-                        document.getElementById("punch10").checked = false;
-                        document.getElementById("punch10_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch11.LHS.status == true) {
-                        document.getElementById("punch11status").style.background = "lightgreen";
-                        document.getElementById("punch11").checked = true;
-                        document.getElementById("punch11_current").innerHTML = "ONLINE";
-                    } else if (payload.punch11.LHS.status == false) {
-                        document.getElementById("punch11status").style.background = "lightcoral";
-                        document.getElementById("punch11").checked = false;
-                        document.getElementById("punch11_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch12.LHS.status == true) {
-                        document.getElementById("punch12status").style.background = "lightgreen";
-                        document.getElementById("punch12").checked = true;
-                        document.getElementById("punch12_current").innerHTML = "ONLINE";
-                    } else if (payload.punch12.LHS.status == false) {
-                        document.getElementById("punch12status").style.background = "lightcoral";
-                        document.getElementById("punch12").checked = false;
-                        document.getElementById("punch12_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch13.LHS.status == true) {
-                        document.getElementById("punch13status").style.background = "lightgreen";
-                        document.getElementById("punch13").checked = true;
-                        document.getElementById("punch13_current").innerHTML = "ONLINE";
-                    } else if (payload.punch13.LHS.status == false) {
-                        document.getElementById("punch13status").style.background = "lightcoral";
-                        document.getElementById("punch13").checked = false;
-                        document.getElementById("punch13_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch14.LHS.status == true) {
-                        document.getElementById("punch14status").style.background = "lightgreen";
-                        document.getElementById("punch14").checked = true;
-                        document.getElementById("punch14_current").innerHTML = "ONLINE";
-                    } else if (payload.punch14.LHS.status == false) {
-                        document.getElementById("punch14status").style.background = "lightcoral";
-                        document.getElementById("punch14").checked = false;
-                        document.getElementById("punch14_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch15.LHS.status == true) {
-                        document.getElementById("punch15status").style.background = "lightgreen";
-                        document.getElementById("punch15").checked = true;
-                        document.getElementById("punch15_current").innerHTML = "ONLINE";
-                    } else if (payload.punch15.LHS.status == false) {
-                        document.getElementById("punch15status").style.background = "lightcoral";
-                        document.getElementById("punch15").checked = false;
-                        document.getElementById("punch15_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch16.LHS.status == true) {
-                        document.getElementById("punch16status").style.background = "lightgreen";
-                        document.getElementById("punch16").checked = true;
-                        document.getElementById("punch16_current").innerHTML = "ONLINE";
-                    } else if (payload.punch16.LHS.status == false) {
-                        document.getElementById("punch16status").style.background = "lightcoral";
-                        document.getElementById("punch16").checked = false;
-                        document.getElementById("punch16_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch17.LHS.status == true) {
-                        document.getElementById("punch17status").style.background = "lightgreen";
-                        document.getElementById("punch17").checked = true;
-                        document.getElementById("punch17_current").innerHTML = "ONLINE";
-                    } else if (payload.punch17.LHS.status == false) {
-                        document.getElementById("punch17status").style.background = "lightcoral";
-                        document.getElementById("punch17").checked = false;
-                        document.getElementById("punch17_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch18.LHS.status == true) {
-                        document.getElementById("punch18status").style.background = "lightgreen";
-                        document.getElementById("punch18").checked = true;
-                        document.getElementById("punch18_current").innerHTML = "ONLINE";
-                    } else if (payload.punch18.LHS.status == false) {
-                        document.getElementById("punch18status").style.background = "lightcoral";
-                        document.getElementById("punch18").checked = false;
-                        document.getElementById("punch18_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch19.LHS.status == true) {
-                        document.getElementById("punch19status").style.background = "lightgreen";
-                        document.getElementById("punch19").checked = true;
-                        document.getElementById("punch19_current").innerHTML = "ONLINE";
-                    } else if (payload.punch19.LHS.status == false) {
-                        document.getElementById("punch19status").style.background = "lightcoral";
-                        document.getElementById("punch19").checked = false;
-                        document.getElementById("punch19_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch20.LHS.status == true) {
-                        document.getElementById("punch20status").style.background = "lightgreen";
-                        document.getElementById("punch20").checked = true;
-                        document.getElementById("punch20_current").innerHTML = "ONLINE";
-                    } else if (payload.punch20.LHS.status == false) {
-                        document.getElementById("punch20status").style.background = "lightcoral";
-                        document.getElementById("punch20").checked = false;
-                        document.getElementById("punch20_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch21.LHS.status == true) {
-                        document.getElementById("punch21status").style.background = "lightgreen";
-                        document.getElementById("punch21").checked = true;
-                        document.getElementById("punch21_current").innerHTML = "ONLINE";
-                    } else if (payload.punch21.LHS.status == false) {
-                        document.getElementById("punch21status").style.background = "lightcoral";
-                        document.getElementById("punch21").checked = false;
-                        document.getElementById("punch21_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch22.LHS.status == true) {
-                        document.getElementById("punch22status").style.background = "lightgreen";
-                        document.getElementById("punch22").checked = true;
-                        document.getElementById("punch22_current").innerHTML = "ONLINE";
-                    } else if (payload.punch22.LHS.status == false) {
-                        document.getElementById("punch22status").style.background = "lightcoral";
-                        document.getElementById("punch22").checked = false;
-                        document.getElementById("punch22_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch23.LHS.status == true) {
-                        document.getElementById("punch23status").style.background = "lightgreen";
-                        document.getElementById("punch23").checked = true;
-                        document.getElementById("punch23_current").innerHTML = "ONLINE";
-                    } else if (payload.punch23.LHS.status == false) {
-                        document.getElementById("punch23status").style.background = "lightcoral";
-                        document.getElementById("punch23").checked = false;
-                        document.getElementById("punch23_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch24.LHS.status == true) {
-                        document.getElementById("punch24status").style.background = "lightgreen";
-                        document.getElementById("punch24").checked = true;
-                        document.getElementById("punch24_current").innerHTML = "ONLINE";
-                    } else if (payload.punch24.LHS.status == false) {
-                        document.getElementById("punch24status").style.background = "lightcoral";
-                        document.getElementById("punch24").checked = false;
-                        document.getElementById("punch24_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch25.LHS.status == true) {
-                        document.getElementById("punch25status").style.background = "lightgreen";
-                        document.getElementById("punch25").checked = true;
-                        document.getElementById("punch25_current").innerHTML = "ONLINE";
-                    } else if (payload.punch25.LHS.status == false) {
-                        document.getElementById("punch25status").style.background = "lightcoral";
-                        document.getElementById("punch25").checked = false;
-                        document.getElementById("punch25_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch26.LHS.status == true) {
-                        document.getElementById("punch26status").style.background = "lightgreen";
-                        document.getElementById("punch26").checked = true;
-                        document.getElementById("punch26_current").innerHTML = "ONLINE";
-                    } else if (payload.punch26.LHS.status == false) {
-                        document.getElementById("punch26status").style.background = "lightcoral";
-                        document.getElementById("punch26").checked = false;
-                        document.getElementById("punch26_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch27.LHS.status == true) {
-                        document.getElementById("punch27status").style.background = "lightgreen";
-                        document.getElementById("punch27").checked = true;
-                        document.getElementById("punch27_current").innerHTML = "ONLINE";
-                    } else if (payload.punch27.LHS.status == false) {
-                        document.getElementById("punch27status").style.background = "lightcoral";
-                        document.getElementById("punch27").checked = false;
-                        document.getElementById("punch27_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch28.LHS.status == true) {
-                        document.getElementById("punch28status").style.background = "lightgreen";
-                        document.getElementById("punch28").checked = true;
-                        document.getElementById("punch28_current").innerHTML = "ONLINE";
-                    } else if (payload.punch28.LHS.status == false) {
-                        document.getElementById("punch28status").style.background = "lightcoral";
-                        document.getElementById("punch28").checked = false;
-                        document.getElementById("punch28_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch29.LHS.status == true) {
-                        document.getElementById("punch29status").style.background = "lightgreen";
-                        document.getElementById("punch29").checked = true;
-                        document.getElementById("punch29_current").innerHTML = "ONLINE";
-                    } else if (payload.punch29.LHS.status == false) {
-                        document.getElementById("punch29status").style.background = "lightcoral";
-                        document.getElementById("punch29").checked = false;
-                        document.getElementById("punch29_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch30.LHS.status == true) {
-                        document.getElementById("punch30status").style.background = "lightgreen";
-                        document.getElementById("punch30").checked = true;
-                        document.getElementById("punch30_current").innerHTML = "ONLINE";
-                    } else if (payload.punch30.LHS.status == false) {
-                        document.getElementById("punch30status").style.background = "lightcoral";
-                        document.getElementById("punch30").checked = false;
-                        document.getElementById("punch30_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch31.LHS.status == true) {
-                        document.getElementById("punch31status").style.background = "lightgreen";
-                        document.getElementById("punch31").checked = true;
-                        document.getElementById("punch31_current").innerHTML = "ONLINE";
-                    } else if (payload.punch31.LHS.status == false) {
-                        document.getElementById("punch31status").style.background = "lightcoral";
-                        document.getElementById("punch31").checked = false;
-                        document.getElementById("punch31_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch32.LHS.status == true) {
-                        document.getElementById("punch32status").style.background = "lightgreen";
-                        document.getElementById("punch32").checked = true;
-                        document.getElementById("punch32_current").innerHTML = "ONLINE";
-                    } else if (payload.punch32.LHS.status == false) {
-                        document.getElementById("punch32status").style.background = "lightcoral";
-                        document.getElementById("punch32").checked = false;
-                        document.getElementById("punch32_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch33.LHS.status == true) {
-                        document.getElementById("punch33status").style.background = "lightgreen";
-                        document.getElementById("punch33").checked = true;
-                        document.getElementById("punch33_current").innerHTML = "ONLINE";
-                    } else if (payload.punch33.LHS.status == false) {
-                        document.getElementById("punch33status").style.background = "lightcoral";
-                        document.getElementById("punch33").checked = false;
-                        document.getElementById("punch33_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch34.LHS.status == true) {
-                        document.getElementById("punch34status").style.background = "lightgreen";
-                        document.getElementById("punch34").checked = true;
-                        document.getElementById("punch34_current").innerHTML = "ONLINE";
-                    } else if (payload.punch34.LHS.status == false) {
-                        document.getElementById("punch34status").style.background = "lightcoral";
-                        document.getElementById("punch34").checked = false;
-                        document.getElementById("punch34_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch35.LHS.status == true) {
-                        document.getElementById("punch35status").style.background = "lightgreen";
-                        document.getElementById("punch35").checked = true;
-                        document.getElementById("punch35_current").innerHTML = "ONLINE";
-                    } else if (payload.punch35.LHS.status == false) {
-                        document.getElementById("punch35status").style.background = "lightcoral";
-                        document.getElementById("punch35").checked = false;
-                        document.getElementById("punch35_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch36.LHS.status == true) {
-                        document.getElementById("punch36status").style.background = "lightgreen";
-                        document.getElementById("punch36").checked = true;
-                        document.getElementById("punch36_current").innerHTML = "ONLINE";
-                    } else if (payload.punch36.LHS.status == false) {
-                        document.getElementById("punch36status").style.background = "lightcoral";
-                        document.getElementById("punch36").checked = false;
-                        document.getElementById("punch36_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch37.LHS.status == true) {
-                        document.getElementById("punch37status").style.background = "lightgreen";
-                        document.getElementById("punch37").checked = true;
-                        document.getElementById("punch37_current").innerHTML = "ONLINE";
-                    } else if (payload.punch37.LHS.status == false) {
-                        document.getElementById("punch37status").style.background = "lightcoral";
-                        document.getElementById("punch37").checked = false;
-                        document.getElementById("punch37_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch38.LHS.status == true) {
-                        document.getElementById("punch38status").style.background = "lightgreen";
-                        document.getElementById("punch38").checked = true;
-                        document.getElementById("punch38_current").innerHTML = "ONLINE";
-                    } else if (payload.punch38.LHS.status == false) {
-                        document.getElementById("punch38status").style.background = "lightcoral";
-                        document.getElementById("punch38").checked = false;
-                        document.getElementById("punch38_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch39.LHS.status == true) {
-                        document.getElementById("punch39status").style.background = "lightgreen";
-                        document.getElementById("punch39").checked = true;
-                        document.getElementById("punch39_current").innerHTML = "ONLINE";
-                    } else if (payload.punch39.LHS.status == false) {
-                        document.getElementById("punch39status").style.background = "lightcoral";
-                        document.getElementById("punch39").checked = false;
-                        document.getElementById("punch39_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch40.LHS.status == true) {
-                        document.getElementById("punch40status").style.background = "lightgreen";
-                        document.getElementById("punch40").checked = true;
-                        document.getElementById("punch40_current").innerHTML = "ONLINE";
-                    } else if (payload.punch40.LHS.status == false) {
-                        document.getElementById("punch40status").style.background = "lightcoral";
-                        document.getElementById("punch40").checked = false;
-                        document.getElementById("punch40_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch41.LHS.status == true) {
-                        document.getElementById("punch41status").style.background = "lightgreen";
-                        document.getElementById("punch41").checked = true;
-                        document.getElementById("punch41_current").innerHTML = "ONLINE";
-                    } else if (payload.punch41.LHS.status == false) {
-                        document.getElementById("punch41status").style.background = "lightcoral";
-                        document.getElementById("punch41").checked = false;
-                        document.getElementById("punch41_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch42.LHS.status == true) {
-                        document.getElementById("punch42status").style.background = "lightgreen";
-                        document.getElementById("punch42").checked = true;
-                        document.getElementById("punch42_current").innerHTML = "ONLINE";
-                    } else if (payload.punch42.LHS.status == false) {
-                        document.getElementById("punch42status").style.background = "lightcoral";
-                        document.getElementById("punch42").checked = false;
-                        document.getElementById("punch42_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch43.LHS.status == true) {
-                        document.getElementById("punch43status").style.background = "lightgreen";
-                        document.getElementById("punch43").checked = true;
-                        document.getElementById("punch43_current").innerHTML = "ONLINE";
-                    } else if (payload.punch43.LHS.status == false) {
-                        document.getElementById("punch43status").style.background = "lightcoral";
-                        document.getElementById("punch43").checked = false;
-                        document.getElementById("punch43_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch44.LHS.status == true) {
-                        document.getElementById("punch44status").style.background = "lightgreen";
-                        document.getElementById("punch44").checked = true;
-                        document.getElementById("punch44_current").innerHTML = "ONLINE";
-                    } else if (payload.punch44.LHS.status == false) {
-                        document.getElementById("punch44status").style.background = "lightcoral";
-                        document.getElementById("punch44").checked = false;
-                        document.getElementById("punch44_current").innerHTML = "OFFLINE";
-                    }
-
-                    if (payload.punch45.LHS.status == true) {
-                        document.getElementById("punch45status").style.background = "lightgreen";
-                        document.getElementById("punch45").checked = true;
-                        document.getElementById("punch45_current").innerHTML = "ONLINE";
-                    } else if (payload.punch45.LHS.status == false) {
-                        document.getElementById("punch45status").style.background = "lightcoral";
-                        document.getElementById("punch45").checked = false;
-                        document.getElementById("punch45_current").innerHTML = "OFFLINE";
-                    }
-
-                    // console.log(payload)
-                })
-                .catch(function (error) {
-                        // If there is any error you will catch them here
-                        console.log("[ PAYLOAD FETCH ERROR ]", error)
-                    })
-            }
-
-        fetchpayloadapiHF()
-
-        setInterval(() => {
-            fetchpayloadapiHF()
-        }, 1500);
-
-    </script>
-    
-    <!-- Update Status -->
-    <script>
-        async function punch1() {
-            var x = !document.getElementById("punch1").checked;
-        
-            if (x == false) {
-                let submiturl = `${statusurl}/1/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then( console.log(` [ punch1 is ${!x} ] `) )
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/1/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then( console.log(` [ punch1 is ${!x} ] `) )
-                    .catch(console.error);
-            }
-        }
-
-        async function punch2() {
-            var x = !document.getElementById("punch2").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/2/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch2 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/2/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch2 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch3() {
-            var x = !document.getElementById("punch3").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/3/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch3 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/3/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch3 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch4() {
-            var x = !document.getElementById("punch4").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/4/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch4 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/4/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch4 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch5() {
-            var x = !document.getElementById("punch5").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/5/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch5 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/5/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch5 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch6() {
-            var x = !document.getElementById("punch6").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/6/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch6 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/6/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch6 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch7() {
-            var x = !document.getElementById("punch7").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/7/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch7 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/7/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch7 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch8() {
-            var x = !document.getElementById("punch8").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/8/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch8 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/8/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch8 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch9() {
-            var x = !document.getElementById("punch9").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/9/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch9 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/9/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch9 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch10() {
-            var x = !document.getElementById("punch10").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/10/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch10 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/10/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch10 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch11() {
-            var x = !document.getElementById("punch11").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/11/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch11 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/11/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch11 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch12() {
-            var x = !document.getElementById("punch12").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/12/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch12 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/12/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch12 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch13() {
-            var x = !document.getElementById("punch13").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/13/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch13 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/13/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch13 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch14() {
-            var x = !document.getElementById("punch14").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/14/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch14 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/14/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch14 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch15() {
-            var x = !document.getElementById("punch15").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/15/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch15 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/15/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch15 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch16() {
-            var x = !document.getElementById("punch16").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/16/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch16 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/16/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch16 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch17() {
-            var x = !document.getElementById("punch17").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/17/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch17 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/17/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch17 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch18() {
-            var x = !document.getElementById("punch18").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/18/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch18 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/18/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch18 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch19() {
-            var x = !document.getElementById("punch19").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/19/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch19 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/19/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch19 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch20() {
-            var x = !document.getElementById("punch20").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/20/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch20 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/20/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch20 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch21() {
-            var x = !document.getElementById("punch21").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/21/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch21 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/21/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch21 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch22() {
-            var x = !document.getElementById("punch22").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/22/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch22 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/22/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch22 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch23() {
-            var x = !document.getElementById("punch23").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/23/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch23 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/23/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch23 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch24() {
-            var x = !document.getElementById("punch24").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/24/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch24 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/24/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch24 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch25() {
-            var x = !document.getElementById("punch25").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/25/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch25 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/25/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch25 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch26() {
-            var x = !document.getElementById("punch26").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/26/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch26 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/26/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch26 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch27() {
-            var x = !document.getElementById("punch27").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/27/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch27 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/27/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch27 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch28() {
-            var x = !document.getElementById("punch28").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/28/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch28 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/28/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch28 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch29() {
-            var x = !document.getElementById("punch29").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/29/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch29 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/29/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch29 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch30() {
-            var x = !document.getElementById("punch30").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/30/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch30 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/30/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch30 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch31() {
-            var x = !document.getElementById("punch31").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/31/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch31 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/31/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch31 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch32() {
-            var x = !document.getElementById("punch32").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/32/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch32 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/32/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch32 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch33() {
-            var x = !document.getElementById("punch33").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/33/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch33 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/33/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch33 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch34() {
-            var x = !document.getElementById("punch34").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/34/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch34 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/34/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch34 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch35() {
-            var x = !document.getElementById("punch35").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/35/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch35 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/35/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch35 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch36() {
-            var x = !document.getElementById("punch36").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/36/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch36 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/36/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch36 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch37() {
-            var x = !document.getElementById("punch37").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/37/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch37 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/37/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch37 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch38() {
-            var x = !document.getElementById("punch38").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/38/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch38 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/38/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch38 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch39() {
-            var x = !document.getElementById("punch39").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/39/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch39 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/39/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch39 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch40() {
-            var x = !document.getElementById("punch40").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/40/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch40 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/40/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch40 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch41() {
-            var x = !document.getElementById("punch41").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/41/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch41 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/41/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch41 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch42() {
-            var x = !document.getElementById("punch42").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/42/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch42 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/42/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch42 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch43() {
-            var x = !document.getElementById("punch43").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/43/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch43 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/43/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch43 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch44() {
-            var x = !document.getElementById("punch44").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/44/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch44 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/44/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch44 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        async function punch45() {
-            var x = !document.getElementById("punch45").checked;
-
-            if (x == false) {
-                let submiturl = `${statusurl}/45/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch45 is ${!x} ] `))
-                    .catch(console.error);
-
-            } else if (x == true) {
-                let submiturl = `${statusurl}/45/${!x}`
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(console.log(` [ punch45 is ${!x} ] `))
-                    .catch(console.error);
-            }
-        }
-
-        
-    </script>
-
-    <!-- Update System info -->
+    <!-- Update Values -->
     <script>
 
-        async function updatelimits_PLU() {
-            var a = document.getElementById("preLHSup");
+        function l_on() {
+                var c = document.getElementById("l_on").value;
 
-            console.log(a)
+                console.log(c)
 
-            var preLHSup = "";
-            var i;
-            for (i = 0; i < a.length; i++) {
-                preLHSup += a.elements[i].value;
+                submitt(parseFloat(pressure))
+
+                function submitt(pressure) {
+                    var pressure = c;
+                    if (pressure <= 10 && pressure >= 0.1) {
+                        let submiturl = `${seturl}/LUBE_TIME_DELAY_MINUTES/${pressure}`
+                        console.log(submiturl)
+                        fetch(submiturl)
+                            .then(setTimeout(() => {
+                                console.log(" [ Request Sent // pending confirmation ] ")
+                            }, 100))
+                            .then(
+                                // Code to check reult
+                            )
+                            .catch(console.error);
+                    }
+                    else {
+                        alert("Please set value between 0.1 and 10.")
+                    }
+                }
+
             }
 
-            console.log(preLHSup)
+        function hyd_high() {
+                var c = document.getElementById("hyd_high").value;
 
-            let submiturl = `${controlurl}/preLHSup/${preLHSup}`
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED preLHSup tolerance ] "))
-                .catch(console.error);
+                console.log(c)
+
+                submitt(parseFloat(pressure))
+
+                function submitt(pressure) {
+                    var pressure = c;
+                    if (pressure <= 10 && pressure >= 0.1) {
+                        let submiturl = `${seturl}/HYDRAULIC_HIGH_PRESSURE_CUTOFF_PERCENT/${pressure}`
+                        console.log(submiturl)
+                        fetch(submiturl)
+                            .then(setTimeout(() => {
+                                console.log(" [ Request Sent // pending confirmation ] ")
+                            }, 100))
+                            .then(
+                                // Code to check reult
+                            )
+                            .catch(console.error);
+                    }
+                    else {
+                        alert("Please set value between 0.1 and 10.")
+                    }
+                }
+
+            }
+
+        function hyd_low() {
+            var c = document.getElementById("hyd_low").value;
+
+            console.log(c)
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                var pressure = c;
+                if (pressure <= 10 && pressure >= 0.1) {
+                    let submiturl = `${seturl}/HYDRAULIC_LOW_PRESSURE_CUTOFF_PERCENT/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            // Code to check reult
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Please set value between 0.1 and 10.")
+                }
+            }
 
         }
 
-        function updatelimits_PLL() {
-            var b = document.getElementById("preLHSlow");
+        function updatelimits_MLU() {
+            var mainLHSup = document.getElementById("mainUP").value;
 
-            var preLHSlow = "";
-            var j;
-            for (j = 0; j < b.length; j++) {
-                preLHSlow += b.elements[j].value;
-            }
+            submitt(parseInt(mainLHSup))
 
-            submitt(parseInt(preLHSlow))
-
-            async function submitt(preLHSlow) {
-                let submiturl = `${controlurl}/preLHSlow/${preLHSlow}`
-
-                console.log(submiturl)
+            async function submitt(mainLHSup) {
+                let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_UPPER/${mainLHSup}`
 
                 await fetch(submiturl)
                     .then(setTimeout(() => {
-                        console.log(" [ UPDATED preLHSlow tolerance ] ")
+                        console.log(" [ UPDATED LHS_MAIN_TOLERANCE_UPPER tolerance ] ")
                     }, 100))
                     .catch(console.error);
             }
 
         }
 
-        function updatelimits_MLU() {
-            var c = document.getElementById("mainLHSup");
-
-            var mainLHSup = "";
-            var k;
-            for (k = 0; k < c.length; k++) {
-                mainLHSup += c.elements[k].value;
-            }
+        function updatelimits_MRU() {
+            var mainLHSup = document.getElementById("mainUP").value;
 
             submitt(parseInt(mainLHSup))
 
             async function submitt(mainLHSup) {
-                let submiturl = `${controlurl}/mainLHSup/${mainLHSup}`
-
-                console.log(submiturl)
+                let submiturl = `${seturl}/RHS_MAIN_TOLERANCE_UPPER/${mainLHSup}`
 
                 await fetch(submiturl)
                     .then(setTimeout(() => {
-                        console.log(" [ UPDATED mainLHSup tolerance ] ")
+                        console.log(" [ UPDATED RHS_MAIN_TOLERANCE_UPPER tolerance ] ")
                     }, 100))
                     .catch(console.error);
             }
@@ -1998,123 +756,357 @@
         }
 
         function updatelimits_MLL() {
-            var d = document.getElementById("mainLHSlow");
+                var mainLHSlow = document.getElementById("mainLHSlow").value;
 
-            var mainLHSlow = "";
-            var l;
-            for (l = 0; l < d.length; l++) {
-                mainLHSlow += d.elements[l].value;
-            }
-            submitt(parseInt(mainLHSlow))
+                submitt(parseInt(mainLHSlow))
 
-            async function submitt(mainLHSlow) {
-                let submiturl = `${controlurl}/mainLHSlow/${mainLHSlow}`
+                async function submitt(mainLHSlow) {
+                    let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_LOWER/${mainLHSlow}`
 
-                console.log(submiturl)
+                    console.log(submiturl)
 
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED mainLHSlow tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED LHS_MAIN_TOLERANCE_LOWER tolerance ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+
             }
 
+        function updatelimits_MRL() {
+                var mainLHSlow = document.getElementById("mainLOW").value;
+
+                submitt(parseInt(mainLHSlow))
+
+                async function submitt(mainLHSlow) {
+                    let submiturl = `${seturl}/RHS_MAIN_TOLERANCE_LOWER/${mainLHSlow}`
+
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED RHS_MAIN_TOLERANCE_LOWER tolerance ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+
+            }
+
+        function updatelimits_MLFL() {
+                var mainLHSfl = document.getElementById("mainFL").value;
+
+                submitt(parseInt(mainLHSfl))
+                async function submitt(mainLHSfl) {
+                    let submiturl = `${seturl}/LHS_MAIN_FORCE_LINE/${mainLHSfl}`
+
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED LHS_MAIN_FORCE_LINE tolerance ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+            }
+        
+        function updatelimits_MRFL() {
+                var mainLHSfl = document.getElementById("mainFL").value;
+
+                submitt(parseInt(mainLHSfl))
+                async function submitt(mainLHSfl) {
+                    let submiturl = `${seturl}/RHS_MAIN_FORCE_LINE/${mainLHSfl}`
+
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED RHS_MAIN_FORCE_LINE tolerance ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+            }
+        
+        async function updatelimits_PLU() {
+            var preLHSup = document.getElementById("preLHSup").value;
+
+            console.log(preLHSup)
+
+            let submiturl = `${seturl}/LHS_PRE_TOLERANCE_UPPER/${preLHSup}`
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED LHS_PRE_TOLERANCE_UPPER tolerance ] "))
+                .catch(console.error);
+        }
+        
+        async function updatelimits_PRU() {
+            var preLHSup = document.getElementById("preRHSup").value;
+
+            console.log(preLHSup)
+
+            let submiturl = `${seturl}/RHS_PRE_TOLERANCE_UPPER/${preLHSup}`
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED RHS_PRE_TOLERANCE_UPPER tolerance ] "))
+                .catch(console.error);
         }
 
-        function updatelimits_PRU() {
-            var e = document.getElementById("preRHSup"); //
+        function updatelimits_PLL() {
+            var preLHSlow = document.getElementById("preLHSlow").value;
 
-            var preRHSup = "";
-            var m;
-            for (m = 0; m < e.length; m++) {
-                preRHSup += e.elements[m].value;
-            }
+            submitt(parseInt(preLHSlow))
 
-            submitt(parseInt(preRHSup))
-
-            async function submitt(preRHSup) {
-                let submiturl = `${controlurl}/preRHSup/${preRHSup}`
+            async function submitt(preLHSlow) {
+                let submiturl = `${seturl}/LHS_PRE_TOLERANCE_LOWER/${preLHSlow}`
 
                 console.log(submiturl)
 
                 await fetch(submiturl)
                     .then(setTimeout(() => {
-                        console.log(" [ UPDATED preRHSup tolerance ] ")
+                        console.log(" [ UPDATED LHS_PRE_TOLERANCE_LOWER tolerance ] ")
                     }, 100))
                     .catch(console.error);
             }
+
         }
 
         function updatelimits_PRL() {
-            var f = document.getElementById("preRHSlow");
+            var preLHSlow = document.getElementById("preRHSlow").value;
 
-            var preRHSlow = "";
-            var n;
-            for (n = 0; n < f.length; n++) {
-                preRHSlow += f.elements[n].value;
-            }
+            submitt(parseInt(preLHSlow))
 
-            submitt(parseInt(preRHSlow))
-
-            async function submitt(preRHSlow) {
-                let submiturl = `${controlurl}/preRHSlow/${preRHSlow}`
+            async function submitt(preLHSlow) {
+                let submiturl = `${seturl}/RHS_PRE_TOLERANCE_LOWER/${preLHSlow}`
 
                 console.log(submiturl)
 
                 await fetch(submiturl)
                     .then(setTimeout(() => {
-                        console.log(" [ UPDATED preRHSlow tolerance ] ")
+                        console.log(" [ UPDATED RHS_PRE_TOLERANCE_LOWER tolerance ] ")
                     }, 100))
                     .catch(console.error);
             }
+
         }
+        
+        function updatelimits_PLFL() {
+                var preLHSfl = document.getElementById("preLHSfl").value;
 
-        function updatelimits_MRU() {
-            var g = document.getElementById("mainRHSup"); // 
+                submitt(parseInt(preLHSfl))
 
-            var mainRHSup = "";
-            var o;
-            for (o = 0; o < g.length; o++) {
-                mainRHSup += g.elements[o].value;
+                async function submitt(preLHSfl) {
+                    let submiturl = `${seturl}/LHS_PRE_FORCE_LINE/${preLHSfl}`
+
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED LHS_PRE_FORCE_LINE tolerance ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
             }
 
-            submitt(parseInt(mainRHSup))
-            async function submitt(mainRHSup) {
-                let submiturl = `${controlurl}/mainRHSup/${mainRHSup}`
+        function updatelimits_PRFL() {
+                var preLHSfl = document.getElementById("preRHSfl").value;
 
-                console.log(submiturl)
+                submitt(parseInt(preLHSfl))
 
+                async function submitt(preLHSfl) {
+                    let submiturl = `${seturl}/RHS_PRE_FORCE_LINE/${preLHSfl}`
+
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED RHS_PRE_FORCE_LINE tolerance ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+            }
+
+        function samp_tab_no() {
+                var value = document.getElementById("samp_tab_no").value;
+
+                submitt(parseInt(value))
+
+                async function submitt(value) {
+                    let submiturl = `${seturl}/NO_TABLET_SAMPLING/${value}`
+
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED NO_TABLET_SAMPLING ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+            }
+
+        function samp_inter() {
+                var value = document.getElementById("samp_inter").value;
+
+                submitt(parseInt(value))
+
+                async function submitt(value) {
+                    let submiturl = `${seturl}/SAMPLING_TIME_MINS/${value}`
+
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED SAMPLING_TIME_MINS ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+            }
+
+        function roller_freq() {
+                var value = document.getElementById("roller_freq").value;
+
+                submitt(parseInt(value))
+
+                async function submitt(value) {
+                    let submiturl = `${seturl}/ROLLER_VFD_FREQ/${value}`
+
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED ROLLER_VFD_FREQ ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+            }
+
+        function roller_1() {
+
+            var value = 1
+
+                submitt(parseInt(value))
+
+                async function submitt(value) {
+                    let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED ROLLER_MOTOR_SELECTION ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+            }
+
+        function roller_2() {
+
+            var value = 2
+
+                submitt(parseInt(value))
+
+                async function submitt(value) {
+                    let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED ROLLER_MOTOR_SELECTION ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+            }
+
+        function roller_3() {
+
+            var value = 3
+
+                submitt(parseInt(value))
+
+                async function submitt(value) {
+                    let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED ROLLER_MOTOR_SELECTION ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+            }
+
+        function roller_4() {
+
+            var value = 4
+
+                submitt(parseInt(value))
+
+                async function submitt(value) {
+                    let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
+
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED ROLLER_MOTOR_SELECTION ] ")
+                        }, 100))
+                        .catch(console.error);
+                }
+            }
+
+    </script>
+
+    <!-- Update System info -->
+    <script>
+
+        async function manual() {
+                let submiturl = `${seturl}/AUTO_SAMPLING/false`
                 await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED mainRHSup tolerance ] ")
-                    }, 100))
+                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
 
-        }
-
-        function updatelimits_MRL() {
-            var h = document.getElementById("mainRHSlow");
-
-            var mainRHSlow = "";
-            var p;
-            for (p = 0; p < h.length; p++) {
-                mainRHSlow += h.elements[p].value;
-            }
-
-            submitt(parseInt(mainRHSlow))
-            async function submitt(mainRHSlow) {
-                let submiturl = `${controlurl}/mainRHSlow/${mainRHSlow}`
-
-                console.log(submiturl)
-
+        async function auto() {
+                let submiturl = `${seturl}/AUTO_SAMPLING/true`
                 await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED mainRHSlow tolerance ] ")
-                    }, 100))
+                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
-        }
+
+        async function sample() {
+                let submiturl = `${seturl}/MANUAL_SAMPLE/true`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .catch(console.error);
+            }
+        
+        async function unsample() {
+                let submiturl = `${seturl}/MANUAL_SAMPLE/true`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .catch(console.error);
+            }
+        
+        async function up() {
+                let submiturl = `${seturl}/ROLLER_FORWARD/true`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .catch(console.error);
+            }
+        
+        
+        async function unup() {
+                let submiturl = `${seturl}/ROLLER_FORWARD/false`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .catch(console.error);
+            }
+        
+        async function down() {
+                let submiturl = `${seturl}/ROLLER_REVERSE/true`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .catch(console.error);
+            }
+        
+        async function undown() {
+                let submiturl = `${seturl}/ROLLER_REVERSE/false`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .catch(console.error);
+            }
+
     </script>
 
 </body>

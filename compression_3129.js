@@ -752,7 +752,7 @@ let timetemp = 0;
 var connectClient = function () {
 
     // close port (NOTE: important in order not to create multiple connections)
-    client.close();
+    // client.close();
 
     // set requests parameters
     client.setID(slaveID);

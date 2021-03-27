@@ -42,8 +42,8 @@ TIME_ADDR = 100
 AVGC_ADDR = 3204
 STUS_ADDR = 540
 
-# MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL
-LIMIT_ADDR = 5210
+# PLHS_UL, PLHS_LL, MLHS_UL, MLHS_LL, ELHS_UL, ELHS_LL, PRHS_UL, PRHS_LL, MRHS_UL, MRHS_LL, ERHS_UL, ERHS_LL + Force line LHS PME, RHS PME + AWC LHS: UP-LP, UM-LM 
+LIMIT_ADDR = 6010
 
 # Data format: Dictonary
 payload = {
@@ -180,8 +180,8 @@ def avg():
         x = 'pstatus'
 
 def limit():
-    # MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL + Force line LHS PME, RHS PME
-    regs = c.read_holding_registers(LIMIT_ADDR, 18)
+    # PLHS_UL, PLHS_LL, MLHS_UL, MLHS_LL, ELHS_UL, ELHS_LL, PRHS_UL, PRHS_LL, MRHS_UL, MRHS_LL, ERHS_UL, ERHS_LL + Force line LHS PME, RHS PME + AWC LHS: UP-LP, UM-LM 
+    regs = c.read_holding_registers(LIMIT_ADDR, 26)
     global x
     if regs:
         # limit = [ x/100 for x in regs]

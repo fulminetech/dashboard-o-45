@@ -114,7 +114,7 @@
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/settings"
+                <a href="/processsetup"
                     class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <i class="fa fa-wrench fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Settings</span>
                 </a>
@@ -128,15 +128,15 @@
 
         <!--Dash Content -->
         <div id="dash-content"
-            class="bg-gray-200 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm flex flex-wrap content-start">
+            class="bg-purple-200 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm flex flex-wrap content-start">
 
             <!-- Digital Input -->
             <div class="w-1 w-full">
                 <div onclick="location.href='/dido'"
-                    class="cursor-pointer border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    class="cursor-pointer border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase text-gray-500">Digital Input</h5>
+                            <h5 class="font-bold uppercase text-gray-700">Digital Input</h5>
                         </div>
                     </div>
                 </div>
@@ -145,10 +145,10 @@
             <!-- Digital Output -->
             <div class="w-1 w-full">
                 <div onclick="location.href='/do'"
-                    class="cursor-pointer border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    class="cursor-pointer border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1">
-                            <h5 class="font-bold uppercase text-gray-500">Digital Output</h5>
+                            <h5 class="font-bold uppercase text-gray-700">Digital Output</h5>
                         </div>
                     </div>
                 </div>
@@ -157,10 +157,10 @@
             <!-- Maintainence -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    class="border-2 border-gray-900 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1">
-                            <h5 class="font-bold uppercase text-gray-700">Maintainence</h5>
+                            <h5 class="font-bold uppercase text-gray-900">Maintainence</h5>
                         </div>
                     </div>
                 </div>
@@ -170,118 +170,92 @@
 
         <!-- Output Container-->
         <div class="w-full p-6">
-
-            <!-- Search: Parameters -->
-            <div class="border-b mt-2 p-3">
-                <h5 class="font-bold text-black">Motor Current:</h5>
-            </div>
+            <div class="p-5 my-3 border border-blue-500 text-gray-700 bg-green-300 rounded shadow">
+                <h5 class="font-bold uppercase text-xl pb-2">Motor Current (A) :</h5>
+                <table class="w-full p-5 text-xl text-gray-700">
+                    <thead>
+                        <tr>
+                            <th class="text-center pb-3 w-1/3 uppercase text-gray-700">Turret</th>
+                            <th class="text-center pb-3 w-1/3 uppercase text-gray-700">RHS Discharge</th>
+                            <th class="text-center pb-3 w-1/3 uppercase text-gray-700">LHS Discharge</th>
+                        </tr>
+                    </thead>
             
-            <div class="flex grid grid-cols-3 p-3 ">
-            
-                <div class="flex flex-col">
-                    <h3> Main: 0.00 A </h3>
-                </div>
-            
-                <div class="flex flex-col">
-                    <h3> LHS: 0.00 A </h3>
-                </div>
-            
-                <div class="flex flex-col">
-                    <h3> RHS: 0.00 A </h3>
-                </div>
-            
-            </div>
-            
-            <!-- Search: Parameters -->
-            <div class="border-b mt-2 p-3">
-                <h5 class="font-bold text-black">Lubrication Pump:</h5>
-            </div>
-            
-            <div class="flex grid grid-cols-3 p-3 ">
-            
-                <div class="flex flex-col">
-                    <h3> OFF: 40 mins </h3>
-                </div>
-            
-                <div class="flex flex-col">
-                    <h3> ON: 3 secs </h3>
-                </div>
-            
+                    <tbody>
+                        <tr>
+                            <td id="turret_amp_metric" class="text-center border-gray-700">0</td>
+                            <td id="feederRHS_amp_metric" class="text-center border-gray-700">0</td>
+                            <td id="feederLHS_amp_metric" class="text-center border-gray-700">0</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             
             <!-- Search: Parameters -->
-            <div class="border-b mt-2 p-3">
+            <div class="border-b mt-5 p-3">
                 <h5 class="font-bold text-black">Sensors:</h5>
             </div>
            
             <!-- Active Punch selection -->
-            <div class="w-full p-3 shadow">
-                <div class="border border-gray-400 rounded shadow overflow-auto">
-                    <div class="px-5 pb-5">
-                        <table class="table-fixed w-full text-center text-black">
-                            <thead>
-                                <tr>
-                                    <th class="text-center border-b border-gray-400 py-3" style="width:80px"></th>
-                                    <th class="text-center border-b border-gray-400 py-3">Parameter</th>
-                                    <th class="text-center border-b border-gray-400 pl-8 py-3">Toggle</th>
-                                    <th class="text-center border-b border-gray-400 py-3">Status</th>
-                                </tr>
-                            </thead>
             
-                            <tbody>
-                                <tr class="py-5">
-                                    <td id="punch1status" class="text-left border border-gray-400 uppercase py-5 text-blue-900">
-                                    </td>
-                                    <td class="border-b border-gray-400">Guard Active</td>
-                                    <td class="border-b items-center align-middle border-gray-400">
+            <div class="w-full border border-gray-400 bg-white rounded shadow overflow-auto">
+                <div class="px-5 pb-5">
+                    <table class="table-fixed w-full text-center text-black">
+                        <thead>
+                            <tr>
+                                <th class="text-center border-b uppercase border-gray-400 py-3">Parameter</th>
+                                <th class="text-center border-b uppercase border-gray-400 pr-30 py-3">Toggle</th>
+                            </tr>
+                        </thead>
+        
+                        <tbody>
+                            <tr class="py-5">
+                                <td class="border-b p-5 text-xl uppercase border-gray-400">Guard Active</td>
+                                <td class="border-b p-5 border-gray-400">
+                                    <div class="ml-64">
+                                        <!-- toggle -->
                                         <label for="punch1" class="cursor-pointer">
-                                            <div class="xl:pl-40">
-                                                <!-- toggle -->
-                                                <div class="relative">
-                                                    <!-- input -->
-                                                    <input id="punch1" type="checkbox" checked class="hidden" onclick="punch1()" />
-                                                    <!-- line -->
-                                                    <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
-                                                    </div>
-                                                    <!-- dot -->
-                                                    <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
-                                                    </div>
+                                            <div class="relative">
+                                                <!-- input -->
+                                                <input id="punch1" type="checkbox" class="hidden" onclick="punch1()" />
+                                                <!-- line -->
+                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                </div>
+                                                <!-- dot -->
+                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
                                                 </div>
                                             </div>
-                                        </label>
-                                    </td>
-                                    <td id="punch1_current" class="border-b border-gray-400"></td>
-                                </tr>
-            
-                                <tr class="py-5">
-                                    <td id="punch2status" class="text-left border border-gray-400 uppercase py-5 text-blue-900">
-                                    </td>
-                                    <td class="border-b border-gray-400">Powder Sensor Active</td>
-                                    <td class="border-b items-center align-middle border-gray-400">
-                                        <label for="punch2" class="cursor-pointer">
-                                            <div class="xl:pl-40">
-                                                <!-- toggle -->
-                                                <div class="relative">
-                                                    <!-- input -->
-                                                    <input id="punch2" type="checkbox" checked class="hidden" onclick="punch2()" />
-                                                    <!-- line -->
-                                                    <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
-                                                    </div>
-                                                    <!-- dot -->
-                                                    <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
-                                                    </div>
+                                        </div>
+                                    </label>
+                                </td>
+                            </tr>
+        
+                            <tr class="py-5">
+                                <td class=" p-5 text-xl uppercase border-gray-400">Powder Sensor Active</td>
+                                <td class=" p-5 items-center align-middle border-gray-400">
+                                    <label for="punch2" class="cursor-pointer">
+                                        <div class="ml-64">
+                                            <!-- toggle -->
+                                            <div class="relative">
+                                                <!-- input -->
+                                                <input id="punch2" type="checkbox" class="hidden" onclick="punch2()" />
+                                                <!-- line -->
+                                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                </div>
+                                                <!-- dot -->
+                                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
                                                 </div>
                                             </div>
-                                        </label>
-                                    </td>
-                                    <td id="punch2_current" class="border-b border-gray-400"></td>
-                                </tr>
-            
-                            </tbody>
-                        </table>
-                    </div>
+                                        </div>
+                                    </label>
+                                </td>
+                            </tr>
+        
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            
 
         <!-- Output Container-->
         <div class="w-full mt-2 p-3">
@@ -290,9 +264,273 @@
             </div>
         
             <div class="flex flex-wrap px-0 md:px-0 md:mt-2 mb-2 text-gray-800 leading-normal">
+
+                
+                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-2xl text-black">RHS Discharge</h5>
+                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-2xl text-black">LHS Discharge</h5>
+        
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()()" onmouseup="Y01x()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="1" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.1</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Force Feeder VFD</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             
                 <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="O_0()" onmouseup="O_0x()">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y02()" onmouseup="Y02x()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="2" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.2</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Force Feeder VFD</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y011()" onmouseup="Y011x()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="11" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.11</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900">Sampling Tablet</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y012()" onmouseup="Y012x()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="12" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.12</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900">Sampling Tablet</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y013()" onmouseup="Y013x()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="13" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.13</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Rejection by Flap</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y014()" onmouseup="Y014x()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="14" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.14</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Rejection by Flap</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y015()" onmouseup="Y015x()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="15" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.15</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Rejection by Air</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y10()" onmouseup="Y10x()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="16" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y1.0</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Rejection by Air</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="font-bold w-full text-center p-5 uppercase text-2xl text-black">Roller</h5>
+
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-green-200 border border-gray-500 rounded shadow p-2" onmousedown="Y23U()" onmouseup="Y23Ux()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="25" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.3</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Pre Roller Up</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-green-200 border border-gray-500 rounded shadow p-2" onmousedown="Y25U()" onmouseup="Y25Ux()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="29" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.5</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Pre Roller Up</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-red-200 border border-gray-500 rounded shadow p-2" onmousedown="Y23D()" onmouseup="Y23Dx()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="26" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.3</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Pre Roller Down</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-red-200 border border-gray-500 rounded shadow p-2" onmousedown="Y25D()" onmouseup="Y25Dx()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="30" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.5</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Pre Roller Down</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-green-200 border border-gray-500 rounded shadow p-2" onmousedown="Y24U()" onmouseup="Y24Ux()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="27" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.4</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Main Roller Up</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-green-200 border border-gray-500 rounded shadow p-2" onmousedown="Y26U()" onmouseup="Y26Ux()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="31" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.6</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Main Roller Up</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-red-200 border border-gray-500 rounded shadow p-2" onmousedown="Y24D()" onmouseup="Y24Dx()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="28" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.4</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Main Roller Down</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-red-200 border border-gray-500 rounded shadow p-2" onmousedown="Y26D()" onmouseup="Y26Dx()">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink p-3">
+                                <div id="32" class="rounded p-4"></div>
+                            </div>
+                            <div class="flex-shrink p-3">
+                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.6</div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center pr-3">
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> Main Roller Down</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="font-bold w-full text-center p-10 uppercase text-2xl text-black"></h5>
+
+                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y00()" onmouseup="Y00x()">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink p-3">
                                 <div id="0" class="rounded p-4"></div>
@@ -306,41 +544,9 @@
                         </div>
                     </div>
                 </div>
-            
+
                 <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="O_1()()" onmouseup="O_1x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="1" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.1</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> Force Feeder VFD Run - L</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="2" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.2</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> Force Feeder VFD Run - R</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y03()" onmouseup="Y03x()">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink p-3">
                                 <div id="3" class="rounded p-4"></div>
@@ -356,7 +562,7 @@
                 </div>
             
                 <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y04()" onmouseup="Y04x()">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink p-3">
                                 <div id="4" class="rounded p-4"></div>
@@ -372,7 +578,7 @@
                 </div>
             
                 <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y05()" onmouseup="Y05x()">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink p-3">
                                 <div id="5" class="rounded p-4"></div>
@@ -388,7 +594,7 @@
                 </div>
             
                 <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y06()" onmouseup="Y06x()">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink p-3">
                                 <div id="6" class="rounded p-4"></div>
@@ -397,14 +603,14 @@
                                 <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.6</div>
                             </div>
                             <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> First Layer Ejection Coil</h5>
+                                <h5 class="font-bold uppercase text-xl text-gray-900"> 1st Layer Sampling Coil</h5>
                             </div>
                         </div>
                     </div>
                 </div>
             
                 <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
+                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y07()" onmouseup="Y07x()">
                         <div class="flex flex-row items-center">
                             <div class="flex-shrink p-3">
                                 <div id="7" class="rounded p-4"></div>
@@ -418,427 +624,7 @@
                         </div>
                     </div>
                 </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="8" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.8</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> Tower Lamp - Green</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="9" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.9</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> Tower Lamp - Orange</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="10" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.10</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> Tower Lamp - Red</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="11" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.11</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> LHS Sample Tablet</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="12" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.12</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> RHS Sample Tablet</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="13" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.13</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> LHS Rejection by Flap</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="14" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.14</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> RHS Rejection by Flap</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="15" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y0.15</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> LHS Rejection by Air</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="16" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y1.0</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> RHS Rejection by Air</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="17" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y1.1</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> LHS Servo On</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="18" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y1.2</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> LHS AWC Run</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="19" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y1.3</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> LHS AWC Stop</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()">
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="20" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y1.4</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> LHS AWC Forward Jog</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="21" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y1.5</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> LHS AWC Reverse Jog</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="22" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y1.6</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> RHS AWC Servo ON</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="23" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y1.7</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> RHS AWC Run</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="46" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.0</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> RHS AWC Stop</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="47" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.1</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> RHS AWC Forward Jog</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="48" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.2</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> RHS AWC Reverse Jog</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="49" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.3</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> LHS Pre Roller Motor</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="50" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.4</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> LHS Main Roller Motor</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="51" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.5</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> RHS Pre Roller Motor</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="52" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.6</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> RHS Main Roller Motor</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="53" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y2.7</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> Roller VFD Run</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="60" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y3.0</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> Roller VFD Direction</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
-                    <div class="bg-white border border-gray-500 rounded shadow p-2" onmousedown="Y01()" onmouseup="Y01x()"> 
-                        <div class="flex flex-row items-center">
-                            <div class="flex-shrink p-3">
-                                <div id="61" class="rounded p-4"></div>
-                            </div>
-                            <div class="flex-shrink p-3">
-                                <div class="rounded p-4 bg-blue-200 font-bold uppercase text-2xl text-gray-900">Y3.1</div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center pr-3">
-                                <h5 class="font-bold uppercase text-xl text-gray-900"> Z Phase Selection</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-            
-            
+
             </div>
         
         </div>
@@ -848,167 +634,72 @@
     <!-- Stats API fetch -->
     <script>
 
+        async function punch1() {
+                var x = !document.getElementById("punch1").checked;
+
+                if (x == false) {
+                    let submiturl = `${seturl}/WITH_DOOR__BYPASS/${!x}`
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(console.log(` [ punch1 is ${!x} ] `))
+                        .catch(console.error);
+
+                } else if (x == true) {
+                    let submiturl = `${seturl}/WITH_DOOR__BYPASS/${!x}`
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(console.log(` [ WITH_DOOR__BYPASS is ${!x} ] `))
+                        .catch(console.error);
+                }
+            }
+
+        async function punch2() {
+                var x = !document.getElementById("punch2").checked;
+
+                if (x == false) {
+                    let submiturl = `${seturl}/POWDER_SENSOR_ENABLE/${!x}`
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(console.log(` [ punch2 is ${!x} ] `))
+                        .catch(console.error);
+
+                } else if (x == true) {
+                    let submiturl = `${seturl}/POWDER_SENSOR_ENABLE/${!x}`
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(console.log(` [ POWDER_SENSOR_ENABLE is ${!x} ] `))
+                        .catch(console.error);
+                }
+            }
+
         async function fetchpayloadapiLF() {
-            fetch(rawpayload)
+            
+            fetch(statsurl)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
                     // Here you get the data to modify as you please
                     payload = data
 
-                    console.log(payload.output[10])
-                    // Outputs: 0-15, 16-23, 46-53, 60-61
+                    document.getElementById("turret_amp_metric").innerHTML = payload.stats.turret.A;
+                    document.getElementById("feederRHS_amp_metric").innerHTML = payload.stats.RHS_FF.A;
+                    document.getElementById("feederLHS_amp_metric").innerHTML = payload.stats.LHS_FF.A;
 
-                    if (payload.output[0] === true) {
-                        const div = document.getElementById("0").classList.add('bg-red-600');
+                    if(payload.button.WITH_DOOR__BYPASS == true ){
+                        document.getElementById("punch1").checked = true;
                     } else {
-                        const div = document.getElementById("0").classList.remove('bg-red-600');
+                        document.getElementById("punch1").checked = false;
                     }
-                    if (payload.output[1] === true) {
-                        const div = document.getElementById("1").classList.add('bg-red-600');
+                    
+                    if(payload.button.POWDER_SENSOR_ENABLE == true ){
+                        document.getElementById("punch2").checked = true;
                     } else {
-                        const div = document.getElementById("1").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[2] === true) {
-                        const div = document.getElementById("2").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("2").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[3] === true) {
-                        const div = document.getElementById("3").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("3").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[4] === true) {
-                        const div = document.getElementById("4").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("4").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[5] === true) {
-                        const div = document.getElementById("5").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("5").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[6] === true) {
-                        const div = document.getElementById("6").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("6").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[7] === true) {
-                        const div = document.getElementById("7").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("7").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[8] === true) {
-                        const div = document.getElementById("8").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("8").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[9] === true) {
-                        const div = document.getElementById("9").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("9").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[10] === true) {
-                        const div = document.getElementById("10").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("10").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[11] === true) {
-                        const div = document.getElementById("11").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("11").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[12] === true) {
-                        const div = document.getElementById("12").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("12").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[13] === true) {
-                        const div = document.getElementById("13").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("13").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[14] === true) {
-                        const div = document.getElementById("14").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("14").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[15] === true) {
-                        const div = document.getElementById("15").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("15").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[16] === true) {
-                        const div = document.getElementById("16").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("16").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[17] === true) {
-                        const div = document.getElementById("17").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("17").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[18] === true) {
-                        const div = document.getElementById("18").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("18").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[19] === true) {
-                        const div = document.getElementById("19").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("19").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[20] === true) {
-                        const div = document.getElementById("20").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("20").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[21] === true) {
-                        const div = document.getElementById("21").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("21").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[22] === true) {
-                        const div = document.getElementById("22").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("22").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[23] === true) {
-                        const div = document.getElementById("23").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("23").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[46] === true) {
-                        const div = document.getElementById("46").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("46").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[47] === true) {
-                        const div = document.getElementById("47").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("47").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[48] === true) {
-                        const div = document.getElementById("48").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("48").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[49] === true) {
-                        const div = document.getElementById("49").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("49").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[50] === true) {
-                        const div = document.getElementById("50").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("50").classList.remove('bg-red-600');
-                    }
-                    if (payload.output[51] === true) {
-                        const div = document.getElementById("51").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("51").classList.remove('bg-red-600');
-                    }
-
+                        document.getElementById("punch2").checked = false;
+                    } 
+                    
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
@@ -1024,24 +715,507 @@
     </script>
 
     <script>
-        async function inch() {
-                let submiturl = `${seturl}/MACHINE_INCHING_BUTTON/true`
-                await fetch(submiturl)
-                    .then(console.log("[ Machine Inch ] "))
-                    .catch(console.error);
-
-            }
-
-        async function uninch() {
-            let submiturl = `${seturl}/MACHINE_INCHING_BUTTON/false`
+        async function Y01() {
+            let submiturl = `${seturl}/Y0_1/true`
             await fetch(submiturl)
-                .then(console.log("[ Machine Inch Stop] "))
+                // .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
+        }
 
+        async function Y01x() {
+            let submiturl = `${seturl}/Y0_1/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y02() {
+            let submiturl = `${seturl}/Y0_2/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y02x() {
+            let submiturl = `${seturl}/Y0_2/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y011() {
+            let submiturl = `${seturl}/Y0_11/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y011x() {
+            let submiturl = `${seturl}/Y0_11/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y012() {
+            let submiturl = `${seturl}/Y0_12/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y012x() {
+            let submiturl = `${seturl}/Y0_12/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y013() {
+            let submiturl = `${seturl}/Y0_13/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y013x() {
+            let submiturl = `${seturl}/Y0_13/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y014() {
+            let submiturl = `${seturl}/Y0_14/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y014x() {
+            let submiturl = `${seturl}/Y0_14/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y015() {
+            let submiturl = `${seturl}/Y0_15/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y015x() {
+            let submiturl = `${seturl}/Y0_15/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y10() {
+            let submiturl = `${seturl}/Y1_0/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y10x() {
+            let submiturl = `${seturl}/Y1_0/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y23U() {
+            let submiturl = `${seturl}/Y2_1/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y23Ux() {
+            let submiturl = `${seturl}/Y2_1/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y25U() {
+            let submiturl = `${seturl}/Y2_5/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y25Ux() {
+            let submiturl = `${seturl}/Y2_5/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y23D() {
+            let submiturl = `${seturl}/Y2_2/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y23Dx() {
+            let submiturl = `${seturl}/Y2_2/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y25D() {
+            let submiturl = `${seturl}/Y2_6/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y25Dx() {
+            let submiturl = `${seturl}/Y2_6/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y24U() {
+            let submiturl = `${seturl}/Y2_3/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y24Ux() {
+            let submiturl = `${seturl}/Y2_3/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y26U() {
+            let submiturl = `${seturl}/Y2_7/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y26Ux() {
+            let submiturl = `${seturl}/Y2_7/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y24D() {
+            let submiturl = `${seturl}/Y2_4/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y24Dx() {
+            let submiturl = `${seturl}/Y2_4/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y26D() {
+            let submiturl = `${seturl}/Y3_0/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y26Dx() {
+            let submiturl = `${seturl}/Y3_0/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y00() {
+            let submiturl = `${seturl}/Y0_0/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y00x() {
+            let submiturl = `${seturl}/Y0_0/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y03() {
+            let submiturl = `${seturl}/Y0_3/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y03x() {
+            let submiturl = `${seturl}/Y0_3/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y04() {
+            let submiturl = `${seturl}/Y0_4/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y04x() {
+            let submiturl = `${seturl}/Y0_4/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y05() {
+            let submiturl = `${seturl}/Y0_5/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y05x() {
+            let submiturl = `${seturl}/Y0_5/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y06() {
+            let submiturl = `${seturl}/Y0_6/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y06x() {
+            let submiturl = `${seturl}/Y0_6/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y07() {
+            let submiturl = `${seturl}/Y0_7/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function Y07x() {
+            let submiturl = `${seturl}/Y0_7/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function up() {
+            let submiturl = `${seturl}/Y3_0/true`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function down() {
+            let submiturl = `${seturl}/Y3_0/false`
+            await fetch(submiturl)
+                // .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
         }
 
     </script>
 
+    <!-- Stats API fetch -->
+    <script>
+
+        async function fetchpayloadapiLF1() {
+            fetch(statsurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    console.log(payload.button.maintainence)
+                    // Outputs: 0-15, 16-23, 46-53, 60-61
+
+                    if (payload.button.maintainence[0] === true) {
+                        const div = document.getElementById("0").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("0").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[1] === true) {
+                        const div = document.getElementById("1").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("1").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[2] === true) {
+                        const div = document.getElementById("2").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("2").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[3] === true) {
+                        const div = document.getElementById("3").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("3").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[4] === true) {
+                        const div = document.getElementById("4").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("4").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[5] === true) {
+                        const div = document.getElementById("5").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("5").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[6] === true) {
+                        const div = document.getElementById("6").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("6").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[7] === true) {
+                        const div = document.getElementById("7").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("7").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[8] === true) {
+                        const div = document.getElementById("8").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("8").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[9] === true) {
+                        const div = document.getElementById("9").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("9").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[10] === true) {
+                        const div = document.getElementById("10").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("10").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[11] === true) {
+                        const div = document.getElementById("11").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("11").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[12] === true) {
+                        const div = document.getElementById("12").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("12").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[13] === true) {
+                        const div = document.getElementById("13").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("13").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[14] === true) {
+                        const div = document.getElementById("14").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("14").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[15] === true) {
+                        const div = document.getElementById("15").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("15").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[16] === true) {
+                        const div = document.getElementById("16").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("16").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[17] === true) {
+                        const div = document.getElementById("17").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("17").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[18] === true) {
+                        const div = document.getElementById("18").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("18").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[19] === true) {
+                        const div = document.getElementById("19").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("19").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[20] === true) {
+                        const div = document.getElementById("20").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("20").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[21] === true) {
+                        const div = document.getElementById("21").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("21").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[22] === true) {
+                        const div = document.getElementById("22").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("22").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[23] === true) {
+                        const div = document.getElementById("23").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("23").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[46] === true) {
+                        const div = document.getElementById("46").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("46").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[47] === true) {
+                        const div = document.getElementById("47").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("47").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[48] === true) {
+                        const div = document.getElementById("48").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("48").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[49] === true) {
+                        const div = document.getElementById("49").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("49").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[50] === true) {
+                        const div = document.getElementById("50").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("50").classList.remove('bg-red-600');
+                    }
+                    if (payload.button.maintainence[51] === true) {
+                        const div = document.getElementById("51").classList.add('bg-red-600');
+                    } else {
+                        const div = document.getElementById("51").classList.remove('bg-red-600');
+                    }
+
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        fetchpayloadapiLF1();
+        setInterval(() => {
+            fetchpayloadapiLF1();
+        }, 500);
+
+    </script>
 </body>
 
 </html>

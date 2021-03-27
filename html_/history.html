@@ -120,12 +120,12 @@
 
         
         <!--Dash Content -->
-        <div id="dash-content" class="bg-gray-200 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm content-start">
+        <div id="dash-content" class="bg-green-300 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm content-start">
             
             <!-- Batch Number -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    class="border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-gray-700">Batch Number</h5>
@@ -215,7 +215,7 @@
                             <h5 class="font-bold text-black">Average Compression Trend:</h5>
                         </div>
                         <div class="p-3">
-                            <canvas id="compression_avg_graph" class="chartjs" height="100rem"></canvas>
+                            <canvas id="compression_avg_graph" class="chartjs" height="120rem"></canvas>
                         </div>
 
                         <!--Pre Compression Card-->
@@ -223,7 +223,7 @@
                             <h5 class="font-bold text-black">Pre Compression:</h5>
                         </div>
                         <div class="p-3">
-                            <canvas id="precompression_graph" class="chartjs" height="100rem"></canvas>
+                            <canvas id="precompression_graph" class="chartjs" height="120rem"></canvas>
                         </div>
                         
                         <!--Main Compression Card-->
@@ -231,7 +231,7 @@
                             <h5 class="font-bold text-black">Main Compression:</h5>
                         </div>
                         <div class="p-3">
-                            <canvas id="maincompression_graph" class="chartjs" height="100rem"></canvas>
+                            <canvas id="maincompression_graph" class="chartjs" height="120rem"></canvas>
                         </div>
                         
                         <!--Ejection Compression Card-->
@@ -239,7 +239,7 @@
                             <h5 class="font-bold text-black">Ejection Compression:</h5>
                         </div>
                         <div class="p-3">
-                            <canvas id="ejncompression_graph" class="chartjs" height="100rem"></canvas>
+                            <canvas id="ejncompression_graph" class="chartjs" height="120rem"></canvas>
                         </div>
                        
                         <!--/Graph Card-->
@@ -303,6 +303,12 @@
         };
         var pregraphoptions = {
             tooltips: { enabled: true },
+            legend: {
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+            },
             hover: { mode: null },
             showTooltips: false,
             showLines: true,
@@ -310,18 +316,19 @@
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        fontSize: 15,
+                        fontSize: 20,
                         labelString: 'Compression (kN)'
                     },
                     ticks: {
                         beginAtZero: true,
+                        fontSize: 18,
                         max: 100
                     }
                 }],
                 xAxes: [{
                     scaleLabel: {
                         display: true,
-                        fontSize: 15,
+                        fontSize: 20,
                         labelString: 'Punch Number'
                     },
                 }],
@@ -370,6 +377,12 @@
         };
         var maingraphoptions = {
             tooltips: { enabled: true },
+            legend: {
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+            },
             hover: { mode: null },
             showTooltips: false,
             showLines: true,
@@ -377,11 +390,12 @@
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        fontSize: 15,
+                        fontSize: 20,
                         labelString: 'Compression (kN)'
                     },
                     ticks: {
                         beginAtZero: true,
+                        fontSize: 18,
                         max: 100
                     }
                 }],
@@ -437,6 +451,12 @@
         };
         var ejngraphoptions = {
             tooltips: { enabled: true },
+            legend: {
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+            },
             hover: { mode: null },
             showTooltips: false,
             showLines: true,
@@ -444,11 +464,12 @@
                 yAxes: [{
                     scaleLabel: {
                         display: true,
-                        fontSize: 15,
+                        fontSize: 20,
                         labelString: 'Compression (kN)'
                     },
                     ticks: {
                         beginAtZero: true,
+                        fontSize: 18,
                         max: 100
                     }
                 }],
@@ -596,11 +617,17 @@
             };
         var graph3option = {
                 showLines: true,
+                legend: {
+                labels: {
+                    fontSize: 18,
+                },
+                position: 'top',
+                },
                 scales: {
                     yAxes: [{
                         scaleLabel: {
                             display: true,
-                            fontSize: 15,
+                            fontSize: 20,
                             labelString: 'Compression (kN)'
                         },
                         id: 'A',
@@ -608,14 +635,14 @@
                         position: 'left',
                         ticks: {
                             beginAtZero: true,
-                            fontSize: 15,
+                            fontSize: 18,
                             max: 100
                         }
                     },],
                     xAxes: [{
                         scaleLabel: {
                             display: true,
-                            fontSize: 15,
+                            fontSize: 20,
                             labelString: 'Rotation Number'
                         },
                     }],
