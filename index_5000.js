@@ -48,7 +48,7 @@ app.get("/alarm", (req, res) => {
 });
 
 app.get("/dashboard", (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    // res.header('Access-Control-Allow-Origin', '*');
     res.sendFile(path.join(__dirname + "/html_/index.html"));
 });
 

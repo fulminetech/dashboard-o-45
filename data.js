@@ -711,12 +711,6 @@ var payload = {
     }
 };
 
-function startmodbus() {
-    setInterval(() => {
-        fetchpayload()
-    }, 100);
-}
-
 async function fetchpayload() {
 
     fetch(payloadURL)
@@ -1138,6 +1132,12 @@ async function fetchpayload() {
             console.error("[ MODBUS SERVER OFFLINE ]");
         });
 };
+
+function startmodbus() {
+    setInterval(() => {
+        fetchpayload()
+    }, 100);
+}
 
 // --+++=== DATABASE WRITE ===+++-- //
 // Initialise Rotation 
