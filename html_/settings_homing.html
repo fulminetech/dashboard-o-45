@@ -243,16 +243,16 @@
                                         <td class="text-center  py-2  text-xl uppercase text-blue-900">
                                         </td>
                                         <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
-                                            <button id="generatepdfreport"
-                                                class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                            <button id="servoLHS"
+                                                class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onclick="servoLHS()">
                                                 Servo ON
                                             </button>
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
-                                            <button id="generatepdfreport"
-                                                class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                            <button id="servoRHS"
+                                                class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onclick="servoRHS()">
                                                 Servo ON
                                             </button>
                                         </td>
@@ -261,28 +261,28 @@
                                     <tr>
                                         <td class="text-center py-2  text-xl uppercase text-blue-900">Single Turn</td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_low_LHS"
+                                            <input id="single_LHS"
                                                 class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC Low LHS">
+                                                type="text" placeholder="Value">
                                         </td>
                                         <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_low_RHS"
+                                            <input id="single_RHS"
                                                 class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC Low RHS">
+                                                type="text" placeholder="Value">
                                         </td>
 
                                     </tr>
                                     <tr>
                                         <td class="text-center py-2  text-xl uppercase text-blue-900">Multi Turn</td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_low_LHS"
+                                            <input id="multi_LHS"
                                                 class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC Low LHS">
+                                                type="text" placeholder="Value">
                                         </td>
                                         <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_low_RHS"
+                                            <input id="multi_RHS"
                                                 class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC Low RHS">
+                                                type="text" placeholder="Value">
                                         </td>
 
                                     </tr>
@@ -292,14 +292,14 @@
                                         <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
                                             <button id="generatepdfreport"
                                                 class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                onmousedown="clearLHS()" onmouseup="clearLHSx()">
                                                 Clear
                                             </button>
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
                                             <button id="generatepdfreport"
                                                 class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                onmousedown="clearRHS()" onmouseup="clearRHSx()">
                                                 Clear
                                             </button>
                                         </td>
@@ -308,28 +308,43 @@
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">Motor Encoder PPR</td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_high_LHS"
+                                            <input id="encoder_LHS"
                                                 class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC High LHS">
+                                                type="text" placeholder="Value">
                                         </td>
                                         <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_high_RHS"
+                                            <input id="encoder_RHS"
                                                 class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC High RHS">
+                                                type="text" placeholder="Value">
                                         </td>
 
                                     </tr>
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">Home Offset 1</td>
                                         <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="preLHSfl"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="PRE LHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_PLFL()">
+                                            <div class="flex flex-row">
+                                                <input id="home1_LHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value">
+                                                <button id="searchbatch"
+                                                    class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                                    onclick="home1_LHS()">
+                                                    SET
+                                                </button>
+                                            </div>
                                         </td>
                                         <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="preRHSfl"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Pre RHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_PRFL()">
+                                            <div class="flex flex-row">
+                                                <input id="home1_RHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value">
+                                                <button id="searchbatch"
+                                                    class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                                    onclick="home1_RHS()">
+                                                    SET
+                                                </button>
+
+                                            </div>
                                         </td>
 
                                     </tr>
@@ -339,14 +354,14 @@
                                         <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
                                             <button id="generatepdfreport"
                                                 class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                onmousedown="EEPROM_LHS()" onmouseup="EEPROM_LHSx()">
                                                 EEPROM
                                             </button>
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
                                             <button id="generatepdfreport"
                                                 class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                onmousedown="EEPROM_RHS()" onmouseup="EEPROM_RHSx()">
                                                 EEPROM
                                             </button>
                                         </td>
@@ -355,14 +370,28 @@
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">Home Offset 2</td>
                                         <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="preLHSfl"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="PRE LHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_PLFL()">
+                                            <div class="flex flex-row">
+                                                <input id="home2_LHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value">
+                                                <button id="searchbatch"
+                                                    class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                                    onclick="home2_LHS()">
+                                                    SET
+                                                </button>
+                                            </div>
                                         </td>
                                         <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="preRHSfl"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Pre RHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_PRFL()">
+                                            <div class="flex flex-row">
+                                                <input id="home2_RHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value">
+                                                <button id="searchbatch"
+                                                    class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                                    onclick="home2_RHS()">
+                                                    SET
+                                                </button>
+                                            </div>
                                         </td>
 
                                     </tr>
@@ -382,63 +411,8 @@
     <!-- Tolerance Values script -->
     <script>
 
-        async function fetchpayloadapiHF() {
-            fetch(processedurl)
-                .then((resp) => resp.json()) // Transform the data into json
-                .then(function (data) {
-                    // Here you get the data to modify as you please
-                    payload = data
-
-                    MLHS_LL = payload.limit[0]
-                    MLHS_UL = payload.limit[1]
-                    PLHS_LL = payload.limit[4]
-                    PLHS_UL = payload.limit[5]
-                    ELHS_LL = payload.limit[8]
-                    ELHS_UL = payload.limit[9]
-                    PLHS_FL = payload.limit[12]
-                    MLHS_FL = payload.limit[13]
-                    ELHS_FL = payload.limit[14]
-                    AWC_PLHS_UL = payload.limit[18]
-                    AWC_PLHS_LL = payload.limit[19]
-                    AWC_MLHS_UL = payload.limit[20]
-                    AWC_MLHS_LL = payload.limit[21]
-                    MRHS_LL = payload.limit[2]
-                    MRHS_UL = payload.limit[3]
-                    PRHS_LL = payload.limit[6]
-                    PRHS_UL = payload.limit[7]
-                    ERHS_LL = payload.limit[10]
-                    ERHS_UL = payload.limit[11]
-                    PRHS_FL = payload.limit[15]
-                    MRHS_FL = payload.limit[16]
-                    ERHS_FL = payload.limit[17]
-                    AWC_PRHS_UL = payload.limit[22]
-                    AWC_PRHS_LL = payload.limit[23]
-                    AWC_MRHS_UL = payload.limit[24]
-                    AWC_MRHS_LL = payload.limit[25]
-
-                    document.getElementById("mainUP").value = MLHS_UL
-                    document.getElementById("mainLOW").value = MLHS_LL
-                    document.getElementById("mainFL").value = MLHS_FL
-                    document.getElementById("awc_high").value = AWC_MLHS_UL
-                    document.getElementById("awc_low").value = AWC_MLHS_LL
-
-                    document.getElementById("preLHSup").value = PLHS_UL
-                    document.getElementById("preRHSup").value = PRHS_UL
-                    document.getElementById("preLHSlow").value = PLHS_LL
-                    document.getElementById("preRHSlow").value = PRHS_LL
-                    document.getElementById("preLHSfl").value = PLHS_FL
-                    document.getElementById("preRHSfl").value = PRHS_FL
-                    document.getElementById("awc_high_LHS").value = AWC_PLHS_UL
-                    document.getElementById("awc_high_RHS").value = AWC_PRHS_UL
-                    document.getElementById("awc_low_LHS").value = AWC_PLHS_LL
-                    document.getElementById("awc_low_RHS").value = AWC_PRHS_LL
-
-                })
-                .catch(function (error) {
-                    // If there is any error you will catch them here
-                    console.log("[ PAYLOAD FETCH ERROR ]", error)
-                });
-        };
+        var servo_LHS 
+        var servo_RHS 
 
         async function fetchpayloadapiHF1() {
             fetch(statsurl)
@@ -447,18 +421,38 @@
                     // Here you get the data to modify as you please
                     payload = data
 
-                    document.getElementById("l_on").value = payload.stats.lubrication.set_delay_sec
-                    document.getElementById("l_off").value = payload.stats.lubrication.set_delay_min
+                    servo_LHS = payload.button.LHS_SERVO_ON
+                    if (servo_LHS == true) {
+                        document.getElementById("servoLHS").innerText = "SERVO OFF"
+                        const div1 = document.getElementById("servoLHS").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("servoLHS").classList.add('bg-green-300');
+                    } else {
+                        document.getElementById("servoLHS").innerText = "SERVO ON"
+                        const div1 = document.getElementById("servoLHS").classList.add('bg-red-300');
+                        const div2 = document.getElementById("servoLHS").classList.remove('bg-green-300');
+                    }
+                    
+                    servo_RHS = payload.button.RHS_SERVO_ON
+                    if (servo_RHS == true) {
+                        document.getElementById("servoLHS").innerText = "SERVO OFF"
+                    } else {
+                        document.getElementById("servoLHS").innerText = "SERVO ON"
+                    }
+                    
+                    document.getElementById("single_LHS").value = payload.stats.home.LHS.single_turn
+                    document.getElementById("single_RHS").value = payload.stats.home.RHS.single_turn
 
-                    document.getElementById("hyd_high").value = payload.stats.hydraulic.high_cutoff
-                    document.getElementById("hyd_low").value = payload.stats.hydraulic.low_cutoff
+                    document.getElementById("multi_LHS").value = payload.stats.home.LHS.multi_turn
+                    document.getElementById("multi_RHS").value = payload.stats.home.RHS.multi_turn
 
-                    document.getElementById("samp_tab_count").innerText = payload.stats.sampling.SAMPLE_COUNT
-                    document.getElementById("samp_tab_no").value = payload.stats.sampling.NO_TABLET_SAMPLING
-                    document.getElementById("samp_inter").value = payload.stats.sampling.SAMPLING_TIME_MINS
-
-                    document.getElementById("roller_freq").value = payload.stats.roller.frequency
-                    document.getElementById("roller_mode").value = payload.stats.roller.motor
+                    document.getElementById("encoder_LHS").innerText = payload.stats.home.LHS.encoder_ppr
+                    document.getElementById("encoder_RHS").innerText = payload.stats.home.RHS.encoder_ppr
+                    
+                    document.getElementById("home1_LHS").value = payload.stats.awc.LHS_HOME_OFFSET_1
+                    document.getElementById("home1_RHS").value = payload.stats.awc.RHS_HOME_OFFSET_1
+                    
+                    document.getElementById("home2_LHS").value = payload.stats.awc.LHS_HOME_OFFSET_2
+                    document.getElementById("home2_RHS").value = payload.stats.awc.RHS_HOME_OFFSET_2
 
                 })
                 .catch(function (error) {
@@ -468,10 +462,8 @@
         };
 
         fetchpayloadapiHF1();
-        fetchpayloadapiHF();
 
         setInterval(() => {
-            fetchpayloadapiHF();
             fetchpayloadapiHF1();
         }, 5000);
     </script>
@@ -479,14 +471,14 @@
     <!-- Update Values -->
     <script>
 
-        function l_on() {
-            var pressure = document.getElementById("l_on").value;
+        function home1_LHS() {
+            var pressure = document.getElementById("home1_LHS").value;
 
             submitt(parseFloat(pressure))
 
             function submitt(pressure) {
                 if (pressure <= 10 && pressure >= 0.1) {
-                    let submiturl = `${seturl}/LUBE_TIME_DELAY_SECONDS/${pressure}`
+                    let submiturl = `${seturl}/LHS_HOME_OFFSET_1/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
                         .then(setTimeout(() => {
@@ -504,14 +496,14 @@
 
         }
 
-        function l_off() {
-            var pressure = document.getElementById("l_off").value;
+        function home1_RHS() {
+            var pressure = document.getElementById("home1_RHS").value;
 
             submitt(parseFloat(pressure))
 
             function submitt(pressure) {
                 if (pressure <= 100 && pressure >= 1) {
-                    let submiturl = `${seturl}/LUBE_TIME_DELAY_MINUTES/${pressure}`
+                    let submiturl = `${seturl}/RHS_HOME_OFFSET_1/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
                         .then(setTimeout(() => {
@@ -529,14 +521,14 @@
 
         }
 
-        function hyd_high() {
-            var pressure = document.getElementById("hyd_high").value;
+        function home2_LHS() {
+            var pressure = document.getElementById("home2_LHS").value;
 
             submitt(parseFloat(pressure))
 
             function submitt(pressure) {
                 if (pressure <= 100 && pressure >= 0) {
-                    let submiturl = `${seturl}/HYDRAULIC_HIGH_PRESSURE_CUTOFF_PERCENT/${pressure}`
+                    let submiturl = `${seturl}/LHS_HOME_OFFSET_2/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
                         .then(setTimeout(() => {
@@ -554,14 +546,14 @@
 
         }
 
-        function hyd_low() {
-            var pressure = document.getElementById("hyd_low").value;
+        function home2_RHS() {
+            var pressure = document.getElementById("home2_RHS").value;
 
             submitt(parseFloat(pressure))
 
             function submitt(pressure) {
                 if (pressure <= 100 && pressure >= 0) {
-                    let submiturl = `${seturl}/HYDRAULIC_LOW_PRESSURE_CUTOFF_PERCENT/${pressure}`
+                    let submiturl = `${seturl}/RHS_HOME_OFFSET_2/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
                         .then(setTimeout(() => {
@@ -577,280 +569,6 @@
                 }
             }
 
-        }
-
-        function updatelimits_MLU() {
-            var mainLHSup = document.getElementById("mainUP").value;
-
-            submitt(parseInt(mainLHSup))
-
-            async function submitt(mainLHSup) {
-                let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_UPPER/${mainLHSup}`
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED LHS_MAIN_TOLERANCE_UPPER tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-
-        }
-
-        function updatelimits_MRU() {
-            var mainLHSup = document.getElementById("mainUP").value;
-
-            submitt(parseInt(mainLHSup))
-
-            async function submitt(mainLHSup) {
-                let submiturl = `${seturl}/RHS_MAIN_TOLERANCE_UPPER/${mainLHSup}`
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED RHS_MAIN_TOLERANCE_UPPER tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-
-        }
-
-        function updatelimits_MLL() {
-            var mainLHSlow = document.getElementById("mainLHSlow").value;
-
-            submitt(parseInt(mainLHSlow))
-
-            async function submitt(mainLHSlow) {
-                let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_LOWER/${mainLHSlow}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED LHS_MAIN_TOLERANCE_LOWER tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-
-        }
-
-        function updatelimits_MRL() {
-            var mainLHSlow = document.getElementById("mainLOW").value;
-
-            submitt(parseInt(mainLHSlow))
-
-            async function submitt(mainLHSlow) {
-                let submiturl = `${seturl}/RHS_MAIN_TOLERANCE_LOWER/${mainLHSlow}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED RHS_MAIN_TOLERANCE_LOWER tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-
-        }
-
-        function updatelimits_MLFL() {
-            var mainLHSfl = document.getElementById("mainFL").value;
-
-            submitt(parseInt(mainLHSfl))
-            async function submitt(mainLHSfl) {
-                let submiturl = `${seturl}/LHS_MAIN_FORCE_LINE/${mainLHSfl}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED LHS_MAIN_FORCE_LINE tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-        }
-
-        function updatelimits_MRFL() {
-            var mainLHSfl = document.getElementById("mainFL").value;
-
-            submitt(parseInt(mainLHSfl))
-            async function submitt(mainLHSfl) {
-                let submiturl = `${seturl}/RHS_MAIN_FORCE_LINE/${mainLHSfl}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED RHS_MAIN_FORCE_LINE tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-        }
-
-        async function updatelimits_PLU() {
-            var preLHSup = document.getElementById("preLHSup").value;
-
-            console.log(preLHSup)
-
-            let submiturl = `${seturl}/LHS_PRE_TOLERANCE_UPPER/${preLHSup}`
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED LHS_PRE_TOLERANCE_UPPER tolerance ] "))
-                .catch(console.error);
-        }
-
-        async function updatelimits_PRU() {
-            var preLHSup = document.getElementById("preRHSup").value;
-
-            console.log(preLHSup)
-
-            let submiturl = `${seturl}/RHS_PRE_TOLERANCE_UPPER/${preLHSup}`
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED RHS_PRE_TOLERANCE_UPPER tolerance ] "))
-                .catch(console.error);
-        }
-
-        function updatelimits_PLL() {
-            var preLHSlow = document.getElementById("preLHSlow").value;
-
-            submitt(parseInt(preLHSlow))
-
-            async function submitt(preLHSlow) {
-                let submiturl = `${seturl}/LHS_PRE_TOLERANCE_LOWER/${preLHSlow}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED LHS_PRE_TOLERANCE_LOWER tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-
-        }
-
-        function updatelimits_PRL() {
-            var preLHSlow = document.getElementById("preRHSlow").value;
-
-            submitt(parseInt(preLHSlow))
-
-            async function submitt(preLHSlow) {
-                let submiturl = `${seturl}/RHS_PRE_TOLERANCE_LOWER/${preLHSlow}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED RHS_PRE_TOLERANCE_LOWER tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-
-        }
-
-        function updatelimits_PLFL() {
-            var preLHSfl = document.getElementById("preLHSfl").value;
-
-            submitt(parseInt(preLHSfl))
-
-            async function submitt(preLHSfl) {
-                let submiturl = `${seturl}/LHS_PRE_FORCE_LINE/${preLHSfl}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED LHS_PRE_FORCE_LINE tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-        }
-
-        function updatelimits_PRFL() {
-            var preLHSfl = document.getElementById("preRHSfl").value;
-
-            submitt(parseInt(preLHSfl))
-
-            async function submitt(preLHSfl) {
-                let submiturl = `${seturl}/RHS_PRE_FORCE_LINE/${preLHSfl}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED RHS_PRE_FORCE_LINE tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-        }
-
-        function samp_tab_no() {
-            var value = document.getElementById("samp_tab_no").value;
-
-            submitt(parseInt(value))
-
-            async function submitt(value) {
-                let submiturl = `${seturl}/NO_TABLET_SAMPLING/${value}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED NO_TABLET_SAMPLING ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-        }
-
-        function samp_inter() {
-            var value = document.getElementById("samp_inter").value;
-
-            submitt(parseInt(value))
-
-            async function submitt(value) {
-                let submiturl = `${seturl}/SAMPLING_TIME_MINS/${value}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED SAMPLING_TIME_MINS ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-        }
-
-        function roller_freq() {
-            var value = document.getElementById("roller_freq").value;
-
-            submitt(parseInt(value))
-
-            async function submitt(value) {
-                let submiturl = `${seturl}/ROLLER_VFD_FREQ/${value}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED ROLLER_VFD_FREQ ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-        }
-
-        function roller() {
-
-            var value = document.getElementById("roller").value
-
-            console.log(value)
-            submitt(parseInt(value))
-
-            async function submitt(value) {
-                let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED ROLLER_MOTOR_SELECTION ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
         }
 
     </script>
@@ -858,61 +576,84 @@
     <!-- Update System info -->
     <script>
 
-        async function manual() {
-            let submiturl = `${seturl}/AUTO_SAMPLING/false`
+        async function servoLHS() {
+            if(servo_LHS == true){
+                let submiturl = `${seturl}/LHS_SERVO_ON/false`
+            }
+            else {
+                let submiturl = `${seturl}/LHS_SERVO_ON/true`
+            }
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
 
-        async function auto() {
-            let submiturl = `${seturl}/AUTO_SAMPLING/true`
+        async function servoRHS() {
+            if (servo_RHS == true) {
+                let submiturl = `${seturl}/RHS_SERVO_ON/false`
+            }
+            else {
+                let submiturl = `${seturl}/RHS_SERVO_ON/true`
+            }
+            let submiturl = `${seturl}/RHS_SERVO_ON/true`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
 
-        async function sample() {
-            let submiturl = `${seturl}/MANUAL_SAMPLE/true`
+        async function clearLHS() {
+            let submiturl = `${seturl}/LHS_MULTI_TURN_CLEAR/true`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
 
-        async function unsample() {
-            let submiturl = `${seturl}/MANUAL_SAMPLE/true`
+        async function clearLHSx() {
+            let submiturl = `${seturl}/LHS_MULTI_TURN_CLEAR/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
 
-        async function up() {
-            roller()
+        async function clearRHS() {
+            let submiturl = `${seturl}/RHS_MULTI_TURN_CLEAR/true`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
 
-            let submiturl = `${seturl}/ROLLER_FORWARD/true`
+        async function clearRHSx() {
+            let submiturl = `${seturl}/RHS_MULTI_TURN_CLEAR/false`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+        async function EEPROM_LHS() {
+            let submiturl = `${seturl}/LHS_EEPROM_WRITE/true`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
 
 
-        async function unup() {
-            let submiturl = `${seturl}/ROLLER_FORWARD/false`
+        async function EEPROM_LHSx() {
+            let submiturl = `${seturl}/LHS_EEPROM_WRITE/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
 
-        async function down() {
-            roller()
-            let submiturl = `${seturl}/ROLLER_REVERSE/true`
+        async function EEPROM_RHS() {
+            let submiturl = `${seturl}/RHS_EEPROM_WRITE/true`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
 
-        async function undown() {
-            let submiturl = `${seturl}/ROLLER_REVERSE/false`
+
+        async function EEPROM_RHSx() {
+            let submiturl = `${seturl}/RHS_EEPROM_WRITE/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
