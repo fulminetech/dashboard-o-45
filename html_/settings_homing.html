@@ -126,7 +126,7 @@
                     class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-700"> Process Setup</h5>
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500"> Process Setup</h5>
                         </div>
                     </div>
                 </div>
@@ -226,70 +226,87 @@
 
                         <!-- BI LAYER SETTING-->
                         <div
-                            class="p-5 mb-5 ml-5 w-2/3 border bg-pink-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
-                            <h5 class="font-bold uppercase mb-5 text-center text-2xl text-gray-700">BI LAYER SETTING
+                            class="p-5 mb-5 ml-5 w-full border bg-pink-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
+                            <h5 class="font-bold uppercase mb-5 text-center text-2xl text-gray-700">HOME PROCESS
                             </h5>
                             <table class="w-full p-3 text-gray-700">
                                 <thead>
                                     <tr>
                                         <th class="text-center text-blue-900"></th>
-                                        <th class="text-center pb-3 text-blue-900">LHS Discharge</th>
-                                        <th class="text-center pb-3 text-blue-900">RHS Discharge</th>
+                                        <th class="text-center text-2xl pb-3 text-blue-900">LHS Discharge</th>
+                                        <th class="text-center text-2xl pb-3 text-blue-900">RHS Discharge</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     <tr>
-                                        <td class="text-center  py-2  text-xl uppercase text-blue-900">Rejection High
+                                        <td class="text-center  py-2  text-xl uppercase text-blue-900">
                                         </td>
                                         <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
-                                            <input id="preLHSup"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="PRE RHS Upper"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_PLU()">
+                                            <button id="generatepdfreport"
+                                                class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                Servo ON
+                                            </button>
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
-                                            <input id="preRHSup"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Pre RHS Upper"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_PRU()">
-                                        </td>
-
-                                    </tr class="my-20">
-                                    <tr>
-                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Rejection Low</td>
-                                        <td id="preRHS_lower" class=" pb-5 px-3 text-center">
-                                            <input id="preLHSlow"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="PRE LHS Low"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_PLL()">
-                                        </td>
-                                        <td id="mainRHS_lower" class=" pb-5 px-3 text-center">
-                                            <input id="preRHSlow"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Pre RHS Low"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_PRL()">
+                                            <button id="generatepdfreport"
+                                                class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                Servo ON
+                                            </button>
                                         </td>
 
                                     </tr>
                                     <tr>
-                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Set Force</td>
-                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="preLHSfl"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="PRE LHS FORCE LINE"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_PLFL()">
+                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Single Turn</td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="awc_low_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="AWC Low LHS">
                                         </td>
-                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="preRHSfl"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Pre RHS FORCE LINE"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_PRFL()">
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="awc_low_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="AWC Low RHS">
                                         </td>
 
                                     </tr>
                                     <tr>
-                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC HIGH</td>
+                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Multi Turn</td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="awc_low_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="AWC Low LHS">
+                                        </td>
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="awc_low_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="AWC Low RHS">
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2  text-xl uppercase text-blue-900">
+                                        </td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <button id="generatepdfreport"
+                                                class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                Clear
+                                            </button>
+                                        </td>
+                                        <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
+                                            <button id="generatepdfreport"
+                                                class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                Clear
+                                            </button>
+                                        </td>
+                                    
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Motor Encoder PPR</td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
                                             <input id="awc_high_LHS"
                                                 class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
@@ -303,16 +320,49 @@
 
                                     </tr>
                                     <tr>
-                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC LOW</td>
-                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_low_LHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC Low LHS">
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Home Offset 1</td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="preLHSfl"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="PRE LHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_PLFL()">
                                         </td>
-                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_low_RHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC Low RHS">
+                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="preRHSfl"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Pre RHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_PRFL()">
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2  text-xl uppercase text-blue-900">
+                                        </td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <button id="generatepdfreport"
+                                                class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                EEPROM
+                                            </button>
+                                        </td>
+                                        <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
+                                            <button id="generatepdfreport"
+                                                class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                EEPROM
+                                            </button>
+                                        </td>
+                                    
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Home Offset 2</td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="preLHSfl"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="PRE LHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_PLFL()">
+                                        </td>
+                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="preRHSfl"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Pre RHS FORCE LINE" onkeydown="if (event.keyCode == 13) updatelimits_PRFL()">
                                         </td>
 
                                     </tr>
