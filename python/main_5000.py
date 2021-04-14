@@ -242,4 +242,4 @@ if __name__ == '__main__':
     format = "%(asctime)s: %(message)s"
     logging.basicConfig(format=format, level=logging.DEBUG, datefmt="%H:%M:%S")
     connect()
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
