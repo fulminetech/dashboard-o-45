@@ -7,7 +7,7 @@
 
 // Python servers 
 // 1. raw:
-var rawurl = "http://127.0.0.1:5000/api/machine/raw";
+var rawurl = "http://127.0.0.1:5001/api/machine/raw";
 
 // 2. processed:
 var processedurl = "http://127.0.0.1:5050/api/machine/processed";
