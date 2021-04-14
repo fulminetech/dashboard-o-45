@@ -20,11 +20,13 @@ const payloadURL = `${host}:5000/api/payload`;
 
 // Modbus 
 const coil_410 = 410;
+const coil_470 = 470;
 const coil_500 = 500;
 const coil_7900 = 7900;
 
 const time_address = 100;
 const reg_6000 = 6000;
+const reg_7000 = 7000;
 const reg_5000 = 5000;
 
 var CODE_INIT = "State init";
@@ -184,6 +186,20 @@ var payload = {
             thickness_max: 0,
             thickness_min: 0,
         },
+        home: {
+            LHS: {
+                single_turn: 0,
+                multi_turn: 0,
+                encoder_ppr: 0,
+                home_offset: 0
+            },
+            RHS: {
+                single_turn: 0,
+                multi_turn: 0,
+                encoder_ppr: 0,
+                home_offset: 0
+            }
+        },
         awc: {
             L_precompression_upperlimit: 0,
             L_precompression_lowerlimit: 0,
@@ -201,7 +217,14 @@ var payload = {
             AWC_MAX_CORRECTION: 0,
             AWC_32bit_CORRECTION: 0,
             Actual_LHS: 0,
-            Actual_RHS: 0
+            Actual_RHS: 0,
+            MAXIMUM_REJECT_TABLET: 0,
+            RTN_1_MM: 0,
+            RTN_1_PPR: 0,
+            RHS_HOME_OFFSET_1: 0,
+            RHS_HOME_OFFSET_2: 0,
+            LHS_HOME_OFFSET_1: 0,
+            LHS_HOME_OFFSET_2: 0,
         },
         sampling: {
             NO_TABLET_SAMPLING: 0,
@@ -209,7 +232,11 @@ var payload = {
             SAMPLE_COUNT: 0
         },
         roller: {
+            F: 0,
+            H: 0,
+            A: 0,
             frequency: 0,
+            amp: 0,
             motor: 0  
         },
         active_punches: 0,
@@ -227,6 +254,34 @@ var payload = {
             R_PRE: 0,
             R_MAIN: 0,
             R_EJN: 0,
+
+            L_AIR_MONO: 0,
+            L_FLAP_MONO: 0,
+            R_AIR_MONO: 0,
+            R_FLAP_MONO: 0,
+            L_AIR_BI: 0,
+            L_FLAP_BI: 0,
+            R_AIR_BI: 0,
+            R_FLAP_BI: 0,
+
+        },
+        rejection: {
+            pulse: {
+                L_AIR_ON: 0,
+                L_AIR_OFF: 0,
+                L_FLAP_ON: 0,
+                L_FLAP_OFF: 0,
+                R_AIR_ON: 0,
+                R_AIR_OFF: 0,
+                R_FLAP_ON: 0,
+                R_FLAP_OFF: 0,
+            },
+            air: {
+                L_AIR_OFF_TIME: 0,       
+                L_FLAP_OFF_TIME: 0,                 
+                R_AIR_OFF_TIME: 0,       
+                R_FLAP_OFF_TIME: 0
+            }
         },
         punch_present_position: {
             L_PRE: 0,
@@ -297,6 +352,30 @@ var payload = {
         LHS_WEIGHT_DEC: '',
         RHS_WEIGHT_INC: '',
         RHS_WEIGHT_DEC: '',
+    },
+    alarm:{
+        EMERGENCY_STOP_PRESSED: '',
+        MAIN_MOTOR_TRIPPED: '',
+        LHS_FORCE_FEEDER_MOTOR_TRIPPED: '',
+        RHS_FORCE_FEEDER_MOTOR_TRIPPED: '',
+        POWER_PACK_TRIP: '',
+        LUBOIL_LEVEL_LOW: '',
+        LHS_MCM_ABOVE_TOL_LIMIT: '',
+        LHS_MCM_BELOW_TOL_LIMIT: '',
+        RHS_MCM_ABOVE_TOL_LIMIT: '',
+        RHS_MCM_BELOW_TOL_LIMIT: '',
+        SYSTEM_OVERLOAD: '',
+        SAFETY_GUARD_OPEN: '',
+        HYDRAULIC_HIGH_PRESSURE: '',
+        LHS_POWDER_LEVEL_LOW: '',
+        RHS_POWDER_LEVEL_LOW: '',
+        LUB_PUMP_FAILS: '',
+        ROLLER_VFD_TRIP: '',
+        SINGLE_PHASE_FAILURE: '',
+        RHS_DISCHARGE_AWC_TRIP: '',
+        LHS_DISCHARGE_AWC_TRIP: '',
+        AWC_OVER_LIMIT: '',
+        MACHINE_HEALTHY: ''
     },
     status: {
         data: []
@@ -418,13 +497,14 @@ var runModbus = function () {
 var read_coils = function () {
     mbsState = PASS_READ_COILS;
 
-    client.readCoils(coil_500, 100)
+    client.readCoils(coil_500, 35)
         .then(function (punch_status) {
             // console.log("STATUS: ", punch_status.data)
             payload.status.data = punch_status.data[0];
 
             payload.button.DIRECT__RAMP = punch_status.data[0],
             payload.button.WITH_DOOR__BYPASS = punch_status.data[2],
+            payload.button.INITIAL_REJECTION = stats_data.data[6],
             payload.button.B_TYPE__D_TYPE = punch_status.data[8],
             payload.button.POWDER_SENSOR_ENABLE = punch_status.data[10],
             payload.button.Z_PHASE_SELECTION = punch_status.data[11]
@@ -444,6 +524,16 @@ var read_coils = function () {
             payload.button.LHS_WEIGHT_INC = punch_status.data[25]
             payload.button.LHS_WEIGHT_DEC = punch_status.data[26]
 
+            payload.button.RHS_SERVO_ON = punch_status.data[27]
+            payload.button.RHS_MULTI_TURN_CLEAR = punch_status.data[28]
+            payload.button.RHS_HOME_OFFSET_WRITE = punch_status.data[29]
+            payload.button.RHS_EEPROM_WRITE = punch_status.data[30]
+
+            payload.button.LHS_SERVO_ON = punch_status.data[31]
+            payload.button.LHS_MULTI_TURN_CLEAR = punch_status.data[32]
+            payload.button.LHS_HOME_OFFSET_WRITE = punch_status.data[33]
+            payload.button.LHS_EEPROM_WRITE = punch_status.data[34]
+
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
@@ -452,53 +542,62 @@ var read_coils = function () {
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
     
-    client.readCoils(coil_410, 100)
+    client.readCoils(coil_410, 31)
         .then(function (stats_data) {
             // console.log("STATS: ",stats_data.data)
 
             payload.button.POWER_PACK_START_BUTTON = stats_data.data[0],
-                payload.button.POWER_PACK_STOP_BUTTON = stats_data.data[1],
-                payload.button.PRESSURE_ACK_BUTTON = stats_data.data[2],
-                payload.button.DRAIN_BUTTON = stats_data.data[4],
+            payload.button.POWER_PACK_STOP_BUTTON = stats_data.data[1],
+            payload.button.PRESSURE_ACK_BUTTON = stats_data.data[2],
+            payload.button.DRAIN_BUTTON = stats_data.data[4],
 
-                payload.button.MACHINE_INCHING_BUTTON = stats_data.data[10],
-                payload.button.MACHINE_START_BUTTON = stats_data.data[15],
-                payload.button.MACHINE_STOP_BUTTON = stats_data.data[16],
+            payload.button.MACHINE_INCHING_BUTTON = stats_data.data[10],
+            payload.button.MACHINE_START_BUTTON = stats_data.data[15],
+            payload.button.MACHINE_STOP_BUTTON = stats_data.data[16],
 
-                payload.button.FORCE_FEEDER_START_BUTTON = stats_data.data[18],
-                payload.button.FORCE_FEEDER_STOP_BUTTON = stats_data.data[19],
+            payload.button.FORCE_FEEDER_START_BUTTON = stats_data.data[18],
+            payload.button.FORCE_FEEDER_STOP_BUTTON = stats_data.data[19],
 
-                payload.button.TABLET_COUNT_RESET = stats_data.data[20],
+            payload.button.TABLET_COUNT_RESET = stats_data.data[20],
 
-                payload.button.ROLLER_FORWARD = stats_data.data[25],
-                payload.button.ROLLER_REVERSE = stats_data.data[26],
+            payload.button.ROLLER_FORWARD = stats_data.data[25],
+            payload.button.ROLLER_REVERSE = stats_data.data[26],
 
-                payload.button.MANUAL_SAMPLE = stats_data.data[28],
-                payload.button.INITIAL_REJECTION = stats_data.data[29],
-                payload.button.FIRST_LAYER_SAMPLING = stats_data.data[30],
+            payload.button.MANUAL_SAMPLE = stats_data.data[28],
+            payload.button.FIRST_LAYER_SAMPLING = stats_data.data[30]
 
-                payload.button.GUARD_OPEN = stats_data.data[50],
-                payload.button.LUBRICATION_OIL_LOW = stats_data.data[51],
-                payload.button.LHS_POWDER_LOW = stats_data.data[52],
-                payload.button.RHS_POWDER_LOW = stats_data.data[53],
-                payload.button.PRESSURE_OVER_LIMIT = stats_data.data[54],
-                payload.button.SYSTEM_OVERLOAD = stats_data.data[55],
-                payload.button.EMERGENCY_STOP = stats_data.data[60],
-                payload.button.MAIN_MOTOR_TRIPPED = stats_data.data[61],
-                payload.button.RHS_FORCE_FEEDER_TRIPPED = stats_data.data[62],
-                payload.button.RHS_FORCE_FEEDER_TRIPPED = stats_data.data[63],
-                payload.button.POWER_PACK_TRIPPED = stats_data.data[64],
-                payload.button.LUBRICATION_OIL_LOW_LEVEL = stats_data.data[65],
-                payload.button.LHS_MAIN_OVER_LIMIT = stats_data.data[68],
-                payload.button.LHS_MAIN_UNDER_LIMIT = stats_data.data[69],
-                payload.button.RHS_MAIN_OVER_LIMIT = stats_data.data[72],
-                payload.button.RHS_MAIN_UNDER_LIMIT = stats_data.data[73],
-                payload.button.SYSTEM_OVERLOAD = stats_data.data[74],
-                payload.button.SAFETY_GUARD_OPEN = stats_data.data[75],
-                payload.button.PRESSURE_OVER_LIMIT = stats_data.data[76],
-                payload.button.LHS_POWDER_LOW = stats_data.data[77],
-                payload.button.RHS_POWDER_LOW = stats_data.data[78],
-                payload.button.LUBRICATION_PUMP_FAILS = stats_data.data[79]
+        })
+        .catch(function (e) {
+            // console.error('[ #7 Stats Garbage ]')
+            readfailed++;
+            // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
+        })
+    client.readCoils(coil_470, 25)
+        .then(function (stats_data) {
+            // console.log("STATS: ",stats_data.data)
+
+            payload.alarm.EMERGENCY_STOP_PRESSED = stats_data.data[0],
+            payload.alarm.MAIN_MOTOR_TRIPPED = stats_data.data[1],
+            payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED = stats_data.data[2],
+            payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED = stats_data.data[3],
+            payload.alarm.POWER_PACK_TRIP = stats_data.data[4],
+            payload.alarm.LUBOIL_LEVEL_LOW = stats_data.data[5],
+            payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT = stats_data.data[8],
+            payload.alarm.LHS_MCM_BELOW_TOL_LIMIT = stats_data.data[9],
+            payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT = stats_data.data[12],
+            payload.alarm.RHS_MCM_BELOW_TOL_LIMIT = stats_data.data[13],
+            payload.alarm.SYSTEM_OVERLOAD = stats_data.data[14],
+            payload.alarm.SAFETY_GUARD_OPEN = stats_data.data[15],
+            payload.alarm.HYDRAULIC_HIGH_PRESSURE = stats_data.data[16],
+            payload.alarm.LHS_POWDER_LEVEL_LOW = stats_data.data[17],
+            payload.alarm.RHS_POWDER_LEVEL_LOW = stats_data.data[18],
+            payload.alarm.LUB_PUMP_FAILS = stats_data.data[19],
+            payload.alarm.ROLLER_VFD_TRIP = stats_data.data[20],
+            payload.alarm.SINGLE_PHASE_FAILURE = stats_data.data[21],
+            payload.alarm.RHS_DISCHARGE_AWC_TRIP = stats_data.data[22],
+            payload.alarm.LHS_DISCHARGE_AWC_TRIP = stats_data.data[23],
+            payload.alarm.AWC_OVER_LIMIT = stats_data.data[24],
+            payload.alarm.MAX_TABLET_REJECTED = stats_data.data[25]
         })
         .catch(function (e) {
             // console.error('[ #7 Stats Garbage ]')
@@ -517,12 +616,14 @@ var read_coils = function () {
             readfailed++;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
+
+
 }
 
 var read_regs = function () {
     mbsState = PASS_READ_REGS;
 
-    client.readHoldingRegisters(reg_6000, 100)
+    client.readHoldingRegisters(reg_6000, 63)
         .then(function (stats_data) {
             // console.log("STATS: ",stats_data.data)
             // New stats! 
@@ -564,10 +665,12 @@ var read_regs = function () {
             payload.stats.awc.BI_MAIN_FORCE  = stats_data.data[38] / 100;
             payload.machine.RHS.dozer_position = stats_data.data[39] / 100;
             payload.machine.LHS.dozer_position = stats_data.data[40] / 100;
+
             payload.stats.awc.AVG_RTN = stats_data.data[41];
             payload.stats.awc.AWC_TOLERANCE = stats_data.data[42];
             payload.stats.awc.AWC_MAX_CORRECTION = stats_data.data[43];
             payload.stats.awc.AWC_32bit_CORRECTION = stats_data.data[44]/100;
+
             payload.stats.sampling.NO_TABLET_SAMPLING = stats_data.data[57];
             payload.stats.sampling.SAMPLING_TIME_MINS = stats_data.data[58];
             payload.stats.sampling.SAMPLE_COUNT = stats_data.data[58];
@@ -659,8 +762,130 @@ var read_regs = function () {
             readfailed++;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
+    
+    client.readHoldingRegisters(reg_7000, 63)
+        .then(function (stats_data) {
+            // console.log("STATS: ",stats_data.data)
+            
+            // ADEPT SETUP
+            payload.machine.LHS.precompression_max = stats_data.data[0] / 100;
+            payload.machine.LHS.maincompression_max = stats_data.data[1] / 100;
+            payload.machine.LHS.ejection_max = stats_data.data[2] / 100;
+
+            payload.machine.RHS.precompression_max = stats_data.data[3] / 100;
+            payload.machine.RHS.maincompression_max = stats_data.data[4] / 100;
+            payload.machine.RHS.ejection_max = stats_data.data[5] / 100;
+
+            payload.stats.B_HEAD = stats_data.data[6] / 100;
+            payload.stats.B_PCD = stats_data.data[8] / 100;
+            payload.stats.D_HEAD = stats_data.data[10] / 100;
+            payload.stats.D_PCD = stats_data.data[12] / 100;
+
+            payload.stats.total_punches = stats_data.data[14];
+
+            payload.stats.LHSdepth.analog_max = stats_data.data[16] / 100;
+            payload.stats.LHSdepth.analog_min = stats_data.data[17] / 100;
+            payload.stats.LHSdepth.depth_max = stats_data.data[18] / 100;
+            payload.stats.LHSdepth.depth_min = stats_data.data[19] / 100;
+            payload.stats.RHSdepth.analog_max = stats_data.data[20] / 100;
+            payload.stats.RHSdepth.analog_min = stats_data.data[21] / 100;
+            payload.stats.RHSdepth.depth_max = stats_data.data[22] / 100;
+            payload.stats.RHSdepth.depth_min = stats_data.data[23] / 100;
+
+            payload.stats.LHSweight.analog_max = stats_data.data[24];
+            payload.stats.LHSweight.analog_min = stats_data.data[25];
+            payload.stats.LHSweight.weight_max = stats_data.data[26] / 100;
+            payload.stats.LHSweight.weight_min = stats_data.data[27] / 100;
+            payload.stats.RHSweight.analog_max = stats_data.data[28];
+            payload.stats.RHSweight.analog_min = stats_data.data[29];
+            payload.stats.RHSweight.weight_max = stats_data.data[30] / 100;
+            payload.stats.RHSweight.weight_min = stats_data.data[31] / 100;
+
+            payload.stats.LHSthickness.analog_max = stats_data.data[32];
+            payload.stats.LHSthickness.analog_min = stats_data.data[33];
+            payload.stats.LHSthickness.thickness_max = stats_data.data[34] / 100;
+            payload.stats.LHSthickness.thickness_min = stats_data.data[35] / 100;
+            payload.stats.RHSthickness.analog_max = stats_data.data[36];
+            payload.stats.RHSthickness.analog_min = stats_data.data[37];
+            payload.stats.RHSthickness.thickness_max = stats_data.data[38] / 100;
+            payload.stats.RHSthickness.thickness_min = stats_data.data[39] / 100;
+
+            payload.stats.turret.max_rpm = stats_data.data[40]
+            payload.stats.turret.max_freq = stats_data.data[41] /100;
+            payload.stats.LHS_FF.max_rpm = stats_data.data[42]
+            payload.stats.LHS_FF.max_freq = stats_data.data[43] /100;
+            payload.stats.RHS_FF.max_rpm = stats_data.data[44]
+            payload.stats.RHS_FF.max_freq = dstats_data.ata[45] /100;
+
+            payload.stats.punch_offset_position.L_PRE = stats_data.data[46]
+            payload.stats.punch_offset_position.L_MAIN = stats_data.data[47]
+            payload.stats.punch_offset_position.L_EJN = stats_data.data[48]
+            payload.stats.punch_offset_position.R_PRE = stats_data.data[49]
+            payload.stats.punch_offset_position.R_MAIN = stats_data.data[50]
+            payload.stats.punch_offset_position.R_EJN = stats_data.data[51]
+
+            payload.stats.hydraulic.max_pressure = stats_data.data[52] /10;
+
+            payload.stats.punch_offset_position.L_AIR_MONO = stats_data.data[53]
+            payload.stats.punch_offset_position.R_AIR_MONO = stats_data.data[54]
+            payload.stats.punch_offset_position.L_FLAP_MONO = stats_data.data[55]
+            payload.stats.punch_offset_position.R_FLAP_MONO = stats_data.data[56]
+            
+            payload.stats.punch_offset_position.L_AIR_BI = stats_data.data[57]
+            payload.stats.punch_offset_position.R_AIR_BI = stats_data.data[58]
+            payload.stats.punch_offset_position.L_FLAP_BI = stats_data.data[59]
+            payload.stats.punch_offset_position.R_FLAP_BI = stats_data.data[60]
+
+            payload.stats.rejection.pulse.L_AIR_ON = stats_data.data[61]
+            payload.stats.rejection.pulse.L_AIR_OFF = stats_data.data[62]
+            payload.stats.rejection.pulse.L_FLAP_ON = stats_data.data[63]
+            payload.stats.rejection.pulse.L_FLAP_OFF = stats_data.data[64]
+            payload.stats.rejection.pulse.R_AIR_ON = stats_data.data[65]
+            payload.stats.rejection.pulse.R_AIR_OFF = stats_data.data[66]
+            payload.stats.rejection.pulse.R_FLAP_ON = stats_data.data[67]
+            payload.stats.rejection.pulse.R_FLAP_OFF = stats_data.data[68]
+
+            payload.stats.rejection.air.L_AIR_OFF_TIME = stats_data.data[69]
+            payload.stats.rejection.air.L_FLAP_OFF_TIME = stats_data.data[70]
+            payload.stats.rejection.air.R_AIR_OFF_TIME = stats_data.data[71]
+            payload.stats.rejection.air.R_FLAP_OFF_TIME = stats_data.data[72]
+            
+            payload.stats.awc.MAXIMUM_REJECT_TABLET = stats_data.data[73]
+            payload.stats.awc.RTN_1_MM = stats_data.data[74] /100;
+            payload.stats.awc.RTN_1_PPR = stats_data.data[76]
+            payload.stats.awc.RHS_HOME_OFFSET_1 = stats_data.data[78]
+            payload.stats.awc.RHS_HOME_OFFSET_2 = stats_data.data[80]
+            payload.stats.awc.LHS_HOME_OFFSET_1 = stats_data.data[82]
+            payload.stats.awc.LHS_HOME_OFFSET_2 = stats_data.data[84]
+            
+            // payload.stats.encoder_PPR = stats_data.data[88]
+
+            // payload.present_punch = stats_data.data[5];
+            // // // // Production count
+            // // // // Formula: [ punch count x rpm x time ]
+
+            // var reg1 = stats_data.data[6];
+            // var reg2 = stats_data.data[7];
+
+            // if (reg2 == 0) {
+            //     payload.stats.count = reg1;
+            // } else {
+            //     payload.stats.count = (((2 ** 16) * reg2) + reg1);
+            // }
+            
+            // // // // Tablet per hour [ Max: 8x60x60=28800 ]
+            // tablets_per_hour = (payload.stats.active_punches * payload.stats.turret.RPM * 60);
+            // payload.stats.tablets_per_hour = tablets_per_hour;
+
+            // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
+        })
+        .catch(function (e) {
+            // console.error('[ #7 Stats Garbage ]')
+            readfailed++;
+            // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
+        })
         
-    client.readHoldingRegisters(reg_5000, 45)
+    client.readHoldingRegisters(reg_5000, 63)
         .then(function (stats_data) {
             // console.log("STATS: ",stats_data.data)
             payload.stats.turret.F = stats_data.data[0]
@@ -698,6 +923,20 @@ var read_regs = function () {
 
             payload.stats.awc.actual_RHS = stats_data.data[42] / 100
             payload.stats.awc.actual_LHS = stats_data.data[43] / 100
+            
+            payload.stats.home.LHS.single_turn = stats_data.data[44]
+            payload.stats.home.LHS.multi_turn = stats_data.data[46]
+            payload.stats.home.LHS.encoder_ppr = stats_data.data[48]
+            payload.stats.home.LHS.home_offset = stats_data.data[50]
+            
+            payload.stats.home.RHS.single_turn = stats_data.data[52]
+            payload.stats.home.RHS.multi_turn = stats_data.data[54]
+            payload.stats.home.RHS.encoder_ppr = stats_data.data[56]
+            payload.stats.home.RHS.home_offset = stats_data.data[58]
+            
+            payload.stats.roller.F = stats_data.data[60];
+            payload.stats.roller.H = stats_data.data[61];
+            payload.stats.roller.A = stats_data.data[62];
             
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -1296,22 +1535,6 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         writelog()
     }
-    else if (a == "INITIAL_REJECTION" && b == "true") {
-        coil_offset_410 = 29
-        set_button = true
-        c = payload.button.INITIAL_REJECTION
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "INITIAL_REJECTION" && b == "false") {
-        coil_offset_410 = 29
-        set_button = false
-        c = payload.button.INITIAL_REJECTION
-        
-        write_coil_410()
-        writelog()
-    }
     else if (a == "FIRST_LAYER_SAMPLING" && b == "true") {
         coil_offset_410 = 30
         set_button = true
@@ -1357,6 +1580,22 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         set_button = false
         c = payload.button.WITH_DOOR__BYPASS
 
+        write_coil_410()
+        writelog()
+    }
+    else if (a == "INITIAL_REJECTION" && b == "true") {
+        coil_offset_410 = 96
+        set_button = true
+        c = payload.button.INITIAL_REJECTION
+        
+        write_coil_410()
+        writelog()
+    }
+    else if (a == "INITIAL_REJECTION" && b == "false") {
+        coil_offset_410 = 96
+        set_button = false
+        c = payload.button.INITIAL_REJECTION
+        
         write_coil_410()
         writelog()
     }
@@ -1480,7 +1719,6 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         coil_offset_410 = 107
         set_button = false
         c = payload.button.REJECTION_MODE
-
         write_coil_410()
         writelog()
     }
@@ -1596,191 +1834,135 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         writelog()
     }
-    else if (a == "LHS_FORCE_FEEDER_BUTTON_HMI" && b == "true") {
-        coil_offset_410 = 122
+    else if (a == "RHS_SERVO_ON" && b == "true") {
+        coil_offset_410 = 117
         set_button = true
-        c = payload.button.LHS_FORCE_FEEDER_BUTTON_HMI
+        c = payload.button.RHS_SERVO_ON
         
         write_coil_410()
         writelog()
     }
-    else if (a == "LHS_FORCE_FEEDER_BUTTON_HMI" && b == "false") {
-        coil_offset_410 = 122
+    else if (a == "RHS_SERVO_ON" && b == "false") {
+        coil_offset_410 = 117
         set_button = false
-        c = payload.button.LHS_FORCE_FEEDER_BUTTON_HMI
+        c = payload.button.RHS_SERVO_ON
         
         write_coil_410()
         writelog()
     }
-    else if (a == "RHS_FORCE_FEEDER_BUTTON_HMI" && b == "true") {
+    else if (a == "RHS_MULTI_TURN_CLEAR" && b == "true") {
+        coil_offset_410 = 118
+        set_button = true
+        c = payload.button.RHS_MULTI_TURN_CLEAR
+        
+        write_coil_410()
+        writelog()
+    }
+    else if (a == "RHS_MULTI_TURN_CLEAR" && b == "false") {
+        coil_offset_410 = 118
+        set_button = false
+        c = payload.button.RHS_MULTI_TURN_CLEAR
+        
+        write_coil_410()
+        writelog()
+    }
+    else if (a == "RHS_HOME_OFFSET_WRITE" && b == "true") {
+        coil_offset_410 = 119
+        set_button = true
+        c = payload.button.RHS_HOME_OFFSET_WRITE
+        
+        write_coil_410()
+        writelog()
+    }
+    else if (a == "RHS_HOME_OFFSET_WRITE" && b == "false") {
+        coil_offset_410 = 119
+        set_button = false
+        c = payload.button.RHS_HOME_OFFSET_WRITE
+        
+        write_coil_410()
+        writelog()
+    }
+    else if (a == "RHS_EEPROM_WRITE" && b == "true") {
+        coil_offset_410 = 120
+        set_button = true
+        c = payload.button.RHS_EEPROM_WRITE
+        
+        write_coil_410()
+        writelog()
+    }
+    else if (a == "RHS_EEPROM_WRITE" && b == "false") {
+        coil_offset_410 = 120
+        set_button = false
+        c = payload.button.RHS_EEPROM_WRITE
+        
+        write_coil_410()
+        writelog()
+    }
+    else if (a == "LHS_SERVO_ON" && b == "true") {
         coil_offset_410 = 121
         set_button = true
-        c = payload.button.RHS_FORCE_FEEDER_BUTTON_HMI
+        c = payload.button.LHS_SERVO_ON
         
         write_coil_410()
         writelog()
     }
-    else if (a == "RHS_FORCE_FEEDER_BUTTON_HMI" && b == "false") {
+    else if (a == "LHS_SERVO_ON" && b == "false") {
         coil_offset_410 = 121
         set_button = false
-        c = payload.button.RHS_FORCE_FEEDER_BUTTON_HMI
+        c = payload.button.LHS_SERVO_ON
         
         write_coil_410()
         writelog()
     }
-    else if (a == "LHS_WEIGHT_INC" && b == "true") {
-        coil_offset_410 = 125
+    else if (a == "LHS_MULTI_TURN_CLEAR" && b == "true") {
+        coil_offset_410 = 122
         set_button = true
-        c = payload.button.LHS_WEIGHT_INC
+        c = payload.button.LHS_MULTI_TURN_CLEAR
         
         write_coil_410()
         writelog()
     }
-    else if (a == "LHS_WEIGHT_INC" && b == "false") {
-        coil_offset_410 = 125
+    else if (a == "LHS_MULTI_TURN_CLEAR" && b == "false") {
+        coil_offset_410 = 122
         set_button = false
-        c = payload.button.LHS_WEIGHT_INC
+        c = payload.button.LHS_MULTI_TURN_CLEAR
         
         write_coil_410()
         writelog()
     }
-    else if (a == "RHS_WEIGHT_INC" && b == "true") {
+    else if (a == "LHS_HOME_OFFSET_WRITE" && b == "true") {
         coil_offset_410 = 123
         set_button = true
-        c = payload.button.RHS_WEIGHT_INC
+        c = payload.button.LHS_HOME_OFFSET_WRITE
         
         write_coil_410()
         writelog()
     }
-    else if (a == "RHS_WEIGHT_INC" && b == "false") {
+    else if (a == "LHS_HOME_OFFSET_WRITE" && b == "false") {
         coil_offset_410 = 123
         set_button = false
-        c = payload.button.RHS_WEIGHT_INC
+        c = payload.button.LHS_HOME_OFFSET_WRITE
         
         write_coil_410()
         writelog()
     }
-    else if (a == "LHS_WEIGHT_DEC" && b == "true") {
-        coil_offset_410 = 126
-        set_button = true
-        c = payload.button.LHS_WEIGHT_DEC
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "LHS_WEIGHT_DEC" && b == "false") {
-        coil_offset_410 = 126
-        set_button = false
-        c = payload.button.LHS_WEIGHT_DEC
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "RHS_WEIGHT_DEC" && b == "true") {
+    else if (a == "LHS_EEPROM_WRITE" && b == "true") {
         coil_offset_410 = 124
         set_button = true
-        c = payload.button.RHS_WEIGHT_DEC
+        c = payload.button.LHS_EEPROM_WRITE
         
         write_coil_410()
         writelog()
     }
-    else if (a == "RHS_WEIGHT_DEC" && b == "false") {
+    else if (a == "LHS_EEPROM_WRITE" && b == "false") {
         coil_offset_410 = 124
         set_button = false
-        c = payload.button.RHS_WEIGHT_DEC
-        
-        write_coil_410()
-        writelog()
-    }
-        
-        
-        
-   
-    else if (a == "AWC_ENABLE" && b == "true") {
-        coil_offset_410 = 110
-        set_button = true
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "AWC_DISABLE" && b == "false") {
-        coil_offset_410 = 110
-        set_button = false
+        c = payload.button.LHS_EEPROM_WRITE
         
         write_coil_410()
         writelog()
     }
     
-    else if (a == "TABLET_COUNT_RESET" && b == "true") {
-        coil_offset_410 = 15
-        set_button = true
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "TABLET_COUNT_RESET" && b == "false") {
-        coil_offset_410 = 15
-        set_button = false
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "BATCH_OFF" && b == "true") {
-        coil_offset_410 = 15
-        set_button = true
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "BATCH_OFF" && b == "false") {
-        coil_offset_410 = 15
-        set_button = false
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "INITIAL_REJN" && b == "true") {
-        coil_offset_410 = 15
-        set_button = true
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "INITIAL_REJN" && b == "false") {
-        coil_offset_410 = 15
-        set_button = false
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "1_REJN" && b == "true") {
-        coil_offset_410 = 15
-        set_button = true
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "1_REJN" && b == "false") {
-        coil_offset_410 = 15
-        set_button = false
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "BI_LAYER" && b == "true") {
-        coil_offset_410 = 15
-        set_button = true
-        
-        write_coil_410()
-        writelog()
-    }
-    else if (a == "BI_LAYER" && b == "false") {
-        coil_offset_410 = 15
-        set_button = false
-        
-        write_coil_410()
-        writelog()
-    }
     else if (a == "Y0_0" && b == "true") {
         coil_offset_410 = 7490
         set_button = true
@@ -2091,146 +2273,146 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     
     
     else if (a == "LHS_PRE_MAX") {
-        reg_offset_6000 = 28
-        reg_write_value = b
+        reg_offset_6000 = 1000
+        reg_write_value = b*100
         c = payload.machine.LHS.precompression_max
         write_regs()
         writelog()
     }
     else if (a == "LHS_MAIN_MAX") {
-        reg_offset_6000 = 29
-        reg_write_value = b
+        reg_offset_6000 = 1001
+        reg_write_value = b*100
         c = payload.machine.LHS.maincompression_max
         write_regs()
         writelog()
     }
     else if (a == "LHS_EJN_MAX") {
-        reg_offset_6000 = 30
-        reg_write_value = b
+        reg_offset_6000 = 1002
+        reg_write_value = b*100
         c = payload.machine.LHS.ejection_max
         write_regs()
         writelog()
     }
     else if (a == "RHS_PRE_MAX") {
-        reg_offset_6000 = 31
-        reg_write_value = b
+        reg_offset_6000 = 1003
+        reg_write_value = b*100
         c = payload.machine.RHS.precompression_max
         write_regs()
         writelog()
     }
     else if (a == "RHS_MAIN_MAX") {
-        reg_offset_6000 = 32
-        reg_write_value = b
+        reg_offset_6000 = 1004
+        reg_write_value = b*100
         c = payload.machine.RHS.maincompression_max
         write_regs()
         writelog()
     }
     else if (a == "RHS_EJN_MAX") {
-        reg_offset_6000 = 33
-        reg_write_value = b
+        reg_offset_6000 = 1005
+        reg_write_value = b*100
         c = payload.machine.RHS.ejection_max
         write_regs()
         writelog()
     }
     else if (a == "B_TYPE_HEAD_FLAT") {
-        reg_offset_6000 = 36
-        reg_write_value = b
+        reg_offset_6000 = 1006
+        reg_write_value = b*100
         c = payload.stats.B_HEAD
         write_regs()
         writelog()
     }
     else if (a == "B_TYPE_PCD") {
-        reg_offset_6000 = 38
-        reg_write_value = b
+        reg_offset_6000 = 1008
+        reg_write_value = b*100
         c = payload.stats.B_PCD
         write_regs()
         writelog()
     }
     else if (a == "D_TYPE_HEAD_FLAT") {
-        reg_offset_6000 = 40
-        reg_write_value = b
+        reg_offset_6000 = 1010
+        reg_write_value = b*100
         c = payload.stats.D_HEAD
         write_regs()
         writelog()
     }
     else if (a == "D_TYPE_PCD") {
-        reg_offset_6000 = 42
-        reg_write_value = b
+        reg_offset_6000 = 1012
+        reg_write_value = b*100
         c = payload.stats.D_PCD
         write_regs()
         writelog()
     }
     else if (a == "TOTAL_PUNCHES") {
-        reg_offset_6000 = 48
+        reg_offset_6000 = 1014
         reg_write_value = b
         c = payload.stats.total_punches
         write_regs()
         writelog()
     }
     else if (a == "LHS_FILL_DEPTH_MAX_ANALOG") {
-        reg_offset_6000 = 53
-        reg_write_value = b
+        reg_offset_6000 = 1016
+        reg_write_value = b*100
         c = payload.stats.LHSdepth.analog_max
         write_regs()
         writelog()
     }
     else if (a == "LHS_FILL_DEPTH_MIN_ANALOG") {
-        reg_offset_6000 = 54
-        reg_write_value = b
+        reg_offset_6000 = 1017
+        reg_write_value = b*100
         c = payload.stats.LHSdepth.analog_min
         write_regs()
         writelog()
     }
     else if (a == "LHS_FILL_DEPTH_MAX") {
-        reg_offset_6000 = 55
-        reg_write_value = b
+        reg_offset_6000 = 1018
+        reg_write_value = b*100
         c = payload.stats.LHSdepth.depth_max
         payload.stats.LHSdepth.depth_max = b;
         write_regs()
         writelog()
     }
     else if (a == "LHS_FILL_DEPTH_MIN") {
-        reg_offset_6000 = 56
-        reg_write_value = b
+        reg_offset_6000 = 1019
+        reg_write_value = b*100
         c = payload.stats.LHSdepth.depth_min
         payload.stats.LHSdepth.depth_min = b;
         write_regs()
         writelog()
     }
     else if (a == "RHS_FILL_DEPTH_MAX_ANALOG") {
-        reg_offset_6000 = 57
-        reg_write_value = b
+        reg_offset_6000 = 1020
+        reg_write_value = b*100
         c = payload.stats.RHSdepth.analog_max
         payload.stats.RHSdepth.analog_max = b;
         write_regs()
         writelog()
     }
     else if (a == "RHS_FILL_DEPTH_MIN_ANALOG") {
-        reg_offset_6000 = 58
-        reg_write_value = b
+        reg_offset_6000 = 1021
+        reg_write_value = b*100
         c = payload.stats.RHSdepth.analog_min
         payload.stats.RHSdepth.analog_min = b;
         write_regs()
         writelog()
     }
     else if (a == "RHS_FILL_DEPTH_MAX") {
-        reg_offset_6000 = 59
-        reg_write_value = b
+        reg_offset_6000 = 1022
+        reg_write_value = b*100
         c = payload.stats.RHSdepth.depth_max
         payload.stats.RHSdepth.depth_max = b;
         write_regs()
         writelog()
     }
     else if (a == "RHS_FILL_DEPTH_MIN") {
-        reg_offset_6000 = 60
-        reg_write_value = b
+        reg_offset_6000 = 1023
+        reg_write_value = b*100
         c = payload.stats.RHSdepth.depth_min
         payload.stats.RHSdepth.depth_min = b;
         write_regs()
         writelog()
     }
     else if (a == "LHS_WEIGHT_MAX_ANALOG") {
-        reg_offset_6000 = 61
+        reg_offset_6000 = 1024
         reg_write_value = b
         c = payload.stats.LHSweight.analog_max
         payload.stats.LHSweight.analog_max = b;
@@ -2238,7 +2420,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_WEIGHT_MIN_ANALOG") {
-        reg_offset_6000 = 62
+        reg_offset_6000 = 1025
         reg_write_value = b
         c = payload.stats.LHSweight.analog_min
         payload.stats.LHSweight.analog_min = b;
@@ -2246,23 +2428,23 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_WEIGHT_MAX") {
-        reg_offset_6000 = 63
-        reg_write_value = b
+        reg_offset_6000 = 1026
+        reg_write_value = b*100
         c = payload.stats.LHSweight.weight_max
         payload.stats.LHSweight.weight_max = b;
         write_regs()
         writelog()
     }
     else if (a == "LHS_WEIGHT_MIN") {
-        reg_offset_6000 = 64
-        reg_write_value = b
+        reg_offset_6000 = 1027
+        reg_write_value = b*100
         c = payload.stats.LHSweight.weight_min
         payload.stats.LHSweight.weight_min = b;
         write_regs()
         writelog()
     }
     else if (a == "RHS_WEIGHT_MAX_ANALOG") {
-        reg_offset_6000 = 65
+        reg_offset_6000 = 1028
         reg_write_value = b
         c = payload.stats.RHSweight.analog_max
         payload.stats.RHSweight.analog_max = b;
@@ -2270,7 +2452,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_WEIGHT_MIN_ANALOG") {
-        reg_offset_6000 = 66
+        reg_offset_6000 = 1029
         reg_write_value = b
         c = payload.stats.RHSweight.analog_max
         payload.stats.RHSweight.analog_max = b;
@@ -2278,23 +2460,23 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_WEIGHT_MAX") {
-        reg_offset_6000 = 67
-        reg_write_value = b
+        reg_offset_6000 = 1030
+        reg_write_value = b*100
         c = payload.stats.RHSweight.weight_max
         payload.stats.RHSweight.weight_max = b;
         write_regs()
         writelog()
     }
     else if (a == "RHS_WEIGHT_MIN") {
-        reg_offset_6000 = 68
-        reg_write_value = b
+        reg_offset_6000 = 1031
+        reg_write_value = b*100
         c = payload.stats.RHSweight.weight_max
         payload.stats.RHSweight.weight_max = b;
         write_regs()
         writelog()
     }
     else if (a == "LHS_THICKNESS_MAX_ANALOG") {
-        reg_offset_6000 = 69
+        reg_offset_6000 = 1032
         reg_write_value = b
         c = payload.stats.LHSthickness.analog_max
         payload.stats.LHSthickness.analog_max = b;
@@ -2302,7 +2484,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_THICKNESS_MIN_ANALOG") {
-        reg_offset_6000 = 70
+        reg_offset_6000 = 1033
         reg_write_value = b
         c = payload.stats.LHSthickness.analog_max
         payload.stats.LHSthickness.analog_max = b;
@@ -2310,23 +2492,23 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_THICKNESS_MAX") {
-        reg_offset_6000 = 71
-        reg_write_value = b
+        reg_offset_6000 = 1034
+        reg_write_value = b*100
         c = payload.stats.LHSthickness.thickness_max
         payload.stats.LHSthickness.thickness_max = b;
         write_regs()
         writelog()
     }
     else if (a == "LHS_THICKNESS_MIN") {
-        reg_offset_6000 = 72
-        reg_write_value = b
+        reg_offset_6000 = 1035
+        reg_write_value = b*100
         c = payload.stats.LHSthickness.thickness_min
         payload.stats.LHSthickness.thickness_min = b;
         write_regs()
         writelog()
     }
     else if (a == "RHS_THICKNESS_MAX_ANALOG") {
-        reg_offset_6000 = 73
+        reg_offset_6000 = 1036
         reg_write_value = b
         c = payload.stats.RHSthickness.analog_max
         payload.stats.RHSthickness.analog_max = b;
@@ -2334,7 +2516,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_THICKNESS_MIN_ANALOG") {
-        reg_offset_6000 = 74
+        reg_offset_6000 = 1037
         reg_write_value = b
         c = payload.stats.RHSthickness.analog_min
         payload.stats.RHSthickness.analog_min = b;
@@ -2342,23 +2524,23 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_THICKNESS_MAX") {
-        reg_offset_6000 = 75
-        reg_write_value = b
+        reg_offset_6000 = 1038
+        reg_write_value = b*100
         c = payload.stats.RHSthickness.thickness_max
         payload.stats.RHSthickness.thickness_max = b;
         write_regs()
         writelog()
     }
     else if (a == "RHS_THICKNESS_MIN") {
-        reg_offset_6000 = 76
-        reg_write_value = b
+        reg_offset_6000 = 1039
+        reg_write_value = b*100
         c = payload.stats.RHSthickness.thickness_min
         payload.stats.RHSthickness.thickness_min = b;
         write_regs()
         writelog()
     }
     else if (a == "TURRET_MAX_RPM") {
-        reg_offset_6000 = 80
+        reg_offset_6000 = 1040
         reg_write_value = b
         c = payload.stats.turret.max_rpm
         payload.stats.turret.max_rpm = b;
@@ -2366,15 +2548,15 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "TURRET_MAX_FREQ") {
-        reg_offset_6000 = 81
-        reg_write_value = b
+        reg_offset_6000 = 1041
+        reg_write_value = b*100
         c = payload.stats.turret.max_freq
         payload.stats.turret.max_freq = b;
         write_regs()
         writelog()
     }
     else if (a == "LHS_FORCE_FEEDER_MAX_RPM") {
-        reg_offset_6000 = 82
+        reg_offset_6000 = 1042
         reg_write_value = b
         c = payload.stats.LHS_FF.max_rpm
         payload.stats.LHS_FF.max_rpm = b;
@@ -2382,15 +2564,15 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_FORCE_FEEDER_MAX_FREQ") {
-        reg_offset_6000 = 83
-        reg_write_value = b
+        reg_offset_6000 = 1043
+        reg_write_value = b*100
         c = payload.stats.LHS_FF.max_freq
         payload.stats.LHS_FF.max_freq = b;
         write_regs()
         writelog()
     }
     else if (a == "RHS_FORCE_FEEDER_MAX_RPM") {
-        reg_offset_6000 = 84
+        reg_offset_6000 = 1044
         reg_write_value = b
         c = payload.stats.RHS_FF.max_rpm
         payload.stats.RHS_FF.max_rpm = b;
@@ -2398,23 +2580,15 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_FORCE_FEEDER_MAX_FREQ") {
-        reg_offset_6000 = 85
-        reg_write_value = b
+        reg_offset_6000 = 1045
+        reg_write_value = b*100
         c = payload.stats.RHS_FF.max_freq
         payload.stats.RHS_FF.max_freq = b;
         write_regs()
         writelog()
     }
-    else if (a == "HYDRAULIC_PRESSURE_MAX") {
-        reg_offset_6000 = 86
-        reg_write_value = b
-        c = payload.stats.hydraulic.high_cutoff
-        payload.stats.hydraulic.high_cutoff = b;
-        write_regs()
-        writelog()
-    }
     else if (a == "LHS_PRE_OFFSET") {
-        reg_offset_6000 = 90
+        reg_offset_6000 = 1046
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_PRE
         payload.stats.punch_offset_position.L_PRE = b;
@@ -2422,7 +2596,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_MAIN_OFFSET") {
-        reg_offset_6000 = 91
+        reg_offset_6000 = 1047
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_MAIN
         payload.stats.punch_offset_position.L_MAIN = b;
@@ -2430,7 +2604,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_EJN_OFFSET") {
-        reg_offset_6000 = 92
+        reg_offset_6000 = 1048
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_EJN
         payload.stats.punch_offset_position.L_EJN = b;
@@ -2438,7 +2612,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_PRE_OFFSET") {
-        reg_offset_6000 = 93
+        reg_offset_6000 = 1049
         reg_write_value = b
         c = payload.stats.punch_offset_position.R_PRE
         payload.stats.punch_offset_position.R_PRE = b;
@@ -2446,7 +2620,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_MAIN_OFFSET") {
-        reg_offset_6000 = 94
+        reg_offset_6000 = 1050
         reg_write_value = b
         c = payload.stats.punch_offset_position.R_MAIN
         payload.stats.punch_offset_position.R_MAIN = b;
@@ -2454,12 +2628,155 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_EJN_OFFSET") {
-        reg_offset_6000 = 95
+        reg_offset_6000 = 1051
         reg_write_value = b
         c = payload.stats.punch_offset_position.R_EJN
         payload.stats.punch_offset_position.R_EJN = b;
         write_regs()
         writelog()
+    }
+    else if (a == "HYDRAULIC_PRESSURE_MAX") {
+        reg_offset_6000 = 1052
+        reg_write_value = b*10
+        c = payload.stats.hydraulic.high_cutoff
+        payload.stats.hydraulic.high_cutoff = b;
+        write_regs()
+        writelog()
+    }
+    else if (a == "L_AIR_MONO") {
+        reg_offset_6000 = 1053
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "L_FLAP_MONO") {
+        reg_offset_6000 = 1054
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "R_AIR_MONO") {
+        reg_offset_6000 = 1055
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "R_FLAP_MONO") {
+        reg_offset_6000 = 1056
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "L_AIR_BI") {
+        reg_offset_6000 = 1057
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "L_FLAP_BI") {
+        reg_offset_6000 = 1058
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "R_AIR_BI") {
+        reg_offset_6000 = 1059
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "R_FLAP_BI") {
+        reg_offset_6000 = 1060
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "L_AIR_ON") {
+        reg_offset_6000 = 1061
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "L_AIR_OFF") {
+        reg_offset_6000 = 1062
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "L_FLAP_ON") {
+        reg_offset_6000 = 1063
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "L_FLAP_OFF") {
+        reg_offset_6000 = 1064
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "R_AIR_ON") {
+        reg_offset_6000 = 1065
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "R_AIR_OFF") {
+        reg_offset_6000 = 1066
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "R_FLAP_ON") {
+        reg_offset_6000 = 1067
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "R_FLAP_OFF") {
+        reg_offset_6000 = 1068
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "L_AIR_OFF_TIME") {
+        reg_offset_6000 = 1069
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "L_FLAP_OFF_TIME") {
+        reg_offset_6000 = 1070
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "R_AIR_OFF_TIME") {
+        reg_offset_6000 = 1071
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "R_FLAP_OFF_TIME") {
+        reg_offset_6000 = 1072
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "MAXIMUM_REJECT_TABLET") {
+        reg_offset_6000 = 1073
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "RTN_1_MM") {
+        reg_offset_6000 = 1074
+        reg_write_value = b*100
+        write_regs()
+    }
+    else if (a == "RTN_1_PPR") {
+        reg_offset_6000 = 1076
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "RHS_HOME_OFFSET_1") {
+        reg_offset_6000 = 1078
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "RHS_HOME_OFFSET_2") {
+        reg_offset_6000 = 1080
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "LHS_HOME_OFFSET_1") {
+        reg_offset_6000 = 1082
+        reg_write_value = b
+        write_regs()
+    }
+    else if (a == "LHS_HOME_OFFSET_2") {
+        reg_offset_6000 = 1084
+        reg_write_value = b
+        write_regs()
     }
     
     res.setHeader('Access-Control-Allow-Origin', '*');

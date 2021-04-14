@@ -117,18 +117,28 @@
         <!--Dash Content -->
         <div id="dash-content" class="bg-gray-200 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm flex flex-wrap content-start">
         
-
             <div class="w-1 w-full">
                 <div onclick="location.href='/processsetup'"
                     class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Process Settings</h5>
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500"> Process Setup</h5>
                         </div>
                     </div>
                 </div>
             </div>
-            
+        
+            <div class="w-1 w-full">
+                <div onclick="location.href='/settings_awc'"
+                class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">AWC Setting</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
             <div class="w-1 w-full">
                 <div onclick="location.href='/settings'"
                     class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
@@ -154,39 +164,6 @@
             </div>
         
             <div class="w-1 w-full">
-                <div onclick="location.href='/settings_awc'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">AWC Setting</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings_limit'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Limit Setup</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings_setup'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-700"> Setup</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-1 w-full">
                 <div onclick="location.href='/settings_user'">
                     <div
                         class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
@@ -199,7 +176,30 @@
                 </div>
             </div>
         
+            <!-- <div class="w-1 w-full">
+                        <div onclick="location.href='/settings_limit'"
+                            class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                            <div class="flex flex-col text-center">
+                                <div class="flex-1 items-center">
+                                    <h5 class="font-bold uppercase cursor-pointer text-gray-500">Limit Setup</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+        
+            <div class="w-1 w-full">
+                <div onclick="location.href='/settings_setup'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-700">ADEPT Setup</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
         </div>
+
 
         <!--Graph Content -->
         <div id="main-content" class="w-full flex-1">
@@ -209,36 +209,130 @@
 
                     <!-- Search: Parameters -->
                     <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Maximum:</h5>
+                        <h5 class="font-bold text-black">Max Compression Settings:</h5>
                     </div>
-                
+                    
                     <div class="flex grid grid-cols-3 p-3 ">
                     
                         <div class="flex flex-col">
-                            <h3> Precompression: 100 kN </h3>
-                            
+                            <h3>LHS PRE MAX COMP LIMIT</h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> Maincompression: 100 kN </h3>
-                            
+                            <h3>LHS MAIN MAX COMP LIMIT</h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> Ejection: 100 kg </h3>                            
+                            <h3>LHS EJECTION MAX COMP LIMIT</h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-        
+                        
+                        <div class="flex flex-col">
+                            <h3>RHS PRE MAX COMP LIMIT</h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col">
+                            <h3>RHS MAIN MAX COMP LIMIT</h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col">
+                            <h3> RHS EJECTION MAX COMP LIMIT </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
 
                     <!-- Search: Parameters -->
                     <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Rejection Settings:</h5>
+                        <h5 class="font-bold text-black">LHS DISCHARGE FILL DEPTH:</h5>
                     </div>
                     
                     <div class="flex grid grid-cols-3 p-3 ">
                     
                         <div class="flex flex-col">
-                            <h3> Rejection By Air Start PPR </h3>
+                            <h3> MAX ANALOG K VALUE </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="batchname"
@@ -256,7 +350,7 @@
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> Rejection By Air Stop PPR </h3>
+                            <h3> MIN ANALOG K VALUE </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="batchname"
@@ -274,7 +368,7 @@
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> LHS Pulse Offset for FLAP ON </h3>
+                            <h3> MAX DEPTH MM </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="batchname"
@@ -292,7 +386,7 @@
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> Rejection By Flap Start PPR </h3>
+                            <h3> MIN DEPTH MM </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="batchname"
@@ -308,9 +402,18 @@
                                 </div>
                             </div>
                         </div>
-                        
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">RHS DISCHARGE FILL DEPTH:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
                         <div class="flex flex-col">
-                            <h3> Rejection By Flap Stop PPR </h3>
+                            <h3> MAX ANALOG K VALUE </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="batchname"
@@ -326,9 +429,9 @@
                                 </div>
                             </div>
                         </div>
-                        
+                    
                         <div class="flex flex-col">
-                            <h3> Rejection By Air Tablet Offset </h3>
+                            <h3> MIN ANALOG K VALUE </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="batchname"
@@ -344,9 +447,9 @@
                                 </div>
                             </div>
                         </div>
-                        
+                    
                         <div class="flex flex-col">
-                            <h3> Rejection By Flap Tablet Offset </h3>
+                            <h3> MAX DEPTH MM </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="batchname"
@@ -362,9 +465,567 @@
                                 </div>
                             </div>
                         </div>
-                        
+                    
                         <div class="flex flex-col">
-                            <h3> Max Rejection for Machine Stop </h3>
+                            <h3> MIN DEPTH MM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">LHS DISCHARGE PRE:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-col">
+                            <h3> MAX ANALOG K VALUE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> MIN ANALOG K VALUE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> MAX DEPTH MM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> MIN DEPTH MM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">LHS DISCHARGE MAIN:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-col">
+                            <h3> MAX ANALOG K VALUE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> MIN ANALOG K VALUE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> MAX DEPTH MM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> MIN DEPTH MM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">RHS DISCHARGE PRE:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-col">
+                            <h3> MAX ANALOG K VALUE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> MIN ANALOG K VALUE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> MAX DEPTH MM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> MIN DEPTH MM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">RHS DISCHARGE MAIN:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-col">
+                            <h3> MAX ANALOG K VALUE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> MIN ANALOG K VALUE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> MAX DEPTH MM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> MIN DEPTH MM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">MACHINE CALIBRATION:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-col">
+                            <h3> TURRET MAX RPM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> TURRET MAX FREQUENCY </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS DISCHARGE MAX RPM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS DISCHARGE MAX FREQUENCY </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS DISCHARGE MAX RPM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS DISCHARGE MAX FREQUENCY </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">PUNCH OFFSET:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS PCM PUNCH </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS MCM PUNCH </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS EJECTION PUNCH </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS PCM PUNCH </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS MCM PUNCH </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS EJECTION PUNCH </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="batchname"
@@ -391,7 +1052,7 @@
                     <div class="flex grid grid-cols-3 p-3 ">
                     
                         <div class="flex flex-col">
-                            <h3> Encoder Pulse </h3>
+                            <h3> TOTAL PUNCHES </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="batchname"
@@ -409,7 +1070,7 @@
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> Set Pressure Drop (%) </h3>
+                            <h3> SET MAX HYDRAULIC PRESSURE </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="batchname"
@@ -466,13 +1127,13 @@
 
                     <!-- Search: Parameters -->
                     <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Head Flat: (mm)</h5>
+                        <h5 class="font-bold text-black">MONO LAYER:</h5>
                     </div>
                     
                     <div class="flex grid grid-cols-3 p-3 ">
                     
                         <div class="flex flex-col">
-                            <h3> A </h3>
+                            <h3> LHS AIR REJECTION PUNCH OFFSET </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="batchname"
@@ -488,6 +1149,511 @@
                                 </div>
                             </div>
                         </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS FLAP REJECTION PUNCH OFFSET </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS AIR REJECTION PUNCH OFFSET </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS FLAP REJECTION PUNCH OFFSET </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">BI LAYER:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS AIR REJECTION PUNCH OFFSET </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS FLAP REJECTION PUNCH OFFSET </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS AIR REJECTION PUNCH OFFSET </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS FLAP REJECTION PUNCH OFFSET </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">REJECTION SETUP:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS AIR REJECTION ON PULSE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS AIR REJECTION OFF PULSE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS FLAP REJECTION ON PULSE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS FLAP REJECTION OFF PULSE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS AIR REJECTION ON PULSE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS AIR REJECTION OFF PULSE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS FLAP REJECTION ON PULSE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS FLAP REJECTION OFF PULSE </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS AIR REJECTION OFF TIME (MILI SECOND) </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS FLAP REJECTION OFF TIME (MILI SECOND) </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS AIR REJECTION OFF TIME (MILI SECOND) </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS FLAP REJECTION OFF TIME (MILI SECOND) </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    
+                        <div class="flex flex-col">
+                            <h3> MAXIMUM REJECT TABLET </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">AWC SETTING:</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
+                    
+                        <div class="flex flex-col">
+                            <h3> SINGLE TURN DATA MM </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> SINGLE TURN DATA PPR </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS DISCHARGE HOME OFFSET 1</h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> LHS DISCHARGE HOME OFFSET 2</h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS DISCHARGE HOME OFFSET 1</h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="flex flex-col">
+                            <h3> RHS DISCHARGE HOME OFFSET 2</h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="batchname"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="searchBatch()">
+                                        SET
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+
+                    <!-- Search: Parameters -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">Head Flat: (mm)</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-3 p-3 ">
                     
                         <div class="flex flex-col">
                             <h3> B </h3>
@@ -535,24 +1701,6 @@
                     <div class="flex grid grid-cols-3 p-3 ">
                     
                         <div class="flex flex-col">
-                            <h3> A </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SET
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
                             <h3> B </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
@@ -590,7 +1738,6 @@
                     
                     </div>
 
-                
                 </div>
             
             </div>
