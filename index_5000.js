@@ -111,6 +111,10 @@ app.get("/settings_awc", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/settings_awc.html"));
 });
 
+app.get("/settings_homing", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html_/settings_homing.html"));
+});
+
 app.get("/settings_limit", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/settings_limit.html"));
 });
