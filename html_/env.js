@@ -21,6 +21,7 @@ var rawpayload = `http://${ip}:3129/api/payload`
 // 2. stats (settings)
 var statsurl = `http://${ip}:3128/api/machine/stats`
 var seturl = `http://${ip}:3128/api/set`
+var punchseturl = `http://${ip}:3128/api/set/status`
 var controlurl = `http://${ip}:3128/set/limit`
 var statusurl = `http://${ip}:3128/set/status`
 

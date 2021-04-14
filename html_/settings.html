@@ -122,31 +122,7 @@
                     class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Process Settings</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-700">Punch Settings</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings_recipie'">
-                    <div
-                        class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                        <div class="flex flex-col text-center">
-                            <div class="flex-1 items-center">
-                                <h5 class="font-bold uppercase cursor-pointer text-gray-500">Recipie Setting</h5>
-                            </div>
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500"> Process Setup</h5>
                         </div>
                     </div>
                 </div>
@@ -175,22 +151,24 @@
             </div>
 
             <div class="w-1 w-full">
-                <div onclick="location.href='/settings_limit'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                <div onclick="location.href='/settings'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Limit Setup</h5>
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-700">Punch Settings</h5>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="w-1 w-full">
-                <div onclick="location.href='/settings_setup'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500"> Setup</h5>
+                <div onclick="location.href='/settings_recipie'">
+                    <div
+                        class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                        <div class="flex flex-col text-center">
+                            <div class="flex-1 items-center">
+                                <h5 class="font-bold uppercase cursor-pointer text-gray-500">Recipie Setting</h5>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -209,7 +187,30 @@
                 </div>
             </div>
 
+            <!-- <div class="w-1 w-full">
+                <div onclick="location.href='/settings_limit'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Limit Setup</h5>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="w-1 w-full">
+                <div onclick="location.href='/settings_setup'"
+                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">ADEPT Setup</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
 
         <!--Graph Content -->
         <div id="main-content" class="w-full flex-1">
@@ -1291,67 +1292,10 @@
         </div>
     </div>
 
-    
-    <!-- PAYLOAD API fetch -->
-    <script>
-
-        var currentrpm;
-
-        async function fetchpayloadapiHF2() {
-            fetch(payloadURL)
-                .then((resp) => resp.json()) // Transform the data into json
-                .then(function (data) {
-                    // Here you get the data to modify as you please
-                    payload = data
-
-                    console.log(payload)
-
-                    // if (payload.stats.status == "ONLINE") {
-                    //     check()
-                    // } else {
-                    //     uncheck()
-                    // }
-
-                    // document.getElementById("status").innerHTML = payload.stats.status;
-                    // document.getElementById("batch_number_metric").innerHTML = payload.batch;
-                    // currentBatch = payload.batch;
-                    // document.getElementById("rotation_number_metric").innerHTML = payload.data_number;
-                    // currentrotation = payload.data_number;
-                    // document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
-                    // document.getElementById("count_metric").innerHTML = payload.stats.count;
-                    // document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
-                    // document.getElementById("rpm_metric").innerHTML = payload.stats.rpm;
-                    // currentrpm = payload.stats.rpm;
-                    // document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
-
-                    document.getElementById("mainLHS_upper").innerHTML = payload.machine.LHS.maincompression_upperlimit;
-                    document.getElementById("mainRHS_upper").innerHTML = payload.machine.RHS.maincompression_upperlimit;
-
-                    document.getElementById("mainLHS_lower").innerHTML = payload.machine.LHS.maincompression_lowerlimit;
-                    document.getElementById("mainRHS_lower").innerHTML = payload.machine.RHS.maincompression_lowerlimit;
-
-                    document.getElementById("preLHS_upper").innerHTML = payload.machine.LHS.precompression_upperlimit;
-                    document.getElementById("preRHS_upper").innerHTML = payload.machine.RHS.precompression_upperlimit;
-
-                    document.getElementById("preLHS_lower").innerHTML = payload.machine.LHS.precompression_lowerlimit;
-                    document.getElementById("preRHS_lower").innerHTML = payload.machine.RHS.precompression_lowerlimit;
-                })
-                .catch(function (error) {
-                    // If there is any error you will catch them here
-                    console.log("[ PAYLOAD FETCH ERROR ]", error)
-                });
-        };
-
-        setInterval(() => {
-            fetchpayloadapiHF2();
-        }, 1000);
-    </script>
-
-
     <!-- Check Status -->
     <script>
         async function fetchpayloadapiHF() {
-            fetch(payloadURL)
+            fetch(rawpayload)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
                     // Here you get the data to modify as you please
@@ -1829,7 +1773,7 @@
             var x = !document.getElementById("punch1").checked;
         
             if (x == false) {
-                let submiturl = `${statusurl}/1/${!x}`
+                let submiturl = `${punchseturl}/1/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1837,7 +1781,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/1/${!x}`
+                let submiturl = `${punchseturl}/1/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1850,7 +1794,7 @@
             var x = !document.getElementById("punch2").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/2/${!x}`
+                let submiturl = `${punchseturl}/2/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1858,7 +1802,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/2/${!x}`
+                let submiturl = `${punchseturl}/2/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1871,7 +1815,7 @@
             var x = !document.getElementById("punch3").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/3/${!x}`
+                let submiturl = `${punchseturl}/3/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1879,7 +1823,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/3/${!x}`
+                let submiturl = `${punchseturl}/3/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1892,7 +1836,7 @@
             var x = !document.getElementById("punch4").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/4/${!x}`
+                let submiturl = `${punchseturl}/4/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1900,7 +1844,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/4/${!x}`
+                let submiturl = `${punchseturl}/4/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1913,7 +1857,7 @@
             var x = !document.getElementById("punch5").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/5/${!x}`
+                let submiturl = `${punchseturl}/5/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1921,7 +1865,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/5/${!x}`
+                let submiturl = `${punchseturl}/5/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1934,7 +1878,7 @@
             var x = !document.getElementById("punch6").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/6/${!x}`
+                let submiturl = `${punchseturl}/6/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1942,7 +1886,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/6/${!x}`
+                let submiturl = `${punchseturl}/6/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1955,7 +1899,7 @@
             var x = !document.getElementById("punch7").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/7/${!x}`
+                let submiturl = `${punchseturl}/7/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1963,7 +1907,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/7/${!x}`
+                let submiturl = `${punchseturl}/7/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1976,7 +1920,7 @@
             var x = !document.getElementById("punch8").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/8/${!x}`
+                let submiturl = `${punchseturl}/8/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1984,7 +1928,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/8/${!x}`
+                let submiturl = `${punchseturl}/8/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -1997,7 +1941,7 @@
             var x = !document.getElementById("punch9").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/9/${!x}`
+                let submiturl = `${punchseturl}/9/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2005,7 +1949,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/9/${!x}`
+                let submiturl = `${punchseturl}/9/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2018,7 +1962,7 @@
             var x = !document.getElementById("punch10").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/10/${!x}`
+                let submiturl = `${punchseturl}/10/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2026,7 +1970,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/10/${!x}`
+                let submiturl = `${punchseturl}/10/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2039,7 +1983,7 @@
             var x = !document.getElementById("punch11").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/11/${!x}`
+                let submiturl = `${punchseturl}/11/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2047,7 +1991,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/11/${!x}`
+                let submiturl = `${punchseturl}/11/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2060,7 +2004,7 @@
             var x = !document.getElementById("punch12").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/12/${!x}`
+                let submiturl = `${punchseturl}/12/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2068,7 +2012,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/12/${!x}`
+                let submiturl = `${punchseturl}/12/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2081,7 +2025,7 @@
             var x = !document.getElementById("punch13").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/13/${!x}`
+                let submiturl = `${punchseturl}/13/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2089,7 +2033,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/13/${!x}`
+                let submiturl = `${punchseturl}/13/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2102,7 +2046,7 @@
             var x = !document.getElementById("punch14").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/14/${!x}`
+                let submiturl = `${punchseturl}/14/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2110,7 +2054,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/14/${!x}`
+                let submiturl = `${punchseturl}/14/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2123,7 +2067,7 @@
             var x = !document.getElementById("punch15").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/15/${!x}`
+                let submiturl = `${punchseturl}/15/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2131,7 +2075,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/15/${!x}`
+                let submiturl = `${punchseturl}/15/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2144,7 +2088,7 @@
             var x = !document.getElementById("punch16").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/16/${!x}`
+                let submiturl = `${punchseturl}/16/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2152,7 +2096,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/16/${!x}`
+                let submiturl = `${punchseturl}/16/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2165,7 +2109,7 @@
             var x = !document.getElementById("punch17").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/17/${!x}`
+                let submiturl = `${punchseturl}/17/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2173,7 +2117,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/17/${!x}`
+                let submiturl = `${punchseturl}/17/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2186,7 +2130,7 @@
             var x = !document.getElementById("punch18").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/18/${!x}`
+                let submiturl = `${punchseturl}/18/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2194,7 +2138,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/18/${!x}`
+                let submiturl = `${punchseturl}/18/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2207,7 +2151,7 @@
             var x = !document.getElementById("punch19").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/19/${!x}`
+                let submiturl = `${punchseturl}/19/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2215,7 +2159,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/19/${!x}`
+                let submiturl = `${punchseturl}/19/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2228,7 +2172,7 @@
             var x = !document.getElementById("punch20").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/20/${!x}`
+                let submiturl = `${punchseturl}/20/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2236,7 +2180,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/20/${!x}`
+                let submiturl = `${punchseturl}/20/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2249,7 +2193,7 @@
             var x = !document.getElementById("punch21").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/21/${!x}`
+                let submiturl = `${punchseturl}/21/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2257,7 +2201,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/21/${!x}`
+                let submiturl = `${punchseturl}/21/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2270,7 +2214,7 @@
             var x = !document.getElementById("punch22").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/22/${!x}`
+                let submiturl = `${punchseturl}/22/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2278,7 +2222,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/22/${!x}`
+                let submiturl = `${punchseturl}/22/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2291,7 +2235,7 @@
             var x = !document.getElementById("punch23").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/23/${!x}`
+                let submiturl = `${punchseturl}/23/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2299,7 +2243,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/23/${!x}`
+                let submiturl = `${punchseturl}/23/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2312,7 +2256,7 @@
             var x = !document.getElementById("punch24").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/24/${!x}`
+                let submiturl = `${punchseturl}/24/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2320,7 +2264,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/24/${!x}`
+                let submiturl = `${punchseturl}/24/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2333,7 +2277,7 @@
             var x = !document.getElementById("punch25").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/25/${!x}`
+                let submiturl = `${punchseturl}/25/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2341,7 +2285,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/25/${!x}`
+                let submiturl = `${punchseturl}/25/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2354,7 +2298,7 @@
             var x = !document.getElementById("punch26").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/26/${!x}`
+                let submiturl = `${punchseturl}/26/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2362,7 +2306,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/26/${!x}`
+                let submiturl = `${punchseturl}/26/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2375,7 +2319,7 @@
             var x = !document.getElementById("punch27").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/27/${!x}`
+                let submiturl = `${punchseturl}/27/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2383,7 +2327,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/27/${!x}`
+                let submiturl = `${punchseturl}/27/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2396,7 +2340,7 @@
             var x = !document.getElementById("punch28").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/28/${!x}`
+                let submiturl = `${punchseturl}/28/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2404,7 +2348,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/28/${!x}`
+                let submiturl = `${punchseturl}/28/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2417,7 +2361,7 @@
             var x = !document.getElementById("punch29").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/29/${!x}`
+                let submiturl = `${punchseturl}/29/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2425,7 +2369,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/29/${!x}`
+                let submiturl = `${punchseturl}/29/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2438,7 +2382,7 @@
             var x = !document.getElementById("punch30").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/30/${!x}`
+                let submiturl = `${punchseturl}/30/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2446,7 +2390,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/30/${!x}`
+                let submiturl = `${punchseturl}/30/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2459,7 +2403,7 @@
             var x = !document.getElementById("punch31").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/31/${!x}`
+                let submiturl = `${punchseturl}/31/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2467,7 +2411,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/31/${!x}`
+                let submiturl = `${punchseturl}/31/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2480,7 +2424,7 @@
             var x = !document.getElementById("punch32").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/32/${!x}`
+                let submiturl = `${punchseturl}/32/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2488,7 +2432,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/32/${!x}`
+                let submiturl = `${punchseturl}/32/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2501,7 +2445,7 @@
             var x = !document.getElementById("punch33").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/33/${!x}`
+                let submiturl = `${punchseturl}/33/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2509,7 +2453,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/33/${!x}`
+                let submiturl = `${punchseturl}/33/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2522,7 +2466,7 @@
             var x = !document.getElementById("punch34").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/34/${!x}`
+                let submiturl = `${punchseturl}/34/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2530,7 +2474,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/34/${!x}`
+                let submiturl = `${punchseturl}/34/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2543,7 +2487,7 @@
             var x = !document.getElementById("punch35").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/35/${!x}`
+                let submiturl = `${punchseturl}/35/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2551,7 +2495,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/35/${!x}`
+                let submiturl = `${punchseturl}/35/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2564,7 +2508,7 @@
             var x = !document.getElementById("punch36").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/36/${!x}`
+                let submiturl = `${punchseturl}/36/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2572,7 +2516,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/36/${!x}`
+                let submiturl = `${punchseturl}/36/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2585,7 +2529,7 @@
             var x = !document.getElementById("punch37").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/37/${!x}`
+                let submiturl = `${punchseturl}/37/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2593,7 +2537,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/37/${!x}`
+                let submiturl = `${punchseturl}/37/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2606,7 +2550,7 @@
             var x = !document.getElementById("punch38").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/38/${!x}`
+                let submiturl = `${punchseturl}/38/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2614,7 +2558,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/38/${!x}`
+                let submiturl = `${punchseturl}/38/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2627,7 +2571,7 @@
             var x = !document.getElementById("punch39").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/39/${!x}`
+                let submiturl = `${punchseturl}/39/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2635,7 +2579,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/39/${!x}`
+                let submiturl = `${punchseturl}/39/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2648,7 +2592,7 @@
             var x = !document.getElementById("punch40").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/40/${!x}`
+                let submiturl = `${punchseturl}/40/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2656,7 +2600,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/40/${!x}`
+                let submiturl = `${punchseturl}/40/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2669,7 +2613,7 @@
             var x = !document.getElementById("punch41").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/41/${!x}`
+                let submiturl = `${punchseturl}/41/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2677,7 +2621,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/41/${!x}`
+                let submiturl = `${punchseturl}/41/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2690,7 +2634,7 @@
             var x = !document.getElementById("punch42").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/42/${!x}`
+                let submiturl = `${punchseturl}/42/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2698,7 +2642,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/42/${!x}`
+                let submiturl = `${punchseturl}/42/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2711,7 +2655,7 @@
             var x = !document.getElementById("punch43").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/43/${!x}`
+                let submiturl = `${punchseturl}/43/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2719,7 +2663,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/43/${!x}`
+                let submiturl = `${punchseturl}/43/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2732,7 +2676,7 @@
             var x = !document.getElementById("punch44").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/44/${!x}`
+                let submiturl = `${punchseturl}/44/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2740,7 +2684,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/44/${!x}`
+                let submiturl = `${punchseturl}/44/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2753,7 +2697,7 @@
             var x = !document.getElementById("punch45").checked;
 
             if (x == false) {
-                let submiturl = `${statusurl}/45/${!x}`
+                let submiturl = `${punchseturl}/45/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2761,7 +2705,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${statusurl}/45/${!x}`
+                let submiturl = `${punchseturl}/45/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -2771,199 +2715,6 @@
         }
 
         
-    </script>
-
-    <!-- Update System info -->
-    <script>
-
-        async function updatelimits_PLU() {
-            var a = document.getElementById("preLHSup");
-
-            console.log(a)
-
-            var preLHSup = "";
-            var i;
-            for (i = 0; i < a.length; i++) {
-                preLHSup += a.elements[i].value;
-            }
-
-            console.log(preLHSup)
-
-            let submiturl = `${controlurl}/preLHSup/${preLHSup}`
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED preLHSup tolerance ] "))
-                .catch(console.error);
-
-        }
-
-        function updatelimits_PLL() {
-            var b = document.getElementById("preLHSlow");
-
-            var preLHSlow = "";
-            var j;
-            for (j = 0; j < b.length; j++) {
-                preLHSlow += b.elements[j].value;
-            }
-
-            submitt(parseInt(preLHSlow))
-
-            async function submitt(preLHSlow) {
-                let submiturl = `${controlurl}/preLHSlow/${preLHSlow}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED preLHSlow tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-
-        }
-
-        function updatelimits_MLU() {
-            var c = document.getElementById("mainLHSup");
-
-            var mainLHSup = "";
-            var k;
-            for (k = 0; k < c.length; k++) {
-                mainLHSup += c.elements[k].value;
-            }
-
-            submitt(parseInt(mainLHSup))
-
-            async function submitt(mainLHSup) {
-                let submiturl = `${controlurl}/mainLHSup/${mainLHSup}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED mainLHSup tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-
-        }
-
-        function updatelimits_MLL() {
-            var d = document.getElementById("mainLHSlow");
-
-            var mainLHSlow = "";
-            var l;
-            for (l = 0; l < d.length; l++) {
-                mainLHSlow += d.elements[l].value;
-            }
-            submitt(parseInt(mainLHSlow))
-
-            async function submitt(mainLHSlow) {
-                let submiturl = `${controlurl}/mainLHSlow/${mainLHSlow}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED mainLHSlow tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-
-        }
-
-        function updatelimits_PRU() {
-            var e = document.getElementById("preRHSup"); //
-
-            var preRHSup = "";
-            var m;
-            for (m = 0; m < e.length; m++) {
-                preRHSup += e.elements[m].value;
-            }
-
-            submitt(parseInt(preRHSup))
-
-            async function submitt(preRHSup) {
-                let submiturl = `${controlurl}/preRHSup/${preRHSup}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED preRHSup tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-        }
-
-        function updatelimits_PRL() {
-            var f = document.getElementById("preRHSlow");
-
-            var preRHSlow = "";
-            var n;
-            for (n = 0; n < f.length; n++) {
-                preRHSlow += f.elements[n].value;
-            }
-
-            submitt(parseInt(preRHSlow))
-
-            async function submitt(preRHSlow) {
-                let submiturl = `${controlurl}/preRHSlow/${preRHSlow}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED preRHSlow tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-        }
-
-        function updatelimits_MRU() {
-            var g = document.getElementById("mainRHSup"); // 
-
-            var mainRHSup = "";
-            var o;
-            for (o = 0; o < g.length; o++) {
-                mainRHSup += g.elements[o].value;
-            }
-
-            submitt(parseInt(mainRHSup))
-            async function submitt(mainRHSup) {
-                let submiturl = `${controlurl}/mainRHSup/${mainRHSup}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED mainRHSup tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-
-        }
-
-        function updatelimits_MRL() {
-            var h = document.getElementById("mainRHSlow");
-
-            var mainRHSlow = "";
-            var p;
-            for (p = 0; p < h.length; p++) {
-                mainRHSlow += h.elements[p].value;
-            }
-
-            submitt(parseInt(mainRHSlow))
-            async function submitt(mainRHSlow) {
-                let submiturl = `${controlurl}/mainRHSlow/${mainRHSlow}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED mainRHSlow tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-        }
     </script>
 
 </body>

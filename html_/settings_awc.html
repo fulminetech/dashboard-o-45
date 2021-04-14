@@ -508,6 +508,7 @@
                     // Here you get the data to modify as you please
                     payload = data
 
+                    
                     MLHS_LL = payload.limit[0]
                     MLHS_UL = payload.limit[1]
                     PLHS_LL = payload.limit[4]
@@ -534,7 +535,6 @@
                     AWC_PRHS_LL = payload.limit[23]
                     AWC_MRHS_UL = payload.limit[24]
                     AWC_MRHS_LL = payload.limit[25]
-
                     
                     document.getElementById("mainFL").value = MLHS_FL
                     document.getElementById("awc_high").value = AWC_MLHS_UL
@@ -554,8 +554,9 @@
                 });
         };
 
-
-        fetchpayloadapiHF5();
+        setTimeout(() => {
+            fetchpayloadapiHF5();
+        }, 10);
 
     </script>
     
@@ -568,7 +569,6 @@
                 .then(function (data) {
                     payload = data 
 
-                    console.log(payload.stats.awc.actual_LHS)
                     document.getElementById("LHS_actual").value = payload.stats.awc.actual_LHS
                     document.getElementById("RHS_actual").value = payload.stats.awc.actual_RHS
                     
@@ -592,7 +592,6 @@
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
                     payload = data 
-
                     console.log(payload.stats.awc.actual_LHS)
                     document.getElementById("LHS_actual").value = payload.stats.awc.actual_LHS
                     document.getElementById("RHS_actual").value = payload.stats.awc.actual_RHS

@@ -239,7 +239,7 @@ api.add_resource(Payload, '/api/<section>/<subsection>')
 
 # Start Server
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
     format = "%(asctime)s: %(message)s"
     logging.basicConfig(format=format, level=logging.DEBUG, datefmt="%H:%M:%S")
     connect()
+    app.run(debug=True, port=5001)

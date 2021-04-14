@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, json
 from flask_restful import reqparse, abort, Api, Resource
 from flask_cors import CORS
 
@@ -74,7 +74,7 @@ def process(processedlist, lowerlimit, upperlimit):
 def processor():
 
     # Make HTTP request
-    r = requests.get('http://127.0.0.1:5000/api/machine/raw')
+    r = requests.get('http://127.0.0.1:5001/api/machine/raw')
 
     # Convert response to JSON
     response = r.json()

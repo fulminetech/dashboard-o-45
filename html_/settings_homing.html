@@ -233,21 +233,14 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center text-blue-900"></th>
-                                        <th class="text-center text-2xl pb-3 text-blue-900">LHS Discharge</th>
                                         <th class="text-center text-2xl pb-3 text-blue-900">RHS Discharge</th>
+                                        <th class="text-center text-2xl pb-3 text-blue-900">LHS Discharge</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     <tr>
                                         <td class="text-center  py-2  text-xl uppercase text-blue-900">
-                                        </td>
-                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
-                                            <button id="servoLHS"
-                                                class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onclick="servoLHS()">
-                                                Servo ON
-                                            </button>
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
                                             <button id="servoRHS"
@@ -256,45 +249,47 @@
                                                 Servo ON
                                             </button>
                                         </td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <button id="servoLHS"
+                                                class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onclick="servoLHS()">
+                                                Servo ON
+                                            </button>
+                                        </td>
 
                                     </tr>
                                     <tr>
                                         <td class="text-center py-2  text-xl uppercase text-blue-900">Single Turn</td>
-                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="single_LHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="Value">
-                                        </td>
                                         <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
                                             <input id="single_RHS"
                                                 class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
                                                 type="text" placeholder="Value">
                                         </td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="single_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="Value">
+                                        </td>
+                                        
 
                                     </tr>
                                     <tr>
                                         <td class="text-center py-2  text-xl uppercase text-blue-900">Multi Turn</td>
-                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="multi_LHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="Value">
-                                        </td>
                                         <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
                                             <input id="multi_RHS"
                                                 class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
                                                 type="text" placeholder="Value">
                                         </td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="multi_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="Value">
+                                        </td>
+                                        
 
                                     </tr>
                                     <tr>
                                         <td class="text-center  py-2  text-xl uppercase text-blue-900">
-                                        </td>
-                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
-                                            <button id="generatepdfreport"
-                                                class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="clearLHS()" onmouseup="clearLHSx()">
-                                                Clear
-                                            </button>
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
                                             <button id="generatepdfreport"
@@ -303,60 +298,63 @@
                                                 Clear
                                             </button>
                                         </td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <button id="generatepdfreport"
+                                                class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="clearLHS()" onmouseup="clearLHSx()">
+                                                Clear
+                                            </button>
+                                        </td>
+                                        
                                     
                                     </tr>
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">Motor Encoder PPR</td>
-                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="encoder_LHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="Value">
-                                        </td>
                                         <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
                                             <input id="encoder_RHS"
                                                 class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
                                                 type="text" placeholder="Value">
                                         </td>
+                                        <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <input id="encoder_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="Value">
+                                        </td>
+                                        
 
                                     </tr>
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">Home Offset 1</td>
-                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                            <div class="flex flex-row">
-                                                <input id="home1_LHS"
-                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                    type="number" placeholder="Value">
-                                                <button id="searchbatch"
-                                                    class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                                    onclick="home1_LHS()">
-                                                    SET
-                                                </button>
-                                            </div>
-                                        </td>
                                         <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
                                             <div class="flex flex-row">
                                                 <input id="home1_RHS"
                                                     class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                    type="number" placeholder="Value">
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) home1_RHS()">
                                                 <button id="searchbatch"
                                                     class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                                    onclick="home1_RHS()">
+                                                    onmousedown="home1_RHS_set()" onmouseup="home1_RHS_setx()">
                                                     SET
                                                 </button>
-
+                                        
                                             </div>
                                         </td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="home1_LHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) home1_LHS()">
+                                                <button id="searchbatch"
+                                                    class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                                    onmousedown="home1_LHS_set()" onmouseup="home1_LHS_setx()">
+                                                    SET
+                                                </button>
+                                            </div>
+                                        </td>
+                                        
 
                                     </tr>
                                     <tr>
                                         <td class="text-center  py-2  text-xl uppercase text-blue-900">
-                                        </td>
-                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
-                                            <button id="generatepdfreport"
-                                                class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="EEPROM_LHS()" onmouseup="EEPROM_LHSx()">
-                                                EEPROM
-                                            </button>
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
                                             <button id="generatepdfreport"
@@ -365,34 +363,34 @@
                                                 EEPROM
                                             </button>
                                         </td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <button id="generatepdfreport"
+                                                class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="EEPROM_LHS()" onmouseup="EEPROM_LHSx()">
+                                                EEPROM
+                                            </button>
+                                        </td>
+                                        
                                     
                                     </tr>
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">Home Offset 2</td>
-                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                            <div class="flex flex-row">
-                                                <input id="home2_LHS"
-                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                    type="number" placeholder="Value">
-                                                <button id="searchbatch"
-                                                    class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                                    onclick="home2_LHS()">
-                                                    SET
-                                                </button>
-                                            </div>
-                                        </td>
                                         <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
                                             <div class="flex flex-row">
                                                 <input id="home2_RHS"
                                                     class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                    type="number" placeholder="Value">
-                                                <button id="searchbatch"
-                                                    class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                                    onclick="home2_RHS()">
-                                                    SET
-                                                </button>
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) home2_RHS()">
+                                                
                                             </div>
                                         </td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="home2_LHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) home2_LHS()">
+                                            </div>
+                                        </td>
+                                        
 
                                     </tr>
                                 </tbody>
@@ -421,33 +419,6 @@
                     // Here you get the data to modify as you please
                     payload = data
 
-                    servo_LHS = payload.button.LHS_SERVO_ON
-                    if (servo_LHS == true) {
-                        document.getElementById("servoLHS").innerText = "SERVO OFF"
-                        const div1 = document.getElementById("servoLHS").classList.remove('bg-red-300');
-                        const div2 = document.getElementById("servoLHS").classList.add('bg-green-300');
-                    } else {
-                        document.getElementById("servoLHS").innerText = "SERVO ON"
-                        const div1 = document.getElementById("servoLHS").classList.add('bg-red-300');
-                        const div2 = document.getElementById("servoLHS").classList.remove('bg-green-300');
-                    }
-                    
-                    servo_RHS = payload.button.RHS_SERVO_ON
-                    if (servo_RHS == true) {
-                        document.getElementById("servoLHS").innerText = "SERVO OFF"
-                    } else {
-                        document.getElementById("servoLHS").innerText = "SERVO ON"
-                    }
-                    
-                    document.getElementById("single_LHS").value = payload.stats.home.LHS.single_turn
-                    document.getElementById("single_RHS").value = payload.stats.home.RHS.single_turn
-
-                    document.getElementById("multi_LHS").value = payload.stats.home.LHS.multi_turn
-                    document.getElementById("multi_RHS").value = payload.stats.home.RHS.multi_turn
-
-                    document.getElementById("encoder_LHS").innerText = payload.stats.home.LHS.encoder_ppr
-                    document.getElementById("encoder_RHS").innerText = payload.stats.home.RHS.encoder_ppr
-                    
                     document.getElementById("home1_LHS").value = payload.stats.awc.LHS_HOME_OFFSET_1
                     document.getElementById("home1_RHS").value = payload.stats.awc.RHS_HOME_OFFSET_1
                     
@@ -461,11 +432,64 @@
                 });
         };
 
+        async function fetchpayloadapiHF2() {
+            fetch(statsurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    servo_LHS = payload.button.LHS_SERVO_ON
+                    if (servo_LHS == true) {
+                        document.getElementById("servoLHS").innerHTML = "SERVO OFF"
+                        const div1 = document.getElementById("servoLHS").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("servoLHS").classList.add('bg-green-300');
+                    } else {
+                        document.getElementById("servoLHS").innerHTML = "SERVO ON"
+                        const div2 = document.getElementById("servoLHS").classList.remove('bg-green-300');
+                        const div1 = document.getElementById("servoLHS").classList.add('bg-red-300');
+                    }
+                    
+                    servo_RHS = payload.button.RHS_SERVO_ON
+                    if (servo_RHS == true) {
+                        document.getElementById("servoRHS").innerHTML = "SERVO OFF"
+                        const div1 = document.getElementById("servoRHS").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("servoRHS").classList.add('bg-green-300');
+                    } else {
+                        document.getElementById("servoRHS").innerHTML = "SERVO ON"
+                        const div2 = document.getElementById("servoRHS").classList.remove('bg-green-300');
+                        const div1 = document.getElementById("servoRHS").classList.add('bg-red-300');
+                    }
+                    
+                    document.getElementById("single_LHS").value = payload.stats.home.LHS.single_turn
+                    document.getElementById("single_RHS").value = payload.stats.home.RHS.single_turn
+
+                    document.getElementById("multi_LHS").value = payload.stats.home.LHS.multi_turn
+                    document.getElementById("multi_RHS").value = payload.stats.home.RHS.multi_turn
+
+                    document.getElementById("encoder_LHS").value = payload.stats.home.LHS.encoder_ppr
+                    document.getElementById("encoder_RHS").value = payload.stats.home.RHS.encoder_ppr
+                    
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
         fetchpayloadapiHF1();
+        fetchpayloadapiHF2();
+
+
+        function check() {
+            setTimeout(() => {
+                fetchpayloadapiHF1()
+            }, 2000);
+        }
 
         setInterval(() => {
-            fetchpayloadapiHF1();
-        }, 5000);
+            fetchpayloadapiHF2();
+        }, 300);
     </script>
 
     <!-- Update Values -->
@@ -477,7 +501,7 @@
             submitt(parseFloat(pressure))
 
             function submitt(pressure) {
-                if (pressure <= 10 && pressure >= 0.1) {
+                if (pressure <= 100000000000 && pressure >= 0.1) {
                     let submiturl = `${seturl}/LHS_HOME_OFFSET_1/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
@@ -485,7 +509,7 @@
                             console.log(" [ Request Sent // pending confirmation ] ")
                         }, 100))
                         .then(
-                            // Code to check reult
+                            check()
                         )
                         .catch(console.error);
                 }
@@ -502,7 +526,7 @@
             submitt(parseFloat(pressure))
 
             function submitt(pressure) {
-                if (pressure <= 100 && pressure >= 1) {
+                if (pressure <= 100000000000 && pressure >= 1) {
                     let submiturl = `${seturl}/RHS_HOME_OFFSET_1/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
@@ -510,7 +534,7 @@
                             console.log(" [ Request Sent // pending confirmation ] ")
                         }, 100))
                         .then(
-                            // Code to check reult
+                            check()
                         )
                         .catch(console.error);
                 }
@@ -527,7 +551,7 @@
             submitt(parseFloat(pressure))
 
             function submitt(pressure) {
-                if (pressure <= 100 && pressure >= 0) {
+                if (pressure <= 1000000000 && pressure >= 0) {
                     let submiturl = `${seturl}/LHS_HOME_OFFSET_2/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
@@ -535,7 +559,7 @@
                             console.log(" [ Request Sent // pending confirmation ] ")
                         }, 100))
                         .then(
-                            // Code to check reult
+                            check()
                         )
                         .catch(console.error);
                 }
@@ -552,7 +576,7 @@
             submitt(parseFloat(pressure))
 
             function submitt(pressure) {
-                if (pressure <= 100 && pressure >= 0) {
+                if (pressure <= 1000000000000 && pressure >= 0) {
                     let submiturl = `${seturl}/RHS_HOME_OFFSET_2/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
@@ -560,7 +584,7 @@
                             console.log(" [ Request Sent // pending confirmation ] ")
                         }, 100))
                         .then(
-                            // Code to check reult
+                            check()
                         )
                         .catch(console.error);
                 }
@@ -579,26 +603,36 @@
         async function servoLHS() {
             if(servo_LHS == true){
                 let submiturl = `${seturl}/LHS_SERVO_ON/false`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .then(check())
+                    .catch(console.error);
             }
             else {
                 let submiturl = `${seturl}/LHS_SERVO_ON/true`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .then(check())
+                    .catch(console.error);
             }
-            await fetch(submiturl)
-                .then(console.log("[ Machine Start ] "))
-                .catch(console.error);
         }
 
         async function servoRHS() {
             if (servo_RHS == true) {
                 let submiturl = `${seturl}/RHS_SERVO_ON/false`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .then(check())
+                    .catch(console.error);
             }
             else {
                 let submiturl = `${seturl}/RHS_SERVO_ON/true`
+                await fetch(submiturl)
+                    .then(console.log("[ Machine Start ] "))
+                    .then(check())
+                    .catch(console.error);
             }
-            let submiturl = `${seturl}/RHS_SERVO_ON/true`
-            await fetch(submiturl)
-                .then(console.log("[ Machine Start ] "))
-                .catch(console.error);
+            
         }
 
         async function clearLHS() {
@@ -612,6 +646,7 @@
             let submiturl = `${seturl}/LHS_MULTI_TURN_CLEAR/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
+                .then(check())
                 .catch(console.error);
         }
 
@@ -626,6 +661,7 @@
             let submiturl = `${seturl}/RHS_MULTI_TURN_CLEAR/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
+                .then(check())
                 .catch(console.error);
         }
 
@@ -641,6 +677,7 @@
             let submiturl = `${seturl}/LHS_EEPROM_WRITE/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
+                .then(check())
                 .catch(console.error);
         }
 
@@ -656,6 +693,40 @@
             let submiturl = `${seturl}/RHS_EEPROM_WRITE/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function home1_RHS_set() {
+            let submiturl = `${seturl}/RHS_HOME_OFFSET_WRITE/true`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+
+        async function home1_RHS_setx() {
+            let submiturl = `${seturl}/RHS_HOME_OFFSET_WRITE/false`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function home1_LHS_set() {
+            let submiturl = `${seturl}/LHS_HOME_OFFSET_WRITE/true`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .catch(console.error);
+        }
+
+
+        async function home1_LHS_setx() {
+            let submiturl = `${seturl}/LHS_HOME_OFFSET_WRITE/false`
+            await fetch(submiturl)
+                .then(console.log("[ Machine Start ] "))
+                .then(check())
                 .catch(console.error);
         }
 
