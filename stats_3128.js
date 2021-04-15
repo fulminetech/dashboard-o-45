@@ -1437,7 +1437,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "DRAIN_BUTTON" && b == "true") {
-        coil_offset_410 = 4
+        coil_offset_410 = 3
         set_button = true
         c = payload.button.DRAIN_BUTTON_HMI
 
@@ -1445,7 +1445,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "DRAIN_BUTTON" && b == "false") {
-        coil_offset_410 = 4
+        coil_offset_410 = 3
         set_button = false
         c = payload.button.DRAIN_BUTTON_HMI
 
