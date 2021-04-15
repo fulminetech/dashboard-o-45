@@ -1139,6 +1139,9 @@ function startmodbus() {
     }, 100);
 }
 
+// For tesing purpose
+startmodbus()
+
 // --+++=== DATABASE WRITE ===+++-- //
 // Initialise Rotation 
 var rotation = -1;
