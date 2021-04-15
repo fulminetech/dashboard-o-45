@@ -512,7 +512,7 @@ var read_coils = function () {
             payload.button.POWER_PACK_START_BUTTON = stats_data.data[0],
             payload.button.POWER_PACK_STOP_BUTTON = stats_data.data[1],
             payload.button.PRESSURE_ACK_BUTTON = stats_data.data[2],
-            payload.button.DRAIN_BUTTON = stats_data.data[4],
+            payload.button.DRAIN_BUTTON = stats_data.data[3],
 
             payload.button.MACHINE_INCHING_BUTTON = stats_data.data[10],
             payload.button.MACHINE_START_BUTTON = stats_data.data[15],
