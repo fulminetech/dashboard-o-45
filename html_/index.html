@@ -241,7 +241,7 @@
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Feeder</h5>
-                            <h3 id="feeder_mode" class="font-bold uppercase text-2xl">GRAVITY</h3>
+                            <h3 id="feeder_mode" class="font-bold uppercase text-2xl"></h3>
                         </div>
                         <!-- Search Button -->
                         <div class="p-3">
@@ -1867,6 +1867,12 @@
                     document.getElementById("LHS_main_roller").innerHTML = payload.stats.LHSthickness.value
                     document.getElementById("RHS_main_roller").innerHTML = payload.stats.RHSthickness.value
 
+                    
+                    if (payload.stats.FF_MODE == 0) {
+                        document.getElementById("feeder_mode").innerHTML = "GRAVITY";
+                    } else {
+                        document.getElementById("feeder_mode").innerHTML = "FORCE";
+                    }
                     
                     if (payload.button.REJECTION_BUTTON_HMI == true) {
                         document.getElementById("rejn_dsbl").innerHTML = "REJECTION DISABLE";
