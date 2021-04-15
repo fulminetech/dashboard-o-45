@@ -827,17 +827,17 @@ var runModbus = function () {
             nextAction = readmainRHS;
             break;
 
-        // case MBS_STATE_GOOD_READ_MAINRHS || MBS_STATE_FAIL_READ_MAINRHS:
-        //     nextAction = readejnLHS;
-        //     break;
-
-        // case MBS_STATE_GOOD_READ_EJNLHS || MBS_STATE_FAIL_READ_EJNLHS:
-        //     nextAction = readejnRHS;
-        //     break;
-
-        // case MBS_STATE_GOOD_READ_EJNRHS || MBS_STATE_FAIL_READ_EJNRHS:
-
         case MBS_STATE_GOOD_READ_MAINRHS || MBS_STATE_FAIL_READ_MAINRHS:
+            nextAction = readejnLHS;
+            break;
+
+        case MBS_STATE_GOOD_READ_EJNLHS || MBS_STATE_FAIL_READ_EJNLHS:
+            nextAction = readejnRHS;
+            break;
+
+            // case MBS_STATE_GOOD_READ_MAINRHS || MBS_STATE_FAIL_READ_MAINRHS:
+            
+        case MBS_STATE_GOOD_READ_EJNRHS || MBS_STATE_FAIL_READ_EJNRHS:
             nextAction = readavg;
             break;
 
@@ -1252,15 +1252,15 @@ var readejnRHS = function () {
 } 
 
 var readavg = function () {
-    client.readHoldingRegisters(avg_address, 20)
+    client.readHoldingRegisters(avg_address, 21)
         .then(function (avg) {
             // console.log("AVG data: ",avg.data)
             payload.precompressionLHS_avg = avg.data[0] / 100;
             payload.maincompressionLHS_avg = avg.data[4] / 100;
             payload.precompressionRHS_avg = avg.data[8] / 100;
             payload.maincompressionRHS_avg = avg.data[12] / 100;
-            payload.ejectionLHS_avg = avg.data[16] / 100;
-            payload.ejectionRHS_avg = avg.data[20] / 100;
+            payload.ejectionLHS_avg = avg.data[16] / 10;
+            payload.ejectionRHS_avg = avg.data[20] / 10;
 
             mbsState = MBS_STATE_GOOD_READ_AVG;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)

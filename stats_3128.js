@@ -700,10 +700,10 @@ var read_regs = function () {
             // ADEPT SETUP
             payload.machine.LHS.precompression_max = data.data[0] / 100
             payload.machine.LHS.maincompression_max = data.data[1] / 100;
-            payload.machine.LHS.ejection_max = data.data[2] / 100;
+            payload.machine.LHS.ejection_max = data.data[2] / 10;
             payload.machine.RHS.precompression_max = data.data[3] / 100;
             payload.machine.RHS.maincompression_max = data.data[4] / 100;
-            payload.machine.RHS.ejection_max = data.data[5] / 100;
+            payload.machine.RHS.ejection_max = data.data[5] / 10;
             payload.stats.B_HEAD = data.data[6] / 100;
             payload.stats.B_PCD = data.data[8] / 100;
             payload.stats.D_HEAD = data.data[10] / 100;
@@ -2349,7 +2349,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "LHS_EJN_MAX") {
         reg_offset_6000 = 1002
-        reg_write_value = b*100
+        reg_write_value = b*10
         c = payload.machine.LHS.ejection_max
         write_regs()
         writelog()
@@ -2370,7 +2370,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "RHS_EJN_MAX") {
         reg_offset_6000 = 1005
-        reg_write_value = b*100
+        reg_write_value = b*10
         c = payload.machine.RHS.ejection_max
         write_regs()
         writelog()

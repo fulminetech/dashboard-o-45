@@ -521,9 +521,9 @@
                                 <!-- Bi Layer Mode-->
                                 <div class="py-3">
                                     <button id="bi_mode"
-                                        class="bg-orange-300 uppercase text-xl text-gray-800 font-semibold py-5 px-18 border border-blue-500 rounded"
+                                        class="bg-orange-300 uppercase text-xl text-gray-800 font-semibold py-5 px-12 border border-blue-500 rounded"
                                         onclick="layer()"> 
-                                        BILAYER
+                                        BI  LAYER
                                     </button>
                                 </div>
                             </div>
@@ -638,6 +638,8 @@
                                                 <th class="text-center text-blue-900">Pre RHS</th>
                                                 <th class="text-center text-blue-900">Main LHS</th>
                                                 <th class="text-center text-blue-900">Main RHS</th>
+                                                <th class="text-center text-blue-900">Ejn LHS</th>
+                                                <th class="text-center text-blue-900">Ejn RHS</th>
                 
                                             </tr>
                                         </thead>
@@ -650,6 +652,8 @@
                                                 <td id="p1-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p1-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p1-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p1-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p1-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -659,6 +663,8 @@
                                                 <td id="p2-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p2-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p2-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p2-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p2-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -668,6 +674,8 @@
                                                 <td id="p3-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p3-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p3-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p3-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p3-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -677,6 +685,8 @@
                                                 <td id="p4-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p4-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p4-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p4-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p4-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -686,6 +696,8 @@
                                                 <td id="p5-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p5-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p5-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p5-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p5-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -695,6 +707,8 @@
                                                 <td id="p6-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p6-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p6-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p6-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p6-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -704,6 +718,8 @@
                                                 <td id="p7-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p7-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p7-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p7-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p7-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -713,6 +729,8 @@
                                                 <td id="p8-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p8-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p8-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p8-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p8-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -722,6 +740,8 @@
                                                 <td id="p9-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p9-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p9-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p9-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p9-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -731,6 +751,8 @@
                                                 <td id="p10-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p10-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p10-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p10-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p10-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -740,6 +762,8 @@
                                                 <td id="p11-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p11-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p11-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p11-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p11-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -749,6 +773,8 @@
                                                 <td id="p12-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p12-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p12-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p12-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p12-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -758,6 +784,8 @@
                                                 <td id="p13-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p13-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p13-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p13-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p13-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -767,6 +795,8 @@
                                                 <td id="p14-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p14-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p14-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p14-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p14-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -776,6 +806,8 @@
                                                 <td id="p15-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p15-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p15-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p15-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p15-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -790,6 +822,8 @@
                                                 <th class="text-center text-blue-900">Pre RHS</th>
                                                 <th class="text-center text-blue-900">Main LHS</th>
                                                 <th class="text-center text-blue-900">Main RHS</th>
+                                                <th class="text-center text-blue-900">Ejn LHS</th>
+                                                <th class="text-center text-blue-900">Ejn RHS</th>
                 
                                             </tr>
                                         </thead>
@@ -802,6 +836,8 @@
                                                 <td id="p16-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p16-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p16-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p16-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p16-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -811,6 +847,8 @@
                                                 <td id="p17-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p17-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p17-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p17-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p17-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -820,6 +858,8 @@
                                                 <td id="p18-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p18-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p18-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p18-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p18-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -829,6 +869,8 @@
                                                 <td id="p19-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p19-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p19-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p19-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p19-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -838,6 +880,8 @@
                                                 <td id="p20-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p20-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p20-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p20-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p20-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -847,6 +891,8 @@
                                                 <td id="p21-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p21-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p21-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p21-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p21-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -856,6 +902,8 @@
                                                 <td id="p22-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p22-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p22-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p22-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p22-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -865,6 +913,8 @@
                                                 <td id="p23-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p23-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p23-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p23-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p23-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -874,6 +924,8 @@
                                                 <td id="p24-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p24-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p24-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p24-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p24-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -883,6 +935,8 @@
                                                 <td id="p25-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p25-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p25-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p25-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p25-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -892,6 +946,8 @@
                                                 <td id="p26-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p26-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p26-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p26-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p26-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -901,6 +957,8 @@
                                                 <td id="p27-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p27-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p27-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p27-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p27-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -910,6 +968,8 @@
                                                 <td id="p28-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p28-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p28-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p28-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p28-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -919,6 +979,8 @@
                                                 <td id="p29-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p29-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p29-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p29-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p29-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -928,6 +990,8 @@
                                                 <td id="p30-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p30-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p30-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p30-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p30-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -942,6 +1006,8 @@
                                                 <th class="text-center text-blue-900">Pre RHS</th>
                                                 <th class="text-center text-blue-900">Main LHS</th>
                                                 <th class="text-center text-blue-900">Main RHS</th>
+                                                <th class="text-center text-blue-900">Ejn LHS</th>
+                                                <th class="text-center text-blue-900">Ejn RHS</th>
                 
                                             </tr>
                                         </thead>
@@ -954,6 +1020,8 @@
                                                 <td id="p31-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p31-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p31-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p31-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p31-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -963,6 +1031,8 @@
                                                 <td id="p32-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p32-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p32-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p32-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p32-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -972,6 +1042,8 @@
                                                 <td id="p33-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p33-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p33-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p33-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p33-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -981,6 +1053,8 @@
                                                 <td id="p34-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p34-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p34-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p34-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p34-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -990,6 +1064,8 @@
                                                 <td id="p35-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p35-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p35-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p35-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p35-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -999,6 +1075,8 @@
                                                 <td id="p36-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p36-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p36-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p36-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p36-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -1008,6 +1086,8 @@
                                                 <td id="p37-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p37-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p37-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p37-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p37-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -1017,6 +1097,8 @@
                                                 <td id="p38-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p38-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p38-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p38-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p38-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -1026,6 +1108,8 @@
                                                 <td id="p39-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p39-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p39-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p39-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p39-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -1035,6 +1119,8 @@
                                                 <td id="p40-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p40-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p40-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p40-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p40-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -1044,6 +1130,8 @@
                                                 <td id="p41-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p41-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p41-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p41-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p41-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -1053,6 +1141,8 @@
                                                 <td id="p42-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p42-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p42-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p42-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p42-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -1062,6 +1152,8 @@
                                                 <td id="p43-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p43-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p43-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p43-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p43-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -1071,6 +1163,8 @@
                                                 <td id="p44-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p44-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p44-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p44-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p44-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                             <tr>
                                                 <td
@@ -1080,6 +1174,8 @@
                                                 <td id="p45-preRHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p45-mainLHS" class="border-b text-center border-gray-400"></td>
                                                 <td id="p45-mainRHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p45-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                                <td id="p45-ejnRHS" class="border-b text-center border-gray-400"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1425,6 +1521,9 @@
                     document.getElementById("avgg-preRHS").innerHTML = payload.precompressionRHS_avg;
                     document.getElementById("avgg-mainLHS").innerHTML = payload.maincompressionLHS_avg;
                     document.getElementById("avgg-mainRHS").innerHTML = payload.maincompressionRHS_avg;
+                    document.getElementById("avgg-ejnLHS").innerHTML = payload.ejectionLHS_avg;
+                    document.getElementById("avgg-ejnRHS").innerHTML = payload.ejectionRHS_avg;
+                    
 
                     document.getElementById("p1-preLHS").innerHTML =  payload.punch1.LHS.precompression;
                     document.getElementById("p1-preRHS").innerHTML =  payload.punch1.RHS.precompression;
@@ -1606,6 +1705,99 @@
                     document.getElementById("p45-preRHS").innerHTML = payload.punch45.RHS.precompression;
                     document.getElementById("p45-mainLHS").innerHTML = payload.punch45.LHS.maincompression;
                     document.getElementById("p45-mainRHS").innerHTML = payload.punch45.RHS.maincompression;
+                    
+                    document.getElementById("p1-ejnRHS").innerHTML = payload.punch1.RHS.ejection;
+                    document.getElementById("p2-ejnRHS").innerHTML = payload.punch2.RHS.ejection;
+                    document.getElementById("p3-ejnRHS").innerHTML = payload.punch3.RHS.ejection;
+                    document.getElementById("p4-ejnRHS").innerHTML = payload.punch4.RHS.ejection;
+                    document.getElementById("p5-ejnRHS").innerHTML = payload.punch5.RHS.ejection;
+                    document.getElementById("p6-ejnRHS").innerHTML = payload.punch6.RHS.ejection;
+                    document.getElementById("p7-ejnRHS").innerHTML = payload.punch7.RHS.ejection;
+                    document.getElementById("p8-ejnRHS").innerHTML = payload.punch8.RHS.ejection;
+                    document.getElementById("p9-ejnRHS").innerHTML = payload.punch9.RHS.ejection;
+                    document.getElementById("p10-ejnRHS").innerHTML = payload.punch10.RHS.ejection;
+                    document.getElementById("p11-ejnRHS").innerHTML = payload.punch11.RHS.ejection;
+                    document.getElementById("p12-ejnRHS").innerHTML = payload.punch12.RHS.ejection;
+                    document.getElementById("p13-ejnRHS").innerHTML = payload.punch13.RHS.ejection;
+                    document.getElementById("p14-ejnRHS").innerHTML = payload.punch14.RHS.ejection;
+                    document.getElementById("p15-ejnRHS").innerHTML = payload.punch15.RHS.ejection;
+                    document.getElementById("p16-ejnRHS").innerHTML = payload.punch16.RHS.ejection;
+                    document.getElementById("p17-ejnRHS").innerHTML = payload.punch17.RHS.ejection;
+                    document.getElementById("p18-ejnRHS").innerHTML = payload.punch18.RHS.ejection;
+                    document.getElementById("p19-ejnRHS").innerHTML = payload.punch19.RHS.ejection;
+                    document.getElementById("p20-ejnRHS").innerHTML = payload.punch20.RHS.ejection;
+                    document.getElementById("p21-ejnRHS").innerHTML = payload.punch21.RHS.ejection;
+                    document.getElementById("p22-ejnRHS").innerHTML = payload.punch22.RHS.ejection;
+                    document.getElementById("p23-ejnRHS").innerHTML = payload.punch23.RHS.ejection;
+                    document.getElementById("p24-ejnRHS").innerHTML = payload.punch24.RHS.ejection;
+                    document.getElementById("p25-ejnRHS").innerHTML = payload.punch25.RHS.ejection;
+                    document.getElementById("p26-ejnRHS").innerHTML = payload.punch26.RHS.ejection;
+                    document.getElementById("p27-ejnRHS").innerHTML = payload.punch27.RHS.ejection;
+                    document.getElementById("p28-ejnRHS").innerHTML = payload.punch28.RHS.ejection;
+                    document.getElementById("p29-ejnRHS").innerHTML = payload.punch29.RHS.ejection;
+                    document.getElementById("p30-ejnRHS").innerHTML = payload.punch30.RHS.ejection;
+                    document.getElementById("p31-ejnRHS").innerHTML = payload.punch31.RHS.ejection;
+                    document.getElementById("p32-ejnRHS").innerHTML = payload.punch32.RHS.ejection;
+                    document.getElementById("p33-ejnRHS").innerHTML = payload.punch33.RHS.ejection;
+                    document.getElementById("p34-ejnRHS").innerHTML = payload.punch34.RHS.ejection;
+                    document.getElementById("p35-ejnRHS").innerHTML = payload.punch35.RHS.ejection;
+                    document.getElementById("p36-ejnRHS").innerHTML = payload.punch36.RHS.ejection;
+                    document.getElementById("p37-ejnRHS").innerHTML = payload.punch37.RHS.ejection;
+                    document.getElementById("p38-ejnRHS").innerHTML = payload.punch38.RHS.ejection;
+                    document.getElementById("p39-ejnRHS").innerHTML = payload.punch39.RHS.ejection;
+                    document.getElementById("p40-ejnRHS").innerHTML = payload.punch40.RHS.ejection;
+                    document.getElementById("p41-ejnRHS").innerHTML = payload.punch41.RHS.ejection;
+                    document.getElementById("p42-ejnRHS").innerHTML = payload.punch42.RHS.ejection;
+                    document.getElementById("p43-ejnRHS").innerHTML = payload.punch43.RHS.ejection;
+                    document.getElementById("p44-ejnRHS").innerHTML = payload.punch44.RHS.ejection;
+                    document.getElementById("p45-ejnRHS").innerHTML = payload.punch45.RHS.ejection;
+                    
+                    document.getElementById("p1-ejnLHS").innerHTML = payload.punch1.LHS.ejection;
+                    document.getElementById("p2-ejnLHS").innerHTML = payload.punch2.LHS.ejection;
+                    document.getElementById("p3-ejnLHS").innerHTML = payload.punch3.LHS.ejection;
+                    document.getElementById("p4-ejnLHS").innerHTML = payload.punch4.LHS.ejection;
+                    document.getElementById("p5-ejnLHS").innerHTML = payload.punch5.LHS.ejection;
+                    document.getElementById("p6-ejnLHS").innerHTML = payload.punch6.LHS.ejection;
+                    document.getElementById("p7-ejnLHS").innerHTML = payload.punch7.LHS.ejection;
+                    document.getElementById("p8-ejnLHS").innerHTML = payload.punch8.LHS.ejection;
+                    document.getElementById("p9-ejnLHS").innerHTML = payload.punch9.LHS.ejection;
+                    document.getElementById("p10-ejnLHS").innerHTML = payload.punch10.LHS.ejection;
+                    document.getElementById("p11-ejnLHS").innerHTML = payload.punch11.LHS.ejection;
+                    document.getElementById("p12-ejnLHS").innerHTML = payload.punch12.LHS.ejection;
+                    document.getElementById("p13-ejnLHS").innerHTML = payload.punch13.LHS.ejection;
+                    document.getElementById("p14-ejnLHS").innerHTML = payload.punch14.LHS.ejection;
+                    document.getElementById("p15-ejnLHS").innerHTML = payload.punch15.LHS.ejection;
+                    document.getElementById("p16-ejnLHS").innerHTML = payload.punch16.LHS.ejection;
+                    document.getElementById("p17-ejnLHS").innerHTML = payload.punch17.LHS.ejection;
+                    document.getElementById("p18-ejnLHS").innerHTML = payload.punch18.LHS.ejection;
+                    document.getElementById("p19-ejnLHS").innerHTML = payload.punch19.LHS.ejection;
+                    document.getElementById("p20-ejnLHS").innerHTML = payload.punch20.LHS.ejection;
+                    document.getElementById("p21-ejnLHS").innerHTML = payload.punch21.LHS.ejection;
+                    document.getElementById("p22-ejnLHS").innerHTML = payload.punch22.LHS.ejection;
+                    document.getElementById("p23-ejnLHS").innerHTML = payload.punch23.LHS.ejection;
+                    document.getElementById("p24-ejnLHS").innerHTML = payload.punch24.LHS.ejection;
+                    document.getElementById("p25-ejnLHS").innerHTML = payload.punch25.LHS.ejection;
+                    document.getElementById("p26-ejnLHS").innerHTML = payload.punch26.LHS.ejection;
+                    document.getElementById("p27-ejnLHS").innerHTML = payload.punch27.LHS.ejection;
+                    document.getElementById("p28-ejnLHS").innerHTML = payload.punch28.LHS.ejection;
+                    document.getElementById("p29-ejnLHS").innerHTML = payload.punch29.LHS.ejection;
+                    document.getElementById("p30-ejnLHS").innerHTML = payload.punch30.LHS.ejection;
+                    document.getElementById("p31-ejnLHS").innerHTML = payload.punch31.LHS.ejection;
+                    document.getElementById("p32-ejnLHS").innerHTML = payload.punch32.LHS.ejection;
+                    document.getElementById("p33-ejnLHS").innerHTML = payload.punch33.LHS.ejection;
+                    document.getElementById("p34-ejnLHS").innerHTML = payload.punch34.LHS.ejection;
+                    document.getElementById("p35-ejnLHS").innerHTML = payload.punch35.LHS.ejection;
+                    document.getElementById("p36-ejnLHS").innerHTML = payload.punch36.LHS.ejection;
+                    document.getElementById("p37-ejnLHS").innerHTML = payload.punch37.LHS.ejection;
+                    document.getElementById("p38-ejnLHS").innerHTML = payload.punch38.LHS.ejection;
+                    document.getElementById("p39-ejnLHS").innerHTML = payload.punch39.LHS.ejection;
+                    document.getElementById("p40-ejnLHS").innerHTML = payload.punch40.LHS.ejection;
+                    document.getElementById("p41-ejnLHS").innerHTML = payload.punch41.LHS.ejection;
+                    document.getElementById("p42-ejnLHS").innerHTML = payload.punch42.LHS.ejection;
+                    document.getElementById("p43-ejnLHS").innerHTML = payload.punch43.LHS.ejection;
+                    document.getElementById("p44-ejnLHS").innerHTML = payload.punch44.LHS.ejection;
+                    document.getElementById("p45-ejnLHS").innerHTML = payload.punch45.LHS.ejection;
+                    
 
                     // document.getElementById("ejnLHS_upper").innerHTML = payload.machine.LHS.ejection_upperlimit;
                     // document.getElementById("ejnRHS_upper").innerHTML = payload.machine.RHS.ejection_upperlimit;
@@ -1616,6 +1808,8 @@
                     avg_his_compression_graph.data.datasets[1].data.push(payload.precompressionRHS_avg);
                     avg_his_compression_graph.data.datasets[2].data.push(payload.maincompressionLHS_avg);
                     avg_his_compression_graph.data.datasets[3].data.push(payload.maincompressionRHS_avg);
+                    avg_his_compression_graph.data.datasets[4].data.push(payload.ejectionLHS_avg);
+                    avg_his_compression_graph.data.datasets[5].data.push(payload.ejectionRHS_avg);
                     avg_his_compression_graph.update();
 
                     
