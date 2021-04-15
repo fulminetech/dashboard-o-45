@@ -669,7 +669,14 @@ var read_regs = function () {
             payload.stats.awc.AVG_RTN = stats_data.data[41];
             payload.stats.awc.AWC_TOLERANCE = stats_data.data[42];
             payload.stats.awc.AWC_MAX_CORRECTION = stats_data.data[43];
-            payload.stats.awc.AWC_32bit_CORRECTION = stats_data.data[44]/100;
+
+            var PH_reg1 = data.data[44];
+            var PH_reg2 = data.data[45];
+            if (PH_reg2 == 0) {
+                payload.stats.awc.AWC_32bit_CORRECTION = PH_reg1;
+            } else {
+                payload.stats.awc.AWC_32bit_CORRECTION = (((2 ** 16) * PH_reg2) + PH_reg1) / 100;
+            }
 
             payload.stats.sampling.NO_TABLET_SAMPLING = stats_data.data[57];
             payload.stats.sampling.SAMPLING_TIME_MINS = stats_data.data[58];
@@ -677,83 +684,6 @@ var read_regs = function () {
             payload.stats.roller.frequency = stats_data.data[61] / 100;
 
             payload.stats.roller.motor = stats_data.data[62];
-
-            // ADEPT SETUP
-            // payload.machine.LHS.precompression_max = stats_data.data[28] / 100;
-            // payload.machine.LHS.maincompression_max = stats_data.data[29] / 100;
-            // payload.machine.LHS.ejection_max = stats_data.data[30] / 100;
-
-            // payload.machine.RHS.precompression_max = stats_data.data[31] / 100;
-            // payload.machine.RHS.maincompression_max = stats_data.data[32] / 100;
-            // payload.machine.RHS.ejection_max = stats_data.data[33] / 100;
-
-            // payload.stats.B_HEAD = stats_data.data[36] / 100;
-            // payload.stats.B_PCD = stats_data.data[38] / 100;
-            // payload.stats.D_HEAD = stats_data.data[40] / 100;
-            // payload.stats.D_PCD = stats_data.data[42] / 100;
-
-            // payload.stats.total_punches = stats_data.data[48] / 100;
-
-            // payload.stats.LHSdepth.analog_max = stats_data.data[53] / 100;
-            // payload.stats.LHSdepth.analog_min = stats_data.data[54] / 100;
-            // payload.stats.LHSdepth.depth_max = stats_data.data[55] / 100;
-            // payload.stats.LHSdepth.depth_min = stats_data.data[56] / 100;
-            // payload.stats.RHSdepth.analog_max = stats_data.data[57] / 100;
-            // payload.stats.RHSdepth.analog_min = stats_data.data[58] / 100;
-            // payload.stats.RHSdepth.depth_max = stats_data.data[59] / 100;
-            // payload.stats.RHSdepth.depth_min = stats_data.data[60] / 100;
-
-            // payload.stats.LHSweight.analog_max = stats_data.data[61] / 100;
-            // payload.stats.LHSweight.analog_min = stats_data.data[62] / 100;
-            // payload.stats.LHSweight.weight_max = stats_data.data[63] / 100;
-            // payload.stats.LHSweight.weight_min = stats_data.data[64] / 100;
-            // payload.stats.RHSweight.analog_max = stats_data.data[65] / 100;
-            // payload.stats.RHSweight.analog_min = stats_data.data[66] / 100;
-            // payload.stats.RHSweight.weight_max = stats_data.data[67] / 100;
-            // payload.stats.RHSweight.weight_min = stats_data.data[68] / 100;
-
-            // payload.stats.LHSthickness.analog_max = stats_data.data[69] / 100;
-            // payload.stats.LHSthickness.analog_min = stats_data.data[70] / 100;
-            // payload.stats.LHSthickness.thickness_max = stats_data.data[71] / 100;
-            // payload.stats.LHSthickness.thickness_min = stats_data.data[72] / 100;
-            // payload.stats.RHSthickness.analog_max = stats_data.data[73] / 100;
-            // payload.stats.RHSthickness.analog_min = stats_data.data[74] / 100;
-            // payload.stats.RHSthickness.thickness_max = stats_data.data[75] / 100;
-            // payload.stats.RHSthickness.thickness_min = stats_data.data[76] / 100;
-
-            // payload.stats.turret.max_rpm = stats_data.data[80]
-            // payload.stats.turret.max_freq = stats_data.data[81]
-            // payload.stats.LHS_FF.max_rpm = stats_data.data[82]
-            // payload.stats.LHS_FF.max_freq = stats_data.data[83]
-            // payload.stats.RHS_FF.max_rpm = stats_data.data[84]
-            // payload.stats.RHS_FF.max_freq = dstats_data.ata[85]
-
-            // payload.stats.hydraulic.max_pressure = stats_data.data[86]
-            // payload.stats.encoder_PPR = stats_data.data[88]
-
-            // payload.stats.punch_offset_position.L_PRE = stats_data.data[90]
-            // payload.stats.punch_offset_position.L_MAIN = stats_data.data[91]
-            // payload.stats.punch_offset_position.L_EJN = stats_data.data[92]
-            // payload.stats.punch_offset_position.R_PRE = stats_data.data[93]
-            // payload.stats.punch_offset_position.R_MAIN = stats_data.data[94]
-            // payload.stats.punch_offset_position.R_EJN = stats_data.data[95]
-
-            // payload.present_punch = stats_data.data[5];
-            // // // // Production count
-            // // // // Formula: [ punch count x rpm x time ]
-
-            // var reg1 = stats_data.data[6];
-            // var reg2 = stats_data.data[7];
-
-            // if (reg2 == 0) {
-            //     payload.stats.count = reg1;
-            // } else {
-            //     payload.stats.count = (((2 ** 16) * reg2) + reg1);
-            // }
-            
-            // // // // Tablet per hour [ Max: 8x60x60=28800 ]
-            // tablets_per_hour = (payload.stats.active_punches * payload.stats.turret.RPM * 60);
-            // payload.stats.tablets_per_hour = tablets_per_hour;
 
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -850,7 +780,15 @@ var read_regs = function () {
             
             payload.stats.awc.MAXIMUM_REJECT_TABLET = data.data[73]
             payload.stats.awc.RTN_1_MM = data.data[74] /100;
-            payload.stats.awc.RTN_1_PPR = data.data[76]
+            
+            var RTN_reg1 = data.data[76];
+            var RTN_reg2 = data.data[77];
+
+            if (RTN_reg2 == 0) {
+                payload.stats.awc.RTN_1_PPR = RTN_reg1;
+            } else {
+                payload.stats.awc.RTN_1_PPR = (((2 ** 16) * RTN_reg2) + RTN_reg1);
+            }
 
             var RH1_reg1 = data.data[78];
             var RH1_reg2 = data.data[79];
@@ -929,8 +867,22 @@ var read_regs = function () {
             payload.stats.RHS_FF.H = data.data[7]
             payload.stats.RHS_FF.A = data.data[8]
 
-            payload.production = data.data[10]
-            payload.stats.tablets_per_hour = data.data[14]
+            var Prod_reg1 = data.data[10]
+            var Prod_reg2 = data.data[11]
+            if (Prod_reg2 == 0) {
+                payload.production = Prod_reg1;
+            } else {
+                payload.production = (((2 ** 16) * Prod_reg2) + Prod_reg1);
+            }
+            
+            var PH_reg1 = data.data[14];
+            var PH_reg2 = data.data[15];
+            if (PH_reg2 == 0) {
+                payload.stats.tablets_per_hour = PH_reg1;
+            } else {
+                payload.stats.tablets_per_hour = (((2 ** 16) * PH_reg2) + PH_reg1);
+            }
+            
             payload.stats.punch_present_position.L_PRE = data.data[20]
             payload.stats.punch_present_position.L_MAIN = data.data[21]
             payload.stats.punch_present_position.L_EJN = data.data[22]
@@ -950,14 +902,20 @@ var read_regs = function () {
             
             payload.stats.pressure.value = data.data[35]
             payload.stats.lubrication.remaining_time = data.data[36]
-            payload.stats.dwell = data.data[40]
+             
+            var D_reg1 = data.data[40];
+            var D_reg2 = data.data[41];
+            if (D_reg2 == 0) {
+                payload.stats.dwell = D_reg1;
+            } else {
+                payload.stats.dwell = (((2 ** 16) * D_reg2) + D_reg1);
+            }
 
             payload.stats.awc.actual_RHS = data.data[42] / 100
             payload.stats.awc.actual_LHS = data.data[43] / 100
             
             var LST_reg1 = data.data[44];
             var LST_reg2 = data.data[45];
-
             if (LST_reg2 == 0) {
                 payload.stats.home.LHS.single_turn = LST_reg1;
             } else {
@@ -966,7 +924,6 @@ var read_regs = function () {
             
             var LMT_reg1 = data.data[46];
             var LMT_reg2 = data.data[47];
-
             if (LMT_reg2 == 0) {
                 payload.stats.home.LHS.multi_turn = LMT_reg1;
             } else {
@@ -975,7 +932,6 @@ var read_regs = function () {
             
             var LE_reg1 = data.data[48];
             var LE_reg2 = data.data[49];
-
             if (LE_reg2 == 0) {
                 payload.stats.home.LHS.encoder_ppr = LE_reg1;
             } else {
@@ -984,7 +940,6 @@ var read_regs = function () {
             
             var LH_reg1 = data.data[50];
             var LH_reg1 = data.data[51];
-
             if (LH_reg1 == 0) {
                 payload.stats.home.LHS.home_offset = LH_reg1;
             } else {
@@ -993,7 +948,6 @@ var read_regs = function () {
             
             var RST_reg1 = data.data[52];
             var RST_reg2 = data.data[53];
-
             if (RST_reg2 == 0) {
                 payload.stats.home.RHS.single_turn = RST_reg1;
             } else {
@@ -1002,7 +956,6 @@ var read_regs = function () {
             
             var RMT_reg1 = data.data[54];
             var RMT_reg2 = data.data[55];
-
             if (RMT_reg2 == 0) {
                 payload.stats.home.RHS.multi_turn = RMT_reg1;
             } else {
@@ -1011,7 +964,6 @@ var read_regs = function () {
             
             var RE_reg1 = data.data[56];
             var RE_reg2 = data.data[57];
-
             if (RE_reg2 == 0) {
                 payload.stats.home.RHS.encoder_ppr = RE_reg1;
             } else {
@@ -1019,12 +971,11 @@ var read_regs = function () {
             }
             
             var RH_reg1 = data.data[58];
-            var RH_reg1 = data.data[59];
-
-            if (RH_reg1 == 0) {
+            var RH_reg2 = data.data[59];
+            if (RH_reg2 == 0) {
                 payload.stats.home.RHS.home_offset = RH_reg1;
             } else {
-                payload.stats.home.RHS.home_offset = (((2 ** 16) * RH_reg1) + RH_reg1);
+                payload.stats.home.RHS.home_offset = (((2 ** 16) * RH_reg2) + RH_reg1);
             }
         
             payload.stats.roller.F = data.data[60];
@@ -1424,7 +1375,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         reg_offset_6000 = 44
         reg_write_value = b * 100
         c = payload.stats.awc.AWC_32bit_CORRECTION
-        write_regs()
+        write_regs_32()
         writelog()
     } 
     else if (a == "NO_TABLET_SAMPLING") {
@@ -2428,28 +2379,28 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         reg_offset_6000 = 1006
         reg_write_value = b*100
         c = payload.stats.B_HEAD
-        write_regs()
+        write_regs_32()
         writelog()
     }
     else if (a == "B_TYPE_PCD") {
         reg_offset_6000 = 1008
         reg_write_value = b*100
         c = payload.stats.B_PCD
-        write_regs()
+        write_regs_32()
         writelog()
     }
     else if (a == "D_TYPE_HEAD_FLAT") {
         reg_offset_6000 = 1010
         reg_write_value = b*100
         c = payload.stats.D_HEAD
-        write_regs()
+        write_regs_32()
         writelog()
     }
     else if (a == "D_TYPE_PCD") {
         reg_offset_6000 = 1012
         reg_write_value = b*100
         c = payload.stats.D_PCD
-        write_regs()
+        write_regs_32()
         writelog()
     }
     else if (a == "TOTAL_PUNCHES") {
@@ -2866,7 +2817,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     else if (a == "RTN_1_PPR") {
         reg_offset_6000 = 1076
         reg_write_value = b
-        write_regs()
+        write_regs_32()
     }
     else if (a == "RHS_HOME_OFFSET_1") {
         reg_offset_6000 = 1078

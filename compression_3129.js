@@ -702,7 +702,6 @@ const avg_address = 3204;
 const status_address = 540;
 
 const time_address = 100;
-const stats_address = 5000;
 
 // Modbus 'state' constants
 var MBS_STATE_INIT = "State init";
@@ -855,11 +854,6 @@ var runModbus = function () {
             break;
 
         case MBS_STATE_GOOD_READ_OUTPUT || MBS_STATE_GOOD_READ_OUTPUT:
-            nextAction = readstats;
-            break;
-
-
-        case MBS_STATE_GOOD_READ_STATS || MBS_STATE_FAIL_READ_STATS:
             nextAction = readpreLHS;
             break;
 
@@ -1255,18 +1249,18 @@ var readejnRHS = function () {
             readfailed++;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
-}
+} 
 
 var readavg = function () {
-    client.readHoldingRegisters(avg_address, 19)
+    client.readHoldingRegisters(avg_address, 20)
         .then(function (avg) {
             // console.log("AVG data: ",avg.data)
             payload.precompressionLHS_avg = avg.data[0] / 100;
-            payload.maincompressionLHS_avg = avg.data[3] / 100;
-            payload.precompressionRHS_avg = avg.data[7] / 100;
-            payload.maincompressionRHS_avg = avg.data[11] / 100;
-            payload.ejectionLHS_avg = avg.data[15] / 100;
-            payload.ejectionRHS_avg = avg.data[19] / 100;
+            payload.maincompressionLHS_avg = avg.data[4] / 100;
+            payload.precompressionRHS_avg = avg.data[8] / 100;
+            payload.maincompressionRHS_avg = avg.data[12] / 100;
+            payload.ejectionLHS_avg = avg.data[16] / 100;
+            payload.ejectionRHS_avg = avg.data[20] / 100;
 
             mbsState = MBS_STATE_GOOD_READ_AVG;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
@@ -1375,77 +1369,6 @@ var readoutput = function () {
         })
 }
 
-var readstats = function () {
-    client.readHoldingRegisters(stats_address, 40)
-        .then(function (stats_data) {
-            // console.log("STATS: ",stats_data.data)
-
-            // // Active Punches
-            // machine.stats.active_punches = ((active_punches + 1) / 32); // if 0-255
-            var active_punches = stats_data.data[0];
-            payload.stats.active_punches = active_punches;
-
-            // // Current rotation
-            var data_number = stats_data.data[1]; // 32-bit 
-            // var data_number_mul = stats_data.data[2]; // Multiplier
-            // if (data_number_mul == 0) {
-            //     payload.data_number = data_number;
-            // }
-            // else {
-            //     payload.data_number = ((2 ^ 16 * data_number_mul) + data_number);
-            // }
-
-            // // // Present Punch
-            payload.present_punch = stats_data.data[5];
-
-            // // // Production count
-            // // // Formula: [ punch count x rpm x time ]
-
-            var reg1 = stats_data.data[6];
-            var reg2 = stats_data.data[7];
-
-            if (reg2 == 0) {
-                payload.stats.count = reg1;
-            } else {
-                payload.stats.count = (((2 ** 16) * reg2) + reg1);
-            }
-
-            // // // Tablet per hour [ Max: 8x60x60=28800 ]
-            tablets_per_hour = (payload.stats.active_punches * payload.stats.rpm * 60);
-            payload.stats.tablets_per_hour = tablets_per_hour;
-
-            payload.stats.rpm = stats_data.data[14] / 10;
-
-            // // Compression Limits
-            payload.machine.LHS.precompression_upperlimit = stats_data.data[15] / 100;
-            payload.machine.LHS.precompression_lowerlimit = stats_data.data[16] / 100;
-            payload.machine.LHS.maincompression_upperlimit = stats_data.data[17] / 100;
-            payload.machine.LHS.maincompression_lowerlimit = stats_data.data[18] / 100;
-            payload.machine.RHS.precompression_upperlimit = stats_data.data[19] / 100;
-            payload.machine.RHS.precompression_lowerlimit = stats_data.data[20] / 100;
-            payload.machine.RHS.maincompression_upperlimit = stats_data.data[21] / 100;
-            payload.machine.RHS.maincompression_lowerlimit = stats_data.data[22] / 100;
-            // payload.machine.LHS.ejection_upperlimit = stats_data.data[19] / 100;
-            // payload.machine.RHS.ejection_upperlimit = stats_data.data[19] / 100;
-
-            mbsState = MBS_STATE_GOOD_READ_STATS;
-            // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
-        })
-        .catch(function (e) {
-            console.error('[ #7 Stats Garbage ]')
-            mbsState = MBS_STATE_FAIL_READ_STATS;
-            readfailed++;
-            // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
-        })
-
-    // client.writeRegisters(8146, tablets_per_hour)
-    //     .catch(function (e) {
-    //         console.error('[ #8 Tablet per hour Write Failed ]')
-    //         mbsState = MBS_STATE_FAIL_READ_STATS;
-    //         readfailed++;
-    //         // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
-    //     })
-}
 
 function restartprodmodbus() {
     exec(restart1Command, (err, stdout, stderr) => {

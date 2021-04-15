@@ -141,15 +141,15 @@
             <!-- Batch Number -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    class="border-2 border-gray-400 border-dashed hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Batch Number</h5>
-                            <h3 id="batch_number_metric" class="font-bold text-2xl">NOT SET</h3>
+                            <h3 id="batch_number_metric" class="font-bold text-2xl"></h3>
                         </div>
                         <div class="p-3">
                             <button
-                                class="text-center bg-red-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded select-none"
+                                class="text-center bg-red-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded select-none"
                                 onmousedown="boff()" onmouseup="unboff()"> Batch Off </button>
                         </div>
                     </div>
@@ -159,19 +159,19 @@
             <!-- Batch Number -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    class="border-2 border-gray-400 border-dashed hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Tablet Count</h5>
-                            <h3 id="count_metric" class="font-bold text-3xl">100000</h3>
+                            <h3 id="count_metric" class="font-bold text-3xl">0</h3>
                         </div>
                         <div class="flex-1 mt-2 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Tablet Per Hour</h5>
-                            <h3 id="production_per_hour_metric" class="font-bold text-3xl">20000</h3>
+                            <h3 id="production_per_hour_metric" class="font-bold text-3xl">0</h3>
                         </div>
                         <div class="p-3">
                             <button
-                                class="text-center bg-red-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded select-none"
+                                class="text-center bg-red-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded select-none"
                                 onmousedown="button7()" onmouseup="button7x()"> Count Reset </button>
                         </div>
                     </div>
@@ -180,7 +180,7 @@
 
             <!-- Machine Status -->
             <div class="w-1 w-full">
-                <div class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                <div class="border-2 border-gray-400 border-dashed hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Machine Status</h5>
@@ -189,17 +189,17 @@
                         <!-- Search Button -->
                         <div class="p-3">
                             <button
-                                class="text-center bg-green-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-green-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="start()" onmouseup="unstart()"> START </button>
                             <button
-                                class="text-center bg-red-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-red-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="stop()" onmouseup="unstop()"> STOP </button>
                         </div>
                         
                         <!-- Search Button -->
                         <div class="p-3">
                             <button
-                                class="text-center bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded select-none"
+                                class="text-center bg-blue-100 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded select-none"
                                 onmousedown="inch()" onmouseup="uninch()"> INCHING </button>
                         </div>
                         
@@ -209,7 +209,7 @@
 
             <!-- Power Pack Status -->
             <div class="w-1 w-full">
-                <div class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                <div class="border-2 border-gray-400 border-dashed hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Power Pack</h5>
@@ -218,16 +218,16 @@
                         <!-- Search Button -->
                         <div class="p-3">
                             <button
-                                class="text-center bg-green-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-green-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="startpower()" onmouseup="unstartpower()"> START </button>
                             <button
-                                class="text-center bg-red-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-red-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="stoppower()" onmouseup="unstoppower()"> STOP </button>
                         </div>
                         <!-- Search Button -->
                         <div class="p-3">
                             <button
-                                class="text-center bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-blue-100 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="drain()" onmouseup="undrain()"> DRAIN </button>
                         </div>
                     </div>
@@ -237,7 +237,7 @@
             <!-- Feeder -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    class="border-2 border-gray-400 border-dashed hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Feeder</h5>
@@ -269,10 +269,10 @@
                         <!-- Search Button -->
                         <div class="p-3">
                             <button
-                                class="text-center bg-green-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-green-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="startfeeder()" onmouseup="unstartfeeder()"> START </button>
                             <button
-                                class="text-center bg-red-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-red-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="stopfeeder()" onmouseup="unstopfeeder()"> STOP </button>
                         </div>
                     </div>
@@ -282,7 +282,7 @@
             <!-- Compression Live Data -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    class="border-2 border-gray-400 border-dashed hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Compression Live Data</h5>
@@ -291,7 +291,7 @@
                         <!-- Search Button -->
                         <div class="p-3">
                             <button
-                                class="modal1-open text-center bg-blue-100 uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                class="modal1-open text-center bg-blue-100 uppercase text-gray-800 font-semibold py-2 px-5 border border-blue-500 rounded"
                                 onclick=""> VIEW TABLE </button>
                         </div>
                     </div>
@@ -318,9 +318,9 @@
                                         <div class="flex-1 items-left text-gray-700">
                                             <h3 class="font-bold mt-1 text-lg">Punch No: <a id="punch_number_metric">0</a></h3>
                                             <h3 class="font-bold mt-3 text-lg">Rotation No:</h3>
-                                            <h3 class="font-bold mt-1 bg-white text-lg"><a id="rotation_number_metric">1000</a></h3>
+                                            <h3 class="font-bold mt-1 bg-white text-lg"><a id="rotation_number_metric">0</a></h3>
                                             <h3 class="font-bold mt-3 text-lg">Dwell Time (secs):</h3>
-                                            <h3 class="font-bold mt-1 bg-white text-lg"><a id="dwell_metric">1000</a></h3>
+                                            <h3 class="font-bold mt-1 bg-white text-lg"><a id="dwell_metric">0</a></h3>
                                         </div>
                                     </div>
                                 </div>
@@ -437,7 +437,7 @@
                                 <!-- Excel Button -->
                                 <div class="py-3">
                                     <button id="rejn_dsbl"
-                                        class="bg-orange-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        class="bg-orange-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onmousedown="rejnbutton()">
                                         Rejection Disable
                                     </button>
@@ -449,7 +449,7 @@
                                 <!-- Excel Button -->
                                 <div class="py-3">
                                     <button id="rejn_air"
-                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onmousedown="button2x()">
                                         Rejection By Air
                                     </button>
@@ -461,7 +461,7 @@
                                 <!-- Excel Button -->
                                 <div class="py-3">
                                     <button id="rejn_flap"
-                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onmousedown="button2()">
                                         Rejection By Flap
                                     </button>
@@ -473,7 +473,7 @@
                                 <!-- Excel Button -->
                                 <div class="py-3">
                                     <button id="rejn_init"
-                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onclick="initrejnbutton()">
                                         Initial Rejection
                                     </button>
@@ -485,7 +485,7 @@
                                 <!-- Excel Button -->
                                 <div class="py-3">
                                     <button id="first_sampl"
-                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onclick="firstsampbutton()">
                                         1st Layer Sampling
                                     </button>
@@ -497,7 +497,7 @@
                                 <!-- Excel Button -->
                                 <div class="py-3">
                                     <button id="man_samp"
-                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onclick="button6x()"> 
                                         Manual Sampling
                                     </button>
@@ -509,7 +509,7 @@
                                 <!-- Excel Button -->
                                 <div class="py-3">
                                     <button id="auto_samp"
-                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onclick="button6()"> 
                                         Auto Sampling
                                     </button>
@@ -521,7 +521,7 @@
                                 <!-- Bi Layer Mode-->
                                 <div class="py-3">
                                     <button id="bi_mode"
-                                        class="bg-orange-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        class="bg-orange-300 uppercase text-xl text-gray-800 font-semibold py-5 px-20 border border-blue-500 rounded"
                                         onclick="layer()"> 
                                         BILAYER
                                     </button>
@@ -533,7 +533,7 @@
                                 <!-- PDF report Button -->
                                 <div class="py-3">
                                     <button id="disable_awc"
-                                        class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-12 border border-blue-500 rounded"
                                         onclick="awc()"> 
                                         Disable AWC 
                                     </button>
@@ -2396,10 +2396,6 @@
                 button12()
             }
         }
-        
-    </script>
-
-    <script>
         
     </script>
 
