@@ -498,17 +498,17 @@
         </div>
     </div>
 
-    <!-- Tolerance Values script -->
+    <!-- PAYLOAD API fetch -->
     <script>
 
-        async function fetchpayloadapiHF5() {
+        async function fetchpayloadapiHF() {
             fetch(processedurl)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
                     // Here you get the data to modify as you please
                     payload = data
 
-                    
+
                     MLHS_LL = payload.limit[0]
                     MLHS_UL = payload.limit[1]
                     PLHS_LL = payload.limit[4]
@@ -535,7 +535,7 @@
                     AWC_PRHS_LL = payload.limit[23]
                     AWC_MRHS_UL = payload.limit[24]
                     AWC_MRHS_LL = payload.limit[25]
-                    
+
                     document.getElementById("mainFL").value = MLHS_FL
                     document.getElementById("awc_high").value = AWC_MLHS_UL
                     document.getElementById("awc_low").value = AWC_MLHS_LL
@@ -554,16 +554,7 @@
                 });
         };
 
-        setTimeout(() => {
-            fetchpayloadapiHF5();
-        }, 10);
-
-    </script>
-    
-    <!-- PAYLOAD API fetch -->
-    <script>
-
-        async function fetchpayloadapiHF2() {
+        async function fetchpayloadapiHF1() {
             fetch(statsurl)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
@@ -587,7 +578,7 @@
                 });
         };
 
-        async function fetchpayloadapiHF3() {
+        async function fetchpayloadapiHF2() {
             fetch(statsurl)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
@@ -603,11 +594,22 @@
                 });
         };
 
-        fetchpayloadapiHF2();
+        function check() {
+            setTimeout(() => {
+                fetchpayloadapiHF()
+                fetchpayloadapiHF1()
+            }, 2000);
+        }
 
-        setInterval(() => {
-            fetchpayloadapiHF3();
-        }, 100);
+        function checkfor10s() {
+            for (let index = 0; index < 40000; index++) {
+                setTimeout(() => {
+                    fetchpayloadapiHF2
+                }, 400);
+            }
+        }
+
+        checkfor10s()
         
     </script>
 
@@ -624,9 +626,7 @@
                     console.log(submiturl)
 
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED RHS_DOZER tolerance ] ")
-                        }, 100))
+                        .then(check)
                         .catch(console.error);
                 }
 
@@ -643,9 +643,7 @@
                     console.log(submiturl)
 
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED LHS_DOZER tolerance ] ")
-                        }, 100))
+                        .then(check)
                         .catch(console.error);
                 }
 
@@ -662,9 +660,7 @@
                     console.log(submiturl)
 
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED AVG_RTN ] ")
-                        }, 100))
+                        .then(check)
                         .catch(console.error);
                 }
 
@@ -681,9 +677,7 @@
                     console.log(submiturl)
 
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED AWC_TOLERANCE ] ")
-                        }, 100))
+                        .then(check)
                         .catch(console.error);
                 }
 
@@ -700,9 +694,7 @@
                     console.log(submiturl)
 
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED AWC_MAX_CORRECTION ] ")
-                        }, 100))
+                        .then(check)
                         .catch(console.error);
                 }
 
@@ -719,9 +711,7 @@
                     console.log(submiturl)
 
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED AWC_32bit_CORRECTION ] ")
-                        }, 100))
+                        .then(check)
                         .catch(console.error);
                 }
 
@@ -730,7 +720,6 @@
         async function Rweight_inc() {
                 let submiturl = `${seturl}/RHS_WEIGHT_INC/true`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
 
@@ -738,14 +727,12 @@
         async function Rweight_incx() {
             let submiturl = `${seturl}/RHS_WEIGHT_INC/false`
             await fetch(submiturl)
-                .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
         
         async function Lweight_inc() {
                 let submiturl = `${seturl}/LHS_WEIGHT_INC/true`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
 
@@ -753,14 +740,12 @@
         async function Lweight_incx() {
             let submiturl = `${seturl}/LHS_WEIGHT_INC/false`
             await fetch(submiturl)
-                .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
         
         async function Rweight_dec() {
                 let submiturl = `${seturl}/RHS_WEIGHT_DEC/true`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
 
@@ -768,14 +753,12 @@
         async function Rweight_decx() {
             let submiturl = `${seturl}/RHS_WEIGHT_DEC/false`
             await fetch(submiturl)
-                .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
         
         async function Lweight_dec() {
                 let submiturl = `${seturl}/LHS_WEIGHT_DEC/true`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
 
@@ -783,14 +766,13 @@
         async function Lweight_decx() {
             let submiturl = `${seturl}/LHS_WEIGHT_DEC/false`
             await fetch(submiturl)
-                .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
         }
         
         async function runRHS() {
                 let submiturl = `${seturl}/LHS_FORCE_FEEDER_BUTTON_HMI/true`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
+                    .then(checkfor10s)
                     .catch(console.error);
             }
 
@@ -798,7 +780,7 @@
         async function runLHS() {
             let submiturl = `${seturl}/RHS_FORCE_FEEDER_BUTTON_HMI/true`
             await fetch(submiturl)
-                .then(console.log("[ Machine Start ] "))
+                .then(checkfor10s)
                 .catch(console.error);
         }
 
@@ -813,9 +795,7 @@
             console.log(submiturl)
 
             await fetch(submiturl)
-                .then(setTimeout(() => {
-                    console.log(" [ UPDATED LHS_MAIN_FORCE_LINE tolerance ] ")
-                }, 100))
+                .then(check)
                 .catch(console.error);
         }
     }
@@ -830,9 +810,7 @@
             console.log(submiturl)
 
             await fetch(submiturl)
-                .then(setTimeout(() => {
-                    console.log(" [ UPDATED RHS_MAIN_FORCE_LINE tolerance ] ")
-                }, 100))
+                .then(check)
                 .catch(console.error);
         }
     }
@@ -849,9 +827,7 @@
             console.log(submiturl)
 
             await fetch(submiturl)
-                .then(setTimeout(() => {
-                    console.log(" [ UPDATED LHS_PRE_FORCE_LINE tolerance ] ")
-                }, 100))
+                .then(check)
                 .catch(console.error);
         }
     }
@@ -867,15 +843,10 @@
             console.log(submiturl)
 
             await fetch(submiturl)
-                .then(setTimeout(() => {
-                    console.log(" [ UPDATED RHS_PRE_FORCE_LINE tolerance ] ")
-                }, 100))
+                .then(check)
                 .catch(console.error);
         }
     }
-
-
-
         
     </script>
 

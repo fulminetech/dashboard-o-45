@@ -198,9 +198,9 @@
                         
                         <!-- Search Button -->
                         <div class="p-3">
-                            <button
-                                class="text-center bg-blue-100 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded select-none"
-                                ontouchstart="inch()" ontouchend="uninch()"> INCHING </button>
+                            <button id="inching"
+                                class="text-center bg-blue-100 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded select-none"> 
+                                INCHING </button>
                         </div>
                         
                     </div>
@@ -1495,6 +1495,22 @@
 
     </script>
 
+    <!-- Touch handlers -->
+    <script>
+        var inching = document.getElementById("inching")
+        inching.addEventListener('touchstart', process_touchstart, false);
+        inching.addEventListener('touchend', process_touchend, false);
+
+        function process_touchstart(e) {
+            e.preventDefault();
+            inch()
+        }
+
+        function process_touchend() {
+            uninch()
+        }
+    </script>
+
     <!-- PAYLOAD API fetch -->
     <script>
         var currentBatch;
@@ -1515,7 +1531,6 @@
                     currentBatch = payload.batch;
                     document.getElementById("rotation_number_metric").innerHTML = payload.data_number;
                     currentrotation = payload.data_number;
-                    document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
                     
                     document.getElementById("avgg-preLHS").innerHTML = payload.precompressionLHS_avg;
                     document.getElementById("avgg-preRHS").innerHTML = payload.precompressionRHS_avg;
@@ -1840,10 +1855,10 @@
                     maindata = data
 
                     // console.log(payload)
-
+                    document.getElementById("punch_number_metric").innerHTML = payload.stats.punch_present_position.L_PRE;
                     document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
-                    document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
-                    document.getElementById("count_metric").innerHTML = payload.stats.count;
+                    // document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
+                    document.getElementById("count_metric").innerHTML = payload.production;
                     document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
                     document.getElementById("rpm_metric").innerHTML = payload.stats.turret.RPM;
                     document.getElementById("turret_amp_metric").innerHTML = payload.stats.turret.A;

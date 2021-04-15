@@ -347,7 +347,7 @@
                                         <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
                                             <input id="preLHSup"
                                                 class="bg-white border-gray-500 shadow text-center focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="PRE RHS Upper"
+                                                type="number" placeholder="PRE LHS Upper"
                                                 onkeydown="if (event.keyCode == 13) updatelimits_PLU()">
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
@@ -449,37 +449,33 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex grid grid-cols-3">
+                            <div class="flex grid grid-cols-2">
                     
                     
                                 <div class="flex p-3">
-                    
-                                    <!-- PDF report Button -->
-                                    <div class="pl-2">
-                                        <button id="generatepdfreport"
-                                            class="bg-blue-100 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                            onclick="manual()">
-                                            Manual
+                                
+                                    <!-- Excel Button -->
+                                    <div class="py-3">
+                                        <button id="man_samp"
+                                            class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-16 border border-blue-500 rounded"
+                                            onmousedown="button13()" onmouseup="button13x()">
+                                            Sample
                                         </button>
                                     </div>
-
-                                    <div class="pl-3">
-                                        <button id="generatepdfreport"
-                                            class="bg-blue-100 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                            onclick="auto()">
-                                            Auto
-                                        </button>
-                                    </div>
-
-                                    <div class="pl-3">
-                                        <button id="generatepdfreport"
-                                            class="bg-blue-100 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
-                                            onmousedown="sample()" onmouseup="unsample()">
-                                            SAMPLE
-                                        </button>
-                                    </div>
-
                                 </div>
+                                
+                                <div class="flex flex-wrap p-3">
+                                
+                                    <!-- Excel Button -->
+                                    <div class="py-3">
+                                        <button id="samp"
+                                            class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
+                                            onclick="samp()">
+                                            Auto Sampling
+                                        </button>
+                                    </div>
+                                </div>
+                                
                     
                             </div>
                         </div>
@@ -500,10 +496,10 @@
 
                                     <div class="mt-5">
                                         <select class="text-3xl text-gray-700" name="roller" id="roller">
-                                            <option value="1">1: LHS DISCHARGE PRE ROLLER</option>
-                                            <option value="2">2: LHS DISCHARGE MAIN ROLLER</option>
-                                            <option value="3">3: RHS DISCHARGE PRE ROLLER</option>
-                                            <option value="4">4: RHS DISCHARGE MAIN ROLLER</option>
+                                            <option value="1" onclick="roller()">1: LHS DISCHARGE PRE ROLLER</option>
+                                            <option value="2" onclick="roller()">2: LHS DISCHARGE MAIN ROLLER</option>
+                                            <option value="3" onclick="roller()">3: RHS DISCHARGE PRE ROLLER</option>
+                                            <option value="4" onclick="roller()">4: RHS DISCHARGE MAIN ROLLER</option>
                                         </select>
                                     </div>
                                     
@@ -582,11 +578,17 @@
                     AWC_MRHS_UL = payload.limit[24]
                     AWC_MRHS_LL = payload.limit[25]
 
-                    document.getElementById("mainUP").value = MLHS_UL
-                    document.getElementById("mainLOW").value = MLHS_LL
-                    document.getElementById("mainFL").value = MLHS_FL
-                    document.getElementById("awc_high").value = AWC_MLHS_UL
-                    document.getElementById("awc_low").value = AWC_MLHS_LL
+                    if(MLHS_UL == MRHS_UL) {
+                        document.getElementById("mainUP").value = MLHS_UL
+                    }
+
+                    if(MLHS_LL == MRHS_LL) {
+                        document.getElementById("mainLOW").value = MLHS_LL
+                    }
+
+                    if(MLHS_FL == MRHS_FL) {
+                        document.getElementById("mainFL").value = MLHS_FL
+                    }
 
                     document.getElementById("preLHSup").value = PLHS_UL
                     document.getElementById("preRHSup").value = PRHS_UL
@@ -594,6 +596,9 @@
                     document.getElementById("preRHSlow").value = PRHS_LL
                     document.getElementById("preLHSfl").value = PLHS_FL
                     document.getElementById("preRHSfl").value = PRHS_FL
+
+                    document.getElementById("awc_high").value = AWC_MLHS_UL
+                    document.getElementById("awc_low").value = AWC_MLHS_LL
                     document.getElementById("awc_high_LHS").value = AWC_PLHS_UL
                     document.getElementById("awc_high_RHS").value = AWC_PRHS_UL
                     document.getElementById("awc_low_LHS").value = AWC_PLHS_LL
@@ -625,6 +630,17 @@
                     
                     document.getElementById("roller_freq").value = payload.stats.roller.frequency
                     document.getElementById("roller_mode").value = payload.stats.roller.motor
+
+                    if (payload.button.AUTO_SAMPLING == true) {
+                        document.getElementById("samp").innerHTML = "AUTO SAMPLING";
+                        const div1 = document.getElementById("samp").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("samp").classList.add('bg-green-300');
+
+                    } else {
+                        document.getElementById("samp").innerHTML = "MANUAL SAMPLING";
+                        const div1 = document.getElementById("samp").classList.add('bg-red-300');
+                        const div2 = document.getElementById("samp").classList.remove('bg-green-300');
+                    }
                     
                 })
                 .catch(function (error) {
@@ -636,10 +652,13 @@
         fetchpayloadapiHF1();
         fetchpayloadapiHF();
 
-        setInterval(() => {
-            fetchpayloadapiHF();
-            fetchpayloadapiHF1();
-        }, 5000);
+        function check() {
+            setTimeout(() => {
+                fetchpayloadapiHF();
+                fetchpayloadapiHF1()
+            }, 2000);
+        }
+
     </script>
 
     <!-- Update Values -->
@@ -651,16 +670,10 @@
                 submitt(parseFloat(pressure))
 
                 function submitt(pressure) {
-                    if (pressure <= 10 && pressure >= 0.1) {
+                    if (pressure <= 10000 && pressure >= 0.1) {
                         let submiturl = `${seturl}/LUBE_TIME_DELAY_SECONDS/${pressure}`
-                        console.log(submiturl)
                         fetch(submiturl)
-                            .then(setTimeout(() => {
-                                console.log(" [ Request Sent // pending confirmation ] ")
-                            }, 100))
-                            .then(
-                                // Code to check reult
-                            )
+                            .then(check())
                             .catch(console.error);
                     }
                     else {
@@ -676,16 +689,11 @@
                 submitt(parseFloat(pressure))
 
                 function submitt(pressure) {
-                    if (pressure <= 100 && pressure >= 1) {
+                    if (pressure <= 1000000 && pressure >= 1) {
                         let submiturl = `${seturl}/LUBE_TIME_DELAY_MINUTES/${pressure}`
-                        console.log(submiturl)
+                        
                         fetch(submiturl)
-                            .then(setTimeout(() => {
-                                console.log(" [ Request Sent // pending confirmation ] ")
-                            }, 100))
-                            .then(
-                                // Code to check reult
-                            )
+                            .then(check())
                             .catch(console.error);
                     }
                     else {
@@ -701,16 +709,11 @@
                 submitt(parseFloat(pressure))
 
                 function submitt(pressure) { 
-                    if (pressure <= 100 && pressure >= 0) {
+                    if (pressure <= 1000000 && pressure >= 0) {
                         let submiturl = `${seturl}/HYDRAULIC_HIGH_PRESSURE_CUTOFF_PERCENT/${pressure}`
-                        console.log(submiturl)
+                        
                         fetch(submiturl)
-                            .then(setTimeout(() => {
-                                console.log(" [ Request Sent // pending confirmation ] ")
-                            }, 100))
-                            .then(
-                                // Code to check reult
-                            )
+                            .then(check())
                             .catch(console.error);
                     }
                     else {
@@ -726,16 +729,11 @@
             submitt(parseFloat(pressure))
 
             function submitt(pressure) {
-                if (pressure <= 100 && pressure >= 0) {
+                if (pressure <= 10000000 && pressure >= 0) {
                     let submiturl = `${seturl}/HYDRAULIC_LOW_PRESSURE_CUTOFF_PERCENT/${pressure}`
-                    console.log(submiturl)
+                    
                     fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ Request Sent // pending confirmation ] ")
-                        }, 100))
-                        .then(
-                            // Code to check reult
-                        )
+                        .then(check())
                         .catch(console.error);
                 }
                 else {
@@ -754,9 +752,7 @@
                 let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_UPPER/${mainLHSup}`
 
                 await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED LHS_MAIN_TOLERANCE_UPPER tolerance ] ")
-                    }, 100))
+                    .then(check)
                     .catch(console.error);
             }
 
@@ -771,9 +767,7 @@
                 let submiturl = `${seturl}/RHS_MAIN_TOLERANCE_UPPER/${mainLHSup}`
 
                 await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED RHS_MAIN_TOLERANCE_UPPER tolerance ] ")
-                    }, 100))
+                    .then(check())
                     .catch(console.error);
             }
 
@@ -787,12 +781,8 @@
                 async function submitt(mainLHSlow) {
                     let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_LOWER/${mainLHSlow}`
 
-                    console.log(submiturl)
-
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED LHS_MAIN_TOLERANCE_LOWER tolerance ] ")
-                        }, 100))
+                        .then(check())
                         .catch(console.error);
                 }
 
@@ -806,12 +796,8 @@
                 async function submitt(mainLHSlow) {
                     let submiturl = `${seturl}/RHS_MAIN_TOLERANCE_LOWER/${mainLHSlow}`
 
-                    console.log(submiturl)
-
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED RHS_MAIN_TOLERANCE_LOWER tolerance ] ")
-                        }, 100))
+                        .then(check())
                         .catch(console.error);
                 }
 
@@ -824,12 +810,8 @@
                 async function submitt(mainLHSfl) {
                     let submiturl = `${seturl}/LHS_MAIN_FORCE_LINE/${mainLHSfl}`
 
-                    console.log(submiturl)
-
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED LHS_MAIN_FORCE_LINE tolerance ] ")
-                        }, 100))
+                        .then(check())
                         .catch(console.error);
                 }
             }
@@ -841,12 +823,8 @@
                 async function submitt(mainLHSfl) {
                     let submiturl = `${seturl}/RHS_MAIN_FORCE_LINE/${mainLHSfl}`
 
-                    console.log(submiturl)
-
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED RHS_MAIN_FORCE_LINE tolerance ] ")
-                        }, 100))
+                        .then(check())
                         .catch(console.error);
                 }
             }
@@ -858,7 +836,7 @@
 
             let submiturl = `${seturl}/LHS_PRE_TOLERANCE_UPPER/${preLHSup}`
             await fetch(submiturl)
-                .then(console.log("[ UPDATED LHS_PRE_TOLERANCE_UPPER tolerance ] "))
+                .then(check())
                 .catch(console.error);
         }
         
@@ -869,7 +847,7 @@
 
             let submiturl = `${seturl}/RHS_PRE_TOLERANCE_UPPER/${preLHSup}`
             await fetch(submiturl)
-                .then(console.log("[ UPDATED RHS_PRE_TOLERANCE_UPPER tolerance ] "))
+                .then(check())
                 .catch(console.error);
         }
 
@@ -881,12 +859,8 @@
             async function submitt(preLHSlow) {
                 let submiturl = `${seturl}/LHS_PRE_TOLERANCE_LOWER/${preLHSlow}`
 
-                console.log(submiturl)
-
                 await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED LHS_PRE_TOLERANCE_LOWER tolerance ] ")
-                    }, 100))
+                    .then(check())
                     .catch(console.error);
             }
 
@@ -900,12 +874,10 @@
             async function submitt(preLHSlow) {
                 let submiturl = `${seturl}/RHS_PRE_TOLERANCE_LOWER/${preLHSlow}`
 
-                console.log(submiturl)
+                
 
                 await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED RHS_PRE_TOLERANCE_LOWER tolerance ] ")
-                    }, 100))
+                    .then(check())
                     .catch(console.error);
             }
 
@@ -919,12 +891,10 @@
                 async function submitt(preLHSfl) {
                     let submiturl = `${seturl}/LHS_PRE_FORCE_LINE/${preLHSfl}`
 
-                    console.log(submiturl)
+                    
 
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED LHS_PRE_FORCE_LINE tolerance ] ")
-                        }, 100))
+                        .then(check())
                         .catch(console.error);
                 }
             }
@@ -937,12 +907,10 @@
                 async function submitt(preLHSfl) {
                     let submiturl = `${seturl}/RHS_PRE_FORCE_LINE/${preLHSfl}`
 
-                    console.log(submiturl)
+                    
 
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED RHS_PRE_FORCE_LINE tolerance ] ")
-                        }, 100))
+                        .then(check())
                         .catch(console.error);
                 }
             }
@@ -955,12 +923,10 @@
                 async function submitt(value) {
                     let submiturl = `${seturl}/NO_TABLET_SAMPLING/${value}`
 
-                    console.log(submiturl)
+                    
 
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED NO_TABLET_SAMPLING ] ")
-                        }, 100))
+                        .then(check())
                         .catch(console.error);
                 }
             }
@@ -972,13 +938,8 @@
 
                 async function submitt(value) {
                     let submiturl = `${seturl}/SAMPLING_TIME_MINS/${value}`
-
-                    console.log(submiturl)
-
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED SAMPLING_TIME_MINS ] ")
-                        }, 100))
+                        .then(check())
                         .catch(console.error);
                 }
             }
@@ -990,13 +951,8 @@
 
                 async function submitt(value) {
                     let submiturl = `${seturl}/ROLLER_VFD_FREQ/${value}`
-
-                    console.log(submiturl)
-
                     await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED ROLLER_VFD_FREQ ] ")
-                        }, 100))
+                        .then(check())
                         .catch(console.error);
                 }
             }
@@ -1005,20 +961,27 @@
 
             var value = document.getElementById("roller").value
 
-            console.log(value)
-                submitt(parseInt(value))
+            submitt(parseInt(value))
 
-                async function submitt(value) {
-                    let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
+            async function submitt(value) {
+                let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
 
-                    await fetch(submiturl)
-                        .then(setTimeout(() => {
-                            console.log(" [ UPDATED ROLLER_MOTOR_SELECTION ] ")
-                        }, 100))
-                        .catch(console.error);
+                await fetch(submiturl)
+                    .then(check())
+                    .catch(console.error);
                 }
             }
 
+        async function samp() {
+            var rejn = document.getElementById("samp").innerHTML
+
+            // console.log(rejn)
+            if (rejn === "AUTO SAMPLING") {
+                button6x()
+            } else {
+                button6()
+            }
+        }
     </script>
 
     <!-- Update System info -->
@@ -1027,28 +990,24 @@
         async function manual() {
                 let submiturl = `${seturl}/AUTO_SAMPLING/false`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
 
         async function auto() {
                 let submiturl = `${seturl}/AUTO_SAMPLING/true`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
 
         async function sample() {
                 let submiturl = `${seturl}/MANUAL_SAMPLE/true`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
         
         async function unsample() {
                 let submiturl = `${seturl}/MANUAL_SAMPLE/true`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
         
@@ -1057,15 +1016,12 @@
                 
                 let submiturl = `${seturl}/ROLLER_FORWARD/true`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
-        
         
         async function unup() {
                 let submiturl = `${seturl}/ROLLER_FORWARD/false`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
         
@@ -1073,16 +1029,40 @@
             roller()
                 let submiturl = `${seturl}/ROLLER_REVERSE/true`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
         
         async function undown() {
                 let submiturl = `${seturl}/ROLLER_REVERSE/false`
                 await fetch(submiturl)
-                    .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
+
+        async function button13() {
+            let submiturl = `${seturl}/MANUAL_SAMPLE/true`
+            await fetch(submiturl)
+                .catch(console.error);
+        }
+
+        async function button13x() {
+            let submiturl = `${seturl}/MANUAL_SAMPLE/false`
+            await fetch(submiturl)
+                .catch(console.error);
+        }
+
+        async function button6() {
+            let submiturl = `${seturl}/AUTO_SAMPLING/true`
+            await fetch(submiturl)
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function button6x() {
+            let submiturl = `${seturl}/AUTO_SAMPLING/false`
+            await fetch(submiturl)
+                .then(check())
+                .catch(console.error);
+        }
 
     </script>
 

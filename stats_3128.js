@@ -857,15 +857,15 @@ var read_regs = function () {
     client.readHoldingRegisters(reg_5000, 63)
         .then(function (data) {
             // console.log("STATS: ",data.data)
-            payload.stats.turret.F = data.data[0]
-            payload.stats.turret.H = data.data[1]
-            payload.stats.turret.A = data.data[2]
-            payload.stats.LHS_FF.F = data.data[3]
-            payload.stats.LHS_FF.H = data.data[4]
-            payload.stats.LHS_FF.A = data.data[5]
-            payload.stats.RHS_FF.F = data.data[6]
-            payload.stats.RHS_FF.H = data.data[7]
-            payload.stats.RHS_FF.A = data.data[8]
+            payload.stats.turret.F = data.data[0]/100
+            payload.stats.turret.H = data.data[1]/100
+            payload.stats.turret.A = data.data[2]/100
+            payload.stats.LHS_FF.F = data.data[3]/100
+            payload.stats.LHS_FF.H = data.data[4]/100
+            payload.stats.LHS_FF.A = data.data[5]/100
+            payload.stats.RHS_FF.F = data.data[6]/100
+            payload.stats.RHS_FF.H = data.data[7]/100
+            payload.stats.RHS_FF.A = data.data[8]/100
 
             var Prod_reg1 = data.data[10]
             var Prod_reg2 = data.data[11]
@@ -894,21 +894,20 @@ var read_regs = function () {
             payload.stats.fault_active_flash = data.data[27]
             payload.stats.LHSdepth.value = data.data[28]
             payload.stats.RHSdepth.value = data.data[29]
+            payload.stats.LHSweight.value = data.data[30]/100
+            payload.stats.RHSweight.value = data.data[31]/100
+            payload.stats.LHSthickness.value = data.data[32]/100
+            payload.stats.RHSthickness.value = data.data[33]/100
             
-            payload.stats.LHSweight.value = data.data[30]
-            payload.stats.RHSweight.value = data.data[31]
-            payload.stats.LHSthickness.value = data.data[32]
-            payload.stats.RHSthickness.value = data.data[34]
-            
-            payload.stats.pressure.value = data.data[35]
-            payload.stats.lubrication.remaining_time = data.data[36]
+            payload.stats.pressure.value = data.data[34] /10
+            payload.stats.lubrication.remaining_time = data.data[35]
              
             var D_reg1 = data.data[40];
             var D_reg2 = data.data[41];
             if (D_reg2 == 0) {
-                payload.stats.dwell = D_reg1;
+                payload.stats.dwell = D_reg1/10000;
             } else {
-                payload.stats.dwell = (((2 ** 16) * D_reg2) + D_reg1);
+                payload.stats.dwell = (((2 ** 16) * D_reg2) + D_reg1)/10000;
             }
 
             payload.stats.awc.actual_RHS = data.data[42] / 100
@@ -978,9 +977,9 @@ var read_regs = function () {
                 payload.stats.home.RHS.home_offset = (((2 ** 16) * RH_reg2) + RH_reg1);
             }
         
-            payload.stats.roller.F = data.data[60];
-            payload.stats.roller.H = data.data[61];
-            payload.stats.roller.A = data.data[62];
+            payload.stats.roller.F = data.data[60]/100
+            payload.stats.roller.H = data.data[61]/100
+            payload.stats.roller.A = data.data[62]/100
             
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
