@@ -497,9 +497,9 @@
                                 <!-- Excel Button -->
                                 <div class="py-3">
                                     <button id="man_samp"
-                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
-                                        onclick="button6x()"> 
-                                        Manual Sampling
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-16 border border-blue-500 rounded"
+                                        onmousedown="button13()" onmouseup="button13x()"> 
+                                        Sample
                                     </button>
                                 </div>
                             </div>
@@ -508,9 +508,9 @@
                         
                                 <!-- Excel Button -->
                                 <div class="py-3">
-                                    <button id="auto_samp"
+                                    <button id="samp"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
-                                        onclick="button6()"> 
+                                        onclick="samp()"> 
                                         Auto Sampling
                                     </button>
                                 </div>
@@ -1918,15 +1918,14 @@
                     }
 
                     if (payload.button.AUTO_SAMPLING == true) {
-                        const div1 = document.getElementById("auto_samp").classList.remove('bg-red-300');
-                        const div2 = document.getElementById("auto_samp").classList.add('bg-green-300');
-                        const div3 = document.getElementById("man_samp").classList.remove('bg-green-300');
-                        const div4 = document.getElementById("man_samp").classList.add('bg-red-300');
+                        document.getElementById("samp").innerHTML = "AUTO SAMPLING";
+                        const div1 = document.getElementById("samp").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("samp").classList.add('bg-green-300');
+                        
                     } else {
-                        const div1 = document.getElementById("auto_samp").classList.add('bg-red-300');
-                        const div2 = document.getElementById("auto_samp").classList.remove('bg-green-300');
-                        const div3 = document.getElementById("man_samp").classList.add('bg-green-300');
-                        const div4 = document.getElementById("man_samp").classList.remove('bg-red-300');
+                        document.getElementById("samp").innerHTML = "MANUAL SAMPLING";
+                        const div1 = document.getElementById("samp").classList.add('bg-red-300');
+                        const div2 = document.getElementById("samp").classList.remove('bg-green-300');
                     }
                     
                     if (payload.button.FIRST_LAYER_SAMPLING == true) {
@@ -2527,6 +2526,20 @@
                 .then(console.log("[ AWC_DISABLE ] "))
                 .catch(console.error);
         }
+        
+        async function button13(){
+            let submiturl = `${seturl}/MANUAL_SAMPLE/true`
+            await fetch(submiturl)
+                .then(console.log("[ MANUAL_SAMPLE ] "))
+                .catch(console.error);
+        }
+
+        async function button13x(){
+            let submiturl = `${seturl}/MANUAL_SAMPLE/false`
+            await fetch(submiturl)
+                .then(console.log("[ MANUAL_SAMPLE ] "))
+                .catch(console.error);
+        }
 
         async function gravity(){
             let submiturl = `${seturl}/FORCE_FEEDER_MODE/0`
@@ -2563,6 +2576,18 @@
                 button11()
             } else {
                 button11x()
+            }
+        }
+        
+        async function samp(){
+            console.log()
+            var rejn = document.getElementById("samp").innerHTML
+
+            // console.log(rejn)
+            if (rejn  === "AUTO SAMPLING" ) {
+                button6x()
+            } else {
+                button6()
             }
         }
         
