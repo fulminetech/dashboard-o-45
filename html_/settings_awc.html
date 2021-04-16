@@ -635,18 +635,18 @@
             runRHS()
         }
 
-        // function runRHS_process_touchend() {
-        //     button13x()
-        // }
+        function runRHS_process_touchend() {
+            runRHSx()
+        }
 
         function runLHS_process_touchstart(e) {
             e.preventDefault();
             runLHS()
         }
 
-        // function runLHS_process_touchend() {
-        //     button13x()
-        // }
+        function runLHS_process_touchend() {
+            runLHSx()
+        }
 
     </script>
 
@@ -812,10 +812,24 @@
                     .then(checkfor10s)
                     .catch(console.error);
             }
+        
+        async function runRHSx() {
+                let submiturl = `${seturl}/LHS_FORCE_FEEDER_BUTTON_HMI/false`
+                await fetch(submiturl)
+                    .then(checkfor10s)
+                    .catch(console.error);
+            }
 
 
         async function runLHS() {
             let submiturl = `${seturl}/RHS_FORCE_FEEDER_BUTTON_HMI/true`
+            await fetch(submiturl)
+                .then(checkfor10s)
+                .catch(console.error);
+        }
+
+        async function runLHSx() {
+            let submiturl = `${seturl}/RHS_FORCE_FEEDER_BUTTON_HMI/false`
             await fetch(submiturl)
                 .then(checkfor10s)
                 .catch(console.error);
