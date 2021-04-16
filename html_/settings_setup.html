@@ -1167,7 +1167,7 @@
                                 <div class="py-3">
                                     <input id="B_TYPE_HEAD_FLAT"
                                         class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) B_TYPE_HEAD_FLAT()">
                                 </div>
                                 
                             </div>
@@ -1179,7 +1179,7 @@
                                 <div class="py-3">
                                     <input id="D_TYPE_HEAD_FLAT"
                                         class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) D_TYPE_HEAD_FLAT()">
                                 </div>
                                 
                             </div>
@@ -1200,7 +1200,7 @@
                                 <div class="py-3">
                                     <input id="B_TYPE_PCD"
                                         class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) B_TYPE_PCD()">
                                 </div>
                                 
                             </div>
@@ -1212,7 +1212,7 @@
                                 <div class="py-3">
                                     <input id="D_TYPE_PCD"
                                         class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) D_TYPE_PCD()">
                                 </div>
                                 
                             </div>
@@ -2023,6 +2023,46 @@
             var a = document.getElementById("RTN_1_PPR").value;
             // console.log(a)
             let submiturl = `${seturl}/RTN_1_PPR/${a}`
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED! ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function B_TYPE_HEAD_FLAT() {
+            var a = document.getElementById("B_TYPE_HEAD_FLAT").value;
+            // console.log(a)
+            let submiturl = `${seturl}/B_TYPE_HEAD_FLAT/${a}`
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED! ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function D_TYPE_HEAD_FLAT() {
+            var a = document.getElementById("D_TYPE_HEAD_FLAT").value;
+            // console.log(a)
+            let submiturl = `${seturl}/D_TYPE_HEAD_FLAT/${a}`
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED! ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function B_TYPE_PCD() {
+            var a = document.getElementById("B_TYPE_PCD").value;
+            // console.log(a)
+            let submiturl = `${seturl}/B_TYPE_PCD/${a}`
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED! ] "))
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function D_TYPE_PCD() {
+            var a = document.getElementById("D_TYPE_PCD").value;
+            // console.log(a)
+            let submiturl = `${seturl}/D_TYPE_PCD/${a}`
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
