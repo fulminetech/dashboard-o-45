@@ -608,7 +608,7 @@
             submitt(parseFloat(pressure))
 
             function submitt(pressure) {
-                if (pressure <= 100000000000 && pressure >= 1) {
+                if (pressure <= 100000000000 && pressure >= -1000000) {
                     let submiturl = `${seturl}/RHS_HOME_OFFSET_1/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
@@ -633,7 +633,7 @@
             submitt(parseFloat(pressure))
 
             function submitt(pressure) {
-                if (pressure <= 1000000000 && pressure >= 0) {
+                if (pressure <= 1000000000 && pressure >= -100000) {
                     let submiturl = `${seturl}/LHS_HOME_OFFSET_2/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
@@ -658,7 +658,7 @@
             submitt(parseFloat(pressure))
 
             function submitt(pressure) {
-                if (pressure <= 1000000000000 && pressure >= 0) {
+                if (pressure <= 1000000000000 && pressure >= -20000000) {
                     let submiturl = `${seturl}/RHS_HOME_OFFSET_2/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
