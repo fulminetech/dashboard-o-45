@@ -1497,17 +1497,19 @@
 
     <!-- Touch handlers -->
     <script>
-        var inching = document.querySelector('inching')
+        var inchingg = document.querySelector('inching')
 
-        inching.addEventListener('touchstart', process_touchstart, false);
-        inching.addEventListener('touchend', process_touchend, false);
+        inchingg.addEventListener('touchstart', process_touchstart, false);
+        inchingg.addEventListener('touchend', process_touchend, false);
 
         function process_touchstart(e) {
             e.preventDefault();
+            console.log("Start")
             inch()
         }
 
         function process_touchend() {
+            console.log("Stop")
             uninch()
         }
     </script>
