@@ -830,6 +830,14 @@
                                 
                             </div>
                         </div>
+
+                        <div class="p-5">
+                            <button id="mode"
+                                class="bg-orange-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
+                                onmousedown="mode_()">
+                                DIRECT MODE
+                            </button>
+                        </div>
                     
                     </div>
 
@@ -1314,6 +1322,12 @@
                         document.getElementById("type").innerHTML = "B TYPE";
                     }
 
+                    if (payload.button.DIRECT__RAMP == true) {
+                        document.getElementById("mode").innerHTML = "RAMP MODE";
+                    } else {
+                        document.getElementById("mode").innerHTML = "DIRECT MODE";
+                    }
+
 
                 })
                 .catch(function (error) {
@@ -1344,6 +1358,18 @@
                 button1x()
             }
         }
+        
+        async function mode_() {
+            
+            var rejn = document.getElementById("mode").innerHTML
+
+            // console.log(rejn)
+            if (rejn === "DIRECT MODE") {
+                button2()
+            } else {
+                button2x()
+            }
+        }
 
         async function button1() {
             let submiturl = `${seturl}/B_TYPE__D_TYPE/true`
@@ -1354,6 +1380,20 @@
 
         async function button1x() {
             let submiturl = `${seturl}/B_TYPE__D_TYPE/false`
+            await fetch(submiturl)
+                .then(check)
+                .catch(console.error);
+        }
+
+        async function button2() {
+            let submiturl = `${seturl}/DIRECT__RAMP/true`
+            await fetch(submiturl)
+                .then(check)
+                .catch(console.error);
+        }
+
+        async function button2x() {
+            let submiturl = `${seturl}/DIRECT__RAMP/false`
             await fetch(submiturl)
                 .then(check)
                 .catch(console.error);
