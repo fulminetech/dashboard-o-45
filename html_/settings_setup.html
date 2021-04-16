@@ -1150,6 +1150,14 @@
                     <div class="border-b mt-2 p-3">
                         <h5 class="font-bold text-black">Head Flat: (mm)</h5>
                     </div>
+
+                    <div class="p-3">
+                        <button id="type"
+                            class="bg-orange-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
+                            onmousedown="type()">
+                            B Type
+                        </button>
+                    </div>
                     
                     <div class="flex grid grid-cols-4 p-3 ">
                     
@@ -1300,6 +1308,12 @@
                     document.getElementById("RTN_1_MM").value = payload.stats.awc.RTN_1_MM
                     document.getElementById("RTN_1_PPR").value = payload.stats.awc.RTN_1_PPR
 
+                    if (payload.button.B_TYPE__D_TYPE == true) {
+                        document.getElementById("type").innerHTML = "D TYPE";
+                    } else {
+                        document.getElementById("type").innerHTML = "B TYPE";
+                    }
+
 
                 })
                 .catch(function (error) {
@@ -1319,6 +1333,31 @@
     
     <!-- Update System info -->
     <script>
+        async function type() {
+            
+            var rejn = document.getElementById("type").innerHTML
+
+            // console.log(rejn)
+            if (rejn === "B TYPE") {
+                button1()
+            } else {
+                button1x()
+            }
+        }
+
+        async function button1() {
+            let submiturl = `${seturl}/B_TYPE__D_TYPE/true`
+            await fetch(submiturl)
+                .then(check)
+                .catch(console.error);
+        }
+
+        async function button1x() {
+            let submiturl = `${seturl}/B_TYPE__D_TYPE/false`
+            await fetch(submiturl)
+                .then(check)
+                .catch(console.error);
+        }
 
         async function LHS_PRE_MAX() {
             var a = document.getElementById("LHS_PRE_MAX").value;
