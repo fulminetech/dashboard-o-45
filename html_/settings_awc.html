@@ -466,7 +466,7 @@
                             </div>
                         
                             <div class="flex flex-col">
-                                <h3> AWC Correction Factor</h3>
+                                <h3> AWC Max Correction %</h3>
                                 <div class="flex flex-row">
                                     <div class="py-3">
                                         <input id="awc_corr"
@@ -733,15 +733,18 @@
                 submitt(parseFloat(preLHSlow))
 
                 async function submitt(preLHSlow) {
-                    let submiturl = `${seturl}/AWC_MAX_CORRECTION/${preLHSlow}`
-
-                    console.log(submiturl)
-
-                    await fetch(submiturl)
-                        .then(check)
-                        .catch(console.error);
+                    var pressure = preLHSlow;
+                    if (pressure <= 50 && pressure >= 0) {
+                        let submiturl = `${seturl}/AWC_MAX_CORRECTION/${preLHSlow}`
+                        console.log(submiturl)
+                        fetch(submiturl)
+                            .then(check)
+                            .catch(console.error);
+                    }
+                    else {
+                        alert("Please set value between 0 and 50.")
+                    }
                 }
-
             }
 
         function awc_corr_mm() {
