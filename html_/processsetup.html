@@ -288,7 +288,7 @@
                                             <input id="mainUP"
                                                 class="bg-white border-gray-500 shadow text-center focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
                                                 type="number" placeholder="MAIN LHS + RHS Upper"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_MLU() && updatelimits_MRU() ">
+                                                onkeydown="if (event.keyCode == 13) updatelimits_MLU()">
                                         </td>
                                     </tr>
                                     <tr>
@@ -296,7 +296,7 @@
                                         <td id="preLHS_lower" class="border-b  pb-5 px-3 text-center">
                                             <input id="mainLOW"
                                                 class="bg-white border-gray-500 shadow text-center focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Main LHS + RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MLL() && updatelimits_MRL()">
+                                                type="number" placeholder="Main LHS + RHS Low" onkeydown="if (event.keyCode == 13) updatelimits_MLL()">
                                         </td>
                                     </tr>
                                     <tr>
@@ -577,19 +577,11 @@
                     AWC_PRHS_LL = payload.limit[23]
                     AWC_MRHS_UL = payload.limit[24]
                     AWC_MRHS_LL = payload.limit[25]
-
-                    if(MLHS_UL == MRHS_UL) {
-                        document.getElementById("mainUP").value = MLHS_UL
-                    }
-
-                    if(MLHS_LL == MRHS_LL) {
-                        document.getElementById("mainLOW").value = MLHS_LL
-                    }
-
-                    if(MLHS_FL == MRHS_FL) {
-                        document.getElementById("mainFL").value = MLHS_FL
-                    }
-
+                    
+                    document.getElementById("mainUP").value = MLHS_UL
+                    document.getElementById("mainLOW").value = MLHS_LL
+                    document.getElementById("mainFL").value = MLHS_FL
+                    
                     document.getElementById("preLHSup").value = PLHS_UL
                     document.getElementById("preRHSup").value = PRHS_UL
                     document.getElementById("preLHSlow").value = PLHS_LL
