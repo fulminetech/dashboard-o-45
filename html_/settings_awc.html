@@ -753,20 +753,18 @@
                 submitt(parseFloat(preLHSlow))
 
                 async function submitt(preLHSlow) {
-                        var pressure = preLHSlow;
-                        if (pressure <= 50 && pressure >= 0) {
-                            let submiturl = `${seturl}/AWC_32bit_CORRECTION/${preLHSlow}`
-                            console.log(submiturl)
-                            fetch(submiturl)
-                                .then(check)
-                                .catch(console.error);
-                        }
-                        else {
-                            alert("Please set value between 0 and 2.")
-                        }
+                    var pressure = preLHSlow;
+                    if (pressure <= 2 && pressure >= 0) {
+                        let submiturl = `${seturl}/AWC_32bit_CORRECTION/${preLHSlow}`
+                        console.log(submiturl)
+                        fetch(submiturl)
+                            .then(check)
+                            .catch(console.error);
+                    }
+                    else {
+                        alert("Please set value between 0 and 2.")
                     }
                 }
-
             }
 
         async function Rweight_inc() {
