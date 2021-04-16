@@ -298,7 +298,7 @@
 
                     <!-- Search: Parameters -->
                     <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">LHS DISCHARGE FILL DEPTH:</h5>
+                        <h5 class="font-bold text-black">RHS DISCHARGE FILL DEPTH:</h5>
                     </div>
                     
                     <div class="flex grid grid-cols-4 p-3 ">
@@ -355,7 +355,7 @@
 
                     <!-- Search: Parameters -->
                     <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">RHS DISCHARGE FILL DEPTH:</h5>
+                        <h5 class="font-bold text-black">LHS DISCHARGE FILL DEPTH:</h5>
                     </div>
                     
                     <div class="flex grid grid-cols-4 p-3 ">
@@ -670,7 +670,7 @@
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> LHS DISCHARGE MAX RPM </h3>
+                            <h3> RHS DISCHARGE MAX RPM </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="LHS_FORCE_FEEDER_MAX_RPM"
@@ -682,7 +682,7 @@
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> LHS DISCHARGE MAX FREQUENCY </h3>
+                            <h3> RHS DISCHARGE MAX FREQUENCY </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="LHS_FORCE_FEEDER_MAX_FREQ"
@@ -694,7 +694,7 @@
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> RHS DISCHARGE MAX RPM </h3>
+                            <h3> LHS DISCHARGE MAX RPM </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="RHS_FORCE_FEEDER_MAX_RPM"
@@ -706,7 +706,7 @@
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> RHS DISCHARGE MAX FREQUENCY </h3>
+                            <h3> LHS DISCHARGE MAX FREQUENCY </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="RHS_FORCE_FEEDER_MAX_FREQ"
@@ -1144,54 +1144,6 @@
                             </div>
                         </div>
                     
-                        <div class="flex flex-col">
-                            <h3> LHS DISCHARGE HOME OFFSET 1</h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="LHS_HOME_OFFSET_1"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) LHS_HOME_OFFSET_1()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> LHS DISCHARGE HOME OFFSET 2</h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="LHS_HOME_OFFSET_2"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) LHS_HOME_OFFSET_2()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> RHS DISCHARGE HOME OFFSET 1</h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="RHS_HOME_OFFSET_1"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) RHS_HOME_OFFSET_1()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> RHS DISCHARGE HOME OFFSET 2</h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="RHS_HOME_OFFSET_2"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) RHS_HOME_OFFSET_2()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
                     </div>
 
                     <!-- Search: Parameters -->
@@ -1347,10 +1299,7 @@
                     document.getElementById("MAXIMUM_REJECT_TABLET").value = payload.stats.awc.MAXIMUM_REJECT_TABLET
                     document.getElementById("RTN_1_MM").value = payload.stats.awc.RTN_1_MM
                     document.getElementById("RTN_1_PPR").value = payload.stats.awc.RTN_1_PPR
-                    document.getElementById("RHS_HOME_OFFSET_1").value = payload.stats.awc.RHS_HOME_OFFSET_1
-                    document.getElementById("RHS_HOME_OFFSET_2").value = payload.stats.awc.RHS_HOME_OFFSET_2
-                    document.getElementById("LHS_HOME_OFFSET_1").value = payload.stats.awc.LHS_HOME_OFFSET_1
-                    document.getElementById("LHS_HOME_OFFSET_2").value = payload.stats.awc.LHS_HOME_OFFSET_2
+
 
                 })
                 .catch(function (error) {
@@ -2041,46 +1990,6 @@
                 .catch(console.error);
         }
 
-        async function LHS_HOME_OFFSET_1() {
-            var a = document.getElementById("LHS_HOME_OFFSET_1").value;
-            // console.log(a)
-            let submiturl = `${seturl}/LHS_HOME_OFFSET_1/${a}`
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED! ] "))
-                .then(check())
-                .catch(console.error);
-        }
-
-        async function LHS_HOME_OFFSET_2() {
-            var a = document.getElementById("LHS_HOME_OFFSET_2").value;
-            // console.log(a)
-            let submiturl = `${seturl}/LHS_HOME_OFFSET_2/${a}`
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED! ] "))
-                .then(check())
-                .catch(console.error);
-        }
-
-        async function RHS_HOME_OFFSET_1() {
-            var a = document.getElementById("RHS_HOME_OFFSET_1").value;
-            // console.log(a)
-            let submiturl = `${seturl}/RHS_HOME_OFFSET_1/${a}`
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED! ] "))
-                .then(check())
-                .catch(console.error);
-        }
-
-        async function RHS_HOME_OFFSET_2() {
-            var a = document.getElementById("RHS_HOME_OFFSET_2").value;
-            // console.log(a)
-            let submiturl = `${seturl}/RHS_HOME_OFFSET_2/${a}`
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED! ] "))
-                .then(check())
-                .catch(console.error);
-        }
-        
     </script>
 
 </body>
