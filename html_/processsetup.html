@@ -750,21 +750,6 @@
 
         }
 
-        function updatelimits_MRU() {
-            var mainLHSup = document.getElementById("mainUP").value;
-
-            submitt(parseInt(mainLHSup))
-
-            async function submitt(mainLHSup) {
-                let submiturl = `${seturl}/RHS_MAIN_TOLERANCE_UPPER/${mainLHSup}`
-
-                await fetch(submiturl)
-                    .then(check())
-                    .catch(console.error);
-            }
-
-        }
-
         function updatelimits_MLL() {
                 var mainLHSlow = document.getElementById("mainLHSlow").value;
 
@@ -780,40 +765,12 @@
 
             }
 
-        function updatelimits_MRL() {
-                var mainLHSlow = document.getElementById("mainLOW").value;
-
-                submitt(parseInt(mainLHSlow))
-
-                async function submitt(mainLHSlow) {
-                    let submiturl = `${seturl}/RHS_MAIN_TOLERANCE_LOWER/${mainLHSlow}`
-
-                    await fetch(submiturl)
-                        .then(check())
-                        .catch(console.error);
-                }
-
-            }
-
         function updatelimits_MLFL() {
                 var mainLHSfl = document.getElementById("mainFL").value;
 
                 submitt(parseInt(mainLHSfl))
                 async function submitt(mainLHSfl) {
                     let submiturl = `${seturl}/MONO_MAIN_FORCE/${mainLHSfl}`
-
-                    await fetch(submiturl)
-                        .then(check())
-                        .catch(console.error);
-                }
-            }
-        
-        function updatelimits_MRFL() {
-                var mainLHSfl = document.getElementById("mainFL").value;
-
-                submitt(parseInt(mainLHSfl))
-                async function submitt(mainLHSfl) {
-                    let submiturl = `${seturl}/RHS_MAIN_FORCE_LINE/${mainLHSfl}`
 
                     await fetch(submiturl)
                         .then(check())
@@ -866,8 +823,6 @@
             async function submitt(preLHSlow) {
                 let submiturl = `${seturl}/RHS_PRE_TOLERANCE_LOWER/${preLHSlow}`
 
-                
-
                 await fetch(submiturl)
                     .then(check())
                     .catch(console.error);
@@ -881,9 +836,7 @@
                 submitt(parseInt(preLHSfl))
 
                 async function submitt(preLHSfl) {
-                    let submiturl = `${seturl}/LHS_PRE_FORCE_LINE/${preLHSfl}`
-
-                    
+                    let submiturl = `${seturl}/BI_PRE_FORCE/${preLHSfl}`
 
                     await fetch(submiturl)
                         .then(check())
@@ -897,9 +850,7 @@
                 submitt(parseInt(preLHSfl))
 
                 async function submitt(preLHSfl) {
-                    let submiturl = `${seturl}/RHS_PRE_FORCE_LINE/${preLHSfl}`
-
-                    
+                    let submiturl = `${seturl}/BI_MAIN_FORCE/${preLHSfl}`
 
                     await fetch(submiturl)
                         .then(check())
