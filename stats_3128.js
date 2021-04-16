@@ -682,7 +682,7 @@ var read_regs = function () {
             var PH_reg1 = data.data[44];
             var PH_reg2 = data.data[45];
             if (PH_reg2 == 0) {
-                payload.stats.awc.AWC_32bit_CORRECTION = PH_reg1;
+                payload.stats.awc.AWC_32bit_CORRECTION = PH_reg1/100;
             } else {
                 payload.stats.awc.AWC_32bit_CORRECTION = (((2 ** 16) * PH_reg2) + PH_reg1) / 100;
             }
