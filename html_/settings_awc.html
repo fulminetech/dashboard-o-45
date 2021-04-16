@@ -699,15 +699,18 @@
                 submitt(parseInt(preLHSlow))
 
                 async function submitt(preLHSlow) {
-                    let submiturl = `${seturl}/AVG_RTN/${preLHSlow}`
-
-                    console.log(submiturl)
-
-                    await fetch(submiturl)
-                        .then(check)
-                        .catch(console.error);
+                    var pressure = preLHSlow;
+                    if (pressure <= 10 && pressure >= 1) {
+                        let submiturl = `${seturl}/AVG_RTN/${preLHSlow}`
+                        console.log(submiturl)
+                        fetch(submiturl)
+                            .then(check)
+                            .catch(console.error);
+                    }
+                    else {
+                        alert("Please set value between 1 and 10.")
+                    }
                 }
-
             }
 
         function avg_tol() {
