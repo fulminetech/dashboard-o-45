@@ -624,51 +624,60 @@ var read_regs = function () {
     mbsState = PASS_READ_REGS;
 
     client.readHoldingRegisters(reg_6000, 63)
-        .then(function (stats_data) {
-            // console.log("STATS: ",stats_data.data)
+        .then(function (data) {
+            // console.log("STATS: ",data.data)
             // New stats! 
-            payload.stats.turret.RPM = stats_data.data[0],
-            payload.stats.LHS_FF.RPM = stats_data.data[1],
-            payload.stats.RHS_FF.RPM = stats_data.data[2],
-            payload.stats.FF_MODE = stats_data.data[3],
-            payload.stats.lubrication.set_delay_min = stats_data.data[4],
-            payload.stats.lubrication.set_delay_sec = stats_data.data[5]/10,
-            payload.stats.pressure.pressure_set = stats_data.data[7]/10,
-            payload.stats.hydraulic.high_cutoff = stats_data.data[8]
-            payload.stats.hydraulic.low_cutoff = stats_data.data[9]
+            payload.stats.turret.RPM = data.data[0],
+            payload.stats.LHS_FF.RPM = data.data[1],
+            payload.stats.RHS_FF.RPM = data.data[2],
+            payload.stats.FF_MODE = data.data[3],
+            payload.stats.lubrication.set_delay_min = data.data[4],
+            payload.stats.lubrication.set_delay_sec = data.data[5]/10,
+            payload.stats.pressure.pressure_set = data.data[7]/10,
+            payload.stats.hydraulic.high_cutoff = data.data[8]
+            payload.stats.hydraulic.low_cutoff = data.data[9]
 
             // // Compression Limits
-            payload.machine.LHS.precompression_upperlimit = stats_data.data[10] / 100;
-            payload.machine.LHS.precompression_lowerlimit = stats_data.data[11] / 100;
-            payload.machine.LHS.maincompression_upperlimit = stats_data.data[12] / 100;
-            payload.machine.LHS.maincompression_lowerlimit = stats_data.data[13] / 100;
-            payload.machine.LHS.ejection_upperlimit = stats_data.data[14] / 100;
-            payload.machine.LHS.ejection_lowerlimit = stats_data.data[15] / 100;
+            payload.machine.LHS.precompression_upperlimit = data.data[10] / 100;
+            payload.machine.LHS.precompression_lowerlimit = data.data[11] / 100;
+            payload.machine.LHS.maincompression_upperlimit = data.data[12] / 100;
+            payload.machine.LHS.maincompression_lowerlimit = data.data[13] / 100;
+            payload.machine.LHS.ejection_upperlimit = data.data[14] / 100;
+            payload.machine.LHS.ejection_lowerlimit = data.data[15] / 100;
 
-            payload.machine.RHS.precompression_upperlimit = stats_data.data[16] / 100;
-            payload.machine.RHS.precompression_lowerlimit = stats_data.data[17] / 100;
-            payload.machine.RHS.maincompression_upperlimit = stats_data.data[18] / 100;
-            payload.machine.RHS.maincompression_lowerlimit = stats_data.data[19] / 100;
-            payload.machine.RHS.ejection_upperlimit = stats_data.data[20] / 100;
-            payload.machine.RHS.ejection_lowerlimit = stats_data.data[21] / 100;
+            payload.machine.RHS.precompression_upperlimit = data.data[16] / 100;
+            payload.machine.RHS.precompression_lowerlimit = data.data[17] / 100;
+            payload.machine.RHS.maincompression_upperlimit = data.data[18] / 100;
+            payload.machine.RHS.maincompression_lowerlimit = data.data[19] / 100;
+            payload.machine.RHS.ejection_upperlimit = data.data[20] / 100;
+            payload.machine.RHS.ejection_lowerlimit = data.data[21] / 100;
 
-            payload.machine.LHS.pre_forceline = stats_data.data[22] / 100;
-            payload.machine.LHS.main_forceline = stats_data.data[23] / 100;
-            payload.machine.LHS.ejn_forceline = stats_data.data[24] / 100;
+            payload.machine.LHS.pre_forceline = data.data[22] / 100;
+            payload.machine.LHS.main_forceline = data.data[23] / 100;
+            payload.machine.LHS.ejn_forceline = data.data[24] / 100;
 
-            payload.machine.RHS.pre_forceline = stats_data.data[25] / 100;
-            payload.machine.RHS.main_forceline = stats_data.data[26] / 100;
-            payload.machine.RHS.ejn_forceline = stats_data.data[27] / 100;
+            payload.machine.RHS.pre_forceline = data.data[25] / 100;
+            payload.machine.RHS.main_forceline = data.data[26] / 100;
+            payload.machine.RHS.ejn_forceline = data.data[27] / 100;
 
-            payload.stats.awc.MONO_MAIN_FORCE = stats_data.data[36] / 100;
-            payload.stats.awc.BI_PRE_FORCE  = stats_data.data[37] / 100;
-            payload.stats.awc.BI_MAIN_FORCE  = stats_data.data[38] / 100;
-            payload.machine.RHS.dozer_position = stats_data.data[39] / 100;
-            payload.machine.LHS.dozer_position = stats_data.data[40] / 100;
+            payload.stats.awc.L_precompression_upperlimit = data.data[28] / 100;
+            payload.stats.awc.L_precompression_lowerlimit = data.data[29] / 100;
+            payload.stats.awc.L_maincompression_upperlimit = data.data[30] / 100;
+            payload.stats.awc.L_maincompression_lowerlimit = data.data[31] / 100;
+            payload.stats.awc.R_precompression_upperlimit = data.data[32] / 100;
+            payload.stats.awc.R_precompression_lowerlimit = data.data[33] / 100;
+            payload.stats.awc.R_maincompression_upperlimit = data.data[34] / 100;
+            payload.stats.awc.R_maincompression_lowerlimit = data.data[35] / 100;
+            
+            payload.stats.awc.MONO_MAIN_FORCE = data.data[36] / 100;
+            payload.stats.awc.BI_PRE_FORCE  = data.data[37] / 100;
+            payload.stats.awc.BI_MAIN_FORCE  = data.data[38] / 100;
+            payload.machine.RHS.dozer_position = data.data[39] / 100;
+            payload.machine.LHS.dozer_position = data.data[40] / 100;
 
-            payload.stats.awc.AVG_RTN = stats_data.data[41];
-            payload.stats.awc.AWC_TOLERANCE = stats_data.data[42];
-            payload.stats.awc.AWC_MAX_CORRECTION = stats_data.data[43];
+            payload.stats.awc.AVG_RTN = data.data[41];
+            payload.stats.awc.AWC_TOLERANCE = data.data[42];
+            payload.stats.awc.AWC_MAX_CORRECTION = data.data[43];
 
             var PH_reg1 = data.data[44];
             var PH_reg2 = data.data[45];
@@ -678,13 +687,15 @@ var read_regs = function () {
                 payload.stats.awc.AWC_32bit_CORRECTION = (((2 ** 16) * PH_reg2) + PH_reg1) / 100;
             }
 
-            payload.stats.sampling.NO_TABLET_SAMPLING = stats_data.data[57];
-            payload.stats.sampling.SAMPLING_TIME_MINS = stats_data.data[58];
-            payload.stats.sampling.SAMPLE_COUNT = stats_data.data[58];
-            payload.stats.roller.frequency = stats_data.data[61] / 100;
+            payload.stats.sampling.NO_TABLET_SAMPLING = data.data[57];
+            payload.stats.sampling.SAMPLING_TIME_MINS = data.data[58];
+            payload.stats.sampling.SAMPLE_COUNT = data.data[59];
+            payload.stats.roller.frequency = data.data[61] / 100;
 
-            payload.stats.roller.motor = stats_data.data[62];
+            payload.stats.roller.motor = data.data[62];
 
+            
+            
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
@@ -1316,21 +1327,21 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     } 
     else if (a == "MONO_MAIN_FORCE") {
         reg_offset_6000 = 36
-        reg_write_value = b
+        reg_write_value = b*100
         c = payload.stats.awc.MONO_MAIN_FORCE
         write_regs()
         writelog()
     } 
     else if (a == "BI_PRE_FORCE") {
         reg_offset_6000 = 37
-        reg_write_value = b
+        reg_write_value = b * 100
         c = payload.stats.awc.BI_PRE_FORCE
         write_regs()
         writelog()
     } 
     else if (a == "BI_MAIN_FORCE") {
         reg_offset_6000 = 38
-        reg_write_value = b
+        reg_write_value = b * 100
         c = payload.stats.awc.BI_MAIN_FORCE
         write_regs()
         writelog()
