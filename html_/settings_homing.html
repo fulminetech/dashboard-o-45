@@ -292,14 +292,14 @@
                                         <td class="text-center  py-2  text-xl uppercase text-blue-900">
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
-                                            <button id="generatepdfreport"
+                                            <button id="clearRHS"
                                                 class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="clearRHS()" onmouseup="clearRHSx()">
                                                 Clear
                                             </button>
                                         </td>
                                         <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
-                                            <button id="generatepdfreport"
+                                            <button id="clearLHS"
                                                 class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="clearLHS()" onmouseup="clearLHSx()">
                                                 Clear
@@ -330,7 +330,7 @@
                                                 <input id="home1_RHS"
                                                     class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                     type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) home1_RHS()">
-                                                <button id="searchbatch"
+                                                <button id="home1_RHS_set"
                                                     class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                                     onmousedown="home1_RHS_set()" onmouseup="home1_RHS_setx()">
                                                     SET
@@ -343,7 +343,7 @@
                                                 <input id="home1_LHS"
                                                     class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                     type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) home1_LHS()">
-                                                <button id="searchbatch"
+                                                <button id="home1_LHS_set"
                                                     class="bg-blue-100 ml-3 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                                     onmousedown="home1_LHS_set()" onmouseup="home1_LHS_setx()">
                                                     SET
@@ -357,14 +357,14 @@
                                         <td class="text-center  py-2  text-xl uppercase text-blue-900">
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
-                                            <button id="generatepdfreport"
+                                            <button id="EEPROM_RHS"
                                                 class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="EEPROM_RHS()" onmouseup="EEPROM_RHSx()">
                                                 EEPROM
                                             </button>
                                         </td>
                                         <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
-                                            <button id="generatepdfreport"
+                                            <button id="EEPROM_LHS"
                                                 class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="EEPROM_LHS()" onmouseup="EEPROM_LHSx()">
                                                 EEPROM
@@ -490,6 +490,88 @@
         setInterval(() => {
             fetchpayloadapiHF2();
         }, 300);
+    </script>
+
+    <!-- touch events -->
+    <script>
+        var clearRHS_ = document.getElementById('clearRHS')
+        var clearLHS_ = document.getElementById('clearLHS')
+        var home1_RHS_set_ = document.getElementById('home1_RHS_set')
+        var home1_LHS_set_ = document.getElementById('home1_LHS_set')
+        var EEPROM_LHS_ = document.getElementById('EEPROM_LHS')
+        var EEPROM_RHS_ = document.getElementById('EEPROM_RHS')
+        
+        clearRHS_.addEventListener('touchstart', clearRHS_process_touchstart, false);
+        clearRHS_.addEventListener('touchend',   clearRHS_process_touchend, false);
+        
+        clearLHS_.addEventListener('touchstart', clearLHS_process_touchstart, false);
+        clearLHS_.addEventListener('touchend',   clearLHS_process_touchend, false);
+        
+        home1_RHS_set_.addEventListener('touchstart', home1_RHS_set_process_touchstart, false);
+        home1_RHS_set_.addEventListener('touchend',   home1_RHS_set_process_touchend, false);
+        
+        home1_LHS_set_.addEventListener('touchstart', home1_LHS_set_process_touchstart, false);
+        home1_LHS_set_.addEventListener('touchend',   home1_LHS_set_process_touchend, false);
+        
+        EEPROM_LHS_.addEventListener('touchstart', EEPROM_LHS_process_touchstart, false);
+        EEPROM_LHS_.addEventListener('touchend',   EEPROM_LHS_process_touchend, false);
+        
+        EEPROM_RHS_.addEventListener('touchstart', EEPROM_RHS_process_touchstart, false);
+        EEPROM_RHS_.addEventListener('touchend',   EEPROM_RHS_process_touchend, false);
+        
+        function clearRHS_process_touchstart(e) {
+            e.preventDefault();
+            clearRHS()
+        }
+
+        function clearRHS_process_touchend() {
+            clearRHSx()
+        }
+        
+        function clearLHS_process_touchstart(e) {
+            e.preventDefault();
+            clearLHS()
+        }
+
+        function clearLHS_process_touchend() {
+            clearLHSx()
+        }
+        
+        function home1_RHS_set_process_touchstart(e) {
+            e.preventDefault();
+            home1_RHS_set()
+        }
+
+        function home1_RHS_set_process_touchend() {
+            home1_RHS_setx()
+        }
+        
+        function home1_LHS_set_process_touchstart(e) {
+            e.preventDefault();
+            home1_LHS_set()
+        }
+
+        function home1_LHS_set_process_touchend() {
+            home1_LHS_setx()
+        }
+        
+        function EEPROM_RHS_process_touchstart(e) {
+            e.preventDefault();
+            EEPROM_RHS()
+        }
+
+        function EEPROM_RHS_process_touchend() {
+            EEPROM_RHSx()
+        }
+        
+        function EEPROM_LHS_process_touchstart(e) {
+            e.preventDefault();
+            EEPROM_LHS()
+        }
+
+        function EEPROM_LHS_process_touchend() {
+            EEPROM_LHSx()
+        }
     </script>
 
     <!-- Update Values -->
