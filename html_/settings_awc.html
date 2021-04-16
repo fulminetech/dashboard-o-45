@@ -716,15 +716,18 @@
                 submitt(parseInt(preLHSlow))
 
                 async function submitt(preLHSlow) {
-                    let submiturl = `${seturl}/AWC_TOLERANCE/${preLHSlow}`
-
-                    console.log(submiturl)
-
-                    await fetch(submiturl)
-                        .then(check)
-                        .catch(console.error);
+                    var pressure = preLHSlow;
+                    if (pressure <= 100 && pressure >= 1) {
+                        let submiturl = `${seturl}/AWC_TOLERANCE/${preLHSlow}`
+                        console.log(submiturl)
+                        fetch(submiturl)
+                            .then(check)
+                            .catch(console.error);
+                    }
+                    else {
+                        alert("Please set value between 1 and 100.")
+                    }
                 }
-
             }
 
         function awc_corr() {
@@ -754,7 +757,7 @@
 
                 async function submitt(preLHSlow) {
                     var pressure = preLHSlow;
-                    if (pressure <= 2 && pressure >= 0) {
+                    if (pressure <= 2 && pressure >= 0.01) {
                         let submiturl = `${seturl}/AWC_32bit_CORRECTION/${preLHSlow}`
                         console.log(submiturl)
                         fetch(submiturl)
@@ -762,7 +765,7 @@
                             .catch(console.error);
                     }
                     else {
-                        alert("Please set value between 0 and 2.")
+                        alert("Please set value between 0.01 and 2.")
                     }
                 }
             }
