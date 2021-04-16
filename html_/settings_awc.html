@@ -341,14 +341,14 @@
                                 <tr>
                                     <td class="text-center py-2  text-xl uppercase text-blue-900"></td>
                                     <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                        <button id="generatepdfreport"
+                                        <button id="rhs_weight_inc"
                                             class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
                                             onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
                                             Weight +
                                         </button>
                                     </td>
                                     <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
-                                        <button id="generatepdfreport"
+                                        <button id="lhs_weight_inc"
                                             class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
                                             onmousedown="Lweight_dec()" onmouseup="Lweight_decx()">
                                             Weight +
@@ -358,14 +358,14 @@
                                 <tr>
                                     <td class="text-center  py-2 uppercase text-xl text-blue-900"></td>
                                     <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                        <button id="generatepdfreport"
+                                        <button id="rhs_weight_dec"
                                             class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
                                             onmousedown="Rweight_inc()" onmouseup="Rweight_incx()">
                                             Weight -
                                         </button>
                                     </td>
                                     <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
-                                        <button id="generatepdfreport"
+                                        <button id="lhs_weight_dec"
                                             class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
                                             onmousedown="Lweight_inc()" onmouseup="Lweight_incx()">
                                             Weight -
@@ -418,14 +418,14 @@
                                 <tr>
                                     <td class="text-center  py-2 uppercase text-xl text-blue-900"></td>
                                     <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                        <button id="generatepdfreport"
+                                        <button id="runRHS"
                                             class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
                                             onclick="runRHS()">
                                             RUN
                                         </button>
                                     </td>
                                     <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
-                                        <button id="generatepdfreport"
+                                        <button id="runLHS"
                                             class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
                                             onclick="runLHS()">
                                             RUN
@@ -501,59 +501,6 @@
     <!-- PAYLOAD API fetch -->
     <script>
 
-        async function fetchpayloadapiHF() {
-            fetch(processedurl)
-                .then((resp) => resp.json()) // Transform the data into json
-                .then(function (data) {
-                    // Here you get the data to modify as you please
-                    payload = data
-
-
-                    MLHS_LL = payload.limit[0]
-                    MLHS_UL = payload.limit[1]
-                    PLHS_LL = payload.limit[4]
-                    PLHS_UL = payload.limit[5]
-                    ELHS_LL = payload.limit[8]
-                    ELHS_UL = payload.limit[9]
-                    PLHS_FL = payload.limit[12]
-                    MLHS_FL = payload.limit[13]
-                    ELHS_FL = payload.limit[14]
-                    AWC_PLHS_UL = payload.limit[18]
-                    AWC_PLHS_LL = payload.limit[19]
-                    AWC_MLHS_UL = payload.limit[20]
-                    AWC_MLHS_LL = payload.limit[21]
-                    MRHS_LL = payload.limit[2]
-                    MRHS_UL = payload.limit[3]
-                    PRHS_LL = payload.limit[6]
-                    PRHS_UL = payload.limit[7]
-                    ERHS_LL = payload.limit[10]
-                    ERHS_UL = payload.limit[11]
-                    PRHS_FL = payload.limit[15]
-                    MRHS_FL = payload.limit[16]
-                    ERHS_FL = payload.limit[17]
-                    AWC_PRHS_UL = payload.limit[22]
-                    AWC_PRHS_LL = payload.limit[23]
-                    AWC_MRHS_UL = payload.limit[24]
-                    AWC_MRHS_LL = payload.limit[25]
-
-                    document.getElementById("mainFL").value = MLHS_FL
-                    document.getElementById("awc_high").value = AWC_MLHS_UL
-                    document.getElementById("awc_low").value = AWC_MLHS_LL
-
-                    document.getElementById("preLHSfl").value = PLHS_FL
-                    document.getElementById("preRHSfl").value = PRHS_FL
-                    document.getElementById("awc_high_LHS").value = AWC_PLHS_UL
-                    document.getElementById("awc_high_RHS").value = AWC_PRHS_UL
-                    document.getElementById("awc_low_LHS").value = AWC_PLHS_LL
-                    document.getElementById("awc_low_RHS").value = AWC_PRHS_LL
-
-                })
-                .catch(function (error) {
-                    // If there is any error you will catch them here
-                    console.log("[ PAYLOAD FETCH ERROR ]", error)
-                });
-        };
-
         async function fetchpayloadapiHF1() {
             fetch(statsurl)
                 .then((resp) => resp.json()) // Transform the data into json
@@ -570,6 +517,17 @@
                     document.getElementById("avg_tol").value = payload.stats.awc.AWC_TOLERANCE
                     document.getElementById("awc_corr").value = payload.stats.awc.AWC_MAX_CORRECTION
                     document.getElementById("awc_corr_mm").value = payload.stats.awc.AWC_32bit_CORRECTION
+                    
+                    document.getElementById("mainFL").value = payload.stats.awc.MONO_MAIN_FORCE
+                    document.getElementById("preLHSfl").value = payload.stats.awc.BI_PRE_FORCE
+                    document.getElementById("preRHSfl").value = payload.stats.awc.BI_MAIN_FORCE
+                    
+                    document.getElementById("awc_high").value = payload.stats.awc.L_maincompression_upperlimit
+                    document.getElementById("awc_low").value = payload.stats.awc.L_maincompression_lowerlimit
+                    document.getElementById("awc_high_LHS").value = payload.stats.awc.L_precompression_upperlimit
+                    document.getElementById("awc_high_RHS").value = payload.stats.awc.R_precompression_upperlimit
+                    document.getElementById("awc_low_LHS").value = payload.stats.awc.L_precompression_lowerlimit
+                    document.getElementById("awc_low_RHS").value = payload.stats.awc.R_precompression_lowerlimit
 
                 })
                 .catch(function (error) {
@@ -594,12 +552,10 @@
                 });
         };
 
-        fetchpayloadapiHF()
         fetchpayloadapiHF1()
 
         function check() {
             setTimeout(() => {
-                fetchpayloadapiHF()
                 fetchpayloadapiHF1()
             }, 2000);
         }
@@ -614,6 +570,84 @@
 
         checkfor10s()
         
+    </script>
+
+    <!-- touch events -->
+    <script>
+        var rhs_weight_inc = document.getElementById('rhs_weight_inc')
+        var lhs_weight_inc = document.getElementById('lhs_weight_inc')
+        var rhs_weight_dec = document.getElementById('rhs_weight_dec')
+        var lhs_weight_dec = document.getElementById('lhs_weight_dec')
+        var runRHS_ = document.getElementById('runRHS')
+        var runLHS_ = document.getElementById('runLHS')
+
+        rhs_weight_inc.addEventListener('touchstart', rhs_weight_inc_process_touchstart, false);
+        rhs_weight_inc.addEventListener('touchend',   rhs_weight_inc_process_touchend, false);
+        lhs_weight_inc.addEventListener('touchstart', lhs_weight_inc_process_touchstart, false);
+        lhs_weight_inc.addEventListener('touchend',   lhs_weight_inc_process_touchend, false);
+        rhs_weight_dec.addEventListener('touchstart', rhs_weight_dec_process_touchstart, false);
+        rhs_weight_dec.addEventListener('touchend',   rhs_weight_dec_process_touchend, false);
+        lhs_weight_dec.addEventListener('touchstart', lhs_weight_dec_process_touchstart, false);
+        lhs_weight_dec.addEventListener('touchend',   lhs_weight_dec_process_touchend, false);
+        runRHS_.addEventListener('touchstart', runRHS_process_touchstart, false);
+        runRHS_.addEventListener('touchend',   runRHS_process_touchend, false);
+        runLHS_.addEventListener('touchstart', runLHS_process_touchstart, false);
+        runLHS_.addEventListener('touchend',   runLHS_process_touchend, false);
+
+        function rhs_weight_inc_process_touchstart(e) {
+            e.preventDefault();
+            Rweight_inc()
+        }
+
+        function rhs_weight_inc_process_touchend() {
+            Rweight_incx()
+        }
+
+        function lhs_weight_inc_process_touchstart(e) {
+            e.preventDefault();
+            Lweight_inc()
+        }
+
+        function lhs_weight_inc_process_touchend() {
+            Lweight_incx()
+        }
+
+        function rhs_weight_dec_process_touchstart(e) {
+            e.preventDefault();
+            Rweight_dec()
+        }
+
+        function rhs_weight_dec_process_touchend() {
+            Rweight_decx()
+        }
+
+        function lhs_weight_dec_process_touchstart(e) {
+            e.preventDefault();
+            Lweight_dec()
+        }
+
+        function lhs_weight_dec_process_touchend() {
+            Lweight_decx()
+        }
+
+        function runRHS_process_touchstart(e) {
+            e.preventDefault();
+            runRHS()
+        }
+
+        // function runRHS_process_touchend() {
+        //     button13x()
+        // }
+
+        function runLHS_process_touchstart(e) {
+            e.preventDefault();
+            runLHS()
+        }
+
+        // function runLHS_process_touchend() {
+        //     button13x()
+        // }
+
     </script>
 
     <script>
