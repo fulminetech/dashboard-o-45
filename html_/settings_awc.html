@@ -717,7 +717,7 @@
 
                 async function submitt(preLHSlow) {
                     var pressure = preLHSlow;
-                    if (pressure <= 100 && pressure >= 1) {
+                    if (pressure <= 50 && pressure >= 1) {
                         let submiturl = `${seturl}/AWC_TOLERANCE/${preLHSlow}`
                         console.log(submiturl)
                         fetch(submiturl)
@@ -725,7 +725,7 @@
                             .catch(console.error);
                     }
                     else {
-                        alert("Please set value between 1 and 100.")
+                        alert("Please set value between 1 and 50.")
                     }
                 }
             }
