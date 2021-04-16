@@ -1497,7 +1497,8 @@
 
     <!-- Touch handlers -->
     <script>
-        var inching = document.getElementById("inching")
+        var inching = document.querySelector('inching')
+
         inching.addEventListener('touchstart', process_touchstart, false);
         inching.addEventListener('touchend', process_touchend, false);
 
