@@ -170,7 +170,7 @@
                             <h3 id="production_per_hour_metric" class="font-bold text-3xl">0</h3>
                         </div>
                         <div class="p-3">
-                            <button
+                            <button id="reset"
                                 class="text-center bg-red-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded select-none"
                                 onmousedown="button7()" onmouseup="button7x()"> Count Reset </button>
                         </div>
@@ -188,10 +188,10 @@
                         </div>
                         <!-- Search Button -->
                         <div class="p-3">
-                            <button
+                            <button id="start_m"
                                 class="text-center bg-green-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="start()" onmouseup="unstart()"> START </button>
-                            <button
+                            <button id="stop_m"
                                 class="text-center bg-red-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="stop()" onmouseup="unstop()"> STOP </button>
                         </div>
@@ -199,7 +199,8 @@
                         <!-- Search Button -->
                         <div class="p-3">
                             <button id="inching"
-                                class="text-center bg-blue-100 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded select-none"> 
+                                class="text-center bg-blue-100 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded select-none"
+                                onmousedown="inch()" onmouseup="uninch()">
                                 INCHING </button>
                         </div>
                         
@@ -217,16 +218,16 @@
                         </div>
                         <!-- Search Button -->
                         <div class="p-3">
-                            <button
+                            <button id="start_pp"
                                 class="text-center bg-green-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="startpower()" onmouseup="unstartpower()"> START </button>
-                            <button
+                            <button id="stop_pp"
                                 class="text-center bg-red-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="stoppower()" onmouseup="unstoppower()"> STOP </button>
                         </div>
                         <!-- Search Button -->
                         <div class="p-3">
-                            <button
+                            <button id="drain"
                                 class="text-center bg-blue-100 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="drain()" onmouseup="undrain()"> DRAIN </button>
                         </div>
@@ -268,10 +269,10 @@
 
                         <!-- Search Button -->
                         <div class="p-3">
-                            <button
+                            <button id="start_f"
                                 class="text-center bg-green-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="startfeeder()" onmouseup="unstartfeeder()"> START </button>
-                            <button
+                            <button id="stop_f"
                                 class="text-center bg-red-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="stopfeeder()" onmouseup="unstopfeeder()"> STOP </button>
                         </div>
@@ -1497,21 +1498,141 @@
 
     <!-- Touch handlers -->
     <script>
-        var inchingg = document.getElementById('inching')
+        var inching = document.getElementById('inching')
+        var reset = document.getElementById('reset')
+        var start_m = document.getElementById('start_m')
+        var stop_m = document.getElementById('stop_m')
+        var start_pp = document.getElementById('start_pp')
+        var stop_pp = document.getElementById('stop_pp')
+        var drain_ = document.getElementById('drain')
+        var start_f = document.getElementById('start_f')
+        var stop_f = document.getElementById('stop_f')
 
-        inchingg.addEventListener('touchstart', process_touchstart, false);
-        inchingg.addEventListener('touchend', process_touchend, false);
+        inching.addEventListener('touchstart', inching_process_touchstart, false);
+        inching.addEventListener('touchend', inching_process_touchend, false);
 
-        function process_touchstart(e) {
+        reset.addEventListener('touchstart', reset_process_touchstart, false);
+        reset.addEventListener('touchend', reset_process_touchend, false);
+
+        start_m.addEventListener('touchstart', start_m_process_touchstart, false);
+        start_m.addEventListener('touchend', start_m_process_touchend, false);
+
+        stop_m.addEventListener('touchstart', stop_m_process_touchstart, false);
+        stop_m.addEventListener('touchend', stop_m_process_touchend, false);
+
+        start_pp.addEventListener('touchstart', start_pp_process_touchstart, false);
+        start_pp.addEventListener('touchend', start_pp_process_touchend, false);
+
+        stop_pp.addEventListener('touchstart', stop_pp_process_touchstart, false);
+        stop_pp.addEventListener('touchend', stop_pp_process_touchend, false);
+
+        drain_.addEventListener('touchstart', drain_process_touchstart, false);
+        drain_.addEventListener('touchend', drain_process_touchend, false);
+
+        start_f.addEventListener('touchstart', start_f_process_touchstart, false);
+        start_f.addEventListener('touchend', start_f_process_touchend, false);
+
+        stop_f.addEventListener('touchstart', stop_f_process_touchstart, false);
+        stop_f.addEventListener('touchend', stop_f_process_touchend, false);
+
+        function inching_process_touchstart(e) {
             e.preventDefault();
             console.log("Start")
             inch()
         }
 
-        function process_touchend() {
+        function inching_process_touchend() {
             console.log("Stop")
             uninch()
         }
+
+        function reset_process_touchstart(e) {
+            e.preventDefault();
+            button7()
+        }
+
+        function reset_process_touchend() {
+            console.log("Stop")
+            button7x()
+        }
+
+        function start_m_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            start()
+        }
+
+        function start_m_process_touchend() {
+            console.log("Stop")
+            unstart()
+        }
+
+        function stop_m_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            stop()
+        }
+
+        function stop_m_process_touchend() {
+            console.log("Stop")
+            unstop()
+        }
+
+        function start_pp_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            startpower()
+        }
+
+        function start_pp_process_touchend() {
+            console.log("Stop")
+            unstartpower()
+        }
+
+        function stop_pp_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            stoppower()
+        }
+
+        function stop_pp_process_touchend() {
+            console.log("Stop")
+            unstoppower()
+        }
+
+        function drain_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            drain()
+        }
+
+        function drain_process_touchend() {
+            console.log("Stop")
+            undrain()
+        }
+
+        function start_f_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            startfeeder()
+        }
+
+        function start_f_process_touchend() {
+            console.log("Stop")
+            unstartfeeder()
+        }
+
+        function stop_f_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            stopfeeder()
+        }
+
+        function stop_f_process_touchend() {
+            console.log("Stop")
+            unstopfeeder()
+        }
+
     </script>
 
     <!-- PAYLOAD API fetch -->
