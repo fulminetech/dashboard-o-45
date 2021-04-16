@@ -1507,6 +1507,7 @@
         var drain_ = document.getElementById('drain')
         var start_f = document.getElementById('start_f')
         var stop_f = document.getElementById('stop_f')
+        var man_samp = document.getElementById('man_samp')
 
         inching.addEventListener('touchstart', inching_process_touchstart, false);
         inching.addEventListener('touchend', inching_process_touchend, false);
@@ -1534,6 +1535,9 @@
 
         stop_f.addEventListener('touchstart', stop_f_process_touchstart, false);
         stop_f.addEventListener('touchend', stop_f_process_touchend, false);
+
+        man_samp.addEventListener('touchstart', man_samp_process_touchstart, false);
+        man_samp.addEventListener('touchend', man_samp_process_touchend, false);
 
         function inching_process_touchstart(e) {
             e.preventDefault();
@@ -1631,6 +1635,17 @@
         function stop_f_process_touchend() {
             console.log("Stop")
             unstopfeeder()
+        }
+
+        function man_samp_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            button13()
+        }
+
+        function man_samp_process_touchend() {
+            console.log("Stop")
+            button13x()
         }
 
     </script>
