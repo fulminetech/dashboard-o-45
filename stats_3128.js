@@ -245,6 +245,8 @@ var payload = {
         B_PCD: 0,
         D_HEAD: 0,
         D_PCD: 0,
+        Z_PHASE_COUNT: 0,
+        Z_PHASE_COUNTER: 0,
         total_punches: 0,
         encoder_PPR: 0,
         punch_offset_position: {
@@ -305,6 +307,7 @@ var payload = {
         FORCE_FEEDER_START_BUTTON: '',
         FORCE_FEEDER_STOP_BUTTON: '',
         TABLET_COUNT_RESET    : '',
+        Z_PHASE_COUNT_RESET    : '',
         LHS_FORCE_FEEDER_BUTTON_HMI: '',
         RHS_FORCE_FEEDER_BUTTON_HMI: '',
         LUBRICATION_PUMP_BUTTON_HMI: '',
@@ -391,6 +394,37 @@ var payload = {
     }
 };
 
+// Function to covert signed integer to integer!
+function uintToInt(uint, nbit) {
+    nbit = +nbit || 32;
+    if (nbit > 32) throw new RangeError('uintToInt only supports ints up to 32 bits');
+    uint <<= 32 - nbit;
+    uint >>= 32 - nbit;
+    return uint;
+}
+
+console.log(uintToInt(818, 10)); // -206
+
+function twosComplement(value, bitCount) {
+    let binaryStr;
+
+    if (value >= 0) {
+        let twosComp = value.toString(2);
+        binaryStr = padAndChop(twosComp, '0', (bitCount || twosComp.length));
+    } else {
+        binaryStr = (Math.pow(2, bitCount) + value).toString(2);
+
+        if (Number(binaryStr) < 0) {
+            return undefined
+        }
+    }
+
+    var digit = parseInt(binaryStr, 2);
+
+    return digit;
+}
+
+console.log(`-2 = ${twosComplement(-200, 16)}`);
 
 // Make connection
 var connectClient = function () {
@@ -522,6 +556,7 @@ var read_coils = function () {
             payload.button.FORCE_FEEDER_STOP_BUTTON = stats_data.data[19],
 
             payload.button.TABLET_COUNT_RESET = stats_data.data[20],
+            payload.button.Z_PHASE_COUNT_RESET = stats_data.data[21],
 
             payload.button.ROLLER_FORWARD = stats_data.data[25],
             payload.button.ROLLER_REVERSE = stats_data.data[26],
@@ -836,6 +871,9 @@ var read_regs = function () {
             } else {
                 payload.stats.awc.LHS_HOME_OFFSET_2 = (((2 ** 16) * LH2_reg2) + LH2_reg1);
             }
+
+            payload.stats.Z_PHASE_COUNTER = data.data[85];
+            payload.stats.Z_PHASE_COUNT = data.data[86];
              
             
             // payload.stats.encoder_PPR = stats_data.data[88]

@@ -25,7 +25,7 @@ app.use('/css', express.static(__dirname + '/node_modules/tailwindcss/dist/'));
 app.use('/font', express.static(__dirname + '/node_modules/@fortawesome/fontawesome-free/'));
 app.use('/env', express.static(__dirname + '/html_/'));
 app.use('/favicon_io', express.static(__dirname + '/favicon_io/'));
-
+app.use('/guage', express.static(__dirname + '/html_/guage/'));
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/login.html"));
@@ -73,6 +73,10 @@ app.get("/dido", (req, res) => {
 
 app.get("/do", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/do.html"));
+});
+
+app.get("/io_alarm", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html_/io_alarm.html"));
 });
 
 app.get("/io_maintanience", (req, res) => {

@@ -15,6 +15,7 @@
     <link href="/css/tailwind.min.css" rel="stylesheet">
     <script src="/charts/Chart.bundle.min.js"></script>
     <script src="/env/env.js"></script>
+    <script src="/guage/guage.min.js"></script>
     
     <!-- sidebar -->
     <style>
@@ -217,6 +218,90 @@
         
             <div class="flex flex-1 flex-wrap">
                 <div class="w-full p-6 ">
+
+                    <!-- Turret Guage-->
+                    <div class="flex-shrink flex-wrap flex-row p-3">
+                        
+                        <div class="bg-white border border-gray-500 rounded shadow p-2">
+                            <div class="border-b border-gray-800 p-3">
+                                <h5 class="font-bold uppercase text-center text-xl text-gray-900">Encoder PPR: <a id="ecoder_ppr"></a></h5>
+                            </div>
+                            <div class="flex">
+                                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                                    <div class="bg-white border border-gray-500 rounded shadow p-2">
+                                        <div class="flex flex-row py-3 items-center">
+                                            <div class="flex-shrink p-3">
+                                                <div id="1" class="rounded p-4"></div>
+                                            </div>
+                                            <div class="flex-1 text-right md:text-center pr-3">
+                                                <h5 class="font-bold uppercase text-2xl text-gray-900">Z PHASE</h5>
+                                            </div>
+                                        </div>
+                                        <div class="p-5 text-center">
+                                            <button id="phase"
+                                                class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
+                                                onmousedown="phase()">
+                                                Z PHASE BY ENCODER
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                                    <div class="bg-white border border-gray-500 rounded shadow p-2">
+                                        <div class="flex flex-row py-3 items-center">
+                                            <div class="flex-shrink p-3">
+                                                <div id="2" class="rounded p-4"></div>
+                                            </div>
+                                            <div class="flex-1 text-right md:text-center pr-3">
+                                                <h5 class="font-bold uppercase text-2xl text-gray-900">MAIN MOTOR TRIPPED</h5>
+                                            </div>
+                                        </div>
+                                        <div class="p-5 text-center">
+                                            <button id="reset"
+                                                class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
+                                                onmousedown="Y05()" onmouseup="Y05x()">
+                                                Z PHASE COUNTER RESET
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="gauge w-5/3 py-5 align-middle text-center">
+                                <canvas height="330rem" width="500rem" id="canvas-id"></canvas>
+                            </div>
+
+                            <div class="flex">
+                                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                                    <div class="bg-white border border-gray-500 rounded shadow p-2">
+                                        <div class="flex flex-row py-3 items-center">
+                                            <div class="flex-shrink p-3">
+                                                <div id="2" class="rounded p-4"></div>
+                                            </div>
+                                            <div class="flex-1 text-right md:text-center pr-3">
+                                                <h5 class="font-bold uppercase text-2xl text-gray-900">Z PHASE COUNT</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="w-full md:w-1/2 xl:w-1/2 p-2">
+                                    <div class="bg-white border border-gray-500 rounded shadow p-2">
+                                        <div class="flex flex-row py-3 items-center">
+                                            <div class="flex-shrink p-3">
+                                                <div id="2" class="rounded p-4"></div>
+                                            </div>
+                                            <div class="flex-1 text-right md:text-center pr-3">
+                                                <h5 class="font-bold uppercase text-2xl text-gray-900">Z PHASE COUNT</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Search: Parameters -->
                     <div class="border-b mt-2 p-3">
@@ -838,7 +923,7 @@
                                 DIRECT MODE
                             </button>
                         </div>
-                    
+
                     </div>
 
                     <!-- Search: Parameters -->
@@ -1235,14 +1320,116 @@
         </div>
     </div>
 
+
+    <!-- Turret Guage -->
+    <script>
+        var gauge = new RadialGauge({
+                renderTo: 'canvas-id',
+                minValue: 0,
+                maxValue: 360,
+                majorTicks: [
+                    "360",
+                    "45",
+                    "90",
+                    "135",
+                    "180",
+                    "225",
+                    "270",
+                    "315",
+                    ""
+                ],
+                minorTicks: 0,
+                ticksAngle: 360,
+                startAngle: 180,
+                strokeTicks: true,
+                // highlights: true,
+                highlights: [
+                // { 
+                //     from: -20, 
+                //     to: 20, 
+                //     color: 'lightblue' },
+                // { 
+                //     from: 70, 
+                //     to: 110, 
+                //     color: 'green' },
+                // { 
+                //     from: 160, 
+                //     to: 200, 
+                //     color: 'rgba(255,30,0,.25)' },
+                // { 
+                //     from: 250, 
+                //     to: 290, 
+                //     color: 'red'}
+                ],
+                colorPlate: "#222",
+                colorMajorTicks: "#f5f5f5",
+                colorMinorTicks: "#ddd",
+                colorNumbers: "#ccc",
+                colorNeedle: "rgba(240, 128, 128, 1)",
+                colorNeedleEnd: "rgba(255, 160, 122, .9)",
+                valueBox: false,
+                valueTextShadow: false,
+                colorCircleInner: "#fff",
+                colorNeedleCircleOuter: "#ccc",
+                needleCircleSize: 15,
+                needleCircleOuter: true,
+                animationRule: "linear",
+                needleType: "line",
+                needleStart: 75,
+                needleEnd: 99,
+                needleWidth: 5,
+                borders: true,
+                borderInnerWidth: 0,
+                borderMiddleWidth: 0,
+                borderOuterWidth: 10,
+                colorBorderOuter: "#ccc",
+                colorBorderOuterEnd: "#ccc",
+                colorNeedleShadowDown: "#222",
+                borderShadowWidth: 0,
+                animationTarget: "plate",
+                animationDuration: 500,
+                title: "ENCODER",
+                fontTitleSize: 19,
+                colorTitle: "#f5f5f5",
+                value: 0,
+                animateOnInit: false
+            }).draw();
+
+        // var index = 1;
+        // var value = 270
+        // var heating_time = 5000;
+
+        // var indexx;
+
+        // setTimeout(() => { 
+            
+        //     setInterval(function () {
+                
+        //         index = indexx
+                
+        //         value = value - 45;
+        //         gauge.value = value;
+        
+        //     }, heating_time);
+        // }, 100);
+        
+        setTimeout(() => {            
+            gauge.value = 315;
+        }, 20);
+        
+    </script>
     <!-- Check Status -->
     <script>
+        var maindata;
+
         async function fetchpayloadapiHF() {
             fetch(statsurl)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
                     // Here you get the data to modify as you please
                     payload = data
+
+                    maindata = data
 
                     document.getElementById("LHS_PRE_MAX").value = payload.machine.LHS.precompression_max
                     document.getElementById("LHS_MAIN_MAX").value = payload.machine.LHS.maincompression_max
@@ -1327,6 +1514,17 @@
                     } else {
                         document.getElementById("mode").innerHTML = "DIRECT MODE";
                     }
+                    
+                    if (payload.button.Z_PHASE_SELECTION == true) {
+                        
+                        document.getElementById("mode").innerHTML = "Z PHASE BY SENSOR";
+                        const div1 = document.getElementById("phase").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("phase").classList.add('bg-green-300');
+                    } else {
+                        document.getElementById("mode").innerHTML = "Z PHASE BY ENCODER";
+                        const div1 = document.getElementById("phase").classList.add('bg-red-300');
+                        const div2 = document.getElementById("phase").classList.remove('bg-green-300');
+                    }
 
 
                 })
@@ -1370,6 +1568,17 @@
                 button2x()
             }
         }
+        
+        async function phase() {
+            
+            console.log(maindata.button.Z_PHASE_SELECTION)
+
+            if (maindata.button.Z_PHASE_SELECTION === true) {
+                button3x()
+            } else {
+                button3()
+            }
+        }
 
         async function button1() {
             let submiturl = `${seturl}/B_TYPE__D_TYPE/true`
@@ -1394,6 +1603,20 @@
 
         async function button2x() {
             let submiturl = `${seturl}/DIRECT__RAMP/false`
+            await fetch(submiturl)
+                .then(check)
+                .catch(console.error);
+        }
+
+        async function button3() {
+            let submiturl = `${seturl}/Z_PHASE_SELECTION/true`
+            await fetch(submiturl)
+                .then(check)
+                .catch(console.error);
+        }
+
+        async function button3x() {
+            let submiturl = `${seturl}/Z_PHASE_SELECTION/false`
             await fetch(submiturl)
                 .then(check)
                 .catch(console.error);

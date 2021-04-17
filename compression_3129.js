@@ -23,6 +23,7 @@ var payload = {
     ejectionRHS_avg: 0,
     input: {},
     output: {},
+    alarm: {},
     machine: {
         LHS: {
             maincompression_upperlimit: 0,
@@ -697,6 +698,7 @@ const ejectionLHS_address = 2800;
 const ejectionRHS_address = 3000;
 const input_address = 24576;
 const output_address = 40960;
+const alarm_address = 469;
 
 const avg_address = 3204;
 const status_address = 540;
@@ -718,6 +720,7 @@ var MBS_STATE_GOOD_READ_STATUS = "State good status (read)";
 var MBS_STATE_GOOD_READ_STATS = "State good stats (read)";
 var MBS_STATE_GOOD_READ_INPUT = "State good input (read)";
 var MBS_STATE_GOOD_READ_OUTPUT = "State good output (read)";
+var MBS_STATE_GOOD_READ_ALARM = "State good alarm (read)";
 
 var MBS_STATE_FAIL_READ_TIME = "State fail time (read)";
 var MBS_STATE_FAIL_READ_PRELHS = "State fail pre LHS (read)";
@@ -731,6 +734,7 @@ var MBS_STATE_FAIL_READ_STATUS = "State fail status (read)";
 var MBS_STATE_FAIL_READ_STATS = "State fail stats (read)";
 var MBS_STATE_FAIL_READ_INPUT = "State fail input (read)";
 var MBS_STATE_FAIL_READ_OUTPUT = "State fail output (read)";
+var MBS_STATE_FAIL_READ_ALARM = "State fail alarm (read)";
 
 var MBS_STATE_GOOD_CONNECT = "State good (port)";
 var MBS_STATE_FAIL_CONNECT = "State fail (port)";
@@ -854,6 +858,10 @@ var runModbus = function () {
             break;
 
         case MBS_STATE_GOOD_READ_OUTPUT || MBS_STATE_GOOD_READ_OUTPUT:
+            nextAction = readalarm;
+            break;
+            
+        case MBS_STATE_GOOD_READ_ALARM || MBS_STATE_GOOD_READ_ALARM:
             nextAction = readpreLHS;
             break;
 
@@ -1357,6 +1365,23 @@ var readoutput = function () {
         .then(function (output) {
             // console.log("Output: ", output.data)
             payload.output = output.data;
+            
+            mbsState = MBS_STATE_GOOD_READ_OUTPUT;
+            // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
+        })
+        .catch(function (e) {
+            console.error('[ #6 Output Garbage ]')
+            mbsState = MBS_STATE_GOOD_READ_OUTPUT;
+            readfailed++;
+            // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
+        })
+}
+
+var readalarm = function () {
+    client.readCoils(alarm_address, 25)
+        .then(function (output) {
+            // console.log("Output: ", output.data)
+            payload.alarm = output.data;
             
             mbsState = MBS_STATE_GOOD_READ_OUTPUT;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
