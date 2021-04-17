@@ -1524,9 +1524,6 @@
                     document.getElementById("RTN_1_MM").value = payload.stats.awc.RTN_1_MM
                     document.getElementById("RTN_1_PPR").value = payload.stats.awc.RTN_1_PPR
 
-                    document.getElementById("encoder_ppr").innerHTML = payload.stats.Z_PHASE_COUNTER
-                    document.getElementById("z_counter").innerHTML = payload.stats.Z_PHASE_COUNT
-
                     if (payload.button.B_TYPE__D_TYPE == true) {
                         document.getElementById("type").innerHTML = "D TYPE";
                     } else {
@@ -1565,8 +1562,8 @@
                     // Here you get the data to modify as you please
                     payload = data
 
-                    document.getElementById("z_counter").value = payload.stats.Z_PHASE_COUNT
-                    document.getElementById("encoder_ppr").value = payload.stats.Z_PHASE_COUNTER
+                    document.getElementById("z_counter").innerHTML = payload.stats.Z_PHASE_COUNT
+                    document.getElementById("encoder_ppr").innerHTML = payload.stats.Z_PHASE_COUNTER
 
                 })
                 .catch(function (error) {
