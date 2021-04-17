@@ -546,7 +546,7 @@
                                 <a href="/io_alarm">
                                     <div class="py-3">
                                         <button id="alarm_page"
-                                            class="bg-green-300 uppercase text-xl text-gray-800 font-semibold py-5 px-12 border border-blue-500 rounded"
+                                            class="uppercase text-xl text-gray-800 font-semibold py-5 px-12 border border-blue-500 rounded"
                                             > 
                                             ALARM 
                                         </button>
@@ -2138,7 +2138,6 @@
                     // console.log(payload.alarm[0])
                     
                     if(payload.alarm[30] === true) {
-                        const div1 = document.getElementById("alarm_page").classList.remove('bg-green-300');
                         const div2 = document.getElementById("alarm_page").classList.add('bg-red-600');
                         alarm_active()
                     }  else {
@@ -2159,6 +2158,7 @@
             setInterval(() => {
                 fetchpayloadapiLF();
                 fetchpayloadapiLF1();
+
             }, 1000);
         }, 10);
     </script>
