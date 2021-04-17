@@ -873,7 +873,7 @@ var read_regs = function () {
             }
 
             payload.stats.Z_PHASE_COUNTER = data.data[85];
-            payload.stats.Z_PHASE_COUNT = data.data[86];
+            payload.stats.Z_PHASE_COUNT = data.data[87];
              
             
             // payload.stats.encoder_PPR = stats_data.data[88]
