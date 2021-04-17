@@ -1328,7 +1328,7 @@
         var gauge = new RadialGauge({
                 renderTo: 'canvas-id',
                 minValue: 0,
-                maxValue: 3600,
+                maxValue: 360,
                 majorTicks: [
                     "3600",
                     "450",
@@ -1341,7 +1341,7 @@
                     ""
                 ],
                 minorTicks: 0,
-                ticksAngle: 3600,
+                ticksAngle: 360,
                 startAngle: 0,
                 strokeTicks: true,
                 // highlights: true,
@@ -1560,7 +1560,7 @@
 
                     document.getElementById("z_counter").innerHTML = payload.stats.Z_PHASE_COUNT
                     document.getElementById("encoder_ppr").innerHTML = payload.stats.Z_PHASE_COUNTER
-                    gauge.value = payload.stats.Z_PHASE_COUNTER;
+                    gauge.value = payload.stats.Z_PHASE_COUNTER/10;
 
                 })
                 .catch(function (error) {
