@@ -540,6 +540,19 @@
                                     </button>
                                 </div>
                             </div>
+
+                            <div class="flex flex-wrap p-3">
+                            
+                                <a href="/io_alarm">
+                                    <div class="py-3">
+                                        <button id="alarm_page"
+                                            class="bg-green-300 uppercase text-xl text-gray-800 font-semibold py-5 px-12 border border-blue-500 rounded"
+                                            > 
+                                            ALARM PAGE 
+                                        </button>
+                                    </div>
+                                </a>
+                            </div>
                         
                         </div>
 
@@ -2107,10 +2120,35 @@
                 });
         };
 
+        async function fetchpayloadapiLF1() {
+            fetch(rawpayload)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    // console.log(payload.alarm[0])
+                    
+                    if(payload.alarm[30] === true) {
+                        const div = document.getElementById("alarm_page").classList.remove('bg-green-300');
+                        const div1 = document.getElementById("alarm_page").classList.add('bg-red-600');
+                    }  else {
+                        const div = document.getElementById("alarm_page").classList.remove('bg-red-600');
+                        const div1 = document.getElementById("alarm_page").classList.add('bg-green-300');
+                    }
+                    
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+        
         setTimeout(() => {
             fetchpayloadapiLF();
             setInterval(() => {
                 fetchpayloadapiLF();
+                fetchpayloadapiLF1();
             }, 1000);
         }, 10);
     </script>
