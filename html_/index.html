@@ -2123,6 +2123,7 @@
         var alarm
 
         function alarm_active() {
+            const div2 = document.getElementById("alarm_page").classList.add('bg-red-600');
             alarm = setInterval(() => {
                 const div1 = document.getElementById("alarm_page").classList.toggle('bg-red-600');
             }, 1000);
@@ -2138,7 +2139,6 @@
                     // console.log(payload.alarm[0])
                     
                     if(payload.alarm[30] === true) {
-                        const div2 = document.getElementById("alarm_page").classList.add('bg-red-600');
                         alarm_active()
                     }  else {
                         clearInterval(alarm);
