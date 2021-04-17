@@ -1541,11 +1541,11 @@
                     
                     if (payload.button.Z_PHASE_SELECTION == true) {
                         
-                        document.getElementById("Z_PHASE_COUNT_RESET").innerHTML = "Z PHASE BY SENSOR";
+                        document.getElementById("phase").innerHTML = "Z PHASE BY SENSOR";
                         const div1 = document.getElementById("phase").classList.remove('bg-red-300');
                         const div2 = document.getElementById("phase").classList.add('bg-green-300');
                     } else {
-                        document.getElementById("Z_PHASE_COUNT_RESET").innerHTML = "Z PHASE BY ENCODER";
+                        document.getElementById("phase").innerHTML = "Z PHASE BY ENCODER";
                         const div1 = document.getElementById("phase").classList.add('bg-red-300');
                         const div2 = document.getElementById("phase").classList.remove('bg-green-300');
                     }
