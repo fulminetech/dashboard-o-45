@@ -2121,30 +2121,32 @@
         };
 
         var alarm
-        var alarm_status
+        var alarm_status = true
         
         function alarm_active() {
             alarm = setInterval(() => {
                 const div1 = document.getElementById("alarm_page").classList.toggle('hidden');
             }, 2000);
         }
-
+        
         async function fetchpayloadapiLF1() {
             fetch(rawpayload)
-                .then((resp) => resp.json()) // Transform the data into json
-                .then(function (data) {
-                    // Here you get the data to modify as you please
-                    payload = data
-
+            .then((resp) => resp.json()) // Transform the data into json
+            .then(function (data) {
+                // Here you get the data to modify as you please
+                payload = data
+                
                     // console.log(payload.alarm[0])
                     
                     if(payload.alarm[30] === true) {
-                        if(alarm_status === true) {
+                        if(alarm_status === true){
                             alarm_status = false
                             alarm_active()
                         }
                     }  else if(payload.alarm[30] === false) {
                         clearInterval(alarm);
+                        const div1 = document.getElementById("alarm_page").classList.add('hidden');
+                        alarm_status = true
                     }
                     
                 })
