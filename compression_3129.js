@@ -1344,7 +1344,7 @@ var readstatus = function () {
 }
 
 var readinput = function () {
-    client.readCoils(input_address, 90)
+    client.readCoils(input_address, 55)
         .then(function (input) {
             // console.log("Input: ", input.data)
             payload.input = input.data;
@@ -1361,7 +1361,7 @@ var readinput = function () {
 }
 
 var readoutput = function () {
-    client.readCoils(output_address, 90)
+    client.readCoils(output_address, 55)
         .then(function (output) {
             // console.log("Output: ", output.data)
             payload.output = output.data;
