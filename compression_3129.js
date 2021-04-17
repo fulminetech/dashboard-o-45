@@ -1378,7 +1378,7 @@ var readoutput = function () {
 }
 
 var readalarm = function () {
-    client.readCoils(alarm_address, 30)
+    client.readCoils(alarm_address, 32)
         .then(function (output) {
             // console.log("Output: ", output.data)
             payload.alarm = output.data;
