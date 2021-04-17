@@ -2121,7 +2121,8 @@
         };
 
         var alarm
-
+        var alarm_status
+        
         function alarm_active() {
             alarm = setInterval(() => {
                 const div1 = document.getElementById("alarm_page").classList.toggle('hidden');
@@ -2138,7 +2139,10 @@
                     // console.log(payload.alarm[0])
                     
                     if(payload.alarm[30] === true) {
-                        alarm_active()
+                        if(alarm_status === true) {
+                            alarm_status = false
+                            alarm_active()
+                        }
                     }  else if(payload.alarm[30] === false) {
                         clearInterval(alarm);
                     }
