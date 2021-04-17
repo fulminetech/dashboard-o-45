@@ -1596,6 +1596,22 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         writelog()
     }
+    else if (a == "Z_PHASE_COUNT_RESET" && b == "true") {
+        coil_offset_410 = 21
+        set_button = true
+        c = payload.button.TABLET_COUNT_RESET
+        
+        write_coil_410()
+        // writelog()
+    }
+    else if (a == "Z_PHASE_COUNT_RESET" && b == "false") {
+        coil_offset_410 = 21
+        set_button = false
+        c = payload.button.TABLET_COUNT_RESET
+        
+        write_coil_410()
+        // writelog()
+    }
     else if (a == "ROLLER_FORWARD" && b == "true") {
         coil_offset_410 = 25
         set_button = true
