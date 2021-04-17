@@ -1328,16 +1328,16 @@
         var gauge = new RadialGauge({
                 renderTo: 'canvas-id',
                 minValue: 0,
-                maxValue: 360,
+                maxValue: 3600,
                 majorTicks: [
-                    "360",
-                    "45",
-                    "90",
-                    "135",
-                    "180",
-                    "225",
-                    "270",
-                    "315",
+                    "3600",
+                    "450",
+                    "900",
+                    "1350",
+                    "1800",
+                    "2250",
+                    "2700",
+                    "3150",
                     ""
                 ],
                 minorTicks: 0,
@@ -1414,10 +1414,6 @@
         
         //     }, heating_time);
         // }, 100);
-        
-        setTimeout(() => {            
-            gauge.value = 315;
-        }, 20);
         
     </script>
 
@@ -1564,6 +1560,7 @@
 
                     document.getElementById("z_counter").innerHTML = payload.stats.Z_PHASE_COUNT
                     document.getElementById("encoder_ppr").innerHTML = payload.stats.Z_PHASE_COUNTER
+                    gauge.value = payload.stats.Z_PHASE_COUNTER;
 
                 })
                 .catch(function (error) {
@@ -1612,7 +1609,7 @@
         setInterval(() => {
             fetchpayloadapiLF();
             fetchpayloadapiHF6()
-        }, 500);
+        }, 200);
     
 
     </script>
