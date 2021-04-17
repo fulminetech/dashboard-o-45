@@ -546,7 +546,7 @@
                                 <a href="/io_alarm">
                                     <div class="py-3">
                                         <button id="alarm_page"
-                                            class="uppercase text-xl text-gray-800 font-semibold py-5 px-12 border border-blue-500 rounded"
+                                            class="bg-red-600 uppercase text-xl text-gray-100 font-semibold py-5 px-16 border border-blue-500 rounded hidden"
                                             > 
                                             ALARM 
                                         </button>
@@ -2123,10 +2123,9 @@
         var alarm
 
         function alarm_active() {
-            const div2 = document.getElementById("alarm_page").classList.add('bg-red-600');
             alarm = setInterval(() => {
-                const div1 = document.getElementById("alarm_page").classList.toggle('bg-red-600');
-            }, 1000);
+                const div1 = document.getElementById("alarm_page").classList.toggle('hidden');
+            }, 2000);
         }
 
         async function fetchpayloadapiLF1() {
@@ -2142,8 +2141,6 @@
                         alarm_active()
                     }  else if(payload.alarm[30] === false) {
                         clearInterval(alarm);
-                        const div = document.getElementById("alarm_page").classList.remove('bg-red-600');
-                        const div1 = document.getElementById("alarm_page").classList.add('bg-green-300');
                     }
                     
                 })
