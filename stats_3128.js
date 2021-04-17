@@ -840,7 +840,7 @@ var read_regs = function () {
             var RH1_reg2 = data.data[79];
 
             if (RH1_reg2 == 0) {                
-                payload.stats.awc.RHS_HOME_OFFSET_1 = RH1_reg1;
+                payload.stats.awc.RHS_HOME_OFFSET_1 = uintToInt(RH1_reg1);
             } else {
                 // payload.stats.awc.RHS_HOME_OFFSET_1 = (((2 ** 16) * RH1_reg2) + RH1_reg1);
                 payload.stats.awc.RHS_HOME_OFFSET_1 = uintToInt((((2 ** 16) * RH1_reg2) + RH1_reg1), 10); // -206
