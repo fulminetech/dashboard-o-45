@@ -282,7 +282,7 @@
                                             </div>
                                             <div class="flex-1 text-right md:text-center pr-3">
                                                 <h5 class="font-bold uppercase text-xl text-gray-900">Encoder PPR</h5>
-                                                <h5 id="encoder_ppr" class="font-bold uppercase text-3xl text-gray-900">1000</h5>
+                                                <h5 id="encoder_ppr" class="font-bold uppercase text-3xl text-gray-900">0</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -296,7 +296,7 @@
                                             </div>
                                             <div class="flex-1 text-right md:text-center pr-3">
                                                 <h5 class="font-bold uppercase text-xl text-gray-900">Z PHASE COUNT</h5>
-                                                <h5 id="z_counter" class="font-bold uppercase text-3xl text-gray-900">1000</h5>
+                                                <h5 id="z_counter" class="font-bold uppercase text-3xl text-gray-900">0</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -1524,8 +1524,8 @@
                     document.getElementById("RTN_1_MM").value = payload.stats.awc.RTN_1_MM
                     document.getElementById("RTN_1_PPR").value = payload.stats.awc.RTN_1_PPR
 
-                    document.getElementById("z_counter").value = payload.stats.awc.RTN_1_PPR
-                    document.getElementById("encoder_ppr").value = payload.stats.awc.RTN_1_PPR
+                    document.getElementById("encoder_ppr").innerHTML = payload.stats.Z_PHASE_COUNTER
+                    document.getElementById("z_counter").innerHTML = payload.stats.Z_PHASE_COUNT
 
                     if (payload.button.B_TYPE__D_TYPE == true) {
                         document.getElementById("type").innerHTML = "D TYPE";
