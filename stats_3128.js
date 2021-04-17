@@ -394,16 +394,31 @@ var payload = {
     }
 };
 
-// Function to covert signed integer to integer!
-function uintToInt(uint, nbit) {
-    nbit = +nbit || 32;
-    if (nbit > 32) throw new RangeError('uintToInt only supports ints up to 32 bits');
-    uint <<= 32 - nbit;
-    uint >>= 32 - nbit;
-    return uint;
+function _2x16bitTo32bit(reg1, reg2, divider) {
+    let integer
+    divider = divider || 1;
+
+    reg2 == 0 ? integer = reg1 / 100 : integer = (((2 ** 16) * reg2) + reg1) / divider;
+
+    return integer
 }
 
-console.log(uintToInt(818, 10)); // -206
+function signedDecToDec(integer, nbit) {
+
+    let result
+    function uintToInt(uint, nbit) {
+        nbit = +nbit || 32;
+        if (nbit > 32) throw new RangeError('uintToInt only supports ints up to 32 bits');
+        uint <<= 32 - nbit;
+        uint >>= 32 - nbit;
+        return uint;
+    }
+
+    integer < (2 ** 16) ? result = integer : result = uintToInt(integer, nbit)
+
+    return result
+}
+
 
 function twosComplement(value, bitCount) {
     let binaryStr;
@@ -714,13 +729,7 @@ var read_regs = function () {
             payload.stats.awc.AWC_TOLERANCE = data.data[42];
             payload.stats.awc.AWC_MAX_CORRECTION = data.data[43];
 
-            var PH_reg1 = data.data[44];
-            var PH_reg2 = data.data[45];
-            if (PH_reg2 == 0) {
-                payload.stats.awc.AWC_32bit_CORRECTION = PH_reg1/100;
-            } else {
-                payload.stats.awc.AWC_32bit_CORRECTION = (((2 ** 16) * PH_reg2) + PH_reg1) / 100;
-            }
+            payload.stats.awc.AWC_32bit_CORRECTION = _2x16bitTo32bit(data.data[44], data.data[45], 100)
 
             payload.stats.sampling.NO_TABLET_SAMPLING = data.data[57];
             payload.stats.sampling.SAMPLING_TIME_MINS = data.data[58];
@@ -827,75 +836,16 @@ var read_regs = function () {
             payload.stats.awc.MAXIMUM_REJECT_TABLET = data.data[73]
             payload.stats.awc.RTN_1_MM = data.data[74] /100;
             
-            var RTN_reg1 = data.data[76];
-            var RTN_reg2 = data.data[77];
-
-            if (RTN_reg2 == 0) {
-                payload.stats.awc.RTN_1_PPR = RTN_reg1;
-            } else {
-                payload.stats.awc.RTN_1_PPR = (((2 ** 16) * RTN_reg2) + RTN_reg1);
-            }
-
-            var RH1_reg1 = data.data[78];
-            var RH1_reg2 = data.data[79];
-
-            if (RH1_reg2 == 0) {                
-                payload.stats.awc.RHS_HOME_OFFSET_1 = uintToInt(RH1_reg1, 10);
-            } else {
-                // payload.stats.awc.RHS_HOME_OFFSET_1 = (((2 ** 16) * RH1_reg2) + RH1_reg1);
-                payload.stats.awc.RHS_HOME_OFFSET_1 = uintToInt((((2 ** 16) * RH1_reg2) + RH1_reg1), 10); // -206
-            }
+            payload.stats.awc.RTN_1_PPR = _2x16bitTo32bit(data.data[76], data.data[77])
             
-            var RH2_reg1 = data.data[80];
-            var RH2_reg2 = data.data[81];
-
-            if (RH2_reg2 == 0) {
-                payload.stats.awc.RHS_HOME_OFFSET_2 = RH2_reg1;
-            } else {
-                payload.stats.awc.RHS_HOME_OFFSET_2 = (((2 ** 16) * RH2_reg2) + RH2_reg1);
-            }
-
-            var LH1_reg1 = data.data[82];
-            var LH1_reg2 = data.data[83];
-
-            if (LH1_reg2 == 0) {
-                payload.stats.awc.LHS_HOME_OFFSET_1 = LH1_reg1;
-            } else {
-                payload.stats.awc.LHS_HOME_OFFSET_1 = (((2 ** 16) * LH1_reg2) + LH1_reg1);
-            }
+            payload.stats.awc.RHS_HOME_OFFSET_1 = signedDecToDec(_2x16bitTo32bit(data.data[78], data.data[79]))
+            payload.stats.awc.RHS_HOME_OFFSET_2 = signedDecToDec(_2x16bitTo32bit(data.data[80], data.data[81]))
+            payload.stats.awc.LHS_HOME_OFFSET_1 = signedDecToDec(_2x16bitTo32bit(data.data[82], data.data[83]))
+            payload.stats.awc.LHS_HOME_OFFSET_2 = signedDecToDec(_2x16bitTo32bit(data.data[84], data.data[85]))
             
-            var LH2_reg1 = data.data[84];
-            var LH2_reg2 = data.data[85];
-
-            if (LH2_reg2 == 0) {
-                payload.stats.awc.LHS_HOME_OFFSET_2 = LH2_reg1;
-            } else {
-                payload.stats.awc.LHS_HOME_OFFSET_2 = (((2 ** 16) * LH2_reg2) + LH2_reg1);
-            }
-
             payload.stats.Z_PHASE_COUNTER = data.data[85];
             payload.stats.Z_PHASE_COUNT = data.data[87];
-             
             
-            // payload.stats.encoder_PPR = stats_data.data[88]
-
-            // payload.present_punch = stats_data.data[5];
-            // // // // Production count
-            // // // // Formula: [ punch count x rpm x time ]
-
-            // var reg1 = stats_data.data[6];
-            // var reg2 = stats_data.data[7];
-
-            // if (reg2 == 0) {
-            //     payload.stats.count = reg1;
-            // } else {
-            //     payload.stats.count = (((2 ** 16) * reg2) + reg1);
-            // }
-            
-            // // // // Tablet per hour [ Max: 8x60x60=28800 ]
-            // tablets_per_hour = (payload.stats.active_punches * payload.stats.turret.RPM * 60);
-            // payload.stats.tablets_per_hour = tablets_per_hour;
-
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
@@ -917,21 +867,8 @@ var read_regs = function () {
             payload.stats.RHS_FF.H = data.data[7]/100
             payload.stats.RHS_FF.A = data.data[8]/100
 
-            var Prod_reg1 = data.data[10]
-            var Prod_reg2 = data.data[11]
-            if (Prod_reg2 == 0) {
-                payload.production = Prod_reg1;
-            } else {
-                payload.production = (((2 ** 16) * Prod_reg2) + Prod_reg1);
-            }
-            
-            var PH_reg1 = data.data[14];
-            var PH_reg2 = data.data[15];
-            if (PH_reg2 == 0) {
-                payload.stats.tablets_per_hour = PH_reg1;
-            } else {
-                payload.stats.tablets_per_hour = (((2 ** 16) * PH_reg2) + PH_reg1);
-            }
+            payload.production = _2x16bitTo32bit(data.data[10], data.data[11])
+            payload.stats.tablets_per_hour = _2x16bitTo32bit(data.data[14], data.data[15])
             
             payload.stats.punch_present_position.L_PRE = data.data[20]
             payload.stats.punch_present_position.L_MAIN = data.data[21]
@@ -952,81 +889,20 @@ var read_regs = function () {
             payload.stats.pressure.value = data.data[34] /10
             payload.stats.lubrication.remaining_time = data.data[35]
              
-            var D_reg1 = data.data[40];
-            var D_reg2 = data.data[41];
-            if (D_reg2 == 0) {
-                payload.stats.dwell = D_reg1/10000;
-            } else {
-                payload.stats.dwell = (((2 ** 16) * D_reg2) + D_reg1)/10000;
-            }
+            payload.stats.dwell = _2x16bitTo32bit(data.data[40], data.data[41], 10000)
 
             payload.stats.awc.actual_RHS = data.data[42] / 100
             payload.stats.awc.actual_LHS = data.data[43] / 100
-            
-            var LST_reg1 = data.data[44];
-            var LST_reg2 = data.data[45];
-            if (LST_reg2 == 0) {
-                payload.stats.home.LHS.single_turn = LST_reg1;
-            } else {
-                payload.stats.home.LHS.single_turn = (((2 ** 16) * LST_reg2) + LST_reg1);
-            }
-            
-            var LMT_reg1 = data.data[46];
-            var LMT_reg2 = data.data[47];
-            if (LMT_reg2 == 0) {
-                payload.stats.home.LHS.multi_turn = LMT_reg1;
-            } else {
-                payload.stats.home.LHS.multi_turn = (((2 ** 16) * LMT_reg2) + LMT_reg1);
-            }
-            
-            var LE_reg1 = data.data[48];
-            var LE_reg2 = data.data[49];
-            if (LE_reg2 == 0) {
-                payload.stats.home.LHS.encoder_ppr = LE_reg1;
-            } else {
-                payload.stats.home.LHS.encoder_ppr = (((2 ** 16) * LE_reg2) + LE_reg1);
-            }
-            
-            var LH_reg1 = data.data[50];
-            var LH_reg1 = data.data[51];
-            if (LH_reg1 == 0) {
-                payload.stats.home.LHS.home_offset = LH_reg1;
-            } else {
-                payload.stats.home.LHS.home_offset = (((2 ** 16) * LH_reg1) + LH_reg1);
-            }
-            
-            var RST_reg1 = data.data[52];
-            var RST_reg2 = data.data[53];
-            if (RST_reg2 == 0) {
-                payload.stats.home.RHS.single_turn = RST_reg1;
-            } else {
-                payload.stats.home.RHS.single_turn = (((2 ** 16) * RST_reg2) + RST_reg1);
-            }
-            
-            var RMT_reg1 = data.data[54];
-            var RMT_reg2 = data.data[55];
-            if (RMT_reg2 == 0) {
-                payload.stats.home.RHS.multi_turn = RMT_reg1;
-            } else {
-                payload.stats.home.RHS.multi_turn = (((2 ** 16) * RMT_reg2) + RMT_reg1);
-            }
-            
-            var RE_reg1 = data.data[56];
-            var RE_reg2 = data.data[57];
-            if (RE_reg2 == 0) {
-                payload.stats.home.RHS.encoder_ppr = RE_reg1;
-            } else {
-                payload.stats.home.RHS.encoder_ppr = (((2 ** 16) * RE_reg2) + RE_reg1);
-            }
-            
-            var RH_reg1 = data.data[58];
-            var RH_reg2 = data.data[59];
-            if (RH_reg2 == 0) {
-                payload.stats.home.RHS.home_offset = RH_reg1;
-            } else {
-                payload.stats.home.RHS.home_offset = (((2 ** 16) * RH_reg2) + RH_reg1);
-            }
-        
+
+            payload.stats.home.LHS.single_turn = _2x16bitTo32bit(data.data[44], data.data[45])
+            payload.stats.home.LHS.multi_turn = _2x16bitTo32bit(data.data[46], data.data[47])
+            payload.stats.home.LHS.encoder_ppr = _2x16bitTo32bit(data.data[48], data.data[49])
+            payload.stats.home.LHS.home_offset = _2x16bitTo32bit(data.data[50], data.data[51])
+            payload.stats.home.RHS.single_turn = _2x16bitTo32bit(data.data[52], data.data[53])
+            payload.stats.home.RHS.multi_turn = _2x16bitTo32bit(data.data[54], data.data[55])
+            payload.stats.home.RHS.encoder_ppr = _2x16bitTo32bit(data.data[56], data.data[57])
+            payload.stats.home.RHS.home_offset = _2x16bitTo32bit(data.data[58], data.data[59])
+
             payload.stats.roller.F = data.data[60]/100
             payload.stats.roller.H = data.data[61]/100
             payload.stats.roller.A = data.data[62]/100
