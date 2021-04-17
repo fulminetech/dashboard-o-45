@@ -1327,178 +1327,178 @@
     <!-- Stats API fetch -->
     <script>
 
-        async function fetchpayloadapiLF1() {
-            fetch(statsurl)
-                .then((resp) => resp.json()) // Transform the data into json
-                .then(function (data) {
-                    // Here you get the data to modify as you please
-                    payload = data
+        // async function fetchpayloadapiLF1() {
+        //     fetch(statsurl)
+        //         .then((resp) => resp.json()) // Transform the data into json
+        //         .then(function (data) {
+        //             // Here you get the data to modify as you please
+        //             payload = data
 
-                    console.log(payload.button.maintainence)
-                    // Outputs: 0-15, 16-23, 46-53, 60-61
+        //             console.log(payload.button.maintainence)
+        //             // Outputs: 0-15, 16-23, 46-53, 60-61
 
-                    if (payload.button.maintainence[0] === true) {
-                        const div = document.getElementById("0").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("0").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[1] === true) {
-                        const div = document.getElementById("1").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("1").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[2] === true) {
-                        const div = document.getElementById("2").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("2").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[3] === true) {
-                        const div = document.getElementById("3").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("3").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[4] === true) {
-                        const div = document.getElementById("4").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("4").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[5] === true) {
-                        const div = document.getElementById("5").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("5").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[6] === true) {
-                        const div = document.getElementById("6").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("6").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[7] === true) {
-                        const div = document.getElementById("7").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("7").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[8] === true) {
-                        const div = document.getElementById("8").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("8").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[9] === true) {
-                        const div = document.getElementById("9").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("9").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[10] === true) {
-                        const div = document.getElementById("10").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("10").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[11] === true) {
-                        const div = document.getElementById("11").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("11").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[12] === true) {
-                        const div = document.getElementById("12").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("12").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[13] === true) {
-                        const div = document.getElementById("13").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("13").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[14] === true) {
-                        const div = document.getElementById("14").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("14").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[15] === true) {
-                        const div = document.getElementById("15").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("15").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[16] === true) {
-                        const div = document.getElementById("16").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("16").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[17] === true) {
-                        const div = document.getElementById("17").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("17").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[18] === true) {
-                        const div = document.getElementById("18").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("18").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[19] === true) {
-                        const div = document.getElementById("19").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("19").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[20] === true) {
-                        const div = document.getElementById("20").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("20").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[21] === true) {
-                        const div = document.getElementById("21").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("21").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[22] === true) {
-                        const div = document.getElementById("22").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("22").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[23] === true) {
-                        const div = document.getElementById("23").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("23").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[46] === true) {
-                        const div = document.getElementById("46").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("46").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[47] === true) {
-                        const div = document.getElementById("47").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("47").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[48] === true) {
-                        const div = document.getElementById("48").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("48").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[49] === true) {
-                        const div = document.getElementById("49").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("49").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[50] === true) {
-                        const div = document.getElementById("50").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("50").classList.remove('bg-red-600');
-                    }
-                    if (payload.button.maintainence[51] === true) {
-                        const div = document.getElementById("51").classList.add('bg-red-600');
-                    } else {
-                        const div = document.getElementById("51").classList.remove('bg-red-600');
-                    }
+        //             if (payload.button.maintainence[0] === true) {
+        //                 const div = document.getElementById("0").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("0").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[1] === true) {
+        //                 const div = document.getElementById("1").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("1").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[2] === true) {
+        //                 const div = document.getElementById("2").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("2").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[3] === true) {
+        //                 const div = document.getElementById("3").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("3").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[4] === true) {
+        //                 const div = document.getElementById("4").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("4").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[5] === true) {
+        //                 const div = document.getElementById("5").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("5").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[6] === true) {
+        //                 const div = document.getElementById("6").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("6").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[7] === true) {
+        //                 const div = document.getElementById("7").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("7").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[8] === true) {
+        //                 const div = document.getElementById("8").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("8").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[9] === true) {
+        //                 const div = document.getElementById("9").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("9").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[10] === true) {
+        //                 const div = document.getElementById("10").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("10").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[11] === true) {
+        //                 const div = document.getElementById("11").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("11").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[12] === true) {
+        //                 const div = document.getElementById("12").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("12").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[13] === true) {
+        //                 const div = document.getElementById("13").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("13").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[14] === true) {
+        //                 const div = document.getElementById("14").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("14").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[15] === true) {
+        //                 const div = document.getElementById("15").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("15").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[16] === true) {
+        //                 const div = document.getElementById("16").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("16").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[17] === true) {
+        //                 const div = document.getElementById("17").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("17").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[18] === true) {
+        //                 const div = document.getElementById("18").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("18").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[19] === true) {
+        //                 const div = document.getElementById("19").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("19").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[20] === true) {
+        //                 const div = document.getElementById("20").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("20").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[21] === true) {
+        //                 const div = document.getElementById("21").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("21").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[22] === true) {
+        //                 const div = document.getElementById("22").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("22").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[23] === true) {
+        //                 const div = document.getElementById("23").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("23").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[46] === true) {
+        //                 const div = document.getElementById("46").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("46").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[47] === true) {
+        //                 const div = document.getElementById("47").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("47").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[48] === true) {
+        //                 const div = document.getElementById("48").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("48").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[49] === true) {
+        //                 const div = document.getElementById("49").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("49").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[50] === true) {
+        //                 const div = document.getElementById("50").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("50").classList.remove('bg-red-600');
+        //             }
+        //             if (payload.button.maintainence[51] === true) {
+        //                 const div = document.getElementById("51").classList.add('bg-red-600');
+        //             } else {
+        //                 const div = document.getElementById("51").classList.remove('bg-red-600');
+        //             }
 
-                })
-                .catch(function (error) {
-                    // If there is any error you will catch them here
-                    console.log("[ PAYLOAD FETCH ERROR ]", error)
-                });
-        };
+        //         })
+        //         .catch(function (error) {
+        //             // If there is any error you will catch them here
+        //             console.log("[ PAYLOAD FETCH ERROR ]", error)
+        //         });
+        // };
 
-        fetchpayloadapiLF1();
-        setInterval(() => {
-            fetchpayloadapiLF1();
-        }, 500);
+        // fetchpayloadapiLF1();
+        // setInterval(() => {
+        //     fetchpayloadapiLF1();
+        // }, 500);
 
     </script>
 </body>
