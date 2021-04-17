@@ -2129,7 +2129,7 @@
                 const div1 = document.getElementById("alarm_page").classList.toggle('hidden');
             }, 1000);
         }
-
+        
         async function fetchpayloadapiLF1() {
             fetch(rawpayload)
                 .then((resp) => resp.json()) // Transform the data into json
@@ -2144,6 +2144,7 @@
                             alarm_active()  
                         }
                     }  else if(payload.alarm[30] === false) {
+                        const div1 = document.getElementById("alarm_page").classList.add('hidden');
                         clearInterval(alarm);
                         alarm_status = false
                     }
