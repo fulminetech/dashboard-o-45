@@ -861,7 +861,7 @@ var runModbus = function () {
             nextAction = readalarm;
             break;
             
-        case MBS_STATE_GOOD_READ_ALARM || MBS_STATE_GOOD_READ_ALARM:
+        case MBS_STATE_GOOD_READ_ALARM || MBS_STATE_FAIL_READ_ALARM:
             nextAction = readpreLHS;
             break;
 
@@ -1383,12 +1383,12 @@ var readalarm = function () {
             // console.log("Output: ", output.data)
             payload.alarm = output.data;
             
-            mbsState = MBS_STATE_GOOD_READ_OUTPUT;
+            mbsState = MBS_STATE_GOOD_READ_ALARM;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
             console.error('[ #6 Output Garbage ]')
-            mbsState = MBS_STATE_GOOD_READ_OUTPUT;
+            mbsState = MBS_STATE_FAIL_READ_ALARM;
             readfailed++;
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
