@@ -2293,13 +2293,14 @@
         function updatepressure() {
             var c = document.getElementById("pressure").value;
             
-            pressureset()
-
             submitt( parseFloat(pressure) )
             
             function submitt(pressure) {
                 var pressure = c;
                 if (pressure <= 10 && pressure >= 0.1) {
+                    
+                    pressureset()
+
                     let submiturl = `${seturl}/PRESSURE_TON/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
