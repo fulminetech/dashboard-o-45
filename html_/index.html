@@ -2293,7 +2293,7 @@
         function updatepressure() {
             var c = document.getElementById("pressure").value;
             
-            console.log(c)
+            pressureset()
 
             submitt( parseFloat(pressure) )
             
@@ -2307,7 +2307,7 @@
                             console.log(" [ Request Sent // pending confirmation ] ")
                         }, 100))
                         .then(
-                            pressureset()
+                            
                         )
                         .catch(console.error);
                 }

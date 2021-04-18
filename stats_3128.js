@@ -1404,10 +1404,9 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         coil_offset_410 = 4
         set_button = true
         c = payload.button.PRESSURE_SET_BUTTON
-        console.log(payload.button.PRESSURE_SET_BUTTON)
-
+        
         write_coil_410()
-        // writelog()
+        writelog()
     }
     else if (a == "PRESSURE_SET_BUTTON" && b == "false") {
         coil_offset_410 = 4
