@@ -302,6 +302,7 @@ var payload = {
         POWER_PACK_STOP_BUTTON: '',
         PRESSURE_ACK_BUTTON: '',
         DRAIN_BUTTON: '',
+        PRESSURE_SET_BUTTON: '',
         MACHINE_INCHING_BUTTON: '',
         MACHINE_START_BUTTON: '',
         MACHINE_STOP_BUTTON: '',
@@ -572,6 +573,7 @@ var read_coils = function () {
             payload.button.POWER_PACK_STOP_BUTTON = stats_data.data[1],
             payload.button.PRESSURE_ACK_BUTTON = stats_data.data[2],
             payload.button.DRAIN_BUTTON = stats_data.data[3],
+            payload.button.PRESSURE_SET_BUTTON = stats_data.data[3],
 
             payload.button.MACHINE_INCHING_BUTTON = stats_data.data[10],
             payload.button.MACHINE_START_BUTTON = stats_data.data[15],
@@ -1399,6 +1401,22 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         coil_offset_410 = 3
         set_button = false
         c = payload.button.DRAIN_BUTTON_HMI
+
+        write_coil_410()
+        writelog()
+    }
+    else if (a == "PRESSURE_SET_BUTTON" && b == "true") {
+        coil_offset_410 = 4
+        set_button = true
+        c = payload.button.PRESSURE_SET_BUTTON
+
+        write_coil_410()
+        writelog()
+    }
+    else if (a == "DRAIN_BUTTON" && b == "false") {
+        coil_offset_410 = 4
+        set_button = false
+        c = payload.button.PRESSURE_SET_BUTTON
 
         write_coil_410()
         writelog()

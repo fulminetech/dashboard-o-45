@@ -2307,7 +2307,7 @@
                             console.log(" [ Request Sent // pending confirmation ] ")
                         }, 100))
                         .then(
-                            // Code to check reult
+                            pressureset()
                         )
                         .catch(console.error);
                 }
@@ -2532,6 +2532,13 @@
             let submiturl = `${seturl}/DRAIN_BUTTON/false`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function pressureset(){
+            let submiturl = `${seturl}/PRESSURE_SET_BUTTON/true`
+            await fetch(submiturl)
+                .then(console.log("[ PRESSURE_SET_BUTTON ] "))
                 .catch(console.error);
         }
         
