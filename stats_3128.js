@@ -420,8 +420,9 @@ function signedDecToDec(integer, nbit) {
 }
 
 
-function twosComplement(value, bitCount) {
+function signedDecto2x16bitArray(value, bitCount) {
     let binaryStr;
+    bitCount = bitCount || 32;
 
     if (value >= 0) {
         let twosComp = value.toString(2);
@@ -436,10 +437,18 @@ function twosComplement(value, bitCount) {
 
     var digit = parseInt(binaryStr, 2);
 
-    return digit;
+    // console.log(digit)
+
+    var reg2 = parseInt(digit / (2 ** 16))
+    var reg1 = digit - ((2 ** 16) * reg2)
+
+    return [reg1, reg2];
 }
 
-console.log(`-2 = ${twosComplement(-200, 16)}`);
+function padAndChop(str, padChar, length) {
+    return (Array(length).fill(padChar).join('') + str).slice(length * -1);
+}
+
 
 // Make connection
 var connectClient = function () {
@@ -934,13 +943,10 @@ var write_regs = function () {
 }
 
 var write_regs_32 = function () {
-
-    var reg2 = parseInt(reg_write_value / (2**16))
-    var reg1 = reg_write_value - ((2**16)* reg2)
-
-    client.writeRegisters(reg_6000 + reg_offset_6000, [reg1, reg2])
+   
+    client.writeRegisters(reg_6000 + reg_offset_6000, signedDecto2x16bitArray(parseInt(reg_write_value)))
         .then(function (d) {
-            console.log(`Address ${reg_6000 + reg_offset_6000} set to ${reg_write_value}`);
+            console.log(`Address ${reg_6000 + reg_offset_6000} set to ${signedDecto2x16bitArray(parseInt(reg_write_value))}`);
             mbsState = PASS_REGS_WRITE;
         })
         .catch(function (e) {

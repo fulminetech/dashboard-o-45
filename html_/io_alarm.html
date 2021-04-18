@@ -176,6 +176,15 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Excel Button -->
+            <div class="p-3 text-center">
+                <button id="ack"
+                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-8 border border-blue-500 rounded"
+                    onmousedown="button1()" onmouseup="button1x()">
+                    acknowledge
+                </button>
+            </div>
             
         </div>
 
@@ -476,6 +485,26 @@
         </div>
     </div>
 
+    <!-- touch handlers -->
+    <script>
+        var man_samp = document.getElementById('ack')
+        
+        man_samp.addEventListener('touchstart', man_samp_process_touchstart, false);
+        man_samp.addEventListener('touchend', man_samp_process_touchend, false);
+        
+        function man_samp_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            button1()
+        }
+
+        function man_samp_process_touchend() {
+            console.log("Stop")
+            button1x()
+        }
+        
+    </script>
+
 
     <!-- Stats API fetch -->
     <script>
@@ -607,6 +636,18 @@
                 });
         };
         
+        async function button1() {
+            let submiturl = `${seturl}/PRESSURE_ACK_BUTTON/true`
+            await fetch(submiturl)
+                .catch(console.error);
+        }
+
+        async function button1x() {
+            let submiturl = `${seturl}/PRESSURE_ACK_BUTTON/false`
+            await fetch(submiturl)
+                .catch(console.error);
+        }
+
         fetchpayloadapiLF();
         setInterval(() => {
             fetchpayloadapiLF();
