@@ -906,12 +906,7 @@ var read_regs = function () {
             payload.stats.awc.actual_RHS = data.data[42] / 100
             payload.stats.awc.actual_LHS = data.data[43] / 100
 
-            console.log(payload.stats.home.RHS.single_turn)
-            console.log(payload.stats.home.RHS.multi_turn)
-
             payload.stats.home.RHS.single_turn = signedDecToDec(_2x16bitTo32bit(data.data[44], data.data[45]))
-            console.log(data.data[46])
-            console.log(data.data[47])
             payload.stats.home.RHS.multi_turn = signedDecToDec(_2x16bitTo32bit(data.data[46], data.data[47]))
             payload.stats.home.RHS.encoder_ppr = signedDecToDec(_2x16bitTo32bit(data.data[48], data.data[49]))
             payload.stats.home.RHS.home_offset = signedDecToDec(_2x16bitTo32bit(data.data[50], data.data[51]))
