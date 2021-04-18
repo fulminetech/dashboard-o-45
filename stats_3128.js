@@ -1418,6 +1418,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         set_button = false
         c = payload.button.PRESSURE_SET_BUTTON
 
+        console.log(payload.button.PRESSURE_SET_BUTTON)
         write_coil_410()
         writelog()
     }
