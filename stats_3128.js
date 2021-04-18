@@ -903,14 +903,14 @@ var read_regs = function () {
             payload.stats.awc.actual_RHS = data.data[42] / 100
             payload.stats.awc.actual_LHS = data.data[43] / 100
 
-            payload.stats.home.LHS.single_turn = _2x16bitTo32bit(data.data[44], data.data[45])
-            payload.stats.home.LHS.multi_turn = _2x16bitTo32bit(data.data[46], data.data[47])
-            payload.stats.home.LHS.encoder_ppr = _2x16bitTo32bit(data.data[48], data.data[49])
-            payload.stats.home.LHS.home_offset = _2x16bitTo32bit(data.data[50], data.data[51])
-            payload.stats.home.RHS.single_turn = _2x16bitTo32bit(data.data[52], data.data[53])
-            payload.stats.home.RHS.multi_turn = _2x16bitTo32bit(data.data[54], data.data[55])
-            payload.stats.home.RHS.encoder_ppr = _2x16bitTo32bit(data.data[56], data.data[57])
-            payload.stats.home.RHS.home_offset = _2x16bitTo32bit(data.data[58], data.data[59])
+            payload.stats.home.LHS.single_turn = signedDecToDec(_2x16bitTo32bit(data.data[44], data.data[45]))
+            payload.stats.home.LHS.multi_turn = signedDecToDec(_2x16bitTo32bit(data.data[46], data.data[47]))
+            payload.stats.home.LHS.encoder_ppr = signedDecToDec(_2x16bitTo32bit(data.data[48], data.data[49]))
+            payload.stats.home.LHS.home_offset = signedDecToDec(_2x16bitTo32bit(data.data[50], data.data[51]))
+            payload.stats.home.RHS.single_turn = signedDecToDec(_2x16bitTo32bit(data.data[52], data.data[53]))
+            payload.stats.home.RHS.multi_turn = signedDecToDec(_2x16bitTo32bit(data.data[54], data.data[55]))
+            payload.stats.home.RHS.encoder_ppr = signedDecToDec(_2x16bitTo32bit(data.data[56], data.data[57]))
+            payload.stats.home.RHS.home_offset = signedDecToDec(_2x16bitTo32bit(data.data[58], data.data[59]))
 
             payload.stats.roller.F = data.data[60]/100
             payload.stats.roller.H = data.data[61]/100
