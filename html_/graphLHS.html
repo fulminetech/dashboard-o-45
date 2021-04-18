@@ -678,6 +678,8 @@
 
                     mode = payload.button.MONO_BI
                     // console.log(mode)
+                    document.getElementById("punch_number_metric").innerHTML = payload.stats.punch_present_position.L_PRE;
+                    document.getElementById("rpm_metric").innerHTML = payload.stats.turret.RPM;
 
                     if (mode == true) {
                         document.getElementById("mode_metric").innerHTML = "BI-LAYER";
@@ -702,8 +704,7 @@
                         // console.log(payload)
                         document.getElementById("batch_number_metric").innerHTML = payload.batch;
                         document.getElementById("rotation_number_metric").innerHTML = payload.data_number;
-                        document.getElementById("punch_number_metric").innerHTML = payload.stats.punch_present_position.L_PRE;
-                        document.getElementById("rpm_metric").innerHTML = payload.stats.turret.RPM;
+                        
                     })
                     .catch(function (error) {
                         // If there is any error you will catch them here
