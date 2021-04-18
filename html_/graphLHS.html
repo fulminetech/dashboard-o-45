@@ -668,7 +668,6 @@
     <!-- PAYLOAD API fetch -->
     <script>
         var mode
-        var lhs_pre_force
         
         async function mode_check() {
             fetch(statsurl)
@@ -682,13 +681,12 @@
 
                     if (mode == true) {
                         document.getElementById("mode_metric").innerHTML = "BI-LAYER";
+                        pregraph.data.datasets[3].data = payload.stats.awc.BI_PRE_FORCE
                     } 
                     else if (mode == false) {
                         document.getElementById("mode_metric").innerHTML = "MONO";
                     }
 
-                    lhs_pre_force = payload.stats.awc.BI_PRE_FORCE
-                    
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
@@ -771,8 +769,6 @@
                         pregraph.data.datasets[1].data = PLHS_UL // payload.limit[0] // Upper 
                         pregraph.data.datasets[2].data = PLHS_LL // payload.limit[0] // Lower
 
-                        pregraph.data.datasets[3].data = lhs_pre_force
-                        
                         pregraph.data.datasets[4].data = AWC_PLHS_UL
                         pregraph.data.datasets[5].data = AWC_PLHS_LL
                     }
