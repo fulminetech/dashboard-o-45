@@ -92,10 +92,10 @@ def processor():
     mRHS = [ x/100 for x in regs3]
 
     regs4 = response["eLHS_data"]
-    eLHS = [ x/100 for x in regs4]
+    eLHS = [ x/10 for x in regs4]
 
     regs5 = response["eRHS_data"]
-    eRHS = [ x/100 for x in regs5]
+    eRHS = [ x/10 for x in regs5]
 
     regs6 = response["avg"]
     avg = [x / 100 for x in regs6]
