@@ -665,6 +665,57 @@
 
     </script>
 
+
+    <!-- Touch handlers -->
+    <script>
+        var inching = document.getElementById('inching')
+        var start_m = document.getElementById('start_m')
+        var stop_m = document.getElementById('stop_m')
+       
+        inching.addEventListener('touchstart', inching_process_touchstart, false);
+        inching.addEventListener('touchend', inching_process_touchend, false);
+
+        start_m.addEventListener('touchstart', start_m_process_touchstart, false);
+        start_m.addEventListener('touchend', start_m_process_touchend, false);
+
+        stop_m.addEventListener('touchstart', stop_m_process_touchstart, false);
+        stop_m.addEventListener('touchend', stop_m_process_touchend, false);
+
+        function inching_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            inch()
+        }
+
+        function inching_process_touchend() {
+            console.log("Stop")
+            uninch()
+        }
+
+        function start_m_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            start()
+        }
+
+        function start_m_process_touchend() {
+            console.log("Stop")
+            unstart()
+        }
+
+        function stop_m_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            stop()
+        }
+
+        function stop_m_process_touchend() {
+            console.log("Stop")
+            unstop()
+        }
+
+    </script>
+
     <!-- PAYLOAD API fetch -->
     <script>
         var mode
