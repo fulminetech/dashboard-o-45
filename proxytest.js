@@ -1,5 +1,5 @@
 const Gpio = require('onoff').Gpio;
-const proxy = new Gpio(2, 'in', 'falling', { debounceTimeout: 10 });
+const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 10 });
 
 console.log("Testing proxy")
 

@@ -3,8 +3,8 @@ const fetch = require('cross-fetch');
 const { exec } = require('child_process');
 // const CronJob = require('cron').CronJob;
 
-// const Gpio = require('onoff').Gpio;
-// const proxy = new Gpio(2, 'in', 'falling', { debounceTimeout: 10 });
+const Gpio = require('onoff').Gpio;
+const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 10 });
 
 var host = "http://localhost";
 // var os = require("os");
@@ -1140,7 +1140,7 @@ function startmodbus() {
 }
 
 // For tesing purpose
-startmodbus()
+// startmodbus()
 
 // --+++=== DATABASE WRITE ===+++-- //
 // Initialise Rotation 
@@ -1582,15 +1582,15 @@ var watchproxy = function () {
     writemachine();
     console.log("Watching proxy")
    
-    // proxy.watch((err, value) => {
-    //     if (err) {
-    //         throw err;
-    //     }
-    //     payload.data_number++;
-    //     console.log("DATA")
-    //     writeHistory();
-    //     writeAverage();
-    // });
+    proxy.watch((err, value) => {
+        if (err) {
+            throw err;
+        }
+        payload.data_number++;
+        console.log("DATA")
+        writeHistory();
+        writeAverage();
+    });
 }
 
 module.exports = {
