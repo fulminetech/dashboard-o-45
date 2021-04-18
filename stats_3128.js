@@ -1373,6 +1373,20 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         writelog()
     }
+    else if (a == "PRESSURE_ACK_BUTTON" && b == "true") {
+        coil_offset_410 = 2
+        set_button = true
+        c = payload.button.PRESSURE_ACK_BUTTON
+        write_coil_410()
+        writelog()
+    }
+    else if (a == "PRESSURE_ACK_BUTTON" && b == "false") {
+        coil_offset_410 = 2
+        set_button = false
+        c = payload.button.PRESSURE_ACK_BUTTON
+        write_coil_410()
+        writelog()
+    }
     else if (a == "DRAIN_BUTTON" && b == "true") {
         coil_offset_410 = 3
         set_button = true
