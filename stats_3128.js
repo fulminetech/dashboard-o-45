@@ -1143,7 +1143,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
                 oldvalue: c,  // 2
                 newvalue: b,  // 2
             })
-            .then(() => console.info(`[ LOG ENTRY DONE ${batch} ]`))
+            .then(() => console.info(`[ LOG ENTRY DONE ${batchinfo.name} ]`))
             .catch(console.error);
     
     }
