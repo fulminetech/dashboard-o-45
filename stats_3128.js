@@ -2882,25 +2882,13 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     return res.json({ message: `[ UPDATED ${a} to ${b} ]` });
 });
 
-app.get("/api/set/batchinfo", (req, res) => {
+app.get("/api/set/batchinfo/:batch/:operator", (req, res) => {
+    const a = req.params.batch
+    const b = req.params.operator;
 
-    async function _batchinfo() {
-        fetch(batchinfoURL)
-            .then(data => {
-                var response1 = data
-
-                batchinfo.name = response1.name,
-                batchinfo.operator = response1.operator,
-                batchinfo.rotation = response1.rotation
-                
-            })
-            .catch(err => {
-                console.error(err);
-            });
-    };
+    batchinfo.name = a
+    batchinfo.operator = b
     
-    _batchinfo()
-
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.json(batchinfo)
 });

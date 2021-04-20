@@ -714,7 +714,7 @@ var payload = {
 
 async function updatestatsbatch() {
 
-    fetch(updatestatsbatchURL)
+    fetch(`updatestatsbatchURL/${payload.batch}/${payload.machine.operator_name}`)
         .then(res => {
             if (res.status >= 400) {
                 throw new Error("Bad response from server");
