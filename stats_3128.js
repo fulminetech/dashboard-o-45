@@ -2887,7 +2887,7 @@ app.get("/api/set/batchinfo", (req, res) => {
     async function _batchinfo() {
         fetch(batchinfoURL)
             .then(data => {
-                response = data
+                var response = data
 
                 batchinfo.name = response.name,
                 batchinfo.operator = response.operator,
