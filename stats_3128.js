@@ -2887,11 +2887,11 @@ app.get("/api/set/batchinfo", (req, res) => {
     async function _batchinfo() {
         fetch(batchinfoURL)
             .then(data => {
-                var response = data
+                var response1 = data
 
-                batchinfo.name = response.name,
-                batchinfo.operator = response.operator,
-                batchinfo.rotation = response.rotation
+                batchinfo.name = response1.name,
+                batchinfo.operator = response1.operator,
+                batchinfo.rotation = response1.rotation
                 
             })
             .catch(err => {
