@@ -459,14 +459,10 @@ var batchinfo = {
 
 async function _batchinfo() {
     fetch(batchinfoURL)
-        .then(res => {
-            if (res.status >= 400) {
-                throw new Error("Bad response from server");
-            }
-            return res.json();
-        })
         .then(data => {
-            batchinfo = data;
+            batchinfo.name = data.name;
+            batchinfo.operator = data.operator;
+            batchinfo.rotation = data.rotation;
         })
         .catch(err => {
             console.error("[ MODBUS SERVER OFFLINE ]");
@@ -1116,21 +1112,6 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     const a = req.params.parameter;
     const b = req.params.value;
     var c;
-    var payload1
-
-    // fetch(payloadURL)
-    //     .then(res => {
-    //         if (res.status >= 400) {
-    //             throw new Error("Bad response from server");
-    //         }
-    //         return res.json();
-    //     })
-    //     .then(data => {
-    //         payload1 = data;
-    //     })
-    //     .catch(err => {
-    //         console.error("[ MODBUS SERVER OFFLINE ]");
-    //     });
 
     writelog = () => {
         
