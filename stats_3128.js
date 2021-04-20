@@ -17,7 +17,7 @@ const flux = new Influx(`http://${host}:8086/new`);
 // Fetch
 const fetch = require('cross-fetch'); // To get operator and batch details for logging
 const { connected } = require("process");
-const payloadURL = `${host}:5000/api/payload`;
+const batchinfoURL = `${host}:5000/api/batchinfo`;
 
 // Modbus 
 const coil_410 = 410;
