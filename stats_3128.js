@@ -2884,7 +2884,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
 
 app.get("/api/set/batchinfo", (req, res) => {
 
-    function _batchinfo() {
+    async function _batchinfo() {
         fetch(batchinfoURL)
             .then(data => {
                 response = data
@@ -2898,7 +2898,7 @@ app.get("/api/set/batchinfo", (req, res) => {
                 console.error(err);
             });
     };
-
+    
     _batchinfo()
 
     res.setHeader('Access-Control-Allow-Origin', '*');
