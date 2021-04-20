@@ -12,7 +12,7 @@ const client = new Influx(`http://${host}:8086/new`);
 const flux = new Influx(`http://${host}:8086/perm`);
 
 const {
-    payload, startmodbus, watchproxy
+    payload, startmodbus, watchproxy, updatestatsbatch
 } = require('./data.js')
 
 app.use(cors({ origin: "*" }));
