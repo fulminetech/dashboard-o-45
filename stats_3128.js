@@ -464,7 +464,7 @@ async function _batchinfo() {
             // batchinfo = data;
         })
         .catch(err => {
-            console.error("[ MODBUS SERVER OFFLINE ]");
+            console.error(err);
         });
 };
 
