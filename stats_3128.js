@@ -61,6 +61,12 @@ let failcounter_w = 3;
 let timecheck = 3;
 let timetemp = 0;
 
+var batchinfo = {
+    name: '',
+    operator: '',
+    rotation: ''
+}
+
 var payload = {
     connection: false,
     batch: "Not set",
@@ -450,23 +456,6 @@ function signedDecto2x16bitArray(value, bitCount) {
 function padAndChop(str, padChar, length) {
     return (Array(length).fill(padChar).join('') + str).slice(length * -1);
 }
-
-var batchinfo = {
-    name: '',
-    operator: '',
-    rotation: ''
-}
-
-async function _batchinfo() {
-    fetch(batchinfoURL)
-        .then(data => {
-            console.log(data)
-            // batchinfo = data;
-        })
-        .catch(err => {
-            console.error(err);
-        });
-};
 
 // Make connection
 var connectClient = function () {
@@ -2893,7 +2882,20 @@ app.get("/api/set/:parameter/:value", (req, res) => {
 });
 
 app.get("/api/set/batchinfo", (req, res) => {
+
+    function _batchinfo() {
+        fetch(batchinfoURL)
+            .then(data => {
+                console.log(data)
+                // batchinfo = data;
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    };
+
     _batchinfo()
+
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.json(batchinfo)
 });
