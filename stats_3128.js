@@ -1133,16 +1133,12 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     //     });
 
     writelog = () => {
-        _batchinfo()
         
-        var batch = batchinfo.name || "TEST"
-        var operator = batchinfo.operator || "TEST"
-        
-        flux.write(`${batch}.operationlogs`)
+        flux.write(`${batchinfo.name}.operationlogs`)
             .tag({
             })
             .field({
-                operator: operator ,  // 2
+                operator: batchinfo.operator ,  // 2
                 parameter: a,  // 2
                 oldvalue: c,  // 2
                 newvalue: b,  // 2
@@ -2913,6 +2909,14 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     
     res.setHeader('Access-Control-Allow-Origin', '*');
     return res.json({ message: `[ UPDATED ${a} to ${b} ]` });
+});
+
+app.get("/api/set/batchinfo", (req, res) => {
+    
+    _batchinfo()
+    
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    return res.json({ message: `[ UPDATED Batch ${batchinfo.name} ]` });
 });
 
 // Start Server

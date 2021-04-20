@@ -251,13 +251,13 @@ async function getData(batch, param) {
         .catch(console.error);
 };
 
-var batchinfo = {
-    name: payload.batch,
-    operator: payload.machine.operator_name,
-    rotation: payload.rotation_no
-}
-
 app.get("/api/batchinfo", (req, res) => {
+    var batchinfo = {
+        name: payload.batch,
+        operator: payload.machine.operator_name,
+        rotation: payload.rotation_no
+    }
+    
     res.json(batchinfo)
 });
 
