@@ -422,7 +422,6 @@ function signedDecToDec(integer, nbit) {
     return result
 }
 
-
 function signedDecto2x16bitArray(value, bitCount) {
     let binaryStr;
     bitCount = bitCount || 32;
@@ -1063,7 +1062,7 @@ var write_coil_410 = function () {
 
 writealarm = (param, value) => {
     
-    if (batchinfo.name == '') {
+    if (batchinfo.name == 'DEFAULT') {
         
     } else {
         flux.write(`${batchinfo.name}.alarm`)
@@ -1134,21 +1133,19 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     //     });
 
     writelog = () => {
-        if (batchinfo.name == '') {
-
-        } else {
-            flux.write(`${batchinfo.name}.operationlogs`)
-                .tag({
-                })
-                .field({
-                    operator: batchinfo.operator,  // 2
-                    parameter: a,  // 2
-                    oldvalue: c,  // 2
-                    newvalue: b,  // 2
-                })
-                .then(() => console.info(`[ LOG ENTRY DONE ${batch} ]`))
-                .catch(console.error);
-        }
+        
+        flux.write(`${batchinfo.name}.operationlogs`)
+            .tag({
+            })
+            .field({
+                operator: batchinfo.operator,  // 2
+                parameter: a,  // 2
+                oldvalue: c,  // 2
+                newvalue: b,  // 2
+            })
+            .then(() => console.info(`[ LOG ENTRY DONE ${batch} ]`))
+            .catch(console.error);
+    
     }
 
     if (a == "TURRET_RPM") {
