@@ -157,6 +157,7 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
     
     watchproxy();
     startmodbus();
+    updatestatsbatch()
     return res.json({ message: `[ ONBOARDED BATCH: ${d} ]` });
 });
 
@@ -257,7 +258,7 @@ app.get("/api/batchinfo", (req, res) => {
         operator: payload.machine.operator_name,
         rotation: payload.rotation_no
     }
-    
+
     res.json(batchinfo)
 });
 

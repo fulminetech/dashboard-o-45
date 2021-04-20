@@ -1062,21 +1062,22 @@ var write_coil_410 = function () {
 }
 
 writealarm = (param, value) => {
-    _batchinfo()
+    
+    if (batchinfo.name == '') {
+        
+    } else {
+        flux.write(`${batchinfo.name}.alarm`)
+            .tag({
+            })
+            .field({
+                operator: batchinfo.operator,  // 2
+                parameter: param,  // 2
+                value: value,  // 2
+            })
+            .then(() => console.info(`[ ALARM ENTRY DONE ${batchinfo.name}.alarm ]`))
+            .catch(console.error);
+    }
 
-    var batch = batchinfo.name || "TEST"
-    var operator = batchinfo.operator || "TEST"
-
-    flux.write(`${batch}.alarm`)
-        .tag({
-        })
-        .field({
-            operator: operator,  // 2
-            parameter: param,  // 2
-            value: value,  // 2
-        })
-        .then(() => console.info(`[ ALARM ENTRY DONE ${batch}.alarm ]`))
-        .catch(console.error);
 }
 
 function restartprodmodbus() {
@@ -1133,18 +1134,21 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     //     });
 
     writelog = () => {
-        
-        flux.write(`${batchinfo.name}.operationlogs`)
-            .tag({
-            })
-            .field({
-                operator: batchinfo.operator ,  // 2
-                parameter: a,  // 2
-                oldvalue: c,  // 2
-                newvalue: b,  // 2
-            })
-            .then(() => console.info(`[ LOG ENTRY DONE ${batch} ]`))
-            .catch(console.error);
+        if (batchinfo.name == '') {
+
+        } else {
+            flux.write(`${batchinfo.name}.operationlogs`)
+                .tag({
+                })
+                .field({
+                    operator: batchinfo.operator,  // 2
+                    parameter: a,  // 2
+                    oldvalue: c,  // 2
+                    newvalue: b,  // 2
+                })
+                .then(() => console.info(`[ LOG ENTRY DONE ${batch} ]`))
+                .catch(console.error);
+        }
     }
 
     if (a == "TURRET_RPM") {

@@ -24,6 +24,7 @@ function date() {
 
 var i = 0
 const payloadURL = `${host}:3129/api/payload`;
+const updatestatsbatchURL = `${host}:3128/api/set/batchinfo`;
 var noww = new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
 console.log(`[ STARTING INFLUX : ${noww} ]`)
 
@@ -710,6 +711,21 @@ var payload = {
         }
     }
 };
+
+async function updatestatsbatch() {
+
+    fetch(updatestatsbatchURL)
+        .then(res => {
+            if (res.status >= 400) {
+                throw new Error("Bad response from server");
+            }
+            return res.json();
+        })
+        .catch(err => {
+            console.error("[ MODBUS SERVER OFFLINE ]");
+        });
+};
+
 
 async function fetchpayload() {
 
@@ -1594,5 +1610,5 @@ var watchproxy = function () {
 }
 
 module.exports = {
-    payload, startmodbus, watchproxy
+    payload, startmodbus, watchproxy, updatestatsbatch
 }
