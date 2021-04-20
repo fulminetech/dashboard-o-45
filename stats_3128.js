@@ -2913,11 +2913,9 @@ app.get("/api/set/:parameter/:value", (req, res) => {
 });
 
 app.get("/api/set/batchinfo", (req, res) => {
-    
     _batchinfo()
-    
     res.setHeader('Access-Control-Allow-Origin', '*');
-    return res.json({ message: `[ UPDATED Batch ${batchinfo.name} ]` });
+    res.json(batchinfo)
 });
 
 // Start Server
