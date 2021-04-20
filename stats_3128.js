@@ -460,8 +460,8 @@ var batchinfo = {
 async function _batchinfo() {
     fetch(batchinfoURL)
         .then(data => {
-            batchinfo = data;
-            
+            console.log(data)
+            // batchinfo = data;
         })
         .catch(err => {
             console.error("[ MODBUS SERVER OFFLINE ]");
