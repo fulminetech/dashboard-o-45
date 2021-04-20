@@ -18,7 +18,6 @@ const flux = new Influx(`http://${host}:8086/new`);
 const fetch = require('cross-fetch'); // To get operator and batch details for logging
 const { connected } = require("process");
 const { response } = require("express");
-const batchinfoURL = `${host}:5000/api/batchinfo`;
 
 // Modbus 
 const coil_410 = 410;
@@ -2888,6 +2887,12 @@ app.get("/api/set/batchinfo/:batch/:operator", (req, res) => {
 
     batchinfo.name = a
     batchinfo.operator = b
+    
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.json(batchinfo)
+});
+
+app.get("/api/check/batchinfo", (req, res) => {
     
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.json(batchinfo)
