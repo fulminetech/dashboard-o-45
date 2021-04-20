@@ -221,9 +221,14 @@ app.get("/api/search/batch", (req, res) => {
         .catch(console.error);
 })
 
-// --++ Returns Average Data ++--
+// --++ Get data from Database ++--
 var avg = {
     totalrotations: 0,
+    data: {}
+}
+
+var alarms = {
+    totalalarms: 0,
     data: {}
 }
 
@@ -232,6 +237,29 @@ var report = {
     from: 0,
     to: 0,
 }
+
+async function getData(batch, param) {
+    client.queryRaw(`select * from "${batch}.${param}"`)
+        .then(data => {
+            var response = data.results[0].series[0].values
+            var _data = {
+                count: response.length - 1,
+                data: response
+            }
+            res.json(_data)
+        })
+        .catch(console.error);
+};
+
+var batchinfo = {
+    name: payload.batch,
+    operator: payload.machine.operator_name,
+    rotation: payload.rotation_no
+}
+
+app.get("/api/batchinfo", (req, res) => {
+    res.json(batchinfo)
+});
 
 app.get("/api/search/average/:batch", (req, res) => {
     // select * from "payload" where "rotation" = 7
@@ -251,6 +279,24 @@ app.get("/api/search/average/:batch", (req, res) => {
     passbatch(r)
 });
 
+var logs = {
+    totallogs: 0,
+    data: {}
+}
+
+app.get("/api/search/:batch/:param", (req, res) => {
+    // select * from "payload" where "rotation" = 7
+    const batch = req.params.batch
+    const param = req.params.param
+
+    getData(batch, param)
+    
+});
+
+var history = {
+    count: 0,
+    data: {}
+}
 
 app.get("/api/search/average/csv/:batch", (req, res) => {
     // select * from "payload" where "rotation" = 7

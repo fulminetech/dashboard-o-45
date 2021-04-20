@@ -29,6 +29,7 @@ var statusurl = `http://${ip}:3128/set/status`
 var hostname = `http://${ip}:5000`
 
 var payloadURL = `${hostname}/api/payload`;
+var batchinfoURL = `${hostname}/api/batchinfo`;
 const batchURL = `${hostname}/api/search/batch`;
 const searchAvgURL = `${hostname}/api/search/average/`
 const reportdetailsURL = `${hostname}/report/average/now`
