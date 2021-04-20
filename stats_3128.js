@@ -7,7 +7,7 @@ const express = require("express");
 const app = express();
 var cors = require('cors')
 app.use(cors({ origin: "*" }));
-const host = "localhost"
+const host = "http://localhost"
 
 // Influx
 const Influx = require('influxdb-nodejs');
