@@ -239,19 +239,6 @@ var report = {
     to: 0,
 }
 
-async function getData(batch, param) {
-    client.queryRaw(`select * from "${batch}.${param}"`)
-        .then(data => {
-            var response = data.results[0].series[0].values
-            var _data = {
-                count: response.length - 1,
-                data: response
-            }
-            res.json(_data)
-        })
-        .catch(console.error);
-};
-
 app.get("/api/batchinfo", (req, res) => {
     var batchinfo = {
         name: payload.batch,
@@ -289,6 +276,20 @@ app.get("/api/search/:batch/:param", (req, res) => {
     // select * from "payload" where "rotation" = 7
     const batch = req.params.batch
     const param = req.params.param
+
+    async function getData(batch, param) {
+        client.queryRaw(`select * from "${batch}.${param}"`)
+            .then(data => {
+                var response = data.results[0].series[0].values
+                var _data = {
+                    count: response.length - 1,
+                    data: response
+                }
+                res.json(_data)
+            })
+            .catch(console.error);
+    };
+
 
     getData(batch, param)
     

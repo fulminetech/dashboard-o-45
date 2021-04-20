@@ -7,7 +7,7 @@ const express = require("express");
 const app = express();
 var cors = require('cors')
 app.use(cors({ origin: "*" }));
-const host = "http://localhost"
+const host = "localhost"
 
 // Influx
 const Influx = require('influxdb-nodejs');
@@ -567,6 +567,20 @@ var runModbus = function () {
     setTimeout(runModbus, mbsScan);
 }
 
+function writealarm(param, value) {
+    
+    flux.write(`${batchinfo.name}.alarm`)
+        .tag({
+        })
+        .field({
+            operator: batchinfo.operator,  // 2
+            parameter: param,  // 2
+            value: value,  // 2
+        })
+        .then(() => console.info(`[ ALARM ENTRY DONE ${param} ${value} ]`))
+        .catch(console.error);
+}
+
 var read_coils = function () {
     mbsState = PASS_READ_COILS;
 
@@ -603,81 +617,196 @@ var read_coils = function () {
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
     
-    client.readCoils(coil_470, 25)
+    client.readCoils(coil_470, 30)
         .then(function (stats_data) {
             // console.log("STATS: ",stats_data.data)
 
-            stats_data.data[0] == true && payload.alarm.EMERGENCY_STOP_PRESSED == '' ? writealarm(EMERGENCY_STOP_PRESSED, true)                 : payload.alarm.EMERGENCY_STOP_PRESSED = true
-            stats_data.data[1] == true && payload.alarm.MAIN_MOTOR_TRIPPED == '' ? writealarm(MAIN_MOTOR_TRIPPED, true)                         : payload.alarm.MAIN_MOTOR_TRIPPED = true
-            stats_data.data[2] == true && payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED == '' ? writealarm(LHS_FORCE_FEEDER_MOTOR_TRIPPED, true) : payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED = true
-            stats_data.data[3] == true && payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED == '' ? writealarm(RHS_FORCE_FEEDER_MOTOR_TRIPPED, true) : payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED = true
-            stats_data.data[4] == true && payload.alarm.POWER_PACK_TRIP == '' ? writealarm(POWER_PACK_TRIP, true)                               : payload.alarm.POWER_PACK_TRIP = true
-            stats_data.data[5] == true && payload.alarm.LUBOIL_LEVEL_LOW == '' ? writealarm(LUBOIL_LEVEL_LOW, true)                             : payload.alarm.LUBOIL_LEVEL_LOW = true
-            stats_data.data[8] == true && payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT == '' ? writealarm(LHS_MCM_ABOVE_TOL_LIMIT, true)               : payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT = true
-            stats_data.data[9] == true && payload.alarm.LHS_MCM_BELOW_TOL_LIMIT == '' ? writealarm(LHS_MCM_BELOW_TOL_LIMIT, true)               : payload.alarm.LHS_MCM_BELOW_TOL_LIMIT = true
-            stats_data.data[12] == true && payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT == '' ? writealarm(RHS_MCM_ABOVE_TOL_LIMIT, true)               : payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT = true
-            stats_data.data[13] == true && payload.alarm.RHS_MCM_BELOW_TOL_LIMIT == '' ? writealarm(RHS_MCM_BELOW_TOL_LIMIT, true)               : payload.alarm.RHS_MCM_BELOW_TOL_LIMIT = true
-            stats_data.data[14] == true && payload.alarm.SYSTEM_OVERLOAD == '' ? writealarm(SYSTEM_OVERLOAD, true)                               : payload.alarm.SYSTEM_OVERLOAD = true
-            stats_data.data[15] == true && payload.alarm.SAFETY_GUARD_OPEN == '' ? writealarm(SAFETY_GUARD_OPEN, true)                           : payload.alarm.SAFETY_GUARD_OPEN = true
-            stats_data.data[16] == true && payload.alarm.HYDRAULIC_HIGH_PRESSURE == '' ? writealarm(HYDRAULIC_HIGH_PRESSURE, true)               : payload.alarm.HYDRAULIC_HIGH_PRESSURE = true
-            stats_data.data[17] == true && payload.alarm.LHS_POWDER_LEVEL_LOW == '' ? writealarm(LHS_POWDER_LEVEL_LOW, true)                     : payload.alarm.LHS_POWDER_LEVEL_LOW = true
-            stats_data.data[18] == true && payload.alarm.RHS_POWDER_LEVEL_LOW == '' ? writealarm(RHS_POWDER_LEVEL_LOW, true)                     : payload.alarm.RHS_POWDER_LEVEL_LOW = true
-            stats_data.data[19] == true && payload.alarm.LUB_PUMP_FAILS == '' ? writealarm(LUB_PUMP_FAILS, true)                                 : payload.alarm.LUB_PUMP_FAILS = true
-            stats_data.data[20] == true && payload.alarm.ROLLER_VFD_TRIP == '' ? writealarm(ROLLER_VFD_TRIP, true)                               : payload.alarm.ROLLER_VFD_TRIP = true
-            stats_data.data[21] == true && payload.alarm.SINGLE_PHASE_FAILURE == '' ? writealarm(SINGLE_PHASE_FAILURE, true)                     : payload.alarm.SINGLE_PHASE_FAILURE = true
-            stats_data.data[22] == true && payload.alarm.RHS_DISCHARGE_AWC_TRIP == '' ? writealarm(RHS_DISCHARGE_AWC_TRIP, true)                 : payload.alarm.RHS_DISCHARGE_AWC_TRIP = true
-            stats_data.data[23] == true && payload.alarm.LHS_DISCHARGE_AWC_TRIP == '' ? writealarm(LHS_DISCHARGE_AWC_TRIP, true)                 : payload.alarm.LHS_DISCHARGE_AWC_TRIP = true
-            stats_data.data[24] == true && payload.alarm.AWC_OVER_LIMIT == '' ? writealarm(AWC_OVER_LIMIT, true)                                 : payload.alarm.AWC_OVER_LIMIT = true
-            stats_data.data[25] == true && payload.alarm.MAX_TABLET_REJECTED == '' ? writealarm(MAX_TABLET_REJECTED, true)                       : payload.alarm.MAX_TABLET_REJECTED = true
-            stats_data.data[29] == true && payload.alarm.MACHINE_HEALTHY == '' ? writealarm(MACHINE_HEALTHY, true) : payload.alarm.MACHINE_HEALTHY = true
+            if (batchinfo.name !== '') {
+            
+                if (stats_data.data[0] === true && payload.alarm.EMERGENCY_STOP_PRESSED === '') {
+                    writealarm("EMERGENCY_STOP_PRESSED", true)
+                    payload.alarm.EMERGENCY_STOP_PRESSED = 'ACTIVE'
+                }
+                if (stats_data.data[1] === true && payload.alarm.MAIN_MOTOR_TRIPPED === '') {
+                    writealarm("MAIN_MOTOR_TRIPPED", true)
+                    payload.alarm.MAIN_MOTOR_TRIPPED = 'ACTIVE'
+                }
+                if (stats_data.data[2] === true && payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED == '') {
+                    writealarm("LHS_FORCE_FEEDER_MOTOR_TRIPPED", true)
+                    payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED = 'ACTIVE'
+                }
+                if (stats_data.data[3] === true && payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED == '') {
+                    payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED = 'ACTIVE'
+                    writealarm("RHS_FORCE_FEEDER_MOTfOR_TRIPPED", true)
+                }
+                if (stats_data.data[4] === true && payload.alarm.POWER_PACK_TRIP === '' ) {
+                    payload.alarm.POWER_PACK_TRIP = 'ACTIVE'
+                    writealarm("POWER_PACK_TRIP", true)
+                }
+                if (stats_data.data[5] === true && payload.alarm.LUBOIL_LEVEL_LOW == '' ) {
+                    writealarm("LUBOIL_LEVEL_LOW", true)
+                    payload.alarm.LUBOIL_LEVEL_LOW = 'ACTIVE'
+                }
+                if (stats_data.data[8] === true && payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT == '') {
+                    writealarm("LHS_MCM_ABOVE_TOL_LIMIT", true)
+                    payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT = 'ACTIVE'
+                }
+                if (stats_data.data[9] === true && payload.alarm.LHS_MCM_BELOW_TOL_LIMIT == '') {
+                    writealarm("LHS_MCM_BELOW_TOL_LIMIT", true)
+                    payload.alarm.LHS_MCM_BELOW_TOL_LIMIT = 'ACTIVE'
+                }
+                if (stats_data.data[12] === true && payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT == '') {
+                    writealarm("RHS_MCM_ABOVE_TOL_LIMIT", true)
+                    payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT = 'ACTIVE'
+                }
+                if (stats_data.data[13] === true && payload.alarm.RHS_MCM_BELOW_TOL_LIMIT == '') {
+                    writealarm("RHS_MCM_BELOW_TOL_LIMIT", true)
+                    payload.alarm.RHS_MCM_BELOW_TOL_LIMIT = 'ACTIVE'
+                }
+                if (stats_data.data[14] === true && payload.alarm.SYSTEM_OVERLOAD == '') {
+                    writealarm("SYSTEM_OVERLOAD", true)
+                    payload.alarm.SYSTEM_OVERLOAD = 'ACTIVE'
+                }
+                if (stats_data.data[15] === true && payload.alarm.SAFETY_GUARD_OPEN == '') {
+                    writealarm("SAFETY_GUARD_OPEN", true)
+                    payload.alarm.SAFETY_GUARD_OPEN = 'ACTIVE'
+                }
+                if (stats_data.data[16] === true && payload.alarm.HYDRAULIC_HIGH_PRESSURE == '') {
+                    writealarm("HYDRAULIC_HIGH_PRESSURE", true)
+                    payload.alarm.HYDRAULIC_HIGH_PRESSURE = 'ACTIVE'
+                }
+                if (stats_data.data[17] === true && payload.alarm.LHS_POWDER_LEVEL_LOW == '') {
+                    writealarm("LHS_POWDER_LEVEL_LOW", true)
+                    payload.alarm.LHS_POWDER_LEVEL_LOW = 'ACTIVE'
+                }
+                if (stats_data.data[18] === true && payload.alarm.RHS_POWDER_LEVEL_LOW == '') {
+                    writealarm("RHS_POWDER_LEVEL_LOW", true)
+                    payload.alarm.RHS_POWDER_LEVEL_LOW = 'ACTIVE'
+                }
+                if (stats_data.data[19] === true && payload.alarm.LUB_PUMP_FAILS == '') {
+                    writealarm("LUB_PUMP_FAILS", true)
+                    payload.alarm.LUB_PUMP_FAILS = 'ACTIVE'
+                }
+                if (stats_data.data[20] === true && payload.alarm.ROLLER_VFD_TRIP == '') {
+                    writealarm("ROLLER_VFD_TRIP", true)
+                    payload.alarm.ROLLER_VFD_TRIP = 'ACTIVE'
+                }
+                if (stats_data.data[21] === true && payload.alarm.SINGLE_PHASE_FAILURE == '') {
+                    writealarm("SINGLE_PHASE_FAILURE", true)
+                    payload.alarm.SINGLE_PHASE_FAILURE = 'ACTIVE'
+                }
+                if (stats_data.data[22] === true && payload.alarm.RHS_DISCHARGE_AWC_TRIP == '') {
+                    writealarm("RHS_DISCHARGE_AWC_TRIP", true)
+                    payload.alarm.RHS_DISCHARGE_AWC_TRIP = 'ACTIVE'
+                }
+                if (stats_data.data[23] === true && payload.alarm.LHS_DISCHARGE_AWC_TRIP == '') {
+                    writealarm("LHS_DISCHARGE_AWC_TRIP", true)
+                    payload.alarm.LHS_DISCHARGE_AWC_TRIP = 'ACTIVE'
+                }
+                if (stats_data.data[24] === true && payload.alarm.AWC_OVER_LIMIT == '') {
+                    writealarm("AWC_OVER_LIMIT", true)
+                    payload.alarm.AWC_OVER_LIMIT = 'ACTIVE'
+                }
+                if (stats_data.data[25] === true && payload.alarm.MAX_TABLET_REJECTED === '') {
+                    writealarm("MAX_TABLET_REJECTED", true)
+                    payload.alarm.MAX_TABLET_REJECTED = 'ACTIVE'
+                }
+                
+                if (stats_data.data[0] === false && payload.alarm.EMERGENCY_STOP_PRESSED === 'ACTIVE') {
+                    writealarm("EMERGENCY_STOP_PRESSED", false)
+                    payload.alarm.EMERGENCY_STOP_PRESSED = ''
+                }
+                if (stats_data.data[1] === false && payload.alarm.MAIN_MOTOR_TRIPPED == 'ACTIVE') {
+                    writealarm("MAIN_MOTOR_TRIPPED", false)
+                    payload.alarm.MAIN_MOTOR_TRIPPED = ''
+                }
+                if (stats_data.data[2] === false && payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED == 'ACTIVE') {
+                    writealarm("LHS_FORCE_FEEDER_MOTOR_TRIPPED", false)
+                    payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED = ''
+                }
+                if (stats_data.data[3] === false && payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED == 'ACTIVE') {
+                    writealarm("RHS_FORCE_FEEDER_MOTOR_TRIPPED", false)
+                    payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED = ''
+                }
+                if (stats_data.data[4] === false && payload.alarm.POWER_PACK_TRIP == 'ACTIVE') {
+                    writealarm("POWER_PACK_TRIP", false)
+                    payload.alarm.POWER_PACK_TRIP = ''
+                }
+                if (stats_data.data[5] === false && payload.alarm.LUBOIL_LEVEL_LOW == 'ACTIVE' ) {
+                    writealarm("LUBOIL_LEVEL_LOW", false)
+                    payload.alarm.LUBOIL_LEVEL_LOW = ''
+                }
+                if (stats_data.data[8] === false && payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT == 'ACTIVE') {
+                    writealarm("LHS_MCM_ABOVE_TOL_LIMIT", false)
+                    payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT = ''
+                }
+                if (stats_data.data[8] === false && payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT == 'ACTIVE') {
+                    writealarm("EMERGENCY_STOP_PRESSED", false)
+                    payload.alarm.EMERGENCY_STOP_PRESSED = ''
+                }
+                if (stats_data.data[9] === false && payload.alarm.LHS_MCM_BELOW_TOL_LIMIT == 'ACTIVE') {
+                    writealarm("LHS_MCM_BELOW_TOL_LIMIT", false)
+                    payload.alarm.LHS_MCM_BELOW_TOL_LIMIT = ''
+                }
+                if (stats_data.data[12] === false && payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT == 'ACTIVE') {
+                    writealarm("RHS_MCM_ABOVE_TOL_LIMIT", false)
+                    payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT = ''
+                }
+                if (stats_data.data[13] === false && payload.alarm.RHS_MCM_BELOW_TOL_LIMIT == 'ACTIVE') {
+                    writealarm("RHS_MCM_BELOW_TOL_LIMIT", false)
+                    payload.alarm.RHS_MCM_BELOW_TOL_LIMIT = ''
+                }
+                if (stats_data.data[14] === false && payload.alarm.SYSTEM_OVERLOAD == 'ACTIVE') {
+                    writealarm("SYSTEM_OVERLOAD", false)
+                    payload.alarm.SYSTEM_OVERLOAD = ''
+                }
+                if (stats_data.data[15] === false && payload.alarm.SAFETY_GUARD_OPEN == 'ACTIVE') {
+                    writealarm("SAFETY_GUARD_OPEN", false)
+                    payload.alarm.SAFETY_GUARD_OPEN = ''
+                }
+                if (stats_data.data[16] === false && payload.alarm.HYDRAULIC_HIGH_PRESSURE == 'ACTIVE') {
+                    writealarm("HYDRAULIC_HIGH_PRESSURE", false)
+                    payload.alarm.HYDRAULIC_HIGH_PRESSURE = ''
+                }
+                if (stats_data.data[17] === false && payload.alarm.LHS_POWDER_LEVEL_LOW == 'ACTIVE') {
+                    writealarm("LHS_POWDER_LEVEL_LOW", false)
+                    payload.alarm.LHS_POWDER_LEVEL_LOW = ''
+                }
+                if (stats_data.data[18] === false && payload.alarm.RHS_POWDER_LEVEL_LOW == 'ACTIVE') {
+                    writealarm("RHS_POWDER_LEVEL_LOW", false)
+                    payload.alarm.RHS_POWDER_LEVEL_LOW = ''
+                }
+                if (stats_data.data[19] === false && payload.alarm.LUB_PUMP_FAILS == 'ACTIVE') {
+                    writealarm("LUB_PUMP_FAILS", false)
+                    payload.alarm.LUB_PUMP_FAILS = ''
+                }
+                if (stats_data.data[20] === false && payload.alarm.ROLLER_VFD_TRIP == 'ACTIVE') {
+                    writealarm("ROLLER_VFD_TRIP", false)
+                    payload.alarm.ROLLER_VFD_TRIP = ''
+                }
+                if (stats_data.data[21] === false && payload.alarm.SINGLE_PHASE_FAILURE == 'ACTIVE') {
+                    writealarm("SINGLE_PHASE_FAILURE", false)
+                    payload.alarm.SINGLE_PHASE_FAILURE = ''
+                }
+                if (stats_data.data[22] === false && payload.alarm.RHS_DISCHARGE_AWC_TRIP == 'ACTIVE') {
+                    writealarm("RHS_DISCHARGE_AWC_TRIP", false)
+                    payload.alarm.RHS_DISCHARGE_AWC_TRIP = ''
+                }
+                if (stats_data.data[23] === false && payload.alarm.LHS_DISCHARGE_AWC_TRIP == 'ACTIVE') {
+                    writealarm("LHS_DISCHARGE_AWC_TRIP", false)
+                    payload.alarm.LHS_DISCHARGE_AWC_TRIP = ''
+                }
+                if (stats_data.data[24] === false && payload.alarm.AWC_OVER_LIMIT == 'ACTIVE') {
+                    writealarm("AWC_OVER_LIMIT", false)
+                    payload.alarm.AWC_OVER_LIMIT = ''
+                }
+                if (stats_data.data[25] === false && payload.alarm.MAX_TABLET_REJECTED == 'ACTIVE') {
+                    writealarm("MAX_TABLET_REJECTED", false)
+                    payload.alarm.MAX_TABLET_REJECTED = ''
+                }
 
-            stats_data.data[0] == false && payload.alarm.EMERGENCY_STOP_PRESSED == true ? writealarm(EMERGENCY_STOP_PRESSED, false) : payload.alarm.EMERGENCY_STOP_PRESSED = ''
-            stats_data.data[1] == false && payload.alarm.MAIN_MOTOR_TRIPPED == true ? writealarm(MAIN_MOTOR_TRIPPED, false) : payload.alarm.MAIN_MOTOR_TRIPPED= ''
-            stats_data.data[2] == false && payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED == true ? writealarm(LHS_FORCE_FEEDER_MOTOR_TRIPPED, false) : payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED = ''
-            stats_data.data[3] == false && payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED == true ? writealarm(RHS_FORCE_FEEDER_MOTOR_TRIPPED, false) : payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED = ''
-            stats_data.data[4] == false && payload.alarm.POWER_PACK_TRIP == true ? writealarm(POWER_PACK_TRIP, false)                               : payload.alarm.POWER_PACK_TRIP = ''
-            stats_data.data[5] == false && payload.alarm.LUBOIL_LEVEL_LOW == true ? writealarm(LUBOIL_LEVEL_LOW, false)                             : payload.alarm.LUBOIL_LEVEL_LOW = ''
-            stats_data.data[8] == false && payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT == true ? writealarm(LHS_MCM_ABOVE_TOL_LIMIT, false) : payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT = ''
-            stats_data.data[9] == false && payload.alarm.LHS_MCM_BELOW_TOL_LIMIT == true ? writealarm(LHS_MCM_BELOW_TOL_LIMIT, false)               : payload.alarm.LHS_MCM_BELOW_TOL_LIMIT = ''
-            stats_data.data[12] == false && payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT == true ? writealarm(RHS_MCM_ABOVE_TOL_LIMIT, false)               : payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT = ''
-            stats_data.data[13] == false && payload.alarm.RHS_MCM_BELOW_TOL_LIMIT == true ? writealarm(RHS_MCM_BELOW_TOL_LIMIT, false)               : payload.alarm.RHS_MCM_BELOW_TOL_LIMIT = ''
-            stats_data.data[14] == false && payload.alarm.SYSTEM_OVERLOAD == true ? writealarm(SYSTEM_OVERLOAD, false)                               : payload.alarm.SYSTEM_OVERLOAD = ''
-            stats_data.data[15] == false && payload.alarm.SAFETY_GUARD_OPEN == true ? writealarm(SAFETY_GUARD_OPEN, false)                           : payload.alarm.SAFETY_GUARD_OPEN = ''
-            stats_data.data[16] == false && payload.alarm.HYDRAULIC_HIGH_PRESSURE == true ? writealarm(HYDRAULIC_HIGH_PRESSURE, false)               : payload.alarm.HYDRAULIC_HIGH_PRESSURE = ''
-            stats_data.data[17] == false && payload.alarm.LHS_POWDER_LEVEL_LOW == true ? writealarm(LHS_POWDER_LEVEL_LOW, false)                     : payload.alarm.LHS_POWDER_LEVEL_LOW = ''
-            stats_data.data[18] == false && payload.alarm.RHS_POWDER_LEVEL_LOW == true ? writealarm(RHS_POWDER_LEVEL_LOW, false)                     : payload.alarm.RHS_POWDER_LEVEL_LOW = ''
-            stats_data.data[19] == false && payload.alarm.LUB_PUMP_FAILS == true ? writealarm(LUB_PUMP_FAILS, false)                                 : payload.alarm.LUB_PUMP_FAILS = ''
-            stats_data.data[20] == false && payload.alarm.ROLLER_VFD_TRIP == true ? writealarm(ROLLER_VFD_TRIP, false)                               : payload.alarm.ROLLER_VFD_TRIP = ''
-            stats_data.data[21] == false && payload.alarm.SINGLE_PHASE_FAILURE == true ? writealarm(SINGLE_PHASE_FAILURE, false)                     : payload.alarm.SINGLE_PHASE_FAILURE = ''
-            stats_data.data[22] == false && payload.alarm.RHS_DISCHARGE_AWC_TRIP == true ? writealarm(RHS_DISCHARGE_AWC_TRIP, false)                 : payload.alarm.RHS_DISCHARGE_AWC_TRIP = ''
-            stats_data.data[23] == false && payload.alarm.LHS_DISCHARGE_AWC_TRIP == true ? writealarm(LHS_DISCHARGE_AWC_TRIP, false)                 : payload.alarm.LHS_DISCHARGE_AWC_TRIP = ''
-            stats_data.data[24] == false && payload.alarm.AWC_OVER_LIMIT == true ? writealarm(AWC_OVER_LIMIT, false)                                 : payload.alarm.AWC_OVER_LIMIT = ''
-            stats_data.data[25] == false && payload.alarm.MAX_TABLET_REJECTED == true ? writealarm(MAX_TABLET_REJECTED, false)                       : payload.alarm.MAX_TABLET_REJECTED = ''
-            stats_data.data[29] == false && payload.alarm.MACHINE_HEALTHY == true ? writealarm(MACHINE_HEALTHY, false) : payload.alarm.MACHINE_HEALTHY = true
-
-            // payload.alarm.EMERGENCY_STOP_PRESSED = stats_data.data[0],
-            // payload.alarm.MAIN_MOTOR_TRIPPED = stats_data.data[1],
-            // payload.alarm.LHS_FORCE_FEEDER_MOTOR_TRIPPED = stats_data.data[2],
-            // payload.alarm.RHS_FORCE_FEEDER_MOTOR_TRIPPED = stats_data.data[3],
-            // payload.alarm.POWER_PACK_TRIP = stats_data.data[4],
-            // payload.alarm.LUBOIL_LEVEL_LOW = stats_data.data[5],
-            // payload.alarm.LHS_MCM_ABOVE_TOL_LIMIT = stats_data.data[8],
-            // payload.alarm.LHS_MCM_BELOW_TOL_LIMIT = stats_data.data[9],
-            // payload.alarm.RHS_MCM_ABOVE_TOL_LIMIT = stats_data.data[12],
-            // payload.alarm.RHS_MCM_BELOW_TOL_LIMIT = stats_data.data[13],
-            // payload.alarm.SYSTEM_OVERLOAD = stats_data.data[14],
-            // payload.alarm.SAFETY_GUARD_OPEN = stats_data.data[15],
-            // payload.alarm.HYDRAULIC_HIGH_PRESSURE = stats_data.data[16],
-            // payload.alarm.LHS_POWDER_LEVEL_LOW = stats_data.data[17],
-            // payload.alarm.RHS_POWDER_LEVEL_LOW = stats_data.data[18],
-            // payload.alarm.LUB_PUMP_FAILS = stats_data.data[19],
-            // payload.alarm.ROLLER_VFD_TRIP = stats_data.data[20],
-            // payload.alarm.SINGLE_PHASE_FAILURE = stats_data.data[21],
-            // payload.alarm.RHS_DISCHARGE_AWC_TRIP = stats_data.data[22],
-            // payload.alarm.LHS_DISCHARGE_AWC_TRIP = stats_data.data[23],
-            // payload.alarm.AWC_OVER_LIMIT = stats_data.data[24],
-            // payload.alarm.MAX_TABLET_REJECTED = stats_data.data[25],
-            // payload.alarm.MACHINE_HEALTHY = stats_data.data[29]
+            }
+            
         })
         .catch(function (e) {
             console.error('[ coil_470 Garbage ]')
@@ -1044,25 +1173,6 @@ var write_coil_410 = function () {
         })
 }
 
-writealarm = (param, value) => {
-    
-    if (batchinfo.name == 'DEFAULT') {
-        
-    } else {
-        flux.write(`${batchinfo.name}.alarm`)
-            .tag({
-            })
-            .field({
-                operator: batchinfo.operator,  // 2
-                parameter: param,  // 2
-                value: value,  // 2
-            })
-            .then(() => console.info(`[ ALARM ENTRY DONE ${batchinfo.name}.alarm ]`))
-            .catch(console.error);
-    }
-
-}
-
 function restartprodmodbus() {
     exec(restart1Command, (err, stdout, stderr) => {
         // handle err if you like!
@@ -1114,7 +1224,6 @@ app.get("/api/set/:parameter/:value", (req, res) => {
             })
             .then(() => console.info(`[ LOG ENTRY DONE ${batchinfo.name} ]`))
             .catch(console.error);
-    
     }
 
     if (a == "TURRET_RPM") {
@@ -2887,7 +2996,8 @@ app.get("/api/set/batchinfo/:batch/:operator", (req, res) => {
 
     batchinfo.name = a
     batchinfo.operator = b
-    
+    console.log('[ BATCH UPDATED ]')
+
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.json(batchinfo)
 });

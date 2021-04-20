@@ -3,8 +3,8 @@ const fetch = require('cross-fetch');
 const { exec } = require('child_process');
 // const CronJob = require('cron').CronJob;
 
-const Gpio = require('onoff').Gpio;
-const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 10 });
+// const Gpio = require('onoff').Gpio;
+// const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 10 });
 
 var host = "http://localhost";
 // var os = require("os");
@@ -714,12 +714,12 @@ var payload = {
 
 async function updatestatsbatch() {
 
-    fetch(`updatestatsbatchURL/${payload.batch}/${payload.machine.operator_name}`)
+    fetch(`${updatestatsbatchURL}/${payload.batch}/${payload.machine.operator_name}`)
         .then(res => {
             if (res.status >= 400) {
                 throw new Error("Bad response from server");
             }
-            return res.json();
+            console.log('[ BATCH UPDATED ]')
         })
         .catch(err => {
             console.error("[ MODBUS SERVER OFFLINE ]");
@@ -1598,15 +1598,15 @@ var watchproxy = function () {
     writemachine();
     console.log("Watching proxy")
    
-    proxy.watch((err, value) => {
-        if (err) {
-            throw err;
-        }
-        payload.data_number++;
-        console.log("DATA")
-        writeHistory();
-        writeAverage();
-    });
+    // proxy.watch((err, value) => {
+    //     if (err) {
+    //         throw err;
+    //     }
+    //     payload.data_number++;
+    //     console.log("DATA")
+    //     writeHistory();
+    //     writeAverage();
+    // });
 }
 
 module.exports = {
