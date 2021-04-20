@@ -17,6 +17,7 @@ const flux = new Influx(`http://${host}:8086/new`);
 // Fetch
 const fetch = require('cross-fetch'); // To get operator and batch details for logging
 const { connected } = require("process");
+const { response } = require("express");
 const batchinfoURL = `${host}:5000/api/batchinfo`;
 
 // Modbus 
@@ -2886,8 +2887,12 @@ app.get("/api/set/batchinfo", (req, res) => {
     function _batchinfo() {
         fetch(batchinfoURL)
             .then(data => {
-                console.log(data)
-                // batchinfo = data;
+                response = data
+
+                batchinfo.name = response.name,
+                batchinfo.operator = response.operator,
+                batchinfo.rotation = response.rotation
+                
             })
             .catch(err => {
                 console.error(err);
