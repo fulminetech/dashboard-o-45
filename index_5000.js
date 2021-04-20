@@ -243,7 +243,7 @@ app.get("/api/batchinfo", (req, res) => {
     var batchinfo = {
         name: payload.batch,
         operator: payload.machine.operator_name,
-        rotation: payload.rotation_no
+        rotation: payload.data_number
     }
 
     res.json(batchinfo)

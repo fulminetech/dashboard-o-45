@@ -3,9 +3,6 @@ const fetch = require('cross-fetch');
 const { exec } = require('child_process');
 // const CronJob = require('cron').CronJob;
 
-const Gpio = require('onoff').Gpio;
-const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 10 });
-
 var host = "http://localhost";
 
 const Influx = require('influxdb-nodejs');
@@ -19,7 +16,9 @@ function date() {
 
 var i = 0
 const payloadURL = `${host}:3129/api/payload`;
+const batchinfoURL = `${host}:5000/api/batchinfo`;
 var statsurl = `${host}:3128/api/machine/stats`
+var processedurl = "http://127.0.0.1:5050/api/machine/processed"
 
 var noww = new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
 console.log(`[ STARTING INFLUX : ${noww} ]`)
@@ -37,6 +36,27 @@ async function payload_() {
         })
         .then(data => {
             payload = data;
+            // console.log(batchinfo.name)
+        })
+        .catch(err => {
+            console.error("[ MODBUS SERVER OFFLINE ]");
+        });
+};
+
+var batchinfo 
+
+async function batchinfo_() {
+
+    fetch(batchinfoURL)
+        .then(res => {
+            if (res.status >= 400) {
+                throw new Error("Bad response from server");
+            }
+            return res.json();
+        })
+        .then(data => {
+            batchinfo = data;
+            // console.log(batchinfo.rotation)
         })
         .catch(err => {
             console.error("[ MODBUS SERVER OFFLINE ]");
@@ -79,12 +99,12 @@ async function processed_() {
 };
 
 // Updated with each rotation
-writeHistory = () => {
-    flux.write(`${payload.batch}.history`)
+var writeHistory = () => {
+    flux.write(`${batchinfo.name}.history`)
         .tag({
         })
         .field({
-            rotation: payload.data_number,
+            rotation: batchinfo.rotation,
             p1LHSpre: processed.pLHS_data[0],
             p2LHSpre: processed.pLHS_data[1],
             p3LHSpre: processed.pLHS_data[2],
@@ -375,17 +395,17 @@ writeHistory = () => {
             bi_R_rjn_low: processed.limit[6],
             bi_R_force_line: processed.limit[15],
         })
-        .then(() => console.info(`[ HISTORY WRITE SUCESSFUL ${payload.data_number} ]`))
+        .then(() => console.info(`[ HISTORY WRITE SUCESSFUL ${batchinfo.name} ]`))
         .catch(console.error);
 }
 
 // Updated with each rotation
-writeAverage = () => {
-    flux.write(`${payload.batch}.average`)
+var writeAverage = () => {
+    flux.write(`${batchinfo.name}.average`)
         .tag({
         })
         .field({
-            rotation: payload.data_number,
+            rotation: batchinfo.rotation,
 
             preLHSavg: payload.precompressionLHS_avg,
             mainLHSavg: payload.maincompressionLHS_avg,
@@ -396,18 +416,10 @@ writeAverage = () => {
             turretrpm: stats.stats.turret.RPM,
             dwelltime: stats.stats.dwell,
         })
-        .then(() => console.info(`[ AVERAGE WRITE SUCESSFUL ${payload.data_number} ]`))
+        .then(() => console.info(`[ AVERAGE WRITE SUCESSFUL ${batchinfo.name} ]`))
         .catch(console.error);
 }
 
-var rotation = -1;
-
-proxy.watch((err, value) => {
-    if (err) {
-        throw err;
-    }
-    payload.data_number++;
-    // console.log("DATA")
-    writeHistory();
-    writeAverage();
-});
+module.exports = {
+    payload_, batchinfo_, stats_, processed_, writeHistory, writeAverage
+}
