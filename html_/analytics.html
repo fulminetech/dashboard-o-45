@@ -517,12 +517,11 @@
             // console.log(bname);
 
             const avgData = await fetch(queryAvgURL);
-            const _avggbatch = await avgData.json();
-            const avggbatch = _avggbatch.data
+            const avggbatch = await avgData.json();
 
             // console.log(avggbatch)
 
-            let avglistt = avggbatch;
+            let avglistt = avggbatch.data;
 
             let from = fromname;
             let to = toname;
@@ -540,7 +539,7 @@
                         j = i - 1;
                         from++;
                         let avgdataa = avggbatch[j]
-                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[8]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[7]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[9]}</td></tr>`
+                        avgHTML += `<td class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td></tr>`
                     } else if (i > to) {
                         // await fetch(generatereportURL);
                     }
