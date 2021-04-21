@@ -1509,14 +1509,12 @@ async function fetchpayload() {
 };
 
 function startmodbus() {
-    batchinfo_()
-    
-        setInterval(() => {
-            fetchpayload()
-            stats_()
-            processed_()
-        }, 100);
-    
+    setInterval(() => {
+        fetchpayload()
+        stats_()
+        processed_()
+    }, 100);
+
 }
 
 // For tesing purpose
