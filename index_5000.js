@@ -304,7 +304,7 @@ app.get("/api/search/average/csv/:batch", (req, res) => {
     // select * from "payload" where "rotation" = 7
     const r = req.params.batch
     async function passbatch(r) {
-        client.queryRaw(`select "rotation", "preLHSavg", "mainLHSavg", "ejnLHSavg", "preRHSavg", "mainRHSavg", "ejnRHSavg" from "${r}.average"`)
+        client.queryRaw(`select * from "${r}.average"`)
             .then(data => {
                 var response = data.results[0].series[0].values
                 avg.totalrotations = response.length - 1

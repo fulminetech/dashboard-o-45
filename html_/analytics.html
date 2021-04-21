@@ -511,8 +511,7 @@
             var toname = document.getElementById("toRotationNumber").value;
             var bname = document.getElementById("batchname").value;
             
-            var queryAvgURL = `${dbsearchURL}/${name}/average`
-            // const queryAvgURL = `${hostname}/api/search/average/csv/${bname}`
+            const queryAvgURL = `${hostname}/api/search/average/csv/${bname}`
 
             // console.log(bname);
 
@@ -521,7 +520,7 @@
 
             // console.log(avggbatch)
 
-            let avglistt = avggbatch.data;
+            let avglistt = avggbatch;
 
             let from = fromname;
             let to = toname;
@@ -539,7 +538,7 @@
                         j = i - 1;
                         from++;
                         let avgdataa = avggbatch[j]
-                        avgHTML += `<td class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td></tr>`
+                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[8]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[7]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[9]}</td></tr>`
                     } else if (i > to) {
                         // await fetch(generatereportURL);
                     }
