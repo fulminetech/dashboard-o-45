@@ -30,6 +30,7 @@ var hostname = `http://${ip}:5000`
 
 var payloadURL = `${hostname}/api/payload`;
 var batchinfoURL = `${hostname}/api/batchinfo`;
+const dbsearchURL = `${hostname}/api/search`;
 const batchURL = `${hostname}/api/search/batch`;
 const searchAvgURL = `${hostname}/api/search/average/`
 const reportdetailsURL = `${hostname}/report/average/now`

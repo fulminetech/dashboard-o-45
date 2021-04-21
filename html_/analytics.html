@@ -466,7 +466,9 @@
                 document.getElementById("searchbatch").innerText = "PLEASE WAIT";
                 element2.classList.add("cursor-not-allowed");
 
-                var queryAvgURL = `${searchAvgURL}${name}`
+                dbsearchURL
+                var queryAvgURL = `${dbsearchURL}/${name}/average`
+                // var queryAvgURL = `${searchAvgURL}${name}`
 
                 const avgData = await fetch(queryAvgURL);
                 const avggbatch = await avgData.json();
