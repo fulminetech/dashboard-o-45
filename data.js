@@ -745,8 +745,8 @@ async function fetchpayload() {
 
             payload1 = data;
             // console.log(payload1)
-            payload.batch = payload1.batch
-            payload.data_number = payload1.data_number
+            // payload.batch = payload1.batch
+            // payload.data_number = payload1.data_number
             payload.rotation_no = payload1.rotation_no
             payload.present_punch = payload1.present_punch
             payload.precompressionLHS_avg = payload1.precompressionLHS_avg
