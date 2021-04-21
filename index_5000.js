@@ -11,7 +11,7 @@ const { query } = require("express");
 const client = new Influx(`http://${host}:8086/new`);
 const flux = new Influx(`http://${host}:8086/perm`);
 
-const {
+var {
     payload, startmodbus, watchproxy, updatestatsbatch
 } = require('./data.js')
 
