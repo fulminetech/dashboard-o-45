@@ -323,7 +323,7 @@
                                         <div class="flex-1 items-left text-gray-700">
                                             <h3 class="font-bold mt-1 text-lg">Punch No: <a id="punch_number_metric">0</a></h3>
                                             <h3 class="font-bold mt-2 text-lg">Rotation No:</h3>
-                                            <h3 class="font-bold mt-1 bg-white text-lg"><a id="rotation_number_metric">0</a></h3>
+                                            <h3 class="font-bold mt-1 bg-white text-lg"><a id="rotation_number_metric"></a></h3>
                                             <h3 class="font-bold mt-2 text-lg">Dwell Time (secs):</h3>
                                             <h3 class="font-bold mt-1 bg-white text-lg"><a id="dwell_metric">0</a></h3>
                                         </div>
@@ -2012,7 +2012,7 @@
 
                     // console.log(payload)
                     document.getElementById("punch_number_metric").innerHTML = payload.stats.punch_present_position.L_PRE;
-                    document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
+                    // document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
                     // document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
                     document.getElementById("count_metric").innerHTML = payload.production;
                     document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
