@@ -1156,12 +1156,14 @@ async function fetchpayload() {
 
 function startmodbus() {
     batchinfo_()
-    setInterval(() => {
-        fetchpayload()
-        payload_()
-        stats_()
-        processed_()
-    }, 100);
+    
+        setInterval(() => {
+            fetchpayload()
+            payload_()
+            stats_()
+            processed_()
+        }, 100);
+    
 }
 
 // For tesing purpose
@@ -1236,23 +1238,18 @@ var watchproxy = function () {
     writemachine();
     console.log("Watching proxy")
    
-    proxy.watch((err, value) => {
-        if (err) {
-            throw err;
-        }
-        payload.data_number++;
-        console.log("DATA")
-        writeHistory();
-        writeAverage();
-    });
-    // setTimeout(() => {
-    //     setInterval(() => {
-    //         payload.data_number++;
-    //         console.log("DATA")
-    //         writeHistory();
-    //         writeAverage();
-    //     }, 2000);
-    // }, 2000);
+    setTimeout(() => {
+        proxy.watch((err, value) => {
+            if (err) {
+                throw err;
+            }
+            payload.data_number++;
+            console.log("DATA")
+            writeHistory();
+            writeAverage();
+        });
+    }, 2000);
+    
 
 }
 

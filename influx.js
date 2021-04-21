@@ -57,6 +57,7 @@ async function batchinfo_() {
         .then(data => {
             batchinfo = data;
             // console.log(batchinfo.rotation)
+            // console.log(data)
         })
         .catch(err => {
             console.error("[ MODBUS SERVER OFFLINE ]");
