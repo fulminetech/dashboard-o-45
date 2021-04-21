@@ -295,6 +295,28 @@ app.get("/api/search/:batch/:param", (req, res) => {
     
 });
 
+app.get("/api/search/csv/:batch/:param", (req, res) => {
+    // select * from "payload" where "rotation" = 7
+
+    const batch = req.params.batch
+    const param = req.params.param
+
+    async function getData(batch, param) {
+        client.queryRaw(`select * from "${batch}.${param}"`)
+            .then(data => {
+                var response = data.results[0].series[0].values
+                var _data = {
+                    count: response.length,
+                    data: response
+                }
+                res.json(_data.data)
+            })
+            .catch(console.error);
+    };
+
+    getData(batch, param)
+});
+
 var history = {
     count: 0,
     data: {}
