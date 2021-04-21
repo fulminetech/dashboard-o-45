@@ -1509,6 +1509,9 @@ async function fetchpayload() {
 };
 
 function startmodbus() {
+    fetchpayload()
+    stats_()
+    processed_()
     setInterval(() => {
         fetchpayload()
         stats_()
