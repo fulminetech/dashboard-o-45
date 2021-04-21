@@ -770,7 +770,7 @@ var writeHistory = () => {
         .tag({
         })
         .field({
-            rotation: payload.machine.data_number,
+            rotation: payload.data_number,
             p1LHSpre: processed.pLHS_data[0],
             p2LHSpre: processed.pLHS_data[1],
             p3LHSpre: processed.pLHS_data[2],
@@ -1071,7 +1071,7 @@ var writeAverage = () => {
         .tag({
         })
         .field({
-            rotation: payload.machine.data_number,
+            rotation: payload.data_number,
 
             preLHSavg: payload.precompressionLHS_avg,
             mainLHSavg: payload.maincompressionLHS_avg,
