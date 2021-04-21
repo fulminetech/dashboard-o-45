@@ -3,8 +3,8 @@ const fetch = require('cross-fetch');
 const { exec } = require('child_process');
 // const CronJob = require('cron').CronJob;
 
-const Gpio = require('onoff').Gpio;
-const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 10 });
+// const Gpio = require('onoff').Gpio;
+// const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 10 });
 
 var host = "http://localhost";
 // var os = require("os");
@@ -30,7 +30,7 @@ console.log(`[ STARTING INFLUX : ${noww} ]`)
 
 
 const {
-    payload_, batchinfo_, stats_, processed_, writeHistory, writeAverage
+    batchinfo, payload_, batchinfo_, stats_, processed_, writeHistory, writeAverage
 } = require('./influx.js')
 
 var payload = {
@@ -1196,11 +1196,11 @@ var rotation = -1;
 
 // Updated when a parameter changed
 var writeMachine = () => {
-    flux.write(`${payload.batch}.machine`)
+    flux.write(`${batchinfo.name}.machine`)
         .tag({
         })
         .field({
-            operatorname: payload.machine.operator_name,
+            operatorname: batchinfo.operator,
             machineID: payload.machine.machine_id,
             LHSmcUpperLimit: payload.machine.LHS.maincompression_upperlimit,
             LHSmcLowerLimit: payload.machine.LHS.maincompression_lowerlimit,
@@ -1236,15 +1236,15 @@ var watchproxy = function () {
     writemachine();
     console.log("Watching proxy")
    
-    proxy.watch((err, value) => {
-        if (err) {
-            throw err;
-        }
-        payload.data_number++;
-        console.log("DATA")
-        writeHistory();
-        writeAverage();
-    });
+    // proxy.watch((err, value) => {
+    //     if (err) {
+    //         throw err;
+    //     }
+    //     payload.data_number++;
+    //     console.log("DATA")
+    //     writeHistory();
+    //     writeAverage();
+    // });
     // setTimeout(() => {
     //     setInterval(() => {
     //         payload.data_number++;

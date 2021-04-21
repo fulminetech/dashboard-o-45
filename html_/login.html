@@ -23,7 +23,7 @@
 
 <body class="bg-white font-family-karla select-none h-screen">
 
-    <div class="w-full flex flex-wrap">
+    <div class="w-full flex flex-wrap h-screen">
 
         <!-- Login Section -->
         <div class="w-full md:w-1/2 flex flex-col">
@@ -37,32 +37,34 @@
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                 <img class="text-center" src="login/logo">
 
-                <div class="flex flex-col pt-4">
-                    <label for="email" class="text-lg">USER ID</label>
-                    <form id="name">
-                        <input type="email" id="email" placeholder="Enter User ID"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                    </form>
-                </div>
-
-                <div class="flex flex-col pt-4">
-                    <label for="password" class="text-lg">Password</label>
-                    <form id="password">
-                        <input type="password" placeholder="Password"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                    </form>
-                </div>
-
-                <button id="start" onclick="start()"
-                    class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">Log
-                    In</button>
             </div>
 
         </div>
 
         <!-- Image Section -->
-        <div class="w-1/2 shadow-2xl">
-            <img class="object-cover w-full h-screen hidden md:block" src="login/image">
+        <div class="w-1/2 md:w-1/2 flex flex-col">
+            <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+            
+                <div class="flex flex-col pt-4">
+                    <label for="email" class="text-2xl">USER ID</label>
+                    <form id="name">
+                        <input type="email" id="email" placeholder="Enter User ID"
+                            class="shadow appearance-none border rounded w-full py-5 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                    </form>
+                </div>
+            
+                <div class="flex flex-col pt-4">
+                    <label for="password" class="text-2xl">Password</label>
+                    <form id="password">
+                        <input type="password" placeholder="Password"
+                            class="shadow appearance-none border rounded w-full py-5 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                    </form>
+                </div>
+            
+                <button id="start" onclick="start()" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-3 mt-8">Log
+                    In</button>
+            </div>
+            
         </div>
     </div>
 

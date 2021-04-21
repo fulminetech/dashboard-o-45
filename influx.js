@@ -26,7 +26,7 @@ console.log(`[ STARTING INFLUX : ${noww} ]`)
 var payload
 
 async function payload_() {
-
+ 
     fetch(payloadURL)
         .then(res => {
             if (res.status >= 400) {
@@ -421,5 +421,5 @@ var writeAverage = () => {
 }
 
 module.exports = {
-    payload_, batchinfo_, stats_, processed_, writeHistory, writeAverage
+    batchinfo, payload_, batchinfo_, stats_, processed_, writeHistory, writeAverage
 }
