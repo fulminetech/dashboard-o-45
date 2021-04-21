@@ -30,7 +30,7 @@ console.log(`[ STARTING INFLUX : ${noww} ]`)
 
 
 const {
-    batchinfo, payload_, batchinfo_, stats_, processed_, writeHistory, writeAverage
+    payload_, batchinfo_, stats_, processed_, writeHistory, writeAverage
 } = require('./influx.js')
 
 var payload = {
