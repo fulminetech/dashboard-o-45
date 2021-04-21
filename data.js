@@ -1196,11 +1196,11 @@ var rotation = -1;
 
 // Updated when a parameter changed
 var writeMachine = () => {
-    flux.write(`${batchinfo.name}.machine`)
+    flux.write(`${payload.batch}.machine`)
         .tag({
         })
         .field({
-            operatorname: batchinfo.operator,
+            operatorname: payload.machine.operator_name,
             machineID: payload.machine.machine_id,
             LHSmcUpperLimit: payload.machine.LHS.maincompression_upperlimit,
             LHSmcLowerLimit: payload.machine.LHS.maincompression_lowerlimit,
