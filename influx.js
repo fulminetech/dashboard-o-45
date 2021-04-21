@@ -14,10 +14,6 @@ function date() {
     return new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
 }
 
-const {
-    payload, startmodbus, watchproxy, updatestatsbatch
-} = require('./data.js')
-
 var i = 0
 const payloadURL = `${host}:3129/api/payload`;
 const batchinfoURL = `${host}:5000/api/batchinfo`;
@@ -27,10 +23,10 @@ var processedurl = "http://127.0.0.1:5050/api/machine/processed"
 var noww = new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
 console.log(`[ STARTING INFLUX : ${noww} ]`)
 
-var payload1
+var payload
 
 async function payload_() {
- 
+
     fetch(payloadURL)
         .then(res => {
             if (res.status >= 400) {
@@ -39,7 +35,7 @@ async function payload_() {
             return res.json();
         })
         .then(data => {
-            payload1 = data;
+            payload = data;
             // console.log(batchinfo.name)
         })
         .catch(err => {
@@ -104,11 +100,11 @@ async function processed_() {
 
 // Updated with each rotation
 var writeHistory = () => {
-    flux.write(`${payload.batch}.history`)
+    flux.write(`${batchinfo.name}.history`)
         .tag({
         })
         .field({
-            rotation: payload.data_number,
+            rotation: batchinfo.rotation,
             p1LHSpre: processed.pLHS_data[0],
             p2LHSpre: processed.pLHS_data[1],
             p3LHSpre: processed.pLHS_data[2],
@@ -405,18 +401,18 @@ var writeHistory = () => {
 
 // Updated with each rotation
 var writeAverage = () => {
-    flux.write(`${payload.batch}.average`)
+    flux.write(`${batchinfo.name}.average`)
         .tag({
         })
         .field({
-            rotation: payload.data_number,
+            rotation: batchinfo.rotation,
 
-            preLHSavg: payload1.precompressionLHS_avg,
-            mainLHSavg: payload1.maincompressionLHS_avg,
-            ejnLHSavg: payload1.ejectionLHS_avg,
-            preRHSavg: payload1.precompressionRHS_avg,
-            mainRHSavg: payload1.maincompressionRHS_avg,
-            ejnRHSavg: payload1.ejectionRHS_avg,
+            preLHSavg: payload.precompressionLHS_avg,
+            mainLHSavg: payload.maincompressionLHS_avg,
+            ejnLHSavg: payload.ejectionLHS_avg,
+            preRHSavg: payload.precompressionRHS_avg,
+            mainRHSavg: payload.maincompressionRHS_avg,
+            ejnRHSavg: payload.ejectionRHS_avg,
             turretrpm: stats.stats.turret.RPM,
             dwelltime: stats.stats.dwell,
         })
