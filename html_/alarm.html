@@ -244,11 +244,9 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center border-b py-3">Date and Time</th>
-                                                <th class="text-center border-b py-3">Description</th>
+                                                <th class="text-center border-b py-3">Operator</th>
+                                                <th class="text-center border-b py-3">Parameter</th>
                                                 <th class="text-center border-b py-3">Status</th>
-                                                <th class="text-center border-b py-3">Username</th>
-                                                <th class="text-center border-b py-3">Userlevel</th>
-                                                <th class="text-center border-b py-3">Batch</th>
                                             </tr>
                                         </thead>
 
@@ -305,25 +303,20 @@
 
     <!-- Search Avg Data -->
     <script>
-        addEventListener("keydown", function (event) {
-            if (event.keyCode === 13) {
-                event.preventDefault();
 
-                searchBatch();
+        // addEventListener("keydown", function (event) {
+        //     if (event.keyCode === 13) {
+        //         event.preventDefault();
 
-            }
-        });
+        //         searchBatch();
+        //     }
+        // });
 
         var element2 = document.getElementById("searchbatch");
 
         async function searchBatch() {
 
-            var a = document.getElementById("batchname");
-            var name = "";
-            var i;
-            for (i = 0; i < a.length; i++) {
-                name += a.elements[i].value;
-            }
+            var name = document.getElementById("batchname").value;
 
             if (name == "") {
 
@@ -332,24 +325,24 @@
                 document.getElementById("searchbatch").innerText = "PLEASE WAIT";
                 element2.classList.add("cursor-not-allowed");
 
-                var queryAvgURL = `${logsURL}${name}`
+                // dbsearchURL
+                var queryAvgURL = `${dbsearchURL}/${name}/alarm`
+                // var queryAvgURL = `${searchAvgURL}${name}`
 
                 const avgData = await fetch(queryAvgURL);
                 const avggbatch = await avgData.json();
-                
-                let avglistt = avggbatch;
-                
+
+                let avglistt = avggbatch.data;
+
                 function loadavglist() {
                     const avgListBody = document.getElementById('avgtable');
                     let avgHTML = '';
-                    
+
                     let i = -1;
-                    let m = 0;
                     for (let avgg of avglistt) {
                         i++;
-                        m++;
-                        let avgdataa = avglistt[i]
-                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${m}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[0]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td></tr>`
+                        let avgdataa = avggbatch.data[i]
+                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[0]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td></tr>`
                     }
 
                     avgListBody.innerHTML = avgHTML;
@@ -361,73 +354,6 @@
                 element2.classList.remove("cursor-not-allowed");
 
             }
-        }
-
-        async function filterbutton() {
-
-            const avgListBody = document.getElementById('avgtable');
-            let avgHTML = '';
-            avgListBody.innerHTML = avgHTML;
-
-            var a = document.getElementById("fromRotationNumber");
-            var fromname = "";
-            var i;
-            for (i = 0; i < a.length; i++) {
-                fromname += a.elements[i].value;
-            }
-
-            var b = document.getElementById("toRotationNumber");
-            var toname = "";
-            var j;
-            for (j = 0; j < b.length; j++) {
-                toname += b.elements[j].value;
-            }
-
-            var c = document.getElementById("batchname");
-            var bname = "";
-            var k;
-            for (k = 0; k < c.length; k++) {
-                bname += c.elements[k].value;
-            }
-
-            const queryAvgURL = `${hostname}/api/search/average/csv/${bname}`
-
-            // console.log(bname);
-
-            const avgData = await fetch(queryAvgURL);
-            const avggbatch = await avgData.json();
-
-            // console.log(avggbatch)
-
-            let avglistt = avggbatch;
-
-            let from = fromname;
-            let to = toname;
-
-            function loadavglist() {
-                const avgListBody = document.getElementById('avgtable');
-                let avgHTML = '';
-
-                let i = -1;
-                let j = 0;
-
-                for (let avgg of avglistt) {
-                    i++;
-                    if (i >= from && i <= to) {
-                        j = i - 1;
-                        from++;
-                        let avgdataa = avggbatch[j]
-                        avgHTML += `<td class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td></tr>`
-                    } else if (i > to) {
-                        // await fetch(generatereportURL);
-                    }
-                }
-
-                avgListBody.innerHTML = avgHTML;
-            }
-
-            loadavglist();
-
         }
 
     </script>
