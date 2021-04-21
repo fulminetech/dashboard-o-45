@@ -282,7 +282,7 @@ app.get("/api/search/:batch/:param", (req, res) => {
             .then(data => {
                 var response = data.results[0].series[0].values
                 var _data = {
-                    count: response.length - 1,
+                    count: response.length,
                     data: response
                 }
                 res.json(_data)
