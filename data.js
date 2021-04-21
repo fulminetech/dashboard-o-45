@@ -1061,7 +1061,7 @@ var writeHistory = () => {
             bi_R_rjn_low: processed.limit[6],
             bi_R_force_line: processed.limit[15],
         })
-        .then(() => console.info(`[ HISTORY WRITE SUCESSFUL ${payload.batch} ]`))
+        .then(() => console.info(`[ HISTORY WRITE SUCESSFUL ${payload.batch} ${payload.machine.data_number} ]`))
         .catch(console.error);
 }
 
@@ -1082,7 +1082,7 @@ var writeAverage = () => {
             turretrpm: stats.stats.turret.RPM,
             dwelltime: stats.stats.dwell,
         })
-        .then(() => console.info(`[ AVERAGE WRITE SUCESSFUL ${payload.batch} ]`))
+        .then(() => console.info(`[ AVERAGE WRITE SUCESSFUL ${payload.batch} ${payload.machine.data_number} ]`))
         .catch(console.error);
 }
 
