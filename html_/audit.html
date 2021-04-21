@@ -186,12 +186,12 @@
                                 <div class="py-3">
                                     <input id="batchname"
                                         class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="text" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                        type="text" placeholder="" onkeydown="if (event.keyCode == 13) searchBatch()">
                                 </div>
                                 <div class="p-3">
                                     <button id="searchbatch"
                                         class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="search()">
+                                        onclick="searchBatch()">
                                         SEARCH
                                     </button>
                                 </div>
@@ -355,139 +355,6 @@
                 element2.classList.remove("cursor-not-allowed");
 
             }
-        }
-
-        async function filterbutton() {
-
-            const avgListBody = document.getElementById('avgtable');
-            let avgHTML = '';
-            avgListBody.innerHTML = avgHTML;
-
-            var fromname = document.getElementById("fromRotationNumber").value;
-            var toname = document.getElementById("toRotationNumber").value;
-            var bname = document.getElementById("batchname").value;
-
-
-            const queryAvgURL = `${hostname}/api/search/average/csv/${bname}`
-
-            // console.log(bname);
-
-            const avgData = await fetch(queryAvgURL);
-            const avggbatch = await avgData.json();
-
-            // console.log(avggbatch)
-
-            let avglistt = avggbatch;
-
-            let from = fromname;
-            let to = toname;
-
-            function loadavglist() {
-                const avgListBody = document.getElementById('avgtable');
-                let avgHTML = '';
-
-                let i = -1;
-                let j = 0;
-
-                for (let avgg of avglistt) {
-                    i++;
-                    if (i >= from && i <= to) {
-                        j = i - 1;
-                        from++;
-                        let avgdataa = avggbatch[j]
-                        avgHTML += `<td class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td></tr>`
-                    } else if (i > to) {
-                        // await fetch(generatereportURL);
-                    }
-                }
-
-                avgListBody.innerHTML = avgHTML;
-            }
-
-            loadavglist();
-
-        }
-
-    </script>
-
-    <!-- Query Database -->
-    <script>
-
-        
-        async function search() {
-            
-            var batchnumber = document.getElementById("batchname").value;
-            // console.log(batchnumber)
-
-            if (batchnumber == "") {
-
-            } else {
-
-                document.getElementById("searchbatch").innerText = "PLEASE WAIT";
-                element2.classList.add("cursor-not-allowed");
-
-                var oplogs = `http://localhost:8086/query?pretty=true&db=new&q=select%20*%20from%20%22operationlogs%22%20where%20%22batch%22%20=%20%27${batchnumber}%27`
-
-                const opData = await fetch(oplogs);
-                const opbatch = await opData.json();
-
-                // console.log(opdataa[0])
-                
-                let avglistt = opbatch;
-                var o = opbatch.results[0].series[0].values
-                console.log(o.length)
-                
-                function loadavglist() {
-                    const avgListBody = document.getElementById('avgtable');
-                    let avgHTML = '';
-                    
-                    let i = 0;
-                    let m = 0
-                    let opl = o.length
-                    
-                    for (let op = 1;op <= opl; op++ ) {
-                        var opdataa = opbatch.results[0].series[0].values[i]
-                        m++;
-                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${m}</td><td class="border border-gray-500 px-4 py-2">${opdataa[0]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${opdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${opdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${opdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${opdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${opdataa[2]}</td></tr>`
-                        i++;
-                    }
-
-                    avgListBody.innerHTML = avgHTML;
-                }
-
-                loadavglist();
-
-                document.getElementById("searchbatch").innerText = "SEARCH";
-                element2.classList.remove("cursor-not-allowed");
-
-            }
-        };
-
-    </script>
-
-    <!-- Search Avg Data -->
-    <script>
-        addEventListener("keydown", function (event) {
-            if (event.keyCode === 13) {
-                event.preventDefault();
-
-                searchBatch();
-
-            }
-        });
-
-        var element2 = document.getElementById("searchbatch");
-
-        async function searchBatch() {
-
-            var a = document.getElementById("batchname");
-            var name = "";
-            var i;
-            for (i = 0; i < a.length; i++) {
-                name += a.elements[i].value;
-            }
-
-            
         }
 
     </script>
