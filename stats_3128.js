@@ -956,9 +956,9 @@ var read_regs = function () {
             payload.machine.RHS.maincompression_max = data.data[4] / 100;
             payload.machine.RHS.ejection_max = data.data[5] / 10;
             payload.stats.B_HEAD = data.data[6] / 100;
-            payload.stats.B_PCD = data.data[8] / 100;
+            payload.stats.B_PCD = _2x16bitTo32bit(data.data[8], data.data[9],100);
             payload.stats.D_HEAD = data.data[10] / 100;
-            payload.stats.D_PCD = data.data[12] / 100;
+            payload.stats.D_PCD = _2x16bitTo32bit(data.data[12], data.data[13], 100);
 
             payload.stats.total_punches = data.data[14];
 
