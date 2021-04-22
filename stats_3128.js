@@ -12,7 +12,8 @@ const host = "localhost"
 // Influx
 const Influx = require('influxdb-nodejs');
 const { setInterval } = require('timers');
-const flux = new Influx(`http://${host}:8086/new`);
+const _new = new Influx(`http://${host}:8086/new`);
+const _perm  = new Influx(`http://${host}:8086/perm`);
 
 // Fetch
 const fetch = require('cross-fetch'); // To get operator and batch details for logging
@@ -35,7 +36,7 @@ var mbsState = CODE_INIT;
 
 var client = new ModbusRTU();
 const slaveID = 1;
-const ip = "192.168.0.100"
+const ip = "192.168.1.5"
 var mbsTimeout = 1000;
 var mbsScan = 1000; // Modbus scan time
 
@@ -569,7 +570,7 @@ var runModbus = function () {
 
 function writealarm(param, value) {
     
-    flux.write(`${batchinfo.name}.alarm`)
+    _new.write(`${batchinfo.name}.alarm`)
         .tag({
         })
         .field({
@@ -1181,6 +1182,31 @@ function restartprodmodbus() {
     });
 }
 
+function checkbatch() {
+    _perm.queryRaw(`select "batch" from "batchlist" ORDER BY time DESC LIMIT 1`)
+        .then(data => {
+            var response = data.results[0].series[0].values[0];
+            var response1 = data.results[0].series[0].values[1];
+            var lastBatch = response[1]
+            var lastOperator = response1[1]
+            console.log(lastBatch)
+            console.log(lastOperator)
+            batchinfo.name = lastBatch;
+            batchinfo.operator = lastOperator;
+        })
+        .then(
+            _new.queryRaw(`select "rotation" from "${batchinfo.name}.average" ORDER BY time DESC LIMIT 1`)
+                .then(data => {
+                    var response = data.results[0].series[0].values[0];
+                    var previousrtn = parseInt(response[1]);
+                    console.log(previousrtn)
+                    batchinfo.rotation = previousrtn
+                })
+                .catch(console.error)
+        )
+        .catch(console.error);
+}
+
 app.use("/api/machine/stats", (req, res) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -1213,7 +1239,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
 
     writelog = () => {
         
-        flux.write(`${batchinfo.name}.operationlogs`)
+        _new.write(`${batchinfo.name}.operationlogs`)
             .tag({
             })
             .field({

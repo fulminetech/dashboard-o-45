@@ -8,8 +8,8 @@ const host = "localhost"
 // Influx Imports
 const Influx = require('influxdb-nodejs');
 const { query } = require("express");
-const client = new Influx(`http://${host}:8086/new`);
-const flux = new Influx(`http://${host}:8086/perm`);
+const _new = new Influx(`http://${host}:8086/new`);
+const _perm = new Influx(`http://${host}:8086/perm`);
 
 const {
     payload, startmodbus, watchproxy, updatestatsbatch
@@ -143,7 +143,7 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
     payload.batch = d;
     payload.stats.status = "ONLINE",
         
-    flux.write(`batchlist`)
+    _perm.write(`batchlist`)
         .tag({
         })
         .field({
@@ -163,28 +163,38 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
 
 app.get("/onboard/continue", (req, res) => {
 
-    flux.queryRaw(`select "batch" from "batchlist" ORDER BY time DESC LIMIT 1`)
-        .then(data => {
-            var response = data.results[0].series[0].values[0];
-            var lastBatch = response[1]
-            console.log(lastBatch)
-            payload.batch = lastBatch;
-        })
-        .then(
-            // client.queryRaw(`select "rotation" from "${payload.batch}.history" ORDER BY time DESC LIMIT 1`)
-            //     .then(data => {
-            //         var response = data.results[0].series[0].values[0];
-            //         var previousrtn = parseInt(response[1]);
-            //         console.log(previousrtn)
-            //         if (previousrtn > 1) {
-            //             payload.rotation_no = previousrtn;
-            //         }
-            //     })
-            //     .catch(console.error)
-        )
-        .catch(console.error);
-    
-    return res.json({ message: `[ ONBOARDED BATCH: ${payload.batch} ]` });
+    function checkbatch() {
+        _perm.queryRaw(`select "batch" from "batchlist" ORDER BY time DESC LIMIT 1`)
+            .then(data => {
+                var response = data.results[0].series[0].values[0];
+                var response1 = data.results[0].series[0].values[1];
+                var lastBatch = response[1]
+                var lastOperator = response1[1]
+                console.log(lastBatch)
+                console.log(lastOperator)
+            
+                payload.machine.operator_name = lastOperator;
+                payload.batch = lastBatch
+                payload.stats.status = "ONLINE"
+
+            })
+            .then(
+                _new.queryRaw(`select "rotation" from "${batchinfo.name}.average" ORDER BY time DESC LIMIT 1`)
+                    .then(data => {
+                        var response = data.results[0].series[0].values[0];
+                        var previousrtn = parseInt(response[1]);
+                        console.log(previousrtn)
+                        batchinfo.rotation = previousrtn
+                    })
+                    .catch(console.error)
+            )
+            .catch(console.error);
+    }
+
+    watchproxy();
+    startmodbus();
+    updatestatsbatch()
+    return res.json({ message: `[ CONTINUING BATCH: ${payload.batch} ]` });
 });
 
 
@@ -209,7 +219,7 @@ var response = {
 }
 
 app.get("/api/search/batch", (req, res) => {
-    client.showMeasurements()
+    _new.showMeasurements()
         .then(data => {
             var originalList = Object.values(data)
             var filteredList = filterItems(originalList, 'machine')
@@ -254,7 +264,7 @@ app.get("/api/search/average/:batch", (req, res) => {
     const r = req.params.batch
 
     async function passbatch(r) {
-        client.queryRaw(`select "rotation", "preLHSavg", "mainLHSavg", "ejnLHSavg", "preRHSavg", "mainRHSavg", "ejnRHSavg" from "${r}.average"`)
+        _new.queryRaw(`select "rotation", "preLHSavg", "mainLHSavg", "ejnLHSavg", "preRHSavg", "mainRHSavg", "ejnRHSavg" from "${r}.average"`)
             .then(data => {
                 var response = data.results[0].series[0].values
                 avg.totalrotations = response.length - 1
@@ -278,7 +288,7 @@ app.get("/api/search/:batch/:param", (req, res) => {
     const param = req.params.param
 
     async function getData(batch, param) {
-        client.queryRaw(`select * from "${batch}.${param}"`)
+        _new.queryRaw(`select * from "${batch}.${param}"`)
             .then(data => {
                 var response = data.results[0].series[0].values
                 var _data = {
@@ -302,7 +312,7 @@ app.get("/api/search/csv/:batch/:param", (req, res) => {
     const param = req.params.param
 
     async function getData(batch, param) {
-        client.queryRaw(`select * from "${batch}.${param}"`)
+        _new.queryRaw(`select * from "${batch}.${param}"`)
             .then(data => {
                 var response = data.results[0].series[0].values
                 var _data = {
@@ -326,7 +336,7 @@ app.get("/api/search/average/csv/:batch", (req, res) => {
     // select * from "payload" where "rotation" = 7
     const r = req.params.batch
     async function passbatch(r) {
-        client.queryRaw(`select * from "${r}.average"`)
+        _new.queryRaw(`select * from "${r}.average"`)
             .then(data => {
                 var response = data.results[0].series[0].values
                 avg.totalrotations = response.length - 1
@@ -345,7 +355,7 @@ app.get("/api/search/logs/:batch", (req, res) => {
     const r = req.params.batch
 
     async function passbatch(r) {
-        flux.queryRaw(`select * from "operationlogs" where "batch" = '${r}'`)
+        _perm.queryRaw(`select * from "operationlogs" where "batch" = '${r}'`)
             .then(data => {
                 var response = data.results[0].series[0].values
                 res.json(response)
@@ -363,7 +373,7 @@ app.get("/api/search/rotation/:rotationn", (req, res) => {
     passbatch(r)
 
     async function passbatch(r) {
-        client.query(`${payload.batch}.history`)
+        _new.query(`${payload.batch}.history`)
             .where('rotation', r)
             .then(data => {
                 let payload1 = Object.values(data.results[0].series[0].values[0]);

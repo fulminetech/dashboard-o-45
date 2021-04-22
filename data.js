@@ -15,7 +15,7 @@ var host = "http://localhost";
 
 const Influx = require('influxdb-nodejs');
 const { setInterval } = require('timers');
-const flux = new Influx(`${host}:8086/new`);
+const _new = new Influx(`${host}:8086/new`);
 
 // Timestamp for which returns current date and time
 function date() {
@@ -766,7 +766,7 @@ async function stats_() {
 
 // Updated with each rotation
 var writeHistory = () => {
-    flux.write(`${payload.batch}.history`)
+    _new.write(`${payload.batch}.history`)
         .tag({
         })
         .field({
@@ -1067,7 +1067,7 @@ var writeHistory = () => {
 
 // Updated with each rotation
 var writeAverage = () => {
-    flux.write(`${payload.batch}.average`)
+    _new.write(`${payload.batch}.average`)
         .tag({
         })
         .field({
@@ -1531,7 +1531,7 @@ var rotation = -1;
 
 // Updated with each rotation
 // var writeAverage = () => {
-//     flux.write(`${payload.batch}.average`)
+//     _new.write(`${payload.batch}.average`)
 //         .tag({
 //         })
 //         .field({
@@ -1552,7 +1552,7 @@ var rotation = -1;
 
 // Updated when a parameter changed
 var writeMachine = () => {
-    flux.write(`${payload.batch}.machine`)
+    _new.write(`${payload.batch}.machine`)
         .tag({
         })
         .field({

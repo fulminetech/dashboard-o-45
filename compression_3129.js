@@ -687,7 +687,7 @@ var payload = {
 var client = new ModbusRTU();
 const slaveID = 1;
 // const ip = "10.0.0.103"
-const ip = "192.168.0.100"
+const ip = "192.168.1.5"
 
 // Modbus Addresses
 const precompressionLHS_address = 2000;

@@ -1718,713 +1718,999 @@
         async function LHS_PRE_MAX() {
             var a = document.getElementById("LHS_PRE_MAX").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_PRE_MAX/${a}`
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED! ] "))
-                .then(check())
-                .catch(console.error);
+            if( a <= 100 && a >= 0.01){
+                let submiturl = `${seturl}/LHS_PRE_MAX/${a}`
+                await fetch(submiturl)
+                    .then(console.log("[ UPDATED! ] "))
+                    .then(check())
+                    .catch(console.error);
+            } else {
+                alert("Please set value between 0.01 and 100.")
+            }
         }
 
         async function LHS_MAIN_MAX() {
             var a = document.getElementById("LHS_MAIN_MAX").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_MAIN_MAX/${a}`
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED! ] "))
-                .then(check())
-                .catch(console.error);
+            if (a <= 100 && a >= 0.01) {
+                let submiturl = `${seturl}/LHS_MAIN_MAX/${a}`
+                await fetch(submiturl)
+                    .then(console.log("[ UPDATED! ] "))
+                    .then(check())
+                    .catch(console.error);
+            } else {
+                alert("Please set value between 0.01 and 100.")
+            }
+
         }
 
         async function LHS_EJN_MAX() {
             var a = document.getElementById("LHS_EJN_MAX").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_EJN_MAX/${a}`
+            if (a <= 300 && a >= 0.1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0.1 and 300.")
+            }
         }
 
         async function RHS_PRE_MAX() {
             var a = document.getElementById("RHS_PRE_MAX").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_PRE_MAX/${a}`
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED! ] "))
-                .then(check())
-                .catch(console.error);
+            if (a <= 100 && a >= 0.01) {
+                await fetch(submiturl)
+                    .then(console.log("[ UPDATED! ] "))
+                    .then(check())
+                    .catch(console.error);
+            } else {
+                alert("Please set value between 0.01 and 100.")
+            }
         }
 
         async function RHS_MAIN_MAX() {
             var a = document.getElementById("RHS_MAIN_MAX").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_MAIN_MAX/${a}`
+            if (a <= 100 && a >= 0.01) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0.01 and 100.")
+            }
         }
 
         async function RHS_EJN_MAX() {
             var a = document.getElementById("RHS_EJN_MAX").value;
             // console.log(a)
+            if (a <= 300 && a >= 0.1) {
             let submiturl = `${seturl}/RHS_EJN_MAX/${a}`
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0.1 and 300.")
+            }
         }
 
         async function LHS_FILL_DEPTH_MAX_ANALOG() {
             var a = document.getElementById("LHS_FILL_DEPTH_MAX_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_FILL_DEPTH_MAX_ANALOG/${a}`
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function LHS_FILL_DEPTH_MIN_ANALOG() {
             var a = document.getElementById("LHS_FILL_DEPTH_MIN_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_FILL_DEPTH_MIN_ANALOG/${a}`
+            if (a <= 25 && a >= 0.1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function LHS_FILL_DEPTH_MAX() {
             var a = document.getElementById("LHS_FILL_DEPTH_MAX").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_FILL_DEPTH_MAX/${a}`
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function LHS_FILL_DEPTH_MIN() {
             var a = document.getElementById("LHS_FILL_DEPTH_MIN").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_FILL_DEPTH_MIN/${a}`
+            if (a <= 25 && a >= 0.1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0.1 and 25.")
+            }
         }
 
         async function RHS_FILL_DEPTH_MAX_ANALOG() {
             var a = document.getElementById("RHS_FILL_DEPTH_MAX_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX_ANALOG/${a}`
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function RHS_FILL_DEPTH_MIN_ANALOG() {
             var a = document.getElementById("RHS_FILL_DEPTH_MIN_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN_ANALOG/${a}`
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function RHS_FILL_DEPTH_MAX() {
             var a = document.getElementById("RHS_FILL_DEPTH_MAX").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX/${a}`
+            if (a <= 25 && a >= 0.1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function RHS_FILL_DEPTH_MIN() {
             var a = document.getElementById("RHS_FILL_DEPTH_MIN").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN/${a}`
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function LHS_WEIGHT_MAX_ANALOG() {
             var a = document.getElementById("LHS_WEIGHT_MAX_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_WEIGHT_MAX_ANALOG/${a}`
+            if (a <= 65000 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 65000.")
+            }
         }
 
         async function LHS_WEIGHT_MIN_ANALOG() {
             var a = document.getElementById("LHS_WEIGHT_MIN_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_WEIGHT_MIN_ANALOG/${a}`
+            if (a <= 65000 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                    alert("Please set value between 0 and 65000.")
+                }
         }
 
         async function LHS_WEIGHT_MAX() {
             var a = document.getElementById("LHS_WEIGHT_MAX").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_WEIGHT_MAX/${a}`
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function LHS_WEIGHT_MIN() {
             var a = document.getElementById("LHS_WEIGHT_MIN").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_WEIGHT_MIN/${a}`
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                    alert("Please set value between 0 and 25.")
+                }
         }
 
         async function RHS_WEIGHT_MAX_ANALOG() {
             var a = document.getElementById("RHS_WEIGHT_MAX_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_WEIGHT_MAX_ANALOG/${a}`
+            if (a <= 65000 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 65000.")
+            }
         }
 
         async function RHS_WEIGHT_MIN_ANALOG() {
             var a = document.getElementById("RHS_WEIGHT_MIN_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_WEIGHT_MIN_ANALOG/${a}`
+            if (a <= 65000 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                    alert("Please set value between 0 and 65000.")
+            }
         }
 
         async function RHS_WEIGHT_MAX() {
             var a = document.getElementById("RHS_WEIGHT_MAX").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_WEIGHT_MAX/${a}`
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function RHS_WEIGHT_MIN() {
             var a = document.getElementById("RHS_WEIGHT_MIN").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_WEIGHT_MIN/${a}`
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                    alert("Please set value between 0 and 25.")
+                }
         }
 
         async function LHS_THICKNESS_MAX_ANALOG() {
             var a = document.getElementById("LHS_THICKNESS_MAX_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_THICKNESS_MAX_ANALOG/${a}`
+            if (a <= 65000 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 65000.")
+            }
         }
 
         async function LHS_THICKNESS_MIN_ANALOG() {
             var a = document.getElementById("LHS_THICKNESS_MIN_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_THICKNESS_MIN_ANALOG/${a}`
+            if (a <= 65000 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 65000.")
+            }
         }
 
         async function LHS_THICKNESS_MAX() {
             var a = document.getElementById("LHS_THICKNESS_MAX").value;
             // console.log(a)
+            if (a <= 25 && a >= 0) {
             let submiturl = `${seturl}/LHS_THICKNESS_MAX/${a}`
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function LHS_THICKNESS_MIN() {
             var a = document.getElementById("LHS_THICKNESS_MIN").value;
             // console.log(a)
+            if (a <= 25 && a >= 0) {
             let submiturl = `${seturl}/LHS_THICKNESS_MIN/${a}`
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function RHS_THICKNESS_MAX_ANALOG() {
             var a = document.getElementById("RHS_THICKNESS_MAX_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_THICKNESS_MAX_ANALOG/${a}`
+            if (a <= 65000 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 65000.")
+            }
         }
 
         async function RHS_THICKNESS_MIN_ANALOG() {
             var a = document.getElementById("RHS_THICKNESS_MIN_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_THICKNESS_MIN_ANALOG/${a}`
+            if (a <= 65000 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 65000.")
+            }
         }
 
         async function RHS_THICKNESS_MAX() {
             var a = document.getElementById("RHS_THICKNESS_MAX").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_THICKNESS_MAX/${a}`
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function RHS_THICKNESS_MIN() {
             var a = document.getElementById("RHS_THICKNESS_MIN").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_THICKNESS_MIN/${a}`
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 25.")
+            }
         }
 
         async function TURRET_MAX_RPM() {
             var a = document.getElementById("TURRET_MAX_RPM").value;
             // console.log(a)
             let submiturl = `${seturl}/TURRET_MAX_RPM/${a}`
+            if (a <= 60 && a >= 1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 60.")
+            }
         }
 
         async function TURRET_MAX_FREQ() {
             var a = document.getElementById("TURRET_MAX_FREQ").value;
             // console.log(a)
             let submiturl = `${seturl}/TURRET_MAX_FREQ/${a}`
+            if (a <= 99.99 && a >= 1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 99.99.")
+            }
         }
 
         async function LHS_FORCE_FEEDER_MAX_RPM() {
             var a = document.getElementById("LHS_FORCE_FEEDER_MAX_RPM").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_FORCE_FEEDER_MAX_RPM/${a}`
+            if (a <= 100 && a >= 1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 100.")
+            }
+            
         }
 
         async function LHS_FORCE_FEEDER_MAX_FREQ() {
             var a = document.getElementById("LHS_FORCE_FEEDER_MAX_FREQ").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_FORCE_FEEDER_MAX_FREQ/${a}`
+            if (a <= 99.99 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 99.99.")
+            }
         }
 
         async function RHS_FORCE_FEEDER_MAX_RPM() {
             var a = document.getElementById("RHS_FORCE_FEEDER_MAX_RPM").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_FORCE_FEEDER_MAX_RPM/${a}`
+            if (a <= 100 && a >= 1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 100.")
+            }
         }
 
         async function RHS_FORCE_FEEDER_MAX_FREQ() {
             var a = document.getElementById("RHS_FORCE_FEEDER_MAX_FREQ").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_FORCE_FEEDER_MAX_FREQ/${a}`
+            if (a <= 99.99 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 99.99.")
+            }
         }
 
         async function LHS_PRE_OFFSET() {
             var a = document.getElementById("LHS_PRE_OFFSET").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_PRE_OFFSET/${a}`
+            if (a <= 999 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 999.")
+            }
         }
 
         async function LHS_MAIN_OFFSET() {
             var a = document.getElementById("LHS_MAIN_OFFSET").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_MAIN_OFFSET/${a}`
+            if (a <= 999 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 999.")
+            }
         }
 
         async function LHS_EJN_OFFSET() {
             var a = document.getElementById("LHS_EJN_OFFSET").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_EJN_OFFSET/${a}`
+            if (a <= 999 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 999.")
+            }
         }
 
         async function RHS_PRE_OFFSET() {
             var a = document.getElementById("RHS_PRE_OFFSET").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_PRE_OFFSET/${a}`
+            if (a <= 999 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 999.")
+            }
         }
 
         async function RHS_MAIN_OFFSET() {
             var a = document.getElementById("RHS_MAIN_OFFSET").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_MAIN_OFFSET/${a}`
+            if (a <= 999 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 999.")
+            }
         }
 
         async function RHS_EJN_OFFSET() {
             var a = document.getElementById("RHS_EJN_OFFSET").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_EJN_OFFSET/${a}`
+            if (a <= 999 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 999.")
+            }
         }
 
         async function TOTAL_PUNCHES() {
             var a = document.getElementById("TOTAL_PUNCHES").value;
             // console.log(a)
             let submiturl = `${seturl}/TOTAL_PUNCHES/${a}`
+            if (a <= 999 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 999.")
+            }
         }
 
         async function HYDRAULIC_PRESSURE_MAX() {
             var a = document.getElementById("HYDRAULIC_PRESSURE_MAX").value;
             // console.log(a)
             let submiturl = `${seturl}/HYDRAULIC_PRESSURE_MAX/${a}`
+            if (a <= 10 && a >= 0.1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0.1 and 10.")
+            }
         }
 
         async function L_AIR_MONO() {
             var a = document.getElementById("L_AIR_MONO").value;
             // console.log(a)
             let submiturl = `${seturl}/L_AIR_MONO/${a}`
+            if (a <= 44 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 44.")
+            }
         }
 
         async function L_FLAP_MONO() {
             var a = document.getElementById("L_FLAP_MONO").value;
             // console.log(a)
             let submiturl = `${seturl}/L_FLAP_MONO/${a}`
+            if (a <= 44 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 44.")
+            }
         }
 
         async function R_AIR_MONO() {
             var a = document.getElementById("R_AIR_MONO").value;
             // console.log(a)
             let submiturl = `${seturl}/R_AIR_MONO/${a}`
+            if (a <= 44 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 44.")
+            }
         }
 
         async function R_FLAP_MONO() {
             var a = document.getElementById("R_FLAP_MONO").value;
             // console.log(a)
             let submiturl = `${seturl}/R_FLAP_MONO/${a}`
+            if (a <= 44 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 44.")
+            }
         }
 
         async function L_AIR_BI() {
             var a = document.getElementById("L_AIR_BI").value;
             // console.log(a)
             let submiturl = `${seturl}/L_AIR_BI/${a}`
+            if (a <= 44 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 44.")
+            }
         }
 
         async function L_FLAP_BI() {
             var a = document.getElementById("L_FLAP_BI").value;
             // console.log(a)
             let submiturl = `${seturl}/L_FLAP_BI/${a}`
+            if (a <= 44 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 44.")
+            }
         }
 
         async function R_AIR_BI() {
             var a = document.getElementById("R_AIR_BI").value;
             // console.log(a)
             let submiturl = `${seturl}/R_AIR_BI/${a}`
+            if (a <= 44 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 44.")
+            }
         }
 
         async function R_FLAP_BI() {
             var a = document.getElementById("R_FLAP_BI").value;
             // console.log(a)
             let submiturl = `${seturl}/R_FLAP_BI/${a}`
+            if (a <= 44 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 44.")
+            }
         }
 
         async function L_AIR_ON() {
             var a = document.getElementById("L_AIR_ON").value;
             // console.log(a)
             let submiturl = `${seturl}/L_AIR_ON/${a}`
+            if (a <= 3600 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 3600.")
+            }
         }
 
         async function L_AIR_OFF() {
             var a = document.getElementById("L_AIR_OFF").value;
             // console.log(a)
             let submiturl = `${seturl}/L_AIR_OFF/${a}`
+            if (a <= 3600 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 3600.")
+            }
         }
 
         async function L_FLAP_ON() {
             var a = document.getElementById("L_FLAP_ON").value;
             // console.log(a)
             let submiturl = `${seturl}/L_FLAP_ON/${a}`
+            if (a <= 3600 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 3600.")
+            }
         }
 
         async function L_FLAP_OFF() {
             var a = document.getElementById("L_FLAP_OFF").value;
             // console.log(a)
             let submiturl = `${seturl}/L_FLAP_OFF/${a}`
+            if (a <= 3600 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 3600.")
+            }
         }
 
         async function R_AIR_ON() {
             var a = document.getElementById("R_AIR_ON").value;
             // console.log(a)
             let submiturl = `${seturl}/R_AIR_ON/${a}`
+            if (a <= 3600 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 3600.")
+            }
         }
 
         async function R_AIR_OFF() {
             var a = document.getElementById("R_AIR_OFF").value;
             // console.log(a)
             let submiturl = `${seturl}/R_AIR_OFF/${a}`
+            if (a <= 3600 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 3600.")
+            }
         }
 
         async function R_FLAP_ON() {
             var a = document.getElementById("R_FLAP_ON").value;
             // console.log(a)
             let submiturl = `${seturl}/R_FLAP_ON/${a}`
+            if (a <= 3600 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 3600.")
+            }
         }
 
         async function R_FLAP_OFF() {
             var a = document.getElementById("R_FLAP_OFF").value;
             // console.log(a)
             let submiturl = `${seturl}/R_FLAP_OFF/${a}`
+            if (a <= 3600 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 3600.")
+            }
         }
 
         async function L_AIR_OFF_TIME() {
             var a = document.getElementById("L_AIR_OFF_TIME").value;
             // console.log(a)
             let submiturl = `${seturl}/L_AIR_OFF_TIME/${a}`
+            if (a <= 9999 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 9999.")
+            }
         }
 
         async function L_FLAP_OFF_TIME() {
             var a = document.getElementById("L_FLAP_OFF_TIME").value;
             // console.log(a)
             let submiturl = `${seturl}/L_FLAP_OFF_TIME/${a}`
+            if (a <= 9999 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 9999.")
+            }
         }
 
         async function R_AIR_OFF_TIME() {
             var a = document.getElementById("R_AIR_OFF_TIME").value;
             // console.log(a)
             let submiturl = `${seturl}/R_AIR_OFF_TIME/${a}`
+            if (a <= 9999 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 9999.")
+            }
         }
 
         async function R_FLAP_OFF_TIME() {
             var a = document.getElementById("R_FLAP_OFF_TIME").value;
             // console.log(a)
             let submiturl = `${seturl}/R_FLAP_OFF_TIME/${a}`
+            if (a <= 9999 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 9999.")
+            }
         }
 
         async function MAXIMUM_REJECT_TABLET() {
             var a = document.getElementById("MAXIMUM_REJECT_TABLET").value;
             // console.log(a)
             let submiturl = `${seturl}/MAXIMUM_REJECT_TABLET/${a}`
+            if (a <= 45 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 45.")
+            }
         }
 
         async function RTN_1_MM() {
             var a = document.getElementById("RTN_1_MM").value;
             // console.log(a)
             let submiturl = `${seturl}/RTN_1_MM/${a}`
+            if (a <= 999.99 && a >= 0) { 
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 999.99.")
+            }
         }
 
         async function RTN_1_PPR() {
             var a = document.getElementById("RTN_1_PPR").value;
             // console.log(a)
             let submiturl = `${seturl}/RTN_1_PPR/${a}`
+            if (a <= 2147483647 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 2147483647.")
+            }
         }
 
         async function B_TYPE_HEAD_FLAT() {
             var a = document.getElementById("B_TYPE_HEAD_FLAT").value;
             // console.log(a)
             let submiturl = `${seturl}/B_TYPE_HEAD_FLAT/${a}`
+            if (a <= 9999 && a >= 0.01) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 9999.")
+            }
         }
 
         async function D_TYPE_HEAD_FLAT() {
             var a = document.getElementById("D_TYPE_HEAD_FLAT").value;
             // console.log(a)
             let submiturl = `${seturl}/D_TYPE_HEAD_FLAT/${a}`
+            if (a <= 9999 && a >= 0.01) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 9999.")
+            }
         }
 
         async function B_TYPE_PCD() {
             var a = document.getElementById("B_TYPE_PCD").value;
             // console.log(a)
             let submiturl = `${seturl}/B_TYPE_PCD/${a}`
+            if (a <= 9999 && a >= 0.01) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 9999.")
+            }
         }
 
         async function D_TYPE_PCD() {
             var a = document.getElementById("D_TYPE_PCD").value;
             // console.log(a)
             let submiturl = `${seturl}/D_TYPE_PCD/${a}`
+            if (a <= 9999 && a >= 0.01) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 9999.")
+            }
         }
-
+    
     </script>
 
 </body>
