@@ -889,6 +889,8 @@
                 pregraph.data.datasets[3].data = Array(45).fill(payload[csvdata.indexOf("bi_R_rjn_low")])
                 pregraph.data.datasets[4].data = Array(45).fill(payload[csvdata.indexOf("bi_R_force_line")])
 
+                pregraph.update();
+
             }
             else if (payload[csvdata.indexOf("mode")] == false) {
                 
@@ -900,6 +902,7 @@
                 pregraph.data.datasets[2].data = Array(45).fill(payload[csvdata.indexOf("bi_L_rjn_high")])
                 pregraph.data.datasets[3].data = Array(45).fill(payload[csvdata.indexOf("bi_L_rjn_low")])
                 pregraph.data.datasets[4].data = Array(45).fill(payload[csvdata.indexOf("bi_L_force_line")])
+                pregraph.update();
             }
             else if (payload[csvdata.indexOf("mode")] == false) {
                 
