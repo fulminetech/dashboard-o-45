@@ -40,6 +40,7 @@ const reportAvgGenURL = `${hostname}/report/average/generate`
 
 const searchURL = `${hostname}/api/search/rotation/`
 const restartURL = `${hostname}/restart/pm2-0`
+const restartserverURL = `${hostname}/restart_server`
 
 const logsURL = `${hostname}/api/search/logs/`
 
