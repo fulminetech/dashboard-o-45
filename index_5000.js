@@ -135,17 +135,16 @@ app.get("/settings_user", (req, res) => {
 });
 
 app.get("/restart_server", (req, res) => {
+    function restartprodmodbus() {
+        exec(restart1Command, (err, stdout, stderr) => {
+            // handle err if you like!
+            console.log(`[ RESTARTING ]`);
+            console.log(`${stdout}`);
+        });
+    }
+
     restartprodmodbus()
 });
-
-function restartprodmodbus() {
-    exec(restart1Command, (err, stdout, stderr) => {
-        // handle err if you like!
-        console.log(`[ RESTARTING ]`);
-        console.log(`${stdout}`);
-    });
-}
-
 
 app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
     const a = req.params.namee;
