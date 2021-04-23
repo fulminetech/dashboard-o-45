@@ -1514,7 +1514,7 @@
 
     <!-- Touch handlers -->
     <script>
-        var restart = document.getElementById('restart')
+        
         var inching = document.getElementById('inching')
         var reset = document.getElementById('reset')
         var start_m = document.getElementById('start_m')
@@ -1525,8 +1525,6 @@
         var start_f = document.getElementById('start_f')
         var stop_f = document.getElementById('stop_f')
         var man_samp = document.getElementById('man_samp')
-
-        restart.addEventListener('click', _restart);
 
         inching.addEventListener('touchstart', inching_process_touchstart, false);
         inching.addEventListener('touchend', inching_process_touchend, false);
@@ -1557,12 +1555,6 @@
 
         man_samp.addEventListener('touchstart', man_samp_process_touchstart, false);
         man_samp.addEventListener('touchend', man_samp_process_touchend, false);
-
-        async function _restart() {
-            fetch(restartserverURL)
-                .then(console.log("[ RESTARTING ] "))
-                .catch(console.error);
-        }
 
         function inching_process_touchstart(e) {
             e.preventDefault();
