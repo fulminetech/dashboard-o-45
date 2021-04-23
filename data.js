@@ -1527,29 +1527,6 @@ function startmodbus() {
 // Initialise Rotation 
 var rotation = -1;
 
-// Updated with each rotation
-
-// Updated with each rotation
-// var writeAverage = () => {
-//     _new.write(`${payload.batch}.average`)
-//         .tag({
-//         })
-//         .field({
-//             rotation: payload.data_number,
-
-//             preLHSavg: payload.precompressionLHS_avg,
-//             mainLHSavg: payload.maincompressionLHS_avg,
-//             ejnLHSavg: payload.ejectionLHS_avg,
-//             preRHSavg: payload.precompressionRHS_avg,
-//             mainRHSavg: payload.maincompressionRHS_avg,
-//             ejnRHSavg: payload.ejectionRHS_avg,
-//             // turretrpm: payload.stats.turret.RPM,
-//             // dwelltime: stats.stats.dwell,
-//         })
-//         .then(() => console.info(`[ AVERAGE WRITE SUCESSFUL ${payload.data_number} ]`))
-//         .catch(console.error);
-// }
-
 // Updated when a parameter changed
 var writeMachine = () => {
     _new.write(`${payload.batch}.machine`)
@@ -1558,16 +1535,16 @@ var writeMachine = () => {
         .field({
             operatorname: payload.machine.operator_name,
             machineID: payload.machine.machine_id,
-            LHSmcUpperLimit: payload.machine.LHS.maincompression_upperlimit,
-            LHSmcLowerLimit: payload.machine.LHS.maincompression_lowerlimit,
-            LHSpcUpperLimit: payload.machine.LHS.precompression_upperlimit,
-            LHSpcLowerLimit: payload.machine.LHS.precompression_lowerlimit,
-            LHSejnUpperLimit: payload.machine.LHS.ejection_upperlimit,
-            RHSmcUpperLimit: payload.machine.RHS.maincompression_upperlimit,
-            RHSmcLowerLimit: payload.machine.RHS.maincompression_lowerlimit,
-            RHSpcUpperLimit: payload.machine.RHS.precompression_upperlimit,
-            RHSpcLowerLimit: payload.machine.RHS.precompression_lowerlimit,
-            RHSejnUpperLimit: payload.machine.RHS.ejection_upperlimit,
+            // LHSmcUpperLimit: payload.machine.LHS.maincompression_upperlimit,
+            // LHSmcLowerLimit: payload.machine.LHS.maincompression_lowerlimit,
+            // LHSpcUpperLimit: payload.machine.LHS.precompression_upperlimit,
+            // LHSpcLowerLimit: payload.machine.LHS.precompression_lowerlimit,
+            // LHSejnUpperLimit: payload.machine.LHS.ejection_upperlimit,
+            // RHSmcUpperLimit: payload.machine.RHS.maincompression_upperlimit,
+            // RHSmcLowerLimit: payload.machine.RHS.maincompression_lowerlimit,
+            // RHSpcUpperLimit: payload.machine.RHS.precompression_upperlimit,
+            // RHSpcLowerLimit: payload.machine.RHS.precompression_lowerlimit,
+            // RHSejnUpperLimit: payload.machine.RHS.ejection_upperlimit,
 
             rpm: payload.stats.rpm,
             recipieID: payload.stats.recipie_id,

@@ -11,6 +11,9 @@ const { query } = require("express");
 const _new = new Influx(`http://${host}:8086/new`);
 const _perm = new Influx(`http://${host}:8086/perm`);
 
+const { exec } = require('child_process');
+const restart1Command = "pm2 restart all"
+
 const {
     payload, startmodbus, watchproxy, updatestatsbatch
 } = require('./data.js')
@@ -130,6 +133,19 @@ app.get("/settings_setup", (req, res) => {
 app.get("/settings_user", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/settings_user.html"));
 });
+
+app.get("/restart_server", (req, res) => {
+    restartprodmodbus()
+});
+
+function restartprodmodbus() {
+    exec(restart1Command, (err, stdout, stderr) => {
+        // handle err if you like!
+        console.log(`[ RESTARTING ]`);
+        console.log(`${stdout}`);
+    });
+}
+
 
 app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
     const a = req.params.namee;
