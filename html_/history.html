@@ -137,6 +137,20 @@
                 </div>
             </div>
 
+                        <!-- Mode -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-xl text-gray-700">MODE</h5>
+                            <h3 id="mode_metric" class="font-bold text-2xl"></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <!-- Rotation Number -->
             <!-- Data Table -->
             <!-- <div class="w-1 w-full">
@@ -222,6 +236,36 @@
                         <div class="border-b p-3">
                             <h5 class="font-bold text-black">Pre Compression:</h5>
                         </div>
+                        <div class="p-5 my-3 border border-blue-500 bg-purple-300 rounded shadow">
+                            <div class="flex">
+                                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">RHS Discharge</h5>
+                                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">LHS Discharge</h5>
+                            </div>
+                            <table class="w-full p-5 text-lg text-gray-700">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Upper Tolerance </th>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Lower Tolerance </th>
+                                        <th class="text-center uppercase pb-3 border-r border-gray-700 text-gray-700"> Force Line </th>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Upper Tolerance</th>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Lower Tolerance</th>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Force Line </th>
+                        
+                                    </tr>
+                                </thead>
+                        
+                                <tbody>
+                                    <tr>
+                                        <td id="P_R_upper" class="text-center border-gray-700">0</td>
+                                        <td id="P_R_lower" class="text-center border-gray-700">0</td>
+                                        <td id="P_R_Force" class="text-center border-r border-gray-700">0</td>
+                                        <td id="P_L_upper" class="text-center border-gray-700">0</td>
+                                        <td id="P_L_lower" class="text-center border-gray-700">0</td>
+                                        <td id="P_L_Force" class="text-center border-gray-700">0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="p-3">
                             <canvas id="precompression_graph" class="chartjs" height="120rem"></canvas>
                         </div>
@@ -229,6 +273,36 @@
                         <!--Main Compression Card-->
                         <div class="border-b p-3">
                             <h5 class="font-bold text-black">Main Compression:</h5>
+                        </div>
+                        <div class="p-5 my-3 border border-blue-500 bg-purple-300 rounded shadow">
+                            <div class="flex">
+                                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">RHS Discharge</h5>
+                                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">LHS Discharge</h5>
+                            </div>
+                            <table class="w-full p-5 text-lg text-gray-700">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Upper Tolerance </th>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Lower Tolerance </th>
+                                        <th class="text-center uppercase pb-3 border-r border-gray-700 text-gray-700"> Force Line </th>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Upper Tolerance</th>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Lower Tolerance</th>
+                                        <th class="text-center uppercase pb-3 text-gray-700"> Force Line </th>
+                        
+                                    </tr>
+                                </thead>
+                        
+                                <tbody>
+                                    <tr>
+                                        <td id="M_R_upper" class="text-center border-gray-700">0</td>
+                                        <td id="M_R_lower" class="text-center border-gray-700">0</td>
+                                        <td id="M_R_Force" class="text-center border-r border-gray-700">0</td>
+                                        <td id="M_L_upper" class="text-center border-gray-700">0</td>
+                                        <td id="M_L_lower" class="text-center border-gray-700">0</td>
+                                        <td id="M_L_Force" class="text-center border-gray-700">0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="p-3">
                             <canvas id="maincompression_graph" class="chartjs" height="120rem"></canvas>
@@ -299,11 +373,51 @@
                     pointHitRadius: 10,
                     data: [ ],
                 },
+                {
+                    label: "Upper Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Lower Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Force Line",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    data: [],
+                    type: 'line',
+                },
             ],
         };
         var pregraphoptions = {
             tooltips: { enabled: true },
             legend: {
+                onClick: function (e, legendItem) {
+                    var index = legendItem.datasetIndex;
+                    var ci = this.chart;
+                    var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
+
+                    console.log(index)
+
+                    if (index == 0) {
+                        updatetolerancepreLHS()
+                    } else if (index == 1){
+                        updatetolerancepreRHS()
+                    }
+                },
                 labels: {
                     fontSize: 18,
                 },
@@ -372,6 +486,33 @@
                     pointRadius: 5,
                     pointHitRadius: 10,
                     data: [ ],
+                },
+                {
+                    label: "Upper Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Lower Tolerance",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "red",
+                    borderColor: "red",
+                    data: [],
+                    type: 'line',
+                },
+                {
+                    label: "Force Line",
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "black",
+                    borderColor: "black",
+                    data: [],
+                    type: 'line',
                 },
             ],
         };
@@ -486,8 +627,6 @@
             data: ejngraphdata,
             options: ejngraphoptions,
         });
-
-        
 
         var graph3canvas = document.getElementById('compression_avg_graph');
         var graph3data = {
@@ -743,593 +882,269 @@
 
         };
 
+        function updatetolerancepreRHS(){
+            if (payload[csvdata.indexOf("mode")] == true) {
+                
+                pregraph.data.datasets[2].data = Array(45).fill(payload[csvdata.indexOf("bi_R_rjn_high")])
+                pregraph.data.datasets[3].data = Array(45).fill(payload[csvdata.indexOf("bi_R_rjn_low")])
+                pregraph.data.datasets[4].data = Array(45).fill(payload[csvdata.indexOf("bi_R_force_line")])
+
+            }
+            else if (payload[csvdata.indexOf("mode")] == false) {
+                
+            }
+        }
+
+        function updatetolerancepreRHS(){
+            if (payload[csvdata.indexOf("mode")] == true) {
+                pregraph.data.datasets[2].data = Array(45).fill(payload[csvdata.indexOf("bi_L_rjn_high")])
+                pregraph.data.datasets[3].data = Array(45).fill(payload[csvdata.indexOf("bi_L_rjn_low")])
+                pregraph.data.datasets[4].data = Array(45).fill(payload[csvdata.indexOf("bi_L_force_line")])
+            }
+            else if (payload[csvdata.indexOf("mode")] == false) {
+                
+            }
+        }
+
+        var payload
+        var csvdata
+
         async function querydb(input_rotation) {
             // Create Request URL
             let requesturl = `${searchURL}${input_rotation}`
 
             // Hit API
             const searchResponse = await fetch(requesturl);
-            const payload = await searchResponse.json();
+            payload = await searchResponse.json();
             console.log(payload);
 
-            // Assigning variable as per array loacation
-            let batch        = 1
-            let p10LHSejn    = 2
-            let p10LHSmain   = 3
-            let p10LHSpre    = 4
-            let p10LHSstatus = 5
-            let p10RHSejn    = 6
-            let p10RHSmain   = 7
-            let p10RHSpre    = 8
-            let p10RHSstatus = 9
-            let p11LHSejn    = 10
-            let p11LHSmain   = 11
-            let p11LHSpre    = 12
-            let p11LHSstatus = 13
-            let p11RHSejn    = 14
-            let p11RHSmain   = 15
-            let p11RHSpre    = 16
-            let p11RHSstatus = 17
-            let p12LHSejn    = 18
-            let p12LHSmain   = 19
-            let p12LHSpre    = 20
-            let p12LHSstatus = 21
-            let p12RHSejn    = 22
-            let p12RHSmain   = 23
-            let p12RHSpre    = 24
-            let p12RHSstatus = 25
-            let p13LHSejn    = 26
-            let p13LHSmain   = 27
-            let p13LHSpre    = 28
-            let p13LHSstatus = 29
-            let p13RHSejn    = 30
-            let p13RHSmain   = 31
-            let p13RHSpre    = 32
-            let p13RHSstatus = 33
-            let p14LHSejn    = 34
-            let p14LHSmain   = 35
-            let p14LHSpre    = 36
-            let p14LHSstatus = 37
-            let p14RHSejn    = 38
-            let p14RHSmain   = 39
-            let p14RHSpre    = 40
-            let p14RHSstatus = 41
-            let p15LHSejn    = 42
-            let p15LHSmain   = 43
-            let p15LHSpre    = 44
-            let p15LHSstatus = 45
-            let p15RHSejn    = 46
-            let p15RHSmain   = 47
-            let p15RHSpre    = 48
-            let p15RHSstatus = 49
-            let p16LHSejn    = 50
-            let p16LHSmain   = 51
-            let p16LHSpre    = 52
-            let p16LHSstatus = 53
-            let p16RHSejn    = 54
-            let p16RHSmain   = 55
-            let p16RHSpre    = 56
-            let p16RHSstatus = 57
-            let p17LHSejn    = 58
-            let p17LHSmain   = 59
-            let p17LHSpre    = 60
-            let p17LHSstatus = 61
-            let p17RHSejn    = 62
-            let p17RHSmain   = 63
-            let p17RHSpre    = 64
-            let p17RHSstatus = 65
-            let p18LHSejn    = 66
-            let p18LHSmain   = 67
-            let p18LHSpre    = 68
-            let p18LHSstatus = 69
-            let p18RHSejn    = 70
-            let p18RHSmain   = 71
-            let p18RHSpre    = 72
-            let p18RHSstatus = 73
-            let p19LHSejn    = 74
-            let p19LHSmain   = 75
-            let p19LHSpre    = 76
-            let p19LHSstatus = 77
-            let p19RHSejn    = 78
-            let p19RHSmain   = 79
-            let p19RHSpre    = 80
-            let p19RHSstatus = 81
-            let p1LHSejn     = 82
-            let p1LHSmain    = 83
-            let p1LHSpre     = 84
-            let p1LHSstatus  = 85
-            let p1RHSejn     = 86
-            let p1RHSmain    = 87
-            let p1RHSpre     = 88
-            let p1RHSstatus  = 89
-            let p20LHSejn    = 90
-            let p20LHSmain   = 91
-            let p20LHSpre    = 92
-            let p20LHSstatus = 93
-            let p20RHSejn    = 94
-            let p20RHSmain   = 95
-            let p20RHSpre    = 96
-            let p20RHSstatus = 97
-            let p21LHSejn    = 98
-            let p21LHSmain   = 99
-            let p21LHSpre    = 100
-            let p21LHSstatus = 101
-            let p21RHSejn    = 102
-            let p21RHSmain   = 103
-            let p21RHSpre    = 104
-            let p21RHSstatus = 105
-            let p22LHSejn    = 106
-            let p22LHSmain   = 107
-            let p22LHSpre    = 108
-            let p22LHSstatus = 109
-            let p22RHSejn    = 110
-            let p22RHSmain   = 111
-            let p22RHSpre    = 112
-            let p22RHSstatus = 113
-            let p23LHSejn    = 114
-            let p23LHSmain   = 115
-            let p23LHSpre    = 116
-            let p23LHSstatus = 117
-            let p23RHSejn    = 118
-            let p23RHSmain   = 119
-            let p23RHSpre    = 120
-            let p23RHSstatus = 121
-            let p24LHSejn    = 122
-            let p24LHSmain   = 123
-            let p24LHSpre    = 124
-            let p24LHSstatus = 125
-            let p24RHSejn    = 126
-            let p24RHSmain   = 127
-            let p24RHSpre    = 128
-            let p24RHSstatus = 129
-            let p25LHSejn    = 130
-            let p25LHSmain   = 131
-            let p25LHSpre    = 132
-            let p25LHSstatus = 133
-            let p25RHSejn    = 134
-            let p25RHSmain   = 135
-            let p25RHSpre    = 136
-            let p25RHSstatus = 137
-            let p26LHSejn    = 138
-            let p26LHSmain   = 139
-            let p26LHSpre    = 140
-            let p26LHSstatus = 141
-            let p26RHSejn    = 142
-            let p26RHSmain   = 143
-            let p26RHSpre    = 144
-            let p26RHSstatus = 145
-            let p27LHSejn    = 146
-            let p27LHSmain   = 147
-            let p27LHSpre    = 148
-            let p27LHSstatus = 149
-            let p27RHSejn    = 150
-            let p27RHSmain   = 151
-            let p27RHSpre    = 152
-            let p27RHSstatus = 153
-            let p28LHSejn    = 154
-            let p28LHSmain   = 155
-            let p28LHSpre    = 156
-            let p28LHSstatus = 157
-            let p28RHSejn    = 158
-            let p28RHSmain   = 159
-            let p28RHSpre    = 160
-            let p28RHSstatus = 161
-            let p29LHSejn    = 162
-            let p29LHSmain   = 163
-            let p29LHSpre    = 164
-            let p29LHSstatus = 165
-            let p29RHSejn    = 166
-            let p29RHSmain   = 167
-            let p29RHSpre    = 168
-            let p29RHSstatus = 169
-            let p2LHSejn     = 170
-            let p2LHSmain    = 171
-            let p2LHSpre     = 172
-            let p2LHSstatus  = 173
-            let p2RHSejn     = 174
-            let p2RHSmain    = 175
-            let p2RHSpre     = 176
-            let p2RHSstatus  = 177
-            let p30LHSejn    = 178
-            let p30LHSmain   = 179
-            let p30LHSpre    = 180
-            let p30LHSstatus = 181
-            let p30RHSejn    = 182
-            let p30RHSmain   = 183
-            let p30RHSpre    = 184
-            let p30RHSstatus = 185
-            let p31LHSejn    = 186
-            let p31LHSmain   = 187
-            let p31LHSpre    = 188
-            let p31LHSstatus = 189
-            let p31RHSejn    = 190
-            let p31RHSmain   = 191
-            let p31RHSpre    = 192
-            let p31RHSstatus = 193
-            let p32LHSejn    = 194
-            let p32LHSmain   = 195
-            let p32LHSpre    = 196
-            let p32LHSstatus = 197
-            let p32RHSejn    = 198
-            let p32RHSmain   = 199
-            let p32RHSpre    = 200
-            let p32RHSstatus = 201
-            let p33LHSejn    = 202
-            let p33LHSmain   = 203
-            let p33LHSpre    = 204
-            let p33LHSstatus = 205
-            let p33RHSejn    = 206
-            let p33RHSmain   = 207
-            let p33RHSpre    = 208
-            let p33RHSstatus = 209
-            let p34LHSejn    = 210
-            let p34LHSmain   = 211
-            let p34LHSpre    = 212
-            let p34LHSstatus = 213
-            let p34RHSejn    = 214
-            let p34RHSmain   = 215
-            let p34RHSpre    = 216
-            let p34RHSstatus = 217
-            let p35LHSejn    = 218
-            let p35LHSmain   = 219
-            let p35LHSpre    = 220
-            let p35LHSstatus = 221
-            let p35RHSejn    = 222
-            let p35RHSmain   = 223
-            let p35RHSpre    = 224
-            let p35RHSstatus = 225
-            let p36LHSejn    = 226
-            let p36LHSmain   = 227
-            let p36LHSpre    = 228
-            let p36LHSstatus = 229
-            let p36RHSejn    = 230
-            let p36RHSmain   = 231
-            let p36RHSpre    = 232
-            let p36RHSstatus = 233
-            let p37LHSejn    = 234
-            let p37LHSmain   = 235
-            let p37LHSpre    = 236
-            let p37LHSstatus = 237
-            let p37RHSejn    = 238
-            let p37RHSmain   = 239
-            let p37RHSpre    = 240
-            let p37RHSstatus = 241
-            let p38LHSejn    = 242
-            let p38LHSmain   = 243
-            let p38LHSpre    = 244
-            let p38LHSstatus = 245
-            let p38RHSejn    = 246
-            let p38RHSmain   = 247
-            let p38RHSpre    = 248
-            let p38RHSstatus = 249
-            let p39LHSejn    = 250
-            let p39LHSmain   = 251
-            let p39LHSpre    = 252
-            let p39LHSstatus = 253
-            let p39RHSejn    = 254
-            let p39RHSmain   = 255
-            let p39RHSpre    = 256
-            let p39RHSstatus = 257
-            let p3LHSejn     = 258
-            let p3LHSmain    = 259
-            let p3LHSpre     = 260
-            let p3LHSstatus  = 261
-            let p3RHSejn     = 262
-            let p3RHSmain    = 263
-            let p3RHSpre     = 264
-            let p3RHSstatus  = 265
-            let p40LHSejn    = 266
-            let p40LHSmain   = 267
-            let p40LHSpre    = 268
-            let p40LHSstatus = 269
-            let p40RHSejn    = 270
-            let p40RHSmain   = 271
-            let p40RHSpre    = 272
-            let p40RHSstatus = 273
-            let p41LHSejn    = 274
-            let p41LHSmain   = 275
-            let p41LHSpre    = 276
-            let p41LHSstatus = 277
-            let p41RHSejn    = 278
-            let p41RHSmain   = 279
-            let p41RHSpre    = 280
-            let p41RHSstatus = 281
-            let p42LHSejn    = 282
-            let p42LHSmain   = 283
-            let p42LHSpre    = 284
-            let p42LHSstatus = 285
-            let p42RHSejn    = 286
-            let p42RHSmain   = 287
-            let p42RHSpre    = 288
-            let p42RHSstatus = 289
-            let p43LHSejn    = 290
-            let p43LHSmain   = 291
-            let p43LHSpre    = 292
-            let p43LHSstatus = 293
-            let p43RHSejn    = 294
-            let p43RHSmain   = 295
-            let p43RHSpre    = 296
-            let p43RHSstatus = 297
-            let p44LHSejn    = 298
-            let p44LHSmain   = 299
-            let p44LHSpre    = 300
-            let p44LHSstatus = 301
-            let p44RHSejn    = 302
-            let p44RHSmain   = 303
-            let p44RHSpre    = 304
-            let p44RHSstatus = 305
-            let p45LHSejn    = 306
-            let p45LHSmain   = 307
-            let p45LHSpre    = 308
-            let p45LHSstatus = 309
-            let p45RHSejn    = 310
-            let p45RHSmain   = 311
-            let p45RHSpre    = 312
-            let p45RHSstatus = 313
-            let p4LHSejn     = 314
-            let p4LHSmain    = 315
-            let p4LHSpre     = 316
-            let p4LHSstatus  = 317
-            let p4RHSejn     = 318
-            let p4RHSmain    = 319
-            let p4RHSpre     = 320
-            let p4RHSstatus  = 321
-            let p5LHSejn     = 322
-            let p5LHSmain    = 323
-            let p5LHSpre     = 324
-            let p5LHSstatus  = 325
-            let p5RHSejn     = 326
-            let p5RHSmain    = 327
-            let p5RHSpre     = 328
-            let p5RHSstatus  = 329
-            let p6LHSejn     = 330
-            let p6LHSmain    = 331
-            let p6LHSpre     = 332
-            let p6LHSstatus  = 333
-            let p6RHSejn     = 334
-            let p6RHSmain    = 335
-            let p6RHSpre     = 336
-            let p6RHSstatus  = 337
-            let p7LHSejn     = 338
-            let p7LHSmain    = 339
-            let p7LHSpre     = 340
-            let p7LHSstatus  = 341
-            let p7RHSejn     = 342
-            let p7RHSmain    = 343
-            let p7RHSpre     = 344
-            let p7RHSstatus  = 345
-            let p8LHSejn     = 346
-            let p8LHSmain    = 347
-            let p8LHSpre     = 348
-            let p8LHSstatus  = 349
-            let p8RHSejn     = 350
-            let p8RHSmain    = 351
-            let p8RHSpre     = 352
-            let p8RHSstatus  = 353
-            let p9LHSejn     = 354
-            let p9LHSmain    = 355
-            let p9LHSpre     = 356
-            let p9LHSstatus  = 357
-            let p9RHSejn     = 358
-            let p9RHSmain    = 359
-            let p9RHSpre     = 360
-            let p9RHSstatus  = 361
-            let rotation     = 362
+            // var ages = [3, 10, 18, 20];
+            csvdata = ['time', 'bi_L_force_line', 'bi_L_rjn_high', 'bi_L_rjn_low', 'bi_R_force_line', 'bi_R_rjn_high', 'bi_R_rjn_low', 'mode', 'mono_force_line', 'mono_rjn_high', 'mono_rjn_low', 'p10LHSejn', 'p10LHSmain', 'p10LHSpre', 'p10RHSejn', 'p10RHSmain', 'p10RHSpre', 'p11LHSejn', 'p11LHSmain', 'p11LHSpre', 'p11RHSejn', 'p11RHSmain', 'p11RHSpre', 'p12LHSejn', 'p12LHSmain', 'p12LHSpre', 'p12RHSejn', 'p12RHSmain', 'p12RHSpre', 'p13LHSejn', 'p13LHSmain', 'p13LHSpre', 'p13RHSejn', 'p13RHSmain', 'p13RHSpre', 'p14LHSejn', 'p14LHSmain', 'p14LHSpre', 'p14RHSejn', 'p14RHSmain', 'p14RHSpre', 'p15LHSejn', 'p15LHSmain', 'p15LHSpre', 'p15RHSejn', 'p15RHSmain', 'p15RHSpre', 'p16LHSejn', 'p16LHSmain', 'p16LHSpre', 'p16RHSejn', 'p16RHSmain', 'p16RHSpre', 'p17LHSejn', 'p17LHSmain', 'p17LHSpre', 'p17RHSejn', 'p17RHSmain', 'p17RHSpre', 'p18LHSejn', 'p18LHSmain', 'p18LHSpre', 'p18RHSejn', 'p18RHSmain', 'p18RHSpre', 'p19LHSejn', 'p19LHSmain', 'p19LHSpre', 'p19RHSejn', 'p19RHSmain', 'p19RHSpre', 'p1LHSejn', 'p1LHSmain', 'p1LHSpre', 'p1RHSejn', 'p1RHSmain', 'p1RHSpre', 'p20LHSejn', 'p20LHSmain', 'p20LHSpre', 'p20RHSejn', 'p20RHSmain', 'p20RHSpre', 'p21LHSejn', 'p21LHSmain', 'p21LHSpre', 'p21RHSejn', 'p21RHSmain', 'p21RHSpre', 'p22LHSejn', 'p22LHSmain', 'p22LHSpre', 'p22RHSejn', 'p22RHSmain', 'p22RHSpre', 'p23LHSejn', 'p23LHSmain', 'p23LHSpre', 'p23RHSejn', 'p23RHSmain', 'p23RHSpre', 'p24LHSejn', 'p24LHSmain', 'p24LHSpre', 'p24RHSejn', 'p24RHSmain', 'p24RHSpre', 'p25LHSejn', 'p25LHSmain', 'p25LHSpre', 'p25RHSejn', 'p25RHSmain', 'p25RHSpre', 'p26LHSejn', 'p26LHSmain', 'p26LHSpre', 'p26RHSejn', 'p26RHSmain', 'p26RHSpre', 'p27LHSejn', 'p27LHSmain', 'p27LHSpre', 'p27RHSejn', 'p27RHSmain', 'p27RHSpre', 'p28LHSejn', 'p28LHSmain', 'p28LHSpre', 'p28RHSejn', 'p28RHSmain', 'p28RHSpre', 'p29LHSejn', 'p29LHSmain', 'p29LHSpre', 'p29RHSejn', 'p29RHSmain', 'p29RHSpre', 'p2LHSejn', 'p2LHSmain', 'p2LHSpre', 'p2RHSejn', 'p2RHSmain', 'p2RHSpre', 'p30LHSejn', 'p30LHSmain', 'p30LHSpre', 'p30RHSejn', 'p30RHSmain', 'p30RHSpre', 'p31LHSejn', 'p31LHSmain', 'p31LHSpre', 'p31RHSejn', 'p31RHSmain', 'p31RHSpre', 'p32LHSejn', 'p32LHSmain', 'p32LHSpre', 'p32RHSejn', 'p32RHSmain', 'p32RHSpre', 'p33LHSejn', 'p33LHSmain', 'p33LHSpre', 'p33RHSejn', 'p33RHSmain', 'p33RHSpre', 'p34LHSejn', 'p34LHSmain', 'p34LHSpre', 'p34RHSejn', 'p34RHSmain', 'p34RHSpre', 'p35LHSejn', 'p35LHSmain', 'p35LHSpre', 'p35RHSejn', 'p35RHSmain', 'p35RHSpre', 'p36LHSejn', 'p36LHSmain', 'p36LHSpre', 'p36RHSejn', 'p36RHSmain', 'p36RHSpre', 'p37LHSejn', 'p37LHSmain', 'p37LHSpre', 'p37RHSejn', 'p37RHSmain', 'p37RHSpre', 'p38LHSejn', 'p38LHSmain', 'p38LHSpre', 'p38RHSejn', 'p38RHSmain', 'p38RHSpre', 'p39LHSejn', 'p39LHSmain', 'p39LHSpre', 'p39RHSejn', 'p39RHSmain', 'p39RHSpre', 'p3LHSejn', 'p3LHSmain', 'p3LHSpre', 'p3RHSejn', 'p3RHSmain', 'p3RHSpre', 'p40LHSejn', 'p40LHSmain', 'p40LHSpre', 'p40RHSejn', 'p40RHSmain', 'p40RHSpre', 'p41LHSejn', 'p41LHSmain', 'p41LHSpre', 'p41RHSejn', 'p41RHSmain', 'p41RHSpre', 'p42LHSejn', 'p42LHSmain', 'p42LHSpre', 'p42RHSejn', 'p42RHSmain', 'p42RHSpre', 'p43LHSejn', 'p43LHSmain', 'p43LHSpre', 'p43RHSejn', 'p43RHSmain', 'p43RHSpre', 'p44LHSejn', 'p44LHSmain', 'p44LHSpre', 'p44RHSejn', 'p44RHSmain', 'p44RHSpre', 'p45LHSejn', 'p45LHSmain', 'p45LHSpre', 'p45RHSejn', 'p45RHSmain', 'p45RHSpre', 'p4LHSejn', 'p4LHSmain', 'p4LHSpre', 'p4RHSejn', 'p4RHSmain', 'p4RHSpre', 'p5LHSejn', 'p5LHSmain', 'p5LHSpre', 'p5RHSejn', 'p5RHSmain', 'p5RHSpre', 'p6LHSejn', 'p6LHSmain', 'p6LHSpre', 'p6RHSejn', 'p6RHSmain', 'p6RHSpre', 'p7LHSejn', 'p7LHSmain', 'p7LHSpre', 'p7RHSejn', 'p7RHSmain', 'p7RHSpre', 'p8LHSejn', 'p8LHSmain', 'p8LHSpre', 'p8RHSejn', 'p8RHSmain', 'p8RHSpre', 'p9LHSejn', 'p9LHSmain', 'p9LHSpre', 'p9RHSejn', 'p9RHSmain', 'p9RHSpre', 'rotation']
 
-            console.log(payload[batch])
+            if (payload[csvdata.indexOf("mode")] == true) {
+                document.getElementById("mode_metric").innerHTML = "BI-LAYER";
 
-            // document.getElementById("p1-pre-search").innerHTML = payload[p1pre];
-            // document.getElementById("p2-pre-search").innerHTML = payload[p2pre];
-            // document.getElementById("p3-pre-search").innerHTML = payload[p3pre];
-            // document.getElementById("p4-pre-search").innerHTML = payload[p4pre];
-            // document.getElementById("p5-pre-search").innerHTML = payload[p5pre];
-            // document.getElementById("p6-pre-search").innerHTML = payload[p6pre];
-            // document.getElementById("p7-pre-search").innerHTML = payload[p7pre];
-            // document.getElementById("p8-pre-search").innerHTML = payload[p8pre];
-            // document.getElementById("avg-pre-search").innerHTML = payload[preavg];
-            // document.getElementById("p1-main-search").innerHTML = payload[p1main];
-            // document.getElementById("p2-main-search").innerHTML = payload[p2main];
-            // document.getElementById("p3-main-search").innerHTML = payload[p3main];
-            // document.getElementById("p4-main-search").innerHTML = payload[p4main];
-            // document.getElementById("p5-main-search").innerHTML = payload[p5main];
-            // document.getElementById("p6-main-search").innerHTML = payload[p6main];
-            // document.getElementById("p7-main-search").innerHTML = payload[p7main];
-            // document.getElementById("p8-main-search").innerHTML = payload[p8main];
-            // document.getElementById("avg-main-search").innerHTML = payload[mainavg];
-            // document.getElementById("p1-ejn-search").innerHTML = payload[p1ejn];
-            // document.getElementById("p2-ejn-search").innerHTML = payload[p2ejn];
-            // document.getElementById("p3-ejn-search").innerHTML = payload[p3ejn];
-            // document.getElementById("p4-ejn-search").innerHTML = payload[p4ejn];
-            // document.getElementById("p5-ejn-search").innerHTML = payload[p5ejn];
-            // document.getElementById("p6-ejn-search").innerHTML = payload[p6ejn];
-            // document.getElementById("p7-ejn-search").innerHTML = payload[p7ejn];
-            // document.getElementById("p8-ejn-search").innerHTML = payload[p8ejn];
-            // document.getElementById("avg-ejn-search").innerHTML = payload[ejnavg];
+                document.getElementById("P_R_upper").innerHTML = payload[csvdata.indexOf("bi_R_rjn_high")];
+                document.getElementById("P_R_lower").innerHTML = payload[csvdata.indexOf("bi_R_rjn_low")];
+                document.getElementById("P_R_Force").innerHTML = payload[csvdata.indexOf("bi_R_force_line")];
+                document.getElementById("P_L_upper").innerHTML = payload[csvdata.indexOf("bi_L_rjn_high")];
+                document.getElementById("P_L_lower").innerHTML = payload[csvdata.indexOf("bi_L_rjn_low")];                
+                document.getElementById("P_L_Force").innerHTML = payload[csvdata.indexOf("bi_L_force_line")];
 
+                document.getElementById("M_R_upper").innerHTML = "-"
+                document.getElementById("M_R_lower").innerHTML = "-"
+                document.getElementById("M_R_Force").innerHTML = "-"
+                document.getElementById("M_L_upper").innerHTML = "-"
+                document.getElementById("M_L_lower").innerHTML = "-"
+                document.getElementById("M_L_Force").innerHTML = "-"
 
-            pregraph.data.datasets[0].data[0] = payload[p1LHSpre];
-            pregraph.data.datasets[0].data[1] = payload[p2LHSpre];
-            pregraph.data.datasets[0].data[2] = payload[p3LHSpre];
-            pregraph.data.datasets[0].data[3] = payload[p4LHSpre];
-            pregraph.data.datasets[0].data[4] = payload[p5LHSpre];
-            pregraph.data.datasets[0].data[5] = payload[p6LHSpre];
-            pregraph.data.datasets[0].data[6] = payload[p7LHSpre];
-            pregraph.data.datasets[0].data[7] = payload[p8LHSpre];
-            pregraph.data.datasets[0].data[8] = payload[p9LHSpre];
-            pregraph.data.datasets[0].data[9] = payload[p10LHSpre];
-            pregraph.data.datasets[0].data[10] = payload[p11LHSpre];
-            pregraph.data.datasets[0].data[11] = payload[p12LHSpre];
-            pregraph.data.datasets[0].data[12] = payload[p13LHSpre];
-            pregraph.data.datasets[0].data[13] = payload[p14LHSpre];
-            pregraph.data.datasets[0].data[14] = payload[p15LHSpre];
-            pregraph.data.datasets[0].data[15] = payload[p16LHSpre];
-            pregraph.data.datasets[0].data[16] = payload[p17LHSpre];
-            pregraph.data.datasets[0].data[17] = payload[p18LHSpre];
-            pregraph.data.datasets[0].data[18] = payload[p19LHSpre];
-            pregraph.data.datasets[0].data[19] = payload[p20LHSpre];
-            pregraph.data.datasets[0].data[20] = payload[p21LHSpre];
-            pregraph.data.datasets[0].data[21] = payload[p22LHSpre];
-            pregraph.data.datasets[0].data[22] = payload[p23LHSpre];
-            pregraph.data.datasets[0].data[23] = payload[p24LHSpre];
-            pregraph.data.datasets[0].data[24] = payload[p25LHSpre];
-            pregraph.data.datasets[0].data[25] = payload[p26LHSpre];
-            pregraph.data.datasets[0].data[26] = payload[p27LHSpre];
-            pregraph.data.datasets[0].data[27] = payload[p28LHSpre];
-            pregraph.data.datasets[0].data[28] = payload[p29LHSpre];
-            pregraph.data.datasets[0].data[29] = payload[p30LHSpre];
-            pregraph.data.datasets[0].data[30] = payload[p31LHSpre];
-            pregraph.data.datasets[0].data[31] = payload[p32LHSpre];
-            pregraph.data.datasets[0].data[32] = payload[p33LHSpre];
-            pregraph.data.datasets[0].data[33] = payload[p34LHSpre];
-            pregraph.data.datasets[0].data[34] = payload[p35LHSpre];
-            pregraph.data.datasets[0].data[35] = payload[p36LHSpre];
-            pregraph.data.datasets[0].data[36] = payload[p37LHSpre];
-            pregraph.data.datasets[0].data[37] = payload[p38LHSpre];
-            pregraph.data.datasets[0].data[38] = payload[p39LHSpre];
-            pregraph.data.datasets[0].data[39] = payload[p40LHSpre];
-            pregraph.data.datasets[0].data[40] = payload[p41LHSpre];
-            pregraph.data.datasets[0].data[41] = payload[p42LHSpre];
-            pregraph.data.datasets[0].data[42] = payload[p43LHSpre];
-            pregraph.data.datasets[0].data[43] = payload[p44LHSpre];
-            pregraph.data.datasets[0].data[44] = payload[p45LHSpre];
+            }
+            else if (payload[csvdata.indexOf("mode")] == false) {
+                document.getElementById("mode_metric").innerHTML = "MONO";
 
-            pregraph.data.datasets[1].data[0] = payload[p1RHSpre];
-            pregraph.data.datasets[1].data[1] = payload[p2RHSpre];
-            pregraph.data.datasets[1].data[2] = payload[p3RHSpre];
-            pregraph.data.datasets[1].data[3] = payload[p4RHSpre];
-            pregraph.data.datasets[1].data[4] = payload[p5RHSpre];
-            pregraph.data.datasets[1].data[5] = payload[p6RHSpre];
-            pregraph.data.datasets[1].data[6] = payload[p7RHSpre];
-            pregraph.data.datasets[1].data[7] = payload[p8RHSpre];
-            pregraph.data.datasets[1].data[8] = payload[p9RHSpre];
-            pregraph.data.datasets[1].data[9] = payload[p10RHSpre];
-            pregraph.data.datasets[1].data[10] = payload[p11RHSpre];
-            pregraph.data.datasets[1].data[11] = payload[p12RHSpre];
-            pregraph.data.datasets[1].data[12] = payload[p13RHSpre];
-            pregraph.data.datasets[1].data[13] = payload[p14RHSpre];
-            pregraph.data.datasets[1].data[14] = payload[p15RHSpre];
-            pregraph.data.datasets[1].data[15] = payload[p16RHSpre];
-            pregraph.data.datasets[1].data[16] = payload[p17RHSpre];
-            pregraph.data.datasets[1].data[17] = payload[p18RHSpre];
-            pregraph.data.datasets[1].data[18] = payload[p19RHSpre];
-            pregraph.data.datasets[1].data[19] = payload[p20RHSpre];
-            pregraph.data.datasets[1].data[20] = payload[p21RHSpre];
-            pregraph.data.datasets[1].data[21] = payload[p22RHSpre];
-            pregraph.data.datasets[1].data[22] = payload[p23RHSpre];
-            pregraph.data.datasets[1].data[23] = payload[p24RHSpre];
-            pregraph.data.datasets[1].data[24] = payload[p25RHSpre];
-            pregraph.data.datasets[1].data[25] = payload[p26RHSpre];
-            pregraph.data.datasets[1].data[26] = payload[p27RHSpre];
-            pregraph.data.datasets[1].data[27] = payload[p28RHSpre];
-            pregraph.data.datasets[1].data[28] = payload[p29RHSpre];
-            pregraph.data.datasets[1].data[29] = payload[p30RHSpre];
-            pregraph.data.datasets[1].data[30] = payload[p31RHSpre];
-            pregraph.data.datasets[1].data[31] = payload[p32RHSpre];
-            pregraph.data.datasets[1].data[32] = payload[p33RHSpre];
-            pregraph.data.datasets[1].data[33] = payload[p34RHSpre];
-            pregraph.data.datasets[1].data[34] = payload[p35RHSpre];
-            pregraph.data.datasets[1].data[35] = payload[p36RHSpre];
-            pregraph.data.datasets[1].data[36] = payload[p37RHSpre];
-            pregraph.data.datasets[1].data[37] = payload[p38RHSpre];
-            pregraph.data.datasets[1].data[38] = payload[p39RHSpre];
-            pregraph.data.datasets[1].data[39] = payload[p40RHSpre];
-            pregraph.data.datasets[1].data[40] = payload[p41RHSpre];
-            pregraph.data.datasets[1].data[41] = payload[p42RHSpre];
-            pregraph.data.datasets[1].data[42] = payload[p43RHSpre];
-            pregraph.data.datasets[1].data[43] = payload[p44RHSpre];
-            pregraph.data.datasets[1].data[44] = payload[p45RHSpre];
+                document.getElementById("P_R_upper").innerHTML = "-"
+                document.getElementById("P_R_lower").innerHTML = "-"
+                document.getElementById("P_R_Force").innerHTML = "-"
+                document.getElementById("P_L_upper").innerHTML = "-"
+                document.getElementById("P_L_lower").innerHTML = "-"
+                document.getElementById("P_L_Force").innerHTML = "-"
 
-            maingraph.data.datasets[0].data[0] = payload[p1LHSmain];
-            maingraph.data.datasets[0].data[1] = payload[p2LHSmain];
-            maingraph.data.datasets[0].data[2] = payload[p3LHSmain];
-            maingraph.data.datasets[0].data[3] = payload[p4LHSmain];
-            maingraph.data.datasets[0].data[4] = payload[p5LHSmain];
-            maingraph.data.datasets[0].data[5] = payload[p6LHSmain];
-            maingraph.data.datasets[0].data[6] = payload[p7LHSmain];
-            maingraph.data.datasets[0].data[7] = payload[p8LHSmain];
-            maingraph.data.datasets[0].data[8] = payload[p9LHSmain];
-            maingraph.data.datasets[0].data[9] = payload[p10LHSmain];
-            maingraph.data.datasets[0].data[10] = payload[p11LHSmain];
-            maingraph.data.datasets[0].data[11] = payload[p12LHSmain];
-            maingraph.data.datasets[0].data[12] = payload[p13LHSmain];
-            maingraph.data.datasets[0].data[13] = payload[p14LHSmain];
-            maingraph.data.datasets[0].data[14] = payload[p15LHSmain];
-            maingraph.data.datasets[0].data[15] = payload[p16LHSmain];
-            maingraph.data.datasets[0].data[16] = payload[p17LHSmain];
-            maingraph.data.datasets[0].data[17] = payload[p18LHSmain];
-            maingraph.data.datasets[0].data[18] = payload[p19LHSmain];
-            maingraph.data.datasets[0].data[19] = payload[p20LHSmain];
-            maingraph.data.datasets[0].data[20] = payload[p21LHSmain];
-            maingraph.data.datasets[0].data[21] = payload[p22LHSmain];
-            maingraph.data.datasets[0].data[22] = payload[p23LHSmain];
-            maingraph.data.datasets[0].data[23] = payload[p24LHSmain];
-            maingraph.data.datasets[0].data[24] = payload[p25LHSmain];
-            maingraph.data.datasets[0].data[25] = payload[p26LHSmain];
-            maingraph.data.datasets[0].data[26] = payload[p27LHSmain];
-            maingraph.data.datasets[0].data[27] = payload[p28LHSmain];
-            maingraph.data.datasets[0].data[28] = payload[p29LHSmain];
-            maingraph.data.datasets[0].data[29] = payload[p30LHSmain];
-            maingraph.data.datasets[0].data[30] = payload[p31LHSmain];
-            maingraph.data.datasets[0].data[31] = payload[p32LHSmain];
-            maingraph.data.datasets[0].data[32] = payload[p33LHSmain];
-            maingraph.data.datasets[0].data[33] = payload[p34LHSmain];
-            maingraph.data.datasets[0].data[34] = payload[p35LHSmain];
-            maingraph.data.datasets[0].data[35] = payload[p36LHSmain];
-            maingraph.data.datasets[0].data[36] = payload[p37LHSmain];
-            maingraph.data.datasets[0].data[37] = payload[p38LHSmain];
-            maingraph.data.datasets[0].data[38] = payload[p39LHSmain];
-            maingraph.data.datasets[0].data[39] = payload[p40LHSmain];
-            maingraph.data.datasets[0].data[40] = payload[p41LHSmain];
-            maingraph.data.datasets[0].data[41] = payload[p42LHSmain];
-            maingraph.data.datasets[0].data[42] = payload[p43LHSmain];
-            maingraph.data.datasets[0].data[43] = payload[p44LHSmain];
-            maingraph.data.datasets[0].data[44] = payload[p45LHSmain];
+                document.getElementById("M_R_upper").innerHTML = payload[csvdata.indexOf("mono_rjn_high")];
+                document.getElementById("M_R_lower").innerHTML = payload[csvdata.indexOf("mono_rjn_low")];
+                document.getElementById("M_R_Force").innerHTML = payload[csvdata.indexOf("mono_force_line")];
+                document.getElementById("M_L_upper").innerHTML = payload[csvdata.indexOf("mono_rjn_high")];
+                document.getElementById("M_L_lower").innerHTML = payload[csvdata.indexOf("mono_rjn_low")];
+                document.getElementById("M_L_Force").innerHTML = payload[csvdata.indexOf("mono_force_line")];
 
-            maingraph.data.datasets[1].data[0] = payload[p1RHSmain];
-            maingraph.data.datasets[1].data[1] = payload[p2RHSmain];
-            maingraph.data.datasets[1].data[2] = payload[p3RHSmain];
-            maingraph.data.datasets[1].data[3] = payload[p4RHSmain];
-            maingraph.data.datasets[1].data[4] = payload[p5RHSmain];
-            maingraph.data.datasets[1].data[5] = payload[p6RHSmain];
-            maingraph.data.datasets[1].data[6] = payload[p7RHSmain];
-            maingraph.data.datasets[1].data[7] = payload[p8RHSmain];
-            maingraph.data.datasets[1].data[8] = payload[p9RHSmain];
-            maingraph.data.datasets[1].data[9] = payload[p10RHSmain];
-            maingraph.data.datasets[1].data[10] = payload[p11RHSmain];
-            maingraph.data.datasets[1].data[11] = payload[p12RHSmain];
-            maingraph.data.datasets[1].data[12] = payload[p13RHSmain];
-            maingraph.data.datasets[1].data[13] = payload[p14RHSmain];
-            maingraph.data.datasets[1].data[14] = payload[p15RHSmain];
-            maingraph.data.datasets[1].data[15] = payload[p16RHSmain];
-            maingraph.data.datasets[1].data[16] = payload[p17RHSmain];
-            maingraph.data.datasets[1].data[17] = payload[p18RHSmain];
-            maingraph.data.datasets[1].data[18] = payload[p19RHSmain];
-            maingraph.data.datasets[1].data[19] = payload[p20RHSmain];
-            maingraph.data.datasets[1].data[20] = payload[p21RHSmain];
-            maingraph.data.datasets[1].data[21] = payload[p22RHSmain];
-            maingraph.data.datasets[1].data[22] = payload[p23RHSmain];
-            maingraph.data.datasets[1].data[23] = payload[p24RHSmain];
-            maingraph.data.datasets[1].data[24] = payload[p25RHSmain];
-            maingraph.data.datasets[1].data[25] = payload[p26RHSmain];
-            maingraph.data.datasets[1].data[26] = payload[p27RHSmain];
-            maingraph.data.datasets[1].data[27] = payload[p28RHSmain];
-            maingraph.data.datasets[1].data[28] = payload[p29RHSmain];
-            maingraph.data.datasets[1].data[29] = payload[p30RHSmain];
-            maingraph.data.datasets[1].data[30] = payload[p31RHSmain];
-            maingraph.data.datasets[1].data[31] = payload[p32RHSmain];
-            maingraph.data.datasets[1].data[32] = payload[p33RHSmain];
-            maingraph.data.datasets[1].data[33] = payload[p34RHSmain];
-            maingraph.data.datasets[1].data[34] = payload[p35RHSmain];
-            maingraph.data.datasets[1].data[35] = payload[p36RHSmain];
-            maingraph.data.datasets[1].data[36] = payload[p37RHSmain];
-            maingraph.data.datasets[1].data[37] = payload[p38RHSmain];
-            maingraph.data.datasets[1].data[38] = payload[p39RHSmain];
-            maingraph.data.datasets[1].data[39] = payload[p40RHSmain];
-            maingraph.data.datasets[1].data[40] = payload[p41RHSmain];
-            maingraph.data.datasets[1].data[41] = payload[p42RHSmain];
-            maingraph.data.datasets[1].data[42] = payload[p43RHSmain];
-            maingraph.data.datasets[1].data[43] = payload[p44RHSmain];
-            maingraph.data.datasets[1].data[44] = payload[p45RHSmain];
+                maingraph.data.datasets[2].data = Array(45).fill(payload[csvdata.indexOf("mono_rjn_high")])
+                maingraph.data.datasets[3].data = Array(45).fill(payload[csvdata.indexOf("mono_rjn_low")])
+                maingraph.data.datasets[4].data = Array(45).fill(payload[csvdata.indexOf("mono_force_line")])
+
+            }
+
+            pregraph.data.datasets[0].data[0] = payload[csvdata.indexOf("p1LHSpre")];
+            pregraph.data.datasets[0].data[1] = payload[csvdata.indexOf("p2LHSpre")];
+            pregraph.data.datasets[0].data[2] = payload[csvdata.indexOf("p3LHSpre")];
+            pregraph.data.datasets[0].data[3] = payload[csvdata.indexOf("p4LHSpre")];
+            pregraph.data.datasets[0].data[4] = payload[csvdata.indexOf("p5LHSpre")];
+            pregraph.data.datasets[0].data[5] = payload[csvdata.indexOf("p6LHSpre")];
+            pregraph.data.datasets[0].data[6] = payload[csvdata.indexOf("p7LHSpre")];
+            pregraph.data.datasets[0].data[7] = payload[csvdata.indexOf("p8LHSpre")];
+            pregraph.data.datasets[0].data[8] = payload[csvdata.indexOf("p9LHSpre")];
+            pregraph.data.datasets[0].data[9] = payload[csvdata.indexOf("p10LHSpr")];
+            pregraph.data.datasets[0].data[10] = payload[csvdata.indexOf("p11LHSpre")];
+            pregraph.data.datasets[0].data[11] = payload[csvdata.indexOf("p12LHSpre")];
+            pregraph.data.datasets[0].data[12] = payload[csvdata.indexOf("p13LHSpre")];
+            pregraph.data.datasets[0].data[13] = payload[csvdata.indexOf("p14LHSpre")];
+            pregraph.data.datasets[0].data[14] = payload[csvdata.indexOf("p15LHSpre")];
+            pregraph.data.datasets[0].data[15] = payload[csvdata.indexOf("p16LHSpre")];
+            pregraph.data.datasets[0].data[16] = payload[csvdata.indexOf("p17LHSpre")];
+            pregraph.data.datasets[0].data[17] = payload[csvdata.indexOf("p18LHSpre")];
+            pregraph.data.datasets[0].data[18] = payload[csvdata.indexOf("p19LHSpre")];
+            pregraph.data.datasets[0].data[19] = payload[csvdata.indexOf("p20LHSpre")];
+            pregraph.data.datasets[0].data[20] = payload[csvdata.indexOf("p21LHSpre")];
+            pregraph.data.datasets[0].data[21] = payload[csvdata.indexOf("p22LHSpre")];
+            pregraph.data.datasets[0].data[22] = payload[csvdata.indexOf("p23LHSpre")];
+            pregraph.data.datasets[0].data[23] = payload[csvdata.indexOf("p24LHSpre")];
+            pregraph.data.datasets[0].data[24] = payload[csvdata.indexOf("p25LHSpre")];
+            pregraph.data.datasets[0].data[25] = payload[csvdata.indexOf("p26LHSpre")];
+            pregraph.data.datasets[0].data[26] = payload[csvdata.indexOf("p27LHSpre")];
+            pregraph.data.datasets[0].data[27] = payload[csvdata.indexOf("p28LHSpre")];
+            pregraph.data.datasets[0].data[28] = payload[csvdata.indexOf("p29LHSpre")];
+            pregraph.data.datasets[0].data[29] = payload[csvdata.indexOf("p30LHSpre")];
+            pregraph.data.datasets[0].data[30] = payload[csvdata.indexOf("p31LHSpre")];
+            pregraph.data.datasets[0].data[31] = payload[csvdata.indexOf("p32LHSpre")];
+            pregraph.data.datasets[0].data[32] = payload[csvdata.indexOf("p33LHSpre")];
+            pregraph.data.datasets[0].data[33] = payload[csvdata.indexOf("p34LHSpre")];
+            pregraph.data.datasets[0].data[34] = payload[csvdata.indexOf("p35LHSpre")];
+            pregraph.data.datasets[0].data[35] = payload[csvdata.indexOf("p36LHSpre")];
+            pregraph.data.datasets[0].data[36] = payload[csvdata.indexOf("p37LHSpre")];
+            pregraph.data.datasets[0].data[37] = payload[csvdata.indexOf("p38LHSpre")];
+            pregraph.data.datasets[0].data[38] = payload[csvdata.indexOf("p39LHSpre")];
+            pregraph.data.datasets[0].data[39] = payload[csvdata.indexOf("p40LHSpre")];
+            pregraph.data.datasets[0].data[40] = payload[csvdata.indexOf("p41LHSpre")];
+            pregraph.data.datasets[0].data[41] = payload[csvdata.indexOf("p42LHSpre")];
+            pregraph.data.datasets[0].data[42] = payload[csvdata.indexOf("p43LHSpre")];
+            pregraph.data.datasets[0].data[43] = payload[csvdata.indexOf("p44LHSpre")];
+            pregraph.data.datasets[0].data[44] = payload[csvdata.indexOf("p45LHSpre")];
+
+            pregraph.data.datasets[1].data[0] =  payload[csvdata.indexOf("p1RHSpre")]
+            pregraph.data.datasets[1].data[1] =  payload[csvdata.indexOf("p2RHSpre")]
+            pregraph.data.datasets[1].data[2] =  payload[csvdata.indexOf("p3RHSpre")]
+            pregraph.data.datasets[1].data[3] =  payload[csvdata.indexOf("p4RHSpre")]
+            pregraph.data.datasets[1].data[4] =  payload[csvdata.indexOf("p5RHSpre")]
+            pregraph.data.datasets[1].data[5] =  payload[csvdata.indexOf("p6RHSpre")]
+            pregraph.data.datasets[1].data[6] =  payload[csvdata.indexOf("p7RHSpre")]
+            pregraph.data.datasets[1].data[7] =  payload[csvdata.indexOf("p8RHSpre")]
+            pregraph.data.datasets[1].data[8] =  payload[csvdata.indexOf("p9RHSpre")]
+            pregraph.data.datasets[1].data[9] =  payload[csvdata.indexOf("p10RHSpre")];
+            pregraph.data.datasets[1].data[10] = payload[csvdata.indexOf("p11RHSpre")];
+            pregraph.data.datasets[1].data[11] = payload[csvdata.indexOf("p12RHSpre")];
+            pregraph.data.datasets[1].data[12] = payload[csvdata.indexOf("p13RHSpre")];
+            pregraph.data.datasets[1].data[13] = payload[csvdata.indexOf("p14RHSpre")];
+            pregraph.data.datasets[1].data[14] = payload[csvdata.indexOf("p15RHSpre")];
+            pregraph.data.datasets[1].data[15] = payload[csvdata.indexOf("p16RHSpre")];
+            pregraph.data.datasets[1].data[16] = payload[csvdata.indexOf("p17RHSpre")];
+            pregraph.data.datasets[1].data[17] = payload[csvdata.indexOf("p18RHSpre")];
+            pregraph.data.datasets[1].data[18] = payload[csvdata.indexOf("p19RHSpre")];
+            pregraph.data.datasets[1].data[19] = payload[csvdata.indexOf("p20RHSpre")];
+            pregraph.data.datasets[1].data[20] = payload[csvdata.indexOf("p21RHSpre")];
+            pregraph.data.datasets[1].data[21] = payload[csvdata.indexOf("p22RHSpre")];
+            pregraph.data.datasets[1].data[22] = payload[csvdata.indexOf("p23RHSpre")];
+            pregraph.data.datasets[1].data[23] = payload[csvdata.indexOf("p24RHSpre")];
+            pregraph.data.datasets[1].data[24] = payload[csvdata.indexOf("p25RHSpre")];
+            pregraph.data.datasets[1].data[25] = payload[csvdata.indexOf("p26RHSpre")];
+            pregraph.data.datasets[1].data[26] = payload[csvdata.indexOf("p27RHSpre")];
+            pregraph.data.datasets[1].data[27] = payload[csvdata.indexOf("p28RHSpre")];
+            pregraph.data.datasets[1].data[28] = payload[csvdata.indexOf("p29RHSpre")];
+            pregraph.data.datasets[1].data[29] = payload[csvdata.indexOf("p30RHSpre")];
+            pregraph.data.datasets[1].data[30] = payload[csvdata.indexOf("p31RHSpre")];
+            pregraph.data.datasets[1].data[31] = payload[csvdata.indexOf("p32RHSpre")];
+            pregraph.data.datasets[1].data[32] = payload[csvdata.indexOf("p33RHSpre")];
+            pregraph.data.datasets[1].data[33] = payload[csvdata.indexOf("p34RHSpre")];
+            pregraph.data.datasets[1].data[34] = payload[csvdata.indexOf("p35RHSpre")];
+            pregraph.data.datasets[1].data[35] = payload[csvdata.indexOf("p36RHSpre")];
+            pregraph.data.datasets[1].data[36] = payload[csvdata.indexOf("p37RHSpre")];
+            pregraph.data.datasets[1].data[37] = payload[csvdata.indexOf("p38RHSpre")];
+            pregraph.data.datasets[1].data[38] = payload[csvdata.indexOf("p39RHSpre")];
+            pregraph.data.datasets[1].data[39] = payload[csvdata.indexOf("p40RHSpre")];
+            pregraph.data.datasets[1].data[40] = payload[csvdata.indexOf("p41RHSpre")];
+            pregraph.data.datasets[1].data[41] = payload[csvdata.indexOf("p42RHSpre")];
+            pregraph.data.datasets[1].data[42] = payload[csvdata.indexOf("p43RHSpre")];
+            pregraph.data.datasets[1].data[43] = payload[csvdata.indexOf("p44RHSpre")];
+            pregraph.data.datasets[1].data[44] = payload[csvdata.indexOf("p45RHSpre")];
+
+            maingraph.data.datasets[0].data[0] = payload[csvdata.indexOf("p1LHSmain")];
+            maingraph.data.datasets[0].data[1] = payload[csvdata.indexOf("p2LHSmain")];
+            maingraph.data.datasets[0].data[2] = payload[csvdata.indexOf("p3LHSmain")];
+            maingraph.data.datasets[0].data[3] = payload[csvdata.indexOf("p4LHSmain")];
+            maingraph.data.datasets[0].data[4] = payload[csvdata.indexOf("p5LHSmain")];
+            maingraph.data.datasets[0].data[5] = payload[csvdata.indexOf("p6LHSmain")];
+            maingraph.data.datasets[0].data[6] = payload[csvdata.indexOf("p7LHSmain")];
+            maingraph.data.datasets[0].data[7] = payload[csvdata.indexOf("p8LHSmain")];
+            maingraph.data.datasets[0].data[8] = payload[csvdata.indexOf("p9LHSmain")];
+            maingraph.data.datasets[0].data[9] =  payload[csvdata.indexOf("p10LHSmain")];
+            maingraph.data.datasets[0].data[10] = payload[csvdata.indexOf("p11LHSmain")];
+            maingraph.data.datasets[0].data[11] = payload[csvdata.indexOf("p12LHSmain")];
+            maingraph.data.datasets[0].data[12] = payload[csvdata.indexOf("p13LHSmain")];
+            maingraph.data.datasets[0].data[13] = payload[csvdata.indexOf("p14LHSmain")];
+            maingraph.data.datasets[0].data[14] = payload[csvdata.indexOf("p15LHSmain")];
+            maingraph.data.datasets[0].data[15] = payload[csvdata.indexOf("p16LHSmain")];
+            maingraph.data.datasets[0].data[16] = payload[csvdata.indexOf("p17LHSmain")];
+            maingraph.data.datasets[0].data[17] = payload[csvdata.indexOf("p18LHSmain")];
+            maingraph.data.datasets[0].data[18] = payload[csvdata.indexOf("p19LHSmain")];
+            maingraph.data.datasets[0].data[19] = payload[csvdata.indexOf("p20LHSmain")];
+            maingraph.data.datasets[0].data[20] = payload[csvdata.indexOf("p21LHSmain")];
+            maingraph.data.datasets[0].data[21] = payload[csvdata.indexOf("p22LHSmain")];
+            maingraph.data.datasets[0].data[22] = payload[csvdata.indexOf("p23LHSmain")];
+            maingraph.data.datasets[0].data[23] = payload[csvdata.indexOf("p24LHSmain")];
+            maingraph.data.datasets[0].data[24] = payload[csvdata.indexOf("p25LHSmain")];
+            maingraph.data.datasets[0].data[25] = payload[csvdata.indexOf("p26LHSmain")];
+            maingraph.data.datasets[0].data[26] = payload[csvdata.indexOf("p27LHSmain")];
+            maingraph.data.datasets[0].data[27] = payload[csvdata.indexOf("p28LHSmain")];
+            maingraph.data.datasets[0].data[28] = payload[csvdata.indexOf("p29LHSmain")];
+            maingraph.data.datasets[0].data[29] = payload[csvdata.indexOf("p30LHSmain")];
+            maingraph.data.datasets[0].data[30] = payload[csvdata.indexOf("p31LHSmain")];
+            maingraph.data.datasets[0].data[31] = payload[csvdata.indexOf("p32LHSmain")];
+            maingraph.data.datasets[0].data[32] = payload[csvdata.indexOf("p33LHSmain")];
+            maingraph.data.datasets[0].data[33] = payload[csvdata.indexOf("p34LHSmain")];
+            maingraph.data.datasets[0].data[34] = payload[csvdata.indexOf("p35LHSmain")];
+            maingraph.data.datasets[0].data[35] = payload[csvdata.indexOf("p36LHSmain")];
+            maingraph.data.datasets[0].data[36] = payload[csvdata.indexOf("p37LHSmain")];
+            maingraph.data.datasets[0].data[37] = payload[csvdata.indexOf("p38LHSmain")];
+            maingraph.data.datasets[0].data[38] = payload[csvdata.indexOf("p39LHSmain")];
+            maingraph.data.datasets[0].data[39] = payload[csvdata.indexOf("p40LHSmain")];
+            maingraph.data.datasets[0].data[40] = payload[csvdata.indexOf("p41LHSmain")];
+            maingraph.data.datasets[0].data[41] = payload[csvdata.indexOf("p42LHSmain")];
+            maingraph.data.datasets[0].data[42] = payload[csvdata.indexOf("p43LHSmain")];
+            maingraph.data.datasets[0].data[43] = payload[csvdata.indexOf("p44LHSmain")];
+            maingraph.data.datasets[0].data[44] = payload[csvdata.indexOf("p45LHSmain")];
+
+            maingraph.data.datasets[1].data[0] = payload[csvdata.indexOf("p1RHSmain")];
+            maingraph.data.datasets[1].data[1] = payload[csvdata.indexOf("p2RHSmain")];
+            maingraph.data.datasets[1].data[2] = payload[csvdata.indexOf("p3RHSmain")];
+            maingraph.data.datasets[1].data[3] = payload[csvdata.indexOf("p4RHSmain")];
+            maingraph.data.datasets[1].data[4] = payload[csvdata.indexOf("p5RHSmain")];
+            maingraph.data.datasets[1].data[5] = payload[csvdata.indexOf("p6RHSmain")];
+            maingraph.data.datasets[1].data[6] = payload[csvdata.indexOf("p7RHSmain")];
+            maingraph.data.datasets[1].data[7] = payload[csvdata.indexOf("p8RHSmain")];
+            maingraph.data.datasets[1].data[8] = payload[csvdata.indexOf("p9RHSmain")];
+            maingraph.data.datasets[1].data[9] =  payload[csvdata.indexOf("p10RHSmain")];
+            maingraph.data.datasets[1].data[10] = payload[csvdata.indexOf("p11RHSmain")];
+            maingraph.data.datasets[1].data[11] = payload[csvdata.indexOf("p12RHSmain")];
+            maingraph.data.datasets[1].data[12] = payload[csvdata.indexOf("p13RHSmain")];
+            maingraph.data.datasets[1].data[13] = payload[csvdata.indexOf("p14RHSmain")];
+            maingraph.data.datasets[1].data[14] = payload[csvdata.indexOf("p15RHSmain")];
+            maingraph.data.datasets[1].data[15] = payload[csvdata.indexOf("p16RHSmain")];
+            maingraph.data.datasets[1].data[16] = payload[csvdata.indexOf("p17RHSmain")];
+            maingraph.data.datasets[1].data[17] = payload[csvdata.indexOf("p18RHSmain")];
+            maingraph.data.datasets[1].data[18] = payload[csvdata.indexOf("p19RHSmain")];
+            maingraph.data.datasets[1].data[19] = payload[csvdata.indexOf("p20RHSmain")];
+            maingraph.data.datasets[1].data[20] = payload[csvdata.indexOf("p21RHSmain")];
+            maingraph.data.datasets[1].data[21] = payload[csvdata.indexOf("p22RHSmain")];
+            maingraph.data.datasets[1].data[22] = payload[csvdata.indexOf("p23RHSmain")];
+            maingraph.data.datasets[1].data[23] = payload[csvdata.indexOf("p24RHSmain")];
+            maingraph.data.datasets[1].data[24] = payload[csvdata.indexOf("p25RHSmain")];
+            maingraph.data.datasets[1].data[25] = payload[csvdata.indexOf("p26RHSmain")];
+            maingraph.data.datasets[1].data[26] = payload[csvdata.indexOf("p27RHSmain")];
+            maingraph.data.datasets[1].data[27] = payload[csvdata.indexOf("p28RHSmain")];
+            maingraph.data.datasets[1].data[28] = payload[csvdata.indexOf("p29RHSmain")];
+            maingraph.data.datasets[1].data[29] = payload[csvdata.indexOf("p30RHSmain")];
+            maingraph.data.datasets[1].data[30] = payload[csvdata.indexOf("p31RHSmain")];
+            maingraph.data.datasets[1].data[31] = payload[csvdata.indexOf("p32RHSmain")];
+            maingraph.data.datasets[1].data[32] = payload[csvdata.indexOf("p33RHSmain")];
+            maingraph.data.datasets[1].data[33] = payload[csvdata.indexOf("p34RHSmain")];
+            maingraph.data.datasets[1].data[34] = payload[csvdata.indexOf("p35RHSmain")];
+            maingraph.data.datasets[1].data[35] = payload[csvdata.indexOf("p36RHSmain")];
+            maingraph.data.datasets[1].data[36] = payload[csvdata.indexOf("p37RHSmain")];
+            maingraph.data.datasets[1].data[37] = payload[csvdata.indexOf("p38RHSmain")];
+            maingraph.data.datasets[1].data[38] = payload[csvdata.indexOf("p39RHSmain")];
+            maingraph.data.datasets[1].data[39] = payload[csvdata.indexOf("p40RHSmain")];
+            maingraph.data.datasets[1].data[40] = payload[csvdata.indexOf("p41RHSmain")];
+            maingraph.data.datasets[1].data[41] = payload[csvdata.indexOf("p42RHSmain")];
+            maingraph.data.datasets[1].data[42] = payload[csvdata.indexOf("p43RHSmain")];
+            maingraph.data.datasets[1].data[43] = payload[csvdata.indexOf("p44RHSmain")];
+            maingraph.data.datasets[1].data[44] = payload[csvdata.indexOf("p45RHSmain")];
             
             pregraph.update();
             maingraph.update();
