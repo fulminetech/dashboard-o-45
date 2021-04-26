@@ -609,7 +609,7 @@
                                         <div class="flex flex-col">
                                             <div class="flex-1 items-left text-gray-700">
                                                 <h5 class="font-bold uppercase text-center text-2xl">Roller Setting</h5>
-                                                <h3 class="font-bold mt-3 text-lg">Roller Frequency (Hz) </h3>
+                                                <h3 class="font-bold mt-3 text-lg">Roller Frequency (Hz) : <a id="roller_freq_"></a> </h3>
                                                 <div class="py-3">
                                                     <input id="roller_freq"
                                                         class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
@@ -2077,7 +2077,7 @@
                     document.getElementById("punch_number_metric").innerHTML = payload.stats.punch_present_position.L_PRE;
                     // document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
                     // document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
-                    document.getElementById("roller_freq").value = payload.stats.roller.frequency
+                    document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
                     document.getElementById("count_metric").innerHTML = payload.production;
                     document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
                     document.getElementById("rpm_metric").innerHTML = payload.stats.turret.RPM;
@@ -2907,8 +2907,8 @@
         function roller_freq() {
             var value = document.getElementById("roller_freq").value;
 
-            submitt(parseInt(value))
-
+            value <= 80 && value >=0 ? submitt(value) :
+            
             async function submitt(value) {
                 let submiturl = `${seturl}/ROLLER_VFD_FREQ/${value}`
                 await fetch(submiturl)
