@@ -1,6 +1,6 @@
 var ModbusRTU = require("modbus-serial");
 const { exec } = require('child_process');
-const restart1Command = "pm2 restart prod-modbus"
+const restart1Command = "pm2 restart 1"
 
 // Express
 const express = require("express");
@@ -69,6 +69,7 @@ var batchinfo = {
 }
 
 var payload = {
+    status: false,
     connection: false,
     batch: "Not set",
     rotation_no: 0,
@@ -555,8 +556,12 @@ var runModbus = function () {
 
     // console.log(mbsState);
     // console.log(nextAction);
-
-    // payload.stats.status = "ONLINE";
+  
+    // if (readfailed > 50) {
+        //     payload.status = false;
+        // } else {
+        //     payload.status = true;
+    // }
 
     if (nextAction !== undefined) {
         nextAction();
@@ -1172,14 +1177,6 @@ var write_coil_410 = function () {
             console.log(e.message);
             mbsState = FAIL_WRITE_COIL;
         })
-}
-
-function restartprodmodbus() {
-    exec(restart1Command, (err, stdout, stderr) => {
-        // handle err if you like!
-        console.log(`[ RESTARTING: prod-modbus ]`);
-        console.log(`${stdout}`);
-    });
 }
 
 function checkbatch() {

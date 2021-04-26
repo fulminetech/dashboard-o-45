@@ -11,6 +11,7 @@ console.log('Start:', noww)
 var startTime = + new Date();
 
 var payload = {
+    status: false,
     batch: 0,
     data_number: 0, // Rotation Number
     rotation_no: 0,
@@ -877,12 +878,11 @@ var runModbus = function () {
     // console.log(mbsState);
     // console.log(nextAction);
 
-    payload.stats.status = "ONLINE";
-
-    if (readfailed > failcounter) {
-        readfailed = 0;
-        restartprodmodbus();
-    }
+    // if (readfailed > 50) {
+        //     payload.status = false;
+        // } else {
+        //     payload.status = true;
+    // }
 
     // execute "next action" function if defined
     if (nextAction !== undefined) {
