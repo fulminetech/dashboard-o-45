@@ -323,7 +323,7 @@
                         
                         <div class="flex grid grid-cols-6">
                             <!-- Production -->
-                            <div class=" flex h-20 items-center">
+                            <div class=" h-20 items-center">
                                 <div class="border border-gray-500 bg-blue-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
@@ -433,7 +433,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            
                         </div>
 
                         <!-- Search: Parameters -->
@@ -600,9 +600,65 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <div class="flex">
+                            <div class="w-1/2 flex pb-64">
+                                <!-- Roller -->
+                                <div class=" h-20 items-center">
+                                    <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                                        <div class="flex flex-col">
+                                            <div class="flex-1 items-left text-gray-700">
+                                                <h5 class="font-bold uppercase text-center text-2xl">Roller Setting</h5>
+                                                <h3 class="font-bold mt-3 text-lg">Roller Frequency (Hz) </h3>
+                                                <div class="py-3">
+                                                    <input id="roller_freq"
+                                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                        type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) roller_freq()">
+                                                </div>
+                        
+                                                <div class="mt-5">
+                                                    <select class="text-3xl text-gray-700" name="roller" id="roller">
+                                                        <option value="0" onclick="roller()">0: DISABLE</option>
+                                                        <option value="1" onclick="roller()">1: LHS DISCHARGE PRE ROLLER</option>
+                                                        <option value="2" onclick="roller()">2: LHS DISCHARGE MAIN ROLLER</option>
+                                                        <option value="3" onclick="roller()">3: RHS DISCHARGE PRE ROLLER</option>
+                                                        <option value="4" onclick="roller()">4: RHS DISCHARGE MAIN ROLLER</option>
+                                                    </select>
+                                                </div>
+                        
+                                            </div>
+                                        </div>
+                                        <div class="flex mt-5 grid grid-cols-3">
+                        
+                                            <div class="flex p-3">
+                        
+                                                <!-- PDF report Button -->
+                                                <div class="py-3">
+                                                    <button id="up"
+                                                        class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                        onmousedown="up()" onmouseup="unup()">
+                                                        UP
+                                                    </button>
+                                                </div>
+                        
+                                                <!-- PDF report Button -->
+                                                <div class="py-3 pl-10">
+                                                    <button id="down"
+                                                        class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                        onmousedown="down()" onmouseup="undown()">
+                                                        DOWN
+                                                    </button>
+                                                </div>
+                                            </div>
+                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
                         <!--Average Compression Trend-->
-                        <div class="border-b p-3">
+                        <div class="border-b p-3 pt-24">
                             <h5 class="font-bold text-black">Average Compression (kN) :</h5>
                         </div>
                         <div class="p-5 my-3 border border-blue-500 bg-green-300 rounded shadow">
@@ -2021,6 +2077,7 @@
                     document.getElementById("punch_number_metric").innerHTML = payload.stats.punch_present_position.L_PRE;
                     // document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
                     // document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
+                    document.getElementById("roller_freq").value = payload.stats.roller.frequency
                     document.getElementById("count_metric").innerHTML = payload.production;
                     document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
                     document.getElementById("rpm_metric").innerHTML = payload.stats.turret.RPM;
@@ -2847,6 +2904,60 @@
             }
         }
         
+        function roller_freq() {
+            var value = document.getElementById("roller_freq").value;
+
+            submitt(parseInt(value))
+
+            async function submitt(value) {
+                let submiturl = `${seturl}/ROLLER_VFD_FREQ/${value}`
+                await fetch(submiturl)
+                    .then(check())
+                    .catch(console.error);
+            }
+        }
+
+        function roller() {
+
+            var value = document.getElementById("roller").value
+
+            submitt(parseInt(value))
+
+            async function submitt(value) {
+                let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
+
+                await fetch(submiturl)
+                    .then(check())
+                    .catch(console.error);
+            }
+        }
+
+        async function up() {
+            roller()
+
+            let submiturl = `${seturl}/ROLLER_FORWARD/true`
+            await fetch(submiturl)
+                .catch(console.error);
+        }
+
+        async function unup() {
+            let submiturl = `${seturl}/ROLLER_FORWARD/false`
+            await fetch(submiturl)
+                .catch(console.error);
+        }
+
+        async function down() {
+            roller()
+            let submiturl = `${seturl}/ROLLER_REVERSE/true`
+            await fetch(submiturl)
+                .catch(console.error);
+        }
+
+        async function undown() {
+            let submiturl = `${seturl}/ROLLER_REVERSE/false`
+            await fetch(submiturl)
+                .catch(console.error);
+        }
     </script>
 
 </body>
