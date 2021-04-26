@@ -824,7 +824,7 @@ var read_coils = function () {
         .then(function (data) {
             // console.log("STATS: ",stats_data.data)
 
-            payload.button.maintainence = data.data[0]
+            payload.button.maintainence = data.data
         })
         .catch(function (e) {
             console.error('[ coil_7900 Garbage ]')
