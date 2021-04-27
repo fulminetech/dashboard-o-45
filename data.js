@@ -3,8 +3,8 @@ const fetch = require('cross-fetch');
 const { exec } = require('child_process');
 // const CronJob = require('cron').CronJob;
 
-const Gpio = require('onoff').Gpio;
-const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 10 });
+// const Gpio = require('onoff').Gpio;
+// const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 10 });
 
 var host = "http://localhost";
 // var os = require("os");
@@ -758,6 +758,9 @@ async function stats_() {
         })
         .then(data => {
             stats = data
+            // stats.mbstatus == false ? restart :
+            // stats.connection == false ? restart :
+            // stats.batch == "" ? updatebatch :
         })
         .catch(err => {
             console.error("[ MODBUS SERVER OFFLINE ]");
@@ -1096,8 +1099,11 @@ async function fetchpayload() {
             return res.json();
         })
         .then(data => {
-
+            
             payload1 = data;
+
+            // payload1.status == false ? restart :
+            
             // console.log(payload1)
             // payload.batch = payload1.batch
             // payload.data_number = payload1.data_number
@@ -1569,17 +1575,17 @@ var watchproxy = function () {
     writemachine();
     console.log("Watching proxy")
    
-    setTimeout(() => {
-        proxy.watch((err, value) => {
-            if (err) {
-                throw err;
-            }
-            payload.data_number++;
-            console.log("DATA")
-            writeHistory();
-            writeAverage();
-        });
-    }, 2000);
+    // setTimeout(() => {
+    //     proxy.watch((err, value) => {
+    //         if (err) {
+    //             throw err;
+    //         }
+    //         payload.data_number++;
+    //         console.log("DATA")
+    //         writeHistory();
+    //         writeAverage();
+    //     });
+    // }, 2000);
     
 
 }

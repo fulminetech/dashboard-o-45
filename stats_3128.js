@@ -38,7 +38,7 @@ var client = new ModbusRTU();
 const slaveID = 1;
 const ip = "192.168.1.5"
 var mbsTimeout = 1000;
-var mbsScan = 1000; // Modbus scan time
+var mbsScan = 500; // Modbus scan time
 
 var GOOD_CONNECT = "GOOD_CONNECT";
 var FAILED_CONNECT = "FAILED_CONNECT";
@@ -54,10 +54,9 @@ var PASS_REGS_WRITE = "PASS_REGS_WRITE";
 var FAIL_REGS_WRITE = "FAIL_REGS_WRITE";
 
 let readfailed = 0;
-let failcounter = 100;
+let failrestart = 50;
 
-let writefailed = 0;
-let failcounter_w = 3;
+
 
 let timecheck = 3;
 let timetemp = 0;
@@ -69,9 +68,9 @@ var batchinfo = {
 }
 
 var payload = {
-    status: false,
-    connection: false,
-    batch: "Not set",
+    mbstatus: '',
+    connection: '',
+    batch: "",
     rotation_no: 0,
     present_punch: 0,
     production: 0,
@@ -479,6 +478,7 @@ var connectClient = function () {
             runModbus()
         })
         .catch(function (e) {
+            payload.connection = false
             mbsState = FAILED_CONNECT;
             console.log(`[ FAILED TO CONNECT ]`)
             console.log(e);
@@ -557,11 +557,11 @@ var runModbus = function () {
     // console.log(mbsState);
     // console.log(nextAction);
   
-    // if (readfailed > 50) {
-        //     payload.status = false;
-        // } else {
-        //     payload.status = true;
-    // }
+    if (readfailed > failrestart) {
+            payload.mbstatus = false;
+        } else {
+            payload.mbstatus = true;
+    }
 
     if (nextAction !== undefined) {
         nextAction();
@@ -1008,7 +1008,7 @@ var read_regs = function () {
             payload.stats.punch_offset_position.R_MAIN = data.data[50]
             payload.stats.punch_offset_position.R_EJN = data.data[51]
 
-            payload.stats.hydraulic.max_pressure = data.data[52] /10;
+            payload.stats.hydraulic.max_pressure = data.data[52];
 
             payload.stats.punch_offset_position.L_AIR_MONO = data.data[53]
             payload.stats.punch_offset_position.R_AIR_MONO = data.data[54]
@@ -1177,31 +1177,6 @@ var write_coil_410 = function () {
             console.log(e.message);
             mbsState = FAIL_WRITE_COIL;
         })
-}
-
-function checkbatch() {
-    _perm.queryRaw(`select "batch" from "batchlist" ORDER BY time DESC LIMIT 1`)
-        .then(data => {
-            var response = data.results[0].series[0].values[0];
-            var response1 = data.results[0].series[0].values[1];
-            var lastBatch = response[1]
-            var lastOperator = response1[1]
-            console.log(lastBatch)
-            console.log(lastOperator)
-            batchinfo.name = lastBatch;
-            batchinfo.operator = lastOperator;
-        })
-        .then(
-            _new.queryRaw(`select "rotation" from "${batchinfo.name}.average" ORDER BY time DESC LIMIT 1`)
-                .then(data => {
-                    var response = data.results[0].series[0].values[0];
-                    var previousrtn = parseInt(response[1]);
-                    console.log(previousrtn)
-                    batchinfo.rotation = previousrtn
-                })
-                .catch(console.error)
-        )
-        .catch(console.error);
 }
 
 app.use("/api/machine/stats", (req, res) => {
@@ -2867,9 +2842,9 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "HYDRAULIC_PRESSURE_MAX") {
         reg_offset_6000 = 1052
-        reg_write_value = b*10
-        c = payload.stats.hydraulic.high_cutoff
-        payload.stats.hydraulic.high_cutoff = b;
+        reg_write_value = b
+        c = payload.stats.hydraulic.max_pressure
+        payload.stats.hydraulic.max_pressure = b;
         write_regs()
         writelog()
     }

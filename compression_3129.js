@@ -11,7 +11,8 @@ console.log('Start:', noww)
 var startTime = + new Date();
 
 var payload = {
-    status: false,
+    mbstatus: '',
+    connection: '',
     batch: 0,
     data_number: 0, // Rotation Number
     rotation_no: 0,
@@ -774,6 +775,7 @@ var connectClient = function () {
         })
         .catch(function (e) {
             mbsState = MBS_STATE_FAIL_CONNECT;
+            payload.connection = false
             console.log(`[ FAILED TO CONNECT ]`)
             console.log(e);
         });
@@ -878,11 +880,11 @@ var runModbus = function () {
     // console.log(mbsState);
     // console.log(nextAction);
 
-    // if (readfailed > 50) {
-        //     payload.status = false;
-        // } else {
-        //     payload.status = true;
-    // }
+    if (readfailed > 50) {
+            payload.mbstatus = false;
+        } else {
+            payload.mbstatus = true;
+    }
 
     // execute "next action" function if defined
     if (nextAction !== undefined) {

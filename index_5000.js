@@ -194,7 +194,7 @@ app.get("/onboard/continue", (req, res) => {
                 payload.stats.status = "ONLINE"
 
             })
-            .then(
+            .then(function () {
                 _new.queryRaw(`select "rotation" from "${batchinfo.name}.average" ORDER BY time DESC LIMIT 1`)
                     .then(data => {
                         var response = data.results[0].series[0].values[0];
@@ -203,14 +203,18 @@ app.get("/onboard/continue", (req, res) => {
                         batchinfo.rotation = previousrtn
                     })
                     .catch(console.error)
+                }
+            )
+            .then(function () {
+                watchproxy();
+                startmodbus();
+                updatestatsbatch()
+                return res.json({ message: `[ CONTINUING BATCH: ${payload.batch} ]` });
+                }
             )
             .catch(console.error);
     }
 
-    watchproxy();
-    startmodbus();
-    updatestatsbatch()
-    return res.json({ message: `[ CONTINUING BATCH: ${payload.batch} ]` });
 });
 
 
