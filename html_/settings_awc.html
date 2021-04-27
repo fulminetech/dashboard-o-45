@@ -241,17 +241,15 @@
                                 <tr>
                                     <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC HIGH</td>
                                     <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                        <input id="awc_high"
-                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                            type="text" placeholder="AWC High">
+                                        <a id="awc_high"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-3 block w-full">-</a>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC LOW</td>
                                     <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                        <input id="awc_low"
-                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                            type="text" placeholder="AWC LOW">
+                                        <a id="awc_low"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-3 block w-full">-</a>
                                     </td>
                 
                                 </tr>
@@ -292,28 +290,25 @@
                                 <tr>
                                     <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC HIGH</td>
                                     <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                        <input id="awc_high_LHS"
-                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                            type="text" placeholder="AWC High LHS">
+                                        <a id="awc_high_LHS"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-3 block w-full">-</a>
                                     </td>
                                     <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
-                                        <input id="awc_high_RHS"
-                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                            type="text" placeholder="AWC High RHS">
+                                        <a id="awc_high_RHS"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-3 block w-full">-</a>
                                     </td>
                 
                                 </tr>
                                 <tr>
                                     <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC LOW</td>
                                     <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                        <input id="awc_low_LHS"
-                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                            type="text" placeholder="AWC Low LHS">
+                                        <a id="awc_low_LHS"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-3 block w-full">-</a>
+
                                     </td>
                                     <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
-                                        <input id="awc_low_RHS"
-                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                            type="text" placeholder="AWC Low RHS">
+                                        <a id="awc_low_RHS"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-3 block w-full">-</a>
                                     </td>
                 
                                 </tr>
@@ -382,14 +377,12 @@
                                 <tr>
                                     <td class="text-center py-2 uppercase text-xl text-blue-900"></td>
                                     <td class="border-b text-center pb-5 px-3 ">
-                                        <input id="RHS_actual"
-                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                            type="text" placeholder="">
+                                        <a id="RHS_actual"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-3 block w-full">-</a>
                                     </td>
                                     <td class="border-b text-center pb-5 px-3 ">
-                                        <input id="LHS_actual"
-                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                            type="text" placeholder="">
+                                        <a id="LHS_actual"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-3 block w-full">-</a>
                                     </td>
                     
                                 </tr class="my-20">
@@ -510,8 +503,8 @@
                 .then(function (data) {
                     payload = data 
 
-                    document.getElementById("LHS_actual").value = payload.stats.awc.actual_LHS
-                    document.getElementById("RHS_actual").value = payload.stats.awc.actual_RHS
+                    document.getElementById("LHS_actual").innerHTML = payload.stats.awc.actual_LHS
+                    document.getElementById("RHS_actual").innerHTML = payload.stats.awc.actual_RHS
                     
                     document.getElementById("dozerLHS").value = payload.machine.LHS.dozer_position
                     document.getElementById("dozerRHS").value = payload.machine.RHS.dozer_position
@@ -525,13 +518,12 @@
                     document.getElementById("preLHSfl").value = payload.stats.awc.BI_PRE_FORCE
                     document.getElementById("preRHSfl").value = payload.stats.awc.BI_MAIN_FORCE
                     
-                    document.getElementById("awc_high").value = payload.stats.awc.L_maincompression_upperlimit
-                    document.getElementById("awc_low").value = payload.stats.awc.L_maincompression_lowerlimit
-                    document.getElementById("awc_high_LHS").value = payload.stats.awc.L_precompression_upperlimit
-                    document.getElementById("awc_high_RHS").value = payload.stats.awc.R_precompression_upperlimit
-                    document.getElementById("awc_low_LHS").value = payload.stats.awc.L_precompression_lowerlimit
-                    document.getElementById("awc_low_RHS").value = payload.stats.awc.R_precompression_lowerlimit
-
+                    document.getElementById("awc_high").innerHTML = payload.stats.awc.L_maincompression_upperlimit
+                    document.getElementById("awc_low").innerHTML = payload.stats.awc.L_maincompression_lowerlimit
+                    document.getElementById("awc_high_LHS").innerHTML = payload.stats.awc.L_precompression_upperlimit
+                    document.getElementById("awc_high_RHS").innerHTML = payload.stats.awc.R_precompression_upperlimit
+                    document.getElementById("awc_low_LHS").innerHTML = payload.stats.awc.L_precompression_lowerlimit
+                    document.getElementById("awc_low_RHS").innerHTML = payload.stats.awc.R_precompression_lowerlimit
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
