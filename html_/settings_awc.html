@@ -160,7 +160,7 @@
                 </div>
             </div>
         
-            <div class="w-1 w-full">
+            <!-- <div class="w-1 w-full">
                 <div onclick="location.href='/settings_recipie'">
                     <div
                         class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
@@ -184,7 +184,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         
             <!-- <div class="w-1 w-full">
                         <div onclick="location.href='/settings_limit'"
@@ -383,12 +383,12 @@
                                     <td class="text-center py-2 uppercase text-xl text-blue-900"></td>
                                     <td class="border-b text-center pb-5 px-3 ">
                                         <input id="RHS_actual"
-                                            class="bg-white text-center text-xl border-gray-500 select-none shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
                                             type="text" placeholder="">
                                     </td>
                                     <td class="border-b text-center pb-5 px-3 ">
                                         <input id="LHS_actual"
-                                            class="bg-white text-center text-xl border-gray-500 select-none shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
                                             type="text" placeholder="">
                                     </td>
                     
@@ -563,15 +563,9 @@
             }, 2000);
         }
 
-        function checkfor10s() {
-            for (let index = 0; index < 40000; index++) {
-                setTimeout(() => {
-                    fetchpayloadapiHF2
-                }, 400);
-            }
-        }
-
-        checkfor10s()
+        setInterval(() => {
+            fetchpayloadapiHF2
+        }, 400);
         
     </script>
 

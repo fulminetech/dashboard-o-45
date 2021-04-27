@@ -28,45 +28,45 @@
         <!-- On boarding card -->
         <div class="leading-loose w-1/3 pt-20">
 
-            <p class="text-gray-800 text-4xl uppercase text-bold text-center font-medium">Batch settings</p>
+            <p class="text-gray-800 text-4xl uppercase text-bold text-center font-medium">NEW Batch settings</p>
 
             <div class="mt-2">
-                <label class="block text-lg text-gray-900">Operator Name</label>
+                <label class="block text-xl text-gray-900">Operator Name</label>
                 <form id="name">
-                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="name" type="text"
+                    <input class="w-full text-xl px-5 py-3 text-gray-700 bg-gray-200 rounded" name="name" type="text"
                         required="" placeholder="Operator Name">
                 </form>
             </div>
 
-            <div class="mt-2">
+            <!-- <div class="mt-2">
                 <label class="block text-lg text-gray-900">Machine ID</label>
                 <label class="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded">45_PUNCH</label>
-            </div>
+            </div> -->
 
             <div class="mt-2">
-                <label class="block text-lg text-gray-900">Batch Number</label>
+                <label class="block text-xl text-gray-900">Batch Name</label>
                 <form id="batch">
-                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="batch" type="text"
+                    <input class="w-full text-xl px-5 py-3 text-gray-700 bg-gray-200 rounded" name="batch" type="text"
                         required="" placeholder="Current Batch Number">
                 </form>
             </div>
 
             <div class="mt-2">
-                <label class="block text-lg text-gray-900" for="recepie">Recepie ID</label>
+                <label class="block text-xl text-gray-900" for="recepie">Recepie Name</label>
                 <form id="recepie">
-                    <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" name="recepie" type="text"
+                    <input class="w-full text-xl px-5 py-3 text-gray-700 bg-gray-200 rounded" name="recepie" type="text"
                         required="" placeholder="Current Recepie ID">
                 </form>
             </div>
 
             <div class="mt-2">
-                <label class=" block text-lg text-gray-900">Start Time</label>
-                <label id="time" class="w-full px-4 py-2 text-gray-700 bg-gray-200 rounded"></label>
+                <label class=" block text-xl text-gray-900">Start Time</label>
+                <label id="time" class="w-full text-xl px-4 py-3 text-gray-700 bg-gray-200 rounded"></label>
             </div>
 
             <div class="mt-4 flex justify-center">
                 <button onclick="start()"
-                    class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded">START</button>
+                    class="px-4 py-1 text-white text-2xl font-light tracking-wider bg-gray-900 rounded">START</button>
 
             </div>
 
@@ -74,20 +74,19 @@
                 <label class=" block text-lg text-gray-900">--== OR ==--</label>
             </div>
 
-            <div class="mt-4 flex justify-center">
-                <label class=" block text-bold uppercase text-3xl text-gray-900">Continue Last Batch</label>
-            </div>
+            <p class="pt-10 text-gray-800 text-4xl uppercase text-bold text-center font-medium">continue last batch</p>
+
             
             <div class="mt-4 flex justify-center">
                 <button onclick="continuee()"
-                    class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded">CONTINUE</button>
+                    class="px-4 py-1 text-white text-2xl font-light tracking-wider bg-gray-900 rounded">CONTINUE</button>
             </div>
 
-            <p class="text-gray-800 text-2xl mt-4 uppercase text-bold text-center font-medium">Note:</p>
+            <!-- <p class="text-gray-800 text-2xl mt-4 uppercase text-bold text-center font-medium">Note:</p> -->
             
-            <div class="mt-2">
+            <!-- <div class="mt-2">
                 <label class="block text-lg text-center text-gray-900">To continue previous batch enter the previous Batch Number, Operator Name and Recepie ID & click START</label>
-            </div>
+            </div> -->
 
         </div>
     </div>

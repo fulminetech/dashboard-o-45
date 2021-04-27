@@ -162,7 +162,7 @@
                 </div>
             </div>
         
-            <div class="w-1 w-full">
+            <!-- <div class="w-1 w-full">
                 <div onclick="location.href='/settings_recipie'">
                     <div
                         class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
@@ -186,7 +186,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         
             <!-- <div class="w-1 w-full">
                         <div onclick="location.href='/settings_limit'"
@@ -1388,7 +1388,7 @@
                 colorNeedleShadowDown: "#222",
                 borderShadowWidth: 0,
                 animationTarget: "plate",
-                animationDuration: 500,
+                animationDuration: 50,
                 title: "ENCODER",
                 fontTitleSize: 19,
                 colorTitle: "#f5f5f5",
@@ -1402,7 +1402,7 @@
                 console.log(value)
                 gauge.value = value;
             }, 20);    
-        }, 1000);
+        }, 500);
         
         // var index = 1;
         // var value = 270
@@ -1446,7 +1446,7 @@
     <script>
         var maindata;
 
-        async function fetchpayloadapiHF() {
+        async function fetchstats() {
             fetch(statsurl)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
@@ -1556,9 +1556,9 @@
                     console.log("[ PAYLOAD FETCH ERROR ]", error)
                 });
         };
-        fetchpayloadapiHF()
+        fetchstats()
 
-        async function fetchpayloadapiHF6() {
+        async function fetchstatsencoder() {
             fetch(statsurl)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
@@ -1575,16 +1575,16 @@
                     console.log("[ PAYLOAD FETCH ERROR ]", error)
                 });
         };
-        fetchpayloadapiHF6()
+        fetchstatsencoder()
 
         function check() {
                 setTimeout(() => {
-                    fetchpayloadapiHF()
-                }, 2000);
+                    fetchstats()
+                }, 1500);
             }
 
         
-        async function fetchpayloadapiLF() {
+        async function fetchmain() {
             fetch(rawpayload)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
@@ -1612,11 +1612,11 @@
                 });
         };
         
-        fetchpayloadapiLF();
+        fetchmain();
         setInterval(() => {
-            fetchpayloadapiLF();
-            fetchpayloadapiHF6()
-        }, 200);
+            fetchmain();
+            fetchstatsencoder()
+        }, 300);
     
 
     </script>
@@ -2322,7 +2322,7 @@
             var a = document.getElementById("HYDRAULIC_PRESSURE_MAX").value;
             // console.log(a)
             let submiturl = `${seturl}/HYDRAULIC_PRESSURE_MAX/${a}`
-            if (a <= 10 && a >= 0.1) {
+            if (a <= 250 && a >= 1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
