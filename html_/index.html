@@ -127,19 +127,12 @@
                     class="w-full inline-block text-lg">Settings</span>
                 </a>
             </li>
-            <li class="my-2 md:my-0">
+            <!-- <li class="my-2 md:my-0">
                 <a href="/" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <i class="fa fa-minus-square mr-5 mt-1 text-2xl" aria-hidden="true"></i>
-                    <span class="w-full inline-block text-lg">Logout</span>
+                    <span class="w-full inline-block text-lg">Admin</span>
                 </a>
-            </li>
-            <li class="my-2 md:my-0">
-                <a href="/restart_server" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fa fa-minus-square mr-5 mt-1 text-2xl" aria-hidden="true"></i>
-                    <span class="w-full inline-block text-lg">Server RST</span>
-                </a>
-            </li>
-            
+            </li> -->
             
         </ul>
 
@@ -323,7 +316,7 @@
                         
                         <div class="flex grid grid-cols-6">
                             <!-- Production -->
-                            <div class=" h-20 items-center">
+                            <div class="px-1 h-20 items-center">
                                 <div class="border border-gray-500 bg-blue-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
@@ -338,7 +331,7 @@
                             </div>
 
                             <!-- Pressure -->
-                            <div class="flex h-20 items-center">
+                            <div class="px-1 flex h-20 items-center">
                                 <div class="border border-gray-500 bg-yellow-300 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
@@ -358,7 +351,7 @@
                             </div>
 
                             <!-- Lubrication time -->
-                            <div class="flex h-20 items-center">
+                            <div class="px-1 flex h-20 items-center">
                                 <div class="border border-gray-500 bg-yellow-300 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
@@ -378,7 +371,7 @@
                             </div>
 
                             <!-- Turret -->
-                            <div class="flex h-20 items-center">
+                            <div class="px-1 flex h-20 items-center">
                                 <div class="border border-gray-500 bg-purple-300 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
@@ -397,7 +390,7 @@
                             </div>
 
                             <!-- Feeder LHS -->
-                            <div class="flex h-20 items-center">
+                            <div class="px-1 flex h-20 items-center">
                                 <div class="border border-gray-500 bg-purple-300 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
@@ -416,7 +409,7 @@
                             </div>
 
                             <!-- Feeder RHS -->
-                            <div class="flex h-20 items-center">
+                            <div class="px-1 flex h-20 items-center">
                                 <div class="border border-gray-500 bg-purple-300 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
@@ -506,7 +499,7 @@
                             <div class="flex flex-wrap p-3">
                         
                                 <!-- Excel Button -->
-                                <div class="py-3">
+                                <div class="">
                                     <button id="man_samp"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
                                         onmousedown="button13()" onmouseup="button13x()"> 
@@ -518,7 +511,7 @@
                             <div class="flex flex-wrap p-3">
                         
                                 <!-- Excel Button -->
-                                <div class="py-3">
+                                <div class="">
                                     <button id="samp"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onclick="samp()"> 
@@ -530,7 +523,7 @@
                             <div class="flex flex-wrap p-3">
                         
                                 <!-- Bi Layer Mode-->
-                                <div class="py-3">
+                                <div class="">
                                     <button id="bi_mode"
                                         class="bg-orange-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
                                         onclick="layer()"> 
@@ -542,7 +535,7 @@
                             <div class="flex flex-wrap p-3">
                             
                                 <!-- PDF report Button -->
-                                <div class="py-3">
+                                <div class="">
                                     <button id="disable_awc"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-12 border border-blue-500 rounded"
                                         onclick="awc()"> 
@@ -554,7 +547,7 @@
                             <div class="flex flex-wrap p-3">
                             
                                 <a href="/io_alarm">
-                                    <div class="py-3">
+                                    <div class="">
                                         <button id="alarm_page"
                                             class="bg-red-600 uppercase text-xl text-gray-100 font-semibold py-5 px-12 border border-blue-500 rounded hidden"
                                             > 
@@ -570,7 +563,7 @@
                         <div class="border-b p-3">
                             <h5 class="font-bold text-black">Depth (mm) :</h5>
                         </div>
-                        <div class="p-5 my-3 border border-blue-500 bg-purple-300 rounded shadow">
+                        <div class="p-5 my-3 border border-blue-500 bg-purple-300 rounded shadow" onclick="myFunction()">
                             <div class="flex">
                                 <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">RHS Discharge</h5>
                                 <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">LHS Discharge</h5>
@@ -601,7 +594,7 @@
                             </table>
                         </div>
 
-                        <div class="flex">
+                        <div id="myDIV" class="flex hidden">
                             <div class="w-1/2 flex pb-64">
                                 <!-- Roller -->
                                 <div class=" h-20 items-center">
@@ -658,7 +651,7 @@
                         </div>
                         
                         <!--Average Compression Trend-->
-                        <div class="border-b p-3 pt-24">
+                        <div class="border-b p-3 pt-20">
                             <h5 class="font-bold text-black">Average Compression (kN) :</h5>
                         </div>
                         <div class="p-5 my-3 border border-blue-500 bg-green-300 rounded shadow">
@@ -1493,47 +1486,6 @@
 
     </script>
 
-    <!-- modal script -->
-    <script>
-        var openmodal = document.querySelectorAll('.modal-open')
-        for (var i = 0; i < openmodal.length; i++) {
-            openmodal[i].addEventListener('click', function (event) {
-                event.preventDefault()
-                toggleModal()
-            })
-        }
-
-        const overlay = document.querySelector('.modal-overlay')
-        overlay.addEventListener('click', toggleModal)
-
-        var closemodal = document.querySelectorAll('.modal-close')
-        for (var i = 0; i < closemodal.length; i++) {
-            closemodal[i].addEventListener('click', toggleModal)
-        }
-
-        document.onkeydown = function (evt) {
-            evt = evt || window.event
-            var isEscape = false
-            if ("key" in evt) {
-                isEscape = (evt.key === "Escape" || evt.key === "Esc")
-            } else {
-                isEscape = (evt.keyCode === 27)
-            }
-            if (isEscape && document.body.classList.contains('modal-active')) {
-                toggleModal()
-            }
-        };
-
-        function toggleModal() {
-            const body = document.querySelector('body')
-            const modal = document.querySelector('.modal')
-            modal.classList.toggle('opacity-0')
-            modal.classList.toggle('pointer-events-none')
-            body.classList.toggle('modal-active')
-        }
-
-    </script>
-
     <!-- modal 1 script -->
     <script>
         var openmodal1 = document.querySelectorAll('.modal1-open')
@@ -1729,20 +1681,21 @@
 
     </script>
 
-    <!-- PAYLOAD API fetch -->
+    <!-- API FETCHES -->
     <script>
         var currentBatch;
         var currentrotation;
         var currentrpm;
         var maindata;
 
-        async function fetchpayloadapiHF() {
+        async function fetchcompression() {
             fetch(payloadURL)
                 .then((resp) => resp.json()) 
                 .then(function (data) {
-                    
                     payload = data
                     // console.log(payload)
+                    
+                    // data.status == false ? clearInterval(datashower) :  
 
                     document.getElementById("status").innerHTML = payload.stats.status;
                     document.getElementById("batch_number_metric").innerHTML = payload.batch;
@@ -2049,22 +2002,13 @@
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
-                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    alert("[ CHECK PLC CONNECTION ]")
+                    // clearInterval(datashower)
+                    // console.log("[ PAYLOAD FETCH ERROR ]", error)
                 });
         };
 
-        fetchpayloadapiHF();
-        setTimeout(() => {
-            setInterval(() => {
-                fetchpayloadapiHF();
-            }, 1000);
-        }, 700);
-    </script>
-
-    <!-- Stats API fetch -->
-    <script>
-
-        async function fetchpayloadapiLF() {
+        async function fetchstats() {
             fetch(statsurl)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
@@ -2171,34 +2115,15 @@
                         const div2 = document.getElementById("first_sampl").classList.remove('bg-green-300');
                     }
                     
-                    
-                    // if (payload.button.AWC_ENABLE == true) {
-                    //     document.getElementById("disable_awc").innerHTML = "AWC DISABLE";
-                    //     document.getElementById("disable_awc").replace('bg-red-300', 'bg-green-300');
-                    // } else {
-                    //     document.getElementById("disable_awc").innerHTML = "AWC ENABLE";
-                    //     document.getElementById("disable_awc").replace('bg-green-300', 'bg-red-300');
-                    // }
-                
-                    
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
-                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    alert("[ CHECK PLC CONNECTION ]")
+                    // console.log("[ PAYLOAD FETCH ERROR ]", error)
                 });
         };
 
-        var alarm
-        var alarm_status = false
-        
-        function alarm_active() {
-            alarm_status = true
-            alarm = setInterval(() => {
-                const div1 = document.getElementById("alarm_page").classList.toggle('hidden');
-            }, 1000);
-        }
-        
-        async function fetchpayloadapiLF1() {
+        async function fetchmain() {
             fetch(rawpayload)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
@@ -2220,19 +2145,55 @@
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
-                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    alert("[ CHECK PLC CONNECTION ]")
+                    // console.log("[ PAYLOAD FETCH ERROR ]", error)
                 });
             };
-            
-        setTimeout(() => {
-            fetchpayloadapiLF();
-            fetchpayloadapiHF();
-            setInterval(() => {
-                fetchpayloadapiLF();
-                fetchpayloadapiLF1();
+ 
+        fetchstats();
+        fetchcompression();
+        fetchmain();
 
+        var datashower
+
+        datashower = setInterval(() => {
+            fetchstats();
+            fetchmain();
+            fetchcompression();
+        }, 300);
+
+        datashower()
+        
+    </script>
+
+    <!-- Hide Section -->
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myDIV");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        var alarm
+        var alarm_status = false
+
+        function alarm_active() {
+            alarm_status = true
+            alarm = setInterval(() => {
+                const div1 = document.getElementById("alarm_page").classList.toggle('hidden');
             }, 1000);
-        }, 10);
+        }
+    </script>
+
+    <!-- Auto logout -->
+    <script>
+        // 15 min auto logout
+        setTimeout(() => {
+            window.location.href = "/";
+        }, 900000);
     </script>
 
     <!-- Average Compression History graph -->
