@@ -2154,10 +2154,12 @@
         fetchcompression();
         fetchmain();
 
-        setInterval(() => {
-            fetchstats();
-            fetchmain();
-            fetchcompression();
+        setTimeout(() => {
+            setInterval(() => {
+                fetchstats();
+                fetchmain();
+                fetchcompression();
+            }, 300);
         }, 300);
 
     </script>
