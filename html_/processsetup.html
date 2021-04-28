@@ -311,17 +311,15 @@
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC HIGH</td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_high"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC High">
+                                            <a id="awc_high"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC LOW</td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_low"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC LOW" >
+                                            <a id="awc_low"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                         
                                     </tr>
@@ -392,28 +390,24 @@
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC HIGH</td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_high_LHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC High LHS">
+                                            <a id="awc_high_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                         <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_high_RHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC High RHS">
+                                            <a id="awc_high_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                         
                                     </tr>
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">AWC LOW</td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_low_LHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC Low LHS">
+                                            <a id="awc_low_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                         <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="awc_low_RHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="AWC Low RHS">
+                                            <a id="awc_low_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                                                                                 
                                     </tr>
@@ -568,12 +562,12 @@
                     AWC_MRHS_UL = payload.limit[24]
                     AWC_MRHS_LL = payload.limit[25]
                     
-                    document.getElementById("awc_high").value = payload.stats.awc.L_maincompression_upperlimit
-                    document.getElementById("awc_low").value = payload.stats.awc.L_maincompression_lowerlimit
-                    document.getElementById("awc_high_LHS").value = payload.stats.awc.L_precompression_upperlimit
-                    document.getElementById("awc_high_RHS").value = payload.stats.awc.R_precompression_upperlimit
-                    document.getElementById("awc_low_LHS").value = payload.stats.awc.L_precompression_lowerlimit
-                    document.getElementById("awc_low_RHS").value = payload.stats.awc.R_precompression_lowerlimit
+                    document.getElementById("awc_high").innerHTML = payload.stats.awc.L_maincompression_upperlimit
+                    document.getElementById("awc_low").innerHTML = payload.stats.awc.L_maincompression_lowerlimit
+                    document.getElementById("awc_high_LHS").innerHTML = payload.stats.awc.L_precompression_upperlimit
+                    document.getElementById("awc_high_RHS").innerHTML = payload.stats.awc.R_precompression_upperlimit
+                    document.getElementById("awc_low_LHS").innerHTML = payload.stats.awc.L_precompression_lowerlimit
+                    document.getElementById("awc_low_RHS").innerHTML = payload.stats.awc.R_precompression_lowerlimit
 
                 })
                 .catch(function (error) {

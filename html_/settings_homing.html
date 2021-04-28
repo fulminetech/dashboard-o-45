@@ -261,14 +261,12 @@
                                     <tr>
                                         <td class="text-center py-2  text-xl uppercase text-blue-900">Single Turn</td>
                                         <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="single_RHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="Value">
+                                            <a id="single_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="single_LHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="Value">
+                                            <a id="single_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                         
 
@@ -276,14 +274,12 @@
                                     <tr>
                                         <td class="text-center py-2  text-xl uppercase text-blue-900">Multi Turn</td>
                                         <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="multi_RHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="Value">
+                                            <a id="multi_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="multi_LHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="Value">
+                                            <a id="multi_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                         
 
@@ -311,14 +307,12 @@
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">Motor Encoder PPR</td>
                                         <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="encoder_RHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="Value">
+                                            <a id="encoder_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="encoder_LHS"
-                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="Value">
+                                            <a id="encoder_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                         
 
@@ -463,14 +457,14 @@
                         const div1 = document.getElementById("servoRHS").classList.add('bg-red-300');
                     }
                     
-                    document.getElementById("single_LHS").value = payload.stats.home.LHS.single_turn
-                    document.getElementById("single_RHS").value = payload.stats.home.RHS.single_turn
+                    document.getElementById("single_LHS").innerHTML = payload.stats.home.LHS.single_turn
+                    document.getElementById("single_RHS").innerHTML = payload.stats.home.RHS.single_turn
 
-                    document.getElementById("multi_LHS").value = payload.stats.home.LHS.multi_turn
-                    document.getElementById("multi_RHS").value = payload.stats.home.RHS.multi_turn
+                    document.getElementById("multi_LHS").innerHTML = payload.stats.home.LHS.multi_turn
+                    document.getElementById("multi_RHS").innerHTML = payload.stats.home.RHS.multi_turn
 
-                    document.getElementById("encoder_LHS").value = payload.stats.home.LHS.encoder_ppr
-                    document.getElementById("encoder_RHS").value = payload.stats.home.RHS.encoder_ppr
+                    document.getElementById("encoder_LHS").innerHTML = payload.stats.home.LHS.encoder_ppr
+                    document.getElementById("encoder_RHS").innerHTML = payload.stats.home.RHS.encoder_ppr
                     
                 })
                 .catch(function (error) {
