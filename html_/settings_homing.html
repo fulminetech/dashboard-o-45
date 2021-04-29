@@ -387,6 +387,46 @@
                                         
 
                                     </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Upper LIMIT</td>
+                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="upper_RHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) upper_RHS()">
+                                                
+                                            </div>
+                                        </td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="upper_LHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) upper_LHS()">
+                                            </div>
+                                        </td>
+                                        
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">lower limit</td>
+                                        <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="lower_RHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) lower_RHS()">
+                                                
+                                            </div>
+                                        </td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="lower_LHS"
+                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) lower_LHS()">
+                                            </div>
+                                        </td>
+                                        
+
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -420,6 +460,12 @@
                     
                     document.getElementById("home2_LHS").value = payload.stats.awc.LHS_HOME_OFFSET_2
                     document.getElementById("home2_RHS").value = payload.stats.awc.RHS_HOME_OFFSET_2
+                    
+                    document.getElementById("upper_RHS").value = payload.stats.R_HOMING_UPPERLIMIT
+                    document.getElementById("upper_LHS").value = payload.stats.L_HOMING_UPPERLIMIT
+                    
+                    document.getElementById("lower_RHS").value = payload.stats.R_HOMING_LOWERLIMIT
+                    document.getElementById("lower_LHS").value = payload.stats.L_HOMING_LOWERLIMIT
 
                 })
                 .catch(function (error) {
@@ -671,6 +717,102 @@
                 }
             }
 
+        }
+
+        function upper_RHS() {
+            var pressure = document.getElementById("upper_RHS").value;
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                if (pressure <= 1000000000000 && pressure >= -20000000) {
+                    let submiturl = `${seturl}/R_HOMING_UPPERLIMIT/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            check()
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Out of range.")
+                }
+            }
+        }
+        
+        function upper_LHS() {
+            var pressure = document.getElementById("upper_LHS").value;
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                if (pressure <= 1000000000000 && pressure >= -20000000) {
+                    let submiturl = `${seturl}/L_HOMING_UPPERLIMIT/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            check()
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Out of range.")
+                }
+            }
+        }
+        
+        function lower_RHS() {
+            var pressure = document.getElementById("lower_RHS").value;
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                if (pressure <= 1000000000000 && pressure >= -20000000) {
+                    let submiturl = `${seturl}/R_HOMING_LOWERLIMIT/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            check()
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Out of range.")
+                }
+            }
+        }
+        
+        function lower_LHS() {
+            var pressure = document.getElementById("lower_LHS").value;
+
+            submitt(parseFloat(pressure))
+
+            function submitt(pressure) {
+                if (pressure <= 1000000000000 && pressure >= -20000000) {
+                    let submiturl = `${seturl}/L_HOMING_LOWERLIMIT/${pressure}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(
+                            check()
+                        )
+                        .catch(console.error);
+                }
+                else {
+                    alert("Out of range.")
+                }
+            }
         }
 
     </script>

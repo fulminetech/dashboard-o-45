@@ -56,8 +56,6 @@ var FAIL_REGS_WRITE = "FAIL_REGS_WRITE";
 let readfailed = 0;
 let failrestart = 50;
 
-
-
 let timecheck = 3;
 let timetemp = 0;
 
@@ -255,6 +253,10 @@ var payload = {
         D_PCD: 0,
         Z_PHASE_COUNT: 0,
         Z_PHASE_COUNTER: 0,
+        L_HOMING_UPPERLIMIT: 0,
+        L_HOMING_LOWERLIMIT: 0,
+        R_HOMING_UPPERLIMIT: 0,
+        R_HOMING_LOWERLIMIT: 0,
         total_punches: 0,
         encoder_PPR: 0,
         punch_offset_position: {
@@ -1047,6 +1049,12 @@ var read_regs = function () {
             
             payload.stats.Z_PHASE_COUNTER = data.data[85];
             payload.stats.Z_PHASE_COUNT = data.data[87];
+            
+            payload.stats.L_HOMING_UPPERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[89], data.data[90]))
+            payload.stats.L_HOMING_LOWERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[91], data.data[92]))
+            payload.stats.R_HOMING_UPPERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[93], data.data[94]))
+            payload.stats.R_HOMING_LOWERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[95], data.data[96]))
+
             
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -2981,6 +2989,26 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "LHS_HOME_OFFSET_2") {
         reg_offset_6000 = 1084
+        reg_write_value = b
+        write_regs_32()
+    }
+    else if (a == "L_HOMING_UPPERLIMIT") {
+        reg_offset_6000 = 1089
+        reg_write_value = b
+        write_regs_32()
+    }
+    else if (a == "L_HOMING_LOWERLIMIT") {
+        reg_offset_6000 = 1091
+        reg_write_value = b
+        write_regs_32()
+    }
+    else if (a == "R_HOMING_UPPERLIMIT") {
+        reg_offset_6000 = 1093
+        reg_write_value = b
+        write_regs_32()
+    }
+    else if (a == "R_HOMING_LOWERLIMIT") {
+        reg_offset_6000 = 1095
         reg_write_value = b
         write_regs_32()
     }
