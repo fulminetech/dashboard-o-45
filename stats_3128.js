@@ -952,7 +952,7 @@ var read_regs = function () {
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
     
-    client.readHoldingRegisters(reg_7000, 90)
+    client.readHoldingRegisters(reg_7000, 99)
         .then(function (data) {
             // console.log("STATS: ",data.data)
             
