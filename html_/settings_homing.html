@@ -227,7 +227,7 @@
                         <!-- BI LAYER SETTING-->
                         <div
                             class="p-5 mb-5 ml-5 w-full border bg-pink-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
-                            <h5 class="font-bold uppercase mb-5 text-center text-2xl text-gray-700">HOME PROCESS
+                            <h5 class="font-bold uppercase mb-5 text-center text-2xl text-gray-700">SERVO CALIBRATION
                             </h5>
                             <table class="w-full p-3 text-gray-700">
                                 <thead>
@@ -389,6 +389,13 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">Upper LIMIT</td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="upper_LHS"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) upper_LHS()">
+                                            </div>
+                                        </td>
                                         <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
                                             <div class="flex flex-row">
                                                 <input id="upper_RHS"
@@ -397,18 +404,18 @@
                                                 
                                             </div>
                                         </td>
-                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                            <div class="flex flex-row">
-                                                <input id="upper_LHS"
-                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) upper_LHS()">
-                                            </div>
-                                        </td>
                                         
 
                                     </tr>
                                     <tr>
                                         <td class="text-center  py-2 uppercase text-xl text-blue-900">lower limit</td>
+                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
+                                            <div class="flex flex-row">
+                                                <input id="lower_LHS"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) lower_LHS()">
+                                            </div>
+                                        </td>
                                         <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
                                             <div class="flex flex-row">
                                                 <input id="lower_RHS"
@@ -417,15 +424,6 @@
                                                 
                                             </div>
                                         </td>
-                                        <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                            <div class="flex flex-row">
-                                                <input id="lower_LHS"
-                                                    class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                    type="number" placeholder="Value" onkeydown="if (event.keyCode == 13) lower_LHS()">
-                                            </div>
-                                        </td>
-                                        
-
                                     </tr>
                                 </tbody>
                             </table>
