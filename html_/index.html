@@ -84,7 +84,7 @@
 
 </head>
 
-<body class="flex bg-gray-100 select-none font-sans">
+<body class="flex bg-gray-100 select-none font-sans" onload="datashower()">
 
     <!-- Side bar-->
     <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center static fixed shadow">
@@ -1692,12 +1692,14 @@
             fetch(payloadURL)
                 .then((resp) => resp.json()) 
                 .then(function (data) {
+
+                    data.connection || data.mbstatus == false ? alert("[ CHECK PLC CONNECTION ]") :
+                    
+                    data.connection || data.mbstatus == false ? document.getElementById("status").innerHTML = "ERRORED" : document.getElementById("status").innerHTML = payload.stats.status
+
                     payload = data
                     // console.log(payload)
                     
-                    // data.status == false ? clearInterval(datashower) :  
-
-                    document.getElementById("status").innerHTML = payload.stats.status;
                     document.getElementById("batch_number_metric").innerHTML = payload.batch;
                     currentBatch = payload.batch;
                     document.getElementById("rotation_number_metric").innerHTML = payload.data_number;
@@ -2001,10 +2003,7 @@
                     
                 })
                 .catch(function (error) {
-                    // If there is any error you will catch them here
-                    // alert("[ CHECK PLC CONNECTION ]")
-                    // clearInterval(datashower)
-                    // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
                 });
         };
 
@@ -2013,6 +2012,9 @@
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
                     // Here you get the data to modify as you please
+                    
+                    // data.connection || data.mbstatus == false ? alert("[ CHECK PLC CONNECTION ]") :
+
                     payload = data
                     
                     maindata = data
@@ -2117,51 +2119,57 @@
                     
                 })
                 .catch(function (error) {
-                    // If there is any error you will catch them here
-                    // alert("[ CHECK PLC CONNECTION ]")
                     // console.log("[ PAYLOAD FETCH ERROR ]", error)
                 });
         };
 
+        
         async function fetchmain() {
             fetch(rawpayload)
                 .then((resp) => resp.json()) // Transform the data into json
                 .then(function (data) {
                     // Here you get the data to modify as you please
-                    payload = data
+                    // data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : 
 
+                    payload = data
                     // console.log(payload.alarm[0])
-                    
-                    if(payload.alarm[30] === true) {
-                        if(alarm_status === false){
-                            alarm_active()  
+
+                    if (payload.alarm[30] === true) {
+                        if (alarm_status === false) {
+                            alarm_active()
                         }
-                    }  else if(payload.alarm[30] === false) {
+                    } else if (payload.alarm[30] === false) {
                         const div1 = document.getElementById("alarm_page").classList.add('hidden');
                         clearInterval(alarm);
                         alarm_status = false
                     }
-                    
+
                 })
                 .catch(function (error) {
-                    // If there is any error you will catch them here
-                    // alert("[ CHECK PLC CONNECTION ]")
                     // console.log("[ PAYLOAD FETCH ERROR ]", error)
                 });
-            };
- 
-        fetchstats();
-        fetchcompression();
-        fetchmain();
+        };
 
-        setTimeout(() => {
+        async function check() {
+                fetch(statsurl)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        payload = data
+                        document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
+                    })
+                    .catch(function (error) {
+                        // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            };
+        
+        function datashower() {
+            
             setInterval(() => {
                 fetchstats();
                 fetchmain();
                 fetchcompression();
             }, 300);
-        }, 300);
-
+        }
     </script>
 
     <!-- Hide Section -->
@@ -2208,7 +2216,7 @@
 
     searchhistory()
 
-        async function searchhistory() {
+    async function searchhistory() {
 
             setInterval(() => {
                 date = new Date();
