@@ -2874,13 +2874,15 @@
         function roller_freq() {
             var value = document.getElementById("roller_freq").value;
 
-            value <= 80 && value >=0 ? submitt(value) :
+            // value <= 80 && value >=0 ? submitt(value) : value
             
-            async function submitt(value) {
-                let submiturl = `${seturl}/ROLLER_VFD_FREQ/${value}`
-                await fetch(submiturl)
-                    .then(check())
-                    .catch(console.error);
+            if (value <= 80 && value >=0){
+                async function submitt(value) {
+                    let submiturl = `${seturl}/ROLLER_VFD_FREQ/${value}`
+                    await fetch(submiturl)
+                        .then(check())
+                        .catch(console.error);
+                }
             }
         }
 
