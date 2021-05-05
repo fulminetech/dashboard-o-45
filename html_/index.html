@@ -2043,10 +2043,10 @@
                     // document.getElementById("LHS_depth_metric").innerHTML = payload.machine.LHS.dozer_position
                     // document.getElementById("RHS_depth_metric").innerHTML = payload.machine.RHS.dozer_position
 
-                    document.getElementById("LHS_pre_roller").innerHTML = payload.stats.LHSweight.value
-                    document.getElementById("RHS_pre_roller").innerHTML = payload.stats.RHSweight.value
-                    document.getElementById("LHS_main_roller").innerHTML = payload.stats.LHSthickness.value
-                    document.getElementById("RHS_main_roller").innerHTML = payload.stats.RHSthickness.value
+                    document.getElementById("LHS_pre_roller").innerHTML = payload.stats.RHSweight.value
+                    document.getElementById("RHS_pre_roller").innerHTML = payload.stats.LHSweight.value
+                    document.getElementById("LHS_main_roller").innerHTML = payload.stats.RHSthickness.value
+                    document.getElementById("RHS_main_roller").innerHTML = payload.stats.LHSthickness.value
 
                     
                     if (payload.stats.FF_MODE == 0) {
