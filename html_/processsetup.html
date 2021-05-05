@@ -932,14 +932,15 @@
         function roller_freq() {
                 var value = document.getElementById("roller_freq").value;
 
-                if (value <= 80 && value >= 0) {
-                    async function submitt(value) {
-                        let submiturl = `${seturl}/ROLLER_VFD_FREQ/${value}`
-                        await fetch(submiturl)
-                            .then(check())
-                            .catch(console.error);
-                    }
+                value <= 80 && value >= 0 ? submitt(parseInt(value)) : value
+                
+                async function submitt(value) {
+                    let submiturl = `${seturl}/ROLLER_VFD_FREQ/${value}`
+                    await fetch(submiturl)
+                        .then(check())
+                        .catch(console.error);
                 }
+            
             }
 
         function roller() {
