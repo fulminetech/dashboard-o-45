@@ -1539,6 +1539,8 @@
         var start_f = document.getElementById('start_f')
         var stop_f = document.getElementById('stop_f')
         var man_samp = document.getElementById('man_samp')
+        var upp = document.getElementById('up')
+        var downn = document.getElementById('down')
 
         inching.addEventListener('touchstart', inching_process_touchstart, false);
         inching.addEventListener('touchend', inching_process_touchend, false);
@@ -1569,6 +1571,12 @@
 
         man_samp.addEventListener('touchstart', man_samp_process_touchstart, false);
         man_samp.addEventListener('touchend', man_samp_process_touchend, false);
+
+        upp.addEventListener('touchstart', up_process_touchstart, false);
+        upp.addEventListener('touchend', up_process_touchend, false);
+
+        downn.addEventListener('touchstart', down_process_touchstart, false);
+        downn.addEventListener('touchend', down_process_touchend, false);
 
         function inching_process_touchstart(e) {
             e.preventDefault();
@@ -1677,6 +1685,28 @@
         function man_samp_process_touchend() {
             console.log("Stop")
             button13x()
+        }
+
+        function up_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            up()
+        }
+
+        function up_process_touchend() {
+            console.log("Stop")
+            unup()
+        }
+
+        function down_process_touchstart(e) {
+            e.preventDefault();
+            console.log("Start")
+            down()
+        }
+
+        function down_process_touchend() {
+            console.log("Stop")
+            undown()
         }
 
     </script>
