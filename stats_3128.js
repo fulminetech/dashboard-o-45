@@ -2643,7 +2643,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "LHS_WEIGHT_MAX") {
         reg_offset_6000 = 1026
-        reg_write_value = b*100
+        reg_write_value = b*10
         c = payload.stats.LHSweight.weight_max
         payload.stats.LHSweight.weight_max = b;
         write_regs()
@@ -2651,7 +2651,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "LHS_WEIGHT_MIN") {
         reg_offset_6000 = 1027
-        reg_write_value = b*100
+        reg_write_value = b*10
         c = payload.stats.LHSweight.weight_min
         payload.stats.LHSweight.weight_min = b;
         write_regs()
@@ -2675,7 +2675,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "RHS_WEIGHT_MAX") {
         reg_offset_6000 = 1030
-        reg_write_value = b*100
+        reg_write_value = b*10
         c = payload.stats.RHSweight.weight_max
         payload.stats.RHSweight.weight_max = b;
         write_regs()
@@ -2683,7 +2683,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "RHS_WEIGHT_MIN") {
         reg_offset_6000 = 1031
-        reg_write_value = b*100
+        reg_write_value = b*10
         c = payload.stats.RHSweight.weight_max
         payload.stats.RHSweight.weight_max = b;
         write_regs()
@@ -2707,7 +2707,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "LHS_THICKNESS_MAX") {
         reg_offset_6000 = 1034
-        reg_write_value = b*100
+        reg_write_value = b*10
         c = payload.stats.LHSthickness.thickness_max
         payload.stats.LHSthickness.thickness_max = b;
         write_regs()
@@ -2715,7 +2715,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "LHS_THICKNESS_MIN") {
         reg_offset_6000 = 1035
-        reg_write_value = b*100
+        reg_write_value = b*10
         c = payload.stats.LHSthickness.thickness_min
         payload.stats.LHSthickness.thickness_min = b;
         write_regs()
@@ -2739,7 +2739,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "RHS_THICKNESS_MAX") {
         reg_offset_6000 = 1038
-        reg_write_value = b*100
+        reg_write_value = b*10
         c = payload.stats.RHSthickness.thickness_max
         payload.stats.RHSthickness.thickness_max = b;
         write_regs()
@@ -2747,7 +2747,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "RHS_THICKNESS_MIN") {
         reg_offset_6000 = 1039
-        reg_write_value = b*100
+        reg_write_value = b*10
         c = payload.stats.RHSthickness.thickness_min
         payload.stats.RHSthickness.thickness_min = b;
         write_regs()
