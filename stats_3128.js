@@ -981,21 +981,21 @@ var read_regs = function () {
 
             payload.stats.LHSweight.analog_max = data.data[24];
             payload.stats.LHSweight.analog_min = data.data[25];
-            payload.stats.LHSweight.weight_max = data.data[26] / 100;
-            payload.stats.LHSweight.weight_min = data.data[27] / 100;
+            payload.stats.LHSweight.weight_max = data.data[26] / 10;
+            payload.stats.LHSweight.weight_min = data.data[27] / 10;
             payload.stats.RHSweight.analog_max = data.data[28];
             payload.stats.RHSweight.analog_min = data.data[29];
-            payload.stats.RHSweight.weight_max = data.data[30] / 100;
-            payload.stats.RHSweight.weight_min = data.data[31] / 100;
+            payload.stats.RHSweight.weight_max = data.data[30] / 10;
+            payload.stats.RHSweight.weight_min = data.data[31] / 10;
 
             payload.stats.LHSthickness.analog_max = data.data[32];
             payload.stats.LHSthickness.analog_min = data.data[33];
-            payload.stats.LHSthickness.thickness_max = data.data[34] / 100;
-            payload.stats.LHSthickness.thickness_min = data.data[35] / 100;
+            payload.stats.LHSthickness.thickness_max = data.data[34] / 10;
+            payload.stats.LHSthickness.thickness_min = data.data[35] / 10;
             payload.stats.RHSthickness.analog_max = data.data[36];
             payload.stats.RHSthickness.analog_min = data.data[37];
-            payload.stats.RHSthickness.thickness_max = data.data[38] / 100;
-            payload.stats.RHSthickness.thickness_min = data.data[39] / 100;
+            payload.stats.RHSthickness.thickness_max = data.data[38] / 10;
+            payload.stats.RHSthickness.thickness_min = data.data[39] / 10;
 
             payload.stats.turret.max_rpm = data.data[40]
             payload.stats.turret.max_freq = data.data[41] /100;
@@ -1091,10 +1091,10 @@ var read_regs = function () {
             payload.stats.fault_active_flash = data.data[27]
             payload.stats.LHSdepth.value = data.data[28]
             payload.stats.RHSdepth.value = data.data[29]
-            payload.stats.LHSweight.value = data.data[30]/100
-            payload.stats.RHSweight.value = data.data[31]/100
-            payload.stats.LHSthickness.value = data.data[32]/100
-            payload.stats.RHSthickness.value = data.data[33]/100
+            payload.stats.LHSweight.value = data.data[30]/10
+            payload.stats.RHSweight.value = data.data[31]/10
+            payload.stats.LHSthickness.value = data.data[32]/10
+            payload.stats.RHSthickness.value = data.data[33]/10
             
             payload.stats.pressure.value = data.data[34] /10
             payload.stats.lubrication.remaining_time = data.data[35]
