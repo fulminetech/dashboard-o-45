@@ -1068,7 +1068,7 @@ var read_regs = function () {
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         
-    client.readHoldingRegisters(reg_5000, 63)
+    client.readHoldingRegisters(reg_5000, 70)
         .then(function (data) {
             // console.log("STATS: ",data.data)
             payload.stats.turret.F = data.data[0]/100
