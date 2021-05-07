@@ -166,6 +166,7 @@ var payload = {
         },
         LHSweight: {
             value: 0,
+            analog: 0,
             analog_max: 0,
             analog_min: 0,
             weight_max: 0,
@@ -173,6 +174,7 @@ var payload = {
         },
         RHSweight: {
             value: 0,
+            analog: 0,
             analog_max: 0,
             analog_min: 0,
             weight_max: 0,
@@ -180,6 +182,7 @@ var payload = {
         },
         LHSthickness: {
             value: 0,
+            analog: 0,
             analog_max: 0,
             analog_min: 0,
             thickness_max: 0,
@@ -187,6 +190,7 @@ var payload = {
         },
         RHSthickness: {
             value: 0,
+            analog: 0,
             analog_max: 0,
             analog_min: 0,
             thickness_max: 0,
@@ -1116,6 +1120,11 @@ var read_regs = function () {
             payload.stats.roller.F = data.data[60]/100
             payload.stats.roller.H = data.data[61]/100
             payload.stats.roller.A = data.data[62]/100
+            
+            payload.stats.RHSweight.analog = data.data[63]
+            payload.stats.LHSweight.analog = data.data[64]
+            payload.stats.RHSthickness.analog = data.data[65]
+            payload.stats.LHSthickness.analog = data.data[66]
             
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })

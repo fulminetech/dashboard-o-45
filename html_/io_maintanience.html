@@ -413,6 +413,31 @@
                 <h5 class="font-bold w-1/2 text-center p-2 uppercase text-2xl text-black">LHS Discharge</h5>
                 <h5 class="font-bold w-1/2 text-center p-2 uppercase text-2xl text-black">RHS Discharge</h5>
 
+                <div class="p-5 my-3 w-full border border-blue-500 bg-purple-300 rounded shadow">
+                    <table class="w-full p-5 text-xl text-gray-700">
+                        <thead>
+                            <tr>
+                                
+                                <th class="text-center uppercase pb-3 text-gray-700"> Pre Roller</th>
+                                <th class="text-center uppercase pb-3 border-r border-gray-700 text-gray-700"> Analog </th>
+                                <th class="text-center uppercase pb-3 text-gray-700"> Pre Roller</th>
+                                <th class="text-center uppercase pb-3 text-gray-700"> Analog </th>
+                                
+                
+                            </tr>
+                        </thead>
+                
+                        <tbody>
+                            <tr>
+                                <td id="LHS_pre_roller" class="text-center border-gray-700">0</td>
+                                <td id="LHS_pre_analog" class="text-center border-r border-gray-700">0</td>
+                                <td id="RHS_pre_roller" class="text-center border-gray-700">0</td>
+                                <td id="RHS_pre_analog" class="text-center border-gray-700">0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div class="w-full md:w-1/2 xl:w-1/2 p-2">
                     <div id="Y21" class="bg-green-200 border border-gray-500 rounded shadow p-2" onmousedown="Y21U()" onmouseup="Y21Ux()">
                         <div class="flex flex-row items-center">
@@ -475,6 +500,32 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+
+                <div class="p-5 my-3 w-full border border-blue-500 bg-purple-300 rounded shadow">
+                    <table class="w-full p-5 text-xl text-gray-700">
+                        <thead>
+                            <tr>
+                
+                                <th class="text-center uppercase pb-3 text-gray-700"> Main Roller</th>
+                                <th class="text-center uppercase pb-3 border-r border-gray-700 text-gray-700"> Analog </th>
+                                <th class="text-center uppercase pb-3 text-gray-700"> Main Roller</th>
+                                <th class="text-center uppercase pb-3 text-gray-700"> Analog </th>
+                
+                
+                            </tr>
+                        </thead>
+                
+                        <tbody>
+                            <tr>
+                                <td id="LHS_main_roller" class="text-center border-gray-700">0</td>
+                                <td id="LHS_main_analog" class="text-center border-r border-gray-700">0</td>
+                                <td id="RHS_main_roller" class="text-center border-gray-700">0</td>
+                                <td id="RHS_main_analog" class="text-center border-gray-700">0</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
                 <div class="w-full md:w-1/2 xl:w-1/2 p-2">
@@ -1339,6 +1390,16 @@
                     console.log(payload.button.maintainence)
                     // Outputs: 0-15, 16-23, 46-53, 60-61
 
+                    document.getElementById("LHS_pre_roller").innerHTML = payload.stats.RHSweight.value
+                    document.getElementById("RHS_pre_roller").innerHTML = payload.stats.LHSweight.value
+                    document.getElementById("LHS_main_roller").innerHTML = payload.stats.RHSthickness.value
+                    document.getElementById("RHS_main_roller").innerHTML = payload.stats.LHSthickness.value
+                    
+                    document.getElementById("LHS_pre_analog").innerHTML =  payload.stats.RHSweight.analog
+                    document.getElementById("RHS_pre_analog").innerHTML =  payload.stats.LHSweight.analog
+                    document.getElementById("LHS_main_analog").innerHTML = payload.stats.RHSthickness.analog
+                    document.getElementById("RHS_main_analog").innerHTML = payload.stats.LHSthickness.analog
+                    
                     if (payload.button.maintainence[1] === true) {
                         const div = document.getElementById("1").classList.add('bg-red-600');
                     } else {
