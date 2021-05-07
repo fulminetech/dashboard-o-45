@@ -656,8 +656,8 @@
                         </div>
                         <div class="p-5 my-3 border border-blue-500 bg-green-300 rounded shadow">
                             <div class="flex">
-                                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">RHS Discharge</h5>
-                                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">LHS Discharge</h5>
+                                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">LHS</h5>
+                                <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">RHS</h5>
                             </div>
                             <table class="w-full p-5 text-xl text-gray-700">
                                 <thead>
@@ -2043,8 +2043,6 @@
                 .then(function (data) {
                     // Here you get the data to modify as you please
                     
-                    // data.connection || data.mbstatus == false ? alert("[ CHECK PLC CONNECTION ]") :
-
                     payload = data
                     
                     maindata = data
@@ -2193,7 +2191,7 @@
             };
         
         function datashower() {
-            
+                      
             setInterval(() => {
                 fetchstats();
                 fetchmain();
