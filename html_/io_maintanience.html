@@ -1395,10 +1395,10 @@
                     document.getElementById("LHS_main_roller").innerHTML = payload.stats.RHSthickness.value
                     document.getElementById("RHS_main_roller").innerHTML = payload.stats.LHSthickness.value
                     
-                    document.getElementById("LHS_pre_analog").innerHTML =  payload.stats.RHSweight.analog
-                    document.getElementById("RHS_pre_analog").innerHTML =  payload.stats.LHSweight.analog
-                    document.getElementById("LHS_main_analog").innerHTML = payload.stats.RHSthickness.analog
-                    document.getElementById("RHS_main_analog").innerHTML = payload.stats.LHSthickness.analog
+                    document.getElementById("LHS_pre_analog").innerHTML =  payload.stats.LHSweight.analog
+                    document.getElementById("RHS_pre_analog").innerHTML =  payload.stats.RHSweight.analog
+                    document.getElementById("LHS_main_analog").innerHTML = payload.stats.LHSthickness.analog
+                    document.getElementById("RHS_main_analog").innerHTML = payload.stats.RHSthickness.analog
                     
                     if (payload.button.maintainence[1] === true) {
                         const div = document.getElementById("1").classList.add('bg-red-600');
