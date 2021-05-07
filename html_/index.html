@@ -1418,7 +1418,7 @@
                         // Container for pan options
                         pan: {
                             // Boolean to enable panning
-                            enabled: false,
+                            enabled: true,
 
                             // Panning directions. Remove the appropriate direction to disable
                             // Eg. 'y' would only allow panning in the y direction
@@ -1440,7 +1440,7 @@
                         // Container for zoom options
                         zoom: {
                             // Boolean to enable zooming
-                            enabled: false,
+                            enabled: true,
 
                             // Zooming directions. Remove the appropriate direction to disable 
                             // Eg. 'y' would only allow zooming in the y direction
@@ -1743,12 +1743,12 @@
 
                     avg_his_compression_graph.data.labels.push(formatted);
 
-                    avg_his_compression_graph.data.datasets[0].data.push(payload.precompressionLHS_avg);
-                    avg_his_compression_graph.data.datasets[1].data.push(payload.precompressionRHS_avg);
-                    avg_his_compression_graph.data.datasets[2].data.push(payload.maincompressionLHS_avg);
-                    avg_his_compression_graph.data.datasets[3].data.push(payload.maincompressionRHS_avg);
-                    avg_his_compression_graph.data.datasets[4].data.push(payload.ejectionLHS_avg);
-                    avg_his_compression_graph.data.datasets[5].data.push(payload.ejectionRHS_avg);
+                    avg_his_compression_graph.data.datasets[0].data.push(parseFloat(payload.precompressionLHS_avg));
+                    avg_his_compression_graph.data.datasets[1].data.push(parseFloat(payload.precompressionRHS_avg));
+                    avg_his_compression_graph.data.datasets[2].data.push(parseFloat(payload.maincompressionLHS_avg));
+                    avg_his_compression_graph.data.datasets[3].data.push(parseFloat(payload.maincompressionRHS_avg));
+                    avg_his_compression_graph.data.datasets[4].data.push(parseFloat(payload.ejectionLHS_avg));
+                    avg_his_compression_graph.data.datasets[5].data.push(parseFloat(payload.ejectionRHS_avg));
                     avg_his_compression_graph.update();
                     
                     document.getElementById("avgg-preLHS").innerHTML = payload.precompressionLHS_avg;
@@ -2256,7 +2256,7 @@
                 //RFC 3339 format
                 formatted = date.toISOString();
                 // update_avg()
-            }, 1000);
+            }, 100);
 
             const queryAvgURL = `${hostname}/api/search/average/csv/${currentBatch}`
             
