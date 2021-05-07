@@ -29,7 +29,7 @@ var statusurl = `http://${ip}:3128/set/status`
 var hostname = `http://${ip}:5000`
 
 var payloadURL = `${hostname}/api/payload`;
-var restartURL = `${hostname}/restart`;
+// var restartURL = `${hostname}/restart`;
 var batchinfoURL = `${hostname}/api/batchinfo`;
 const dbsearchURL = `${hostname}/api/search`;
 const dbsearchcsvURL = `${hostname}/api/search/csv`;
