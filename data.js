@@ -4,7 +4,8 @@ const { exec } = require('child_process');
 // const CronJob = require('cron').CronJob;
 
 const Gpio = require('onoff').Gpio;
-const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 10 });
+// const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 10 });
+const proxy = new Gpio(22, 'in', 'falling');
 
 var host = "http://localhost";
 // var os = require("os");
@@ -758,6 +759,7 @@ async function stats_() {
         })
         .then(data => {
             stats = data
+            // stats.mbstatus == false || stats.connection == false ? restart :
         })
         .catch(err => {
             console.error("[ MODBUS SERVER OFFLINE ]");
@@ -1096,8 +1098,11 @@ async function fetchpayload() {
             return res.json();
         })
         .then(data => {
-
+            
             payload1 = data;
+
+            // payload1.status == false ? restart :
+            
             // console.log(payload1)
             // payload.batch = payload1.batch
             // payload.data_number = payload1.data_number
@@ -1520,13 +1525,6 @@ function startmodbus() {
 
 }
 
-// For tesing purpose
-// startmodbus()
-
-// --+++=== DATABASE WRITE ===+++-- //
-// Initialise Rotation 
-var rotation = -1;
-
 // Updated when a parameter changed
 var writeMachine = () => {
     _new.write(`${payload.batch}.machine`)
@@ -1568,7 +1566,7 @@ var writemachine = () => {
 var watchproxy = function () {
     writemachine();
     console.log("Watching proxy")
-   
+    
     setTimeout(() => {
         proxy.watch((err, value) => {
             if (err) {
