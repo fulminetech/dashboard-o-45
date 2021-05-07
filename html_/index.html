@@ -1740,6 +1740,16 @@
                     currentBatch = payload.batch;
                     document.getElementById("rotation_number_metric").innerHTML = payload.data_number;
                     currentrotation = payload.data_number;
+
+                    avg_his_compression_graph.data.labels.push(formatted);
+
+                    avg_his_compression_graph.data.datasets[0].data.push(payload.precompressionLHS_avg);
+                    avg_his_compression_graph.data.datasets[1].data.push(payload.precompressionRHS_avg);
+                    avg_his_compression_graph.data.datasets[2].data.push(payload.maincompressionLHS_avg);
+                    avg_his_compression_graph.data.datasets[3].data.push(payload.maincompressionRHS_avg);
+                    avg_his_compression_graph.data.datasets[4].data.push(payload.ejectionLHS_avg);
+                    avg_his_compression_graph.data.datasets[5].data.push(payload.ejectionRHS_avg);
+                    avg_his_compression_graph.update();
                     
                     document.getElementById("avgg-preLHS").innerHTML = payload.precompressionLHS_avg;
                     document.getElementById("avgg-preRHS").innerHTML = payload.precompressionRHS_avg;
@@ -2026,16 +2036,6 @@
                     // document.getElementById("ejnLHS_upper").innerHTML = payload.machine.LHS.ejection_upperlimit;
                     // document.getElementById("ejnRHS_upper").innerHTML = payload.machine.RHS.ejection_upperlimit;
 
-                    // avg_his_compression_graph.data.labels.push(formatted);
-
-                    avg_his_compression_graph.data.datasets[0].data.push(payload.precompressionLHS_avg);
-                    avg_his_compression_graph.data.datasets[1].data.push(payload.precompressionRHS_avg);
-                    avg_his_compression_graph.data.datasets[2].data.push(payload.maincompressionLHS_avg);
-                    avg_his_compression_graph.data.datasets[3].data.push(payload.maincompressionRHS_avg);
-                    avg_his_compression_graph.data.datasets[4].data.push(payload.ejectionLHS_avg);
-                    avg_his_compression_graph.data.datasets[5].data.push(payload.ejectionRHS_avg);
-                    avg_his_compression_graph.update();
-  
                 })
                 .catch(function (error) {
                     console.log("[ PAYLOAD FETCH ERROR ]", error)
