@@ -127,12 +127,12 @@
                     class="w-full inline-block text-lg">Settings</span>
                 </a>
             </li>
-            <!-- <li class="my-2 md:my-0">
+            <li class="my-2 md:my-0">
                 <a href="/" class="block py-1 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <i class="fa fa-minus-square mr-5 mt-1 text-2xl" aria-hidden="true"></i>
-                    <span class="w-full inline-block text-lg">Admin</span>
+                    <span class="w-full inline-block text-lg">Login Screen</span>
                 </a>
-            </li> -->
+            </li>
             
         </ul>
 
@@ -222,7 +222,7 @@
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Power Pack</h5>
-                            <h3 id="status" class="font-bold uppercase text-3xl">Off</h3>
+                            <!-- <h3 id="status" class="font-bold uppercase text-3xl">Off</h3> -->
                         </div>
                         <!-- Search Button -->
                         <div class="p-3">
@@ -1731,10 +1731,8 @@
                 .then((resp) => resp.json()) 
                 .then(function (data) {
 
-                    data.connection || data.mbstatus == false ? alert("[ CHECK PLC CONNECTION ]") :
+                    // data.connection == true ? document.getElementById("status").innerHTML = payload.stats.status : alert("[ CHECK PLC CONNECTION ]")
                     
-                    data.connection || data.mbstatus == false ? document.getElementById("status").innerHTML = "ERRORED" : document.getElementById("status").innerHTML = payload.stats.status
-
                     payload = data
                     // console.log(payload)
                     
