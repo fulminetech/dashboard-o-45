@@ -137,7 +137,7 @@
             </div>
 
             <!-- Batch List -->
-            <div class="w-full overflow-y-auto select-text p-3" style="height:30vh;">
+            <div class="w-full overflow-y-auto select-text p-3" style="height:60vh;">
                 <div class="border border-gray-400 bg-white rounded shadow">
                     <div class="border-b border-gray-400 p-3">
                         <h5 class="font-bold uppercase text-center text-xl text-black">Total
@@ -378,10 +378,10 @@
                                             <tr>
                                                 <th class="text-center border-b py-3">Rotation</th>
                                                 <th class="text-center border-b py-3">PRE LHS AVG<br> (kN)</th>
-                                                <th class="text-center border-b py-3">PRE RHS AVG<br> (kN)</th>
                                                 <th class="text-center border-b py-3">MAIN LHS AVG<br> (kN)</th>
-                                                <th class="text-center border-b py-3">MAIN RHS AVG<br> (kN)</th>
                                                 <th class="text-center border-b py-3">EJN LHS AVG<br> (kN)</th>
+                                                <th class="text-center border-b py-3">PRE RHS AVG<br> (kN)</th>
+                                                <th class="text-center border-b py-3">MAIN RHS AVG<br> (kN)</th>
                                                 <th class="text-center border-b py-3">EJN RHS AVG<br> (kN)</th>
                                                 <th class="text-center border-b py-3">Dwell Time</th>
                                                 <th class="text-center border-b py-3">Turret RPM</th>
@@ -466,7 +466,7 @@
                 document.getElementById("searchbatch").innerText = "PLEASE WAIT";
                 element2.classList.add("cursor-not-allowed");
 
-                dbsearchURL
+                // dbsearchURL
                 var queryAvgURL = `${dbsearchURL}/${name}/average`
                 // var queryAvgURL = `${searchAvgURL}${name}`
 
@@ -487,7 +487,7 @@
                     for (let avgg of avglistt) {
                         i++;
                         let avgdataa = avggbatch.data[i]
-                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[8]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[7]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[9]}</td></tr>`
+                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[8]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[7]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[9]}</td></tr>`
                     }
 
                     avgListBody.innerHTML = avgHTML;
@@ -538,7 +538,7 @@
                         j = i - 1;
                         from++;
                         let avgdataa = avggbatch[j]
-                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[8]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[7]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[9]}</td></tr>`
+                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[8]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[7]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[9]}</td></tr>`
                     } else if (i > to) {
                         // await fetch(generatereportURL);
                     }
@@ -574,7 +574,7 @@
             if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
                 window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
             } else {
-                document.getElementById("generatepdfreport").innerText = "PLEASE WAIT";
+                document.getElementById("generatepdfreport").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
                 element.classList.add("cursor-not-allowed");
 
                 var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`

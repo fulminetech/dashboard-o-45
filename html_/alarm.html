@@ -140,7 +140,7 @@
             </div>
 
             <!-- Batch List -->
-            <div class="w-full overflow-y-auto select-text p-3" style="height:30vh;">
+            <div class="w-full overflow-y-auto select-text p-3" style="height:60vh;">
                 <div class="border border-gray-400 bg-white rounded shadow">
                     <div class="border-b border-gray-400 p-3">
                         <h5 class="font-bold uppercase text-center text-xl text-black">Total
@@ -222,13 +222,13 @@
                         <div class="flex flex-wrap p-3">
                     
                             <!-- Excel Button -->
-                            <div class="py-3">
+                            <!-- <div class="py-3">
                                 <button
                                     class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexport()">
                                     Excel EXPORT
                                 </button>
-                            </div>
+                            </div> -->
                         </div>
                     
                     </div>
@@ -362,47 +362,26 @@
     <script>
         var element = document.getElementById("generatepdfreport");
 
-        var pdfgenerationtime = 10000;
+        var pdfgenerationtime = 5000;
 
         async function generateReport() {
 
-            var a = document.getElementById("fromRotationNumber");
-            var fromname = "";
-            var i;
-            for (i = 0; i < a.length; i++) {
-                fromname += a.elements[i].value;
-            }
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+            document.getElementById("generatepdfreport").innerText = `PLEASE WAIT ${pdfgenerationtime / 1000} secs`;
+            element.classList.add("cursor-not-allowed");
 
-            var b = document.getElementById("toRotationNumber");
-            var toname = "";
-            var j;
-            for (j = 0; j < b.length; j++) {
-                toname += b.elements[j].value;
-            }
+            var queryAvgURL = `${reportAvgURL}/${bname}/0/0`
+            await fetch(queryAvgURL);
+            await fetch(reportAlarmGenURL);
 
-            var c = document.getElementById("batchname");
-            var bname = "";
-            var k;
-            for (k = 0; k < c.length; k++) {
-                bname += c.elements[k].value;
-            }
-
-            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
-                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
-            } else {
-                document.getElementById("generatepdfreport").innerText = "PLEASE WAIT";
-                element.classList.add("cursor-not-allowed");
-
-                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
-                await fetch(queryAvgURL);
-                await fetch(reportAvgGenURL);
-
-                setTimeout(() => {
-                    location.href = "/report/average/download"
+            setTimeout(() => {
+                    location.href = "/report/alarm/download"
                     document.getElementById("generatepdfreport").innerText = "PDF REPORT";
                     element.classList.remove("cursor-not-allowed");
                 }, pdfgenerationtime);
-            }
+
         }
     </script>
 

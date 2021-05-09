@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+
+    <link href="/css/tailwind.min.css" rel="stylesheet">
+    <script src="/env/env.js"></script>
+
+</head>
+
+<body onload="searchBatch()">
+
+
+    <p class="pt-5 text-gray-800 text-3xl uppercase text-bold text-center font-medium">ALARM REPORT</p>
+    <!-- <p class="pt-2 text-gray-700 text-2xl uppercase text-bold text-center font-medium">45 Punch </p> -->
+    <h3 class="px-10 pt-10 pb-3 text-gray-700 text-left">Batch Number:
+        <a id="batch_number_metric" class="font-bold text-gray-900">
+        </a>
+    </h3>
+    <h3 class="px-10 pt-2 pb-3 text-gray-700 text-left">Created on:
+        <a id="time" class="font-bold text-gray-900">
+        </a>
+    </h3>
+
+    <div class="px-10 pt-5 pb-5">
+        <table class="table-fixed w-full text-sm text-center text-gray-900" height="170rem">
+            <thead>
+                <tr>
+                    <th class="text-center border-b py-3">Date and Time</th>
+                    <th class="text-center border-b py-3">Operator</th>
+                    <th class="text-center border-b py-3">Parameter</th>
+                    <th class="text-center border-b py-3">Status</th>
+                </tr>
+            </thead>
+            <tbody id="avgtable">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Time -->
+    <script>
+        time = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+        document.getElementById("time").innerHTML = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+    </script>
+
+    <!-- Generate report -->
+    <script>
+
+        async function searchBatch() {
+
+            const reportData1 = await fetch(reportdetailsURL);
+            const report = await reportData1.json();
+
+
+            document.getElementById("batch_number_metric").innerHTML = report.batch;
+
+            // const queryAvgURL = `${hostname}/api/search/average/csv/${report.batch}`
+            var queryAvgURL = `${dbsearchURL}/${report.batch}/alarm`
+
+            const avgData = await fetch(queryAvgURL);
+            const avggbatch = await avgData.json();
+
+            // console.log(avggbatch)
+
+            let avglistt = avggbatch.data;
+
+            function loadavglist() {
+                const avgListBody = document.getElementById('avgtable');
+                let avgHTML = '';
+
+                let i = -1;
+                for (let avgg of avglistt) {
+                    i++;
+                    let avgdataa = avggbatch.data[i]
+                    avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[0]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td></tr>`
+                }
+
+                avgListBody.innerHTML = avgHTML;
+            }
+
+            loadavglist();
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -13,7 +13,7 @@ var rawurl = "http://127.0.0.1:5001/api/machine/raw";
 var processedurl = "http://127.0.0.1:5050/api/machine/processed";
 
 // Node servers
-var ip = "192.168.1.100"
+var ip = "localhost"
 
 // 1. compression 
 var rawpayload = `http://${ip}:3129/api/payload`
@@ -38,6 +38,8 @@ const searchAvgURL = `${hostname}/api/search/average/`
 const reportdetailsURL = `${hostname}/report/average/now`
 const reportAvgURL = `${hostname}/report/average`
 const reportAvgGenURL = `${hostname}/report/average/generate`
+const reportAlarmGenURL = `${hostname}/report/alarm/generate`
+const reportAuditGenURL = `${hostname}/report/audit/generate`
 
 const searchURL = `${hostname}/api/search/rotation/`
 const restartURL = `${hostname}/restart/pm2-0`

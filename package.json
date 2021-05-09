@@ -1,8 +1,8 @@
 {
   "name": "dashboard-o-45",
-  "version": "2.1.0",
-  "description": "IO page updated, Settings pages updated, stats_3128 regs updated, audit is logged and queried through HTTP request directly ",
-  "main": "index.js",
+  "version": "2.2.0",
+  "description": "Average, Alarm and Audit PDF & Histort CSV generation tested!!",
+  "main": "index_5000.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
