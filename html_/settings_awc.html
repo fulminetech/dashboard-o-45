@@ -966,6 +966,25 @@
 
     </script>
 
+    <!-- Check PLC connection -->
+    <script>
+        async function fetchcompression() {
+            fetch(payloadURL)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : data.connection
+                })
+                .catch(function (error) {
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        setInterval(() => {
+            fetchcompression()
+        }, 2000);
+
+    </script>
+
 </body>
 
 </html>
