@@ -1514,9 +1514,6 @@ async function fetchpayload() {
 };
 
 var myVar = setInterval(checkPLCconnection, 1000);
-
-myVar()
-
 function checkPLCconnection() {
     fetchpayload()
 }
