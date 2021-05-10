@@ -551,7 +551,6 @@
                         payload = data
                         document.getElementById("LHS_actual").innerHTML = payload.stats.awc.actual_LHS
                         document.getElementById("RHS_actual").innerHTML = payload.stats.awc.actual_RHS
-
                     })
                     .catch(function (error) {
                         // If there is any error you will catch them here
@@ -683,7 +682,7 @@
 
             async function submitt(preLHSlow) {
                 var pressure = preLHSlow;
-                if (pressure <= 25 && pressure >= 0) {
+                if (pressure <= 19 && pressure >= 2) {
                     let submiturl = `${seturl}/RHS_DOZER/${preLHSlow}`
                     console.log(submiturl)
                     fetch(submiturl)
@@ -691,7 +690,7 @@
                         .catch(console.error);
                 }
                 else {
-                    alert("Please set value between 0 and 25.")
+                    alert("Please set value between 2 and 19.")
                 }
             }
         }
@@ -704,7 +703,7 @@
             async function submitt(preLHSlow) {
 
                 var pressure = preLHSlow;
-                if (pressure <= 25 && pressure >= 0) {
+                if (pressure <= 19 && pressure >= 2) {
                     let submiturl = `${seturl}/LHS_DOZER/${preLHSlow}`
                     console.log(submiturl)
                     fetch(submiturl)
@@ -712,7 +711,7 @@
                         .catch(console.error);
                 }
                 else {
-                    alert("Please set value between 0.1 and 25.")
+                    alert("Please set value between 2 and 19.")
                 }
             }
         }
