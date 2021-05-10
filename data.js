@@ -1513,7 +1513,20 @@ async function fetchpayload() {
         });
 };
 
+var myVar = setInterval(checkPLCconnection, 1000);
+
+myVar()
+
+function checkPLCconnection() {
+    fetchpayload()
+}
+
+function stopChecking() {
+    clearInterval(myVar);
+}
+
 function startmodbus() {
+    stopChecking()
     fetchpayload()
     stats_()
     processed_()
