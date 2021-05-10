@@ -32,6 +32,7 @@ var noww = new Date().toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
 console.log(`[ STARTING INFLUX : ${noww} ]`)
 
 var payload = {
+    connection: false,
     batch: "DEFAULT",
     data_number: 0, // Rotation Number
     rotation_no: 0,
@@ -1103,7 +1104,7 @@ async function fetchpayload() {
             // payload1.status == false ? restart :
             
             // console.log(payload1)
-            // payload.batch = payload1.batch
+            payload.connection = payload1.connection
             // payload.data_number = payload1.data_number
             payload.rotation_no = payload1.rotation_no
             payload.present_punch = payload1.present_punch
