@@ -544,19 +544,21 @@
         };
 
         async function fetchpayloadapiHF2() {
-            fetch(statsurl)
-                .then((resp) => resp.json()) // Transform the data into json
-                .then(function (data) {
-                    payload = data
-                    console.log(payload.stats.awc.actual_LHS)
-                    document.getElementById("LHS_actual").value = payload.stats.awc.actual_LHS
-                    document.getElementById("RHS_actual").value = payload.stats.awc.actual_RHS
-
-                })
-                .catch(function (error) {
-                    // If there is any error you will catch them here
-                    console.log("[ PAYLOAD FETCH ERROR ]", error)
-                });
+            setInterval(() => {
+                fetch(statsurl)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        payload = data
+                        console.log(payload.stats.awc.actual_LHS)
+                        document.getElementById("LHS_actual").value = payload.stats.awc.actual_LHS
+                        document.getElementById("RHS_actual").value = payload.stats.awc.actual_RHS
+    
+                    })
+                    .catch(function (error) {
+                        // If there is any error you will catch them here
+                        console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            }, 400);
         };
 
         fetchpayloadapiHF1()
@@ -567,10 +569,8 @@
             }, 2000);
         }
 
-        setInterval(() => {
-            fetchpayloadapiHF2
-        }, 400);
-
+        fetchpayloadapiHF2()
+        
     </script>
 
     <!-- touch events -->
