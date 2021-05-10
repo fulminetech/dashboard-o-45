@@ -891,7 +891,7 @@ var read_regs = function () {
             payload.stats.FF_MODE = data.data[3],
             payload.stats.lubrication.set_delay_min = data.data[4],
             payload.stats.lubrication.set_delay_sec = data.data[5]/10,
-            payload.stats.pressure.pressure_set = data.data[7]/10,
+            payload.stats.pressure.pressure_set = data.data[7],
             payload.stats.hydraulic.high_cutoff = data.data[8]
             payload.stats.hydraulic.low_cutoff = data.data[9]
 
@@ -1286,7 +1286,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     } 
     else if (a == "PRESSURE_TON") {
         reg_offset_6000 = 7
-        reg_write_value = b * 10
+        reg_write_value = b 
         c = payload.stats.pressure.pressure_set
         write_regs()
         writelog()
