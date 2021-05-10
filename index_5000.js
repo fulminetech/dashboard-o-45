@@ -12,7 +12,9 @@ const _new = new Influx(`http://${host}:8086/new`);
 const _perm = new Influx(`http://${host}:8086/perm`);
 
 const { exec } = require('child_process');
-const restart1Command = "pm2 restart all"
+const restartstats = "pm2 restart stats_3128"
+const restartcompression = "pm2 restart compression_3129"
+const restartraw = "pm2 restart main_5000"
 
 const {
     payload, startmodbus, watchproxy, updatestatsbatch
@@ -134,18 +136,20 @@ app.get("/settings_user", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/settings_user.html"));
 });
 
-app.get("/restart_server", (req, res) => {
-    restartprodmodbus()
-});
-
-function restartprodmodbus() {
-    exec(restart1Command, (err, stdout, stderr) => {
+function restartserver(arg) {
+    exec(arg, (err, stdout, stderr) => {
         // handle err if you like!
-        console.log(`[ RESTARTING ]`);
-        console.log(`${stdout}`);
+        console.log(`[ RESTARTING ${stdout} ]`);
+        console.log(`[ RESTARTING ${err} ${stderr} ]`);
     });
 }
 
+app.get("/restart/:param", (req, res) => {
+    const a = req.params.param;
+    a == "stats" ? restartserver(restartstats) : restartstats
+    a == "compression" ? restartserver(restartcompression) : restartcompression
+    a == "raw" ? restartserver(restartraw) : restartraw
+});
 
 app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
     const a = req.params.namee;
@@ -194,7 +198,7 @@ app.get("/onboard/continue", (req, res) => {
                 payload.stats.status = "ONLINE"
 
             })
-            .then(
+            .then(function () {
                 _new.queryRaw(`select "rotation" from "${batchinfo.name}.average" ORDER BY time DESC LIMIT 1`)
                     .then(data => {
                         var response = data.results[0].series[0].values[0];
@@ -203,14 +207,18 @@ app.get("/onboard/continue", (req, res) => {
                         batchinfo.rotation = previousrtn
                     })
                     .catch(console.error)
+                }
+            )
+            .then(function () {
+                watchproxy();
+                startmodbus();
+                updatestatsbatch()
+                return res.json({ message: `[ CONTINUING BATCH: ${payload.batch} ]` });
+                }
             )
             .catch(console.error);
     }
 
-    watchproxy();
-    startmodbus();
-    updatestatsbatch()
-    return res.json({ message: `[ CONTINUING BATCH: ${payload.batch} ]` });
 });
 
 
@@ -382,17 +390,17 @@ app.get("/api/search/logs/:batch", (req, res) => {
     passbatch(r)
 });
 
-app.get("/api/search/rotation/:rotationn", (req, res) => {
+// Does not work! 
+app.get("/api/search/rotation/:batch/:rotationn", (req, res) => {
     // select * from "payload" where "rotation" = 7
-    const r = parseInt(req.params.rotationn)
+    const rotation = parseInt(req.params.rotationn)
+    const batch = parseInt(req.params.batch)
 
-    passbatch(r)
-
-    async function passbatch(r) {
-        _new.query(`${payload.batch}.history`)
-            .where('rotation', r)
+    async function passbatch(batch, rotation) {
+        _new.query(`${batch}.history`)
+            .where('rotation', `${rotation}`)
             .then(data => {
-                let payload1 = Object.values(data.results[0].series[0].values[0]);
+                let payload1 = Object.values(data.results[0].series[0].values);
                 // let payload1 = Object.values(data);
                 console.log(`[ RESPONSE:  ${payload1} ]`);
                 if (typeof payload1 === "object") {
@@ -401,6 +409,8 @@ app.get("/api/search/rotation/:rotationn", (req, res) => {
             })
             .catch(console.error);
     };
+
+    passbatch(batch, rotation)
 });
 
 app.use("/api/payload", (req, res) => {
@@ -431,14 +441,22 @@ app.get("/report/template", (req, res) => {
     res.sendFile(path.join(__dirname + "/report/report.html"));
 });
 
+app.get("/report/alarm", (req, res) => {
+    res.sendFile(path.join(__dirname + "/report/alarm.html"));
+});
+
+app.get("/report/audit", (req, res) => {
+    res.sendFile(path.join(__dirname + "/report/audit.html"));
+});
+
 app.get("/report/average/now", (req, res) => {
     res.send(report);
 })
 
 app.get("/report/average/generate", (req, res) => {
     (async () => {
-        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser' });
-        const browser = await puppeteer.launch({ product: 'chrome' });
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' });
+        // const browser = await puppeteer.launch({ product: 'chrome' });
         const page = await browser.newPage();
         await page.goto(`http://${host}:5000/report/template`, { waitUntil: 'networkidle0' });
         await page.pdf({ path: `batch_${report.batch}_from_${report.from}_to_${report.to}.pdf`, format: 'A4' });
@@ -446,6 +464,56 @@ app.get("/report/average/generate", (req, res) => {
     })();
 
     return res.json({ message: 'EXPORTED' });
+})
+
+app.get("/report/alarm/generate", (req, res) => {
+    (async () => {
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' });
+        // const browser = await puppeteer.launch({ product: 'chrome' });
+        const page = await browser.newPage();
+        await page.goto(`http://${host}:5000/report/alarm`, { waitUntil: 'networkidle0' });
+        await page.pdf({ path: `batch_${report.batch}_alarm.pdf`, format: 'A4' });
+        await browser.close();
+    })();
+
+    return res.json({ message: 'EXPORTED' });
+})
+
+app.get("/report/audit/generate", (req, res) => {
+    (async () => {
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' });
+        // const browser = await puppeteer.launch({ product: 'chrome' });
+        const page = await browser.newPage();
+        await page.goto(`http://${host}:5000/report/audit`, { waitUntil: 'networkidle0' });
+        await page.pdf({ path: `batch_${report.batch}_audit.pdf`, format: 'A4' });
+        await browser.close();
+    })();
+
+    return res.json({ message: 'EXPORTED AUDIT' });
+})
+
+app.get("/report/audit/download", (req, res) => {
+    var file = path.join(__dirname, `batch_${report.batch}_audit.pdf`);
+    res.download(file, function (err) {
+        if (err) {
+            console.log("Error");
+            console.log(err);
+        } else {
+            console.log("Success");
+        }
+    });
+})
+
+app.get("/report/alarm/download", (req, res) => {
+    var file = path.join(__dirname, `batch_${report.batch}_alarm.pdf`);
+    res.download(file, function (err) {
+        if (err) {
+            console.log("Error");
+            console.log(err);
+        } else {
+            console.log("Success");
+        }
+    });
 })
 
 app.get("/report/average/download", (req, res) => {
