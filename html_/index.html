@@ -2379,7 +2379,7 @@
             
             function submitt(pressure) {
                 var pressure = c;
-                if (pressure <= 100 && pressure >= 0.1) {
+                if (pressure <= 100 && pressure >= 1) {
                     
                     pressureset()
 
@@ -2395,7 +2395,7 @@
                         .catch(console.error);
                 }
                 else {
-                    alert("Please set value between 0.1 and 100.")
+                    alert("Please set value between 1 and 100.")
                 }
             }
 
