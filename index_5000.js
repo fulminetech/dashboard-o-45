@@ -455,8 +455,8 @@ app.get("/report/average/now", (req, res) => {
 
 app.get("/report/average/generate", (req, res) => {
     (async () => {
-        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' });
-        // const browser = await puppeteer.launch({ product: 'chrome' });
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' });
+        const browser = await puppeteer.launch({ product: 'chrome' });
         const page = await browser.newPage();
         await page.goto(`http://${host}:5000/report/template`, { waitUntil: 'networkidle0' });
         await page.pdf({ path: `batch_${report.batch}_from_${report.from}_to_${report.to}.pdf`, format: 'A4' });
