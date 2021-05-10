@@ -4,7 +4,7 @@ const { exec } = require('child_process');
 // const CronJob = require('cron').CronJob;
 
 const Gpio = require('onoff').Gpio;
-const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 30 });
+const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 7 });
 
 var host = "http://localhost";
 // var os = require("os");
