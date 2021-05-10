@@ -1100,7 +1100,7 @@ var read_regs = function () {
             payload.stats.LHSthickness.value = data.data[32]/10
             payload.stats.RHSthickness.value = data.data[33]/10
             
-            payload.stats.pressure.value = data.data[34] /10
+            payload.stats.pressure.value = data.data[34]
             payload.stats.lubrication.remaining_time = data.data[35]
              
             payload.stats.dwell = _2x16bitTo32bit(data.data[40], data.data[41], 10000)
