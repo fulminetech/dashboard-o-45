@@ -1,7 +1,9 @@
 var ModbusRTU = require("modbus-serial");
 const express = require("express");
 const { exec } = require('child_process');
-const restart1Command = "pm2 restart prod-modbus"
+const { fail } = require("assert");
+const restart1Command = "pm2 restart stats_3128 && pm2 restart main_5000  && pm2 restart compression_3129"
+// const restart1Command = "restart.sh"
 
 const app = express();
 
@@ -11,7 +13,7 @@ console.log('Start:', noww)
 var startTime = + new Date();
 
 var payload = {
-    status: false,
+    connection: false,
     batch: 0,
     data_number: 0, // Rotation Number
     rotation_no: 0,
@@ -689,6 +691,7 @@ var client = new ModbusRTU();
 const slaveID = 1;
 // const ip = "10.0.0.103"
 const ip = "192.168.1.5"
+// const ip = "192.168.0.99"
 
 // Modbus Addresses
 const precompressionLHS_address = 2000;
@@ -747,7 +750,10 @@ var mbsTimeout = 5000;
 var mbsScan = 50; // Modbus scan time
 
 let readfailed = 0;
-let failcounter = 100;
+let failcounter = 15;
+
+let connectfailed = 0
+let connectcounter = 3
 
 let timecheck = 3;
 let timetemp = 0;
@@ -766,7 +772,7 @@ var connectClient = function () {
     client.connectTCP(ip)
         .then(function () {
             mbsState = MBS_STATE_GOOD_CONNECT;
-
+            payload.connection = true
             console.log(`[ CONNECTED ]`)
         })
         .then(function () {
@@ -774,8 +780,19 @@ var connectClient = function () {
         })
         .catch(function (e) {
             mbsState = MBS_STATE_FAIL_CONNECT;
+            payload.connection = false
+            connectfailed++
+            
+            if (connectfailed > connectcounter) {
+                restartprodmodbus()
+            }
+            
             console.log(`[ FAILED TO CONNECT ]`)
-            console.log(e);
+
+            setTimeout(() => {
+                connectClient()
+            }, 500);
+            // console.log(e);
         });
 }
 
@@ -878,11 +895,14 @@ var runModbus = function () {
     // console.log(mbsState);
     // console.log(nextAction);
 
-    // if (readfailed > 50) {
-        //     payload.status = false;
-        // } else {
-        //     payload.status = true;
-    // }
+    // console.log(readfailed)
+
+    if (readfailed > failcounter) {
+        payload.connection = false;
+        readfailed = 0
+        client.close();
+        restartprodmodbus()
+    }
 
     // execute "next action" function if defined
     if (nextAction !== undefined) {
@@ -1396,9 +1416,8 @@ var readalarm = function () {
 
 
 function restartprodmodbus() {
+    console.log(`[ RESTARTING: ${restart1Command} ]`);
     exec(restart1Command, (err, stdout, stderr) => {
-        // handle err if you like!
-        console.log(`[ RESTARTING: prod-modbus ]`);
         console.log(`${stdout}`);
     });
 }
