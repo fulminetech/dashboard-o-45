@@ -137,14 +137,24 @@
                 </div>
             </div>
 
-                        <!-- Mode -->
             <div class="w-1 w-full">
-                <div
-                    class="border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 m-2 md:mx-10 md:my-6">
+                <div onclick="location.href='/history'"
+                    class="border-2 border-gray-900 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase text-xl text-gray-700">MODE</h5>
-                            <h3 id="mode_metric" class="font-bold text-2xl"></h3>
+                            <h5 class="font-bold text-2xl uppercase text-gray-900">Graph</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Digital Output -->
+            <div class="w-1 w-full">
+                <div onclick="location.href='/history_datatable'"
+                    class="cursor-pointer border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1">
+                            <h5 class="font-bold text-2xl uppercase text-gray-700">Table</h5>
                         </div>
                     </div>
                 </div>
@@ -339,294 +349,294 @@
 
         var punch = new Array("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45")
 
-        var pregraphcanvas = document.getElementById('precompression_graph');
-        var pregraphdata = {
-            labels: punch,
-            datasets: [
-                {
-                    label: "Pre Compression LHS",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "blue",
-                    borderColor: "#F0F6F7FF",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 5,
-                    pointHitRadius: 10,
-                    data: [ ],
-                },
-                {
-                    label: "Pre Compression RHS",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "cyan",
-                    borderColor: "#F0F6F7FF",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 5,
-                    pointHitRadius: 10,
-                    data: [ ],
-                },
-                {
-                    label: "Upper Tolerance",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "red",
-                    borderColor: "red",
-                    data: [],
-                    type: 'line',
-                },
-                {
-                    label: "Lower Tolerance",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "red",
-                    borderColor: "red",
-                    data: [],
-                    type: 'line',
-                },
-                {
-                    label: "Force Line",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "black",
-                    borderColor: "black",
-                    data: [],
-                    type: 'line',
-                },
-            ],
-        };
-        var pregraphoptions = {
-            tooltips: { enabled: true },
-            legend: {
-                onClick: function (e, legendItem) {
-                    var index = legendItem.datasetIndex;
-                    var ci = this.chart;
-                    var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
+        // var pregraphcanvas = document.getElementById('precompression_graph');
+        // var pregraphdata = {
+        //     labels: punch,
+        //     datasets: [
+        //         {
+        //             label: "Pre Compression LHS",
+        //             fill: false,
+        //             lineTension: 0.1,
+        //             backgroundColor: "blue",
+        //             borderColor: "#F0F6F7FF",
+        //             pointBorderColor: "rgba(75,192,192,1)",
+        //             pointHoverRadius: 5,
+        //             pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        //             pointHoverBorderColor: "rgba(220,220,220,1)",
+        //             pointHoverBorderWidth: 2,
+        //             pointRadius: 5,
+        //             pointHitRadius: 10,
+        //             data: [ ],
+        //         },
+        //         {
+        //             label: "Pre Compression RHS",
+        //             fill: false,
+        //             lineTension: 0.1,
+        //             backgroundColor: "cyan",
+        //             borderColor: "#F0F6F7FF",
+        //             pointBorderColor: "rgba(75,192,192,1)",
+        //             pointHoverRadius: 5,
+        //             pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        //             pointHoverBorderColor: "rgba(220,220,220,1)",
+        //             pointHoverBorderWidth: 2,
+        //             pointRadius: 5,
+        //             pointHitRadius: 10,
+        //             data: [ ],
+        //         },
+        //         {
+        //             label: "Upper Tolerance",
+        //             fill: false,
+        //             lineTension: 0.1,
+        //             backgroundColor: "red",
+        //             borderColor: "red",
+        //             data: [],
+        //             type: 'line',
+        //         },
+        //         {
+        //             label: "Lower Tolerance",
+        //             fill: false,
+        //             lineTension: 0.1,
+        //             backgroundColor: "red",
+        //             borderColor: "red",
+        //             data: [],
+        //             type: 'line',
+        //         },
+        //         {
+        //             label: "Force Line",
+        //             fill: false,
+        //             lineTension: 0.1,
+        //             backgroundColor: "black",
+        //             borderColor: "black",
+        //             data: [],
+        //             type: 'line',
+        //         },
+        //     ],
+        // };
+        // var pregraphoptions = {
+        //     tooltips: { enabled: true },
+        //     legend: {
+        //         onClick: function (e, legendItem) {
+        //             var index = legendItem.datasetIndex;
+        //             var ci = this.chart;
+        //             var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
 
-                    console.log(index)
+        //             console.log(index)
 
-                    if (index == 0) {
-                        updatetolerancepreLHS()
-                    } else if (index == 1){
-                        updatetolerancepreRHS()
-                    }
-                },
-                labels: {
-                    fontSize: 18,
-                },
-                position: 'top',
-            },
-            hover: { mode: null },
-            showTooltips: false,
-            showLines: true,
-            scales: {
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        fontSize: 20,
-                        labelString: 'Compression (kN)'
-                    },
-                    ticks: {
-                        beginAtZero: true,
-                        fontSize: 18,
-                        max: 100
-                    }
-                }],
-                xAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        fontSize: 20,
-                        labelString: 'Punch Number'
-                    },
-                }],
-            }, 
-        };
-        var pregraph = Chart.Bar(pregraphcanvas, {
-            data: pregraphdata,
-            options: pregraphoptions,
-        });
+        //             if (index == 0) {
+        //                 updatetolerancepreLHS()
+        //             } else if (index == 1){
+        //                 updatetolerancepreRHS()
+        //             }
+        //         },
+        //         labels: {
+        //             fontSize: 18,
+        //         },
+        //         position: 'top',
+        //     },
+        //     hover: { mode: null },
+        //     showTooltips: false,
+        //     showLines: true,
+        //     scales: {
+        //         yAxes: [{
+        //             scaleLabel: {
+        //                 display: true,
+        //                 fontSize: 20,
+        //                 labelString: 'Compression (kN)'
+        //             },
+        //             ticks: {
+        //                 beginAtZero: true,
+        //                 fontSize: 18,
+        //                 max: 100
+        //             }
+        //         }],
+        //         xAxes: [{
+        //             scaleLabel: {
+        //                 display: true,
+        //                 fontSize: 20,
+        //                 labelString: 'Punch Number'
+        //             },
+        //         }],
+        //     }, 
+        // };
+        // var pregraph = Chart.Bar(pregraphcanvas, {
+        //     data: pregraphdata,
+        //     options: pregraphoptions,
+        // });
 
-        var maingraphcanvas = document.getElementById('maincompression_graph');
-        var maingraphdata = {
-            labels: punch,
-            datasets: [
-                {
-                    label: "Main Compression LHS",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "blue",
-                    borderColor: "#85B3D1FF",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 5,
-                    pointHitRadius: 10,
-                    data: [ ],
-                },
-                {
-                    label: "Main Compression RHS",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "cyan",
-                    borderColor: "#85B3D1FF",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 5,
-                    pointHitRadius: 10,
-                    data: [ ],
-                },
-                {
-                    label: "Upper Tolerance",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "red",
-                    borderColor: "red",
-                    data: [],
-                    type: 'line',
-                },
-                {
-                    label: "Lower Tolerance",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "red",
-                    borderColor: "red",
-                    data: [],
-                    type: 'line',
-                },
-                {
-                    label: "Force Line",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "black",
-                    borderColor: "black",
-                    data: [],
-                    type: 'line',
-                },
-            ],
-        };
-        var maingraphoptions = {
-            tooltips: { enabled: true },
-            legend: {
-                labels: {
-                    fontSize: 18,
-                },
-                position: 'top',
-            },
-            hover: { mode: null },
-            showTooltips: false,
-            showLines: true,
-            scales: {
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        fontSize: 20,
-                        labelString: 'Compression (kN)'
-                    },
-                    ticks: {
-                        beginAtZero: true,
-                        fontSize: 18,
-                        max: 100
-                    }
-                }],
-                xAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        fontSize: 20,
-                        labelString: 'Punch Number'
-                    },
-                }],
-            }, 
-        };
-        var maingraph = Chart.Bar(maingraphcanvas, {
-            data: maingraphdata,
-            options: maingraphoptions,
-        });
+        // var maingraphcanvas = document.getElementById('maincompression_graph');
+        // var maingraphdata = {
+        //     labels: punch,
+        //     datasets: [
+        //         {
+        //             label: "Main Compression LHS",
+        //             fill: false,
+        //             lineTension: 0.1,
+        //             backgroundColor: "blue",
+        //             borderColor: "#85B3D1FF",
+        //             pointBorderColor: "rgba(75,192,192,1)",
+        //             pointHoverRadius: 5,
+        //             pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        //             pointHoverBorderColor: "rgba(220,220,220,1)",
+        //             pointHoverBorderWidth: 2,
+        //             pointRadius: 5,
+        //             pointHitRadius: 10,
+        //             data: [ ],
+        //         },
+        //         {
+        //             label: "Main Compression RHS",
+        //             fill: false,
+        //             lineTension: 0.1,
+        //             backgroundColor: "cyan",
+        //             borderColor: "#85B3D1FF",
+        //             pointBorderColor: "rgba(75,192,192,1)",
+        //             pointHoverRadius: 5,
+        //             pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        //             pointHoverBorderColor: "rgba(220,220,220,1)",
+        //             pointHoverBorderWidth: 2,
+        //             pointRadius: 5,
+        //             pointHitRadius: 10,
+        //             data: [ ],
+        //         },
+        //         {
+        //             label: "Upper Tolerance",
+        //             fill: false,
+        //             lineTension: 0.1,
+        //             backgroundColor: "red",
+        //             borderColor: "red",
+        //             data: [],
+        //             type: 'line',
+        //         },
+        //         {
+        //             label: "Lower Tolerance",
+        //             fill: false,
+        //             lineTension: 0.1,
+        //             backgroundColor: "red",
+        //             borderColor: "red",
+        //             data: [],
+        //             type: 'line',
+        //         },
+        //         {
+        //             label: "Force Line",
+        //             fill: false,
+        //             lineTension: 0.1,
+        //             backgroundColor: "black",
+        //             borderColor: "black",
+        //             data: [],
+        //             type: 'line',
+        //         },
+        //     ],
+        // };
+        // var maingraphoptions = {
+        //     tooltips: { enabled: true },
+        //     legend: {
+        //         labels: {
+        //             fontSize: 18,
+        //         },
+        //         position: 'top',
+        //     },
+        //     hover: { mode: null },
+        //     showTooltips: false,
+        //     showLines: true,
+        //     scales: {
+        //         yAxes: [{
+        //             scaleLabel: {
+        //                 display: true,
+        //                 fontSize: 20,
+        //                 labelString: 'Compression (kN)'
+        //             },
+        //             ticks: {
+        //                 beginAtZero: true,
+        //                 fontSize: 18,
+        //                 max: 100
+        //             }
+        //         }],
+        //         xAxes: [{
+        //             scaleLabel: {
+        //                 display: true,
+        //                 fontSize: 20,
+        //                 labelString: 'Punch Number'
+        //             },
+        //         }],
+        //     }, 
+        // };
+        // var maingraph = Chart.Bar(maingraphcanvas, {
+        //     data: maingraphdata,
+        //     options: maingraphoptions,
+        // });
 
-        var ejngraphcanvas = document.getElementById('ejncompression_graph');
-        var ejngraphdata = {
-            labels: punch,
-            datasets: [
-                {
-                    label: "Ejection Compression LHS",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "blue",
-                    borderColor: "#85B3D1FF",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 5,
-                    pointHitRadius: 10,
-                    data: [ ],
-                },
-                {
-                    label: "Ejection Compression RHS",
-                    fill: false,
-                    lineTension: 0.1,
-                    backgroundColor: "cyan",
-                    borderColor: "#85B3D1FF",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 5,
-                    pointHitRadius: 10,
-                    data: [ ],
-                },
-            ],
-        };
-        var ejngraphoptions = {
-            tooltips: { enabled: true },
-            legend: {
-                labels: {
-                    fontSize: 18,
-                },
-                position: 'top',
-            },
-            hover: { mode: null },
-            showTooltips: false,
-            showLines: true,
-            scales: {
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        fontSize: 20,
-                        labelString: 'Compression (kN)'
-                    },
-                    ticks: {
-                        beginAtZero: true,
-                        fontSize: 18,
-                        max: 100
-                    }
-                }],
-                xAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        fontSize: 20,
-                        labelString: 'Punch Number'
-                    },
-                }],
-            }, 
-        };
-        var ejngraph = Chart.Bar(ejngraphcanvas, {
-            data: ejngraphdata,
-            options: ejngraphoptions,
-        });
+        // var ejngraphcanvas = document.getElementById('ejncompression_graph');
+        // var ejngraphdata = {
+        //     labels: punch,
+        //     datasets: [
+        //         {
+        //             label: "Ejection Compression LHS",
+        //             fill: false,
+        //             lineTension: 0.1,
+        //             backgroundColor: "blue",
+        //             borderColor: "#85B3D1FF",
+        //             pointBorderColor: "rgba(75,192,192,1)",
+        //             pointHoverRadius: 5,
+        //             pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        //             pointHoverBorderColor: "rgba(220,220,220,1)",
+        //             pointHoverBorderWidth: 2,
+        //             pointRadius: 5,
+        //             pointHitRadius: 10,
+        //             data: [ ],
+        //         },
+        //         {
+        //             label: "Ejection Compression RHS",
+        //             fill: false,
+        //             lineTension: 0.1,
+        //             backgroundColor: "cyan",
+        //             borderColor: "#85B3D1FF",
+        //             pointBorderColor: "rgba(75,192,192,1)",
+        //             pointHoverRadius: 5,
+        //             pointHoverBackgroundColor: "rgba(75,192,192,1)",
+        //             pointHoverBorderColor: "rgba(220,220,220,1)",
+        //             pointHoverBorderWidth: 2,
+        //             pointRadius: 5,
+        //             pointHitRadius: 10,
+        //             data: [ ],
+        //         },
+        //     ],
+        // };
+        // var ejngraphoptions = {
+        //     tooltips: { enabled: true },
+        //     legend: {
+        //         labels: {
+        //             fontSize: 18,
+        //         },
+        //         position: 'top',
+        //     },
+        //     hover: { mode: null },
+        //     showTooltips: false,
+        //     showLines: true,
+        //     scales: {
+        //         yAxes: [{
+        //             scaleLabel: {
+        //                 display: true,
+        //                 fontSize: 20,
+        //                 labelString: 'Compression (kN)'
+        //             },
+        //             ticks: {
+        //                 beginAtZero: true,
+        //                 fontSize: 18,
+        //                 max: 100
+        //             }
+        //         }],
+        //         xAxes: [{
+        //             scaleLabel: {
+        //                 display: true,
+        //                 fontSize: 20,
+        //                 labelString: 'Punch Number'
+        //             },
+        //         }],
+        //     }, 
+        // };
+        // var ejngraph = Chart.Bar(ejngraphcanvas, {
+        //     data: ejngraphdata,
+        //     options: ejngraphoptions,
+        // });
 
         var graph3canvas = document.getElementById('compression_avg_graph');
         var graph3data = {
@@ -830,24 +840,17 @@
             var x = document.getElementById("searchRotationNumber").value;
             var rtn = parseInt(x);
 
-            console.log(rtn);
-            querydb(rtn);
-
             const queryAvgURL = `${hostname}/api/search/average/csv/${currentBatch}`
             
-            console.log(queryAvgURL)
+            // console.log(queryAvgURL)
             
             const avgData = await fetch(queryAvgURL);
             const avggbatch = await avgData.json();
 
             let avglistt = avggbatch;
-            // console.log(avglistt)
-
+            
             var from = parseInt(rtn);
             var to = from + 9;
-
-            console.log(from)
-            console.log(to)
 
             function loadavglist() {
 
@@ -861,13 +864,15 @@
                         l = i - 1;
                         from++;
                         let avgdataa = avggbatch[l]
-                        console.log(`RTN:${avgdataa[1]},PRELHS:${avgdataa[2]},PRERHS:${avgdataa[5]},MAINLHS:${avgdataa[3]},MAINRHS:${avgdataa[6]}`);
+                        // console.log(`RTN:${avgdataa[8]},PRELHS:${avgdataa[6]},PRERHS:${avgdataa[7]},MAINLHS:${avgdataa[4]},MAINRHS:${avgdataa[5]},EJNLHS:${avgdataa[2]},MAINRHS:${avgdataa[3]}`);
 
-                        graph3.data.labels[k] = avgdataa[1];
-                        graph3.data.datasets[0].data[k] = avgdataa[2];
-                        graph3.data.datasets[1].data[k] = avgdataa[5];
-                        graph3.data.datasets[2].data[k] = avgdataa[3];
-                        graph3.data.datasets[3].data[k] = avgdataa[6];
+                        graph3.data.labels[k] = avgdataa[8];
+                        graph3.data.datasets[0].data[k] = avgdataa[6];
+                        graph3.data.datasets[1].data[k] = avgdataa[7];
+                        graph3.data.datasets[2].data[k] = avgdataa[4];
+                        graph3.data.datasets[3].data[k] = avgdataa[5];
+                        graph3.data.datasets[4].data[k] = avgdataa[2];
+                        graph3.data.datasets[5].data[k] = avgdataa[3];
 
                         graph3.update();
                         k++;
@@ -880,6 +885,9 @@
 
             loadavglist();
 
+
+            querydb(rtn);
+
         };
 
         function updatetolerancepreRHS(){
@@ -888,7 +896,6 @@
                 pregraph.data.datasets[2].data = Array(45).fill(payload[csvdata.indexOf("bi_R_rjn_high")])
                 pregraph.data.datasets[3].data = Array(45).fill(payload[csvdata.indexOf("bi_R_rjn_low")])
                 pregraph.data.datasets[4].data = Array(45).fill(payload[csvdata.indexOf("bi_R_force_line")])
-
                 pregraph.update();
 
             }
@@ -914,7 +921,8 @@
 
         async function querydb(input_rotation) {
             // Create Request URL
-            let requesturl = `${searchURL}${input_rotation}`
+            let requesturl = `${dbsearchcsvURL}/${history}`
+            console.log(requesturl);
 
             // Hit API
             const searchResponse = await fetch(requesturl);
@@ -924,6 +932,7 @@
             // var ages = [3, 10, 18, 20];
             csvdata = ['time', 'bi_L_force_line', 'bi_L_rjn_high', 'bi_L_rjn_low', 'bi_R_force_line', 'bi_R_rjn_high', 'bi_R_rjn_low', 'mode', 'mono_force_line', 'mono_rjn_high', 'mono_rjn_low', 'p10LHSejn', 'p10LHSmain', 'p10LHSpre', 'p10RHSejn', 'p10RHSmain', 'p10RHSpre', 'p11LHSejn', 'p11LHSmain', 'p11LHSpre', 'p11RHSejn', 'p11RHSmain', 'p11RHSpre', 'p12LHSejn', 'p12LHSmain', 'p12LHSpre', 'p12RHSejn', 'p12RHSmain', 'p12RHSpre', 'p13LHSejn', 'p13LHSmain', 'p13LHSpre', 'p13RHSejn', 'p13RHSmain', 'p13RHSpre', 'p14LHSejn', 'p14LHSmain', 'p14LHSpre', 'p14RHSejn', 'p14RHSmain', 'p14RHSpre', 'p15LHSejn', 'p15LHSmain', 'p15LHSpre', 'p15RHSejn', 'p15RHSmain', 'p15RHSpre', 'p16LHSejn', 'p16LHSmain', 'p16LHSpre', 'p16RHSejn', 'p16RHSmain', 'p16RHSpre', 'p17LHSejn', 'p17LHSmain', 'p17LHSpre', 'p17RHSejn', 'p17RHSmain', 'p17RHSpre', 'p18LHSejn', 'p18LHSmain', 'p18LHSpre', 'p18RHSejn', 'p18RHSmain', 'p18RHSpre', 'p19LHSejn', 'p19LHSmain', 'p19LHSpre', 'p19RHSejn', 'p19RHSmain', 'p19RHSpre', 'p1LHSejn', 'p1LHSmain', 'p1LHSpre', 'p1RHSejn', 'p1RHSmain', 'p1RHSpre', 'p20LHSejn', 'p20LHSmain', 'p20LHSpre', 'p20RHSejn', 'p20RHSmain', 'p20RHSpre', 'p21LHSejn', 'p21LHSmain', 'p21LHSpre', 'p21RHSejn', 'p21RHSmain', 'p21RHSpre', 'p22LHSejn', 'p22LHSmain', 'p22LHSpre', 'p22RHSejn', 'p22RHSmain', 'p22RHSpre', 'p23LHSejn', 'p23LHSmain', 'p23LHSpre', 'p23RHSejn', 'p23RHSmain', 'p23RHSpre', 'p24LHSejn', 'p24LHSmain', 'p24LHSpre', 'p24RHSejn', 'p24RHSmain', 'p24RHSpre', 'p25LHSejn', 'p25LHSmain', 'p25LHSpre', 'p25RHSejn', 'p25RHSmain', 'p25RHSpre', 'p26LHSejn', 'p26LHSmain', 'p26LHSpre', 'p26RHSejn', 'p26RHSmain', 'p26RHSpre', 'p27LHSejn', 'p27LHSmain', 'p27LHSpre', 'p27RHSejn', 'p27RHSmain', 'p27RHSpre', 'p28LHSejn', 'p28LHSmain', 'p28LHSpre', 'p28RHSejn', 'p28RHSmain', 'p28RHSpre', 'p29LHSejn', 'p29LHSmain', 'p29LHSpre', 'p29RHSejn', 'p29RHSmain', 'p29RHSpre', 'p2LHSejn', 'p2LHSmain', 'p2LHSpre', 'p2RHSejn', 'p2RHSmain', 'p2RHSpre', 'p30LHSejn', 'p30LHSmain', 'p30LHSpre', 'p30RHSejn', 'p30RHSmain', 'p30RHSpre', 'p31LHSejn', 'p31LHSmain', 'p31LHSpre', 'p31RHSejn', 'p31RHSmain', 'p31RHSpre', 'p32LHSejn', 'p32LHSmain', 'p32LHSpre', 'p32RHSejn', 'p32RHSmain', 'p32RHSpre', 'p33LHSejn', 'p33LHSmain', 'p33LHSpre', 'p33RHSejn', 'p33RHSmain', 'p33RHSpre', 'p34LHSejn', 'p34LHSmain', 'p34LHSpre', 'p34RHSejn', 'p34RHSmain', 'p34RHSpre', 'p35LHSejn', 'p35LHSmain', 'p35LHSpre', 'p35RHSejn', 'p35RHSmain', 'p35RHSpre', 'p36LHSejn', 'p36LHSmain', 'p36LHSpre', 'p36RHSejn', 'p36RHSmain', 'p36RHSpre', 'p37LHSejn', 'p37LHSmain', 'p37LHSpre', 'p37RHSejn', 'p37RHSmain', 'p37RHSpre', 'p38LHSejn', 'p38LHSmain', 'p38LHSpre', 'p38RHSejn', 'p38RHSmain', 'p38RHSpre', 'p39LHSejn', 'p39LHSmain', 'p39LHSpre', 'p39RHSejn', 'p39RHSmain', 'p39RHSpre', 'p3LHSejn', 'p3LHSmain', 'p3LHSpre', 'p3RHSejn', 'p3RHSmain', 'p3RHSpre', 'p40LHSejn', 'p40LHSmain', 'p40LHSpre', 'p40RHSejn', 'p40RHSmain', 'p40RHSpre', 'p41LHSejn', 'p41LHSmain', 'p41LHSpre', 'p41RHSejn', 'p41RHSmain', 'p41RHSpre', 'p42LHSejn', 'p42LHSmain', 'p42LHSpre', 'p42RHSejn', 'p42RHSmain', 'p42RHSpre', 'p43LHSejn', 'p43LHSmain', 'p43LHSpre', 'p43RHSejn', 'p43RHSmain', 'p43RHSpre', 'p44LHSejn', 'p44LHSmain', 'p44LHSpre', 'p44RHSejn', 'p44RHSmain', 'p44RHSpre', 'p45LHSejn', 'p45LHSmain', 'p45LHSpre', 'p45RHSejn', 'p45RHSmain', 'p45RHSpre', 'p4LHSejn', 'p4LHSmain', 'p4LHSpre', 'p4RHSejn', 'p4RHSmain', 'p4RHSpre', 'p5LHSejn', 'p5LHSmain', 'p5LHSpre', 'p5RHSejn', 'p5RHSmain', 'p5RHSpre', 'p6LHSejn', 'p6LHSmain', 'p6LHSpre', 'p6RHSejn', 'p6RHSmain', 'p6RHSpre', 'p7LHSejn', 'p7LHSmain', 'p7LHSpre', 'p7RHSejn', 'p7RHSmain', 'p7RHSpre', 'p8LHSejn', 'p8LHSmain', 'p8LHSpre', 'p8RHSejn', 'p8RHSmain', 'p8RHSpre', 'p9LHSejn', 'p9LHSmain', 'p9LHSpre', 'p9RHSejn', 'p9RHSmain', 'p9RHSpre', 'rotation']
 
+            
             if (payload[csvdata.indexOf("mode")] == true) {
                 document.getElementById("mode_metric").innerHTML = "BI-LAYER";
 

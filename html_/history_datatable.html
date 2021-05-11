@@ -1,0 +1,1104 @@
+<!--This template is based on: https://dribbble.com/shots/6531694-Marketing-Dashboard by Gregoire Vella -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard - 45</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link href="/font/css/all.css" rel="stylesheet">
+    <link href="/css/tailwind.min.css" rel="stylesheet">
+    <script src="/charts/Chart.bundle.min.js"></script>
+    <script src="/env/env.js"></script>
+
+    <!-- sidebar -->
+    <style>
+        #sidebar {
+            transition: ease-in-out all .1s;
+            z-index: 9999;
+        }
+
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+
+        #sidebar:hover {
+            width: 180px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Modal CSS -->
+    <style>
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+
+        body.modal-active {
+            overflow-x: hidden;
+            overflow-y: visible !important;
+        }
+    </style>
+
+    <!-- Toggle Button CSS -->
+    <style>
+        .toggle__dot {
+            top: -.25rem;
+            left: -.25rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:checked~.toggle__dot {
+            transform: translateX(100%);
+            background-color: #48bb78;
+        }
+    </style>
+
+</head>
+
+<body class="flex bg-gray-100 select-none font-sans">
+
+    <!-- Side bar-->
+    <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center nunito static fixed shadow">
+
+        <ul class="list-reset">
+            <li class="my-2 md:my-0">
+                <a href="/dashboard"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-home fa-fw mr-3 text-xl"></i><span
+                        class="w-full inline-block text-lg">Dashboard</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/graphLHS"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Graph:
+                        LHS</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/graphRHS"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">Graph:
+                        RHS</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/history"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-history fa-fw mr-3 text-indigo-400 text-xl"></i><span
+                        class="w-full pb-1 text-lg">History</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/dido"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-exchange-alt fa-fw mr-3 text-xl"></i><span
+                        class="w-full inline-blocktext-lg">DI/DO</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/analytics"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-folder fa-fw mr-3 text-xl"></i><span
+                        class="w-full inline-block text-lg">Reports</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3 text-xl"></i><span
+                        class="w-full inline-block text-lg">Settings</span>
+                </a>
+            </li>
+
+
+        </ul>
+
+    </div>
+
+    <div class="flex flex-1 flex-grow content-start pl-16">
+
+
+        <!--Dash Content -->
+        <div id="dash-content" class="bg-green-300 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm content-start">
+
+            <!-- Batch Number -->
+            <div class="w-1 w-full">
+                <div
+                    class="border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-gray-700">Batch Number</h5>
+                            <h3 id="currentbatch" class="font-bold text-2xl">NOT SET</h3>
+                            <!-- <a id="currentbatch" class="font-bold text-xl text-black">
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Digital Output -->
+            <div class="w-1 w-full">
+                <div onclick="location.href='/history'"
+                    class="cursor-pointer border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1">
+                            <h5 class="font-bold text-2xl uppercase text-gray-700">Graph</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-1 w-full">
+                <div onclick="location.href='/history_datatable'"
+                    class="border-2 border-gray-900 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    <div class="flex flex-col text-center">
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold text-2xl uppercase text-gray-900">Table</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Graph Content -->
+        <div id="main-content" class="w-full flex-1">
+
+            <div class="flex flex-1 flex-wrap">
+
+                <div class="w-full xl:w-full p-6">
+                    <!--"Container" for the graphs"-->
+                    <div class="w-full  ">
+
+                        <!-- Search: Parameters -->
+                        <div class="border-b mt-2 p-3">
+                            <h5 class="font-bold text-black">Search: </h5>
+                        </div>
+
+                        <div class="flex grid grid-cols-3 p-3 ">
+
+                            <div class="flex flex-col">
+                                <h3 class="font-bold mt-2 mb-5 text-lg">Total Data points: <a id="total_data">0</a></h3>
+                                <h3> Data Number </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3">
+                                        <input id="searchRotationNumber"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="" onkeydown="if (event.keyCode == 13) search()">
+                                    </div>
+                                    <div class="p-3">
+                                        <button
+                                            class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="search()">
+                                            SEARCH
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Export:  -->
+                        <div class="border-b mt-2 p-3">
+                            <h5 class="font-bold text-black">Export Report:</h5>
+                        </div>
+                        
+                        <div class="flex grid grid-cols-5 p-3 ">
+                        
+                            <div class="flex flex-wrap p-3">
+                        
+                                <!-- PDF report Button -->
+                                <div class="py-3">
+                                    <button id="generatepdfreport"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="generateReport()">
+                                        PDF report
+                                    </button>
+                                </div>
+                            </div>
+                        
+                        </div>
+
+                        <div class="flex flex-row">
+                            <div class="p-5 w-1/3 border border-gray-400 rounded shadow">
+                                <table class="w-full p-5 text-gray-700">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center text-blue-900">Punch</th>
+                                            <th class="text-center text-blue-900">Pre LHS</th>
+                                            <th class="text-center text-blue-900">Pre RHS</th>
+                                            <th class="text-center text-blue-900">Main LHS</th>
+                                            <th class="text-center text-blue-900">Main RHS</th>
+                                            <th class="text-center text-blue-900">Ejn LHS</th>
+                                            <th class="text-center text-blue-900">Ejn RHS</th>
+                        
+                                        </tr>
+                                    </thead>
+                        
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
+                                                1</td>
+                                            <td id="p1-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p1-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p1-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p1-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p1-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p1-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                2</td>
+                                            <td id="p2-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p2-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p2-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p2-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p2-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p2-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                3</td>
+                                            <td id="p3-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p3-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p3-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p3-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p3-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p3-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                4</td>
+                                            <td id="p4-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p4-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p4-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p4-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p4-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p4-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                5</td>
+                                            <td id="p5-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p5-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p5-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p5-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p5-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p5-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                6</td>
+                                            <td id="p6-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p6-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p6-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p6-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p6-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p6-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                7</td>
+                                            <td id="p7-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p7-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p7-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p7-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p7-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p7-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                8</td>
+                                            <td id="p8-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p8-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p8-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p8-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p8-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p8-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                9</td>
+                                            <td id="p9-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p9-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p9-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p9-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p9-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p9-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                10</td>
+                                            <td id="p10-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p10-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p10-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p10-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p10-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p10-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                11</td>
+                                            <td id="p11-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p11-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p11-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p11-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p11-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p11-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                12</td>
+                                            <td id="p12-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p12-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p12-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p12-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p12-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p12-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                13</td>
+                                            <td id="p13-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p13-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p13-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p13-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p13-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p13-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                14</td>
+                                            <td id="p14-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p14-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p14-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p14-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p14-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p14-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                15</td>
+                                            <td id="p15-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p15-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p15-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p15-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p15-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p15-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        
+                            <div class="p-5 mx-5 w-1/3 border border-gray-400 rounded shadow">
+                                <table class="w-full p-5 text-gray-700">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center text-blue-900">Punch</th>
+                                            <th class="text-center text-blue-900">Pre LHS</th>
+                                            <th class="text-center text-blue-900">Pre RHS</th>
+                                            <th class="text-center text-blue-900">Main LHS</th>
+                                            <th class="text-center text-blue-900">Main RHS</th>
+                                            <th class="text-center text-blue-900">Ejn LHS</th>
+                                            <th class="text-center text-blue-900">Ejn RHS</th>
+                        
+                                        </tr>
+                                    </thead>
+                        
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
+                                                16</td>
+                                            <td id="p16-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p16-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p16-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p16-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p16-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p16-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                17</td>
+                                            <td id="p17-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p17-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p17-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p17-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p17-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p17-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                18</td>
+                                            <td id="p18-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p18-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p18-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p18-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p18-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p18-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                19</td>
+                                            <td id="p19-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p19-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p19-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p19-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p19-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p19-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                20</td>
+                                            <td id="p20-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p20-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p20-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p20-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p20-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p20-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                21</td>
+                                            <td id="p21-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p21-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p21-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p21-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p21-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p21-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                22</td>
+                                            <td id="p22-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p22-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p22-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p22-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p22-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p22-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                23</td>
+                                            <td id="p23-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p23-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p23-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p23-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p23-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p23-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                24</td>
+                                            <td id="p24-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p24-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p24-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p24-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p24-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p24-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                25</td>
+                                            <td id="p25-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p25-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p25-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p25-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p25-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p25-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                26</td>
+                                            <td id="p26-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p26-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p26-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p26-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p26-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p26-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                27</td>
+                                            <td id="p27-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p27-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p27-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p27-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p27-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p27-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                28</td>
+                                            <td id="p28-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p28-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p28-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p28-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p28-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p28-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                29</td>
+                                            <td id="p29-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p29-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p29-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p29-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p29-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p29-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                30</td>
+                                            <td id="p30-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p30-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p30-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p30-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p30-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p30-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        
+                            <div class="p-5 w-1/3 border border-gray-400 rounded shadow">
+                                <table class="w-full p-5 text-gray-700">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center text-blue-900">Punch</th>
+                                            <th class="text-center text-blue-900">Pre LHS</th>
+                                            <th class="text-center text-blue-900">Pre RHS</th>
+                                            <th class="text-center text-blue-900">Main LHS</th>
+                                            <th class="text-center text-blue-900">Main RHS</th>
+                                            <th class="text-center text-blue-900">Ejn LHS</th>
+                                            <th class="text-center text-blue-900">Ejn RHS</th>
+                        
+                                        </tr>
+                                    </thead>
+                        
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
+                                                31</td>
+                                            <td id="p31-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p31-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p31-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p31-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p31-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p31-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                32</td>
+                                            <td id="p32-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p32-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p32-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p32-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p32-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p32-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                33</td>
+                                            <td id="p33-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p33-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p33-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p33-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p33-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p33-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                34</td>
+                                            <td id="p34-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p34-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p34-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p34-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p34-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p34-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                35</td>
+                                            <td id="p35-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p35-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p35-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p35-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p35-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p35-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                36</td>
+                                            <td id="p36-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p36-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p36-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p36-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p36-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p36-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                37</td>
+                                            <td id="p37-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p37-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p37-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p37-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p37-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p37-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                38</td>
+                                            <td id="p38-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p38-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p38-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p38-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p38-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p38-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                39</td>
+                                            <td id="p39-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p39-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p39-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p39-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p39-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p39-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                40</td>
+                                            <td id="p40-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p40-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p40-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p40-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p40-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p40-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                41</td>
+                                            <td id="p41-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p41-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p41-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p41-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p41-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p41-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                42</td>
+                                            <td id="p42-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p42-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p42-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p42-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p42-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p42-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                43</td>
+                                            <td id="p43-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p43-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p43-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p43-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p43-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p43-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                44</td>
+                                            <td id="p44-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p44-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p44-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p44-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p44-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p44-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center border-b border-gray-400  uppercase py-2 font-bold text-blue-900">
+                                                45</td>
+                                            <td id="p45-preLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p45-preRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p45-mainLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p45-mainRHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p45-ejnLHS" class="border-b text-center border-gray-400"></td>
+                                            <td id="p45-ejnRHS" class="border-b text-center border-gray-400"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        
+                        </div>
+                    </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Search -->
+    <script>
+
+    var currentBatch;
+    var currentrotation;
+
+    async function fetchpayloadapiHF() {
+        fetch(payloadURL)
+            .then((resp) => resp.json()) // Transform the data into json
+            .then(function (data) {
+                // Here you get the data to modify as you please
+                payload = data
+                currentBatch = payload.batch;
+                document.getElementById('currentbatch').innerHTML = currentBatch
+                console.log(currentBatch)
+            })
+            .then(async function (params) {
+                var queryAvgURL = `${dbsearchURL}/${currentBatch}/history`
+
+                const avgData = await fetch(queryAvgURL);
+                const avggbatch = await avgData.json();
+
+                document.getElementById("total_data").innerHTML = avggbatch.count;
+    
+            })
+            .catch(function (error) {
+                // If there is any error you will catch them here
+                console.log("[ PAYLOAD FETCH ERROR ]", error)
+            });
+    };
+    
+    fetchpayloadapiHF()
+
+    async function search() {
+        var x = document.getElementById("searchRotationNumber").value;
+        var rtn = parseInt(x);
+
+        var csvAvgURLpreLHS = `${reportcsvURL}/preLHS/${currentBatch}/${rtn}/${rtn}`;
+        const batchResponsepreLHS = await fetch(csvAvgURLpreLHS);
+        const csvdatapreLHS = await batchResponsepreLHS.json();
+        var preLHS = csvdatapreLHS.data[0] 
+        
+        var csvAvgURLpreRHS = `${reportcsvURL}/preRHS/${currentBatch}/${rtn}/${rtn}`;
+        const batchResponsepreRHS = await fetch(csvAvgURLpreRHS);
+        const csvdatapreRHS = await batchResponsepreRHS.json();
+        var preRHS = csvdatapreRHS.data[0]
+
+        var csvAvgURLmainLHS = `${reportcsvURL}/mainLHS/${currentBatch}/${rtn}/${rtn}`;
+        const batchResponsemainLHS = await fetch(csvAvgURLmainLHS);
+        const csvdatamainLHS = await batchResponsemainLHS.json();
+        var mainLHS = csvdatamainLHS.data[0]
+
+        var csvAvgURLmainRHS = `${reportcsvURL}/mainRHS/${currentBatch}/${rtn}/${rtn}`;
+        const batchResponsemainRHS = await fetch(csvAvgURLmainRHS);
+        const csvdatamainRHS = await batchResponsemainRHS.json();
+        var mainRHS = csvdatamainRHS.data[0]
+
+        var csvAvgURLejnLHS = `${reportcsvURL}/ejnLHS/${currentBatch}/${rtn}/${rtn}`;
+        const batchResponseejnLHS = await fetch(csvAvgURLejnLHS);
+        const csvdataejnLHS = await batchResponseejnLHS.json();
+        var ejnLHS = csvdataejnLHS.data[0]
+
+        var csvAvgURLejnRHS = `${reportcsvURL}/ejnRHS/${currentBatch}/${rtn}/${rtn}`;
+        const batchResponseejnRHS = await fetch(csvAvgURLejnRHS);
+        const csvdataejnRHS = await batchResponseejnRHS.json();
+        var ejnRHS = csvdataejnRHS.data[0]
+
+
+
+        document.getElementById("p1-preLHS").innerHTML = preLHS[2];
+        document.getElementById("p1-preRHS").innerHTML = preRHS[2];
+        document.getElementById("p1-mainLHS").innerHTML =mainLHS[2];
+        document.getElementById("p1-mainRHS").innerHTML =mainRHS[2];
+        document.getElementById("p2-preLHS").innerHTML = preLHS[3];
+        document.getElementById("p2-preRHS").innerHTML = preRHS[3];
+        document.getElementById("p2-mainLHS").innerHTML =mainLHS[3];
+        document.getElementById("p2-mainRHS").innerHTML =mainRHS[3];
+        document.getElementById("p3-preLHS").innerHTML = preLHS[4];
+        document.getElementById("p3-preRHS").innerHTML = preRHS[4];
+        document.getElementById("p3-mainLHS").innerHTML =mainLHS[4];
+        document.getElementById("p3-mainRHS").innerHTML =mainRHS[4];
+        document.getElementById("p4-preLHS").innerHTML = preLHS[5];
+        document.getElementById("p4-preRHS").innerHTML = preRHS[5];
+        document.getElementById("p4-mainLHS").innerHTML =mainLHS[5];
+        document.getElementById("p4-mainRHS").innerHTML =mainRHS[5];
+        document.getElementById("p5-preLHS").innerHTML = preLHS[6];
+        document.getElementById("p5-preRHS").innerHTML = preRHS[6];
+        document.getElementById("p5-mainLHS").innerHTML =mainLHS[6];
+        document.getElementById("p5-mainRHS").innerHTML =mainRHS[6];
+        document.getElementById("p6-preLHS").innerHTML = preLHS[7];
+        document.getElementById("p6-preRHS").innerHTML = preRHS[7];
+        document.getElementById("p6-mainLHS").innerHTML =mainLHS[7];
+        document.getElementById("p6-mainRHS").innerHTML =mainRHS[7];
+        document.getElementById("p7-preLHS").innerHTML = preLHS[8];
+        document.getElementById("p7-preRHS").innerHTML = preRHS[8];
+        document.getElementById("p7-mainLHS").innerHTML =mainLHS[8];
+        document.getElementById("p7-mainRHS").innerHTML =mainRHS[8];
+        document.getElementById("p8-preLHS").innerHTML = preLHS[9];
+        document.getElementById("p8-preRHS").innerHTML = preRHS[9];
+        document.getElementById("p8-mainLHS").innerHTML =mainLHS[9];
+        document.getElementById("p8-mainRHS").innerHTML =mainRHS[9];
+        document.getElementById("p9-preLHS").innerHTML = preLHS[10];
+        document.getElementById("p9-preRHS").innerHTML = preRHS[10];
+        document.getElementById("p9-mainLHS").innerHTML =mainLHS[10];
+        document.getElementById("p9-mainRHS").innerHTML =mainRHS[10];
+        document.getElementById("p10-preLHS").innerHTML =preLHS[11];
+        document.getElementById("p10-preRHS").innerHTML =preRHS[11];
+        document.getElementById("p10-mainLHS").innerHTML =mainLHS[11];
+        document.getElementById("p10-mainRHS").innerHTML =mainRHS[11];
+        document.getElementById("p11-preLHS").innerHTML = preLHS[12];
+        document.getElementById("p11-preRHS").innerHTML = preRHS[12];
+        document.getElementById("p11-mainLHS").innerHTML =mainLHS[12];
+        document.getElementById("p11-mainRHS").innerHTML =mainRHS[12];
+        document.getElementById("p12-preLHS").innerHTML = preLHS[13];
+        document.getElementById("p12-preRHS").innerHTML = preRHS[13];
+        document.getElementById("p12-mainLHS").innerHTML =mainLHS[13];
+        document.getElementById("p12-mainRHS").innerHTML =mainRHS[13];
+        document.getElementById("p13-preLHS").innerHTML = preLHS[14];
+        document.getElementById("p13-preRHS").innerHTML = preRHS[14];
+        document.getElementById("p13-mainLHS").innerHTML =mainLHS[14];
+        document.getElementById("p13-mainRHS").innerHTML =mainRHS[14];
+        document.getElementById("p14-preLHS").innerHTML = preLHS[15];
+        document.getElementById("p14-preRHS").innerHTML = preRHS[15];
+        document.getElementById("p14-mainLHS").innerHTML =mainLHS[15];
+        document.getElementById("p14-mainRHS").innerHTML =mainRHS[15];
+        document.getElementById("p15-preLHS").innerHTML = preLHS[16];
+        document.getElementById("p15-preRHS").innerHTML = preRHS[16];
+        document.getElementById("p15-mainLHS").innerHTML =mainLHS[16];
+        document.getElementById("p15-mainRHS").innerHTML =mainRHS[16];
+        document.getElementById("p16-preLHS").innerHTML = preLHS[17];
+        document.getElementById("p16-preRHS").innerHTML = preRHS[17];
+        document.getElementById("p16-mainLHS").innerHTML =mainLHS[17];
+        document.getElementById("p16-mainRHS").innerHTML =mainRHS[17];
+        document.getElementById("p17-preLHS").innerHTML = preLHS[18];
+        document.getElementById("p17-preRHS").innerHTML = preRHS[18];
+        document.getElementById("p17-mainLHS").innerHTML =mainLHS[18];
+        document.getElementById("p17-mainRHS").innerHTML =mainRHS[18];
+        document.getElementById("p18-preLHS").innerHTML = preLHS[19];
+        document.getElementById("p18-preRHS").innerHTML = preRHS[19];
+        document.getElementById("p18-mainLHS").innerHTML =mainLHS[19];
+        document.getElementById("p18-mainRHS").innerHTML =mainRHS[19];
+        document.getElementById("p19-preLHS").innerHTML = preLHS[20];
+        document.getElementById("p19-preRHS").innerHTML = preRHS[20];
+        document.getElementById("p19-mainLHS").innerHTML =mainLHS[20];
+        document.getElementById("p19-mainRHS").innerHTML =mainRHS[20];
+        document.getElementById("p20-preLHS").innerHTML = preLHS[21];
+        document.getElementById("p20-preRHS").innerHTML = preRHS[21];
+        document.getElementById("p20-mainLHS").innerHTML =mainLHS[21];
+        document.getElementById("p20-mainRHS").innerHTML =mainRHS[21];
+        document.getElementById("p21-preLHS").innerHTML = preLHS[22];
+        document.getElementById("p21-preRHS").innerHTML = preRHS[22];
+        document.getElementById("p21-mainLHS").innerHTML =mainLHS[22];
+        document.getElementById("p21-mainRHS").innerHTML =mainRHS[22];
+        document.getElementById("p22-preLHS").innerHTML = preLHS[23];
+        document.getElementById("p22-preRHS").innerHTML = preRHS[23];
+        document.getElementById("p22-mainLHS").innerHTML =mainLHS[23];
+        document.getElementById("p22-mainRHS").innerHTML =mainRHS[23];
+        document.getElementById("p23-preLHS").innerHTML = preLHS[24];
+        document.getElementById("p23-preRHS").innerHTML = preRHS[24];
+        document.getElementById("p23-mainLHS").innerHTML =mainLHS[24];
+        document.getElementById("p23-mainRHS").innerHTML =mainRHS[24];
+        document.getElementById("p24-preLHS").innerHTML = preLHS[25];
+        document.getElementById("p24-preRHS").innerHTML = preRHS[25];
+        document.getElementById("p24-mainLHS").innerHTML =mainLHS[25];
+        document.getElementById("p24-mainRHS").innerHTML =mainRHS[25];
+        document.getElementById("p25-preLHS").innerHTML = preLHS[26];
+        document.getElementById("p25-preRHS").innerHTML = preRHS[26];
+        document.getElementById("p25-mainLHS").innerHTML =mainLHS[26];
+        document.getElementById("p25-mainRHS").innerHTML =mainRHS[26];
+        document.getElementById("p26-preLHS").innerHTML = preLHS[27];
+        document.getElementById("p26-preRHS").innerHTML = preRHS[27];
+        document.getElementById("p26-mainLHS").innerHTML =mainLHS[27];
+        document.getElementById("p26-mainRHS").innerHTML =mainRHS[27];
+        document.getElementById("p27-preLHS").innerHTML = preLHS[28];
+        document.getElementById("p27-preRHS").innerHTML = preRHS[28];
+        document.getElementById("p27-mainLHS").innerHTML =mainLHS[28];
+        document.getElementById("p27-mainRHS").innerHTML =mainRHS[28];
+        document.getElementById("p28-preLHS").innerHTML = preLHS[29];
+        document.getElementById("p28-preRHS").innerHTML = preRHS[29];
+        document.getElementById("p28-mainLHS").innerHTML =mainLHS[29];
+        document.getElementById("p28-mainRHS").innerHTML =mainRHS[29];
+        document.getElementById("p29-preLHS").innerHTML = preLHS[30];
+        document.getElementById("p29-preRHS").innerHTML = preRHS[30];
+        document.getElementById("p29-mainLHS").innerHTML =mainLHS[30];
+        document.getElementById("p29-mainRHS").innerHTML =mainRHS[30];
+        document.getElementById("p30-preLHS").innerHTML = preLHS[31];
+        document.getElementById("p30-preRHS").innerHTML = preRHS[31];
+        document.getElementById("p30-mainLHS").innerHTML =mainLHS[31];
+        document.getElementById("p30-mainRHS").innerHTML =mainRHS[31];
+        document.getElementById("p31-preLHS").innerHTML = preLHS[32];
+        document.getElementById("p31-preRHS").innerHTML = preRHS[32];
+        document.getElementById("p31-mainLHS").innerHTML =mainLHS[32];
+        document.getElementById("p31-mainRHS").innerHTML =mainRHS[32];
+        document.getElementById("p32-preLHS").innerHTML = preLHS[33];
+        document.getElementById("p32-preRHS").innerHTML = preRHS[33];
+        document.getElementById("p32-mainLHS").innerHTML =mainLHS[33];
+        document.getElementById("p32-mainRHS").innerHTML =mainRHS[33];
+        document.getElementById("p33-preLHS").innerHTML = preLHS[34];
+        document.getElementById("p33-preRHS").innerHTML = preRHS[34];
+        document.getElementById("p33-mainLHS").innerHTML =mainLHS[34];
+        document.getElementById("p33-mainRHS").innerHTML =mainRHS[34];
+        document.getElementById("p34-preLHS").innerHTML = preLHS[35];
+        document.getElementById("p34-preRHS").innerHTML = preRHS[35];
+        document.getElementById("p34-mainLHS").innerHTML =mainLHS[35];
+        document.getElementById("p34-mainRHS").innerHTML =mainRHS[35];
+        document.getElementById("p35-preLHS").innerHTML = preLHS[36];
+        document.getElementById("p35-preRHS").innerHTML = preRHS[36];
+        document.getElementById("p35-mainLHS").innerHTML =mainLHS[36];
+        document.getElementById("p35-mainRHS").innerHTML =mainRHS[36];
+        document.getElementById("p36-preLHS").innerHTML = preLHS[37];
+        document.getElementById("p36-preRHS").innerHTML = preRHS[37];
+        document.getElementById("p36-mainLHS").innerHTML =mainLHS[37];
+        document.getElementById("p36-mainRHS").innerHTML =mainRHS[37];
+        document.getElementById("p37-preLHS").innerHTML = preLHS[38];
+        document.getElementById("p37-preRHS").innerHTML = preRHS[38];
+        document.getElementById("p37-mainLHS").innerHTML =mainLHS[38];
+        document.getElementById("p37-mainRHS").innerHTML =mainRHS[38];
+        document.getElementById("p38-preLHS").innerHTML = preLHS[39];
+        document.getElementById("p38-preRHS").innerHTML = preRHS[39];
+        document.getElementById("p38-mainLHS").innerHTML =mainLHS[39];
+        document.getElementById("p38-mainRHS").innerHTML =mainRHS[39];
+        document.getElementById("p39-preLHS").innerHTML = preLHS[40];
+        document.getElementById("p39-preRHS").innerHTML = preRHS[40];
+        document.getElementById("p39-mainLHS").innerHTML =mainLHS[40];
+        document.getElementById("p39-mainRHS").innerHTML =mainRHS[40];
+        document.getElementById("p40-preLHS").innerHTML = preLHS[41];
+        document.getElementById("p40-preRHS").innerHTML = preRHS[41];
+        document.getElementById("p40-mainLHS").innerHTML =mainLHS[41];
+        document.getElementById("p40-mainRHS").innerHTML =mainRHS[41];
+        document.getElementById("p41-preLHS").innerHTML = preLHS[42];
+        document.getElementById("p41-preRHS").innerHTML = preRHS[42];
+        document.getElementById("p41-mainLHS").innerHTML =mainLHS[42];
+        document.getElementById("p41-mainRHS").innerHTML =mainRHS[42];
+        document.getElementById("p42-preLHS").innerHTML = preLHS[43];
+        document.getElementById("p42-preRHS").innerHTML = preRHS[43];
+        document.getElementById("p42-mainLHS").innerHTML =mainLHS[43];
+        document.getElementById("p42-mainRHS").innerHTML =mainRHS[43];
+        document.getElementById("p43-preLHS").innerHTML = preLHS[44];
+        document.getElementById("p43-preRHS").innerHTML = preRHS[44];
+        document.getElementById("p43-mainLHS").innerHTML =mainLHS[44];
+        document.getElementById("p43-mainRHS").innerHTML =mainRHS[44];
+        document.getElementById("p44-preLHS").innerHTML = preLHS[45];
+        document.getElementById("p44-preRHS").innerHTML = preRHS[45];
+        document.getElementById("p44-mainLHS").innerHTML =mainLHS[45];
+        document.getElementById("p44-mainRHS").innerHTML =mainRHS[45];
+        document.getElementById("p45-preLHS").innerHTML = preLHS[46];
+        document.getElementById("p45-preRHS").innerHTML = preRHS[46];
+        document.getElementById("p45-mainLHS").innerHTML =mainLHS[46];
+        document.getElementById("p45-mainRHS").innerHTML =mainRHS[46];
+
+        document.getElementById("p1-ejnRHS").innerHTML = ejnRHS[2];
+        document.getElementById("p2-ejnRHS").innerHTML = ejnRHS[3];
+        document.getElementById("p3-ejnRHS").innerHTML = ejnRHS[4];
+        document.getElementById("p4-ejnRHS").innerHTML = ejnRHS[5];
+        document.getElementById("p5-ejnRHS").innerHTML = ejnRHS[6];
+        document.getElementById("p6-ejnRHS").innerHTML = ejnRHS[7];
+        document.getElementById("p7-ejnRHS").innerHTML = ejnRHS[8];
+        document.getElementById("p8-ejnRHS").innerHTML = ejnRHS[9];
+        document.getElementById("p9-ejnRHS").innerHTML = ejnRHS[10];
+        document.getElementById("p10-ejnRHS").innerHTML =ejnRHS[11];
+        document.getElementById("p11-ejnRHS").innerHTML =ejnRHS[12];
+        document.getElementById("p12-ejnRHS").innerHTML =ejnRHS[13];
+        document.getElementById("p13-ejnRHS").innerHTML =ejnRHS[14];
+        document.getElementById("p14-ejnRHS").innerHTML =ejnRHS[15];
+        document.getElementById("p15-ejnRHS").innerHTML =ejnRHS[16];
+        document.getElementById("p16-ejnRHS").innerHTML =ejnRHS[17];
+        document.getElementById("p17-ejnRHS").innerHTML =ejnRHS[18];
+        document.getElementById("p18-ejnRHS").innerHTML =ejnRHS[19];
+        document.getElementById("p19-ejnRHS").innerHTML =ejnRHS[20];
+        document.getElementById("p20-ejnRHS").innerHTML =ejnRHS[21];
+        document.getElementById("p21-ejnRHS").innerHTML =ejnRHS[22];
+        document.getElementById("p22-ejnRHS").innerHTML =ejnRHS[23];
+        document.getElementById("p23-ejnRHS").innerHTML =ejnRHS[24];
+        document.getElementById("p24-ejnRHS").innerHTML =ejnRHS[25];
+        document.getElementById("p25-ejnRHS").innerHTML =ejnRHS[26];
+        document.getElementById("p26-ejnRHS").innerHTML =ejnRHS[27];
+        document.getElementById("p27-ejnRHS").innerHTML =ejnRHS[28];
+        document.getElementById("p28-ejnRHS").innerHTML =ejnRHS[29];
+        document.getElementById("p29-ejnRHS").innerHTML =ejnRHS[30];
+        document.getElementById("p30-ejnRHS").innerHTML =ejnRHS[31];
+        document.getElementById("p31-ejnRHS").innerHTML =ejnRHS[32];
+        document.getElementById("p32-ejnRHS").innerHTML =ejnRHS[33];
+        document.getElementById("p33-ejnRHS").innerHTML =ejnRHS[34];
+        document.getElementById("p34-ejnRHS").innerHTML =ejnRHS[35];
+        document.getElementById("p35-ejnRHS").innerHTML =ejnRHS[36];
+        document.getElementById("p36-ejnRHS").innerHTML =ejnRHS[37];
+        document.getElementById("p37-ejnRHS").innerHTML =ejnRHS[38];
+        document.getElementById("p38-ejnRHS").innerHTML =ejnRHS[39];
+        document.getElementById("p39-ejnRHS").innerHTML =ejnRHS[40];
+        document.getElementById("p40-ejnRHS").innerHTML =ejnRHS[41];
+        document.getElementById("p41-ejnRHS").innerHTML =ejnRHS[42];
+        document.getElementById("p42-ejnRHS").innerHTML =ejnRHS[43];
+        document.getElementById("p43-ejnRHS").innerHTML =ejnRHS[44];
+        document.getElementById("p44-ejnRHS").innerHTML =ejnRHS[45];
+        document.getElementById("p45-ejnRHS").innerHTML =ejnRHS[46];
+
+        document.getElementById("p1-ejnLHS").innerHTML = ejnLHS[2];
+        document.getElementById("p2-ejnLHS").innerHTML = ejnLHS[3];
+        document.getElementById("p3-ejnLHS").innerHTML = ejnLHS[4];
+        document.getElementById("p4-ejnLHS").innerHTML = ejnLHS[5];
+        document.getElementById("p5-ejnLHS").innerHTML = ejnLHS[6];
+        document.getElementById("p6-ejnLHS").innerHTML = ejnLHS[7];
+        document.getElementById("p7-ejnLHS").innerHTML = ejnLHS[8];
+        document.getElementById("p8-ejnLHS").innerHTML = ejnLHS[9];
+        document.getElementById("p9-ejnLHS").innerHTML = ejnLHS[10];
+        document.getElementById("p10-ejnLHS").innerHTML =ejnLHS[11];
+        document.getElementById("p11-ejnLHS").innerHTML =ejnLHS[12];
+        document.getElementById("p12-ejnLHS").innerHTML =ejnLHS[13];
+        document.getElementById("p13-ejnLHS").innerHTML =ejnLHS[14];
+        document.getElementById("p14-ejnLHS").innerHTML =ejnLHS[15];
+        document.getElementById("p15-ejnLHS").innerHTML =ejnLHS[16];
+        document.getElementById("p16-ejnLHS").innerHTML =ejnLHS[17];
+        document.getElementById("p17-ejnLHS").innerHTML =ejnLHS[18];
+        document.getElementById("p18-ejnLHS").innerHTML =ejnLHS[19];
+        document.getElementById("p19-ejnLHS").innerHTML =ejnLHS[20];
+        document.getElementById("p20-ejnLHS").innerHTML =ejnLHS[21];
+        document.getElementById("p21-ejnLHS").innerHTML =ejnLHS[22];
+        document.getElementById("p22-ejnLHS").innerHTML =ejnLHS[23];
+        document.getElementById("p23-ejnLHS").innerHTML =ejnLHS[24];
+        document.getElementById("p24-ejnLHS").innerHTML =ejnLHS[25];
+        document.getElementById("p25-ejnLHS").innerHTML =ejnLHS[26];
+        document.getElementById("p26-ejnLHS").innerHTML =ejnLHS[27];
+        document.getElementById("p27-ejnLHS").innerHTML =ejnLHS[28];
+        document.getElementById("p28-ejnLHS").innerHTML =ejnLHS[29];
+        document.getElementById("p29-ejnLHS").innerHTML =ejnLHS[30];
+        document.getElementById("p30-ejnLHS").innerHTML =ejnLHS[31];
+        document.getElementById("p31-ejnLHS").innerHTML =ejnLHS[32];
+        document.getElementById("p32-ejnLHS").innerHTML =ejnLHS[33];
+        document.getElementById("p33-ejnLHS").innerHTML =ejnLHS[34];
+        document.getElementById("p34-ejnLHS").innerHTML =ejnLHS[35];
+        document.getElementById("p35-ejnLHS").innerHTML =ejnLHS[36];
+        document.getElementById("p36-ejnLHS").innerHTML =ejnLHS[37];
+        document.getElementById("p37-ejnLHS").innerHTML =ejnLHS[38];
+        document.getElementById("p38-ejnLHS").innerHTML =ejnLHS[39];
+        document.getElementById("p39-ejnLHS").innerHTML =ejnLHS[40];
+        document.getElementById("p40-ejnLHS").innerHTML =ejnLHS[41];
+        document.getElementById("p41-ejnLHS").innerHTML =ejnLHS[42];
+        document.getElementById("p42-ejnLHS").innerHTML =ejnLHS[43];
+        document.getElementById("p43-ejnLHS").innerHTML =ejnLHS[44];
+        document.getElementById("p44-ejnLHS").innerHTML =ejnLHS[45];
+        document.getElementById("p45-ejnLHS").innerHTML =ejnLHS[46];
+
+    };
+
+
+    </script>
+
+</body>
+
+</html>

@@ -100,6 +100,10 @@ app.get("/history", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/history.html"));
 });
 
+app.get("/history_datatable", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html_/history_datatable.html"));
+});
+
 app.get("/analytics", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/analytics.html"));
 });
