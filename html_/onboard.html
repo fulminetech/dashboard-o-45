@@ -156,7 +156,13 @@
 
         // // Fetch previous settings are start the dashboard
         async function continuee() {
-            location.href = "/dashboard"
+            let submiturl = `/onboard/continue`
+            await fetch(submiturl)
+                .then(setTimeout(() => {
+                    location.href = "/dashboard"
+                }, 100))
+                .catch(console.error);
+
         }
 
     </script>

@@ -187,13 +187,16 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
 
 app.get("/onboard/continue", (req, res) => {
 
+    var lastBatch
+
     function checkbatch() {
-        _perm.queryRaw(`select "batch" from "batchlist" ORDER BY time DESC LIMIT 1`)
+        _perm.queryRaw(`select "batch", "operator" from "batchlist" ORDER BY time DESC LIMIT 1`)
             .then(data => {
                 var response = data.results[0].series[0].values[0];
-                var response1 = data.results[0].series[0].values[1];
-                var lastBatch = response[1]
-                var lastOperator = response1[1]
+                console.log(response)
+
+                lastBatch = response[1]
+                var lastOperator = response[2]
                 console.log(lastBatch)
                 console.log(lastOperator)
             
@@ -203,12 +206,12 @@ app.get("/onboard/continue", (req, res) => {
 
             })
             .then(function () {
-                _new.queryRaw(`select "rotation" from "${batchinfo.name}.average" ORDER BY time DESC LIMIT 1`)
+                _new.queryRaw(`select "rotation" from "${lastBatch}.average" ORDER BY time DESC LIMIT 1`)
                     .then(data => {
                         var response = data.results[0].series[0].values[0];
                         var previousrtn = parseInt(response[1]);
-                        console.log(previousrtn)
-                        batchinfo.rotation = previousrtn
+                        // console.log(previousrtn)
+                        payload.data_number = previousrtn
                     })
                     .catch(console.error)
                 }
@@ -222,6 +225,8 @@ app.get("/onboard/continue", (req, res) => {
             )
             .catch(console.error);
     }
+
+    checkbatch()
 
 });
 
