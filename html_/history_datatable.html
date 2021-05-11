@@ -188,11 +188,25 @@
                         <div class="border-b mt-2 p-3">
                             <h5 class="font-bold text-black">Search: </h5>
                         </div>
+                        
+                        <div class="border-b mt-2 p-3">
+                            <h3 class="font-bold mt-2 mb-5 text-lg">Total Data points: <a id="total_data">0</a></h3>
+                        </div>
 
                         <div class="flex grid grid-cols-3 p-3 ">
 
                             <div class="flex flex-col">
-                                <h3 class="font-bold mt-2 mb-5 text-lg">Total Data points: <a id="total_data">0</a></h3>
+                                <h3> Batch Number </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3">
+                                        <input id="batchname"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="text" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col">
                                 <h3> Data Number </h3>
                                 <div class="flex flex-row">
                                     <div class="py-3">
@@ -764,7 +778,7 @@
             .then(function (data) {
                 // Here you get the data to modify as you please
                 payload = data
-                currentBatch = payload.batch;
+                currentBatch = payload.batch; 
                 document.getElementById('currentbatch').innerHTML = currentBatch
                 console.log(currentBatch)
             })
@@ -786,7 +800,21 @@
     fetchpayloadapiHF()
 
     async function search() {
+        event.keyCode = 13
         var x = document.getElementById("searchRotationNumber").value;
+        if (document.getElementById("batchname").value !== ''){
+            currentBatch = document.getElementById("batchname").value;
+        }
+
+        console.log(currentBatch)
+
+        var queryAvgURL = `${dbsearchURL}/${currentBatch}/history`
+
+        const avgData = await fetch(queryAvgURL);
+        const avggbatch = await avgData.json();
+
+        document.getElementById("total_data").innerHTML = avggbatch.count;
+        
         var rtn = parseInt(x);
 
         var csvAvgURLpreLHS = `${reportcsvURL}/preLHS/${currentBatch}/${rtn}/${rtn}`;
