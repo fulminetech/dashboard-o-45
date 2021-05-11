@@ -374,6 +374,98 @@ app.get("/api/search/average/csv/:batch", (req, res) => {
     passbatch(r)
 });
 
+app.get("/api/csv/:param/:batch/:from/:to", (req, res) => {
+    // select * from "payload" where "rotation" = 7
+    const param = req.params.param
+    const batch = req.params.batch
+    const from = req.params.from
+    const to = req.params.to
+
+    if (param == "preLHS") {
+        
+        _new.queryRaw(`select "rotation", "p1LHSpre", "p2LHSpre", "p3LHSpre", "p4LHSpre", "p5LHSpre", "p6LHSpre", "p7LHSpre", "p8LHSpre", "p9LHSpre", "p10LHSpre", "p11LHSpre", "p12LHSpre", "p13LHSpre", "p14LHSpre", "p15LHSpre", "p16LHSpre", "p17LHSpre", "p18LHSpre", "p19LHSpre", "p20LHSpre", "p21LHSpre", "p22LHSpre", "p23LHSpre", "p24LHSpre", "p25LHSpre", "p26LHSpre", "p27LHSpre", "p28LHSpre", "p29LHSpre", "p30LHSpre", "p31LHSpre", "p32LHSpre", "p33LHSpre", "p34LHSpre", "p35LHSpre", "p36LHSpre", "p37LHSpre", "p38LHSpre", "p39LHSpre", "p40LHSpre", "p41LHSpre", "p42LHSpre", "p43LHSpre", "p44LHSpre", "p45LHSpre" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
+            .then(data => {
+                var response = data.results[0].series[0].values
+                var _data = {
+                    count: response.length,
+                    data: response
+                }
+                res.json(_data)
+                // console.log(_data.data)
+            })
+            .catch(console.error);
+        
+    } else if (param == "preRHS") {
+        _new.queryRaw(`select "rotation", "p1RHSpre", "p2RHSpre", "p3RHSpre", "p4RHSpre", "p5RHSpre", "p6RHSpre", "p7RHSpre", "p8RHSpre", "p9RHSpre", "p10RHSpre", "p11RHSpre", "p12RHSpre", "p13RHSpre", "p14RHSpre", "p15RHSpre", "p16RHSpre", "p17RHSpre", "p18RHSpre", "p19RHSpre", "p20RHSpre", "p21RHSpre", "p22RHSpre", "p23RHSpre", "p24RHSpre", "p25RHSpre", "p26RHSpre", "p27RHSpre", "p28RHSpre", "p29RHSpre", "p30RHSpre", "p31RHSpre", "p32RHSpre", "p33RHSpre", "p34RHSpre", "p35RHSpre", "p36RHSpre", "p37RHSpre", "p38RHSpre", "p39RHSpre", "p40RHSpre", "p41RHSpre", "p42RHSpre", "p43RHSpre", "p44RHSpre", "p45RHSpre" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
+            .then(data => {
+                var response = data.results[0].series[0].values
+                var _data = {
+                    count: response.length,
+                    data: response
+                }
+                res.json(_data)
+                // console.log(_data)
+            })
+            .catch(console.error);
+
+
+    } else if (param == "mainLHS") {
+        _new.queryRaw(`select "rotation", "p1LHSmain", "p2LHSmain", "p3LHSmain", "p4LHSmain", "p5LHSmain", "p6LHSmain", "p7LHSmain", "p8LHSmain", "p9LHSmain", "p10LHSmain", "p11LHSmain", "p12LHSmain", "p13LHSmain", "p14LHSmain", "p15LHSmain", "p16LHSmain", "p17LHSmain", "p18LHSmain", "p19LHSmain", "p20LHSmain", "p21LHSmain", "p22LHSmain", "p23LHSmain", "p24LHSmain", "p25LHSmain", "p26LHSmain", "p27LHSmain", "p28LHSmain", "p29LHSmain", "p30LHSmain", "p31LHSmain", "p32LHSmain", "p33LHSmain", "p34LHSmain", "p35LHSmain", "p36LHSmain", "p37LHSmain", "p38LHSmain", "p39LHSmain", "p40LHSmain", "p41LHSmain", "p42LHSmain", "p43LHSmain", "p44LHSmain", "p45LHSmain" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
+            .then(data => {
+                var response = data.results[0].series[0].values
+                var _data = {
+                    count: response.length,
+                    data: response
+                }
+                res.json(_data)
+                // console.log(_data)
+            })
+            .catch(console.error);
+
+    } else if (param == "mainRHS") {
+        _new.queryRaw(`select "rotation", "p1RHSmain", "p2RHSmain", "p3RHSmain", "p4RHSmain", "p5RHSmain", "p6RHSmain", "p7RHSmain", "p8RHSmain", "p9RHSmain", "p10RHSmain", "p11RHSmain", "p12RHSmain", "p13RHSmain", "p14RHSmain", "p15RHSmain", "p16RHSmain", "p17RHSmain", "p18RHSmain", "p19RHSmain", "p20RHSmain", "p21RHSmain", "p22RHSmain", "p23RHSmain", "p24RHSmain", "p25RHSmain", "p26RHSmain", "p27RHSmain", "p28RHSmain", "p29RHSmain", "p30RHSmain", "p31RHSmain", "p32RHSmain", "p33RHSmain", "p34RHSmain", "p35RHSmain", "p36RHSmain", "p37RHSmain", "p38RHSmain", "p39RHSmain", "p40RHSmain", "p41RHSmain", "p42RHSmain", "p43RHSmain", "p44RHSmain", "p45RHSmain" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
+            .then(data => {
+                var response = data.results[0].series[0].values
+                var _data = {
+                    count: response.length,
+                    data: response
+                }
+                res.json(_data)
+                // console.log(_data)
+            })
+            .catch(console.error);
+
+    } else if (param == "ejnLHS") {
+        _new.queryRaw(`select "rotation", "p1LHSejn", "p2LHSejn", "p3LHSejn", "p4LHSejn", "p5LHSejn", "p6LHSejn", "p7LHSejn", "p8LHSejn", "p9LHSejn", "p10LHSejn", "p11LHSejn", "p12LHSejn", "p13LHSejn", "p14LHSejn", "p15LHSejn", "p16LHSejn", "p17LHSejn", "p18LHSejn", "p19LHSejn", "p20LHSejn", "p21LHSejn", "p22LHSejn", "p23LHSejn", "p24LHSejn", "p25LHSejn", "p26LHSejn", "p27LHSejn", "p28LHSejn", "p29LHSejn", "p30LHSejn", "p31LHSejn", "p32LHSejn", "p33LHSejn", "p34LHSejn", "p35LHSejn", "p36LHSejn", "p37LHSejn", "p38LHSejn", "p39LHSejn", "p40LHSejn", "p41LHSejn", "p42LHSejn", "p43LHSejn", "p44LHSejn", "p45LHSejn" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
+            .then(data => {
+                var response = data.results[0].series[0].values
+                var _data = {
+                    count: response.length,
+                    data: response
+                }
+                res.json(_data)
+                // console.log(_data)
+            })
+            .catch(console.error);
+
+    } else if (param == "ejnRHS") {
+        _new.queryRaw(`select "rotation", "p1RHSejn", "p2RHSejn", "p3RHSejn", "p4RHSejn", "p5RHSejn", "p6RHSejn", "p7RHSejn", "p8RHSejn", "p9RHSejn", "p10RHSejn", "p11RHSejn", "p12RHSejn", "p13RHSejn", "p14RHSejn", "p15RHSejn", "p16RHSejn", "p17RHSejn", "p18RHSejn", "p19RHSejn", "p20RHSejn", "p21RHSejn", "p22RHSejn", "p23RHSejn", "p24RHSejn", "p25RHSejn", "p26RHSejn", "p27RHSejn", "p28RHSejn", "p29RHSejn", "p30RHSejn", "p31RHSejn", "p32RHSejn", "p33RHSejn", "p34RHSejn", "p35RHSejn", "p36RHSejn", "p37RHSejn", "p38RHSejn", "p39RHSejn", "p40RHSejn", "p41RHSejn", "p42RHSejn", "p43RHSejn", "p44RHSejn", "p45RHSejn" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
+            .then(data => {
+                var response = data.results[0].series[0].values
+                var _data = {
+                    count: response.length,
+                    data: response
+                }
+                res.json(_data)
+                // console.log(_data)
+            })
+            .catch(console.error);
+
+    } else {
+        return res.status(400).json({ message: 'Not found' });
+    }
+});
+
 app.get("/api/search/logs/:batch", (req, res) => {
     // select * from "payload" where "rotation" = 7
     const r = req.params.batch

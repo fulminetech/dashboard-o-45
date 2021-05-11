@@ -40,6 +40,7 @@ const reportAvgURL = `${hostname}/report/average`
 const reportAvgGenURL = `${hostname}/report/average/generate`
 const reportAlarmGenURL = `${hostname}/report/alarm/generate`
 const reportAuditGenURL = `${hostname}/report/audit/generate`
+const reportcsvURL = `${hostname}/api/csv`
 
 const searchURL = `${hostname}/api/search/rotation/`
 const restartURL = `${hostname}/restart/pm2-0`
