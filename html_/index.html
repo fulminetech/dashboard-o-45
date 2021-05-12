@@ -2327,49 +2327,8 @@
     <!-- Update System info -->
     <script>
 
-        async function updateLHSdepth() {
-            var a = document.getElementById("LHSdepth");
-
-            console.log(a)
-            
-            var LHSdepth = "";
-            var i;
-            for (i = 0; i < a.length; i++) {
-                LHSdepth += a.elements[i].value;
-            }
-
-            console.log(LHSdepth)
-
-            let submiturl = `${seturl}/LHSdepth/${LHSdepth}`
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED LHSdepth tolerance ] ") )
-                .catch(console.error);
-            
-        }
-
-        function updateRHSdepth() {
-            var b = document.getElementById("RHSdepth");
-
-            var RHSdepth = "";
-            var j;
-            for (j = 0; j < b.length; j++) {
-                RHSdepth += b.elements[j].value;
-            }
-
-            submitt(parseInt(RHSdepth))
-
-            async function submitt(RHSdepth) {
-                let submiturl = `${seturl}/RHSdepth/${RHSdepth}`
-
-                console.log(submiturl)
-
-                await fetch(submiturl)
-                    .then(setTimeout(() => {
-                        console.log(" [ UPDATED RHSdepth tolerance ] ")
-                    }, 100))
-                    .catch(console.error);
-            }
-
+        function hidekeyboard(){
+            event.keyCode = 13
         }
 
         function updatepressure() {
@@ -2378,6 +2337,7 @@
             submitt( parseFloat(pressure) )
             
             function submitt(pressure) {
+                hidekeyboard()
                 var pressure = c;
                 if (pressure <= 100 && pressure >= 1) {
                     
@@ -2409,6 +2369,7 @@
             submitt(parseFloat(lubetime))
 
             async function submitt(lubetime) {
+                hidekeyboard()
                 let submiturl = `${seturl}/LUBE_TIME_DELAY_MINUTES/${lubetime}`
 
                 console.log(submiturl)
@@ -2435,7 +2396,7 @@
 
             async function submitt(rpmTurret) {
 
-
+                hidekeyboard()
                 let submiturl = `${seturl}/TURRET_RPM/${rpmTurret}`
 
                 console.log(submiturl)
@@ -2455,6 +2416,7 @@
         }
 
         function updaterpmFL() {
+            hidekeyboard()
             var f = document.getElementById("rpmFeederLHS").value;
 
             var rpmFeederLHS = f ;
@@ -2480,6 +2442,7 @@
         }
 
         function updaterpmFR() {
+            hidekeyboard()
             var g = document.getElementById("rpmFeederRHS").value; // 
 
             var rpmFeederRHS = g
@@ -2918,6 +2881,7 @@
         }
         
         function roller_freq() {
+            hidekeyboard()
             var value = document.getElementById("roller_freq").value;
 
             value <= 80 && value >= 0 ? submitt(parseInt(value)) : value
