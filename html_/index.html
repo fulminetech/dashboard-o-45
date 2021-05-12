@@ -2328,7 +2328,8 @@
     <script>
 
         function hidekeyboard(){
-            document.getElementById("batch_number_metric").click()
+            let element = document.getElementById("batch_number_metric").innerText
+            element.dispatchEvent(new KeyboardEvent('keypress', { 'key': 'Escape' }));
         }
 
         function updatepressure() {
