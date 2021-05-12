@@ -13,22 +13,19 @@
 
 <body onload="searchBatch()">
 
-
-    <p class="pt-5 text-gray-800 text-3xl uppercase text-bold text-center font-medium">AVERAGE COMPRESSION REPORT</p>
-    <!-- <p class="pt-2 text-gray-700 text-2xl uppercase text-bold text-center font-medium">45 Punch </p> -->
-    <h3 class="px-10 pt-10 pb-3 text-gray-700 text-left">Batch Number:
+    <h3 class="px-10 py-2 text-gray-700 text-left">Batch Number:
         <a id="batch_number_metric" class="font-bold text-gray-900">
         </a>
     </h3>
-    <h3 class="px-10 pt-2 pb-3 text-gray-700 text-left">From (rotation number):
+    <h3 class="px-10 py-2 text-gray-700 text-left">From (rotation number):
         <a id="from" class="font-bold text-gray-900">
         </a>
     </h3>
-    <h3 class="px-10 pt-2 pb-3 text-gray-700 text-left">To (rotation number):
+    <h3 class="px-10 py-2 text-gray-700 text-left">To (rotation number):
         <a id="to" class="font-bold text-gray-900">
         </a>
     </h3>
-    <h3 class="px-10 pt-2 pb-3 text-gray-700 text-left">Created on:
+    <h3 class="px-10 py-2 text-gray-700 text-left">Created on:
         <a id="time" class="font-bold text-gray-900">
         </a>
     </h3>
@@ -99,7 +96,7 @@
                         from++;
                         j = i -1;
                         let avgdataa = avggbatch.data[j]
-                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[8]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[6]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[7]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[5]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[9]}</td></tr>`
+                        avgHTML += `<tr><td class="border border-gray-500 px-4">${avgdataa[8]}</td><td class="border border-gray-500 px-4">${avgdataa[6]}</td><td class="border border-gray-500 px-4">${avgdataa[4]}</td><td class="border border-gray-500 px-4">${avgdataa[2]}</td><td class="border border-gray-500 px-4">${avgdataa[7]}</td><td class="border border-gray-500 px-4">${avgdataa[5]}</td><td class="border border-gray-500 px-4">${avgdataa[3]}</td><td class="border border-gray-500 px-4">${avgdataa[1]}</td><td class="border border-gray-500 px-4">${avgdataa[9]}</td></tr>`
                     } else if (i > to) {
                         // await fetch(generatereportURL);
                     }
