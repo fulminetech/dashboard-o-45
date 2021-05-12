@@ -2328,7 +2328,7 @@
     <script>
 
         function hidekeyboard(){
-            event.keyCode = 13
+            document.getElementById("batch_number_metric").click()
         }
 
         function updatepressure() {
@@ -2881,7 +2881,6 @@
         }
         
         function roller_freq() {
-            hidekeyboard()
             var value = document.getElementById("roller_freq").value;
 
             value <= 80 && value >= 0 ? submitt(parseInt(value)) : value
