@@ -166,17 +166,28 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
     payload.stats.recipie_id = c;
     payload.batch = d;
     payload.stats.status = "ONLINE",
-        
+    
     _perm.write(`batchlist`)
         .tag({
         })
         .field({
             batch: d,  // 2
             operator: a,  // 2
-            parameter: "Process",  // 2
+            parameter: "operator",  // 2
             newvalue: "ONLINE"
         })
         .then(() => console.info('[ BATCH ENTRY DONE ]'))
+        .then(function () {
+            _new.write(`${payload.batch}.operationlogs`)
+                .tag({
+                })
+                .field({
+                    operator: payload.machine.operator_name,  // 2
+                    parameter: "BATCH START",  // 2
+                })
+                .then(() => console.info(`[ LOG ENTRY DONE ${payload.machine.operator_name} ]`))
+                .catch(console.error);
+        })
         .catch(console.error);
     
     watchproxy();
@@ -214,8 +225,18 @@ app.get("/onboard/continue", (req, res) => {
                         payload.data_number = previousrtn
                     })
                     .catch(console.error)
-                }
-            )
+            })
+            .then(function () {
+                _new.write(`${payload.batch}.operationlogs`)
+                    .tag({
+                    })
+                    .field({
+                        operator: payload.machine.operator_name,  // 2
+                        parameter: "BATCH CONTINUED",  // 2
+                    })
+                    .then(() => console.info(`[ LOG ENTRY DONE ${payload.machine.operator_name} ]`))
+                    .catch(console.error);
+            })
             .then(function () {
                 watchproxy();
                 startmodbus();
@@ -280,6 +301,8 @@ var report = {
     batch: 0,
     from: 0,
     to: 0,
+    userlevel: '',
+    username: ''
 }
 
 app.get("/api/batchinfo", (req, res) => {
@@ -519,12 +542,6 @@ app.use("/api/payload", (req, res) => {
     res.json(payload);
 });
 
-var report = {
-    batch: 0,
-    from: 0,
-    to: 0,
-}
-
 app.get("/report/average/:batch/:from/:to", (req, res) => {
     const b = req.params.batch
     const f = req.params.from
@@ -554,13 +571,48 @@ app.get("/report/average/now", (req, res) => {
     res.send(report);
 })
 
+app.get("/checkuserlevel/:batch", (req, res) => {
+    const b = req.params.batch
+
+
+    _perm.queryRaw(`select "parameter", "operator" from "batchlist" WHERE "batch" = '${b}'`)
+        .then(data => {
+            var response = data.results[0].series[0].values[0];
+            report.userlevel = response[1]
+            report.username = response[2]
+            // console.log(response[1])
+        })
+        .catch(console.error);
+    res.json(report);
+})
+
+
+
 app.get("/report/average/generate", (req, res) => {
     (async () => {
         // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' }); // For MAC
         const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox']});
         const page = await browser.newPage();
         await page.goto(`http://${host}:5000/report/template`, { waitUntil: 'networkidle0' });
-        await page.pdf({ path: `batch_${report.batch}_from_${report.from}_to_${report.to}.pdf`, format: 'A4' });
+        await page.pdf({
+            path: `batch_${report.batch}_from_${report.from}_to_${report.to}.pdf`, format: 'A4', landscape: true,
+            displayHeaderFooter: true,
+            headerTemplate: ``,
+            footerTemplate: `
+            <div style="width: 100%; font-size: 12px;
+                padding: 5px 5px 0;">
+                <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
+                    Prepared By:
+                    <span style="float:right;">
+                        Checked By:
+                    </span>
+                </p>
+                <div style="text-align: center; center: 5px; top: 5px;">Page: <span class="pageNumber"></span> of <span class="totalPages"></span></div>
+            </div>
+            `,
+            // this is needed to prevent content from being placed over the footer
+            margin: { bottom: '80px', top: '20px' },
+        });
         await browser.close();
     })();
 
@@ -569,11 +621,29 @@ app.get("/report/average/generate", (req, res) => {
 
 app.get("/report/alarm/generate", (req, res) => {
     (async () => {
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' }); // For MAC
         const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-        // const browser = await puppeteer.launch({ product: 'chrome' });
         const page = await browser.newPage();
         await page.goto(`http://${host}:5000/report/alarm`, { waitUntil: 'networkidle0' });
-        await page.pdf({ path: `batch_${report.batch}_alarm.pdf`, format: 'A4' });
+        await page.pdf({
+            path: `batch_${report.batch}_alarm.pdf`, format: 'A4', landscape: true,
+            displayHeaderFooter: true,
+            headerTemplate: ``,
+            footerTemplate: `
+            <div style="width: 100%; font-size: 12px;
+                padding: 5px 5px 0;">
+                <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
+                    Prepared By:
+                    <span style="float:right;">
+                        Checked By:
+                    </span>
+                </p>
+                <div style="text-align: center; center: 5px; top: 5px;">Page: <span class="pageNumber"></span> of <span class="totalPages"></span></div>
+            </div>
+            `,
+            // this is needed to prevent content from being placed over the footer
+            margin: { bottom: '80px', top: '20px' },
+        });
         await browser.close();
     })();
 
@@ -582,11 +652,29 @@ app.get("/report/alarm/generate", (req, res) => {
 
 app.get("/report/audit/generate", (req, res) => {
     (async () => {
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' }); // For MAC
         const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
-        // const browser = await puppeteer.launch({ product: 'chrome' });
         const page = await browser.newPage();
         await page.goto(`http://${host}:5000/report/audit`, { waitUntil: 'networkidle0' });
-        await page.pdf({ path: `batch_${report.batch}_audit.pdf`, format: 'A4' });
+        await page.pdf({
+            path: `batch_${report.batch}_audit.pdf`, format: 'A4', landscape: true,
+            displayHeaderFooter: true,
+            headerTemplate: ``,
+            footerTemplate: `
+            <div style="width: 100%; font-size: 12px;
+                padding: 5px 5px 0;">
+                <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
+                    Prepared By:
+                    <span style="float:right;">
+                        Checked By:
+                    </span>
+                </p>
+                <div style="text-align: center; center: 5px; top: 5px;">Page: <span class="pageNumber"></span> of <span class="totalPages"></span></div>
+            </div>
+            `,
+            // this is needed to prevent content from being placed over the footer
+            margin: { bottom: '80px', top: '20px' },
+        });
         await browser.close();
     })();
 

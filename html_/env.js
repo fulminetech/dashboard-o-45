@@ -36,6 +36,7 @@ const dbsearchcsvURL = `${hostname}/api/search/csv`;
 const batchURL = `${hostname}/api/search/batch`;
 const searchAvgURL = `${hostname}/api/search/average/`
 const reportdetailsURL = `${hostname}/report/average/now`
+const userlevelURL = `${hostname}/checkuserlevel`
 const reportAvgURL = `${hostname}/report/average`
 const reportAvgGenURL = `${hostname}/report/average/generate`
 const reportAlarmGenURL = `${hostname}/report/alarm/generate`

@@ -240,11 +240,12 @@
                         <div class="w-full p-3">
                             <div class="border border-gray-400 rounded shadow overflow-auto">
                                 <div class="px-5 pb-5">
-                                    <table class="table-fixed w-full text-center text-black" height="170rem">
+                                    <table class="table-auto w-full text-center text-black" height="170rem">
                                         <thead>
                                             <tr>
                                                 <th class="text-center border-b py-3">Date</th>
-                                                <th class="text-center border-b py-3">Operator</th>
+                                                <th class="text-center border-b py-3">Username</th>
+                                                <th class="text-center border-b py-3">Userlevel</th>
                                                 <th class="text-center border-b py-3">Parameter</th>
                                                 <th class="text-center border-b py-3">Old Value</th>
                                                 <th class="text-center border-b py-3">New Value</th>
@@ -305,13 +306,19 @@
     <!-- Search Avg Data -->
     <script>
 
-        // addEventListener("keydown", function (event) {
-        //     if (event.keyCode === 13) {
-        //         event.preventDefault();
+        function onoff(params) {
+            if(params ==true){
+                return "ON"
+            } else if (params == false) {
+                return "OFF"
+            }  
+            
+        }
 
-        //         searchBatch();
-        //     }
-        // });
+        function readabletime(params) {
+            var s = new Date(params).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+            return s
+        }
 
         var element2 = document.getElementById("searchbatch");
 
@@ -333,6 +340,9 @@
                 const avgData = await fetch(queryAvgURL);
                 const avggbatch = await avgData.json();
 
+                const reportData2 = await fetch(`${userlevelURL}/${name}`);
+                const report2 = await reportData2.json();
+
                 let avglistt = avggbatch.data;
 
                 function loadavglist() {
@@ -343,7 +353,7 @@
                     for (let avgg of avglistt) {
                         i++;
                         let avgdataa = avggbatch.data[i]
-                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[0]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td></tr>`
+                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${readabletime(avgdataa[0])}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${report2.userlevel}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${onoff(avgdataa[2])}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${onoff(avgdataa[1])}</td></tr>`
                     }
 
                     avgListBody.innerHTML = avgHTML;
@@ -364,6 +374,7 @@
         var element = document.getElementById("generatepdfreport");
 
         var pdfgenerationtime = 20000;
+        // var pdfgenerationtime = 5000;
 
         async function generateReport() {
             var c = document.getElementById("batchname").value;
@@ -383,82 +394,6 @@
             }, pdfgenerationtime);
 
         }
-    </script>
-
-    <!-- CSV Export -->
-    <script>
-        function exportToCsv(filename, rows) {
-            var processRow = function (row) {
-                var finalVal = '';
-                for (var j = 0; j < row.length; j++) {
-                    var innerValue = row[j] === null ? '' : row[j].toString();
-                    if (row[j] instanceof Date) {
-                        innerValue = row[j].toLocaleString();
-                    };
-                    var result = innerValue.replace(/"/g, '""');
-                    if (result.search(/("|,|\n)/g) >= 0)
-                        result = '"' + result + '"';
-                    if (j > 0)
-                        finalVal += ',';
-                    finalVal += result;
-                }
-                return finalVal + '\n';
-            };
-
-            var csvFile = '';
-            for (var i = 0; i < rows.length; i++) {
-                csvFile += processRow(rows[i]);
-            }
-
-            var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
-            if (navigator.msSaveBlob) { // IE 10+
-                navigator.msSaveBlob(blob, filename);
-            } else {
-                var link = document.createElement("a");
-                if (link.download !== undefined) { // feature detection
-                    // Browsers that support HTML5 download attribute
-                    var url = URL.createObjectURL(blob);
-                    link.setAttribute("href", url);
-                    link.setAttribute("download", filename);
-                    link.style.visibility = 'hidden';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                }
-            }
-        }
-
-        async function csvexport() {
-
-            var batchnumber = document.getElementById("batchname").value;
-
-            if (batchnumber == "") {
-
-            } else {
-                var oplogs = `http://localhost:8086/query?pretty=true&db=new&q=select%20*%20from%20%22operationlogs%22%20where%20%22batch%22%20=%20%27${batchnumber}%27`
-
-                const opData = await fetch(oplogs);
-                const opbatch = await opData.json();
-
-                // console.log(opdataa[0])
-
-                let avglistt = opbatch;
-                var o = opbatch.results[0].series[0].values
-                console.log(o.length)
-    
-                var o = opbatch.results[0].series[0].values
-                var name = `OperationLogs:${batchnumber}`
-
-                o[0] = ['Time', 'Batch', 'New Value', 'Old Value', 'Operator', 'Parameter']
-    
-                if (typeof o !== 'undefined' && o.length > 0) {
-                    exportToCsv(`${name}.csv`, o)
-                }
-
-            }
-
-        }
-
     </script>
 
 </body>

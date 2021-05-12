@@ -240,11 +240,12 @@
                         <div class="w-full p-3">
                             <div class="border border-gray-400 rounded shadow overflow-auto">
                                 <div class="px-5 pb-5">
-                                    <table class="table-fixed w-full text-center text-black" height="170rem">
+                                    <table class="table-auto w-full text-center text-black" height="170rem">
                                         <thead>
                                             <tr>
                                                 <th class="text-center border-b py-3">Date and Time</th>
-                                                <th class="text-center border-b py-3">Operator</th>
+                                                <th class="text-center border-b py-3">Username</th>
+                                                <th class="text-center border-b py-3">Userlevel</th>
                                                 <th class="text-center border-b py-3">Parameter</th>
                                                 <th class="text-center border-b py-3">Status</th>
                                             </tr>
@@ -269,7 +270,7 @@
 
     <!-- Update Batch details -->
     <script>
-        
+
         batchtable()
 
         async function batchtable() {
@@ -304,13 +305,18 @@
     <!-- Search Avg Data -->
     <script>
 
-        // addEventListener("keydown", function (event) {
-        //     if (event.keyCode === 13) {
-        //         event.preventDefault();
+        function onoff(params) {
+            if (params == true) {
+                return "UNHEALTHY"
+            } else if (params == false) {
+                return "HEALTHY"
+            }
+        }
 
-        //         searchBatch();
-        //     }
-        // });
+        function readabletime(params) {
+            var s = new Date(params).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+            return s
+        }
 
         var element2 = document.getElementById("searchbatch");
 
@@ -321,6 +327,14 @@
             if (name == "") {
 
             } else {
+
+                const reportData1 = await fetch(reportdetailsURL);
+                const report = await reportData1.json();
+
+                const reportData2 = await fetch(`${userlevelURL}/${name}`);
+                const report2 = await reportData2.json();
+                console.log(report2)
+
 
                 document.getElementById("searchbatch").innerText = "PLEASE WAIT";
                 element2.classList.add("cursor-not-allowed");
@@ -342,7 +356,7 @@
                     for (let avgg of avglistt) {
                         i++;
                         let avgdataa = avggbatch.data[i]
-                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[0]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td></tr>`
+                        avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${readabletime(avgdataa[0])}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${report2.userlevel}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${onoff(avgdataa[3])}</td></tr>`
                     }
 
                     avgListBody.innerHTML = avgHTML;
@@ -362,7 +376,7 @@
     <script>
         var element = document.getElementById("generatepdfreport");
 
-        var pdfgenerationtime = 20000;
+        var pdfgenerationtime = 10000;
 
         async function generateReport() {
 

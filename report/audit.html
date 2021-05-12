@@ -14,23 +14,31 @@
 <body onload="searchBatch()">
 
 
-    <p class="pt-5 text-gray-800 text-3xl uppercase text-bold text-center font-medium">AUDIT REPORT</p>
+    <p class="pt-5 text-gray-800 text-3xl uppercase text-bold text-center font-medium">AUDIT TRAIL REPORT</p>
     <!-- <p class="pt-2 text-gray-700 text-2xl uppercase text-bold text-center font-medium">45 Punch </p> -->
     <h3 class="px-10 pt-10 pb-3 text-gray-700 text-left">Batch Number:
         <a id="batch_number_metric" class="font-bold text-gray-900">
+        </a>
+    </h3>
+    <h3 class="px-10 pt-2 pb-3 text-gray-700 text-left">From Date:
+        <a id="date_from" class="font-bold text-gray-900">
+        </a>
+    </h3>
+    <h3 class="px-10 pt-2 pb-3 text-gray-700 text-left">To Date:
+        <a id="date_to" class="font-bold text-gray-900">
         </a>
     </h3>
     <h3 class="px-10 pt-2 pb-3 text-gray-700 text-left">Created on:
         <a id="time" class="font-bold text-gray-900">
         </a>
     </h3>
-
-    <div class="px-10 pt-5 pb-5 text-sm">
-        <table class="table-fixed w-full text-center text-gray-900" height="170rem">
+    <div class="px-10 pt-2 pb-5">
+        <table class="table-auto w-full text-center text-gray-900" height="170rem">
             <thead>
                 <tr>
                     <th class="text-center border-b py-3">Date</th>
-                    <th class="text-center border-b py-3">Operator</th>
+                    <th class="text-center border-b py-3">Username</th>
+                    <th class="text-center border-b py-3">Userlevel</th>
                     <th class="text-center border-b py-3">Parameter</th>
                     <th class="text-center border-b py-3">Old Value</th>
                     <th class="text-center border-b py-3">New Value</th>
@@ -50,6 +58,20 @@
     <!-- Generate report -->
     <script>
 
+        function onoff(params) {
+            if (params == true) {
+                return "ON"
+            } else if (params == false) {
+                return "OFF"
+            }
+
+        }
+
+        function readabletime(params) {
+            var s = new Date(params).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+            return s
+        }
+
         async function searchBatch() {
 
             const reportData1 = await fetch(reportdetailsURL);
@@ -64,10 +86,12 @@
             const avgData = await fetch(queryAvgURL);
             const avggbatch = await avgData.json();
 
+            const reportData2 = await fetch(`${userlevelURL}/${report.batch}`);
+            const report2 = await reportData2.json();
             // console.log(avggbatch)
 
             let avglistt = avggbatch.data;
-
+            
             function loadavglist() {
                 const avgListBody = document.getElementById('avgtable');
                 let avgHTML = '';
@@ -75,8 +99,11 @@
                 let i = -1;
                 for (let avgg of avglistt) {
                     i++;
+                    let size = Object.keys(avglistt).length
                     let avgdataa = avggbatch.data[i]
-                    avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${avgdataa[0]}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[2]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[1]}</td></tr>`
+                    i == 0 ? document.getElementById('date_from').innerText = readabletime(avgdataa[0]) : avgdataa[0] 
+                    i == size-1 ? document.getElementById('date_to').innerText = readabletime(avgdataa[0]) : avgdataa[0] 
+                    avgHTML += `<tr><td class="border border-gray-500 px-4 py-2">${readabletime(avgdataa[0])}</td><td class="border border-gray-500 px-4 py-2">${avgdataa[3]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${report2.userlevel}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${avgdataa[4]}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${onoff(avgdataa[2])}</td><td id="p1-ejn" class="border border-gray-500 px-4 py-2">${onoff(avgdataa[1])}</td></tr>`
                 }
 
                 avgListBody.innerHTML = avgHTML;
