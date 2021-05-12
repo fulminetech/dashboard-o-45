@@ -307,11 +307,15 @@
     <script>
 
         function onoff(params) {
-            if(params ==true){
+            if(params == true){
                 return "ON"
             } else if (params == false) {
                 return "OFF"
-            }  
+            } else if (params == undefined) {
+                return "-"
+            }  else {
+                return params
+            }
             
         }
 
