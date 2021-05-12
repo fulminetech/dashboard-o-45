@@ -2329,7 +2329,7 @@
 
         function hidekeyboard(){
             let element = document.getElementById("batch_number_metric").innerText
-            element.dispatchEvent(new KeyboardEvent('keypress', { 'key': 'Escape' }));
+            element.dispatchEvent(new KeyboardEvent('keypress', { 'key': 'Enter' }));
         }
 
         function updatepressure() {
@@ -2338,7 +2338,7 @@
             submitt( parseFloat(pressure) )
             
             function submitt(pressure) {
-                hidekeyboard()
+                // hidekeyboard()
                 var pressure = c;
                 if (pressure <= 100 && pressure >= 1) {
                     
@@ -2370,7 +2370,7 @@
             submitt(parseFloat(lubetime))
 
             async function submitt(lubetime) {
-                hidekeyboard()
+                // hidekeyboard()
                 let submiturl = `${seturl}/LUBE_TIME_DELAY_MINUTES/${lubetime}`
 
                 console.log(submiturl)
@@ -2397,7 +2397,7 @@
 
             async function submitt(rpmTurret) {
 
-                hidekeyboard()
+                // hidekeyboard()
                 let submiturl = `${seturl}/TURRET_RPM/${rpmTurret}`
 
                 console.log(submiturl)
@@ -2417,7 +2417,7 @@
         }
 
         function updaterpmFL() {
-            hidekeyboard()
+            // hidekeyboard()
             var f = document.getElementById("rpmFeederLHS").value;
 
             var rpmFeederLHS = f ;
@@ -2443,7 +2443,7 @@
         }
 
         function updaterpmFR() {
-            hidekeyboard()
+            // hidekeyboard()
             var g = document.getElementById("rpmFeederRHS").value; // 
 
             var rpmFeederRHS = g
