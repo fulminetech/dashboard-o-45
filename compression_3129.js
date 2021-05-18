@@ -2,7 +2,9 @@ var ModbusRTU = require("modbus-serial");
 const express = require("express");
 const { exec } = require('child_process');
 const { fail } = require("assert");
-const restart1Command = "pm2 restart stats_3128 && pm2 restart main_5000  && pm2 restart compression_3129"
+const restart1Command = "pm2 restart stats_3128"
+const restart2Command = "pm2 restart main_5000"
+const restart3Command = "pm2 restart compression_3129"
 // const restart1Command = "restart.sh"
 
 const app = express();
@@ -746,8 +748,8 @@ var MBS_STATE_FAIL_CONNECT = "State fail (port)";
 var mbsState = MBS_STATE_INIT;
 
 var mbsTimeout = 5000;
-// var mbsScan = 12;
-var mbsScan = 50; // Modbus scan time
+var mbsScan = 20;
+// var mbsScan = 100; // Modbus scan time
 
 let readfailed = 0;
 let failcounter = 15;
@@ -1381,7 +1383,7 @@ var readinput = function () {
 }
 
 var readoutput = function () {
-    client.readCoils(output_address, 55)
+    client.readCoils(output_address, 70)
         .then(function (output) {
             // console.log("Output: ", output.data)
             payload.output = output.data;
@@ -1414,10 +1416,17 @@ var readalarm = function () {
         })
 }
 
-
 function restartprodmodbus() {
     console.log(`[ RESTARTING: ${restart1Command} ]`);
     exec(restart1Command, (err, stdout, stderr) => {
+        console.log(`${stdout}`);
+    });
+    console.log(`[ RESTARTING: ${restart2Command} ]`);
+    exec(restart2Command, (err, stdout, stderr) => {
+        console.log(`${stdout}`);
+    });
+    console.log(`[ RESTARTING: ${restart3Command} ]`);
+    exec(restart3Command, (err, stdout, stderr) => {
         console.log(`${stdout}`);
     });
 }
