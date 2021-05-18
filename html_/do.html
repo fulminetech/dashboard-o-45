@@ -752,8 +752,14 @@
                     // Here you get the data to modify as you please
                     payload = data
 
-                    console.log(payload.output[10])
                     // Outputs: 0-15, 16-23, 46-53, 60-61
+                    // ! proxy input bit!!                    
+                    if (payload.output[55] === true) {
+                        console.log(true)
+                    }
+                    else if (payload.output[55] === false) {
+                        console.log(false)
+                    }
 
                     if (payload.output[0] === true) {
                         const div = document.getElementById("0").classList.add('bg-red-600');
