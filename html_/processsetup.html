@@ -137,17 +137,6 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings_homing'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Homing Setting</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="w-1 w-full">
                 <div onclick="location.href='/settings'"
@@ -215,61 +204,6 @@
         
             <div class="flex ">
                 <div class="w-full p-6 ">
-
-
-                    <div class="flex mb-5">
-                    
-                        <!-- Lubrication -->
-                        <div class="w-1/3 align-left">
-                            <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
-                                <div class="flex flex-col">
-                                    <div class="flex-1 items-left text-gray-700">
-                                        <h5 class="font-bold text-center uppercase text-2xl">Lubrication Pump</h5>
-                                        <h3 class="font-bold mt-2 text-lg">ON time (secs):
-                                        </h3>
-                                        <div class="py-3">
-                                            <input id="l_on"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) l_on()">
-                                        </div>
-                                        <h3 class="font-bold mt-2 text-lg">OFF time (mins):
-                                        </h3>
-                                        <div class="py-3">
-                                            <input id="l_off"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) l_off()">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <!-- Hydraulic Pressure Cut Off -->
-                        <div class="w-1/3 ml-5 align-left">
-                            <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
-                                <div class="flex flex-col">
-                                    <div class="flex-1 items-left text-gray-700">
-                                        <h5 class="font-bold uppercase text-center text-2xl">Hydraulic Pressure Cut Off</h5>
-                                        <h3 class="font-bold mt-2 text-lg">High:
-                                        </h3>
-                                        <div class="py-3">
-                                            <input id="hyd_high"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) hyd_high()">
-                                        </div>
-                                        <h3 class="font-bold mt-2 text-lg">Low:
-                                        </h3>
-                                        <div class="py-3">
-                                            <input id="hyd_low"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) hyd_low()">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    
-                    </div>
 
                     <div class="flex">
 
@@ -583,12 +517,6 @@
                     // Here you get the data to modify as you please
                     payload = data
 
-                    document.getElementById("l_on").value = payload.stats.lubrication.set_delay_sec
-                    document.getElementById("l_off").value = payload.stats.lubrication.set_delay_min
-                    
-                    document.getElementById("hyd_high").value = payload.stats.hydraulic.high_cutoff
-                    document.getElementById("hyd_low").value = payload.stats.hydraulic.low_cutoff
-                    
                     document.getElementById("samp_tab_count").innerText = payload.stats.sampling.SAMPLE_COUNT
                     document.getElementById("samp_tab_no").value = payload.stats.sampling.NO_TABLET_SAMPLING
                     document.getElementById("samp_inter").value = payload.stats.sampling.SAMPLING_TIME_MINS
@@ -697,85 +625,6 @@
 
     <!-- Update Values -->
     <script>
-
-        function l_on() {
-                var pressure = document.getElementById("l_on").value;
-
-                submitt(parseFloat(pressure))
-
-                function submitt(pressure) {
-                    if (pressure <= 10000 && pressure >= 0.1) {
-                        let submiturl = `${seturl}/LUBE_TIME_DELAY_SECONDS/${pressure}`
-                        fetch(submiturl)
-                            .then(check())
-                            .catch(console.error);
-                    }
-                    else {
-                        alert("Please set value between 0.1 and 10.")
-                    }
-                }
-
-            }
-
-        function l_off() {
-                var pressure = document.getElementById("l_off").value;
-
-                submitt(parseFloat(pressure))
-
-                function submitt(pressure) {
-                    if (pressure <= 1000000 && pressure >= 1) {
-                        let submiturl = `${seturl}/LUBE_TIME_DELAY_MINUTES/${pressure}`
-                        
-                        fetch(submiturl)
-                            .then(check())
-                            .catch(console.error);
-                    }
-                    else {
-                        alert("Please set value between 0.1 and 10.")
-                    }
-                }
-
-            }
-
-        function hyd_high() {
-                var pressure = document.getElementById("hyd_high").value;
-
-                submitt(parseFloat(pressure))
-
-                function submitt(pressure) { 
-                    if (pressure <= 1000000 && pressure >= 0) {
-                        let submiturl = `${seturl}/HYDRAULIC_HIGH_PRESSURE_CUTOFF_PERCENT/${pressure}`
-                        
-                        fetch(submiturl)
-                            .then(check())
-                            .catch(console.error);
-                    }
-                    else {
-                        alert("Please set value between 0.1 and 10.")
-                    }
-                }
-
-            }
-
-        function hyd_low() {
-            var pressure = document.getElementById("hyd_low").value;
-
-            submitt(parseFloat(pressure))
-
-            function submitt(pressure) {
-                if (pressure <= 10000000 && pressure >= 0) {
-                    let submiturl = `${seturl}/HYDRAULIC_LOW_PRESSURE_CUTOFF_PERCENT/${pressure}`
-                    
-                    fetch(submiturl)
-                        .then(check())
-                        .catch(console.error);
-                }
-                else {
-                    alert("Please set value between 0.1 and 10.")
-                }
-            }
-
-        }
 
         function updatelimits_MLU() {
             var mainLHSup = document.getElementById("mainUP").value;

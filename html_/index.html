@@ -533,9 +533,21 @@
                                 <!-- Bi Layer Mode-->
                                 <div class="">
                                     <button id="bi_mode"
-                                        class="bg-orange-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
-                                        onclick="layer()"> 
-                                        BI  LAYER
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                        onclick="button11()"> 
+                                        BILAYER
+                                    </button>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-wrap p-3">
+                        
+                                <!-- Bi Layer Mode-->
+                                <div class="">
+                                    <button id="mono_mode"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                        onclick="button11x()"> 
+                                        MONO LAYER
                                     </button>
                                 </div>
                             </div>
@@ -2109,8 +2121,15 @@
                     
                     if (payload.button.MONO_BI == true) {
                         document.getElementById("bi_mode").innerHTML = "BILAYER";
+                        const div1 = document.getElementById("bi_mode").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("bi_mode").classList.add('bg-green-300');
+                        const div3 = document.getElementById("mono_mode").classList.remove('bg-green-300');
+                        const div4 = document.getElementById("mono_mode").classList.add('bg-red-300');
                     } else {
-                        document.getElementById("bi_mode").innerHTML = "MONOLAYER";
+                        const div1 = document.getElementById("bi_mode").classList.add('bg-red-300');
+                        const div2 = document.getElementById("bi_mode").classList.remove('bg-green-300');
+                        const div3 = document.getElementById("mono_mode").classList.add('bg-green-300');
+                        const div4 = document.getElementById("mono_mode").classList.remove('bg-red-300');
                     }
                     
                     if (payload.button.AWC_ENABLE == true) {
@@ -2826,18 +2845,6 @@
             }
         }
 
-        async function layer(){
-            console.log()
-            var rejn = document.getElementById("bi_mode").innerHTML
-
-            // console.log(rejn)
-            if (rejn  === "MONOLAYER" ) {
-                button11()
-            } else {
-                button11x()
-            }
-        }
-        
         async function samp(){
             console.log()
             var rejn = document.getElementById("samp").innerHTML

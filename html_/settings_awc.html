@@ -144,17 +144,6 @@
             </div>
 
             <div class="w-1 w-full">
-                <div onclick="location.href='/settings_homing'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Homing Setting</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-1 w-full">
                 <div onclick="location.href='/settings'"
                     class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
@@ -240,7 +229,7 @@
                                         <input id="mainFL"
                                             class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
                                             type="number" placeholder="Main LHS + RHS Force Line"
-                                            onkeydown="if (event.keyCode == 13) updatelimits_MLFL() && updatelimits_MRFL()">
+                                            onkeydown="if (event.keyCode == 13) updatelimits_MLFL()">
                                     </td>
                                 </tr>
                                 <tr>
@@ -883,7 +872,7 @@
 
             submitt(parseInt(mainLHSfl))
             async function submitt(mainLHSfl) {
-                let submiturl = `${seturl}/LHS_MAIN_FORCE_LINE/${mainLHSfl}`
+                let submiturl = `${seturl}/MONO_MAIN_FORCE/${mainLHSfl}`
 
                 console.log(submiturl)
 
