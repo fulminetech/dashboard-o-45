@@ -174,7 +174,7 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
             batch: d,  // 2
             operator: a,  // 2
             parameter: "operator",  // 2
-            newvalue: "ONLINE"
+            // newvalue: ""
         })
         .then(() => console.info('[ BATCH ENTRY DONE ]'))
         .then(function () {
@@ -182,10 +182,10 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
                 .tag({
                 })
                 .field({
-                    operator: payload.machine.operator_name,  // 2
+                    operator: a,  // 2
                     parameter: "BATCH START",  // 2
                 })
-                .then(() => console.info(`[ LOG ENTRY DONE ${payload.machine.operator_name} ]`))
+                .then(() => console.info(`[ LOG ENTRY DONE ${a} ]`))
                 .catch(console.error);
         })
         .catch(console.error);
@@ -598,7 +598,7 @@ app.get("/report/average/generate", (req, res) => {
             path: `batch_${report.batch}_from_${report.from}_to_${report.to}.pdf`, format: 'A4', landscape: true,
             displayHeaderFooter: true,
             headerTemplate: `
-            <div style="width: 100%; padding: 5px 5px 0;">
+            <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">AVERAGE COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 12px;">
                     Created on (mm/dd/yyyy): <span class="date">
@@ -606,7 +606,7 @@ app.get("/report/average/generate", (req, res) => {
             </div>
             `,
             footerTemplate: `
-            <div style="width: 100%; font-size: 12px;
+            <div style="width: 100%; font-size: 12px; font-family: Verdana, sans-serif;
                 padding: 5px 5px 0;">
                 <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
                     Prepared By:
@@ -636,7 +636,7 @@ app.get("/report/alarm/generate", (req, res) => {
             path: `batch_${report.batch}_alarm.pdf`, format: 'A4', landscape: true,
             displayHeaderFooter: true,
             headerTemplate: `
-            <div style="width: 100%; padding: 5px 5px 0;">
+            <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ALARM REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 12px;">
                     Created on (mm/dd/yyyy): <span class="date">
@@ -644,8 +644,7 @@ app.get("/report/alarm/generate", (req, res) => {
             </div>
             `,
             footerTemplate: `
-            <div style="width: 100%; font-size: 12px;
-                padding: 5px 5px 0;">
+            <div style="width: 100%; font-size: 12px; font-family: Verdana, sans-serif; padding: 5px 5px 0;">
                 <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
                     Prepared By:
                     <span style="float:right;">
@@ -674,7 +673,7 @@ app.get("/report/audit/generate", (req, res) => {
             path: `batch_${report.batch}_audit.pdf`, format: 'A4', landscape: true,
             displayHeaderFooter: true,
             headerTemplate: `
-            <div style="width: 100%; padding: 5px 5px 0;">
+            <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">AUDIT TRAIL REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 12px;">
                     Created on (mm/dd/yyyy): <span class="date">
@@ -682,8 +681,7 @@ app.get("/report/audit/generate", (req, res) => {
             </div>
             `,
             footerTemplate: `
-            <div style="width: 100%; font-size: 12px;
-                padding: 5px 5px 0;">
+            <div style="width: 100%; font-size: 12px; font-family: Verdana, sans-serif; padding: 5px 5px 0;">
                 <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
                     Prepared By:
                     <span style="float:right;">
