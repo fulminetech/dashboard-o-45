@@ -39,7 +39,7 @@ const slaveID = 1;
 const ip = "192.168.1.5"
 // const ip = "192.168.0.99"
 var mbsTimeout = 1000;
-var mbsScan = 300; // Modbus scan time
+var mbsScan = 600; // Modbus scan time
 
 var GOOD_CONNECT = "GOOD_CONNECT";
 var FAILED_CONNECT = "FAILED_CONNECT";
