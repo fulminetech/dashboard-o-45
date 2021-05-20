@@ -2,9 +2,10 @@ var ModbusRTU = require("modbus-serial");
 const express = require("express");
 const { exec } = require('child_process');
 const { fail } = require("assert");
-const restart1Command = "pm2 restart stats_3128"
-const restart2Command = "pm2 restart main_5000"
-const restart3Command = "pm2 restart compression_3129"
+const restart1Command = "pm2 restart stats_3128 && pm2 restart main_5000  && pm2 restart compression_3129"
+// const restart1Command = "pm2 restart stats_3128"
+// const restart2Command = "pm2 restart main_5000"
+// const restart3Command = "pm2 restart compression_3129"
 // const restart1Command = "restart.sh"
 
 const app = express();
@@ -1421,14 +1422,14 @@ function restartprodmodbus() {
     exec(restart1Command, (err, stdout, stderr) => {
         console.log(`${stdout}`);
     });
-    console.log(`[ RESTARTING: ${restart2Command} ]`);
-    exec(restart2Command, (err, stdout, stderr) => {
-        console.log(`${stdout}`);
-    });
-    console.log(`[ RESTARTING: ${restart3Command} ]`);
-    exec(restart3Command, (err, stdout, stderr) => {
-        console.log(`${stdout}`);
-    });
+    // console.log(`[ RESTARTING: ${restart2Command} ]`);
+    // exec(restart2Command, (err, stdout, stderr) => {
+    //     console.log(`${stdout}`);
+    // });
+    // console.log(`[ RESTARTING: ${restart3Command} ]`);
+    // exec(restart3Command, (err, stdout, stderr) => {
+    //     console.log(`${stdout}`);
+    // });
 }
 
 app.use("/api/payload", (req, res) => {
