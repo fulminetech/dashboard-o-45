@@ -37,8 +37,9 @@ var mbsState = CODE_INIT;
 var client = new ModbusRTU();
 const slaveID = 1;
 const ip = "192.168.1.5"
+// const ip = "192.168.0.99"
 var mbsTimeout = 1000;
-var mbsScan = 600; // Modbus scan time
+var mbsScan = 100; // Modbus scan time
 
 var GOOD_CONNECT = "GOOD_CONNECT";
 var FAILED_CONNECT = "FAILED_CONNECT";
@@ -640,8 +641,10 @@ var read_coils = function () {
             writelogg = (param, value) => {
                 var oldv
                 var newv
-                value == true ? oldv = 0 : newv = 1
-                value == false ? oldv = 1 : newv = 0
+                value == true ? oldv = 0 : newv
+                value == true ? newv = 1 : newv
+                value == false ? oldv = 1 : newv
+                value == false ? newv = 0 : newv
                 
                 _new.write(`${batchinfo.name}.operationlogs`)
                     .tag({
@@ -649,8 +652,8 @@ var read_coils = function () {
                     .field({
                         operator: batchinfo.operator,  // 2
                         parameter: param,  // 2
-                        oldvalue: oldv,  // 2
-                        newvalue: newv,  // 2
+                        oldvalue: Number(oldv),  // 2
+                        newvalue: Number(newv),  // 2
                     })
                     .then(() => console.info(`[ LOG ENTRY DONE ${batchinfo.name} ]`))
                     .catch(console.error);
@@ -664,8 +667,8 @@ var read_coils = function () {
                     .field({
                         operator: batchinfo.operator,  // 2
                         parameter: param,  // 2
-                        oldvalue: oldv,  // 2
-                        newvalue: newv,  // 2
+                        oldvalue: Number(oldv),  // 2
+                        newvalue: Number(newv),  // 2
                     })
                     .then(() => console.info(`[ LOG ENTRY DONE ${batchinfo.name} ]`))
                     .catch(console.error);
@@ -1294,18 +1297,54 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     var c;
 
     writelog = () => {
-        
-        _new.write(`${batchinfo.name}.operationlogs`)
-            .tag({
-            })
-            .field({
-                operator: batchinfo.operator,  // 2
-                parameter: a,  // 2
-                oldvalue: c,  // 2
-                newvalue: b,  // 2
-            })
-            .then(() => console.info(`[ LOG ENTRY DONE ${batchinfo.name} ]`))
-            .catch(console.error);
+
+        console.log('b', b, typeof(b))
+        console.log('c', c, typeof(c))
+        if (b == 'true' || b == 'false') {
+            var newv
+            var oldv
+            
+            if (b == 'true') {
+                console.log(typeof (Number(0)))
+                _new.write(`${batchinfo.name}.operationlogs`)
+                    .tag({
+                    })
+                    .field({
+                        operator: batchinfo.operator,  // 2
+                        parameter: a,  // 2
+                        oldvalue: Number(0),  // 2
+                        newvalue: Number(1),  // 2
+                    })
+                    .then(() => console.info(`[ LOG ENTRY DONE ${batchinfo.name} ]`))
+                    .catch(console.error);
+            } else if (b == 'false') {
+                console.log(typeof (Number(0)))
+                _new.write(`${batchinfo.name}.operationlogs`)
+                    .tag({
+                    })
+                    .field({
+                        operator: batchinfo.operator,  // 2
+                        parameter: a,  // 2
+                        oldvalue: Number(1),  // 2
+                        newvalue: Number(0),  // 2
+                    })
+                    .then(() => console.info(`[ LOG ENTRY DONE ${batchinfo.name} ]`))
+                    .catch(console.error);
+            }
+            
+        } else {
+            _new.write(`${batchinfo.name}.operationlogs`)
+                .tag({
+                })
+                .field({
+                    operator: batchinfo.operator,  // 2
+                    parameter: a,  // 2
+                    oldvalue: Number(c),  // 2
+                    newvalue: Number(b),  // 2
+                })
+                .then(() => console.info(`[ LOG ENTRY DONE ${batchinfo.name} ]`))
+                .catch(console.error);
+        }
     }
 
     if (a == "TURRET_RPM") {
@@ -1595,42 +1634,42 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         set_button = true
         c = payload.button.POWER_PACK_START_BUTTON
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "POWER_PACK_START_BUTTON" && b == "false") {
         coil_offset_410 = 0
         set_button = false
         c = payload.button.POWER_PACK_START_BUTTON
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "POWER_PACK_STOP_BUTTON" && b == "true") {
         coil_offset_410 = 1
         set_button = true
         c = payload.button.POWER_PACK_STOP_BUTTON
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "POWER_PACK_STOP_BUTTON" && b == "false") {
         coil_offset_410 = 1
         set_button = false
         c = payload.button.POWER_PACK_STOP_BUTTON
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "PRESSURE_ACK_BUTTON" && b == "true") {
         coil_offset_410 = 2
         set_button = true
         c = payload.button.PRESSURE_ACK_BUTTON
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "PRESSURE_ACK_BUTTON" && b == "false") {
         coil_offset_410 = 2
         set_button = false
         c = payload.button.PRESSURE_ACK_BUTTON
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "DRAIN_BUTTON" && b == "true") {
         coil_offset_410 = 3
@@ -1638,7 +1677,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.DRAIN_BUTTON_HMI
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "DRAIN_BUTTON" && b == "false") {
         coil_offset_410 = 3
@@ -1646,7 +1685,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.DRAIN_BUTTON_HMI
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "PRESSURE_SET_BUTTON" && b == "true") {
         coil_offset_410 = 4
@@ -1654,7 +1693,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.PRESSURE_SET_BUTTON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "PRESSURE_SET_BUTTON" && b == "false") {
         coil_offset_410 = 4
@@ -1662,7 +1701,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.PRESSURE_SET_BUTTON
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "MACHINE_INCHING_BUTTON" && b == "true") {
         coil_offset_410 = 10
@@ -1670,7 +1709,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.MACHINE_INCHING_BUTTON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "MACHINE_INCHING_BUTTON" && b == "false") {
         coil_offset_410 = 10
@@ -1678,7 +1717,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.MACHINE_INCHING_BUTTON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()   
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()   
     }
     else if (a == "MACHINE_START_BUTTON" && b == "true") {
         coil_offset_410 = 15
@@ -1686,15 +1725,17 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.MACHINE_START_BUTTON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()   
+        b == true ? oldv = 0 : newv = 1
+        c == false ? oldv = 1 : newv = 0
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()   
     }
     else if (a == "MACHINE_START_BUTTON" && b == "false") {
         coil_offset_410 = 15
         set_button = false
         c = payload.button.MACHINE_START_BUTTON
+        // b == "false" & c == false || b == "true" & c == true ? c : writelog()   
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()   
     }
     else if (a == "MACHINE_STOP_BUTTON" && b == "true") {
         coil_offset_410 = 16
@@ -1702,7 +1743,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.MACHINE_STOP_BUTTON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "MACHINE_STOP_BUTTON" && b == "false") {
         coil_offset_410 = 16
@@ -1710,7 +1751,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.MACHINE_STOP_BUTTON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "FORCE_FEEDER_START_BUTTON" && b == "true") {
         coil_offset_410 = 18
@@ -1718,7 +1759,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.FORCE_FEEDER_START_BUTTON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "FORCE_FEEDER_START_BUTTON" && b == "false") {
         coil_offset_410 = 18
@@ -1726,7 +1767,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.FORCE_FEEDER_START_BUTTON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "FORCE_FEEDER_STOP_BUTTON" && b == "true") {
         coil_offset_410 = 19
@@ -1734,7 +1775,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.FORCE_FEEDER_STOP_BUTTON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "FORCE_FEEDER_STOP_BUTTON" && b == "false") {
         coil_offset_410 = 19
@@ -1742,7 +1783,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.FORCE_FEEDER_STOP_BUTTON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "TABLET_COUNT_RESET" && b == "true") {
         coil_offset_410 = 20
@@ -1750,7 +1791,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.TABLET_COUNT_RESET
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "TABLET_COUNT_RESET" && b == "false") {
         coil_offset_410 = 20
@@ -1758,7 +1799,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.TABLET_COUNT_RESET
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "Z_PHASE_COUNT_RESET" && b == "true") {
         coil_offset_410 = 21
@@ -1766,7 +1807,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.TABLET_COUNT_RESET
         
         write_coil_410()
-        // (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        // b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "Z_PHASE_COUNT_RESET" && b == "false") {
         coil_offset_410 = 21
@@ -1774,7 +1815,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.TABLET_COUNT_RESET
         
         write_coil_410()
-        // (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        // b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "ROLLER_FORWARD" && b == "true") {
         coil_offset_410 = 25
@@ -1782,7 +1823,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.ROLLER_FORWARD
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "ROLLER_FORWARD" && b == "false") {
         coil_offset_410 = 25
@@ -1790,7 +1831,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.ROLLER_FORWARD
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "ROLLER_REVERSE" && b == "true") {
         coil_offset_410 = 26
@@ -1798,7 +1839,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.ROLLER_REVERSE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "ROLLER_REVERSE" && b == "false") {
         coil_offset_410 = 26
@@ -1806,7 +1847,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.ROLLER_REVERSE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "MANUAL_SAMPLE" && b == "true") {
         coil_offset_410 = 28
@@ -1814,7 +1855,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.MANUAL_SAMPLE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "MANUAL_SAMPLE" && b == "false") {
         coil_offset_410 = 28
@@ -1822,7 +1863,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.MANUAL_SAMPLE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "FIRST_LAYER_SAMPLING" && b == "true") {
         coil_offset_410 = 30
@@ -1830,7 +1871,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.FIRST_LAYER_SAMPLING
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "FIRST_LAYER_SAMPLING" && b == "false") {
         coil_offset_410 = 30
@@ -1838,7 +1879,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.FIRST_LAYER_SAMPLING
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "DIRECT__RAMP" && b == "true") {
         coil_offset_410 = 90
@@ -1846,7 +1887,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.DIRECT__RAMP
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "DIRECT__RAMP" && b == "false") {
         coil_offset_410 = 90
@@ -1854,7 +1895,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.DIRECT__RAMP
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "WITH_DOOR__BYPASS" && b == "true") {
         coil_offset_410 = 92
@@ -1862,7 +1903,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.WITH_DOOR__BYPASS
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "WITH_DOOR__BYPASS" && b == "false") {
         coil_offset_410 = 92
@@ -1870,7 +1911,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.WITH_DOOR__BYPASS
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "INITIAL_REJECTION" && b == "true") {
         coil_offset_410 = 96
@@ -1878,7 +1919,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.INITIAL_REJECTION
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "INITIAL_REJECTION" && b == "false") {
         coil_offset_410 = 96
@@ -1886,7 +1927,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.INITIAL_REJECTION
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "B_TYPE__D_TYPE" && b == "true") {
         coil_offset_410 = 98
@@ -1894,7 +1935,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.B_TYPE__D_TYPE
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "B_TYPE__D_TYPE" && b == "false") {
         coil_offset_410 = 98
@@ -1902,7 +1943,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.B_TYPE__D_TYPE
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "POWDER_SENSOR_ENABLE" && b == "true") {
         coil_offset_410 = 100
@@ -1910,7 +1951,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.POWDER_SENSOR_ENABLE
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "POWDER_SENSOR_ENABLE" && b == "false") {
         coil_offset_410 = 100
@@ -1918,7 +1959,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.POWDER_SENSOR_ENABLE
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "Z_PHASE_SELECTION" && b == "true") {
         coil_offset_410 = 101
@@ -1926,7 +1967,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.Z_PHASE_SELECTION
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "Z_PHASE_SELECTION" && b == "false") {
         coil_offset_410 = 101
@@ -1934,7 +1975,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.Z_PHASE_SELECTION
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "AUTO_SAMPLING" && b == "true") {
         coil_offset_410 = 103
@@ -1942,7 +1983,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.AUTO_SAMPLE
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "AUTO_SAMPLING" && b == "false") {
         coil_offset_410 = 103
@@ -1950,7 +1991,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.AUTO_SAMPLE
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "REJECTION_BUTTON_HMI" && b == "true") {
         coil_offset_410 = 104
@@ -1958,7 +1999,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.REJECTION_BUTTON_HMI
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "REJECTION_BUTTON_HMI" && b == "false") {
         coil_offset_410 = 104
@@ -1966,35 +2007,35 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.REJECTION_BUTTON_HMI
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "REJN_AIR_FLAP" && b == "true") {
         coil_offset_410 = 105
         set_button = true
         c = payload.button.REJN_AIR_FLAP
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "REJN_AIR_FLAP" && b == "false") {
         coil_offset_410 = 105
         set_button = false
         c = payload.button.REJN_AIR_FLAP
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "MONO_BI" && b == "true") {
         coil_offset_410 = 106
         set_button = true
         c = payload.button.MONO_BI
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "MONO_BI" && b == "false") {
         coil_offset_410 = 106
         set_button = false
         c = payload.button.MONO_BI
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "REJECTION_MODE" && b == "true") {
         coil_offset_410 = 107
@@ -2002,14 +2043,14 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.REJECTION_MODE
 
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "REJECTION_MODE" && b == "false") {
         coil_offset_410 = 107
         set_button = false
         c = payload.button.REJECTION_MODE
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "AWC_ENABLE" && b == "true") {
         coil_offset_410 = 110
@@ -2017,7 +2058,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.AWC_ENABLE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "AWC_ENABLE" && b == "false") {
         coil_offset_410 = 110
@@ -2025,7 +2066,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.AWC_ENABLE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_FORCE_FEEDER_BUTTON_HMI" && b == "true") {
         coil_offset_410 = 111
@@ -2033,7 +2074,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_FORCE_FEEDER_BUTTON_HMI
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_FORCE_FEEDER_BUTTON_HMI" && b == "false") {
         coil_offset_410 = 111
@@ -2041,7 +2082,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_FORCE_FEEDER_BUTTON_HMI
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_FORCE_FEEDER_BUTTON_HMI" && b == "true") {
         coil_offset_410 = 112
@@ -2049,7 +2090,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_FORCE_FEEDER_BUTTON_HMI
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_FORCE_FEEDER_BUTTON_HMI" && b == "false") {
         coil_offset_410 = 112
@@ -2057,7 +2098,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_FORCE_FEEDER_BUTTON_HMI
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_WEIGHT_INC" && b == "true") {
         coil_offset_410 = 113
@@ -2065,7 +2106,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_WEIGHT_INC
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_WEIGHT_INC" && b == "false") {
         coil_offset_410 = 113
@@ -2073,7 +2114,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_WEIGHT_INC
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_WEIGHT_DEC" && b == "true") {
         coil_offset_410 = 114
@@ -2081,7 +2122,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_WEIGHT_DEC
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_WEIGHT_DEC" && b == "false") {
         coil_offset_410 = 114
@@ -2089,7 +2130,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_WEIGHT_DEC
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_WEIGHT_INC" && b == "true") {
         coil_offset_410 = 115
@@ -2097,7 +2138,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_WEIGHT_INC
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_WEIGHT_INC" && b == "false") {
         coil_offset_410 = 115
@@ -2105,7 +2146,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_WEIGHT_INC
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_WEIGHT_DEC" && b == "true") {
         coil_offset_410 = 116
@@ -2113,7 +2154,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_WEIGHT_DEC
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_WEIGHT_DEC" && b == "false") {
         coil_offset_410 = 116
@@ -2121,7 +2162,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_WEIGHT_DEC
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_SERVO_ON" && b == "true") {
         coil_offset_410 = 117
@@ -2129,7 +2170,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_SERVO_ON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_SERVO_ON" && b == "false") {
         coil_offset_410 = 117
@@ -2137,7 +2178,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_SERVO_ON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_MULTI_TURN_CLEAR" && b == "true") {
         coil_offset_410 = 118
@@ -2145,7 +2186,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_MULTI_TURN_CLEAR
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_MULTI_TURN_CLEAR" && b == "false") {
         coil_offset_410 = 118
@@ -2153,7 +2194,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_MULTI_TURN_CLEAR
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_HOME_OFFSET_WRITE" && b == "true") {
         coil_offset_410 = 119
@@ -2161,7 +2202,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_HOME_OFFSET_WRITE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_HOME_OFFSET_WRITE" && b == "false") {
         coil_offset_410 = 119
@@ -2169,7 +2210,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_HOME_OFFSET_WRITE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_EEPROM_WRITE" && b == "true") {
         coil_offset_410 = 120
@@ -2177,7 +2218,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_EEPROM_WRITE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_EEPROM_WRITE" && b == "false") {
         coil_offset_410 = 120
@@ -2185,7 +2226,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.RHS_EEPROM_WRITE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_SERVO_ON" && b == "true") {
         coil_offset_410 = 121
@@ -2193,7 +2234,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_SERVO_ON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_SERVO_ON" && b == "false") {
         coil_offset_410 = 121
@@ -2201,7 +2242,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_SERVO_ON
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_MULTI_TURN_CLEAR" && b == "true") {
         coil_offset_410 = 122
@@ -2209,7 +2250,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_MULTI_TURN_CLEAR
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_MULTI_TURN_CLEAR" && b == "false") {
         coil_offset_410 = 122
@@ -2217,7 +2258,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_MULTI_TURN_CLEAR
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_HOME_OFFSET_WRITE" && b == "true") {
         coil_offset_410 = 123
@@ -2225,7 +2266,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_HOME_OFFSET_WRITE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_HOME_OFFSET_WRITE" && b == "false") {
         coil_offset_410 = 123
@@ -2233,7 +2274,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_HOME_OFFSET_WRITE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_EEPROM_WRITE" && b == "true") {
         coil_offset_410 = 124
@@ -2241,7 +2282,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_EEPROM_WRITE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_EEPROM_WRITE" && b == "false") {
         coil_offset_410 = 124
@@ -2249,7 +2290,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c = payload.button.LHS_EEPROM_WRITE
         
         write_coil_410()
-        (b == "false" & c == false || b == "true" & c == true) ? c : writelog()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     
     else if (a == "Y0_0" && b == "true") {
