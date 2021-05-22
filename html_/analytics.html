@@ -251,7 +251,7 @@
                             <!-- PDF report Button -->
                             <div class="py-3">
                                 <button id="generatepdfreport"
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="generateReport()">
                                     PDF report
                                 </button>
@@ -259,9 +259,10 @@
                         </div>
 
                     </div>
+
                     <!-- Export:  -->
                     <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Export Load Cell Data:</h5>
+                        <h5 class="font-bold text-black">Export Load Cell Data (CSV):</h5>
                     </div>
                     
                     <div class="flex grid grid-cols-5 p-3 ">
@@ -269,9 +270,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexportPreLHS()">
-                                    PreLHS Excel 
+                                    Pre LHS  
                                 </button>
                             </div>
                         </div>
@@ -279,9 +280,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexportPreRHS()">
-                                    PreRHS Excel 
+                                    Pre RHS  
                                 </button>
                             </div>
                         </div>
@@ -289,9 +290,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexportMainLHS()">
-                                    MainLHS Excel 
+                                    Main LHS  
                                 </button>
                             </div>
                         </div>
@@ -299,9 +300,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexportMainRHS()">
-                                    MainRHS Excel 
+                                    Main RHS  
                                 </button>
                             </div>
                         </div>
@@ -309,9 +310,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexportEjnLHS()">
-                                    EjnLHS Excel 
+                                    Ejn LHS  
                                 </button>
                             </div>
                         </div>
@@ -319,9 +320,80 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexportEjnRHS()">
-                                    EjnRHS Excel 
+                                    Ejn RHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        
+                    
+                    </div>
+
+                    <!-- Export:  -->
+                    <div class="border-b mt-2 p-3">
+                        <h5 class="font-bold text-black">Export Load Cell Data (PDF):</h5>
+                    </div>
+                    
+                    <div class="flex grid grid-cols-5 p-3 ">
+                    
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="generatepdfreport1"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportPreLHS()">
+                                    Pre LHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="generatepdfreport2"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportPreRHS()">
+                                    Pre RHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="generatepdfreport3"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportMainLHS()">
+                                    Main LHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="generatepdfreport4"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportMainRHS()">
+                                    Main RHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="generatepdfreport5"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportEjnLHS()">
+                                    Ejn LHS  
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="generatepdfreport6"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="pdfexportEjnRHS()">
+                                    Ejn RHS  
                                 </button>
                             </div>
                         </div>
@@ -451,7 +523,7 @@
 
                                         </tbody>
                                     </table>
-                               </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -614,7 +686,13 @@
     <!-- Generate PDF Report -->
     <script>
         var element = document.getElementById("generatepdfreport");
-
+        var element1 = document.getElementById("generatepdfreport1");
+        var element2 = document.getElementById("generatepdfreport2");
+        var element3 = document.getElementById("generatepdfreport3");
+        var element4 = document.getElementById("generatepdfreport4");
+        var element5 = document.getElementById("generatepdfreport5");
+        var element6 = document.getElementById("generatepdfreport6");
+        
         var pdfgenerationtime = 20000;
 
         async function generateReport() {
@@ -646,6 +724,187 @@
                 }, pdfgenerationtime);
             }
         }
+        
+        async function pdfexportPreLHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                document.getElementById("generatepdfreport1").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                element1.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportpreLHSGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/preLHS/download"
+                    document.getElementById("generatepdfreport1").innerText = "Pre LHS";
+                    element1.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+    
+        async function pdfexportPreRHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                document.getElementById("generatepdfreport2").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                element2.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportpreRHSGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/preRHS/download"
+                    document.getElementById("generatepdfreport2").innerText = "Pre RHS";
+                    element2.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+        
+        async function pdfexportMainLHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                document.getElementById("generatepdfreport3").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                element3.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportmainLHSGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/mainLHS/download"
+                    document.getElementById("generatepdfreport3").innerText = "Main LHS";
+                    element3.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+
+        async function pdfexportMainRHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                document.getElementById("generatepdfreport4").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                element4.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportmainRHSGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/mainRHS/download"
+                    document.getElementById("generatepdfreport4").innerText = "Main RHS";
+                    element4.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+
+        async function pdfexportEjnLHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                document.getElementById("generatepdfreport5").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                element5.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportejnLHSGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/ejnLHS/download"
+                    document.getElementById("generatepdfreport5").innerText = "Ejn LHS";
+                    element5.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+
+        async function pdfexportEjnRHS() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                document.getElementById("generatepdfreport6").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                element6.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportejnRHSGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/ejnRHS/download"
+                    document.getElementById("generatepdfreport6").innerText = "Ejn RHS";
+                    element6.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+    
     </script>
     
     <!-- CSV Export -->

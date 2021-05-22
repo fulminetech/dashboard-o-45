@@ -567,6 +567,30 @@ app.get("/report/audit", (req, res) => {
     res.sendFile(path.join(__dirname + "/report/audit.html"));
 });
 
+app.get("/report/preLHS", (req, res) => {
+    res.sendFile(path.join(__dirname + "/report/preLHS.html"));
+});
+
+app.get("/report/preRHS", (req, res) => {
+    res.sendFile(path.join(__dirname + "/report/preRHS.html"));
+});
+
+app.get("/report/mainLHS", (req, res) => {
+    res.sendFile(path.join(__dirname + "/report/mainLHS.html"));
+});
+
+app.get("/report/mainRHS", (req, res) => {
+    res.sendFile(path.join(__dirname + "/report/mainRHS.html"));
+});
+
+app.get("/report/ejnLHS", (req, res) => {
+    res.sendFile(path.join(__dirname + "/report/ejnLHS.html"));
+});
+
+app.get("/report/ejnRHS", (req, res) => {
+    res.sendFile(path.join(__dirname + "/report/ejnRHS.html"));
+});
+
 app.get("/report/average/now", (req, res) => {
     res.send(report);
 })
@@ -700,6 +724,228 @@ app.get("/report/audit/generate", (req, res) => {
     return res.json({ message: 'EXPORTED AUDIT' });
 })
 
+app.get("/report/preLHS/generate", (req, res) => {
+    (async () => {
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' }); // For MAC
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+        const page = await browser.newPage();
+        await page.goto(`http://${host}:5000/report/preLHS`, { waitUntil: 'networkidle0' });
+        await page.pdf({
+            path: `batch_${report.batch}_preLHS_from_${report.from}_to_${report.to}.pdf`, format: 'A3', landscape: true,
+            displayHeaderFooter: true,
+            headerTemplate: `
+            <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">PRE LHS COMPRESSION REPORT</div>
+                <p style="text-align:right; padding-right: 30px; font-size: 8px;">
+                    Created on (mm/dd/yyyy): <span class="date">
+                </p>
+            </div>
+            `,
+            footerTemplate: `
+            <div style="width: 100%; font-size: 12px; font-family: Verdana, sans-serif; padding: 5px 5px 0;">
+                <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
+                    Prepared By:
+                    <span style="float:right;">
+                        Checked By:
+                    </span>
+                </p>
+                <div style="text-align: center; center: 5px; top: 5px;">Page: <span class="pageNumber"></span> of <span class="totalPages"></span></div>
+            </div>
+            `,
+            // this is needed to prevent content from being placed over the footer
+            margin: { bottom: '80px', top: '120px' },
+        });
+        await browser.close();
+    })();
+
+    return res.json({ message: 'EXPORTED PRELHS' });
+})
+
+app.get("/report/preRHS/generate", (req, res) => {
+    (async () => {
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' }); // For MAC
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+        const page = await browser.newPage();
+        await page.goto(`http://${host}:5000/report/preRHS`, { waitUntil: 'networkidle0' });
+        await page.pdf({
+            path: `batch_${report.batch}_preRHS_from_${report.from}_to_${report.to}.pdf`, format: 'A3', landscape: true,
+            displayHeaderFooter: true,
+            headerTemplate: `
+            <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">PRE RHS COMPRESSION REPORT</div>
+                <p style="text-align:right; padding-right: 30px; font-size: 8px;">
+                    Created on (mm/dd/yyyy): <span class="date">
+                </p>
+            </div>
+            `,
+            footerTemplate: `
+            <div style="width: 100%; font-size: 12px; font-family: Verdana, sans-serif; padding: 5px 5px 0;">
+                <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
+                    Prepared By:
+                    <span style="float:right;">
+                        Checked By:
+                    </span>
+                </p>
+                <div style="text-align: center; center: 5px; top: 5px;">Page: <span class="pageNumber"></span> of <span class="totalPages"></span></div>
+            </div>
+            `,
+            // this is needed to prevent content from being placed over the footer
+            margin: { bottom: '80px', top: '120px' },
+        });
+        await browser.close();
+    })();
+
+    return res.json({ message: 'EXPORTED preRHS' });
+})
+
+app.get("/report/mainLHS/generate", (req, res) => {
+    (async () => {
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' }); // For MAC
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+        const page = await browser.newPage();
+        await page.goto(`http://${host}:5000/report/mainLHS`, { waitUntil: 'networkidle0' });
+        await page.pdf({
+            path: `batch_${report.batch}_mainLHS_from_${report.from}_to_${report.to}.pdf`, format: 'A3', landscape: true,
+            displayHeaderFooter: true,
+            headerTemplate: `
+            <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">MAIN LHS COMPRESSION REPORT</div>
+                <p style="text-align:right; padding-right: 30px; font-size: 8px;">
+                    Created on (mm/dd/yyyy): <span class="date">
+                </p>
+            </div>
+            `,
+            footerTemplate: `
+            <div style="width: 100%; font-size: 12px; font-family: Verdana, sans-serif; padding: 5px 5px 0;">
+                <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
+                    Prepared By:
+                    <span style="float:right;">
+                        Checked By:
+                    </span>
+                </p>
+                <div style="text-align: center; center: 5px; top: 5px;">Page: <span class="pageNumber"></span> of <span class="totalPages"></span></div>
+            </div>
+            `,
+            // this is needed to prevent content from being placed over the footer
+            margin: { bottom: '80px', top: '120px' },
+        });
+        await browser.close();
+    })();
+
+    return res.json({ message: 'EXPORTED mainLHS' });
+})
+
+app.get("/report/mainRHS/generate", (req, res) => {
+    (async () => {
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' }); // For MAC
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+        const page = await browser.newPage();
+        await page.goto(`http://${host}:5000/report/mainRHS`, { waitUntil: 'networkidle0' });
+        await page.pdf({
+            path: `batch_${report.batch}_mainRHS_from_${report.from}_to_${report.to}.pdf`, format: 'A3', landscape: true,
+            displayHeaderFooter: true,
+            headerTemplate: `
+            <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">MAIN RHS COMPRESSION REPORT</div>
+                <p style="text-align:right; padding-right: 30px; font-size: 8px;">
+                    Created on (mm/dd/yyyy): <span class="date">
+                </p>
+            </div>
+            `,
+            footerTemplate: `
+            <div style="width: 100%; font-size: 12px; font-family: Verdana, sans-serif; padding: 5px 5px 0;">
+                <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
+                    Prepared By:
+                    <span style="float:right;">
+                        Checked By:
+                    </span>
+                </p>
+                <div style="text-align: center; center: 5px; top: 5px;">Page: <span class="pageNumber"></span> of <span class="totalPages"></span></div>
+            </div>
+            `,
+            // this is needed to prevent content from being placed over the footer
+            margin: { bottom: '80px', top: '120px' },
+        });
+        await browser.close();
+    })();
+
+    return res.json({ message: 'EXPORTED mainRHS' });
+})
+
+app.get("/report/ejnLHS/generate", (req, res) => {
+    (async () => {
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' }); // For MAC
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+        const page = await browser.newPage();
+        await page.goto(`http://${host}:5000/report/ejnLHS`, { waitUntil: 'networkidle0' });
+        await page.pdf({
+            path: `batch_${report.batch}_ejnLHS_from_${report.from}_to_${report.to}.pdf`, format: 'A3', landscape: true,
+            displayHeaderFooter: true,
+            headerTemplate: `
+            <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">EJN LHS COMPRESSION REPORT</div>
+                <p style="text-align:right; padding-right: 30px; font-size: 8px;">
+                    Created on (mm/dd/yyyy): <span class="date">
+                </p>
+            </div>
+            `,
+            footerTemplate: `
+            <div style="width: 100%; font-size: 12px; font-family: Verdana, sans-serif; padding: 5px 5px 0;">
+                <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
+                    Prepared By:
+                    <span style="float:right;">
+                        Checked By:
+                    </span>
+                </p>
+                <div style="text-align: center; center: 5px; top: 5px;">Page: <span class="pageNumber"></span> of <span class="totalPages"></span></div>
+            </div>
+            `,
+            // this is needed to prevent content from being placed over the footer
+            margin: { bottom: '80px', top: '120px' },
+        });
+        await browser.close();
+    })();
+
+    return res.json({ message: 'EXPORTED ejnLHS' });
+})
+
+app.get("/report/ejnRHS/generate", (req, res) => {
+    (async () => {
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' }); // For MAC
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+        const page = await browser.newPage();
+        await page.goto(`http://${host}:5000/report/ejnRHS`, { waitUntil: 'networkidle0' });
+        await page.pdf({
+            path: `batch_${report.batch}_ejnRHS_from_${report.from}_to_${report.to}.pdf`, format: 'A3', landscape: true,
+            displayHeaderFooter: true,
+            headerTemplate: `
+            <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">EJN RHS COMPRESSION REPORT</div>
+                <p style="text-align:right; padding-right: 30px; font-size: 8px;">
+                    Created on (mm/dd/yyyy): <span class="date">
+                </p>
+            </div>
+            `,
+            footerTemplate: `
+            <div style="width: 100%; font-size: 12px; font-family: Verdana, sans-serif; padding: 5px 5px 0;">
+                <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
+                    Prepared By:
+                    <span style="float:right;">
+                        Checked By:
+                    </span>
+                </p>
+                <div style="text-align: center; center: 5px; top: 5px;">Page: <span class="pageNumber"></span> of <span class="totalPages"></span></div>
+            </div>
+            `,
+            // this is needed to prevent content from being placed over the footer
+            margin: { bottom: '80px', top: '120px' },
+        });
+        await browser.close();
+    })();
+
+    return res.json({ message: 'EXPORTED ejnRHS' });
+})
+
 app.get("/report/audit/download", (req, res) => {
     var file = path.join(__dirname, `batch_${report.batch}_audit.pdf`);
     res.download(file, function (err) {
@@ -726,6 +972,78 @@ app.get("/report/alarm/download", (req, res) => {
 
 app.get("/report/average/download", (req, res) => {
     var file = path.join(__dirname, `batch_${report.batch}_from_${report.from}_to_${report.to}.pdf`);
+    res.download(file, function (err) {
+        if (err) {
+            console.log("Error");
+            console.log(err);
+        } else {
+            console.log("Success");
+        }
+    });
+})
+
+app.get("/report/preLHS/download", (req, res) => {
+    var file = path.join(__dirname, `batch_${report.batch}_preLHS_from_${report.from}_to_${report.to}.pdf`);
+    res.download(file, function (err) {
+        if (err) {
+            console.log("Error");
+            console.log(err);
+        } else {
+            console.log("Success");
+        }
+    });
+})
+
+app.get("/report/preRHS/download", (req, res) => {
+    var file = path.join(__dirname, `batch_${report.batch}_preRHS_from_${report.from}_to_${report.to}.pdf`);
+    res.download(file, function (err) {
+        if (err) {
+            console.log("Error");
+            console.log(err);
+        } else {
+            console.log("Success");
+        }
+    });
+})
+
+app.get("/report/mainLHS/download", (req, res) => {
+    var file = path.join(__dirname, `batch_${report.batch}_mainLHS_from_${report.from}_to_${report.to}.pdf`);
+    res.download(file, function (err) {
+        if (err) {
+            console.log("Error");
+            console.log(err);
+        } else {
+            console.log("Success");
+        }
+    });
+})
+
+app.get("/report/mainRHS/download", (req, res) => {
+    var file = path.join(__dirname, `batch_${report.batch}_mainRHS_from_${report.from}_to_${report.to}.pdf`);
+    res.download(file, function (err) {
+        if (err) {
+            console.log("Error");
+            console.log(err);
+        } else {
+            console.log("Success");
+        }
+    });
+})
+
+app.get("/report/ejnLHS/download", (req, res) => {
+    var file = path.join(__dirname, `batch_${report.batch}_ejnLHS_from_${report.from}_to_${report.to}.pdf`);
+    res.download(file, function (err) {
+        if (err) {
+            console.log("Error");
+            console.log(err);
+        } else {
+            console.log("Success");
+        }
+    });
+})
+
+app.get("/report/ejnRHS/download", (req, res) => {
+    var file = path.join(__dirname, `batch_${report.batch}_ejnRHS_from_${report.from}_to_${report.to}.pdf`);
     res.download(file, function (err) {
         if (err) {
             console.log("Error");

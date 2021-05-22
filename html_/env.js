@@ -41,6 +41,13 @@ const reportAvgURL = `${hostname}/report/average`
 const reportAvgGenURL = `${hostname}/report/average/generate`
 const reportAlarmGenURL = `${hostname}/report/alarm/generate`
 const reportAuditGenURL = `${hostname}/report/audit/generate`
+const reportpreLHSGenURL = `${hostname}/report/preLHS/generate`
+const reportpreRHSGenURL = `${hostname}/report/preRHS/generate`
+const reportmainLHSGenURL = `${hostname}/report/mainLHS/generate`
+const reportmainRHSGenURL = `${hostname}/report/mainRHS/generate`
+const reportejnLHSGenURL = `${hostname}/report/ejnLHS/generate`
+const reportejnRHSGenURL = `${hostname}/report/ejnRHS/generate`
+
 const reportcsvURL = `${hostname}/api/csv`
 
 const searchURL = `${hostname}/api/search/rotation/`
