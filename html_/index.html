@@ -206,12 +206,27 @@
                         
                         <!-- Search Button -->
                         <div class="p-3">
-                            <button id="inching"
+                            <h5 class="font-bold uppercase text-xl text-gray-700">Inching</h5>
+                            <!-- <button id="inching"
                                 class="text-center bg-blue-100 uppercase text-2xl font-bold text-gray-800 font-semibold py-5 px-5 border border-purple-500 rounded select-none"
                                 onmousedown="inch()" onmouseup="uninch()">
-                                INCHING </button>
+                                INCHING </button> -->
+                                
                         </div>
                         
+                        <div class="p-3 items-center pl-20">
+                            <!-- toggle -->
+                            <div class="relative">
+                                <!-- input -->
+                                <input id="inch" type="checkbox" checked class="hidden" onclick="inchh()" />
+                                <!-- line -->
+                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                </div>
+                                <!-- dot -->
+                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2088,6 +2103,12 @@
                     
                     maindata = data
 
+                    if (payload.button.MACHINE_INCHING_BUTTON == true) {
+                        document.getElementById("inch").checked = true;
+                    } else if (payload.button.MACHINE_INCHING_BUTTON == false) {
+                        document.getElementById("inch").checked = false;
+                    }
+
                     payload.button.POWER_PACK_START_BUTTON == true ? document.getElementById("p_status").innerHTML = "ON" : document.getElementById("p_status").innerHTML = "OFF"
                     // console.log(payload)
                     document.getElementById("punch_number_metric").innerHTML = payload.stats.punch_present_position.L_PRE;
@@ -2553,6 +2574,27 @@
                 .then(console.log("[ Machine Stop ] "))
                 .catch(console.error);
 
+        }
+
+        async function inchh() {
+            var x = !document.getElementById("inch").checked;
+
+            if (x == false) {
+                let submiturl = `${seturl}/MACHINE_INCHING_BUTTON/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ inch is ${!x} ] `))
+                    .catch(console.error);
+
+            } else if (x == true) {
+                let submiturl = `${seturl}/MACHINE_INCHING_BUTTON/${!x}`
+                console.log(submiturl)
+
+                await fetch(submiturl)
+                    .then(console.log(` [ inch is ${!x} ] `))
+                    .catch(console.error);
+            }
         }
 
         async function inch(){
