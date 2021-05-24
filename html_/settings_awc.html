@@ -226,10 +226,8 @@
                                 <tr>
                                     <td class="text-center  py-2 uppercase text-xl text-blue-900">Set Force</td>
                                     <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                        <input id="mainFL"
-                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                            type="number" placeholder="Main LHS + RHS Force Line"
-                                            onkeydown="if (event.keyCode == 13) updatelimits_MLFL()">
+                                        <a id="mainFL"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -268,16 +266,12 @@
                                 <tr>
                                     <td class="text-center py-2  text-xl uppercase text-blue-900">Set Force</td>
                                     <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                        <input id="preLHSfl"
-                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                            type="number" placeholder="PRE LHS FORCE LINE"
-                                            onkeydown="if (event.keyCode == 13) updatelimits_PLFL()">
+                                        <a id="preLHSfl"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                     </td>
                                     <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
-                                        <input id="preRHSfl"
-                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                            type="number" placeholder="Pre RHS FORCE LINE"
-                                            onkeydown="if (event.keyCode == 13) updatelimits_PRFL()">
+                                        <a id="preRHSfl"
+                                            class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                     </td>
 
                                 </tr>
@@ -514,17 +508,6 @@
                     document.getElementById("avg_tol").value = payload.stats.awc.AWC_TOLERANCE
                     document.getElementById("awc_corr").value = payload.stats.awc.AWC_MAX_CORRECTION
                     document.getElementById("awc_corr_mm").value = payload.stats.awc.AWC_32bit_CORRECTION
-
-                    document.getElementById("mainFL").value = payload.stats.awc.MONO_MAIN_FORCE
-                    document.getElementById("preLHSfl").value = payload.stats.awc.BI_PRE_FORCE
-                    document.getElementById("preRHSfl").value = payload.stats.awc.BI_MAIN_FORCE
-
-                    document.getElementById("awc_high").innerHTML = payload.stats.awc.L_maincompression_upperlimit
-                    document.getElementById("awc_low").innerHTML = payload.stats.awc.L_maincompression_lowerlimit
-                    document.getElementById("awc_high_LHS").innerHTML = payload.stats.awc.L_precompression_upperlimit
-                    document.getElementById("awc_high_RHS").innerHTML = payload.stats.awc.R_precompression_upperlimit
-                    document.getElementById("awc_low_LHS").innerHTML = payload.stats.awc.L_precompression_lowerlimit
-                    document.getElementById("awc_low_RHS").innerHTML = payload.stats.awc.R_precompression_lowerlimit
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
@@ -540,6 +523,17 @@
                         payload = data
                         document.getElementById("LHS_actual").innerHTML = payload.stats.awc.actual_LHS
                         document.getElementById("RHS_actual").innerHTML = payload.stats.awc.actual_RHS
+
+                        document.getElementById("mainFL").value = payload.stats.awc.MONO_MAIN_FORCE
+                        document.getElementById("preLHSfl").value = payload.stats.awc.BI_PRE_FORCE
+                        document.getElementById("preRHSfl").value = payload.stats.awc.BI_MAIN_FORCE
+
+                        document.getElementById("awc_high").innerHTML = payload.stats.awc.L_maincompression_upperlimit
+                        document.getElementById("awc_low").innerHTML = payload.stats.awc.L_maincompression_lowerlimit
+                        document.getElementById("awc_high_LHS").innerHTML = payload.stats.awc.L_precompression_upperlimit
+                        document.getElementById("awc_high_RHS").innerHTML = payload.stats.awc.R_precompression_upperlimit
+                        document.getElementById("awc_low_LHS").innerHTML = payload.stats.awc.L_precompression_lowerlimit
+                        document.getElementById("awc_low_RHS").innerHTML = payload.stats.awc.R_precompression_lowerlimit
                     })
                     .catch(function (error) {
                         // If there is any error you will catch them here
