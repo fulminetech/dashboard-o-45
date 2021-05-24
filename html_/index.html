@@ -1615,7 +1615,8 @@
             inch()
         }
 
-        function inching_process_touchend() {
+        function inching_process_touchend(e) {
+            e.preventDefault();
             console.log("Stop")
             uninch()
         }
@@ -2199,7 +2200,6 @@
                 });
         };
 
-        
         async function fetchmain() {
             fetch(rawpayload)
                 .then((resp) => resp.json()) // Transform the data into json
@@ -2244,7 +2244,7 @@
                 fetchstats();
                 fetchmain();
                 fetchcompression();
-            }, 300);
+            }, 500);
         }
     </script>
 
