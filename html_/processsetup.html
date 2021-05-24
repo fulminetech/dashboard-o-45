@@ -268,8 +268,8 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center text-blue-900"></th>
-                                        <th class="text-center pb-3 text-blue-900">RHS Discharge</th>
                                         <th class="text-center pb-3 text-blue-900">LHS Discharge</th>
+                                        <th class="text-center pb-3 text-blue-900">RHS Discharge</th>
                                     </tr>
                                 </thead>
                         
@@ -496,12 +496,6 @@
                     AWC_MRHS_UL = payload.limit[24]
                     AWC_MRHS_LL = payload.limit[25]
                     
-                    document.getElementById("awc_high").innerHTML = payload.stats.awc.L_maincompression_upperlimit
-                    document.getElementById("awc_low").innerHTML = payload.stats.awc.L_maincompression_lowerlimit
-                    document.getElementById("awc_high_LHS").innerHTML = payload.stats.awc.L_precompression_upperlimit
-                    document.getElementById("awc_high_RHS").innerHTML = payload.stats.awc.R_precompression_upperlimit
-                    document.getElementById("awc_low_LHS").innerHTML = payload.stats.awc.L_precompression_lowerlimit
-                    document.getElementById("awc_low_RHS").innerHTML = payload.stats.awc.R_precompression_lowerlimit
 
                 })
                 .catch(function (error) {
@@ -533,12 +527,12 @@
                     document.getElementById("preLHSlow").value = payload.machine.LHS.precompression_lowerlimit
                     document.getElementById("preRHSlow").value = payload.machine.RHS.precompression_lowerlimit
 
-                    document.getElementById("awc_high").value = payload.stats.awc.L_maincompression_upperlimit
-                    document.getElementById("awc_low").value = payload.stats.awc.L_maincompression_lowerlimit
-                    document.getElementById("awc_high_LHS").value = payload.stats.awc.L_precompression_upperlimit
-                    document.getElementById("awc_high_RHS").value = payload.stats.awc.R_precompression_upperlimit
-                    document.getElementById("awc_low_LHS").value = payload.stats.awc.L_precompression_lowerlimit
-                    document.getElementById("awc_low_RHS").value = payload.stats.awc.R_precompression_lowerlimit
+                    document.getElementById("awc_high").innerText = payload.stats.awc.L_maincompression_upperlimit
+                    document.getElementById("awc_low").innerText = payload.stats.awc.L_maincompression_lowerlimit
+                    document.getElementById("awc_high_LHS").innerText = payload.stats.awc.L_precompression_upperlimit
+                    document.getElementById("awc_high_RHS").innerText = payload.stats.awc.R_precompression_upperlimit
+                    document.getElementById("awc_low_LHS").innerText = payload.stats.awc.L_precompression_lowerlimit
+                    document.getElementById("awc_low_RHS").innerText = payload.stats.awc.R_precompression_lowerlimit
 
                     document.getElementById("preLHSfl").value = payload.stats.awc.BI_PRE_FORCE
                     document.getElementById("preRHSfl").value = payload.stats.awc.BI_MAIN_FORCE

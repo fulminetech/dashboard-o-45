@@ -524,9 +524,9 @@
                         document.getElementById("LHS_actual").innerHTML = payload.stats.awc.actual_LHS
                         document.getElementById("RHS_actual").innerHTML = payload.stats.awc.actual_RHS
 
-                        document.getElementById("mainFL").value = payload.stats.awc.MONO_MAIN_FORCE
-                        document.getElementById("preLHSfl").value = payload.stats.awc.BI_PRE_FORCE
-                        document.getElementById("preRHSfl").value = payload.stats.awc.BI_MAIN_FORCE
+                        document.getElementById("mainFL").innerHTML = payload.stats.awc.MONO_MAIN_FORCE
+                        document.getElementById("preLHSfl").innerHTML = payload.stats.awc.BI_PRE_FORCE
+                        document.getElementById("preRHSfl").innerHTML = payload.stats.awc.BI_MAIN_FORCE
 
                         document.getElementById("awc_high").innerHTML = payload.stats.awc.L_maincompression_upperlimit
                         document.getElementById("awc_low").innerHTML = payload.stats.awc.L_maincompression_lowerlimit
