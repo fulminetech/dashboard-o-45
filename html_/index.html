@@ -2250,21 +2250,23 @@
         };
 
         async function check() {
-            fetch(statsurl)
-                .then((resp) => resp.json()) // Transform the data into json
-                .then(function (data) {
-                    payload = data
-                    document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
+            setTimeout(() => {
+                fetch(statsurl)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        payload = data
+                        document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
 
-                    if (payload.button.MACHINE_INCHING_BUTTON == true) {
-                        document.getElementById("inch").checked = true;
-                    } else if (payload.button.MACHINE_INCHING_BUTTON == false) {
-                        document.getElementById("inch").checked = false;
-                    }
-                })
-                .catch(function (error) {
-                    // console.log("[ PAYLOAD FETCH ERROR ]", error)
-                });
+                        if (payload.button.MACHINE_INCHING_BUTTON == true) {
+                            document.getElementById("inch").checked = true;
+                        } else if (payload.button.MACHINE_INCHING_BUTTON == false) {
+                            document.getElementById("inch").checked = false;
+                        }
+                    })
+                    .catch(function (error) {
+                        // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            }, 1500);
         };
 
         function datashower() {
