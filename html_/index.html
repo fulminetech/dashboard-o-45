@@ -206,7 +206,7 @@
                         
                         <!-- Search Button -->
                         <div class="p-3">
-                            <h5 class="font-bold uppercase text-xl text-gray-700">Inching</h5>
+                            <h5 class="font-bold uppercase text-xl pb-3 text-gray-700">Inching</h5>
                             <button id="inching"
                                 class="text-center bg-blue-100 uppercase text-2xl font-bold text-gray-800 font-semibold py-5 px-5 border border-purple-500 rounded select-none"
                                 onmousedown="inch()" onmouseup="uninch()">
@@ -214,17 +214,25 @@
                                 
                         </div>
                         
-                        <div class="p-3 items-center pl-20">
+                        <div class="p-3 items-center">
                             <!-- toggle -->
                             <div class="relative">
                                 <!-- input -->
-                                <input id="inch" type="checkbox" checked class="hidden" onclick="inchh()" />
-                                <!-- line -->
-                                <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
-                                </div>
-                                <!-- dot -->
-                                <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
-                                </div>
+                                <label for="inch" class="cursor-pointer">
+                                    <div class="xl:pl-20">
+                                        <!-- toggle -->
+                                        <div class="relative">
+                                            <!-- input -->
+                                            <input id="inch" type="checkbox" checked class="hidden" onclick="inchh()" />
+                                            <!-- line -->
+                                            <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                            </div>
+                                            <!-- dot -->
+                                            <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -2103,12 +2111,6 @@
                     
                     maindata = data
 
-                    if (payload.button.MACHINE_INCHING_BUTTON == true) {
-                        document.getElementById("inch").checked = true;
-                    } else if (payload.button.MACHINE_INCHING_BUTTON == false) {
-                        document.getElementById("inch").checked = false;
-                    }
-
                     payload.button.POWER_PACK_START_BUTTON == true ? document.getElementById("p_status").innerHTML = "ON" : document.getElementById("p_status").innerHTML = "OFF"
                     // console.log(payload)
                     document.getElementById("punch_number_metric").innerHTML = payload.stats.punch_present_position.L_PRE;
@@ -2248,19 +2250,26 @@
         };
 
         async function check() {
-                fetch(statsurl)
-                    .then((resp) => resp.json()) // Transform the data into json
-                    .then(function (data) {
-                        payload = data
-                        document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
-                    })
-                    .catch(function (error) {
-                        // console.log("[ PAYLOAD FETCH ERROR ]", error)
-                    });
-            };
-        
+            fetch(statsurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    payload = data
+                    document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
+
+                    if (payload.button.MACHINE_INCHING_BUTTON == true) {
+                        document.getElementById("inch").checked = true;
+                    } else if (payload.button.MACHINE_INCHING_BUTTON == false) {
+                        document.getElementById("inch").checked = false;
+                    }
+                })
+                .catch(function (error) {
+                    // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
         function datashower() {
-                      
+            
+            check()
             setInterval(() => {
                 fetchstats();
                 fetchmain();
@@ -2585,6 +2594,7 @@
 
                 await fetch(submiturl)
                     .then(console.log(` [ inch is ${!x} ] `))
+                    .then(check())
                     .catch(console.error);
 
             } else if (x == true) {
@@ -2593,6 +2603,7 @@
 
                 await fetch(submiturl)
                     .then(console.log(` [ inch is ${!x} ] `))
+                    .then(check())
                     .catch(console.error);
             }
         }
