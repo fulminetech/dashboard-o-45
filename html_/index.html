@@ -351,7 +351,7 @@
                                 <div class="border border-gray-500 bg-blue-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
-                                            <h3 class="font-bold mt-1 text-lg">Punch No: <a id="punch_number_metric">0</a></h3>
+                                            <!-- <h3 class="font-bold mt-1 text-lg">Punch No: <a id="punch_number_metric">0</a></h3> -->
                                             <h3 class="font-bold mt-2 text-lg">Rotation No:</h3>
                                             <h3 class="font-bold mt-1 bg-white text-lg"><a id="rotation_number_metric"></a></h3>
                                             <h3 class="font-bold mt-2 text-lg">Dwell Time (secs):</h3>
@@ -522,7 +522,7 @@
                                     <button id="first_sampl"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onclick="firstsampbutton()">
-                                        1st Layer Sampling
+                                        1st Layer Ejection
                                     </button>
                                 </div>
                             </div>
@@ -534,7 +534,7 @@
                                     <button id="man_samp"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
                                         onmousedown="button13()" onmouseup="button13x()"> 
-                                        Sample
+                                        Manual Sampling
                                     </button>
                                 </div>
                             </div>
@@ -546,7 +546,7 @@
                                     <button id="samp"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onclick="samp()"> 
-                                        Auto Sampling
+                                        Auto Sampling OFF
                                     </button>
                                 </div>
                             </div>
@@ -622,7 +622,7 @@
                                 <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">LHS Discharge</h5>
                                 <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">RHS Discharge</h5>
                             </div>
-                            <table class="w-full p-5 text-xl text-gray-700">
+                            <table class="w-full p-5 text-2xl text-gray-700">
                                 <thead>
                                     <tr>
                                         <th class="text-center uppercase pb-3 text-gray-700"> Fill Depth </th>
@@ -713,7 +713,7 @@
                                 <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">LHS Discharge</h5>
                                 <h5 class="font-bold w-1/2 text-center p-2 uppercase text-xl ext-black">RHS Discharge</h5>
                             </div>
-                            <table class="w-full p-5 text-xl text-gray-700">
+                            <table class="w-full p-5 text-2xl text-gray-700">
                                 <thead>
                                     <tr>
                                         <th class="text-center pb-3 w-1/6 uppercase text-gray-700">Pre</th>
@@ -2123,7 +2123,7 @@
 
                     payload.button.POWER_PACK_START_BUTTON == true ? document.getElementById("p_status").innerHTML = "ON" : document.getElementById("p_status").innerHTML = "OFF"
                     // console.log(payload)
-                    document.getElementById("punch_number_metric").innerHTML = payload.stats.punch_present_position.L_PRE;
+                    // document.getElementById("punch_number_metric").innerHTML = payload.stats.punch_present_position.L_PRE;
                     // document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
                     // document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
                     document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
@@ -2209,12 +2209,12 @@
                     }
 
                     if (payload.button.AUTO_SAMPLING == true) {
-                        document.getElementById("samp").innerHTML = "AUTO SAMPLING";
+                        document.getElementById("samp").innerHTML = "AUTO SAMPLING ON";
                         const div1 = document.getElementById("samp").classList.remove('bg-red-300');
                         const div2 = document.getElementById("samp").classList.add('bg-green-300');
                         
                     } else {
-                        document.getElementById("samp").innerHTML = "MANUAL SAMPLING";
+                        document.getElementById("samp").innerHTML = "AUTO SAMPLING OFF";
                         const div1 = document.getElementById("samp").classList.add('bg-red-300');
                         const div2 = document.getElementById("samp").classList.remove('bg-green-300');
                     }
