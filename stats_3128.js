@@ -1704,7 +1704,8 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "MACHINE_INCHING_BUTTON" && b == "true") {
-        coil_offset_410 = 10
+        // coil_offset_410 = 10
+        coil_offset_410 = 11
         set_button = true
         c = payload.button.MACHINE_INCHING_BUTTON
         
@@ -1712,7 +1713,8 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "MACHINE_INCHING_BUTTON" && b == "false") {
-        coil_offset_410 = 10
+        // coil_offset_410 = 10
+        coil_offset_410 = 11
         set_button = false
         c = payload.button.MACHINE_INCHING_BUTTON
         
@@ -2602,42 +2604,42 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     
     
-    else if (a == "LHS_PRE_MAX") {
+    else if (a == "LHS_PRE_MAX_LIMIT") {
         reg_offset_6000 = 1000
         reg_write_value = b*100
         c = payload.machine.LHS.precompression_max
         write_regs()
         writelog()
     }
-    else if (a == "LHS_MAIN_MAX") {
+    else if (a == "LHS_MAIN_MAX_LIMIT") {
         reg_offset_6000 = 1001
         reg_write_value = b*100
         c = payload.machine.LHS.maincompression_max
         write_regs()
         writelog()
     }
-    else if (a == "LHS_EJN_MAX") {
+    else if (a == "LHS_EJN_MAX_LIMIT") {
         reg_offset_6000 = 1002
         reg_write_value = b*10
         c = payload.machine.LHS.ejection_max
         write_regs()
         writelog()
     }
-    else if (a == "RHS_PRE_MAX") {
+    else if (a == "RHS_PRE_MAX_LIMIT") {
         reg_offset_6000 = 1003
         reg_write_value = b*100
         c = payload.machine.RHS.precompression_max
         write_regs()
         writelog()
     }
-    else if (a == "RHS_MAIN_MAX") {
+    else if (a == "RHS_MAIN_MAX_LIMIT") {
         reg_offset_6000 = 1004
         reg_write_value = b*100
         c = payload.machine.RHS.maincompression_max
         write_regs()
         writelog()
     }
-    else if (a == "RHS_EJN_MAX") {
+    else if (a == "RHS_EJN_MAX_LIMIT") {
         reg_offset_6000 = 1005
         reg_write_value = b*10
         c = payload.machine.RHS.ejection_max
@@ -2679,14 +2681,14 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_regs()
         writelog()
     }
-    else if (a == "LHS_FILL_DEPTH_MAX_ANALOG") {
+    else if (a == "RHS_FILL_DEPTH_MAX_MM") {
         reg_offset_6000 = 1016
         reg_write_value = b*100
         c = payload.stats.LHSdepth.analog_max
         write_regs()
         writelog()
     }
-    else if (a == "LHS_FILL_DEPTH_MIN_ANALOG") {
+    else if (a == "RHS_FILL_DEPTH_MIN_MM") {
         reg_offset_6000 = 1017
         reg_write_value = b*100
         c = payload.stats.LHSdepth.analog_min
