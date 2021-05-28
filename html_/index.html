@@ -1638,12 +1638,16 @@
         function inching_process_touchstart(e) {
             e.preventDefault();
             console.log("Start")
+            const div1 = document.getElementById("inching").classList.remove('bg-blue-100');
+            const div2 = document.getElementById("inching").classList.add('bg-green-300');
             inch()
         }
         
         function inching_process_touchend(e) {
             e.preventDefault();
             console.log("Stop")
+            const div1 = document.getElementById("inching").classList.add('bg-blue-100');
+            const div2 = document.getElementById("inching").classList.remove('bg-green-300');
             uninch()
         }
 
@@ -1742,12 +1746,17 @@
 
         function man_samp_process_touchstart(e) {
             e.preventDefault();
+            const div1 = document.getElementById("inching").classList.remove('bg-red-300');
+            const div2 = document.getElementById("inching").classList.add('bg-green-300');
             console.log("Start")
             button13()
         }
 
-        function man_samp_process_touchend() {
+        function man_samp_process_touchend(e) {
+            e.preventDefault();
             console.log("Stop")
+            const div1 = document.getElementById("inching").classList.add('bg-blue-100');
+            const div2 = document.getElementById("inching").classList.remove('bg-green-300');
             button13x()
         }
 
