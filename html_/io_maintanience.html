@@ -1074,15 +1074,30 @@
                     // Here you get the data to modify as you please
                     payload = data
 
+                    document.getElementById("turret_amp_metric").innerHTML = payload.stats.turret.A;
+                    document.getElementById("feederRHS_amp_metric").innerHTML = payload.stats.RHS_FF.A;
+                    document.getElementById("feederLHS_amp_metric").innerHTML = payload.stats.LHS_FF.A;
+                    
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        async function fetchpayloadapiHF() {
+            
+            fetch(statsurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
                     document.getElementById("l_on").value = payload.stats.lubrication.set_delay_sec
                     document.getElementById("l_off").value = payload.stats.lubrication.set_delay_min
 
                     document.getElementById("hyd_high").value = payload.stats.hydraulic.high_cutoff
                     document.getElementById("hyd_low").value = payload.stats.hydraulic.low_cutoff
-
-                    document.getElementById("turret_amp_metric").innerHTML = payload.stats.turret.A;
-                    document.getElementById("feederRHS_amp_metric").innerHTML = payload.stats.RHS_FF.A;
-                    document.getElementById("feederLHS_amp_metric").innerHTML = payload.stats.LHS_FF.A;
 
                     if(payload.button.WITH_DOOR__BYPASS == true ){
                         document.getElementById("punch1").checked = true;
@@ -1102,6 +1117,14 @@
                     console.log("[ PAYLOAD FETCH ERROR ]", error)
                 });
         };
+
+        fetchpayloadapiHF();
+
+        function check() {
+            setTimeout(() => {
+                fetchpayloadapiHF();
+            }, 2000);
+        }
 
         fetchpayloadapiLF();
         setInterval(() => {
