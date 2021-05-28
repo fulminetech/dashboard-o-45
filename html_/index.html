@@ -1633,13 +1633,13 @@
         downn.addEventListener('touchend', down_process_touchend, false);
 
         function inching_process_touchstart(e) {
-            e.preventDefault();
+            // e.preventDefault();
             console.log("Start")
             inch()
         }
 
         function inching_process_touchend(e) {
-            e.preventDefault();
+            // e.preventDefault();
             console.log("Stop")
             uninch()
         }
