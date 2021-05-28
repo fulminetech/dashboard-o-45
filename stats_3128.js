@@ -1705,7 +1705,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "MACHINE_INCHING_BUTTON" && b == "true") {
         // coil_offset_410 = 10
-        coil_offset_410 = 11
+        coil_offset_410 = 12
         set_button = true
         c = payload.button.MACHINE_INCHING_BUTTON
         
@@ -1714,7 +1714,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "MACHINE_INCHING_BUTTON" && b == "false") {
         // coil_offset_410 = 10
-        coil_offset_410 = 11
+        coil_offset_410 = 12
         set_button = false
         c = payload.button.MACHINE_INCHING_BUTTON
         
