@@ -209,7 +209,8 @@
                             <h5 class="font-bold uppercase text-xl pb-3 text-gray-700">Inching</h5>
                             <button id="inching"
                                 class="text-center bg-blue-100 uppercase text-2xl font-bold text-gray-800 font-semibold py-5 px-5 border border-purple-500 rounded select-none"
-                                onmousedown="inch()" onmouseup="uninch()">
+                                >
+                                <!-- onmousedown="inch()" onmouseup="uninch()"> -->
                                 INCHING </button>
                                 
                         </div>
@@ -1639,7 +1640,7 @@
         }
 
         function inching_process_touchend(e) {
-            // e.preventDefault();
+            e.preventDefault();
             console.log("Stop")
             uninch()
         }
