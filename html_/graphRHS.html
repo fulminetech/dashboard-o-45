@@ -77,7 +77,7 @@
         <ul class="list-reset">
             <li class="my-2 md:my-0">
                 <a href="/dashboard" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-home fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Dashboard</span>
+                    <i class="fa fa-chevron-left fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Dashboard</span>
                 </a>
             </li>
             <li class="my-2 md:my-0">
@@ -89,26 +89,6 @@
             <li class="my-2 md:my-0">
                 <a href="/graphRHS" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <i class="fas fa-chart-area fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full inline-blocktext-lg">Graph: RHS</span>
-                </a>
-            </li>
-            <li class="my-2 md:my-0">
-                <a href="/history" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-history fa-fw mr-3 text-xl"></i><span class="w-full pb-1 text-lg">History</span>
-                </a>
-            </li>
-            <li class="my-2 md:my-0">
-                <a href="/dido" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-exchange-alt fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">DI/DO</span>
-                </a>
-            </li>
-            <li class="my-2 md:my-0">
-                <a href="/analytics" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-folder fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Reports</span>
-                </a>
-            </li>
-            <li class="my-2 md:my-0">
-                <a href="/processsetup" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fa fa-wrench fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Settings</span>
                 </a>
             </li>
             
@@ -125,7 +105,7 @@
             <!-- Machine Status -->
             <div class="w-1 mt-3 w-full">
                 <div
-                    class="border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    class="border-2 border-gray-900 border-dashed  rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Machine</h5>
@@ -133,7 +113,7 @@
                         <!-- Search Button -->
                         <div class="p-3">
                             <button id="start_m"
-                                class="text-center bg-green-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-green-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="start()" onmouseup="unstart()"> START </button>
                             
                         </div>
@@ -141,14 +121,14 @@
                         <div class="p-3">
                         
                             <button id="stop_m"
-                                class="text-center bg-red-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded"
+                                class="text-center bg-red-300 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 rounded"
                                 onmousedown="stop()" onmouseup="unstop()"> STOP </button>
                         </div>
             
                         <!-- Search Button -->
                         <div class="p-3">
                             <button id="inching"
-                                class="text-center bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 hover:border-transparent rounded select-none"
+                                class="text-center bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-purple-500 rounded select-none"
                                 onmousedown="inch()" onmouseup="uninch()"> INCHING </button>
                         </div>
             
@@ -159,7 +139,7 @@
             <!-- Batch Number -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    class="border-2 border-gray-900 border-dashed  rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-gray-700">Batch Number</h5>
@@ -172,7 +152,7 @@
             <!-- Mode -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 m-2 md:mx-10 md:my-6">
+                    class="border-2 border-gray-900 border-dashed  rounded px-3 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">MODE</h5>
@@ -185,7 +165,7 @@
             <!-- RPM -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
+                    class="border-2 border-gray-900 border-dashed  rounded px-6 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Turret RPM</h5>
@@ -198,7 +178,7 @@
             <!-- Rotation Number -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 m-2 md:mx-10 md:my-6">
+                    class="border-2 border-gray-900 border-dashed  rounded px-3 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Rotation Number</h5>
@@ -211,7 +191,7 @@
             <!-- Punch Number -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-900 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-3 py-3 m-2 md:mx-10 md:my-6">
+                    class="border-2 border-gray-900 border-dashed  rounded px-3 py-3 m-2 md:mx-10 md:my-6">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Punch Number</h5>
