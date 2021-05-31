@@ -172,6 +172,65 @@
         
             <div class="flex ">
                 <div class="w-full p-6 ">
+                    
+                    <div class="w-full border mb-5 border-gray-400 bg-white rounded shadow overflow-auto">
+                        <div class="px-5 pb-5">
+                            <table class="table-fixed w-full text-center text-black">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center border-b uppercase border-gray-400 py-3">Parameter</th>
+                                        <th class="text-center border-b uppercase border-gray-400 pr-30 py-3">Toggle</th>
+                                    </tr>
+                                </thead>
+                    
+                                <tbody>
+                                    <tr class="py-5">
+                                        <td class="border-b p-5 text-xl uppercase border-gray-400">Guard Bypass</td>
+                                        <td class="border-b p-5 border-gray-400">
+                                            <div class="ml-64">
+                                                <!-- toggle -->
+                                                <label for="punch1" class="cursor-pointer">
+                                                    <div class="relative">
+                                                        <!-- input -->
+                                                        <input id="punch1" type="checkbox" class="hidden" onclick="punch1()" />
+                                                        <!-- line -->
+                                                        <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                        </div>
+                                                        <!-- dot -->
+                                                        <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                            </label>
+                                        </td>
+                                    </tr>
+                    
+                                    <tr class="py-5">
+                                        <td class=" p-5 text-xl uppercase border-gray-400">Powder Sensor Active</td>
+                                        <td class=" p-5 items-center align-middle border-gray-400">
+                                            <label for="punch2" class="cursor-pointer">
+                                                <div class="ml-64">
+                                                    <!-- toggle -->
+                                                    <div class="relative">
+                                                        <!-- input -->
+                                                        <input id="punch2" type="checkbox" class="hidden" onclick="punch2()" />
+                                                        <!-- line -->
+                                                        <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
+                                                        </div>
+                                                        <!-- dot -->
+                                                        <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </td>
+                                    </tr>
+                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
 
                     <div class="flex">
 
@@ -505,6 +564,18 @@
                     document.getElementById("preLHSfl").value = payload.stats.awc.BI_PRE_FORCE
                     document.getElementById("preRHSfl").value = payload.stats.awc.BI_MAIN_FORCE
 
+                    if (payload.button.WITH_DOOR__BYPASS == true) {
+                        document.getElementById("punch1").checked = true;
+                    } else {
+                        document.getElementById("punch1").checked = false;
+                    }
+
+                    if (payload.button.POWDER_SENSOR_ENABLE == true) {
+                        document.getElementById("punch2").checked = true;
+                    } else {
+                        document.getElementById("punch2").checked = false;
+                    }
+
                     if (payload.button.AUTO_SAMPLING == true) {
                         document.getElementById("samp").innerHTML = "AUTO SAMPLING";
                         const div1 = document.getElementById("samp").classList.remove('bg-red-300');
@@ -587,6 +658,48 @@
 
     <!-- Update Values -->
     <script>
+
+         async function punch1() {
+                var x = !document.getElementById("punch1").checked;
+
+                if (x == false) {
+                    let submiturl = `${seturl}/WITH_DOOR__BYPASS/${!x}`
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(console.log(` [ punch1 is ${!x} ] `))
+                        .catch(console.error);
+
+                } else if (x == true) {
+                    let submiturl = `${seturl}/WITH_DOOR__BYPASS/${!x}`
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(console.log(` [ WITH_DOOR__BYPASS is ${!x} ] `))
+                        .catch(console.error);
+                }
+            }
+
+            async function punch2() {
+                var x = !document.getElementById("punch2").checked;
+
+                if (x == false) {
+                    let submiturl = `${seturl}/POWDER_SENSOR_ENABLE/${!x}`
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(console.log(` [ punch2 is ${!x} ] `))
+                        .catch(console.error);
+
+                } else if (x == true) {
+                    let submiturl = `${seturl}/POWDER_SENSOR_ENABLE/${!x}`
+                    console.log(submiturl)
+
+                    await fetch(submiturl)
+                        .then(console.log(` [ POWDER_SENSOR_ENABLE is ${!x} ] `))
+                        .catch(console.error);
+                }
+            }
 
         function updatelimits_MLU() {
             var mainLHSup = document.getElementById("mainUP").value;
