@@ -26,8 +26,8 @@
     <script src="/env/env.js"></script>
     
     <!-- sidebar -->
-    <style>
-        #sidebar {
+    <!-- <style>
+        /* #sidebar {
             transition: ease-in-out all .1s;
             z-index: 9999;
         }
@@ -46,8 +46,8 @@
         
         #sidebar:hover span {
             opacity: 1;
-        }
-    </style>
+        } */
+    </style> -->
 
     <!-- Modal CSS -->
     <style>
@@ -87,50 +87,47 @@
 <body class="flex bg-gray-100 select-none font-sans" onload="datashower()">
 
     <!-- Side bar-->
-    <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center static fixed shadow">
+    <div id="sidebar" class="h-screen w-44 menu bg-white text-white px-4 flex items-center static fixed shadow">
 
         <ul class="list-reset">
             <li class="my-2 md:my-0">
-                <a href="/dashboard" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-home fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full inline-block text-lg">Dashboard</span>
+                <a href="/dashboard" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-home fa-fw mr-3 text-indigo-400 text-xl"></i>Dashboard
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/graphLHS" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Graph: LHS</span>
+                <a href="/graphLHS" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i>Graph: LHS
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/graphRHS" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">Graph: RHS</span>
+                <a href="/graphRHS" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i>Graph: RHS
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/history" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-history fa-fw mr-3 text-xl"></i><span class="w-full pb-1 text-lg">History</span>
+                <a href="/history" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-history fa-fw mr-3 text-xl"></i>History
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/dido" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-exchange-alt fa-fw mr-3 text-xl"></i><span class="w-full inline-blocktext-lg">DI/DO</span>
+                <a href="/dido" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-exchange-alt fa-fw mr-3 text-xl"></i>DI/DO
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/analytics" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-folder fa-fw mr-3 text-xl"></i><span
-                        class="w-full inline-block text-lg">Reports</span>
+                <a href="/analytics" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-folder fa-fw mr-3 text-xl"></i>Reports
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/processsetup" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fa fa-wrench fa-fw mr-3 text-xl"></i><span 
-                    class="w-full inline-block text-lg">Settings</span>
+                <a href="/processsetup" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3 text-xl"></i>Settings
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/" class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fa fa-minus-square mr-3 text-xl"></i>
-                    <span class="w-full inline-block text-lg">Login Screen</span>
+                <a href="/" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-minus-square mr-3 text-xl"></i> Login Screen
                 </a>
             </li>
             
@@ -138,25 +135,25 @@
 
     </div>
 
-    <div class="flex flex-1 flex-grow content-start pl-16">
+    <div class="flex flex-1 flex-grow content-start pl-40">
 
         <!--Dash Content -->
-        <div id="dash-content" class="bg-gray-200  py-3 px-2 w-full xl:w-64 flex flex-wrap content-start">
+        <div id="dash-content" class="bg-gray-200 py-3 w-full xl:w-64 flex flex-wrap content-start">
 
             <!-- Batch Number -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    class="border-2 border-gray-400 border-dashed  rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Batch Number</h5>
                             <h3 id="batch_number_metric" class="font-bold text-2xl"></h3>
                         </div>
-                        <div class="p-3">
+                        <!-- <div class="p-3">
                             <button
                                 class="text-center bg-red-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded select-none"
                                 onmousedown="boff()" onmouseup="unboff()"> Batch </button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -164,7 +161,7 @@
             <!-- Batch Number -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    class="border-2 border-gray-400 border-dashed  rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Tablet Count</h5>
@@ -185,11 +182,11 @@
 
             <!-- Machine Status -->
             <div class="w-1 w-full">
-                <div class="border-2 border-gray-400 border-dashed hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                <div class="border-2 border-gray-400 border-dashed  rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase text-xl text-gray-700">Machine Status</h5>
-                            <h3 id="status" class="font-bold uppercase text-3xl">Offline</h3>
+                            <h5 class="font-bold uppercase text-xl text-gray-700">Machine</h5>
+                            <!-- <h3 id="status" class="font-bold uppercase text-3xl">Offline</h3> -->
                         </div>
                         <!-- Search Button -->
                         <div class="p-3">
@@ -206,48 +203,53 @@
                         
                         <!-- Search Button -->
                         <div class="p-3">
-                            <h5 class="font-bold uppercase text-xl pb-3 text-gray-700">Inching</h5>
                             <button id="inching"
-                                class="text-center bg-blue-100 uppercase text-2xl font-bold text-gray-800 font-semibold py-5 px-12 border border-purple-500 rounded select-none"
+                                class="text-center bg-blue-100 uppercase text-2xl font-bold text-gray-800 font-semibold py-5 px-10 border border-purple-500 rounded select-none"
                                 onmousedown="inch()" onmouseup="uninch()">
                                 INCHING </button>
                                 
                         </div>
+
+                        <div class="p-3">
+                            <button id="drain"
+                                class="text-center bg-blue-100 uppercase text-2xl text-gray-800 font-semibold py-5 px-5 border border-purple-500 rounded"
+                                onmousedown="drain()" onmouseup="undrain()"> DRAIN </button>
+                        </div>
                         
-                        <div class="p-3 items-center">
-                            <!-- toggle -->
+                        <!-- <div class="p-3 items-center">
+                            
                             <div class="relative">
-                                <!-- input -->
+                                
                                 <label for="inch" class="cursor-pointer">
                                     <div class="xl:pl-20">
-                                        <!-- toggle -->
+                                        
                                         <div class="relative">
-                                            <!-- input -->
+                                            
                                             <input id="inch" type="checkbox" checked class="hidden" onclick="inchh()" />
-                                            <!-- line -->
+                                            
                                             <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner">
                                             </div>
-                                            <!-- dot -->
+                                            
                                             <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow">
                                             </div>
                                         </div>
                                     </div>
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
 
             <!-- Power Pack Status -->
-            <div class="w-1 w-full">
-                <div class="border-2 border-gray-400 border-dashed hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+            <!-- <div class="w-1 w-full">
+                <div class="border-2 border-gray-400 border-dashed  rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Power Pack</h5>
                             <h3 id="p_status" class="font-bold uppercase text-3xl">Off</h3>
                         </div>
-                        <!-- Search Button -->
+                        
                         <div class="p-3">
                             <button id="start_pp"
                                 class="text-center bg-green-300 uppercase text-2xl text-gray-800 font-semibold py-5 px-10 border border-purple-500 rounded"
@@ -258,26 +260,22 @@
                                 class="text-center bg-red-300 uppercase text-2xl text-gray-800 font-semibold py-5 px-10 border border-purple-500 rounded"
                                 onmousedown="stoppower()" onmouseup="unstoppower()"> STOP </button>
                         </div>
-                        <!-- Search Button -->
-                        <div class="p-3">
-                            <button id="drain"
-                                class="text-center bg-blue-100 uppercase text-2xl text-gray-800 font-semibold py-5 px-5 border border-purple-500 rounded"
-                                onmousedown="drain()" onmouseup="undrain()"> DRAIN </button>
-                        </div>
+                        
+                        
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Feeder -->
-            <div class="w-1 w-full">
+            <!-- <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    class="border-2 border-gray-400 border-dashed  rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Feeder</h5>
                             <h3 id="feeder_mode" class="font-bold uppercase text-2xl"></h3>
                         </div>
-                        <!-- Search Button -->
+                        
                         <div class="p-3">
                             <div class="p-2">
                         
@@ -300,7 +298,6 @@
                             </div>
                         </div>
 
-                        <!-- Search Button -->
                         <div class="p-3">
                             <button id="start_f"
                                 class="text-center bg-green-300 uppercase text-2xl text-gray-800 font-semibold py-5 px-10 border border-purple-500 rounded"
@@ -314,12 +311,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Compression Live Data -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed hover:bg-white hover:shadow-xl rounded px-3 py-3 mt-3 ">
+                    class="border-2 border-gray-400 border-dashed  rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-gray-700">Compression Live Data</h5>
@@ -425,7 +422,7 @@
                                 <div class="border border-gray-500 bg-purple-300 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
-                                            <h5 class="font-bold uppercase text-xl">RHS Discharge</h5>
+                                            <h5 class="font-bold uppercase text-lg">RHS Discharge</h5>
                                             <h3 class="font-bold mt-2 text-lg">Feeder RPM: 
                                                 <a id="feederLHS_metric">0</a></h3>
                                                 <div class="py-3">
@@ -444,7 +441,7 @@
                                 <div class="border border-gray-500 bg-purple-300 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                     <div class="flex flex-col">
                                         <div class="flex-1 items-left text-gray-700">
-                                            <h5 class="font-bold uppercase text-xl">LHS Discharge</h5>
+                                            <h5 class="font-bold uppercase text-lg">LHS Discharge</h5>
                                             <h3 class="font-bold mt-2 text-lg">Feeder RPM: 
                                                 <a id="feederRHS_metric">0</a></h3>
                                                 <div class="py-3">
@@ -465,24 +462,24 @@
                             <h5 class="font-bold text-black">Controls:</h5>
                         </div> -->
                         
-                        <div class="flex mt-32 grid grid-cols-5">
+                        <div class="flex mt-40 grid grid-cols-5">
                          
-                            <div class="flex flex-wrap p-3">
+                            <div class="flex flex-wrap px-3">
                             
                                 <!-- Excel Button -->
-                                <div class="py-3">
+                                <div class="py-2">
                                     <button id="rejn_dsbl"
-                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onmousedown="rejnbutton()">
                                         Rejection OFF
                                     </button>
                                 </div>
                             </div>
                         
-                            <div class="flex flex-wrap p-3">
+                            <div class="flex flex-wrap px-3">
                         
                                 <!-- Excel Button -->
-                                <div class="py-3">
+                                <div class="py-2">
                                     <button id="rejn_air"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onmousedown="button2x()">
@@ -491,10 +488,10 @@
                                 </div>
                             </div>
                         
-                            <div class="flex flex-wrap p-3">
+                            <div class="flex flex-wrap px-3">
                         
                                 <!-- Excel Button -->
-                                <div class="py-3">
+                                <div class="py-2">
                                     <button id="rejn_flap"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onmousedown="button2()">
@@ -503,10 +500,10 @@
                                 </div>
                             </div>
 
-                            <div class="flex flex-wrap p-3">
+                            <div class="flex flex-wrap px-3">
                             
                                 <!-- Excel Button -->
-                                <div class="py-3">
+                                <div class="py-2">
                                     <button id="rejn_init"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onclick="initrejnbutton()">
@@ -515,10 +512,10 @@
                                 </div>
                             </div>
                             
-                            <div class="flex flex-wrap p-3">
+                            <div class="flex flex-wrap px-3">
                             
                                 <!-- Excel Button -->
-                                <div class="py-3">
+                                <div class="py-2">
                                     <button id="first_sampl"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onclick="firstsampbutton()">
@@ -527,10 +524,10 @@
                                 </div>
                             </div>
                         
-                            <div class="flex flex-wrap p-3">
+                            <div class="flex flex-wrap px-3">
                         
                                 <!-- Excel Button -->
-                                <div class="">
+                                <div class="py-2">
                                     <button id="man_samp"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
                                         onmousedown="button13()" onmouseup="button13x()"> 
@@ -539,22 +536,22 @@
                                 </div>
                             </div>
                         
-                            <div class="flex flex-wrap p-3">
+                            <div class="flex flex-wrap px-3">
                         
                                 <!-- Excel Button -->
-                                <div class="">
+                                <div class="py-2">
                                     <button id="samp"
-                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
+                                        class="bg-red-300 uppercase text-lg text-gray-800 font-semibold py-2 px-10 border border-blue-500 rounded"
                                         onclick="samp()"> 
-                                        Auto Sampling OFF
+                                        Auto-Sampling OFF
                                     </button>
                                 </div>
                             </div>
                         
-                            <div class="flex flex-wrap p-3">
+                            <div class="flex flex-wrap px-3">
                         
                                 <!-- Bi Layer Mode-->
-                                <div class="">
+                                <div class="py-2">
                                     <button id="bi_mode"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
                                         onclick="button11()"> 
@@ -563,10 +560,10 @@
                                 </div>
                             </div>
                         
-                            <div class="flex flex-wrap p-3">
+                            <div class="flex flex-wrap px-3">
                         
                                 <!-- Bi Layer Mode-->
-                                <div class="">
+                                <div class="py-2">
                                     <button id="mono_mode"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
                                         onclick="button11x()"> 
@@ -575,10 +572,10 @@
                                 </div>
                             </div>
 
-                            <div class="flex flex-wrap p-3">
+                            <div class="flex flex-wrap px-3">
                             
                                 <!-- PDF report Button -->
-                                <div class="">
+                                <div class="py-2">
                                     <button id="disable_awc"
                                         class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
                                         onclick="awc()"> 
@@ -586,38 +583,98 @@
                                     </button>
                                 </div>
                             </div>
-                            
-                            
-                            <div class="flex flex-wrap p-3">
-                                
-                                <a href="/io_alarm">
-                                    <div class="">
-                                        <button id="alarm_page"
-                                        class="bg-red-600 uppercase text-xl text-gray-100 font-semibold py-5 px-12 border border-blue-500 rounded hidden"
-                                        > 
-                                        FAULT ALARM 
-                                    </button>
-                                </div>
-                            </a>
-                        </div>
+     
+                        <div class="flex flex-wrap px-3">
                         
-                        <div class="flex flex-wrap p-3">
                             <!-- PDF report Button -->
-                            <div class="">
-                                <button id="disable_awcc"
-                                class="bg-transparent select-none uppercase text-xl text-transparent font-semibold py-5 px-12 border border-transparent rounded"> 
-                                HIDDEN
+                            <div class="py-2">
+                                <button id="start_pp"
+                                    class="bg-green-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                    onmousedown="startpower()" onmouseup="unstartpower()">
+                                    Power Pack Start
                                 </button>
                             </div>
                         </div>
                         
+                        <div class="flex flex-wrap px-3">
+                        
+                            <!-- PDF report Button -->
+                            <div class="py-2">
+                                <button id="stop_pp"
+                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                    onmousedown="stoppower()" onmouseup="unstoppower()">
+                                    Power Pack Stop
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap px-3">
+                        
+                            <!-- PDF report Button -->
+                            <div class="py-2">
+                                <button 
+                                    class="bg-green-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                    onmousedown="startfeeder()" onmouseup="unstartfeeder()">
+                                    Feeder START
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap px-3">
+                        
+                            <!-- PDF report Button -->
+                            <div class="py-2">
+                                <button
+                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                    onmousedown="stopfeeder()" onmouseup="unstopfeeder()">
+                                    Feeder Stop
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap px-3">
+                        
+                            <!-- PDF report Button -->
+                            <div class="py-2">
+                                <button id="feeder_g"
+                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                    onclick="gravity()">
+                                    Feeder Gravity 
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap px-3">
+                        
+                            <!-- PDF report Button -->
+                            <div class="py-2">
+                                <button id="feeder_f"
+                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                    onclick="force()">
+                                    Feeder Force 
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap px-3">
+                        
+                            <a href="/io_alarm">
+                                <div class="py-2">
+                                    <button id="alarm_page"
+                                        class="bg-red-600 uppercase text-xl text-gray-100 font-semibold py-5 px-12 border border-blue-500 rounded hidden">
+                                        FAULT ALARM
+                                    </button>
+                                </div>
+                            </a>
+                        </div>
+
                     </div>
 
                         <!-- Depth -->
                         <div class="border-b p-3">
                             <h5 class="font-bold text-black">Depth (mm) :</h5>
                         </div>
-                        <div class="p-5 my-1 border border-blue-500 bg-purple-300 rounded shadow" onclick="myFunction()">
+                        <div class="p-5 my-1 border border-blue-500 bg-purple-300 rounded shadow">
                             <div class="flex">
                                 <h5 class="font-bold w-1/2 text-center uppercase text-xl ext-black">LHS Discharge</h5>
                                 <h5 class="font-bold w-1/2 text-center uppercase text-xl ext-black">RHS Discharge</h5>
@@ -644,13 +701,100 @@
                                         <td id="LHS_pre_roller" class="text-center border-gray-700">0</td>
                                         <td id="LHS_main_roller" class="text-center border-gray-700">0</td>
                                     </tr>
+                                    <tr>
+                                        <td class="text-center pt-3 border-gray-700">
+                                            <button id="up"
+                                                class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-8 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Lweight_dec()" onmouseup="Lweight_decx()">
+                                                WEIGHT +
+                                            </button>
+                                        </td>
+                                        <td class="text-center pt-3 border-gray-700">
+                                            <button id="up"
+                                                class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="rollerup(1)" onmouseup="unup()">
+                                                UP
+                                            </button>
+                                        </td>
+                                        <td class="text-center pt-3 border-r border-gray-700">
+                                            <button id="up"
+                                                class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="rollerup(2)" onmouseup="unup()">
+                                                UP
+                                            </button>
+                                        </td>
+                                        <td class="text-center pt-3 border-gray-700">
+                                            <button id="up"
+                                                class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-8 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                WEIGHT +
+                                            </button>
+                                        </td>
+                                        <td class="text-center pt-3 border-gray-700">
+                                            <button id="up"
+                                                class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="rollerup(3)" onmouseup="unup()">
+                                                UP
+                                            </button>
+                                        </td>
+                                        <td class="text-center pt-3 border-gray-700">
+                                            <button id="up"
+                                                class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="rollerup(4)" onmouseup="unup()">
+                                                UP
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center pt-3 border-gray-700">
+                                            <button id="down"
+                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-8 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Lweight_inc()" onmouseup="Lweight_incx()">
+                                                WEIGHT -
+                                            </button>
+                                        </td>
+                                        <td class="text-center pt-3 border-gray-700">
+                                            <button id="down"
+                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-8 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="rollerdown(1)" onmouseup="undown()">
+                                                DOWN
+                                            </button>
+                                        </td>
+                                        <td class="text-center pt-3 border-r border-gray-700">
+                                            <button id="down"
+                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-8 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="rollerdown(2)" onmouseup="undown()">
+                                                DOWN
+                                            </button>
+                                        </td>
+                                        <td class="text-center pt-3 border-gray-700">
+                                            <button id="down"
+                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-8 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Rweight_inc()" onmouseup="Rweight_incx()">
+                                                WEIGHT -
+                                            </button>
+                                        </td>
+                                        <td class="text-center pt-3 border-gray-700">
+                                            <button id="down"
+                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-8 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="rollerdown(3)" onmouseup="undown()">
+                                                DOWN
+                                            </button>
+                                        </td>
+                                        <td class="text-center pt-3 border-gray-700">
+                                            <button id="down"
+                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-8 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="rollerdown(4)" onmouseup="undown()">
+                                                DOWN
+                                            </button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <div id="myDIV" class="flex hidden">
+                        <!-- <div id="myDIV" class="flex hidden">
                             <div class="w-1/2 flex pb-64">
-                                <!-- Roller -->
                                 <div class=" h-20 items-center">
                                     <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                                         <div class="flex flex-col">
@@ -679,7 +823,7 @@
                         
                                             <div class="flex p-3">
                         
-                                                <!-- PDF report Button -->
+                                                
                                                 <div class="py-3">
                                                     <button id="up"
                                                         class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
@@ -688,7 +832,7 @@
                                                     </button>
                                                 </div>
                         
-                                                <!-- PDF report Button -->
+                                                
                                                 <div class="py-3 pl-10">
                                                     <button id="down"
                                                         class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
@@ -702,10 +846,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         
                         <!--Average Compression Trend-->
-                        <div class="border-b p-3 pt-20">
+                        <div class="border-b p-3 pt-5">
                             <h5 class="font-bold text-black">Average Compression (kN) :</h5>
                         </div>
                         <div class="p-5 my-1 border border-blue-500 bg-green-300 rounded shadow">
@@ -1788,7 +1932,7 @@
                 .then((resp) => resp.json()) 
                 .then(function (data) {
 
-                    data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : data.connection
+                    // data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : data.connection
                     
                     payload = data
                     // console.log(payload)
@@ -2121,12 +2265,12 @@
                     
                     maindata = data
 
-                    payload.button.POWER_PACK_START_BUTTON == true ? document.getElementById("p_status").innerHTML = "ON" : document.getElementById("p_status").innerHTML = "OFF"
+                    // payload.button.POWER_PACK_START_BUTTON == true ? document.getElementById("p_status").innerHTML = "ON" : document.getElementById("p_status").innerHTML = "OFF"
                     // console.log(payload)
                     // document.getElementById("punch_number_metric").innerHTML = payload.stats.punch_present_position.L_PRE;
                     // document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
                     // document.getElementById("punch_number_metric").innerHTML = payload.present_punch;
-                    document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
+                    // document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
                     document.getElementById("count_metric").innerHTML = payload.production;
                     document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
                     document.getElementById("rpm_metric").innerHTML = payload.stats.turret.RPM;
@@ -2153,9 +2297,17 @@
 
                     
                     if (payload.stats.FF_MODE == 0) {
-                        document.getElementById("feeder_mode").innerHTML = "GRAVITY";
+                        // document.getElementById("feeder_mode").innerHTML = "GRAVITY";
+                        const div1 = document.getElementById("feeder_g").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("feeder_g").classList.add('bg-green-300');
+                        const div3 = document.getElementById("feeder_f").classList.remove('bg-green-300');
+                        const div4 = document.getElementById("feeder_f").classList.add('bg-red-300');
                     } else {
-                        document.getElementById("feeder_mode").innerHTML = "FORCE";
+                        // document.getElementById("feeder_mode").innerHTML = "FORCE";
+                        const div1 = document.getElementById("feeder_g").classList.add('bg-red-300');
+                        const div2 = document.getElementById("feeder_g").classList.remove('bg-green-300');
+                        const div3 = document.getElementById("feeder_f").classList.add('bg-green-300');
+                        const div4 = document.getElementById("feeder_f").classList.remove('bg-red-300');
                     }
                     
                     if (payload.button.REJECTION_BUTTON_HMI == true) {
@@ -2296,14 +2448,14 @@
 
     <!-- Hide Section -->
     <script>
-        function myFunction() {
-            var x = document.getElementById("myDIV");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-        }
+        // function myFunction() {
+        //     var x = document.getElementById("myDIV");
+        //     if (x.style.display === "none") {
+        //         x.style.display = "block";
+        //     } else {
+        //         x.style.display = "none";
+        //     }
+        // }
 
         var alarm
         var alarm_status = false
@@ -2975,38 +3127,57 @@
             }
         }
         
-        function roller_freq() {
-            var value = document.getElementById("roller_freq").value;
+        // function roller_freq() {
+        //     var value = document.getElementById("roller_freq").value;
 
-            value <= 80 && value >= 0 ? submitt(parseInt(value)) : value
+        //     value <= 80 && value >= 0 ? submitt(parseInt(value)) : value
 
-            async function submitt(value) {
-                let submiturl = `${seturl}/ROLLER_VFD_FREQ/${value}`
-                await fetch(submiturl)
-                    .then(check())
-                    .catch(console.error);
-            }
+        //     async function submitt(value) {
+        //         let submiturl = `${seturl}/ROLLER_VFD_FREQ/${value}`
+        //         await fetch(submiturl)
+        //             .then(check())
+        //             .catch(console.error);
+        //     }
+        // }
+
+        // function roller() {
+
+        //     var value = document.getElementById("roller").value
+
+        //     submitt(parseInt(value))
+
+        //     async function submitt(value) {
+        //         let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
+
+        //         await fetch(submiturl)
+        //             .then(check())
+        //             .catch(console.error);
+        //     }
+        // }
+
+        async function rollerup(value) {
+            let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
+
+            console.log(submiturl)
+            await fetch(submiturl)
+                .then( up() )
+                .catch(console.error);
+            
         }
+        
+        async function rollerdown(value) {
+            let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
 
-        function roller() {
-
-            var value = document.getElementById("roller").value
-
-            submitt(parseInt(value))
-
-            async function submitt(value) {
-                let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
-
-                await fetch(submiturl)
-                    .then(check())
-                    .catch(console.error);
-            }
+            console.log(submiturl)
+            await fetch(submiturl)
+                .then( down() )
+                .catch(console.error);
+            
         }
 
         async function up() {
-            roller()
-
             let submiturl = `${seturl}/ROLLER_FORWARD/true`
+            // console.log(submiturl)
             await fetch(submiturl)
                 .catch(console.error);
         }
@@ -3018,7 +3189,7 @@
         }
 
         async function down() {
-            roller()
+            
             let submiturl = `${seturl}/ROLLER_REVERSE/true`
             await fetch(submiturl)
                 .catch(console.error);
@@ -3029,6 +3200,58 @@
             await fetch(submiturl)
                 .catch(console.error);
         }
+
+        async function Rweight_inc() {
+                let submiturl = `${seturl}/RHS_WEIGHT_INC/true`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+
+            async function Rweight_incx() {
+                let submiturl = `${seturl}/RHS_WEIGHT_INC/false`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+            async function Lweight_inc() {
+                let submiturl = `${seturl}/LHS_WEIGHT_INC/true`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+
+            async function Lweight_incx() {
+                let submiturl = `${seturl}/LHS_WEIGHT_INC/false`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+            async function Rweight_dec() {
+                let submiturl = `${seturl}/RHS_WEIGHT_DEC/true`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+
+            async function Rweight_decx() {
+                let submiturl = `${seturl}/RHS_WEIGHT_DEC/false`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+            async function Lweight_dec() {
+                let submiturl = `${seturl}/LHS_WEIGHT_DEC/true`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+
+            async function Lweight_decx() {
+                let submiturl = `${seturl}/LHS_WEIGHT_DEC/false`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
     </script>
 
 </body>
