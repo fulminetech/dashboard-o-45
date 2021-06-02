@@ -3,8 +3,8 @@ const fetch = require('cross-fetch');
 const { exec } = require('child_process');
 // const CronJob = require('cron').CronJob;
 
-const Gpio = require('onoff').Gpio;
-const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 7 });
+// const Gpio = require('onoff').Gpio;
+// const proxy = new Gpio(22, 'in', 'falling', { debounceTimeout: 7 });
 
 var host = "http://localhost";
 // var os = require("os");
@@ -1063,7 +1063,7 @@ var writeHistory = () => {
             bi_R_rjn_low: processed.limit[6],
             bi_R_force_line: processed.limit[15],
         })
-        .then(() => console.info(`[ HISTORY WRITE SUCESSFUL ${payload.batch} ${payload.machine.data_number} ]`))
+        .then(() => console.info(`[ HISTORY WRITE SUCESSFUL ${payload.batch} ${payload.data_number} ]`))
         .catch(console.error);
 }
 
@@ -1084,7 +1084,7 @@ var writeAverage = () => {
             turretrpm: stats.stats.turret.RPM,
             dwelltime: stats.stats.dwell,
         })
-        .then(() => console.info(`[ AVERAGE WRITE SUCESSFUL ${payload.batch} ${payload.machine.data_number} ]`))
+        .then(() => console.info(`[ AVERAGE WRITE SUCESSFUL ${payload.batch} ${payload.data_number} ]`))
         .catch(console.error);
 }
 
@@ -1577,18 +1577,21 @@ var watchproxy = function () {
     writemachine();
     console.log("Watching proxy")
     
-    setTimeout(() => {
-        proxy.watch((err, value) => {
-            if (err) {
-                throw err;
-            }
-            payload.data_number++;
-            console.log("DATA")
-            writeHistory();
-            writeAverage();
-        });
-    }, 2000);
+    // setTimeout(() => {
+    //     proxy.watch((err, value) => {
+    //         if (err) {
+    //             throw err;
+    //         }
+    //         payload.data_number++;
+    //         console.log("DATA")
+    //         writeHistory();
+    //         writeAverage();
+    //     });
+    // }, 2000);
 }
+
+
+
 
 module.exports = {
     payload, startmodbus, watchproxy, updatestatsbatch
