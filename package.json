@@ -27,7 +27,6 @@
     "influxdb-nodejs": "^3.1.0",
     "modbus-serial": "^8.0.1",
     "nodemon": "^2.0.6",
-    "onoff": "^6.0.1",
     "puppeteer": "^5.3.1",
     "tailwindcss": "^1.4.6"
   }
