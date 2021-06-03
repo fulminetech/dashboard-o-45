@@ -36,8 +36,8 @@ var mbsState = CODE_INIT;
 
 var client = new ModbusRTU();
 const slaveID = 1;
-const ip = "192.168.1.5"
-// const ip = "192.168.0.99"
+// const ip = "192.168.1.5"
+const ip = "192.168.0.99"
 var mbsTimeout = 1000;
 var mbsScan = 600; // Modbus scan time
 
@@ -1153,6 +1153,7 @@ var read_regs = function () {
             payload.production = _2x16bitTo32bit(data.data[10], data.data[11])
             payload.stats.tablets_per_hour = _2x16bitTo32bit(data.data[14], data.data[15])
             
+            payload.rotation_no = _2x16bitTo32bit(data.data[18], data.data[19])
             payload.stats.punch_present_position.L_PRE = data.data[20]
             payload.stats.punch_present_position.L_MAIN = data.data[21]
             payload.stats.punch_present_position.L_EJN = data.data[22]

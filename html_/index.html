@@ -91,43 +91,58 @@
 
         <ul class="list-reset">
             <li class="my-2 md:my-0">
-                <a href="/dashboard" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
+                <a href="/dashboard" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
                     <i class="fas fa-home fa-fw mr-3 text-indigo-400 text-xl"></i>Dashboard
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/graphLHS" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i>Graph: LHS
+                <a href="/overview" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fas fa-heartbeat fa-fw mr-3 text-gray-600 text-xl"></i>Overview
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/graphRHS" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-chart-area fa-fw mr-3 text-xl"></i>Graph: RHS
+                <a href="/graphLHS" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl text-gray-600"></i>Graph: LHS
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/history" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-history fa-fw mr-3 text-xl"></i>History
+                <a href="/graphRHS" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fas fa-chart-area fa-fw mr-3 text-xl text-gray-600"></i>Graph: RHS
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/dido" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-exchange-alt fa-fw mr-3 text-xl"></i>DI/DO
+                <a href="/history" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fas fa-history fa-fw mr-3 text-xl text-gray-600"></i>History
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/analytics" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-folder fa-fw mr-3 text-xl"></i>Reports
+                <a href="/dido" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fas fa-exchange-alt fa-fw mr-3 text-xl text-gray-600"></i>DI/DO
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/processsetup" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fa fa-wrench fa-fw mr-3 text-xl"></i>Settings
+                <a href="/analytics" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fas fa-folder fa-fw mr-3 text-xl text-gray-600"></i>Reports
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fa fa-minus-square mr-3 text-xl"></i> Login Screen
+                <a href="/processsetup" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3 text-xl text-gray-600"></i>Settings
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fa fa-minus-square mr-3 text-xl text-gray-600"></i> Login Screen
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings_user" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fa fa-user-circle mr-3 text-xl text-gray-600"></i> User Setting
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings_recipie" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fa fa-medkit  mr-3 text-xl text-gray-600"></i> Recipies
                 </a>
             </li>
             
@@ -210,12 +225,12 @@
                                 
                         </div>
 
-                        <div class="p-3">
+                        <!-- <div class="p-3">
                             <button id="drain"
                                 class="text-center bg-blue-100 uppercase text-2xl text-gray-800 font-semibold py-5 px-5 border border-purple-500 rounded"
                                 onmousedown="drain()" onmouseup="undrain()"> DRAIN </button>
                         </div>
-                        
+                         -->
                         <!-- <div class="p-3 items-center">
                             
                             <div class="relative">
@@ -529,7 +544,7 @@
                                 <!-- Excel Button -->
                                 <div class="py-2">
                                     <button id="man_samp"
-                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
                                         onmousedown="button13()" onmouseup="button13x()"> 
                                         Manual Sampling
                                     </button>
@@ -553,9 +568,9 @@
                                 <!-- Bi Layer Mode-->
                                 <div class="py-2">
                                     <button id="bi_mode"
-                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
                                         onclick="button11()"> 
-                                        BILAYER
+                                            BILAYER MODE  
                                     </button>
                                 </div>
                             </div>
@@ -565,7 +580,7 @@
                                 <!-- Bi Layer Mode-->
                                 <div class="py-2">
                                     <button id="mono_mode"
-                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
                                         onclick="button11x()"> 
                                         MONO LAYER
                                     </button>
@@ -577,7 +592,7 @@
                                 <!-- PDF report Button -->
                                 <div class="py-2">
                                     <button id="disable_awc"
-                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                        class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-20 border border-blue-500 rounded"
                                         onclick="awc()"> 
                                         AWC OFF 
                                     </button>
@@ -589,7 +604,7 @@
                             <!-- PDF report Button -->
                             <div class="py-2">
                                 <button id="start_pp"
-                                    class="bg-green-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                    class="bg-green-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
                                     onmousedown="startpower()" onmouseup="unstartpower()">
                                     Power Pack Start
                                 </button>
@@ -601,9 +616,21 @@
                             <!-- PDF report Button -->
                             <div class="py-2">
                                 <button id="stop_pp"
-                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
                                     onmousedown="stoppower()" onmouseup="unstoppower()">
                                     Power Pack Stop
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap px-3">
+
+                            <!-- PDF report Button -->
+                            <div class="py-2">
+                                <button id="drain"
+                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
+                                    onmousedown="drain()" onmouseup="undrain()">
+                                    POWERPACK DRAIN
                                 </button>
                             </div>
                         </div>
@@ -613,7 +640,7 @@
                             <!-- PDF report Button -->
                             <div class="py-2">
                                 <button 
-                                    class="bg-green-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                    class="bg-green-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
                                     onmousedown="startfeeder()" onmouseup="unstartfeeder()">
                                     Feeder START
                                 </button>
@@ -625,19 +652,20 @@
                             <!-- PDF report Button -->
                             <div class="py-2">
                                 <button
-                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
                                     onmousedown="stopfeeder()" onmouseup="unstopfeeder()">
                                     Feeder Stop
                                 </button>
                             </div>
                         </div>
 
+
                         <div class="flex flex-wrap px-3">
                         
                             <!-- PDF report Button -->
                             <div class="py-2">
                                 <button id="feeder_g"
-                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
                                     onclick="gravity()">
                                     Feeder Gravity 
                                 </button>
@@ -649,7 +677,7 @@
                             <!-- PDF report Button -->
                             <div class="py-2">
                                 <button id="feeder_f"
-                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 w-56 border border-blue-500 rounded"
+                                    class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
                                     onclick="force()">
                                     Feeder Force 
                                 </button>
@@ -674,12 +702,12 @@
                         <div class="border-b p-3">
                             <h5 class="font-bold text-black">Depth (mm) :</h5>
                         </div>
-                        <div class="p-5 my-1 border border-blue-500 bg-purple-300 rounded shadow">
+                        <div class="p-3 my-1 border border-blue-500 bg-purple-300 rounded shadow">
                             <div class="flex">
                                 <h5 class="font-bold w-1/2 text-center uppercase text-xl ext-black">LHS Discharge</h5>
                                 <h5 class="font-bold w-1/2 text-center uppercase text-xl ext-black">RHS Discharge</h5>
                             </div>
-                            <table class="w-full p-5 text-2xl text-gray-700">
+                            <table class="w-full p-3 text-xl text-gray-700">
                                 <thead>
                                     <tr>
                                         <th class="text-center uppercase text-gray-700"> Fill Depth </th>
@@ -713,14 +741,14 @@
                                             <button id="up"
                                                 class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="rollerup(1)" onmouseup="unup()">
-                                                UP
+                                                <i class="fas fa-chevron-up  fa-fw text-3xl text-gray-900"></i>
                                             </button>
                                         </td>
                                         <td class="text-center pt-3 border-r border-gray-700">
                                             <button id="up"
                                                 class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="rollerup(2)" onmouseup="unup()">
-                                                UP
+                                                <i class="fas fa-chevron-up  fa-fw text-3xl text-gray-900"></i>
                                             </button>
                                         </td>
                                         <td class="text-center pt-3 border-gray-700">
@@ -734,14 +762,14 @@
                                             <button id="up"
                                                 class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="rollerup(3)" onmouseup="unup()">
-                                                UP
+                                                <i class="fas fa-chevron-up  fa-fw text-3xl text-gray-900"></i>
                                             </button>
                                         </td>
                                         <td class="text-center pt-3 border-gray-700">
                                             <button id="up"
                                                 class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="rollerup(4)" onmouseup="unup()">
-                                                UP
+                                                <i class="fas fa-chevron-up  fa-fw text-3xl text-gray-900"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -755,16 +783,17 @@
                                         </td>
                                         <td class="text-center pt-3 border-gray-700">
                                             <button id="down"
-                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-8 border border-blue-500 hover:border-transparent rounded"
+                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="rollerdown(1)" onmouseup="undown()">
-                                                DOWN
+                                                <i class="fas fa-chevron-down fa-fw text-3xl text-gray-900"></i>
                                             </button>
                                         </td>
                                         <td class="text-center pt-3 border-r border-gray-700">
                                             <button id="down"
-                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-8 border border-blue-500 hover:border-transparent rounded"
+                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="rollerdown(2)" onmouseup="undown()">
-                                                DOWN
+                                                <i class="fas fa-chevron-down fa-fw text-3xl text-gray-900"></i>
+                                            
                                             </button>
                                         </td>
                                         <td class="text-center pt-3 border-gray-700">
@@ -776,16 +805,16 @@
                                         </td>
                                         <td class="text-center pt-3 border-gray-700">
                                             <button id="down"
-                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-8 border border-blue-500 hover:border-transparent rounded"
+                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="rollerdown(3)" onmouseup="undown()">
-                                                DOWN
+                                                <i class="fas fa-chevron-down fa-fw text-3xl text-gray-900"></i>
                                             </button>
                                         </td>
                                         <td class="text-center pt-3 border-gray-700">
                                             <button id="down"
-                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-8 border border-blue-500 hover:border-transparent rounded"
+                                                class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="rollerdown(4)" onmouseup="undown()">
-                                                DOWN
+                                                <i class="fas fa-chevron-down fa-fw text-3xl text-gray-900"></i>
                                             </button>
                                         </td>
                                     </tr>

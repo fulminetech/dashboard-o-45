@@ -18,7 +18,8 @@ const restartraw = "pm2 restart main_5000"
 
 const {
     payload, startmodbus, watchproxy, updatestatsbatch
-} = require('./data.js')
+} = require('./data.js');
+const { time } = require('console');
 
 app.use(cors({ origin: "*" }));
 
@@ -140,6 +141,14 @@ app.get("/settings_user", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/settings_user.html"));
 });
 
+app.get("/error", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html_/error.html"));
+});
+
+app.get("/overview", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html_/overview.html"));
+});
+
 function restartserver(arg) {
     exec(arg, (err, stdout, stderr) => {
         // handle err if you like!
@@ -194,6 +203,125 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
     startmodbus();
     updatestatsbatch()
     return res.json({ message: `[ ONBOARDED BATCH: ${d} ]` });
+});
+
+app.get("/adduser/:username/:name/:attempts/:password/:expiry/:userlevel", (req, res) => {
+    const a = req.params.username;
+    const b = req.params.name;
+    const c = req.params.attempts;
+    const d = req.params.password;
+    const e = req.params.expiry;
+    const f = req.params.userlevel;
+
+    var timestamp = ''
+
+    _perm.queryRaw(`select * from "userlist" WHERE ("username" = '${a}')`)
+        .then(data => {
+            var response = data.results[0].series[0].values[0]
+            timestamp = response[0]
+            console.log(timestamp)
+        })
+        .catch(
+            console.error
+        );
+    
+    setTimeout(() => {
+        if (timestamp == '') {
+            //
+            console.log("not there ")
+            write()
+        } else {
+            console.log("there")
+            rewrite()
+        }
+    }, 100);
+    
+    
+
+    function write() {
+        _perm.write(`userlist`)
+            .tag({
+            })
+            .field({
+                username: a,  // 2
+                name: b,  // 2
+                attempts: c,  // 2
+                password: d,  // 2
+                expiry: e,  // 2
+                userlevel: f,  // 2
+                // newvalue: ""
+            })
+            .then(() => console.info('[ USER ENTRY DONE ]'))
+            .then(() => timestamp = '')
+            .catch(console.error);
+            
+            return res.json({ message: `[ ONBOARDED USER: ${a} ]` });
+    }
+    
+    function rewrite() {
+        _perm.write(`userlist`)
+            .tag({
+            })
+            .field({
+                time: timestamp,
+                username: a,
+                name: b,
+                attempts: c,
+                password: d,
+                expiry: e,
+                userlevel: f,
+            })
+            .then(() => console.info('[ USER REENTRY DONE ]'))
+            .then(() => timestamp = '')
+            .catch(console.error);
+            
+            // return res.json({ message: `[ ONBOARDED USER: ${a} ]` });
+    }
+    
+});
+
+
+app.get("/api/userlist/:userlevel", (req, res) => {
+    // select * from "payload" where "rotation" = 7
+    const userlevel = req.params.userlevel
+
+    async function getData(userlevel) {
+        _perm.queryRaw(`select * from "userlist" WHERE ("userlevel" = '${userlevel}')`)
+            .then(data => {
+                var response = data.results[0].series[0].values
+                var _data = {
+                    count: response.length,
+                    data: response
+                }
+                res.json(_data)
+            })
+            .catch(console.error);
+    };
+
+
+    getData(parseInt(userlevel))
+
+});
+
+app.get("/api/usersearch/:username", (req, res) => {
+    // select * from "payload" where "rotation" = 7
+    const username = req.params.username
+
+    async function getData(username) {
+        _perm.queryRaw(`select * from "userlist" WHERE ("username" = '${username}')`)
+            .then(data => {
+                var response = data.results[0].series[0].values
+                var _data = {
+                    data: response
+                }
+                res.json(_data)
+            })
+            .catch(console.error);
+    };
+
+
+    getData(username)
+
 });
 
 app.get("/onboard/continue", (req, res) => {
