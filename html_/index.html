@@ -22,7 +22,7 @@
     <script src="/charts/Chart.bundle.min.js"></script>
     <script src="/charts/plugin/chartjs-plugin-zoom.min.js"></script>
     <script src="/plugin/hammer.min.js"></script>
-    <link href="/css/tailwind.min.css" rel="stylesheet">
+    <link href="/css/tailwind.css" rel="stylesheet">
     <script src="/env/env.js"></script>
     
     <!-- sidebar -->
@@ -1853,25 +1853,25 @@
         downn.addEventListener('touchstart', down_process_touchstart, false);
         downn.addEventListener('touchend', down_process_touchend, false);
 
-        function inching_process_touchstart(e) {
+        function inching_process_touchstart() {
             e.preventDefault();
             console.log("Start")
             inch()
         }
         
-        function inching_process_touchend(e) {
+        function inching_process_touchend() {
             e.preventDefault();
             console.log("Stop")
             uninch()
         }
 
-        function inchh_process_touchstart(e) {
+        function inchh_process_touchstart() {
             e.preventDefault();
             console.log("Start")
             inchh()
         }
         
-        function reset_process_touchstart(e) {
+        function reset_process_touchstart() {
             e.preventDefault();
             button7()
         }
@@ -1881,7 +1881,7 @@
             button7x()
         }
 
-        function start_m_process_touchstart(e) {
+        function start_m_process_touchstart() {
             e.preventDefault();
             console.log("Start")
             start()
@@ -1892,7 +1892,7 @@
             unstart()
         }
 
-        function stop_m_process_touchstart(e) {
+        function stop_m_process_touchstart() {
             e.preventDefault();
             console.log("Start")
             stop()
@@ -1903,7 +1903,7 @@
             unstop()
         }
 
-        function start_pp_process_touchstart(e) {
+        function start_pp_process_touchstart() {
             e.preventDefault();
             console.log("Start")
             startpower()
@@ -1914,7 +1914,7 @@
             unstartpower()
         }
 
-        function stop_pp_process_touchstart(e) {
+        function stop_pp_process_touchstart() {
             e.preventDefault();
             console.log("Start")
             stoppower()
@@ -1925,7 +1925,7 @@
             unstoppower()
         }
 
-        function drain_process_touchstart(e) {
+        function drain_process_touchstart() {
             e.preventDefault();
             console.log("Start")
             drain()
@@ -1936,7 +1936,7 @@
             undrain()
         }
 
-        function start_f_process_touchstart(e) {
+        function start_f_process_touchstart() {
             e.preventDefault();
             console.log("Start")
             startfeeder()
@@ -1947,7 +1947,7 @@
             unstartfeeder()
         }
 
-        function stop_f_process_touchstart(e) {
+        function stop_f_process_touchstart() {
             e.preventDefault();
             console.log("Start")
             stopfeeder()
@@ -1958,19 +1958,19 @@
             unstopfeeder()
         }
 
-        function man_samp_process_touchstart(e) {
+        function man_samp_process_touchstart() {
             e.preventDefault();
             console.log("Start")
             button13()
         }
 
-        function man_samp_process_touchend(e) {
+        function man_samp_process_touchend() {
             e.preventDefault();
             console.log("Stop")
             button13x()
         }
 
-        function up_process_touchstart(e) {
+        function up_process_touchstart() {
             e.preventDefault();
             console.log("Start")
             up()
@@ -1981,7 +1981,7 @@
             unup()
         }
 
-        function down_process_touchstart(e) {
+        function down_process_touchstart() {
             e.preventDefault();
             console.log("Start")
             down()

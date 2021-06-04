@@ -1,0 +1,6 @@
+.switch-button {
+    color:cadetblue;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
