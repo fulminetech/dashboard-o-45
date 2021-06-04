@@ -1120,7 +1120,7 @@ var read_regs = function () {
             payload.stats.awc.LHS_HOME_OFFSET_1 = signedDecToDec(_2x16bitTo32bit(data.data[82], data.data[83]))
             payload.stats.awc.LHS_HOME_OFFSET_2 = signedDecToDec(_2x16bitTo32bit(data.data[84], data.data[85]))
             
-            payload.stats.Z_PHASE_COUNTER = data.data[85];
+            payload.stats.Z_PHASE_COUNTER = data.data[86];
             payload.stats.Z_PHASE_COUNT = data.data[87];
             
             payload.stats.L_HOMING_UPPERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[89], data.data[90]))

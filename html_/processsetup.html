@@ -380,7 +380,7 @@
 
                     <div class="flex mb-64">
                         <!-- Sampling -->
-                    <div class="w-1/2 align-left">
+                    <div class="w-1/3 align-left">
                         <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                             <div class="flex flex-col">
                                 <div class="flex-1 items-left text-gray-700">
@@ -404,40 +404,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex grid grid-cols-2">
-                    
-                    
-                                <div class="flex p-3">
-                                
-                                    <!-- Excel Button -->
-                                    <div class="py-3">
-                                        <button id="man_samp"
-                                            class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-16 border border-blue-500 rounded"
-                                            onmousedown="button13()" onmouseup="button13x()">
-                                            Sample
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex flex-wrap p-3">
-                                
-                                    <!-- Excel Button -->
-                                    <div class="py-3">
-                                        <button id="samp"
-                                            class="bg-red-300 uppercase text-xl text-gray-800 font-semibold py-5 px-10 border border-blue-500 rounded"
-                                            onclick="samp()">
-                                            Auto Sampling
-                                        </button>
-                                    </div>
-                                </div>
-                                
-                    
-                            </div>
+                            
                         </div>
                     </div>
 
                     <!-- Roller -->
-                    <div class="ml-5 w-1/2 align-left">
+                    <!-- <div class="ml-5 w-1/2 align-left">
                         <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                             <div class="flex flex-col">
                                 <div class="flex-1 items-left text-gray-700">
@@ -466,7 +438,7 @@
                     
                                 <div class="flex p-3">
                     
-                                    <!-- PDF report Button -->
+                    
                                     <div class="py-3">
                                         <button id="up"
                                             class="bg-green-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
@@ -475,7 +447,7 @@
                                         </button>
                                     </div>
 
-                                    <!-- PDF report Button -->
+                    
                                     <div class="py-3 pl-10">
                                         <button id="down"
                                             class="bg-red-300 uppercase text-2xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-5 px-12 border border-blue-500 hover:border-transparent rounded"
@@ -487,7 +459,8 @@
                 
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+                    
                     </div>
                 
                     <div class="h-64">
@@ -542,7 +515,7 @@
                     document.getElementById("samp_tab_no").value = payload.stats.sampling.NO_TABLET_SAMPLING
                     document.getElementById("samp_inter").value = payload.stats.sampling.SAMPLING_TIME_MINS
                     
-                    document.getElementById("roller_freq").value = payload.stats.roller.frequency
+                    // document.getElementById("roller_freq").value = payload.stats.roller.frequency
                     // document.getElementById("roller_mode").value = payload.stats.roller.motor
 
                     document.getElementById("mainUP").value = payload.machine.LHS.maincompression_upperlimit
@@ -576,17 +549,6 @@
                         document.getElementById("punch2").checked = false;
                     }
 
-                    if (payload.button.AUTO_SAMPLING == true) {
-                        document.getElementById("samp").innerHTML = "AUTO SAMPLING";
-                        const div1 = document.getElementById("samp").classList.remove('bg-red-300');
-                        const div2 = document.getElementById("samp").classList.add('bg-green-300');
-
-                    } else {
-                        document.getElementById("samp").innerHTML = "MANUAL SAMPLING";
-                        const div1 = document.getElementById("samp").classList.add('bg-red-300');
-                        const div2 = document.getElementById("samp").classList.remove('bg-green-300');
-                    }
-                    
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
@@ -606,55 +568,6 @@
 
     </script>
 
-    <!-- touch handlers -->
-    <script>
-        var man_samp = document.getElementById('man_samp')
-        var upp = document.getElementById('up')
-        var downn = document.getElementById('down')
-
-        man_samp.addEventListener('touchstart', man_samp_process_touchstart, false);
-        man_samp.addEventListener('touchend', man_samp_process_touchend, false);
-        
-        upp.addEventListener('touchstart', up_process_touchstart, false);
-        upp.addEventListener('touchend', up_process_touchend, false);
-        
-        downn.addEventListener('touchstart', down_process_touchstart, false);
-        downn.addEventListener('touchend', down_process_touchend, false);
-        
-        function man_samp_process_touchstart(e) {
-            e.preventDefault();
-            console.log("Start")
-            button13()
-        }
-
-        function man_samp_process_touchend() {
-            console.log("Stop")
-            button13x()
-        }
-        
-        function up_process_touchstart(e) {
-            e.preventDefault();
-            console.log("Start")
-            up()
-        }
-
-        function up_process_touchend() {
-            console.log("Stop")
-            unup()
-        }
-        
-        function down_process_touchstart(e) {
-            e.preventDefault();
-            console.log("Start")
-            down()
-        }
-
-        function down_process_touchend() {
-            console.log("Stop")
-            undown()
-        }
-
-    </script>
 
     <!-- Update Values -->
     <script>
