@@ -61,6 +61,10 @@ app.get("/dashboard", (req, res) => {
 app.get("/login/logo", (req, res) => {
     res.sendFile(path.join(__dirname + "/background.png"));
 });
+
+app.get("/image/bg", (req, res) => {
+    res.sendFile(path.join(__dirname + "/TEST.png"));
+});
 app.get("/login/image", (req, res) => {
     res.sendFile(path.join(__dirname + "/login.jpeg"));
 });

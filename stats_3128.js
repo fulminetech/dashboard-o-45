@@ -1036,9 +1036,9 @@ var read_regs = function () {
             payload.machine.RHS.precompression_max = data.data[3] / 100;
             payload.machine.RHS.maincompression_max = data.data[4] / 100;
             payload.machine.RHS.ejection_max = data.data[5] / 10;
-            payload.stats.B_HEAD = data.data[6] / 100;
+            payload.stats.B_HEAD = _2x16bitTo32bit(data.data[6], data.data[7], 100);
             payload.stats.B_PCD = _2x16bitTo32bit(data.data[8], data.data[9],100);
-            payload.stats.D_HEAD = data.data[10] / 100;
+            payload.stats.D_HEAD = _2x16bitTo32bit(data.data[10], data.data[11], 100);
             payload.stats.D_PCD = _2x16bitTo32bit(data.data[12], data.data[13], 100);
 
             payload.stats.total_punches = data.data[14];
@@ -1539,7 +1539,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     } 
     else if (a == "MONO_MAIN_FORCE") {
         reg_offset_6000 = 36
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.awc.MONO_MAIN_FORCE
         write_regs()
         writelog()
@@ -1560,14 +1560,14 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     } 
     else if (a == "RHS_DOZER") {
         reg_offset_6000 = 39
-        reg_write_value = b * 100
+        reg_write_value = Math.round(b * 100);
         c = payload.machine.RHS.dozer_position
         write_regs()
         writelog()
     } 
     else if (a == "LHS_DOZER") {
         reg_offset_6000 = 40
-        reg_write_value = b * 100
+        reg_write_value = Math.round(b * 100);
         c = payload.machine.LHS.dozer_position
         write_regs()
         writelog()
@@ -2603,42 +2603,42 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     
     
-    else if (a == "LHS_PRE_MAX_LIMIT") {
+    else if (a == "LHS_PRE_MAX") {
         reg_offset_6000 = 1000
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.machine.LHS.precompression_max
         write_regs()
         writelog()
     }
-    else if (a == "LHS_MAIN_MAX_LIMIT") {
+    else if (a == "LHS_MAIN_MAX") {
         reg_offset_6000 = 1001
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.machine.LHS.maincompression_max
         write_regs()
         writelog()
     }
-    else if (a == "LHS_EJN_MAX_LIMIT") {
+    else if (a == "LHS_EJN_MAX") {
         reg_offset_6000 = 1002
         reg_write_value = b*10
         c = payload.machine.LHS.ejection_max
         write_regs()
         writelog()
     }
-    else if (a == "RHS_PRE_MAX_LIMIT") {
+    else if (a == "RHS_PRE_MAX") {
         reg_offset_6000 = 1003
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.machine.RHS.precompression_max
         write_regs()
         writelog()
     }
-    else if (a == "RHS_MAIN_MAX_LIMIT") {
+    else if (a == "RHS_MAIN_MAX") {
         reg_offset_6000 = 1004
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.machine.RHS.maincompression_max
         write_regs()
         writelog()
     }
-    else if (a == "RHS_EJN_MAX_LIMIT") {
+    else if (a == "RHS_EJN_MAX") {
         reg_offset_6000 = 1005
         reg_write_value = b*10
         c = payload.machine.RHS.ejection_max
@@ -2647,28 +2647,28 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "B_TYPE_HEAD_FLAT") {
         reg_offset_6000 = 1006
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.B_HEAD
         write_regs_32()
         writelog()
     }
     else if (a == "B_TYPE_PCD") {
         reg_offset_6000 = 1008
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.B_PCD
         write_regs_32()
         writelog()
     }
     else if (a == "D_TYPE_HEAD_FLAT") {
         reg_offset_6000 = 1010
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.D_HEAD
         write_regs_32()
         writelog()
     }
     else if (a == "D_TYPE_PCD") {
         reg_offset_6000 = 1012
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.D_PCD
         write_regs_32()
         writelog()
@@ -2680,23 +2680,24 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_regs()
         writelog()
     }
-    else if (a == "RHS_FILL_DEPTH_MAX_MM") {
+    else if (a == "LHS_FILL_DEPTH_MAX_ANALOG") {
         reg_offset_6000 = 1016
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
+        console.log(reg_write_value)
         c = payload.stats.LHSdepth.analog_max
         write_regs()
         writelog()
     }
-    else if (a == "RHS_FILL_DEPTH_MIN_MM") {
+    else if (a == "LHS_FILL_DEPTH_MIN_ANALOG") {
         reg_offset_6000 = 1017
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.LHSdepth.analog_min
         write_regs()
         writelog()
     }
     else if (a == "LHS_FILL_DEPTH_MAX") {
         reg_offset_6000 = 1018
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.LHSdepth.depth_max
         payload.stats.LHSdepth.depth_max = b;
         write_regs()
@@ -2704,7 +2705,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "LHS_FILL_DEPTH_MIN") {
         reg_offset_6000 = 1019
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.LHSdepth.depth_min
         payload.stats.LHSdepth.depth_min = b;
         write_regs()
@@ -2712,7 +2713,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "RHS_FILL_DEPTH_MAX_ANALOG") {
         reg_offset_6000 = 1020
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.RHSdepth.analog_max
         payload.stats.RHSdepth.analog_max = b;
         write_regs()
@@ -2720,7 +2721,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "RHS_FILL_DEPTH_MIN_ANALOG") {
         reg_offset_6000 = 1021
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.RHSdepth.analog_min
         payload.stats.RHSdepth.analog_min = b;
         write_regs()
@@ -2728,7 +2729,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "RHS_FILL_DEPTH_MAX") {
         reg_offset_6000 = 1022
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.RHSdepth.depth_max
         payload.stats.RHSdepth.depth_max = b;
         write_regs()
@@ -2736,7 +2737,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "RHS_FILL_DEPTH_MIN") {
         reg_offset_6000 = 1023
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.RHSdepth.depth_min
         payload.stats.RHSdepth.depth_min = b;
         write_regs()
@@ -2880,7 +2881,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "TURRET_MAX_FREQ") {
         reg_offset_6000 = 1041
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.turret.max_freq
         payload.stats.turret.max_freq = b;
         write_regs()
@@ -2896,7 +2897,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "LHS_FORCE_FEEDER_MAX_FREQ") {
         reg_offset_6000 = 1043
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.LHS_FF.max_freq
         payload.stats.LHS_FF.max_freq = b;
         write_regs()
@@ -2912,7 +2913,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "RHS_FORCE_FEEDER_MAX_FREQ") {
         reg_offset_6000 = 1045
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         c = payload.stats.RHS_FF.max_freq
         payload.stats.RHS_FF.max_freq = b;
         write_regs()
@@ -3081,7 +3082,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "RTN_1_MM") {
         reg_offset_6000 = 1074
-        reg_write_value = b*100
+        reg_write_value = Math.round(b * 100);
         write_regs()
     }
     else if (a == "RTN_1_PPR") {

@@ -65,15 +65,26 @@
             <li class="my-2 md:my-0">
                 <a href="/dashboard"
                     class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fa fa-chevron-left fa-fw mr-3 text-xl"></i><span
-                        class="w-full inline-block text-lg">Dashboard</span>
+                    <i class="fas fa-home fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Dashboard</span>
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/processsetup"
+                <a href="/settings_setup"
                     class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fa fa-wrench fa-fw mr-3 text-indigo-400 text-xl"></i><span
-                        class="w-full inline-block text-lg">Settings</span>
+                    <i class="fa fa-wrench fa-fw mr-3  text-xl"></i><span
+                        class="w-full inline-block text-lg">Adept Setup</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings_homing"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full inline-block text-lg">Homing</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3  text-xl"></i><span class="w-full inline-block text-lg">Settings</span>
                 </a>
             </li>
         
@@ -82,104 +93,6 @@
     </div>
 
     <div class="flex flex-row flex-wrap flex-1 flex-grow content-start pl-16">
-
-        <!--Dash Content -->
-        <div id="dash-content"
-            class="bg-gray-200 py-3 px-2 lg:py-0 w-full xl:w-64 lg:max-w-sm flex flex-wrap content-start">
-
-            <div class="w-1 w-full">
-                <div onclick="location.href='/processsetup'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500"> Process Setup</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings_awc'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">AWC Setting</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Punch Settings</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- <div class="w-1 w-full">
-                <div onclick="location.href='/settings_recipie'">
-                    <div
-                        class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                        <div class="flex flex-col text-center">
-                            <div class="flex-1 items-center">
-                                <h5 class="font-bold uppercase cursor-pointer text-gray-500">Recipie Setting</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings_user'">
-                    <div
-                        class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                        <div class="flex flex-col text-center">
-                            <div class="flex-1 items-center">
-                                <h5 class="font-bold uppercase cursor-pointer text-gray-500">User Setting</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- <div class="w-1 w-full">
-                <div onclick="location.href='/settings_limit'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">Limit Setup</h5>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings_setup'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent hover:bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-500">ADEPT Setup</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="w-1 w-full">
-                <div onclick="location.href='/settings_homing'"
-                    class="border-2 border-gray-400 border-dashed hover:border-transparent bg-white hover:shadow-xl rounded px-6 py-3 m-2 md:mx-10 md:my-6">
-                    <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase cursor-pointer text-gray-700">Homing Setting</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
 
         <!--Graph Content -->
         <div id="main-content" class="w-full flex-1">
@@ -192,7 +105,7 @@
 
                         <!-- BI LAYER SETTING-->
                         <div
-                            class="p-5 mb-5 ml-5 w-full border bg-pink-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
+                            class="p-5 mb-5 ml-5 w-full border bg-gray-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
                             <h5 class="font-bold uppercase mb-5 text-center text-2xl text-gray-700">SERVO CALIBRATION
                             </h5>
                             <table class="w-full p-3 text-gray-700">
