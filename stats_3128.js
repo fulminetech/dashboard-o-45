@@ -1348,7 +1348,14 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         }
     }
 
-    if (a == "TURRET_RPM") {
+    if (a == "RESET_COUNT") {
+        reg_offset_6000 = -982
+        reg_write_value = b
+        // c = payload.stats.turret.RPM
+        write_regs_32()
+        // writelog()
+    }
+    else if (a == "TURRET_RPM") {
         reg_offset_6000 = 0
         reg_write_value = b
         c = payload.stats.turret.RPM

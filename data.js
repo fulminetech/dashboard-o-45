@@ -747,6 +747,8 @@ async function processed_() {
 };
 
 var stats
+var rotation = 1
+var oldrotation
 
 async function stats_() {
 
@@ -759,6 +761,10 @@ async function stats_() {
         })
         .then(data => {
             stats = data
+            checkrtn(rotation, stats.rotation_no)
+            rotation = stats.rotation_no
+
+            console.log(rotation)
             // stats.mbstatus == false || stats.connection == false ? restart :
         })
         .catch(err => {
@@ -766,13 +772,25 @@ async function stats_() {
         });
 };
 
+function checkrtn(old, neww) {
+    if (neww > old) {
+        console.log("inc")
+        writeHistory(old);
+        writeAverage(old);
+    }
+}
+
+setInterval(() => {
+    stats_()
+}, 300);
+
 // Updated with each rotation
-var writeHistory = () => {
+var writeHistory = (rtn) => {
     _new.write(`${payload.batch}.history`)
         .tag({
         })
         .field({
-            rotation: payload.data_number,
+            rotation: rtn,
             p1LHSpre: processed.pLHS_data[0],
             p2LHSpre: processed.pLHS_data[1],
             p3LHSpre: processed.pLHS_data[2],
@@ -1068,12 +1086,12 @@ var writeHistory = () => {
 }
 
 // Updated with each rotation
-var writeAverage = () => {
+var writeAverage = (rtn) => {
     _new.write(`${payload.batch}.average`)
         .tag({
         })
         .field({
-            rotation: payload.data_number,
+            rotation: rtn,
 
             preLHSavg: payload.precompressionLHS_avg,
             mainLHSavg: payload.maincompressionLHS_avg,

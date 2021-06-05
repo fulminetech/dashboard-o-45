@@ -178,9 +178,9 @@
                 <div
                     class="border-2 border-gray-400 border-dashed  rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
-                        <div class="flex-1 items-center">
-                            <h5 class="font-bold uppercase text-xl text-white">Tablet Count</h5>
-                            <h3 id="count_metric" class="font-bold text-green-500 text-3xl">0</h3>
+                        <div class="flex-1 mt-2 items-center">
+                            <h5 class="font-bold uppercase text-xl text-white">Rotation Number</h5>
+                            <h3 id="rotation_number_metric" class="font-bold text-blue-400 text-3xl">0</h3>
                         </div>
                         <div class="flex-1 mt-2 items-center">
                             <h5 class="font-bold uppercase text-xl text-white">Tablet Per Hour</h5>
@@ -190,9 +190,9 @@
                             <h5 class="font-bold uppercase text-xl text-white">Dwell Time (secs)</h5>
                             <h3 id="dwell_metric" class="font-bold text-yellow-300 text-3xl">0</h3>
                         </div>
-                        <div class="flex-1 mt-2 items-center">
-                            <h5 class="font-bold uppercase text-xl text-white">Rotation Number</h5>
-                            <h3 id="rotation_number_metric" class="font-bold text-blue-400 text-3xl">00000</h3>
+                        <div class="flex-1 items-center">
+                            <h5 class="font-bold uppercase text-xl text-white">Tablet Count</h5>
+                            <h3 id="count_metric" class="font-bold text-green-500 text-3xl">0</h3>
                         </div>
                         <div class="p-3">
                             <button id="reset"
@@ -2013,7 +2013,6 @@
                     
                     document.getElementById("batch_number_metric").innerHTML = payload.batch;
                     currentBatch = payload.batch;
-                    document.getElementById("rotation_number_metric").innerHTML = payload.data_number;
                     
                     if (payload.data_number > currentrotation) {
                         date = new Date()
@@ -2339,6 +2338,7 @@
                     
                     maindata = data
 
+                    document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
                     // payload.button.POWER_PACK_START_BUTTON == true ? document.getElementById("p_status").innerHTML = "ON" : document.getElementById("p_status").innerHTML = "OFF"
                     // console.log(payload)
                     // document.getElementById("punch_number_metric").innerHTML = payload.stats.punch_present_position.L_PRE;

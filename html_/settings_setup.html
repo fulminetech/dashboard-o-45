@@ -1707,7 +1707,7 @@
             var a = document.getElementById("LHS_FILL_DEPTH_MIN_ANALOG").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_FILL_DEPTH_MIN_ANALOG/${a}`
-            if (a <= 25 && a >= 0.1) {
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
@@ -1777,7 +1777,7 @@
             var a = document.getElementById("RHS_FILL_DEPTH_MAX").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX/${a}`
-            if (a <= 25 && a >= 0.1) {
+            if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())

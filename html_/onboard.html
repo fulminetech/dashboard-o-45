@@ -146,12 +146,21 @@
         async function submitt(name, batch, recepie, machine) {
             let submiturl = `${onboardurl}/${name}/${machine}/${recepie}/${batch}`
             await fetch(submiturl)
+                .then(()=>{
+                    resetcounter()
+                })
                 .then(setTimeout(() => {
                     location.href = "/dashboard"
                 }, 100))
                 .catch(console.error);
 
             // .then(location.href = "/dashboard")
+        }
+
+        async function resetcounter() {
+            let submiturl = `${seturl}/RESET_COUNT/0`
+            await fetch(submiturl)
+                .catch(console.error);
         }
 
         // // Fetch previous settings are start the dashboard
@@ -162,7 +171,6 @@
                     location.href = "/dashboard"
                 }, 100))
                 .catch(console.error);
-
         }
 
     </script>
