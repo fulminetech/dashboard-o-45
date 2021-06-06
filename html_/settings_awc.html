@@ -293,14 +293,14 @@
                                     <td class="text-center py-2  text-xl uppercase text-blue-900"></td>
                                     <td id="preRHS_fl" class=" pb-5 px-3 text-center">
                                         <button id="rhs_weight_inc"
-                                            class="bg-green-300 text-2xl uppercase text-gray-800 font-semibold  py-5 px-12 border border-blue-500  rounded"
+                                            class="bg-green-200 text-2xl uppercase text-gray-800 font-semibold  py-5 px-12 border border-blue-500  rounded"
                                             onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
                                             Weight +
                                         </button>
                                     </td>
                                     <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
                                         <button id="lhs_weight_inc"
-                                            class="bg-green-300 text-2xl uppercase text-gray-800 font-semibold  py-5 px-12 border border-blue-500  rounded"
+                                            class="bg-green-200 text-2xl uppercase text-gray-800 font-semibold  py-5 px-12 border border-blue-500  rounded"
                                             onmousedown="Lweight_dec()" onmouseup="Lweight_decx()">
                                             Weight +
                                         </button>
@@ -310,14 +310,14 @@
                                     <td class="text-center  py-2 uppercase text-xl text-blue-900"></td>
                                     <td id="preRHS_fl" class=" pb-5 px-3 text-center">
                                         <button id="rhs_weight_dec"
-                                            class="bg-red-300 text-2xl uppercase text-gray-800 font-semibold  py-5 px-12 border border-blue-500  rounded"
+                                            class="bg-red-200 text-2xl uppercase text-gray-800 font-semibold  py-5 px-12 border border-blue-500  rounded"
                                             onmousedown="Rweight_inc()" onmouseup="Rweight_incx()">
                                             Weight -
                                         </button>
                                     </td>
                                     <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
                                         <button id="lhs_weight_dec"
-                                            class="bg-red-300 text-2xl uppercase text-gray-800 font-semibold  py-5 px-12 border border-blue-500  rounded"
+                                            class="bg-red-200 text-2xl uppercase text-gray-800 font-semibold  py-5 px-12 border border-blue-500  rounded"
                                             onmousedown="Lweight_inc()" onmouseup="Lweight_incx()">
                                             Weight -
                                         </button>
@@ -371,14 +371,14 @@
                                     <td id="preRHS_fl" class=" pb-5 px-3 text-center">
                                         <button id="runRHS"
                                             class="bg-green-300 text-2xl uppercase text-gray-800 font-semibold  py-5 px-12 border border-blue-500  rounded"
-                                            onclick="runRHS()">
+                                            onmousedown="runRHS()" onmouseup="runRHSx()">
                                             RUN
                                         </button>
                                     </td>
                                     <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
                                         <button id="runLHS"
                                             class="bg-green-300 text-2xl uppercase text-gray-800 font-semibold  py-5 px-12 border border-blue-500  rounded"
-                                            onclick="runLHS()">
+                                            onmousedown="runLHS()" onmouseup="runLHSx()">
                                             RUN
                                         </button>
                                     </td>
@@ -545,79 +545,67 @@
         function rhs_weight_inc_process_touchstart(e) {
             e.preventDefault();
             Rweight_inc()
-            const div1 = document.getElementById("rhs_weight_inc").classList.remove('bg-green-300');
-            const div2 = document.getElementById("rhs_weight_inc").classList.add('bg-green-600');
+            
         }
 
         function rhs_weight_inc_process_touchend() {
             Rweight_incx()
-            const div1 = document.getElementById("rhs_weight_inc").classList.remove('bg-green-600');
-            const div2 = document.getElementById("rhs_weight_inc").classList.add('bg-green-300');
+            
         }
 
         function lhs_weight_inc_process_touchstart(e) {
             e.preventDefault();
             Lweight_inc()
-            const div1 = document.getElementById("lhs_weight_inc").classList.remove('bg-green-300');
-            const div2 = document.getElementById("lhs_weight_inc").classList.add('bg-green-600');
+            
         }
 
         function lhs_weight_inc_process_touchend() {
             Lweight_incx()
-            const div1 = document.getElementById("lhs_weight_inc").classList.remove('bg-green-600');
-            const div2 = document.getElementById("lhs_weight_inc").classList.add('bg-green-300');
+            
         }
 
         function rhs_weight_dec_process_touchstart(e) {
             e.preventDefault();
             Rweight_dec()
-            const div1 = document.getElementById("rhs_weight_dec").classList.remove('bg-red-300');
-            const div2 = document.getElementById("rhs_weight_dec").classList.add('bg-red-600');
+            
         }
 
         function rhs_weight_dec_process_touchend() {
             Rweight_decx()
-            const div1 = document.getElementById("rhs_weight_dec").classList.remove('bg-red-600');
-            const div2 = document.getElementById("rhs_weight_dec").classList.add('bg-red-300');
+            
         }
 
         function lhs_weight_dec_process_touchstart(e) {
             e.preventDefault();
             Lweight_dec()
-            const div1 = document.getElementById("lhs_weight_dec").classList.remove('bg-red-300');
-            const div2 = document.getElementById("lhs_weight_dec").classList.add('bg-red-600');
+            
         }
 
         function lhs_weight_dec_process_touchend() {
             Lweight_decx()
-            const div1 = document.getElementById("lhs_weight_dec").classList.remove('bg-red-600');
-            const div2 = document.getElementById("lhs_weight_dec").classList.add('bg-red-300');
+            
         }
 
         function runRHS_process_touchstart(e) {
             e.preventDefault();
-            const div1 = document.getElementById("runRHS").classList.remove('bg-green-300');
-            const div2 = document.getElementById("runRHS").classList.add('bg-green-600');
+            
             runRHS()
         }
 
         function runRHS_process_touchend() {
             runRHSx()
-            const div1 = document.getElementById("runRHS").classList.remove('bg-green-600');
-            const div2 = document.getElementById("runRHS").classList.add('bg-green-300');
+            
         }
 
         function runLHS_process_touchstart(e) {
             e.preventDefault();
-            const div1 = document.getElementById("runLHS").classList.remove('bg-green-300');
-            const div2 = document.getElementById("runLHS").classList.add('bg-green-600');
+            
             runLHS()
         }
 
         function runLHS_process_touchend() {
             runLHSx()
-            const div1 = document.getElementById("runLHS").classList.remove('bg-green-600');
-            const div2 = document.getElementById("runLHS").classList.add('bg-green-300');
+            
         }
 
     </script>
@@ -746,6 +734,8 @@
         }
 
         async function Rweight_inc() {
+            const div1 = document.getElementById("rhs_weight_dec").classList.remove('bg-red-200');
+            const div2 = document.getElementById("rhs_weight_dec").classList.add('bg-red-500');
             let submiturl = `${seturl}/RHS_WEIGHT_INC/true`
             await fetch(submiturl)
                 .catch(console.error);
@@ -753,12 +743,16 @@
 
 
         async function Rweight_incx() {
+            const div1 = document.getElementById("rhs_weight_dec").classList.remove('bg-red-500');
+            const div2 = document.getElementById("rhs_weight_dec").classList.add('bg-red-200');
             let submiturl = `${seturl}/RHS_WEIGHT_INC/false`
             await fetch(submiturl)
                 .catch(console.error);
         }
 
         async function Lweight_inc() {
+            const div1 = document.getElementById("lhs_weight_dec").classList.remove('bg-red-200');
+            const div2 = document.getElementById("lhs_weight_dec").classList.add('bg-red-500');
             let submiturl = `${seturl}/LHS_WEIGHT_INC/true`
             await fetch(submiturl)
                 .catch(console.error);
@@ -766,12 +760,16 @@
 
 
         async function Lweight_incx() {
+            const div1 = document.getElementById("lhs_weight_dec").classList.remove('bg-red-500');
+            const div2 = document.getElementById("lhs_weight_dec").classList.add('bg-red-200');
             let submiturl = `${seturl}/LHS_WEIGHT_INC/false`
             await fetch(submiturl)
                 .catch(console.error);
         }
 
         async function Rweight_dec() {
+            const div1 = document.getElementById("rhs_weight_inc").classList.remove('bg-green-200');
+            const div2 = document.getElementById("rhs_weight_inc").classList.add('bg-green-500');
             let submiturl = `${seturl}/RHS_WEIGHT_DEC/true`
             await fetch(submiturl)
                 .catch(console.error);
@@ -779,12 +777,16 @@
 
 
         async function Rweight_decx() {
+            const div1 = document.getElementById("rhs_weight_inc").classList.remove('bg-green-500');
+            const div2 = document.getElementById("rhs_weight_inc").classList.add('bg-green-200');
             let submiturl = `${seturl}/RHS_WEIGHT_DEC/false`
             await fetch(submiturl)
                 .catch(console.error);
         }
 
         async function Lweight_dec() {
+            const div1 = document.getElementById("lhs_weight_inc").classList.remove('bg-green-200');
+            const div2 = document.getElementById("lhs_weight_inc").classList.add('bg-green-500');
             let submiturl = `${seturl}/LHS_WEIGHT_DEC/true`
             await fetch(submiturl)
                 .catch(console.error);
@@ -792,12 +794,16 @@
 
 
         async function Lweight_decx() {
+            const div1 = document.getElementById("lhs_weight_inc").classList.remove('bg-green-500');
+            const div2 = document.getElementById("lhs_weight_inc").classList.add('bg-green-200');
             let submiturl = `${seturl}/LHS_WEIGHT_DEC/false`
             await fetch(submiturl)
                 .catch(console.error);
         }
 
         async function runRHS() {
+            const div1 = document.getElementById("runRHS").classList.remove('bg-green-300');
+            const div2 = document.getElementById("runRHS").classList.add('bg-green-600');
             let submiturl = `${seturl}/LHS_FORCE_FEEDER_BUTTON_HMI/true`
             await fetch(submiturl)
                 .then(checkfor10s)
@@ -805,6 +811,8 @@
         }
 
         async function runRHSx() {
+            const div1 = document.getElementById("runRHS").classList.remove('bg-green-600');
+            const div2 = document.getElementById("runRHS").classList.add('bg-green-300');
             let submiturl = `${seturl}/LHS_FORCE_FEEDER_BUTTON_HMI/false`
             await fetch(submiturl)
                 .then(checkfor10s)
@@ -813,6 +821,8 @@
 
 
         async function runLHS() {
+            const div1 = document.getElementById("runLHS").classList.remove('bg-green-300');
+            const div2 = document.getElementById("runLHS").classList.add('bg-green-600');
             let submiturl = `${seturl}/RHS_FORCE_FEEDER_BUTTON_HMI/true`
             await fetch(submiturl)
                 .then(checkfor10s)
@@ -820,6 +830,8 @@
         }
 
         async function runLHSx() {
+            const div1 = document.getElementById("runLHS").classList.remove('bg-green-600');
+            const div2 = document.getElementById("runLHS").classList.add('bg-green-300');
             let submiturl = `${seturl}/RHS_FORCE_FEEDER_BUTTON_HMI/false`
             await fetch(submiturl)
                 .then(checkfor10s)

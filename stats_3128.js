@@ -2985,157 +2985,219 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     else if (a == "L_AIR_MONO") {
         reg_offset_6000 = 1053
         reg_write_value = b
+        c = payload.stats.punch_offset_position.L_AIR_MONO
         write_regs()
+        writelog()
     }
     else if (a == "L_FLAP_MONO") {
         reg_offset_6000 = 1054
         reg_write_value = b
+        c = payload.stats.punch_offset_position.L_FLAP_MONO
         write_regs()
+        writelog()
     }
     else if (a == "R_AIR_MONO") {
         reg_offset_6000 = 1055
         reg_write_value = b
+        c = payload.stats.punch_offset_position.R_AIR_MONO
         write_regs()
+        writelog()
     }
     else if (a == "R_FLAP_MONO") {
         reg_offset_6000 = 1056
         reg_write_value = b
+        c = payload.stats.punch_offset_position.R_FLAP_MONO
         write_regs()
+        writelog()
     }
     else if (a == "L_AIR_BI") {
         reg_offset_6000 = 1057
         reg_write_value = b
+        c = payload.stats.punch_offset_position.L_AIR_BI
         write_regs()
+        writelog()
     }
     else if (a == "L_FLAP_BI") {
         reg_offset_6000 = 1058
         reg_write_value = b
+        c = payload.stats.punch_offset_position.L_FLAP_BI
         write_regs()
+        writelog()
     }
     else if (a == "R_AIR_BI") {
         reg_offset_6000 = 1059
         reg_write_value = b
+        c = payload.stats.punch_offset_position.R_AIR_BI
         write_regs()
+        writelog()
     }
     else if (a == "R_FLAP_BI") {
         reg_offset_6000 = 1060
         reg_write_value = b
+        c = payload.stats.punch_offset_position.R_FLAP_BI
         write_regs()
+        writelog()
     }
     else if (a == "L_AIR_ON") {
         reg_offset_6000 = 1061
         reg_write_value = b
+        c = payload.stats.rejection.pulse.L_AIR_ON
         write_regs()
+        writelog()
     }
     else if (a == "L_AIR_OFF") {
         reg_offset_6000 = 1062
         reg_write_value = b
+        c = payload.stats.rejection.pulse.L_AIR_OFF
         write_regs()
+        writelog()
     }
     else if (a == "L_FLAP_ON") {
         reg_offset_6000 = 1063
         reg_write_value = b
+        c = payload.stats.rejection.pulse.L_FLAP_ON
         write_regs()
+        writelog()
     }
     else if (a == "L_FLAP_OFF") {
         reg_offset_6000 = 1064
         reg_write_value = b
+        c = payload.stats.rejection.pulse.L_FLAP_OFF
         write_regs()
+        writelog()
     }
     else if (a == "R_AIR_ON") {
         reg_offset_6000 = 1065
         reg_write_value = b
+        c = payload.stats.rejection.pulse.R_AIR_ON
         write_regs()
+        writelog()
     }
     else if (a == "R_AIR_OFF") {
         reg_offset_6000 = 1066
         reg_write_value = b
+        c = payload.stats.rejection.pulse.R_AIR_OFF
         write_regs()
+        writelog()
     }
     else if (a == "R_FLAP_ON") {
         reg_offset_6000 = 1067
         reg_write_value = b
+        c = payload.stats.rejection.pulse.R_FLAP_ON
         write_regs()
+        writelog()
     }
     else if (a == "R_FLAP_OFF") {
         reg_offset_6000 = 1068
         reg_write_value = b
+        c = payload.stats.rejection.pulse.R_FLAP_OFF
         write_regs()
+        writelog()
     }
     else if (a == "L_AIR_OFF_TIME") {
         reg_offset_6000 = 1069
         reg_write_value = b
+        c = payload.stats.rejection.air.L_AIR_OFF_TIME
         write_regs()
+        writelog()
     }
     else if (a == "L_FLAP_OFF_TIME") {
         reg_offset_6000 = 1070
         reg_write_value = b
+        c = payload.stats.rejection.air.L_FLAP_OFF_TIME
         write_regs()
+        writelog()
     }
     else if (a == "R_AIR_OFF_TIME") {
         reg_offset_6000 = 1071
         reg_write_value = b
+        c = payload.stats.rejection.air.R_AIR_OFF_TIME
         write_regs()
+        writelog()
     }
     else if (a == "R_FLAP_OFF_TIME") {
         reg_offset_6000 = 1072
         reg_write_value = b
+        c = payload.stats.rejection.air.R_FLAP_OFF_TIME
         write_regs()
+        writelog()
     }
     else if (a == "MAXIMUM_REJECT_TABLET") {
         reg_offset_6000 = 1073
         reg_write_value = b
+        c = payload.stats.awc.MAXIMUM_REJECT_TABLET
         write_regs()
+        writelog()
     }
     else if (a == "RTN_1_MM") {
         reg_offset_6000 = 1074
         reg_write_value = Math.round(b * 100);
+        c = payload.stats.awc.RTN_1_MM
         write_regs()
+        writelog()
     }
     else if (a == "RTN_1_PPR") {
         reg_offset_6000 = 1076
         reg_write_value = b
+        c = payload.stats.awc.RTN_1_PPR
         write_regs_32()
+        writelog()
     }
     else if (a == "RHS_HOME_OFFSET_1") {
         reg_offset_6000 = 1078
         reg_write_value = b
+        c = payload.stats.awc.RHS_HOME_OFFSET_1
         write_regs_32()
+        writelog()
     }
     else if (a == "RHS_HOME_OFFSET_2") {
         reg_offset_6000 = 1080
         reg_write_value = b
+        c = payload.stats.awc.RHS_HOME_OFFSET_2
         write_regs_32()
+        writelog()
     }
     else if (a == "LHS_HOME_OFFSET_1") {
         reg_offset_6000 = 1082
         reg_write_value = b
+        c = payload.stats.awc.LHS_HOME_OFFSET_1
         write_regs_32()
+        writelog()
     }
     else if (a == "LHS_HOME_OFFSET_2") {
         reg_offset_6000 = 1084
         reg_write_value = b
+        c = payload.stats.awc.LHS_HOME_OFFSET_2
         write_regs_32()
+        writelog()
     }
     else if (a == "L_HOMING_UPPERLIMIT") {
         reg_offset_6000 = 1089
         reg_write_value = b
+        c = payload.stats.L_HOMING_UPPERLIMIT
         write_regs_32()
+        writelog()
     }
     else if (a == "L_HOMING_LOWERLIMIT") {
         reg_offset_6000 = 1091
         reg_write_value = b
+        c = payload.stats.L_HOMING_LOWERLIMIT
         write_regs_32()
+        writelog()
     }
     else if (a == "R_HOMING_UPPERLIMIT") {
         reg_offset_6000 = 1093
         reg_write_value = b
+        c = payload.stats.R_HOMING_UPPERLIMIT
         write_regs_32()
+        writelog()
     }
     else if (a == "R_HOMING_LOWERLIMIT") {
         reg_offset_6000 = 1095
         reg_write_value = b
+        c = payload.stats.R_HOMING_LOWERLIMIT
         write_regs_32()
+        writelog()
     }
     
     res.setHeader('Access-Control-Allow-Origin', '*');

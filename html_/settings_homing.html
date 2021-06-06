@@ -123,14 +123,14 @@
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
                                             <button id="servoRHS"
-                                                class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                class="bg-red-300 text-2xl uppercase  text-gray-800 font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onclick="servoRHS()">
                                                 Servo ON
                                             </button>
                                         </td>
                                         <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
                                             <button id="servoLHS"
-                                                class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                class="bg-red-300 text-2xl uppercase  text-gray-800 font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onclick="servoLHS()">
                                                 Servo ON
                                             </button>
@@ -168,14 +168,14 @@
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
                                             <button id="clearRHS"
-                                                class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                class="bg-red-200 text-2xl uppercase  text-gray-800 font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="clearRHS()" onmouseup="clearRHSx()">
                                                 Clear
                                             </button>
                                         </td>
                                         <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
                                             <button id="clearLHS"
-                                                class="bg-red-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                class="bg-red-200 text-2xl uppercase  text-gray-800 font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
                                                 onmousedown="clearLHS()" onmouseup="clearLHSx()">
                                                 Clear
                                             </button>
@@ -231,14 +231,14 @@
                                         </td>
                                         <td id="mainRHS_upper" class="border-b text-center pb-5 px-3 ">
                                             <button id="EEPROM_RHS"
-                                                class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                class="bg-green-200 text-2xl uppercase text-gray-800 font-semibold  py-3 px-12 border border-blue-500 rounded"
                                                 onmousedown="EEPROM_RHS()" onmouseup="EEPROM_RHSx()">
                                                 EEPROM
                                             </button>
                                         </td>
                                         <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
                                             <button id="EEPROM_LHS"
-                                                class="bg-green-300 text-2xl uppercase hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-12 border border-blue-500 hover:border-transparent rounded"
+                                                class="bg-green-200 text-2xl uppercase text-gray-800 font-semibold  py-3 px-12 border border-blue-500 rounded"
                                                 onmousedown="EEPROM_LHS()" onmouseup="EEPROM_LHSx()">
                                                 EEPROM
                                             </button>
@@ -733,6 +733,8 @@
         }
 
         async function clearLHS() {
+            const div1 = document.getElementById("clearLHS").classList.add('bg-red-500');
+            const div2 = document.getElementById("clearLHS").classList.remove('bg-red-200');
             let submiturl = `${seturl}/LHS_MULTI_TURN_CLEAR/true`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
@@ -740,6 +742,8 @@
         }
 
         async function clearLHSx() {
+            const div1 = document.getElementById("clearLHS").classList.add('bg-red-200');
+            const div2 = document.getElementById("clearLHS").classList.remove('bg-red-500');
             let submiturl = `${seturl}/LHS_MULTI_TURN_CLEAR/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
@@ -748,6 +752,8 @@
         }
 
         async function clearRHS() {
+            const div1 = document.getElementById("clearRHS").classList.add('bg-red-500');
+            const div2 = document.getElementById("clearRHS").classList.remove('bg-red-200');
             let submiturl = `${seturl}/RHS_MULTI_TURN_CLEAR/true`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
@@ -755,6 +761,8 @@
         }
 
         async function clearRHSx() {
+            const div1 = document.getElementById("clearRHS").classList.add('bg-red-200');
+            const div2 = document.getElementById("clearRHS").classList.remove('bg-red-500');
             let submiturl = `${seturl}/RHS_MULTI_TURN_CLEAR/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
@@ -763,6 +771,8 @@
         }
 
         async function EEPROM_LHS() {
+            const div1 = document.getElementById("EEPROM_LHS").classList.add('bg-green-500');
+            const div2 = document.getElementById("EEPROM_LHS").classList.remove('bg-green-200');
             let submiturl = `${seturl}/LHS_EEPROM_WRITE/true`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
@@ -771,6 +781,8 @@
 
 
         async function EEPROM_LHSx() {
+            const div1 = document.getElementById("EEPROM_LHS").classList.add('bg-green-200');
+            const div2 = document.getElementById("EEPROM_LHS").classList.remove('bg-green-500');
             let submiturl = `${seturl}/LHS_EEPROM_WRITE/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
@@ -779,6 +791,8 @@
         }
 
         async function EEPROM_RHS() {
+            const div1 = document.getElementById("EEPROM_RHS").classList.add('bg-green-500');
+            const div2 = document.getElementById("EEPROM_RHS").classList.remove('bg-green-200');
             let submiturl = `${seturl}/RHS_EEPROM_WRITE/true`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
@@ -787,6 +801,8 @@
 
 
         async function EEPROM_RHSx() {
+            const div1 = document.getElementById("EEPROM_RHS").classList.add('bg-green-200');
+            const div2 = document.getElementById("EEPROM_RHS").classList.remove('bg-green-500');
             let submiturl = `${seturl}/RHS_EEPROM_WRITE/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))

@@ -87,62 +87,68 @@
 <body class="flex bg-gray-100 select-none font-sans" onload="datashower()">
 
     <!-- Side bar-->
-    <div id="sidebar" class="h-screen w-48 menu bg-white text-white px-4 flex items-center static fixed shadow">
+    <div id="sidebar" class="h-screen w-48 menu bg-white text-white px-4 flex grid grid-flow-col auto-cols-max items-center static fixed shadow">
 
         <ul class="list-reset">
+            
             <li class="my-2 md:my-0">
                 <a href="/dashboard" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
-                    <i class="fas fa-home fa-fw mr-3 text-indigo-400 text-xl"></i>Dashboard
+                    <i class="fas fa-home fa-fw mr-3 text-indigo-400 text-2xl"></i>Dashboard
                 </a>
             </li>
             <li class="my-2 md:my-0">
                 <a href="/overview" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
-                    <i class="fas fa-heartbeat fa-fw mr-3 text-gray-600 text-xl"></i>Overview
+                    <i class="fas fa-heartbeat fa-fw mr-3 text-gray-600 text-2xl"></i>Overview
                 </a>
             </li>
             <li class="my-2 md:my-0">
                 <a href="/graphLHS" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
-                    <i class="fas fa-chart-area fa-fw mr-3 text-xl text-gray-600"></i>Graph: LHS
+                    <i class="fas fa-chart-bar fa-fw mr-3 text-2xl text-gray-600"></i>Graph: LHS
                 </a>
             </li>
             <li class="my-2 md:my-0">
                 <a href="/graphRHS" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
-                    <i class="fas fa-chart-area fa-fw mr-3 text-xl text-gray-600"></i>Graph: RHS
+                    <i class="fas fa-chart-bar fa-fw mr-3 text-2xl text-gray-600"></i>Graph: RHS
                 </a>
             </li>
             <li class="my-2 md:my-0">
                 <a href="/history" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
-                    <i class="fas fa-history fa-fw mr-3 text-xl text-gray-600"></i>History
+                    <i class="fas fa-history fa-fw mr-3 text-2xl text-gray-600"></i>History
                 </a>
             </li>
             <li class="my-2 md:my-0">
                 <a href="/dido" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
-                    <i class="fas fa-exchange-alt fa-fw mr-3 text-xl text-gray-600"></i>DI/DO
+                    <i class="fas fa-exchange-alt fa-fw mr-3 text-2xl text-gray-600"></i>DI/DO
                 </a>
             </li>
             <li class="my-2 md:my-0">
                 <a href="/analytics" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
-                    <i class="fas fa-folder fa-fw mr-3 text-xl text-gray-600"></i>Reports
+                    <i class="fas fa-folder fa-fw mr-3 text-2xl text-gray-600"></i>Reports
                 </a>
             </li>
             <li class="my-2 md:my-0">
                 <a href="/processsetup" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
-                    <i class="fa fa-wrench fa-fw mr-3 text-xl text-gray-600"></i>Settings
+                    <i class="fa fa-wrench fa-fw mr-3 text-2xl text-gray-600"></i>Settings
                 </a>
             </li>
             <li class="my-2 md:my-0">
                 <a href="/" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
-                    <i class="fa fa-minus-square mr-3 text-xl text-gray-600"></i> Login Screen
+                    <i class="fa fa-minus-square mr-3 text-2xl text-gray-600"></i> Login Screen
                 </a>
             </li>
             <li class="my-2 md:my-0">
                 <a href="/settings_user" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
-                    <i class="fa fa-user-circle mr-3 text-xl text-gray-600"></i> User Setting
+                    <i class="fa fa-user-circle mr-3 text-2xl text-gray-600"></i> User Setting
                 </a>
             </li>
             <li class="my-2 md:my-0">
                 <a href="/settings_recipie" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
-                    <i class="fa fa-medkit  mr-3 text-xl text-gray-600"></i> Recipies
+                    <i class="fa fa-medkit  mr-3 text-2xl text-gray-600"></i> Recipies
+                </a>
+            </li>
+            <li class="my-2 mt-10 md:my-0">
+                <a id="alarm_icon" href="/io_alarm" class="block my-3 md:py-3 uppercase hidden text-center align-middle text-gray-900 no-underline ">
+                    <i class="fa fa-exclamation-triangle text-5xl text-red-500"></i> 
                 </a>
             </li>
             
@@ -162,7 +168,7 @@
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-white">Batch Number</h5>
-                            <h3 id="batch_number_metric" class="font-bold text-red-500 text-2xl"></h3>
+                            <h3 id="batch_number_metric" class="font-bold text-orangeish text-2xl"></h3>
                         </div>
                         <!-- <div class="p-3">
                             <button
@@ -210,6 +216,11 @@
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-white">Machine</h5>
                             <!-- <h3 id="status" class="font-bold uppercase text-3xl">Offline</h3> -->
+                        </div>
+                        <div class="px-5 py-3">
+                            <div id="0" class="py-3 px-20 rounded">
+                                
+                            </div>
                         </div>
                         <!-- Search Button -->
                         <div class="p-3 ml-1">
@@ -2536,6 +2547,12 @@
                     payload = data
                     // console.log(payload.alarm[0])
 
+                    if (payload.output[0] === true) {
+                        const div = document.getElementById("0").classList.add('bg-orangeish');
+                    } else {
+                        const div = document.getElementById("0").classList.remove('bg-orangeish');
+                    }
+
                     if (payload.alarm[30] === true) {
                         if (alarm_status === false) {
                             alarm_active()
@@ -2603,6 +2620,28 @@
                 });
         };
 
+        async function fetchalarm() {
+                fetch(rawpayload)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        // Here you get the data to modify as you please
+                        // data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : 
+
+                        payload = data
+                        // console.log(payload.alarm[0])
+
+                        if (payload.alarm[30] === true) {
+                            const div1 = document.getElementById("alarm_icon").classList.remove('hidden');
+                        } else if (payload.alarm[30] === false) {
+                            const div1 = document.getElementById("alarm_icon").classList.add('hidden');
+                        }
+
+                    })
+                    .catch(function (error) {
+                        // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            };
+
         async function check() {
             setTimeout(() => {
                 fetch(statsurl)
@@ -2630,6 +2669,7 @@
                 fetchstats();
                 fetchmain();
                 fetchcompression();
+                fetchalarm()
             }, 400);
         }
     </script>

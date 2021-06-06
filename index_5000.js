@@ -625,6 +625,19 @@ app.get("/api/csv/:param/:batch/:from/:to", (req, res) => {
             })
             .catch(console.error);
 
+    } else if (param == "info") {
+        _new.queryRaw(`select  "bi_L_force_line", "bi_L_rjn_high", "bi_L_rjn_low", "bi_R_force_line", "bi_R_rjn_high", "bi_R_rjn_low", "mode", "mono_force_line", "mono_rjn_high", "mono_rjn_low" from "${batch}.history" WHERE "rotation" <= ${to} AND "rotation" >= ${from}`)
+            .then(data => {
+                var response = data.results[0].series[0].values
+                var _data = {
+                    count: response.length,
+                    data: response
+                }
+                res.json(_data)
+                // console.log(_data)
+            })
+            .catch(console.error);
+
     } else {
         return res.status(400).json({ message: 'Not found' });
     }
