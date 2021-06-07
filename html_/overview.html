@@ -442,8 +442,10 @@
                 .then(function (data) {
                     // Here you get the data to modify as you please
 
+                    
+                    
                     payload = data
-
+                    
                     maindata = data
                     document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
                     document.getElementById("count_metric").innerHTML = payload.production;
@@ -482,8 +484,9 @@
 
                         document.getElementById("batch_number_metric").innerHTML = payload.batch;
                         currentBatch = payload.batch;
+                        // console.log(payload.rotation_no)
 
-                        if (payload.data_number > currentrotation) {
+                        if (payload.rotation_no > currentrotation) {
                             date = new Date()
                             //RFC 3339 format
                             formatted = date.toISOString()
@@ -513,7 +516,7 @@
                             document.getElementById("ejn_kg").innerHTML = payload.ejectionLHS_avg;
                         }
 
-                        currentrotation = payload.data_number
+                        currentrotation = payload.rotation_no
 
                     })
                     .catch(function (error) {

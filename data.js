@@ -761,6 +761,7 @@ async function stats_() {
         })
         .then(data => {
             stats = data
+            payload.rotation_no = stats.rotation_no
             checkrtn(rotation, stats.rotation_no)
             rotation = stats.rotation_no
 
@@ -1124,7 +1125,7 @@ async function fetchpayload() {
             // console.log(payload1)
             payload.connection = payload1.connection
             // payload.data_number = payload1.data_number
-            payload.rotation_no = payload1.rotation_no
+            // payload.rotation_no = payload1.rotation_no
             payload.present_punch = payload1.present_punch
             payload.precompressionLHS_avg = payload1.precompressionLHS_avg
             payload.precompressionRHS_avg = payload1.precompressionRHS_avg
