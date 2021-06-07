@@ -14,8 +14,8 @@ app = Flask(__name__)
 api = Api(app)
 
 # Modbus TCP parameters
-# SERVER_HOST = "192.168.1.5"
-SERVER_HOST = "192.168.0.99"
+SERVER_HOST = "192.168.1.5"
+# SERVER_HOST = "192.168.0.99"
 SERVER_PORT = 502
 # Scan time in seconds
 # MBSCAN = 3
