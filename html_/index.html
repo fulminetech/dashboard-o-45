@@ -20,7 +20,6 @@
     <!-- NPM package includes -->
     <link href="/font/css/all.css" rel="stylesheet">
     <link href="/css/tailwind.css" rel="stylesheet">
-    <script src="/charts/plugin/chartjs-plugin-zoom.min.js"></script>
     <script src="/plugin/hammer.min.js"></script>
     <link href="/css/tailwind.css" rel="stylesheet">
     <script src="/env/env.js"></script>
@@ -967,9 +966,7 @@
                             </div>
                         </div> -->
                         
-                        <div class="p-3">
-                            <canvas id="avg_his_compression_graph" class="chartjs" height="100rem"></canvas>
-                        </div>
+                        
                     
                     </div>
 
@@ -1553,222 +1550,6 @@
         </div>
     </div>
 
-    <!-- Average Compression Graph -->
-    <script>
-        var avg_his_graphcanvas = document.getElementById("avg_his_compression_graph");
-        var avg_his_graphdata = {
-                labels: [],
-                datasets: [
-                    {
-                        label: "Pre Compression LHS",
-                        yAxisID: 'A',
-                        fill: false,
-                        lineTension: 0.1,
-                        backgroundColor: "palegreen",
-                        borderColor: "palegreen",
-                        pointBorderColor: "rgba(75,192,192,1)",
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHitRadius: 10,
-                        data: [],
-                    },
-                    {
-                        label: "Pre Compression RHS",
-                        yAxisID: 'A',
-                        fill: false,
-                        lineTension: 0.1,
-                        backgroundColor: "olivedrab",
-                        borderColor: "olivedrab",
-                        pointBorderColor: "rgba(75,192,192,1)",
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHitRadius: 10,
-                        data: [],
-                    },
-                    {
-                        label: "Main Compression LHS",
-                        yAxisID: 'A',
-                        fill: false,
-                        lineTension: 0.1,
-                        backgroundColor: "plum",
-                        borderColor: "plum",
-                        pointBorderColor: "rgba(75,192,192,1)",
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHitRadius: 10,
-                        data: [],
-                    },
-                    {
-                        label: "Main Compression RHS",
-                        yAxisID: 'A',
-                        fill: false,
-                        lineTension: 0.1,
-                        backgroundColor: "RebeccaPurple",
-                        borderColor: "RebeccaPurple",
-                        pointBorderColor: "rgba(75,192,192,1)",
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHitRadius: 10,
-                        data: [],
-                    },
-                    {
-                        label: "Ejn Compression LHS",
-                        yAxisID: 'A',
-                        fill: false,
-                        lineTension: 0.1,
-                        backgroundColor: "lightblue",
-                        borderColor: "lightblue",
-                        pointBorderColor: "rgba(75,192,192,1)",
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHitRadius: 10,
-                        data: [],
-                    },
-                    {
-                        label: "Ejn Compression RHS",
-                        yAxisID: 'A',
-                        fill: false,
-                        lineTension: 0.1,
-                        backgroundColor: "darkblue",
-                        borderColor: "darkblue",
-                        pointBorderColor: "rgba(75,192,192,1)",
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                        pointHoverBorderColor: "rgba(220,220,220,1)",
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHitRadius: 10,
-                        data: [],
-                    },
-                ],
-            };
-        var avg_his_graphoptions = {
-                animation: false,
-                responsive: true,
-                showTooltips: true,
-                showLines: true,
-                scales: {
-                    yAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            fontSize: 20,
-                            labelString: 'Compression (kN)'
-                        },
-                        id: 'A',
-                        type: 'linear',
-                        position: 'left',
-                        ticks: {
-                            beginAtZero: true,
-                            fontSize: 20,
-                            max: 100
-                        }
-                    }],
-                    xAxes: [{
-                        type: 'time',
-                        display: false,
-                        time: {
-                            displayFormats: {
-                                millisecond: 'YYYY-MM-DDTHH:mm:ss'
-                            }
-                        }
-                    }],
-                },
-                plugins: {
-                    zoom: {
-                        // Container for pan options
-                        pan: {
-                            // Boolean to enable panning
-                            enabled: true,
-
-                            // Panning directions. Remove the appropriate direction to disable
-                            // Eg. 'y' would only allow panning in the y direction
-                            // A function that is called as the user is panning and returns the
-                            // available directions can also be used:
-                            //   mode: function({ chart }) {
-                            //     return 'xy';
-                            //   },
-                            mode: 'x',
-
-                            // On category scale, factor of pan velocity
-                            speed: 20,
-
-                            // Minimal pan distance required before actually applying pan
-                            threshold: 10,
-
-                        },
-
-                        // Container for zoom options
-                        zoom: {
-                            // Boolean to enable zooming
-                            enabled: true,
-
-                            // Zooming directions. Remove the appropriate direction to disable 
-                            // Eg. 'y' would only allow zooming in the y direction
-                            mode: 'x',
-
-                            // Speed of zoom via mouse wheel
-                            // (percentage of zoom on a wheel event)
-                            speed: 0.1,
-
-                            // On category scale, minimal zoom level before actually applying zoom
-                            sensitivity: 3,
-                        }
-                    }
-                },
-                legend: {
-                    onClick: function (e, legendItem) {
-                        var index = legendItem.datasetIndex;
-                        var ci = this.chart;
-                        var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
-
-                        console.log(index)
-
-                        ci.data.datasets.forEach(function (e, i) {
-                            var meta = ci.getDatasetMeta(i);
-
-                            if (i !== index) {
-                                if (!alreadyHidden) {
-                                    meta.hidden = meta.hidden === null ? !meta.hidden : null;
-                                } else if (meta.hidden === null) {
-                                    meta.hidden = true;
-                                }
-                            } else if (i === index) {
-                                meta.hidden = null;
-                            }
-
-                        });
-
-                        ci.update();
-                    },
-                    display: true,
-                    position: 'bottom',
-                    labels: {
-                        fontSize: 20,
-                    }
-                },
-            };
-        var avg_his_compression_graph = Chart.Line(avg_his_graphcanvas, {
-                data: avg_his_graphdata,
-                options: avg_his_graphoptions,
-            });
-
-    </script>
-
     <!-- modal 1 script -->
     <script>
         var openmodal1 = document.querySelectorAll('.modal1-open')
@@ -2043,8 +1824,6 @@
                         avg_his_compression_graph.data.datasets[5].data.push(parseFloat(payload.ejectionRHS_avg));
                         avg_his_compression_graph.update();
                     }
-
-
                     
                     currentrotation = payload.data_number
 

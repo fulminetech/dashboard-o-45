@@ -1,5 +1,3 @@
-<!--This template is based on: https://dribbble.com/shots/6531694-Marketing-Dashboard by Gregoire Vella -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +11,30 @@
 
     <link href="/font/css/all.css" rel="stylesheet">
     <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/charts/Chart.bundle.min.js"></script>
+    <script src="/charts/plugin/chartjs-plugin-zoom.min.js"></script>
     <script src="/env/env.js"></script>
+
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
+        .bg {
+            /* The image used */
+            background-image: url("/image/bg");
+
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 
     <!-- sidebar -->
     <style>
@@ -41,8 +62,9 @@
 
 </head>
 
-<body class="flex bg-gray-100 select-none font-sans" onload="datashower()">
+<body class="flex bg select-none font-sans">
 
+    <!-- <div class="flex" -->
     <!-- Side bar-->
     <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center static fixed shadow">
 
@@ -73,58 +95,501 @@
 
     </div>
 
-    <div class="flex flex-1 h-screen max-w-full ">
+    <div class="flex flex-row flex-wrap flex-1 flex-grow content-start pl-16 ">
 
-        <!--Graph Content -->
-        <div id="main-content" class="w-full flex-1">
+        <div class="w-11/12">
 
-            <div class="flex flex-1 flex-wrap">
-                <div class="w-full ">
+            <!--Graph Content -->
+            <div id="main-content" class="w-full flex-1">
 
-                    <img src="/image/bg" alt="">
-                 
+                <div class="flex flex-1 flex-wrap">
+                    <div class="w-full ">
+
+                        <div class="flex grid grid-cols-6 uppercase py-5 px-5 mx-3 bg-gray-300 rounded-md">
+                        
+                            <a id="" class="pt-2 text-center text-xl font-bold"> Date and time </a>
+                            <a id="" class="pt-2 text-center text-xl font-bold"> Batch Number </a>
+                            <a id="" class="pt-2 text-center text-xl font-bold"> Rotation Number </a>
+                            <a id="" class="pt-2 text-center text-xl font-bold"> Dwell Time </a>
+                            <a id="" class="pt-2 text-center text-xl font-bold"> Tablet Count </a>
+                            <a id="" class="pt-2 text-center text-xl font-bold"> Tablet per hour </a>
+                            <a id="time" class="pt-3 text-center text-lg"></a>
+                            <a id="batch_number_metric" class="pt-2 text-center text-2xl"></a>
+                            <a id="rotation_number_metric" class="pt-2 text-center text-2xl"></a>
+                            <a id="dwell_metric" class="pt-2 text-center text-2xl"></a>
+                            <a id="count_metric" class="pt-2 text-center text-2xl"></a>
+                            <a id="production_per_hour_metric" class="pt-2 text-center text-2xl"></a>
+                            
+                        </div>
+
+                        <div class="flex grid grid-cols-1 uppercase">
+
+                            <div class="pt-2 text-center">
+                                <a id="select" class="text-4xl bg-purple-700 text-white px-5 py-1 rounded-md" onclick="switchh()">LHS</a>
+                            </div>
+                            <div class="flex flex-row flex-wrap flex-1 flex-grow text center pt-10">
+
+                                <a id="pre_kn" class="w-1/2 text-2xl pl-90">0</a>
+                                <a id="main_kn" class="w-1/2 text-2xl pl-52">0</a>
+
+                            </div>
+                            <div class="pt-2 text-center">
+                                <a id="" class="text-2xl "> Turret RPM</a>
+                            </div>
+                            <div class="pt-2 text-center">
+                                <a id="rpm_metric" class="text-4xl bg-gray-700 text-white px-5 py-1 rounded-md">0</a>
+                            </div>
+                            <div class="pt-2 text-center">
+                                <a id="" class="text-2xl "> FEEDER LHS</a>
+                                <a id="" class="text-2xl pl-10"> FEEDER RHS</a>
+                                
+                            </div>
+                            <div class="pt-2 text-center">
+                                <a id="feederRHS_metric" class="text-4xl bg-gray-700 text-white px-5 py-1 rounded-md">0</a>
+                                <a id="feederLHS_metric" class="ml-20 text-4xl bg-gray-700 text-white px-5 py-1 rounded-md">0</a>
+                            </div>
+                            <div class="pt-6">
+                                <a id="fill_d" class="text-2xl pl-44">0</a>
+                                <a id="ejn_kg" class="text-2xl pl-224">0</a>
+
+                            </div>
+                            <div class="flex flex-row flex-wrap flex-1 flex-grow text center pt-36">
+                                <a id="pre_mm" class="w-1/2 text-2xl pl-92">0</a>
+                                <a id="main_mm" class="w-1/2 text-2xl pl-54">0</a>
+
+                            </div>
+                        </div>
+
+                        <div class="p-5 pt-16">
+                            <h5 class="font-bold text-black py-5">Pre Compression LHS:</h5>
+                            <canvas id="avg_his_compression_graph" class="chartjs" height="64rem"></canvas>
+                        </div>
+                    </div>
+
 
                 </div>
 
             </div>
-
         </div>
 
+        <div class="w-1/12">
+
+            <!--Graph Content -->
+            <div id="main-content" class="w-full flex-1">
+
+                <div class="flex flex-1 flex-wrap">
+                    <div class="w-full p-2 ">
+
+                        <div class="max-w-full">
+                            <div class="flex grid grid-cols-1 uppercase">
+                                <a href="/dashboard" class="mt-24 py-12 bg-transparent"></a> 
+                                <a href="/processsetup" class="mt-16 py-12 bg-transparent"> </a> 
+                                <a href="/graphLHS" class="mt-16 py-12 bg-transparent"> </a> 
+                                <a href="/analytics" class="mt-20 py-12 bg-transparent"> </a> 
+                                <a href="/io_alarm" class="mt-16 py-12 bg-transparent"> </a> 
+                            </div>
+
+                            <!-- </a> Dashboard</a>
+                            </a>Process </a>
+                            </a>Compression </a>
+                            </a>Average </a>
+                            </a>Fault </a> -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- Average Compression Graph -->
     <script>
-        async function fetchalarm() {
-                fetch(rawpayload)
-                    .then((resp) => resp.json()) // Transform the data into json
-                    .then(function (data) {
-                        // Here you get the data to modify as you please
-                        // data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : 
-
-                        payload = data
-                        // console.log(payload.alarm[0])
-
-                        if (payload.alarm[30] === true) {
-                            const div1 = document.getElementById("alarm_icon").classList.remove('hidden');
-                        } else if (payload.alarm[30] === false) {
-                            const div1 = document.getElementById("alarm_icon").classList.add('hidden');
+        var avg_his_graphcanvas = document.getElementById("avg_his_compression_graph");
+        var avg_his_graphdata = {
+            labels: [],
+            datasets: [
+                {
+                    label: "Pre Compression LHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "palegreen",
+                    borderColor: "palegreen",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Pre Compression RHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "olivedrab",
+                    borderColor: "olivedrab",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Main Compression LHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "plum",
+                    borderColor: "plum",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Main Compression RHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "RebeccaPurple",
+                    borderColor: "RebeccaPurple",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Ejn Compression LHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "lightblue",
+                    borderColor: "lightblue",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+                {
+                    label: "Ejn Compression RHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "darkblue",
+                    borderColor: "darkblue",
+                    pointBorderColor: "rgba(75,192,192,1)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                    pointHoverBorderColor: "rgba(220,220,220,1)",
+                    pointHoverBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHitRadius: 10,
+                    data: [],
+                },
+            ],
+        };
+        var avg_his_graphoptions = {
+            animation: false,
+            responsive: true,
+            showTooltips: true,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 18,
+                        labelString: 'COMPRESSION'
+                    },
+                    id: 'A',
+                    type: 'linear',
+                    position: 'left',
+                    ticks: {
+                        // beginAtZero: true,
+                        fontSize: 20,
+                        // max: 100
+                    }
+                }],
+                xAxes: [{
+                    type: 'time',
+                    display: false,
+                    time: {
+                        displayFormats: {
+                            millisecond: 'YYYY-MM-DDTHH:mm:ss'
                         }
+                    }
+                }],
+            },
+            plugins: {
+                zoom: {
+                    // Container for pan options
+                    pan: {
+                        // Boolean to enable panning
+                        enabled: true,
+
+                        // Panning directions. Remove the appropriate direction to disable
+                        // Eg. 'y' would only allow panning in the y direction
+                        // A function that is called as the user is panning and returns the
+                        // available directions can also be used:
+                        //   mode: function({ chart }) {
+                        //     return 'xy';
+                        //   },
+                        mode: 'x',
+
+                        // On category scale, factor of pan velocity
+                        speed: 20,
+
+                        // Minimal pan distance required before actually applying pan
+                        threshold: 10,
+
+                    },
+
+                    // Container for zoom options
+                    zoom: {
+                        // Boolean to enable zooming
+                        enabled: true,
+
+                        // Zooming directions. Remove the appropriate direction to disable 
+                        // Eg. 'y' would only allow zooming in the y direction
+                        mode: 'x',
+
+                        // Speed of zoom via mouse wheel
+                        // (percentage of zoom on a wheel event)
+                        speed: 0.1,
+
+                        // On category scale, minimal zoom level before actually applying zoom
+                        sensitivity: 3,
+                    }
+                }
+            },
+            legend: {
+                onClick: function (e, legendItem) {
+                    var index = legendItem.datasetIndex;
+                    var ci = this.chart;
+                    var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
+
+                    console.log(index)
+
+                    ci.data.datasets.forEach(function (e, i) {
+                        var meta = ci.getDatasetMeta(i);
+
+                        if (i !== index) {
+                            if (!alreadyHidden) {
+                                meta.hidden = meta.hidden === null ? !meta.hidden : null;
+                            } else if (meta.hidden === null) {
+                                meta.hidden = true;
+                            }
+                        } else if (i === index) {
+                            meta.hidden = null;
+                        }
+
+                    });
+
+                    ci.update();
+                },
+                display: true,
+                position: 'bottom',
+                labels: {
+                    fontSize: 20,
+                }
+            },
+        };
+        var avg_his_compression_graph = Chart.Line(avg_his_graphcanvas, {
+            data: avg_his_graphdata,
+            options: avg_his_graphoptions,
+        });
+
+    </script>
+
+    <script>
+
+        time = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+        setInterval(() => {
+            document.getElementById("time").innerHTML = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+            // document.getElementById("feeder_activity_metric").innerHTML = time;
+            //  document.getElementById("machine_activity_metric").innerHTML = time;
+        }, 1000);
+        function switchh() {
+            var val = document.getElementById("select").innerHTML
+            if ( val == 'LHS') {
+                document.getElementById("select").innerHTML = 'RHS'
+            } else {
+                document.getElementById("select").innerHTML = 'LHS'
+            }
+        }
+
+        async function fetchstats() {
+            fetch(statsurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+
+                    payload = data
+
+                    maindata = data
+                    document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
+                    document.getElementById("count_metric").innerHTML = payload.production;
+                    document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
+                    document.getElementById("rpm_metric").innerHTML = payload.stats.turret.RPM;
+                    document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
+                    document.getElementById("feederLHS_metric").innerHTML = payload.stats.LHS_FF.RPM;
+                    document.getElementById("feederRHS_metric").innerHTML = payload.stats.RHS_FF.RPM;
+
+                    var selection = document.getElementById("select").innerHTML
+                    // console.log(selection)
+
+                    if(selection == 'RHS') {
+                        document.getElementById("fill_d").innerHTML = payload.stats.awc.actual_RHS
+                        document.getElementById("pre_mm").innerHTML = payload.stats.RHSweight.value
+                        document.getElementById("main_mm").innerHTML = payload.stats.RHSthickness.value                        
+                    } else {
+                        document.getElementById("fill_d").innerHTML = payload.stats.awc.actual_LHS
+                        document.getElementById("pre_mm").innerHTML = payload.stats.LHSweight.value
+                        document.getElementById("main_mm").innerHTML = payload.stats.LHSthickness.value
+                    }
+                })
+                .catch(function (error) {
+                    // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+            };
+
+            var currentBatch;
+            var currentrotation;
+
+            async function fetchcompression() {
+                fetch(payloadURL)
+                    .then((resp) => resp.json())
+                    .then(function (data) {
+                        payload = data
+
+                        document.getElementById("batch_number_metric").innerHTML = payload.batch;
+                        currentBatch = payload.batch;
+
+                        if (payload.data_number > currentrotation) {
+                            date = new Date()
+                            //RFC 3339 format
+                            formatted = date.toISOString()
+                            // console.log(currentrotation)
+                            // console.log(payload.data_number)
+                            // console.log(formatted)
+
+                            avg_his_compression_graph.data.labels.push(formatted);
+
+                            avg_his_compression_graph.data.datasets[0].data.push(parseFloat(payload.precompressionLHS_avg));
+                            avg_his_compression_graph.data.datasets[1].data.push(parseFloat(payload.precompressionRHS_avg));
+                            avg_his_compression_graph.data.datasets[2].data.push(parseFloat(payload.maincompressionLHS_avg));
+                            avg_his_compression_graph.data.datasets[3].data.push(parseFloat(payload.maincompressionRHS_avg));
+                            avg_his_compression_graph.data.datasets[4].data.push(parseFloat(payload.ejectionLHS_avg));
+                            avg_his_compression_graph.data.datasets[5].data.push(parseFloat(payload.ejectionRHS_avg));
+                            avg_his_compression_graph.update();
+                        }
+
+                        var selection = document.getElementById("select").innerHTML
+                        if (selection == 'RHS') {
+                            document.getElementById("pre_kn").innerHTML = payload.precompressionRHS_avg;
+                            document.getElementById("main_kn").innerHTML = payload.maincompressionRHS_avg;
+                            document.getElementById("ejn_kg").innerHTML = payload.ejectionRHS_avg;
+                        } else {
+                            document.getElementById("pre_kn").innerHTML = payload.precompressionLHS_avg;
+                            document.getElementById("main_kn").innerHTML = payload.maincompressionLHS_avg;
+                            document.getElementById("ejn_kg").innerHTML = payload.ejectionLHS_avg;
+                        }
+
+                        currentrotation = payload.data_number
 
                     })
                     .catch(function (error) {
-                        // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                        console.log("[ PAYLOAD FETCH ERROR ]", error)
                     });
             };
 
-            function datashower() {
+            
+                async function fetchmain() {
+                    fetch(rawpayload)
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function (data) {
+                            // Here you get the data to modify as you please
+                            // data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : 
 
-                    // check()
-                    setInterval(() => {
-                        // fetchstats();
-                        // fetchmain();
-                        // fetchcompression();
-                        fetchalarm()
-                    }, 400);
-                }
+                            payload = data
+                            // console.log(payload.alarm[0])
+
+                            if (payload.output[0] === true) {
+                                const div = document.getElementById("0").classList.add('bg-orangeish');
+                            } else {
+                                const div = document.getElementById("0").classList.remove('bg-orangeish');
+                            }
+                            
+                            if (payload.output[1] === true) {
+                                const div = document.getElementById("0").classList.add('bg-orangeish');
+                            } else {
+                                const div = document.getElementById("0").classList.remove('bg-orangeish');
+                            }
+                            
+                            if (payload.output[2] === true) {
+                                const div = document.getElementById("0").classList.add('bg-orangeish');
+                            } else {
+                                const div = document.getElementById("0").classList.remove('bg-orangeish');
+                            }
+
+                        })
+                        .catch(function (error) {
+                            // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                        });
+                };
+
+
+            function updatedata() {
+                setInterval(() => {
+                    fetchcompression()
+                    fetchstats()
+                }, 400);
+            }
+
+            updatedata()
+
+    </script>
+    <!-- alarm-icon check -->
+    <script>
+        async function fetchalarm() {
+            fetch(rawpayload)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    payload = data
+                    if (payload.alarm[30] === true) {
+                        const div1 = document.getElementById("alarm_icon").classList.remove('hidden');
+                    } else if (payload.alarm[30] === false) {
+                        const div1 = document.getElementById("alarm_icon").classList.add('hidden');
+                    }
+                })
+                .catch(function (error) {
+                });
+        };
+
+        function checkalarm() {
+            setInterval(() => {
+                fetchalarm()
+            }, 400);
+        }
+        checkalarm()
     </script>
 
 </body>
