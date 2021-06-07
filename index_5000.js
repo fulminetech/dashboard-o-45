@@ -15,6 +15,7 @@ const { exec } = require('child_process');
 const restartstats = "pm2 restart stats_3128"
 const restartcompression = "pm2 restart compression_3129"
 const restartraw = "pm2 restart main_5000"
+const fetch = require('cross-fetch');
 
 const {
     payload, startmodbus, watchproxy, updatestatsbatch
@@ -355,6 +356,11 @@ app.get("/onboard/continue", (req, res) => {
                         var previousrtn = parseInt(response[1]);
                         // console.log(previousrtn)
                         payload.rotation_no = previousrtn
+
+                        var seturl = `http://localhost:3128/api/set`
+                        let submiturl = `${seturl}/RESET_COUNT/${payload.rotation_no}`
+                        fetch(submiturl)
+                            .catch(function (error) { console.log("[ PAYLOAD FETCH ERROR ]", error) });
                     })
                     .catch(console.error)
             })

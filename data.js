@@ -762,7 +762,10 @@ async function stats_() {
         .then(data => {
             stats = data
             payload.rotation_no = stats.rotation_no
-            checkrtn(rotation, stats.rotation_no)
+
+            if (payload.batch !== 'DEFAULT') {
+                checkrtn(rotation, stats.rotation_no)
+            }
             rotation = stats.rotation_no
 
             console.log(rotation)
@@ -775,7 +778,7 @@ async function stats_() {
 
 function checkrtn(old, neww) {
     if (neww > old) {
-        console.log("inc")
+        // console.log("inc")
         writeHistory(old);
         writeAverage(old);
     }
