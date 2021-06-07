@@ -354,7 +354,7 @@ app.get("/onboard/continue", (req, res) => {
                         var response = data.results[0].series[0].values[0];
                         var previousrtn = parseInt(response[1]);
                         // console.log(previousrtn)
-                        payload.data_number = previousrtn
+                        payload.rotation_no = previousrtn
                     })
                     .catch(console.error)
             })
