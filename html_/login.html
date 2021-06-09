@@ -17,7 +17,7 @@
     <!-- NPM package includes -->
     <link href="/font/css/all.css" rel="stylesheet">
     <link href="/css/tailwind.css" rel="stylesheet">
-    <script src="/env/env.js"></script>
+    <!-- <script src="/env/env.js"></script> -->
 
 </head>
 
@@ -46,22 +46,22 @@
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
             
                 <div class="flex flex-col pt-4">
-                    <label for="email" class="text-2xl">USER ID</label>
+                    <label for="susername" class="text-2xl">USERNAME</label>
                     <form id="name">
-                        <input type="email" id="email" placeholder="Enter User ID"
+                        <input type="text" id="susername" placeholder="Enter Username"
                             class="shadow appearance-none border rounded w-full py-5 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                     </form>
                 </div>
             
                 <div class="flex flex-col pt-4">
                     <label for="password" class="text-2xl">Password</label>
-                    <form id="password">
-                        <input type="password" placeholder="Password"
+                    <form >
+                        <input id="password" type="password" placeholder="Password"
                             class="shadow appearance-none border rounded w-full py-5 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                     </form>
                 </div>
             
-                <button id="start" onclick="start()" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-3 mt-8">Log
+                <button id="start" onclick="suser()" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-3 mt-8">Log
                     In</button>
             </div>
             
@@ -74,62 +74,102 @@
     //      .then(console.log("[ RESTARTING! ]"))
     //      .catch(console.error);
     </script>
+
+    <script>
+        function isEmpty(obj) {
+            for (let key in obj) {
+                return false;
+            }
+            return true;
+        }
+
+        async function suser() {
+            var username = document.getElementById("susername").value
+            var password = document.getElementById("password").value
+            
+            console.log(username)
+            let submiturl = `http://localhost:3000/username/${username}`
+            await fetch(submiturl)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    console.log(data)
+                    if (isEmpty(data) == false) {
+                        if(password == data[0].password){
+                            if(data[0].expiry == 0 || data[0].attempts == 0 ) {
+                                alert("Contact admin.")        
+                            } else {
+                                alert("Login Successful.")
+                                setTimeout(() => {
+                                    location.href = "/onboard"
+                                }, 200);
+                            }
+                        } else if (password !== data[0].password){
+                            alert(`Wrong password. Remaining attempts: ${data[0].attempts-1} `)    
+                        }
+
+                    } else if (isEmpty(data) == true) {
+                        alert("User does not exist.")
+                    }
+                })
+                .catch(console.error);
+        }
+    </script>
     
     <script>
-        addEventListener("keydown", function (event) {
-            if (event.keyCode === 13) {
-                event.preventDefault();
+        // addEventListener("keydown", function (event) {
+        //     if (event.keyCode === 13) {
+        //         event.preventDefault();
 
-                var a = document.getElementById("name");
-                var name = "";
-                var i;
-                for (i = 0; i < a.length; i++) {
-                    name += a.elements[i].value;
-                }
+        //         var a = document.getElementById("name");
+        //         var name = "";
+        //         var i;
+        //         for (i = 0; i < a.length; i++) {
+        //             name += a.elements[i].value;
+        //         }
 
-                var p = document.getElementById("password");
-                var password = "";
-                var m;
-                for (m = 0; m < p.length; m++) {
-                    password += p.elements[m].value;
-                }
+        //         var p = document.getElementById("password");
+        //         var password = "";
+        //         var m;
+        //         for (m = 0; m < p.length; m++) {
+        //             password += p.elements[m].value;
+        //         }
 
-                if (password == "1234") {
-                    setTimeout(() => {
-                        location.href = "/onboard"
-                    }, 200);
-                } else {
-                    alert("ACESS DENIED")
-                }
+        //         if (password == "1234") {
+        //             setTimeout(() => {
+        //                 location.href = "/onboard"
+        //             }, 200);
+        //         } else {
+        //             alert("ACESS DENIED")
+        //         }
 
-            }
-        });
+        //     }
+        // });
 
-        function start() {
+        // function start() {
 
-            var a = document.getElementById("name");
-            var name = "";
-            var i;
-            for (i = 0; i < a.length; i++) {
-                name += a.elements[i].value;
-            }
+        //     var a = document.getElementById("name");
+        //     var name = "";
+        //     var i;
+        //     for (i = 0; i < a.length; i++) {
+        //         name += a.elements[i].value;
+        //     }
 
-            var p = document.getElementById("password");
-            var password = "";
-            var m;
-            for (m = 0; m < p.length; m++) {
-                password += p.elements[m].value;
-            }
+        //     var p = document.getElementById("password");
+        //     var password = "";
+        //     var m;
+        //     for (m = 0; m < p.length; m++) {
+        //         password += p.elements[m].value;
+        //     }
 
-            if (password == "1234") {
-                setTimeout(() => {
-                    location.href = "/onboard"
-                }, 200);
-            } else {
-                alert("ACESS DENIED")
-            }
+        //     if (password == "1234") {
+        //         setTimeout(() => {
+        //             location.href = "/onboard"
+        //         }, 200);
+        //     } else {
+        //         alert("ACESS DENIED")
+        //     }
 
-        };
+        // };
     </script>
 
 </body>
