@@ -110,6 +110,7 @@ var payload = {
         count: 0,
         tablets_per_hour: 0,
         fault_active_flash: 0,
+        TABLET_MULTIPLICATION_FACTOR:0,
         turret: {
             F: 0,
             H: 0,
@@ -1127,7 +1128,8 @@ var read_regs = function () {
             payload.stats.L_HOMING_LOWERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[91], data.data[92]))
             payload.stats.R_HOMING_UPPERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[93], data.data[94]))
             payload.stats.R_HOMING_LOWERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[95], data.data[96]))
-
+            
+            payload.stats.TABLET_MULTIPLICATION_FACTOR = data.data[97];
             
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -3197,6 +3199,13 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         reg_write_value = b
         c = payload.stats.R_HOMING_LOWERLIMIT
         write_regs_32()
+        writelog()
+    }
+    else if (a == "TABLET_MULTIPLICATION_FACTOR") {
+        reg_offset_6000 = 1097
+        reg_write_value = b
+        c = payload.stats.TABLET_MULTIPLICATION_FACTOR
+        write_regs()
         writelog()
     }
     

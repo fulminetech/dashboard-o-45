@@ -695,6 +695,18 @@
                             </div>
                         </div>
                     
+                        <div class="flex flex-col">
+                            <h3> TABLET MULTIPLICATION FACTOR </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="TABLET_MULTIPLICATION_FACTOR"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) TABLET_MULTIPLICATION_FACTOR()">
+                                </div>
+                                
+                            </div>
+                        </div>
+                    
                     </div>
 
                     <!-- Search: Parameters -->
@@ -1412,6 +1424,7 @@
                     document.getElementById("LHS_FORCE_FEEDER_MAX_FREQ").value = payload.stats.LHS_FF.max_freq
                     document.getElementById("RHS_FORCE_FEEDER_MAX_RPM").value = payload.stats.RHS_FF.max_rpm
                     document.getElementById("RHS_FORCE_FEEDER_MAX_FREQ").value = payload.stats.RHS_FF.max_freq
+                    document.getElementById("TABLET_MULTIPLICATION_FACTOR").value = payload.stats.TABLET_MULTIPLICATION_FACTOR
                     document.getElementById("LHS_PRE_OFFSET").value = payload.stats.punch_offset_position.L_PRE 
                     document.getElementById("LHS_MAIN_OFFSET").value = payload.stats.punch_offset_position.L_MAIN
                     document.getElementById("LHS_EJN_OFFSET").value = payload.stats.punch_offset_position.L_EJN 
