@@ -78,76 +78,51 @@
 
     <div class="flex flex-row flex-wrap flex-1 flex-grow content-start pl-16">
 
-        <div class="w-1/2">
+        <div class="w-2/5">
         
         <!--Graph Content -->
-        <div id="main-content" class="w-full flex-1">
+        <div id="main-content" class="w-full flex-1 ">
         
             <div class="flex flex-1 flex-wrap">
-                <div class="w-full p-6 ">
+                <div class="w-full p-6 m-6 bg-gray-300 border border-gray-700 rounded">
                 
                     <!-- Search: Parameters -->
-                    <div class="border-b mt-2 p-3">
+                    <div class="border-b px-3">
                         <h5 class="font-bold text-black">User Level:</h5>
                     </div>
 
-                    <div class="flex grid grid-cols-3 p-3 ">
+                    <div class="flex grid grid-cols-2 p-3 ">
                     
                     
                         <div class="flex flex-col">
                             <div class="flex flex-row">
-                                <div class="pt-3">
-                                    <select class="text-2xl text-gray-700" name="roller" id="roller">
-                                        <option value="0" onclick="level()">0: Operator</option>
-                                        <option value="1" onclick="level()">1: Supervisor</option>
-                                        <option value="2" onclick="level()">2: Maintainence</option>
+                                <div class="">
+                                    <select class="form-select w-full block text-xl border-black text-gray-700" name="roller" id="roller">
+                                        <option value="1" onclick="level()">Operator</option>
+                                        <option value="2" onclick="level()">Maintainence</option>
+                                        <option value="3" onclick="level()">Supervisor</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                     
-                        <div class="p-3">
+                        <div class="">
                             <button id="searchbatch"
-                                class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
                                 onclick="level()">
                                 SEARCH
                             </button>
                         </div>
                     </div>
 
-                    <!-- Search: Parameters -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Search User:</h5>
-                    </div>
-                
-                    <div class="flex grid grid-cols-2 p-3 ">
-                        
-                        <div class="flex flex-col">
-                            <h3> User Name </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="susername"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="text" placeholder="">
-                                </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchuser()">
-                                        SEARCH
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                     
-                    </div>
 
                     <!-- Action:  -->
-                    <div class="border-b mt-2 p-3">
+                    <div class="border-b mt-2 px-3">
                         <h5 class="font-bold text-black">Action:</h5>
                     </div>
                     
-                    <div class="flex grid grid-cols-3 p-3 ">
+                    <div class="flex grid grid-cols-2">
                     
                         <div class="flex flex-wrap p-3">
                     
@@ -156,26 +131,22 @@
                                 <button id="generatepdfreport"
                                     class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="adduser()">
-                                    Add
+                                    Add User
                                 </button>
                             </div>
                         </div>
                     
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- Excel Button -->
+                        <!-- <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
                                     class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="edituser()">
-                                    Edit
+                                    Edit User
                                 </button>
                             </div>
-                        </div>
+                        </div> -->
                     
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- Excel Button -->
+                        <!-- <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
                                     class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
@@ -183,19 +154,9 @@
                                     Deactivate
                                 </button>
                             </div>
-                        </div>
+                        </div> -->
                     
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- Excel Button -->
-                            <div class="py-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="unblock()">
-                                    Unblock
-                                </button>
-                            </div>
-                        </div>
+                        
                     
                         <div class="flex flex-wrap p-3">
                     
@@ -210,110 +171,176 @@
                         
 
                     </div>
-                
-                    <!-- Search: Parameters -->
-                    <div class="border-b p-3">
-                        <h5 class="font-bold text-black">User Details:</h5>
-                    </div>
-                
-                    <div class="flex grid grid-cols-3 p-3 ">
-                    
-                        <div class="flex flex-col">
-                            <h3> User Name </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="username"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="text" placeholder="" >
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Name </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="name"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="text" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Userlevel </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <select class="text-2xl" name="userlevel" id="userlevel">
-                                        <option value="0">Operator</option>
-                                        <option value="1">Supervisor</option>
-                                        <option value="2">Maintainence</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Login Attempts </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="attempts"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="text" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Password </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="password"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="password" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Confirm Password </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="cpassword"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="password" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> Password expiry time (days) </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="expiry"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="text" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                    
-                    </div>
 
-                    <div class="flex grid grid-cols-4 p-3 ">
-                    
-                        <div class="flex flex-wrap ">
-                    
-                            <!-- PDF report Button -->
-                            <div class="py-3">
-                                <button id=""
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="details()">
-                                    Submit
-                                </button>
+                    <!-- Search: Parameters -->
+                    <div class="border-b px-3">
+                        <h5 class="font-bold text-black">Search User:</h5>
+                    </div>
+                
+                    <div class="flex p-3 ">
+                        
+                        <div class="flex flex-col">
+                            <h3> Username </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="susername"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="text" placeholder="" onkeydown="if (event.keyCode == 13) suser()">
+                                </div>
+                                <div class="p-3">
+                                    <button id="searchbatch"
+                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="suser()">
+                                        SEARCH
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     
                     </div>
+                
+                    <div id="form" class="hidden">
+                        <div class="flex grid grid-cols-2 px-3 ">
+                        
+                            <div class="flex flex-col">
+                                <h3> User Name </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3 pr-2">
+                                        <input id="username"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="text" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-col">
+                                <h3> Name </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3">
+                                        <input id="name"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="text" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-col">
+                                <h3> Userlevel </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3">
+                                        <select class="form-select w-full block text-lg border-black text-gray-700" name="userlevel" id="userlevel">
+                                            <option value="1">Operator</option>
+                                            <option value="2">Maintainence</option>
+                                            <option value="3">Supervisor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-col">
+                                <h3> Login Attempts </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3">
+                                        <input id="attempts"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="text" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-col">
+                                <h3> Password </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3 pr-2">
+                                        <input id="password"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="password" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-col">
+                                <h3> Confirm Password </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3">
+                                        <input id="cpassword"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="password" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-col">
+                                <h3> Password expiry time (days) </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3 pr-2">
+                                        <input id="expiry"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="text" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        
+                        <div id="formedit" class="flex grid grid-cols-2 hidden">
+                        
+                            <div class="flex flex-wrap p-3">
+                                <div class="">
+                                    <button
+                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="updateuser()">
+                                        UPDATE
+                                    </button>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-wrap p-3">
+                                <div class="">
+                                    <button
+                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="deactivateuser()">
+                                        Deactivate
+                                    </button>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-wrap p-3">
+                                <div class="">
+                                    <button
+                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="unblockuser()">
+                                        Unblock
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap p-3">
+                                <div class="">
+                                    <button
+                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="deleteuser()">
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+    
+                        </div>
+                        
+                        <div id="formadd" class="flex grid grid-cols-2 hidden">
+                        
+                            <div class="flex flex-wrap p-3">
+                                <div class="">
+                                    <button
+                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="submituser()">
+                                        ADD USER
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                 
                     
                 </div>
@@ -324,7 +351,7 @@
         </div>
         </div>
         
-        <div class="w-1/2">
+        <div class="w-3/5">
         
         <!--Graph Content -->
         <div id="main-content" class="w-full flex-1">
@@ -335,16 +362,13 @@
                     <div class="max-w-full">
 
                         <!-- Rotation Avg List -->
-                        <div class="w-full p-3">
+                        <div class="w-full h-screen max-h-screen p-3">
                             <div class="border border-gray-400 rounded shadow overflow-auto">
-                                <div class="border-b border-gray-400 p-3">
-                                    <h5 class="font-bold uppercase text-center text-3xl text-black">User List
-                                    </h5>
-                                </div>
                                 <div class="px-5 pb-5">
-                                    <table class="table-auto w-full text-center text-black" height="170rem">
+                                    <table class="table-fixed w-full text-center text-black" height="170rem">
                                         <thead>
                                             <tr>
+                                                <th class="text-center border-b py-3">Userlevel</th>
                                                 <th class="text-center border-b py-3">Username</th>
                                                 <th class="text-center border-b py-3">Name</th>
                                                 <th class="text-center border-b py-3">Login Attempts</th>
@@ -392,96 +416,201 @@
                                 <tbody>
                                     <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
-                                            Dashboard
+                                            Overview
                                         </td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op1" name="op1" value="op1">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="sup1" name="sup1" value="sup1">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="main1" name="main1" value="main1">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
-                                            Graph LHS & RHS
+                                            Graph LHS
                                         </td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op2" name="op2" value="op2">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="sup2" name="sup2" value="sup2">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="main2" name="main2" value="main2">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
+                                            Graph RHS
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op3" name="op3" value="op3">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="sup3" name="sup3" value="sup3">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="main3" name="main3" value="main3">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
                                             History
                                         </td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
+                                    <td class="border-b text-center text-3xl border-gray-400">
+                                        <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op4" name="op4" value="op4">
+                                    </td>
+                                    <td class="border-b text-center text-3xl border-gray-400">
+                                        <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="sup4" name="sup4" value="sup4">
+                                    </td>
+                                    <td class="border-b text-center text-3xl border-gray-400">
+                                        <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="main4" name="main4" value="main4">
+                                    </td>
+                                    <td class="border-b text-center text-3xl border-gray-400">
+                                        <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
+                                    </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
                                             DI/DO
                                         </td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op5" name="op5" value="op5">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="sup5" name="sup5" value="sup5">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="main5" name="main5" value="main5">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
-                                            Maintainence
+                                            Alarms
                                         </td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op6" name="op6" value="op6">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="sup6" name="sup6" value="sup6">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="main6" name="main6" value="main6">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
                                             Reports
                                         </td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op7" name="op7" value="op7">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="sup7" name="sup7" value="sup7">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="main7" name="main7" value="main7">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
-                                            Process Setup
+                                            Settings
                                         </td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op8" name="op8" value="op8">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="sup8" name="sup8" value="sup8">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="main8" name="main8" value="main8">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
-                                            AWC Setup
+                                            Maintainence
                                         </td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
-                                        <td class="border-b text-center border-gray-400"></td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op9" name="op9" value="op9">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="sup9" name="sup9" value="sup9">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="main9" name="main9" value="main9">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-center  border-gray-400 uppercase py-2 font-bold text-blue-900">
-                                            Punch Settings
+                                        <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
+                                            User Settings
                                         </td>
-                                        <td class=" text-center border-gray-400"></td>
-                                        <td class=" text-center border-gray-400"></td>
-                                        <td class=" text-center border-gray-400"></td>
-                                        <td class=" text-center border-gray-400"></td>
-                                        <td class=" text-center border-gray-400"></td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op10" name="op10" value="op10">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="sup10" name="sup10" value="sup10">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="main10" name="main10" value="main10">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
+                                            Recepie Settings
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="op11" name="op11" value="op11">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="sup11" name="sup11" value="sup11">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400" id="main11" name="main11" value="main11">
+                                        </td>
+                                        <td class="border-b text-center text-3xl border-gray-400">
+                                            <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="pt-5">
+                                <button
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="readpermission()">
+                                    UPDATE
+                                </button>
+                            </div>                            
+                            
                         </div>
         
                     
@@ -542,101 +671,504 @@
 
     </script>
 
-    <!-- Update Batch details -->
+    <!-- Hide divs scripts -->
     <script>
-        level()
+        async function searchuser() {
+
+            const div1 = document.getElementById("form").classList.toggle('hidden');
+            const div2 = document.getElementById("formedit").classList.toggle('hidden');
+
+        }
+        async function adduser() {
+            const div1 = document.getElementById("form").classList.toggle('hidden');
+            const div2 = document.getElementById("formadd").classList.toggle('hidden');
+        }
+    </script>
+
+    <!-- Filter userlevel -->
+    <script>
+        // level()
         async function level() {
             var value = document.getElementById("roller").value
-            const batchResponse = await fetch(`${userlistURL}/${value}`);
-            const batch = await batchResponse.json();
 
-            // document.getElementById("batchcount").innerHTML = batch.batchcount;
+            let submiturl = `http://localhost:3000/userlevel/${value}`
+            var batchlistt
 
-            console.log(batch);
+            await fetch(submiturl)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    batchlistt = data
+                    console.log(data)
+                })
+                .catch(console.error);
 
-            let batchlistt = batch.data;
+            // console.log(batch);
+
 
             loadbatchlist();
 
             function loadbatchlist() {
                 const batchListBody = document.getElementById('userlist');
                 let batchHTML = '';
+                var i = 0
+                var dataa
                 for (let batchh of batchlistt) {
-                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${batchh[6]}</td><td class="border border-gray-400 px-4 py-2">${batchh[3]}</td><td class="border border-gray-400 px-4 py-2">${batchh[1]}</td><td class="border border-gray-400 px-4 py-2">${batchh[2]}</td></tr>`
+                    var ulevel
+                    dataa = batchlistt[i]
+                    if (dataa.userlevel == 1) {
+                        ulevel = 'Operator'
+                    } else if (dataa.userlevel == 2) {
+                        ulevel = 'Maintainence'
+                    } else if (dataa.userlevel == 3) {
+                        ulevel = 'Supervisor'
+                    }
+                    // console.log(dataa.id)
+                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${ulevel}</td><td class="border border-gray-400 px-4 py-2">${dataa.username}</td><td class="border border-gray-400 px-4 py-2">${dataa.name}</td><td class="border border-gray-400 px-4 py-2">${dataa.attempts}</td><td class="border border-gray-400 px-4 py-2">${dataa.expiry}</td></tr>`
+                    i++
                 }
 
                 batchListBody.innerHTML = batchHTML;
             }
         }
+
+        level()
     
-        async function searchuser() {
-            var value = document.getElementById("susername").value
-            const batchResponse = await fetch(`${usersearchURL}/${value}`);
-            const batch = await batchResponse.json();
-
-            // document.getElementById("batchcount").innerHTML = batch.batchcount;
-
-            console.log(batch.data);
-
-            let batchlistt = batch.data[0];
-
-            console.log(batchlistt[0])
-
-            document.getElementById("username").value = batchlistt[6]
-            // document.getElementById("name").value
-            // document.getElementById("attempts").value
-            // document.getElementById("password").value
-            // document.getElementById("expiry").value
-            // document.getElementById("cpassword").value
-            // document.getElementById("userlevel").value
-
-            
+    </script>
+    
+    <!-- User add scripts -->
+    <script>
+        function isEmpty(obj) {
+            for (let key in obj) {
+                return false;
+            }
+            return true;
         }
-    
-        
-    </script>
-    
-    <!-- PAYLOAD API fetch -->
-    <script>
-        
-        function details() {
-            var a = document.getElementById("username").value
-            var b = document.getElementById("name").value
-            var c = document.getElementById("attempts").value
-            var d = document.getElementById("password").value
-            var e = document.getElementById("expiry").value
-            var f = document.getElementById("cpassword").value
-            var g = document.getElementById("userlevel").value
-            
-            d == f ? adduser() : alert("Password did not match")
-            
-            async function adduser() {
-                let submiturl = `${adduserURL}/${a}/${b}/${parseInt(c)}/${d}/${parseInt(e)}/${parseInt(g)}`
-                await fetch(submiturl)
-                    .then(() => alert("User added sucessfully."))
-                    .catch(console.error);
-            }
-            }
-        
-    </script>
 
-    <!-- Update System info -->
-    <script>
-        function roller() {
+        async function submituser() {
+            let submiturl = `http://localhost:3000/users`
 
-            var value = document.getElementById("roller").value
+            udata.username = document.getElementById("username").value
+            udata.name = document.getElementById("name").value
+            udata.attempts = document.getElementById("attempts").value
+            udata.expiry = document.getElementById("expiry").value
+            udata.userlevel = document.getElementById("userlevel").value
+            udata.password = document.getElementById("password").value
 
-            submitt(parseInt(value))
+            // udata = document.getElementById("cpassword").value
 
-            async function submitt(value) {
-                let submiturl = `${seturl}/ROLLER_MOTOR_SELECTION/${value}`
+            if (document.getElementById("password").value !== document.getElementById("cpassword").value) {
+                alert("Password did not match.")
+            } else {
+
+                let submiturl = `http://localhost:3000/username/${udata.username}`
+                var batchlistt
 
                 await fetch(submiturl)
-                    .then(check())
+                    .then((resp) => resp.json())
+                    .then(function (data) {
+                        if (isEmpty(data) == false) {
+                            alert("User already exists.")
+                        } else if (isEmpty(data) == true) {
+                            console.log(udata)
+                            let submiturl = `http://localhost:3000/users`
+
+                            fetch(submiturl, {
+                                method: 'POST', // or 'PUT'
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(udata),
+                            })
+                                .then(() => {
+                                    alert("User added.")
+                                    setTimeout(() => {
+                                        location.reload();
+                                    }, 200);
+                                })
+                                .catch((error) => {
+                                    console.error('Error:', error);
+                                });
+                        }
+                    })
                     .catch(console.error);
+
             }
         }
 
+    </script>
+
+    <!-- search user -->
+    <script>
+        var searchid 
+        async function suser() {
+            var username = document.getElementById("susername").value
+
+            console.log(username)
+            let submiturl = `http://localhost:3000/username/${username}`
+            var batchlistt
+
+            await fetch(submiturl)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    if (isEmpty(data) == false) {
+                        searchuser()
+                        console.log(data)
+                        searchid = data[0].id
+                        document.getElementById("username").value = data[0].username
+                        document.getElementById("name").value  = data[0].name
+                        document.getElementById("attempts").value  = data[0].attempts
+                        document.getElementById("expiry").value = data[0].expiry
+                        document.getElementById("userlevel").value  = parseInt(data[0].userlevel)
+                        document.getElementById("password").value  = data[0].password
+                        document.getElementById("cpassword").value = data[0].password
+                    
+                    } else if (isEmpty(data) == true) {
+                        alert("User does not exist.")
+                    }
+                })
+                .catch(console.error);
+            }
+    </script>
+
+    <!-- update user -->
+    <script>
+
+        var udata = {
+                username: "m123",
+                userlevel: "1",
+                name: "Maruti2 Muthu",
+                password: "pas2s123",
+                attempts: "102",
+                expiry: "32"
+            }
+
+        async function updateuser() {
+            // console.log(searchid)
+            udata.username = document.getElementById("username").value
+            udata.name = document.getElementById("name").value
+            udata.attempts = document.getElementById("attempts").value
+            udata.expiry = document.getElementById("expiry").value
+            udata.userlevel = document.getElementById("userlevel").value
+            udata.password = document.getElementById("password").value
+
+            // udata = document.getElementById("cpassword").value
+
+            if (document.getElementById("password").value !== document.getElementById("cpassword").value) {
+                alert("Password did not match.")
+            } else {
+
+                let submiturl = `http://localhost:3000/users/${searchid}`
+
+                fetch(submiturl, {
+                    method: 'PUT', // or 'PUT'
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(udata),
+                })
+                    .then(() => {
+                        alert("User updated.")
+                        setTimeout(() => {
+                            location.reload();
+                        }, 200);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+
+            }
+        }
+
+        async function deactivateuser() {
+            // console.log(searchid)
+            
+            udata.username = document.getElementById("username").value
+            udata.name = document.getElementById("name").value
+            udata.attempts = 0
+            udata.expiry =   0
+            udata.userlevel = document.getElementById("userlevel").value
+            udata.password = document.getElementById("password").value
+
+            let submiturl = `http://localhost:3000/users/${searchid}`
+
+            fetch(submiturl, {
+                method: 'PUT', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(udata),
+            })
+                .then(() => {
+                    alert("User deactivated.")
+                    setTimeout(() => {
+                        location.reload();
+                    }, 200);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+        
+        async function unblockuser() {
+            // console.log(searchid)
+            
+            udata.username = document.getElementById("username").value
+            udata.name = document.getElementById("name").value
+            udata.attempts = 5
+            udata.expiry =   60
+            udata.userlevel = document.getElementById("userlevel").value
+            udata.password = document.getElementById("password").value
+
+            let submiturl = `http://localhost:3000/users/${searchid}`
+
+            fetch(submiturl, {
+                method: 'PUT', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(udata),
+            })
+                .then(() => {
+                    alert("User unblocked.")
+                    setTimeout(() => {
+                        location.reload();
+                    }, 200);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+        
+        async function deleteuser() {
+            // console.log(searchid)
+            
+            let submiturl = `http://localhost:3000/users/${searchid}`
+
+            fetch(submiturl, {
+                method: 'DELETE', // or 'PUT'
+                // headers: {
+                //     'Content-Type': 'application/json',
+                // },
+                // body: JSON.stringify(udata),
+            })
+                .then(() => {
+                    alert("User deleted.")
+                    setTimeout(() => {
+                        location.reload();
+                    }, 200);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+    </script>
+
+    <!-- Permissions -->
+    <script>
+
+        var op1 = document.getElementById("op1")
+        var op2 = document.getElementById("op2")
+        var op3 = document.getElementById("op3")
+        var op4 = document.getElementById("op4")
+        var op5 = document.getElementById("op5")
+        var op6 = document.getElementById("op6")
+        var op7 = document.getElementById("op7")
+        var op8 = document.getElementById("op8")
+        var op9 = document.getElementById("op9")
+        var op10 = document.getElementById("op10")
+        var op11 = document.getElementById("op11")
+       
+        
+        async function viewpermission() {
+            let submiturl = `http://localhost:3000/permissions`
+
+            await fetch(submiturl)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    
+                    op1.checked  = data[0].overview
+                    op2.checked  = data[0].graphlhs
+                    op3.checked  = data[0].graphrhs
+                    op4.checked  = data[0].history
+                    op5.checked  = data[0].dido
+                    op6.checked  = data[0].alarm
+                    op7.checked  = data[0].reports
+                    op8.checked  = data[0].settings
+                    op9.checked  = data[0].maintainence
+                    op10.checked = data[0].usersettings
+                    op11.checked = data[0].recipiesettings
+                    
+                    sup1.checked  = data[1].overview
+                    sup2.checked  = data[1].graphlhs
+                    sup3.checked  = data[1].graphrhs
+                    sup4.checked  = data[1].history
+                    sup5.checked  = data[1].dido
+                    sup6.checked  = data[1].alarm
+                    sup7.checked  = data[1].reports
+                    sup8.checked  = data[1].settings
+                    sup9.checked  = data[1].maintainence
+                    sup10.checked = data[1].usersettings
+                    sup11.checked = data[1].recipiesettings
+                    
+                    main1.checked  = data[2].overview
+                    main2.checked  = data[2].graphlhs
+                    main3.checked  = data[2].graphrhs
+                    main4.checked  = data[2].history
+                    main5.checked  = data[2].dido
+                    main6.checked  = data[2].alarm
+                    main7.checked  = data[2].reports
+                    main8.checked  = data[2].settings
+                    main9.checked  = data[2].maintainence
+                    main10.checked = data[2].usersettings
+                    main11.checked = data[2].recipiesettings
+
+                })
+                .catch(console.error);
+        }
+
+        function operatorp() {
+            viewpermission()
+
+        }
+
+        operatorp()
+
+        // viewpermission(2)
+        // viewpermission(3)
+
+        var data = [
+            {
+            "dashboard": true,
+            "overview": false,
+            "graphlhs": true,
+            "graphrhs": true,
+            "history": true,
+            "dido": true,
+            "alarm": true,
+            "reports": true,
+            "settings": true,
+            "maintainence": true,
+            "usersettings": true,
+            "recipiesettings": true
+            },
+            {
+            "dashboard": true,
+            "overview": false,
+            "graphlhs": true,
+            "graphrhs": true,
+            "history": true,
+            "dido": true,
+            "alarm": true,
+            "reports": true,
+            "settings": true,
+            "maintainence": true,
+            "usersettings": true,
+            "recipiesettings": true
+            },
+            {
+            "dashboard": true,
+            "overview": false,
+            "graphlhs": true,
+            "graphrhs": true,
+            "history": true,
+            "dido": true,
+            "alarm": true,
+            "reports": true,
+            "settings": true,
+            "maintainence": true,
+            "usersettings": true,
+            "recipiesettings": true
+            }
+        ]
+
+        function readpermission() {
+            data[0].overview = op1.checked
+            data[0].graphlhs = op2.checked
+            data[0].graphrhs = op3.checked
+            data[0].history = op4.checked
+            data[0].dido = op5.checked
+            data[0].alarm = op6.checked
+            data[0].reports = op7.checked
+            data[0].settings = op8.checked
+            data[0].maintainence = op9.checked
+            data[0].usersettings = op10.checked
+            data[0].recipiesettings = op11.checked
+
+            data[1].overview = sup1.checked
+            data[1].graphlhs = sup2.checked
+            data[1].graphrhs = sup3.checked
+            data[1].history = sup4.checked
+            data[1].dido = sup5.checked
+            data[1].alarm = sup6.checked
+            data[1].reports = sup7.checked
+            data[1].settings = sup8.checked
+            data[1].maintainence = sup9.checked
+            data[1].usersettings = sup10.checked
+            data[1].recipiesettings = sup11.checked
+
+            data[2].overview = main1.checked
+            data[2].graphlhs = main2.checked
+            data[2].graphrhs = main3.checked
+            data[2].history = main4.checked
+            data[2].dido = main5.checked
+            data[2].alarm = main6.checked
+            data[2].reports = main7.checked
+            data[2].settings = main8.checked
+            data[2].maintainence = main9.checked
+            data[2].usersettings = main10.checked
+            data[2].recipiesettings = main11.checked
+
+            updatepermission(1)
+            updatepermission(2)
+            updatepermission(3)
+            alert("Permissions updated.")
+        }
+
+        async function updatepermission(value) {
+
+            let submiturl = `http://localhost:3000/permissions/${value}`
+
+            fetch(submiturl, {
+                method: 'PUT', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data[value-1]),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+
+
+        async function addpermission() {
+            let submiturl = `http://localhost:3000/permissions`
+
+            fetch(submiturl, {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // addpermission()
+        
+        
+        
     </script>
 
 </body>
