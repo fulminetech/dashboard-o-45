@@ -135,7 +135,32 @@
                                         });
                                 }
                             } else if (password !== data[0].password){
-                                alert(`Wrong password. Remaining attempts: ${data[0].attempts-1} `)    
+                                if(data[0].attempts <= 0){
+                                    alert("Contact admin.")
+                                } else {
+                                    alert(`Wrong password. Remaining attempts: ${data[0].attempts-1} `)
+                                    let url = `http://localhost:3000/users/${data[0].id}`
+                                    var reduced = {
+                                        attempts: data[0].attempts - 1
+                                    }
+                                    fetch(url, {
+                                        method: 'PUT', // or 'PUT'
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify(reduced),
+                                    })
+                                        .then(() => {
+                                            // console.log(data[0].id)
+                                            // alert("Login Successful.")
+                                            // setTimeout(() => {
+                                            //     location.href = "/"
+                                            // }, 200);
+                                        })
+                                        .catch((error) => {
+                                            console.error('Error:', error);
+                                        });
+                                }
                             }
     
                         } else if (isEmpty(data) == true) {
