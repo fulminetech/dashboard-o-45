@@ -14,6 +14,7 @@ var processedurl = "http://127.0.0.1:5050/api/machine/processed";
 
 // Node servers
 var ip = "localhost"
+// var ip = "192.168.0.132"
 
 // 1. compression 
 var rawpayload = `http://${ip}:3129/api/payload`
@@ -54,7 +55,7 @@ const reportejnRHSGenURL = `${hostname}/report/ejnRHS/generate`
 const reportcsvURL = `${hostname}/api/csv`
 
 const searchURL = `${hostname}/api/search/rotation/`
-const restartURL = `${hostname}/restart/pm2-0`
+const restartURL = `${hostname}/restart`
 
 const logsURL = `${hostname}/api/search/logs/`
 
