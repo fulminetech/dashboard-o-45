@@ -17,7 +17,7 @@
     <!-- NPM package includes -->
     <link href="/font/css/all.css" rel="stylesheet">
     <link href="/css/tailwind.css" rel="stylesheet">
-    <!-- <script src="/env/env.js"></script> -->
+    <script src="/env/env.js"></script>
 
 </head>
 
@@ -138,6 +138,7 @@
     
     <script>
         async function shutdown() {
+            // console.log("sd")
             let submiturl = `${restartURL}/shutdown`
             await fetch(submiturl)
                 .then((resp) => resp.json())
@@ -147,6 +148,7 @@
         }
         
         async function reboot() {
+            // console.log("reboot")
             let submiturl = `${restartURL}/reboot`
             await fetch(submiturl)
                 .then((resp) => resp.json())
