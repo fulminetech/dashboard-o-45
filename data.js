@@ -768,7 +768,7 @@ async function stats_() {
             }
             rotation = stats.rotation_no
 
-            console.log(rotation)
+            // console.log(rotation)
             // stats.mbstatus == false || stats.connection == false ? restart :
         })
         .catch(err => {
