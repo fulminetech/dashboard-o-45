@@ -1814,7 +1814,15 @@
                 .then((resp) => resp.json()) 
                 .then(function (data) {
 
-                    // data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : data.connection
+                    data.connection == false ? disconnect() : data.connection
+
+                    function disconnect(){
+                        setTimeout(() => {
+                            alert("[ CHECK PLC CONNECTION ]")
+                            location.href = "/"
+                        }, 200);
+                    }
+
                     
                     payload = data
                     // console.log(payload)
