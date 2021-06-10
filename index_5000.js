@@ -15,8 +15,8 @@ const { exec } = require('child_process');
 const restartstats = "pm2 restart stats_3128"
 const restartcompression = "pm2 restart compression_3129"
 const restartraw = "pm2 restart main_5000"
-const shutdown = "sudo shutdown -h now"
-const reboot = "sudo reboot"
+const shutdown = "gnome-session-quit --power-off"
+const reboot = "gnome-session-quit --reboot"
 const fetch = require('cross-fetch');
 
 const {
