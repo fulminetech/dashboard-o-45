@@ -55,10 +55,11 @@
             
                 <div class="flex flex-col pt-4">
                     <label for="password" class="text-2xl">Password</label>
-                    <form >
-                        <input id="password" type="password" placeholder="Password"
-                            class="shadow appearance-none border rounded w-full py-5 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
-                    </form>
+                    
+                    <input id="password" type="password" placeholder="Password"
+                        class="shadow appearance-none border rounded w-full py-5 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline"
+                        onkeydown="if (event.keyCode == 13) suser()">
+                
                 </div>
             
                 <button id="start" onclick="suser()" class="bg-black rounded text-white font-bold text-lg hover:bg-gray-700 p-3 mt-8">Log
@@ -79,13 +80,6 @@
         </div>
     </div>
 
-    <!-- RESTART ROUTES -->
-    <script>
-    //    fetch(restartURL)
-    //      .then(console.log("[ RESTARTING! ]"))
-    //      .catch(console.error);
-    </script>
-
     <script>
         function isEmpty(obj) {
             for (let key in obj) {
@@ -98,41 +92,59 @@
             var username = document.getElementById("susername").value
             var password = document.getElementById("password").value
             
-            console.log(username)
-            let submiturl = `http://localhost:3000/username/${username}`
-            await fetch(submiturl)
-                .then((resp) => resp.json())
-                .then(function (data) {
-                    console.log(data)
-                    if (isEmpty(data) == false) {
-                        if(password == data[0].password){
-                            if(data[0].expiry == 0 || data[0].attempts == 0 ) {
-                                alert("Contact admin.")        
-                            } else {
-                                let url = `http://localhost:3000/currentuserid/${data[0].id}`
-                                fetch(url, {
-                                    method: 'POST', // or 'PUT'
-                                })
-                                    .then(() => {
-                                        console.log(data[0].id)
-                                        // alert("Login Successful.")
-                                        setTimeout(() => {
-                                            location.href = "/onboard"
-                                        }, 200);
-                                    })
-                                    .catch((error) => {
-                                        console.error('Error:', error);
-                                    });
-                            }
-                        } else if (password !== data[0].password){
-                            alert(`Wrong password. Remaining attempts: ${data[0].attempts-1} `)    
-                        }
-
-                    } else if (isEmpty(data) == true) {
-                        alert("User does not exist.")
-                    }
+            if (username == 'admin' && password == 'adept1234'){
+                let url = `http://localhost:3000/currentuserid/4`
+                fetch(url, {
+                    method: 'POST', // or 'PUT'
                 })
-                .catch(console.error);
+                    .then(() => {
+                        // console.log(data[0].id)
+                        // alert("Login Successful.")
+                        setTimeout(() => {
+                            location.href = "/dashboard"
+                        }, 200);
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            } else {
+                console.log(username)
+                let submiturl = `http://localhost:3000/username/${username}`
+                await fetch(submiturl)
+                    .then((resp) => resp.json())
+                    .then(function (data) {
+                        console.log(data)
+                        if (isEmpty(data) == false) {
+                            if(password == data[0].password){
+                                if(data[0].expiry == 0 || data[0].attempts == 0 ) {
+                                    alert("Contact admin.")        
+                                } else {
+                                    let url = `http://localhost:3000/currentuserid/${data[0].id}`
+                                    fetch(url, {
+                                        method: 'POST', // or 'PUT'
+                                    })
+                                        .then(() => {
+                                            console.log(data[0].id)
+                                            // alert("Login Successful.")
+                                            setTimeout(() => {
+                                                location.href = "/onboard"
+                                            }, 200);
+                                        })
+                                        .catch((error) => {
+                                            console.error('Error:', error);
+                                        });
+                                }
+                            } else if (password !== data[0].password){
+                                alert(`Wrong password. Remaining attempts: ${data[0].attempts-1} `)    
+                            }
+    
+                        } else if (isEmpty(data) == true) {
+                            alert("User does not exist.")
+                        }
+                    })
+                    .catch(console.error);
+            }
+
             }
     </script>
     

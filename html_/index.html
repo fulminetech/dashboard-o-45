@@ -2477,21 +2477,37 @@
         
         async function suser() {
             let submiturl = `http://localhost:3000/currentuserid`
-
+            
             await fetch(submiturl)
                 .then((resp) => resp.json())
                 .then(function (data) {
                     // console.log(data)
-                    let url = `http://localhost:3000/users/${data}`
-                    fetch(url)
-                        .then((resp) => resp.json())
-                        .then(function (data) {
-                            userdata = data
-                            console.log(userdata)
-                            updatepermission()
-                            // document.getElementById("name").value = data.username
-                        })
-                        .catch(console.error);
+                    if (data == 4){
+                        document.getElementById("overview").classList.remove('hidden') 
+                        document.getElementById("graphLHS").classList.remove('hidden') 
+                        document.getElementById("graphRHS").classList.remove('hidden') 
+                        document.getElementById("history").classList.remove('hidden') 
+                        document.getElementById("dido").classList.remove('hidden') 
+                        document.getElementById("io_alarm").classList.remove('hidden') 
+                        document.getElementById("analytics").classList.remove('hidden') 
+                        document.getElementById("processsetup").classList.remove('hidden') 
+                        document.getElementById("settings_awc").classList.remove('hidden') 
+                        document.getElementById("io_maintanience").classList.remove('hidden') 
+                        document.getElementById("settings_user").classList.remove('hidden') 
+                        document.getElementById("settings_recipie").classList.remove('hidden') 
+                    } else {
+                        let url = `http://localhost:3000/users/${data}`
+                        fetch(url)
+                            .then((resp) => resp.json())
+                            .then(function (data) {
+                                userdata = data
+                                console.log(userdata)
+                                updatepermission()
+                                // document.getElementById("name").value = data.username
+                            })
+                            .catch(console.error);
+                    }
+                    
                 })
                 .catch(console.error);
         }
