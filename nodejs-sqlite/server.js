@@ -18,6 +18,17 @@ function isEmpty(obj) {
   return true;
 }
 
+var currentuserid
+
+app.get("/currentuserid", async (req, res) => {
+  res.send(currentuserid);
+})
+
+app.post("/currentuserid/:id", async (req, res) => {
+  currentuserid = req.params.id;
+  return res.json({ message: 'Ok' });
+})
+
 app.post("/users", async (req, res) => {
   await User.create(req.body);
   res.send('user is created');
@@ -96,8 +107,9 @@ app.post("/permissions", async (req, res) => {
 
 app.get("/permissions/:id", async (req, res) => {
   const requestedid = req.params.id;
-  const users = await Permissions.findOne({ where: { id: requestedid } });
-  res.json(users);
+  const users = await Permissions.findAll();
+
+  res.json(users[requestedid]);
 })
 
 app.get("/permissions", async (req, res) => {

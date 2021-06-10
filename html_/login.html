@@ -61,8 +61,19 @@
                     </form>
                 </div>
             
-                <button id="start" onclick="suser()" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-3 mt-8">Log
+                <button id="start" onclick="suser()" class="bg-black rounded text-white font-bold text-lg hover:bg-gray-700 p-3 mt-8">Log
                     In</button>
+
+                <div class="flex flex-row mt-20">
+                    <div class="w-1/2 text-center">
+                        <button id="start" onclick="reboot()" class="bg-gray-900 rounded-md text-white font-bold text-xl hover:bg-gray-700 p-5 mt-8">
+                            <i class="fa fa-spinner mr-2" aria-hidden="true"></i>    RESTART</button>
+                    </div>
+                    <div class="w-1/2 text-center">
+                        <button id="start" onclick="shutdown()" class="bg-gray-900 rounded-md text-white font-bold text-xl hover:bg-gray-700 p-5 mt-8">
+                            <i class="fa fa-power-off mr-2" aria-hidden="true"></i>    SHUTDOWN</button>
+                    </div>
+                </div>
             </div>
             
         </div>
@@ -98,10 +109,20 @@
                             if(data[0].expiry == 0 || data[0].attempts == 0 ) {
                                 alert("Contact admin.")        
                             } else {
-                                alert("Login Successful.")
-                                setTimeout(() => {
-                                    location.href = "/onboard"
-                                }, 200);
+                                let url = `http://localhost:3000/currentuserid/${data[0].id}`
+                                fetch(url, {
+                                    method: 'POST', // or 'PUT'
+                                })
+                                    .then(() => {
+                                        console.log(data[0].id)
+                                        alert("Login Successful.")
+                                        setTimeout(() => {
+                                            location.href = "/onboard"
+                                        }, 200);
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error:', error);
+                                    });
                             }
                         } else if (password !== data[0].password){
                             alert(`Wrong password. Remaining attempts: ${data[0].attempts-1} `)    
@@ -112,64 +133,27 @@
                     }
                 })
                 .catch(console.error);
-        }
+            }
     </script>
     
     <script>
-        // addEventListener("keydown", function (event) {
-        //     if (event.keyCode === 13) {
-        //         event.preventDefault();
-
-        //         var a = document.getElementById("name");
-        //         var name = "";
-        //         var i;
-        //         for (i = 0; i < a.length; i++) {
-        //             name += a.elements[i].value;
-        //         }
-
-        //         var p = document.getElementById("password");
-        //         var password = "";
-        //         var m;
-        //         for (m = 0; m < p.length; m++) {
-        //             password += p.elements[m].value;
-        //         }
-
-        //         if (password == "1234") {
-        //             setTimeout(() => {
-        //                 location.href = "/onboard"
-        //             }, 200);
-        //         } else {
-        //             alert("ACESS DENIED")
-        //         }
-
-        //     }
-        // });
-
-        // function start() {
-
-        //     var a = document.getElementById("name");
-        //     var name = "";
-        //     var i;
-        //     for (i = 0; i < a.length; i++) {
-        //         name += a.elements[i].value;
-        //     }
-
-        //     var p = document.getElementById("password");
-        //     var password = "";
-        //     var m;
-        //     for (m = 0; m < p.length; m++) {
-        //         password += p.elements[m].value;
-        //     }
-
-        //     if (password == "1234") {
-        //         setTimeout(() => {
-        //             location.href = "/onboard"
-        //         }, 200);
-        //     } else {
-        //         alert("ACESS DENIED")
-        //     }
-
-        // };
+        async function shutdown() {
+            let submiturl = `${restartURL}/shutdown`
+            await fetch(submiturl)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                })
+                .catch(console.error);
+        }
+        
+        async function reboot() {
+            let submiturl = `${restartURL}/reboot`
+            await fetch(submiturl)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                })
+                .catch(console.error);
+        }
     </script>
 
 </body>

@@ -96,53 +96,68 @@
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/overview" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                <a id="overview" href="/overview" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
                     <i class="fas fa-heartbeat fa-fw mr-3 text-gray-600 text-2xl"></i>Overview
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/graphLHS" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                <a id="graphLHS" href="/graphLHS" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
                     <i class="fas fa-chart-bar fa-fw mr-3 text-2xl text-gray-600"></i>Graph: LHS
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/graphRHS" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                <a id="graphRHS" href="/graphRHS" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
                     <i class="fas fa-chart-bar fa-fw mr-3 text-2xl text-gray-600"></i>Graph: RHS
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/history" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                <a id="history" href="/history" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
                     <i class="fas fa-history fa-fw mr-3 text-2xl text-gray-600"></i>History
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/dido" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                <a id="dido" href="/dido" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
                     <i class="fas fa-exchange-alt fa-fw mr-3 text-2xl text-gray-600"></i>DI/DO
                 </a>
             </li>
+            <li id="graphRHS" class="my-2 md:my-0">
+                <a id="io_alarm" href="/io_alarm" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fas fa-exclamation-triangle fa-fw mr-3 text-2xl text-gray-600"></i>Alarms
+                </a>
+            </li>
             <li class="my-2 md:my-0">
-                <a href="/analytics" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                <a id="io_maintanience" href="/io_maintanience" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fas fa-cog fa-fw mr-3 text-2xl text-gray-600"></i>Maintainence
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a id="analytics" href="/analytics" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
                     <i class="fas fa-folder fa-fw mr-3 text-2xl text-gray-600"></i>Reports
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/processsetup" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                <a id="processsetup" href="/processsetup" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
                     <i class="fa fa-wrench fa-fw mr-3 text-2xl text-gray-600"></i>Settings
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
-                    <i class="fa fa-minus-square mr-3 text-2xl text-gray-600"></i> Login Screen
+                <a id="settings_awc" href="/settings_awc" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench mr-3 text-2xl text-gray-600"></i>AWC Settings
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/settings_user" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                <a id="settings_user" href="/settings_user" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
                     <i class="fa fa-user-circle mr-3 text-2xl text-gray-600"></i> User Setting
                 </a>
             </li>
             <li class="my-2 md:my-0">
-                <a href="/settings_recipie" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                <a id="settings_recipie" href="/settings_recipie" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
                     <i class="fa fa-medkit  mr-3 text-2xl text-gray-600"></i> Recipies
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/" class="block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fa fa-minus-square mr-3 text-2xl text-gray-600"></i> Logout
                 </a>
             </li>
             <li class="my-2 mt-10 md:my-0">
@@ -820,10 +835,10 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center pt-3 border-gray-700">
-                                            <button id="Lweight_inc"
+                                            <button id="Lweight_dec"
                                                 class="bg-blue-600 uppercase text-2xl text-white font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="Lweight_inc()" onmouseup="Lweight_incx()">
-                                                <i class="fas fa-chevron-up  fa-fw text-3xl text-white"></i>
+                                                onmousedown="Lweight_dec()" onmouseup="Lweight_decx()">
+                                                <i class="fas fa-chevron-up fa-fw text-3xl text-white"></i>
                                             </button>
                                         </td>
                                         <td class="text-center pt-3 border-gray-700">
@@ -841,12 +856,13 @@
                                             </button>
                                         </td>
                                         <td class="text-center pt-3 border-gray-700">
-                                            <button id="Rweight_inc"
+                                            <button id="Rweight_dec"
                                                 class="bg-blue-600 uppercase text-2xl text-white font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="Rweight_inc()" onmouseup="Rweight_incx()">
-                                                <i class="fas fa-chevron-up  fa-fw text-3xl text-white"></i>
+                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                <i class="fas fa-chevron-up fa-fw text-3xl text-white"></i>
                                             </button>
                                         </td>
+                                        
                                         <td class="text-center pt-3 border-gray-700">
                                             <button id="up"
                                                 class="bg-gray-600 uppercase text-2xl text-white font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
@@ -864,10 +880,10 @@
                                     </tr>
                                     <tr>
                                         <td class="text-center pt-3 border-gray-700">
-                                            <button id="Lweight_dec"
+                                            <button id="Lweight_inc"
                                                 class="bg-blue-600 uppercase text-2xl text-white font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="Lweight_dec()" onmouseup="Lweight_decx()">
-                                                <i class="fas fa-chevron-down fa-fw text-3xl text-white"></i>
+                                                onmousedown="Lweight_inc()" onmouseup="Lweight_incx()">
+                                                <i class="fas fa-chevron-down  fa-fw text-3xl text-white"></i>
                                             </button>
                                         </td>
                                         <td class="text-center pt-3 border-gray-700">
@@ -886,10 +902,10 @@
                                             </button>
                                         </td>
                                         <td class="text-center pt-3 border-gray-700">
-                                            <button id="Rweight_dec"
+                                            <button id="Rweight_inc"
                                                 class="bg-blue-600 uppercase text-2xl text-white font-semibold  py-3 px-12 border border-blue-500 hover:border-transparent rounded"
-                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
-                                                <i class="fas fa-chevron-down fa-fw text-3xl text-white"></i>
+                                                onmousedown="Rweight_inc()" onmouseup="Rweight_incx()">
+                                                <i class="fas fa-chevron-down  fa-fw text-3xl text-white"></i>
                                             </button>
                                         </td>
                                         <td class="text-center pt-3 border-gray-700">
@@ -2450,6 +2466,65 @@
                 fetchcompression();
                 fetchalarm()
             }, 400);
+        }
+    </script>
+
+    <!-- Get user details -->
+    <script>
+        var userdata
+        var permissions
+
+        
+        async function suser() {
+            let submiturl = `http://localhost:3000/currentuserid`
+
+            await fetch(submiturl)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    // console.log(data)
+                    let url = `http://localhost:3000/users/${data}`
+                    fetch(url)
+                        .then((resp) => resp.json())
+                        .then(function (data) {
+                            userdata = data
+                            console.log(userdata)
+                            updatepermission()
+                            // document.getElementById("name").value = data.username
+                        })
+                        .catch(console.error);
+                })
+                .catch(console.error);
+        }
+
+        suser()
+
+        async function updatepermission() {
+            var actuser = parseInt(userdata.userlevel-1)
+
+            let submiturl = `http://localhost:3000/permissions/${actuser}`
+            await fetch(submiturl)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    console.log(data)
+                    permissions = data
+
+                    // console.log(actuser)
+            // console.log(permissions[actuser])
+            // // permissions[actuser].dashboard == true ? document.getElementById("dashboard").classList.remove('hidden') : true
+            permissions.overview == true ? document.getElementById("overview").classList.remove('hidden') : true
+            permissions.graphlhs == true ? document.getElementById("graphLHS").classList.remove('hidden') : true
+            permissions.graphrhs == true ? document.getElementById("graphRHS").classList.remove('hidden') : true
+            permissions.history == true ? document.getElementById("history").classList.remove('hidden') : true
+            permissions.dido == true ? document.getElementById("dido").classList.remove('hidden') : true
+            permissions.alarm == true ? document.getElementById("io_alarm").classList.remove('hidden') : true
+            permissions.reports == true ? document.getElementById("analytics").classList.remove('hidden') : true
+            permissions.settings == true ? document.getElementById("processsetup").classList.remove('hidden') : true
+            permissions.settings == true ? document.getElementById("settings_awc").classList.remove('hidden') : true
+            permissions.maintainence == true ? document.getElementById("io_maintanience").classList.remove('hidden') : true
+            permissions.usersettings == true ? document.getElementById("settings_user").classList.remove('hidden') : true
+            permissions.recipiesettings == true ? document.getElementById("settings_recipie").classList.remove('hidden') : true
+                })
+                .catch(console.error);
         }
     </script>
 

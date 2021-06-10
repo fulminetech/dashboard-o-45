@@ -32,8 +32,8 @@
 
             <div class="mt-2">
                 <label class="block text-xl text-gray-900">Operator Name</label>
-                <form id="name">
-                    <input class="w-full text-xl px-5 py-3 text-gray-700 bg-gray-200 rounded" name="name" type="text"
+                <form >
+                    <input id="name" class="w-full text-xl px-5 py-3 text-gray-700 bg-gray-200 rounded" name="name" type="text"
                         required="" placeholder="Operator Name">
                 </form>
             </div>
@@ -103,6 +103,42 @@
     
     var onboardurl = `${hostname}/onboard`
     
+    </script>
+    <!-- Get user details -->
+    <script>
+        var userdata
+        var permissions
+        
+        async function suser() {
+                let submiturl = `http://localhost:3000/currentuserid`
+
+                await fetch(submiturl)
+                    .then((resp) => resp.json())
+                    .then(function (data) {
+                        // console.log(data)
+                        let url = `http://localhost:3000/users/${data}`
+                        fetch(url)
+                            .then((resp) => resp.json())
+                            .then(function (data) {
+                                userdata = data
+                                document.getElementById("name").value = data.username
+                                console.log(userdata)
+                                let url1 = `http://localhost:3000/permissions/${data.userlevel-1}`
+                                fetch(url1)
+                                    .then((resp) => resp.json())
+                                    .then(function (data) {
+                                        permissions = data
+                                        console.log(permissions)
+                                        
+                                    })
+                                    .catch(console.error);
+                            })
+                            .catch(console.error);
+                    })
+                    .catch(console.error);
+            }
+        
+        suser()
     </script>
 
     <!-- submit -->

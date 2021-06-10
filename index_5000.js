@@ -15,6 +15,8 @@ const { exec } = require('child_process');
 const restartstats = "pm2 restart stats_3128"
 const restartcompression = "pm2 restart compression_3129"
 const restartraw = "pm2 restart main_5000"
+const shutdown = "sudo shutdown -h now"
+const reboot = "sudo reboot"
 const fetch = require('cross-fetch');
 
 const {
@@ -167,6 +169,8 @@ app.get("/restart/:param", (req, res) => {
     a == "stats" ? restartserver(restartstats) : restartstats
     a == "compression" ? restartserver(restartcompression) : restartcompression
     a == "raw" ? restartserver(restartraw) : restartraw
+    a == "reboot" ? restartserver(reboot) : reboot
+    a == "shutdown" ? restartserver(shutdown) : shutdown
 });
 
 app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
