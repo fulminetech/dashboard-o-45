@@ -567,7 +567,7 @@
                                             <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
                                             User Settings
                                         </td>
@@ -583,7 +583,7 @@
                                         <td class="border-b text-center text-3xl border-gray-400">
                                             <input type="checkbox" class="form-checkbox w-10 h-7 bg-gray-400 " checked=checked id="" name="" value="">
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     <tr>
                                         <td class="text-center border-b border-gray-400 uppercase py-2 font-bold text-blue-900">
                                             Recepie Settings
@@ -976,7 +976,7 @@
         var op7 = document.getElementById("op7")
         var op8 = document.getElementById("op8")
         var op9 = document.getElementById("op9")
-        var op10 = document.getElementById("op10")
+        // var op10 = document.getElementById("op10")
         var op11 = document.getElementById("op11")
        
         
@@ -996,7 +996,7 @@
                     op7.checked  = data[0].reports
                     op8.checked  = data[0].settings
                     op9.checked  = data[0].maintainence
-                    op10.checked = data[0].usersettings
+                    // op10.checked = data[0].usersettings
                     op11.checked = data[0].recipiesettings
                     
                     sup1.checked  = data[1].overview
@@ -1008,7 +1008,7 @@
                     sup7.checked  = data[1].reports
                     sup8.checked  = data[1].settings
                     sup9.checked  = data[1].maintainence
-                    sup10.checked = data[1].usersettings
+                    // sup10.checked = data[1].usersettings
                     sup11.checked = data[1].recipiesettings
                     
                     main1.checked  = data[2].overview
@@ -1020,7 +1020,7 @@
                     main7.checked  = data[2].reports
                     main8.checked  = data[2].settings
                     main9.checked  = data[2].maintainence
-                    main10.checked = data[2].usersettings
+                    // main10.checked = data[2].usersettings
                     main11.checked = data[2].recipiesettings
 
                 })
@@ -1049,7 +1049,7 @@
             "reports": true,
             "settings": true,
             "maintainence": true,
-            "usersettings": true,
+            // "usersettings": true,
             "recipiesettings": true
             },
             {
@@ -1063,7 +1063,7 @@
             "reports": true,
             "settings": true,
             "maintainence": true,
-            "usersettings": true,
+            // "usersettings": true,
             "recipiesettings": true
             },
             {
@@ -1077,7 +1077,7 @@
             "reports": true,
             "settings": true,
             "maintainence": true,
-            "usersettings": true,
+            // "usersettings": true,
             "recipiesettings": true
             }
         ]
@@ -1092,7 +1092,7 @@
             data[0].reports = op7.checked
             data[0].settings = op8.checked
             data[0].maintainence = op9.checked
-            data[0].usersettings = op10.checked
+            // data[0].usersettings = op10.checked
             data[0].recipiesettings = op11.checked
 
             data[1].overview = sup1.checked
@@ -1104,7 +1104,7 @@
             data[1].reports = sup7.checked
             data[1].settings = sup8.checked
             data[1].maintainence = sup9.checked
-            data[1].usersettings = sup10.checked
+            // data[1].usersettings = sup10.checked
             data[1].recipiesettings = sup11.checked
 
             data[2].overview = main1.checked
@@ -1116,7 +1116,7 @@
             data[2].reports = main7.checked
             data[2].settings = main8.checked
             data[2].maintainence = main9.checked
-            data[2].usersettings = main10.checked
+            // data[2].usersettings = main10.checked
             data[2].recipiesettings = main11.checked
 
             updatepermission(1)

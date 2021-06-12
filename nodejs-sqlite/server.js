@@ -3,6 +3,7 @@ const sequelize = require('./database')
 var cors = require('cors')
 const User = require('./Users')
 const Permissions = require('./Permissions')
+const Recipies = require('./Recipies')
 var CronJob = require('cron').CronJob;
 // var job = new CronJob('40 11 * * *', function () {
 var job = new CronJob('0 12 * * *', function () {
@@ -161,7 +162,7 @@ app.put("/permissions/:id", async (req, res) => {
   permissions.reports = req.body.reports
   permissions.settings = req.body.settings
   permissions.maintainence = req.body.maintainence
-  permissions.usersettings = req.body.usersettings
+  // permissions.usersettings = req.body.usersettings
   permissions.recipiesettings = req.body.recipiesettings
   await permissions.save()
   res.json(permissions);
@@ -181,6 +182,77 @@ app.put("/permissions/:id", async (req, res) => {
 //   "usersettings": "true",
 //   "recipiesettings": "true"
 // }
+
+app.get("/recipies", async (req, res) => {
+  const recipies = await Recipies.findAll();
+  res.send(recipies);
+})
+
+app.post("/recipies", async (req, res) => {
+  await Recipies.create(req.body);
+  res.send('recipie is created');
+})
+
+app.get("/recipies/:id", async (req, res) => {
+  const requestedid = req.params.id;
+  const recipies = await Recipies.findOne({ where: { id: requestedid } });
+
+  res.json(recipies);
+})
+
+app.get("/recipiename/:id", async (req, res) => {
+  const requestedid = req.params.id;
+  const result = await Recipies.findAll({
+    where: {
+      recn: requestedid
+    }
+  });
+  // console.log(User.classLevelMethod())
+  // console.log(result)
+
+  res.json(result);
+})
+
+app.put("/recipies/:id", async (req, res) => {
+  const requestedid = req.params.id;
+  const recipies = await Recipies.findOne({ where: { id: requestedid } });
+  recipies.recn =       req.body.recn
+  recipies.pname =      req.body.pname
+  recipies.tooldrg    = req.body.tooldrg
+  recipies.size =       req.body.size
+  recipies.thickness   = req.body.thickness
+  recipies.weight =     req.body.weight
+  recipies.hardness   = req.body.hardness
+  recipies.depthL =     req.body.depthL
+  recipies.depthR =     req.body.depthR
+  recipies.forceL =     req.body.forceL
+  recipies.forceR =     req.body.forceR
+  recipies.preL =       req.body.preL
+  recipies.preR =       req.body.preR
+  recipies.mainL =      req.body.mainL
+  recipies.mainR =      req.body.mainR
+  await recipies.save()
+  res.json(recipies);
+})
+
+// {
+//   "recn":      "",
+//   "pname":     "",
+//   "tooldrg":   "",
+//   "size":      "",
+//   "thickness": "",
+//   "weight":    "",
+//   "hardness":  "",
+//   "depthL":    "",
+//   "depthR":    "",
+//   "forceL":    "",
+//   "forceR":    "",
+//   "preL":      ""
+//   "preR":      ""
+//   "mainL":     ""
+//   "mainR":     ""
+// }
+
 
 app.listen(3000, async () => {
   console.log("app is running");

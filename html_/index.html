@@ -146,6 +146,11 @@
                 </a>
             </li>
             <li class="my-2 md:my-0">
+                <a id="settings_setup" href="/settings_setup" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench mr-3 text-2xl text-gray-600"></i> Adept Setup
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
                 <a id="settings_user" href="/settings_user" class="hidden block my-3 md:py-3 pl-1 uppercase  align-middle text-gray-900 no-underline hover:text-indigo-400">
                     <i class="fa fa-user-circle mr-3 text-2xl text-gray-600"></i> User Setting
                 </a>
@@ -1814,16 +1819,15 @@
                 .then((resp) => resp.json()) 
                 .then(function (data) {
 
-                    data.connection == false ? disconnect() : data.connection
+                    // data.connection == false ? disconnect() : data.connection
 
-                    function disconnect(){
-                        setTimeout(() => {
-                            alert("[ CHECK PLC CONNECTION ]")
-                            location.href = "/"
-                        }, 200);
-                    }
+                    // function disconnect(){
+                    //     setTimeout(() => {
+                    //         alert("[ CHECK PLC CONNECTION ]")
+                    //         location.href = "/"
+                    //     }, 200);
+                    // }
 
-                    
                     payload = data
                     // console.log(payload)
                     
@@ -2502,6 +2506,7 @@
                         document.getElementById("settings_awc").classList.remove('hidden') 
                         document.getElementById("io_maintanience").classList.remove('hidden') 
                         document.getElementById("settings_user").classList.remove('hidden') 
+                        document.getElementById("settings_setup").classList.remove('hidden') 
                         document.getElementById("settings_recipie").classList.remove('hidden') 
                     } else {
                         let url = `http://localhost:3000/users/${data}`
@@ -2545,7 +2550,7 @@
             permissions.settings == true ? document.getElementById("processsetup").classList.remove('hidden') : true
             permissions.settings == true ? document.getElementById("settings_awc").classList.remove('hidden') : true
             permissions.maintainence == true ? document.getElementById("io_maintanience").classList.remove('hidden') : true
-            permissions.usersettings == true ? document.getElementById("settings_user").classList.remove('hidden') : true
+            // permissions.usersettings == true ? document.getElementById("settings_user").classList.remove('hidden') : true
             permissions.recipiesettings == true ? document.getElementById("settings_recipie").classList.remove('hidden') : true
                 })
                 .catch(console.error);
