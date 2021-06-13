@@ -412,7 +412,7 @@
                 }
             },
         };
-        var avg_his_compression_graph = Chart.Line(avg_his_graphcanvas, {
+        var avg_his_compression_graph = Chart.Bar(avg_his_graphcanvas, {
             data: avg_his_graphdata,
             options: avg_his_graphoptions,
         });
@@ -593,6 +593,32 @@
             }, 400);
         }
         checkalarm()
+    </script>
+
+    <!-- Check PLC connection -->
+    <script>
+        async function fetchcompression() {
+            fetch(payloadURL)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    // data.connection == false ? disconnect() : data.connection
+
+                    // function disconnect() {
+                    //     setTimeout(() => {
+                    //         alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
+                    //         location.href = "/"
+                    //     }, 200);
+                    // }
+                })
+                .catch(function (error) {
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        setInterval(() => {
+            fetchcompression()
+        }, 2000);
+
     </script>
 
 </body>

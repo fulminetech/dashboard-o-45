@@ -1819,14 +1819,14 @@
                 .then((resp) => resp.json()) 
                 .then(function (data) {
 
-                    // data.connection == false ? disconnect() : data.connection
+                    data.connection == false ? disconnect() : data.connection
 
-                    // function disconnect(){
-                    //     setTimeout(() => {
-                    //         alert("[ CHECK PLC CONNECTION ]")
-                    //         location.href = "/"
-                    //     }, 200);
-                    // }
+                    function disconnect(){
+                        setTimeout(() => {
+                            alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
+                            location.href = "/"
+                        }, 200);
+                    }
 
                     payload = data
                     // console.log(payload)

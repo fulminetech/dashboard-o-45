@@ -683,7 +683,14 @@
             fetch(payloadURL)
                 .then((resp) => resp.json())
                 .then(function (data) {
-                    data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : data.connection
+                    data.connection == false ? disconnect() : data.connection
+
+                    function disconnect() {
+                        setTimeout(() => {
+                            alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
+                            location.href = "/"
+                        }, 200);
+                    }
                 })
                 .catch(function (error) {
                     console.log("[ PAYLOAD FETCH ERROR ]", error)
