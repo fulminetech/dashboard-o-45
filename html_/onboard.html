@@ -201,7 +201,11 @@
             var recepie = document.getElementById("recepie").value;
             var machine = "8_PUNCH";
 
-            submitt(String(name), batch, recepie, machine)
+            if (name == '' || batch == '' || recepie == ''){
+                alert('Please fill all fields')
+            } else {
+                submitt(String(name), batch, recepie, machine)
+            }
         };
 
         async function submitt(name, batch, recepie, machine) {
