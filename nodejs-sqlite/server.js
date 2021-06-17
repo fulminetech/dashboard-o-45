@@ -254,6 +254,13 @@ app.put("/recipies/:id", async (req, res) => {
 // }
 
 
+app.delete("/recipies/:id", async (req, res) => {
+  const requestedid = req.params.id;
+  await Recipies.destroy({ where: { id: requestedid } });
+  res.send("removed");
+})
+
+
 app.listen(3000, async () => {
   console.log("app is running");
 });
