@@ -388,7 +388,8 @@ var payload = {
         LHS_MULTI_TURN_CLEAR: '',
         LHS_HOME_OFFSET_WRITE: '',
         LHS_EEPROM_WRITE: '',
-        FORCE_OVERRIDE: ''
+        FORCE_OVERRIDE: '',
+        SERVO_CALIBRATION_MODE: ''
     },
     alarm:{
         EMERGENCY_STOP_PRESSED: '',
@@ -965,6 +966,7 @@ var read_coils = function () {
             payload.button.LHS_HOME_OFFSET_WRITE = data.data[33]
             payload.button.LHS_EEPROM_WRITE = data.data[34]
             payload.button.FORCE_OVERRIDE = data.data[35]
+            payload.button.SERVO_CALIBRATION_MODE = data.data[36]
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
@@ -2390,6 +2392,22 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         coil_offset_410 = 125
         set_button = false
         c = payload.button.FORCE_OVERRIDE
+        
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "SERVO_CALIBRATION_MODE" && b == "true") {
+        coil_offset_410 = 126
+        set_button = true
+        c = payload.button.SERVO_CALIBRATION_MODE
+        
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "SERVO_CALIBRATION_MODE" && b == "false") {
+        coil_offset_410 = 126
+        set_button = false
+        c = payload.button.SERVO_CALIBRATION_MODE
         
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
