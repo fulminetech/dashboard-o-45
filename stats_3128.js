@@ -104,7 +104,14 @@ var payload = {
             ejection_max: 0,
             dozer_position: 0,
         },
-        operator: 'Not Set'
+        operator: 'Not Set',
+        set_force_mono_upper: 0,
+        set_force_mono_lower: 0,
+        set_force_LHS_upper: 0,
+        set_force_LHS_lower: 0,
+        set_force_RHS_upper: 0,
+        set_force_RHS_lower: 0,
+
     },
     stats: {
         count: 0,
@@ -380,7 +387,8 @@ var payload = {
         LHS_SERVO_ON: '',
         LHS_MULTI_TURN_CLEAR: '',
         LHS_HOME_OFFSET_WRITE: '',
-        LHS_EEPROM_WRITE: ''
+        LHS_EEPROM_WRITE: '',
+        FORCE_OVERRIDE: ''
     },
     alarm:{
         EMERGENCY_STOP_PRESSED: '',
@@ -786,12 +794,12 @@ var read_coils = function () {
                     payload.alarm.DOZER_RHS = 'ACTIVE'
                     R_pre_correction = payload.machine.RHS.dozer_position
                 }
-                if (stats_data.data[29] === true && payload.alarm.set_force_LHS_overlimit === '') {
-                    writealarm("Set Force Pre Overlimit", true)
+                if (stats_data.data[6] === true && payload.alarm.set_force_LHS_overlimit === '') {
+                    writealarm("Set Force Pre Out of range", true)
                     payload.alarm.set_force_LHS_overlimit = 'ACTIVE' // pre
                 }
-                if (stats_data.data[30] === true && payload.alarm.set_force_RHS_overlimit === '') {
-                    writealarm("Set Force Main Overlimit", true)
+                if (stats_data.data[7] === true && payload.alarm.set_force_RHS_overlimit === '') {
+                    writealarm("Set Force Main Out of range", true)
                     payload.alarm.set_force_RHS_overlimit = 'ACTIVE' // Main
                 }
                 
@@ -897,12 +905,12 @@ var read_coils = function () {
                     R_post_correction = payload.machine.RHS.dozer_position
                     writecorrection("DOZER RHS CORRECTION", R_pre_correction, R_post_correction)
                 }
-                if (stats_data.data[29] === false && payload.alarm.set_force_LHS_overlimit === 'ACTIVE') {
-                    writealarm("Set Force Pre Overlimit", false)
+                if (stats_data.data[6] === false && payload.alarm.set_force_LHS_overlimit === 'ACTIVE') {
+                    writealarm("Set Force Pre Out of range", false)
                     payload.alarm.set_force_LHS_overlimit = '' // Pre 
                 }
-                if (stats_data.data[30] === false && payload.alarm.set_force_RHS_overlimit === 'ACTIVE') {
-                    writealarm("Set Force Main Overlimit", false)
+                if (stats_data.data[7] === false && payload.alarm.set_force_RHS_overlimit === 'ACTIVE') {
+                    writealarm("Set Force Main Out of range", false)
                     payload.alarm.set_force_RHS_overlimit = '' // Main
                 }
 
@@ -956,6 +964,7 @@ var read_coils = function () {
             payload.button.LHS_MULTI_TURN_CLEAR = data.data[32]
             payload.button.LHS_HOME_OFFSET_WRITE = data.data[33]
             payload.button.LHS_EEPROM_WRITE = data.data[34]
+            payload.button.FORCE_OVERRIDE = data.data[35]
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
@@ -1033,6 +1042,13 @@ var read_regs = function () {
             payload.stats.roller.frequency = data.data[61] / 100;
 
             payload.stats.roller.motor = data.data[62];
+
+            payload.machine.roller.set_force_mono_upper = data.data[63];
+            payload.machine.roller.set_force_mono_lower = data.data[64];
+            payload.machine.roller.set_force_LHS_upper = data.data[65];
+            payload.machine.roller.set_force_LHS_lower = data.data[66];
+            payload.machine.roller.set_force_RHS_upper = data.data[67];
+            payload.machine.roller.set_force_RHS_lower = data.data[68];
 
             
             
@@ -1652,6 +1668,48 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         reg_offset_6000 = 62
         reg_write_value = b
         c = payload.stats.roller.motor
+        write_regs()
+        writelog()
+    }
+    else if (a == "SET_FORCE_MONO_UPPER") {
+        reg_offset_6000 = 63
+        reg_write_value = b
+        c = payload.machine.roller.set_force_mono_upper
+        write_regs()
+        writelog()
+    }
+    else if (a == "SET_FORCE_MONO_LOWER") {
+        reg_offset_6000 = 64
+        reg_write_value = b
+        c = payload.machine.roller.set_force_mono_lower
+        write_regs()
+        writelog()
+    }
+    else if (a == "SET_FORCE_LHS_UPPER") {
+        reg_offset_6000 = 65
+        reg_write_value = b
+        c = payload.machine.roller.set_force_LHS_upper
+        write_regs()
+        writelog()
+    }
+    else if (a == "SET_FORCE_LHS_LOWER") {
+        reg_offset_6000 = 66
+        reg_write_value = b
+        c = payload.machine.roller.set_force_LHS_lower
+        write_regs()
+        writelog()
+    }
+    else if (a == "SET_FORCE_RHS_UPPER") {
+        reg_offset_6000 = 67
+        reg_write_value = b
+        c = payload.machine.roller.set_force_RHS_upper
+        write_regs()
+        writelog()
+    }
+    else if (a == "SET_FORCE_RHS_LOWER") {
+        reg_offset_6000 = 68
+        reg_write_value = b
+        c = payload.machine.roller.set_force_RHS_lower
         write_regs()
         writelog()
     }
@@ -2316,6 +2374,22 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         coil_offset_410 = 124
         set_button = false
         c = payload.button.LHS_EEPROM_WRITE
+        
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "FORCE_OVERRIDE" && b == "true") {
+        coil_offset_410 = 125
+        set_button = true
+        c = payload.button.FORCE_OVERRIDE
+        
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "FORCE_OVERRIDE" && b == "false") {
+        coil_offset_410 = 125
+        set_button = false
+        c = payload.button.FORCE_OVERRIDE
         
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
