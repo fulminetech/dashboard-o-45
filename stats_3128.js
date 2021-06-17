@@ -408,7 +408,9 @@ var payload = {
         MACHINE_HEALTHY: '',
         POWERPACK: '',
         DOZER_LHS: '',
-        DOZER_RHS: ''
+        DOZER_RHS: '',
+        set_force_LHS_overlimit: '', // Pre 
+        set_force_RHS_overlimit: '' // Main
     },
     status: {
         data: []
@@ -635,7 +637,7 @@ var read_coils = function () {
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
     
-    client.readCoils(coil_470, 30)
+    client.readCoils(coil_470, 32)
         .then(function (stats_data) {
             // console.log("STATS: ",stats_data.data)
 
@@ -784,6 +786,14 @@ var read_coils = function () {
                     payload.alarm.DOZER_RHS = 'ACTIVE'
                     R_pre_correction = payload.machine.RHS.dozer_position
                 }
+                if (stats_data.data[29] === true && payload.alarm.set_force_LHS_overlimit === '') {
+                    writealarm("Set Force Pre Overlimit", true)
+                    payload.alarm.set_force_LHS_overlimit = 'ACTIVE' // pre
+                }
+                if (stats_data.data[30] === true && payload.alarm.set_force_RHS_overlimit === '') {
+                    writealarm("Set Force Main Overlimit", true)
+                    payload.alarm.set_force_RHS_overlimit = 'ACTIVE' // Main
+                }
                 
                 if (stats_data.data[0] === false && payload.alarm.EMERGENCY_STOP_PRESSED === 'ACTIVE') {
                     writealarm("EMERGENCY BUTTON", false)
@@ -886,6 +896,14 @@ var read_coils = function () {
                     payload.alarm.DOZER_RHS = ''
                     R_post_correction = payload.machine.RHS.dozer_position
                     writecorrection("DOZER RHS CORRECTION", R_pre_correction, R_post_correction)
+                }
+                if (stats_data.data[29] === false && payload.alarm.set_force_LHS_overlimit === 'ACTIVE') {
+                    writealarm("Set Force Pre Overlimit", false)
+                    payload.alarm.set_force_LHS_overlimit = '' // Pre 
+                }
+                if (stats_data.data[30] === false && payload.alarm.set_force_RHS_overlimit === 'ACTIVE') {
+                    writealarm("Set Force Main Overlimit", false)
+                    payload.alarm.set_force_RHS_overlimit = '' // Main
                 }
 
             }
