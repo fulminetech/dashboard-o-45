@@ -117,7 +117,13 @@
                             <table class="w-full p-3 text-gray-700">
                                 <thead>
                                     <tr>
-                                        <th class="text-center text-blue-900"></th>
+                                        <th class="text-center text-blue-900">
+                                            <button id="CALIB"
+                                                class="bg-red-300 text-2xl uppercase text-gray-800 font-semibold  py-3 px-12 border border-blue-500 rounded"
+                                                onclick="CALIB()">
+                                                CALIBRATION MODE
+                                            </button>
+                                        </th>
                                         <th class="text-center text-2xl pb-3 text-blue-900">RHS Discharge</th>
                                         <th class="text-center text-2xl pb-3 text-blue-900">LHS Discharge</th>
                                     </tr>
@@ -391,6 +397,7 @@
 
         var servo_LHS 
         var servo_RHS 
+        var calibrate
 
         async function fetchpayloadapiHF1() {
             fetch(statsurl)
@@ -449,6 +456,15 @@
                         document.getElementById("servoRHS").innerHTML = "SERVO ON"
                         const div2 = document.getElementById("servoRHS").classList.remove('bg-green-300');
                         const div1 = document.getElementById("servoRHS").classList.add('bg-red-300');
+                    }
+                    
+                    calibrate = payload.button.SERVO_CALIBRATION_MODE
+                    if (calibrate == true) {
+                        const div1 = document.getElementById("CALIB").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("CALIB").classList.add('bg-green-300');
+                    } else {
+                        const div2 = document.getElementById("CALIB").classList.remove('bg-green-300');
+                        const div1 = document.getElementById("CALIB").classList.add('bg-red-300');
                     }
                     
                     document.getElementById("single_LHS").innerHTML = payload.stats.home.LHS.single_turn
@@ -858,6 +874,24 @@
             
         }
 
+        async function CALIB() {
+            if (calibrate == true) {
+                let submiturl = `${seturl}/SERVO_CALIBRATION_MODE/false`
+                await fetch(submiturl)
+                    // .then(console.log("[ Machine Start ] "))
+                    .then(check())
+                    .catch(console.error);
+            }
+            else {
+                let submiturl = `${seturl}/SERVO_CALIBRATION_MODE/true`
+                await fetch(submiturl)
+                    // .then(console.log("[ Machine Start ] "))
+                    .then(check())
+                    .catch(console.error);
+            }
+            
+        }
+
         async function clearLHS() {
             const div1 = document.getElementById("clearLHS").classList.add('bg-red-500');
             const div2 = document.getElementById("clearLHS").classList.remove('bg-red-200');
@@ -992,7 +1026,7 @@
         };
 
         setInterval(() => {
-            fetchcompression()
+            // fetchcompression()
         }, 2000);
 
     </script>
