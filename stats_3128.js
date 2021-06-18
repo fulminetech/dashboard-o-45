@@ -936,7 +936,7 @@ var read_coils = function () {
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
 
-    client.readCoils(coil_500, 35)
+    client.readCoils(coil_500, 38)
         .then(function (data) {
             // console.log("coil_500: ", data.data)
             payload.button.DIRECT__RAMP = data.data[0]
@@ -980,7 +980,7 @@ var read_coils = function () {
 var read_regs = function () {
     mbsState = PASS_READ_REGS;
 
-    client.readHoldingRegisters(reg_6000, 63)
+    client.readHoldingRegisters(reg_6000, 70)
         .then(function (data) {
             // console.log("STATS: ",data.data)
             // New stats! 
@@ -1045,12 +1045,12 @@ var read_regs = function () {
 
             payload.stats.roller.motor = data.data[62];
 
-            payload.machine.roller.set_force_mono_upper = data.data[63];
-            payload.machine.roller.set_force_mono_lower = data.data[64];
-            payload.machine.roller.set_force_LHS_upper = data.data[65];
-            payload.machine.roller.set_force_LHS_lower = data.data[66];
-            payload.machine.roller.set_force_RHS_upper = data.data[67];
-            payload.machine.roller.set_force_RHS_lower = data.data[68];
+            payload.machine.set_force_mono_upper = data.data[63];
+            payload.machine.set_force_mono_lower = data.data[64];
+            payload.machine.set_force_LHS_upper = data.data[65];
+            payload.machine.set_force_LHS_lower = data.data[66];
+            payload.machine.set_force_RHS_upper = data.data[67];
+            payload.machine.set_force_RHS_lower = data.data[68];
 
             
             
@@ -1676,42 +1676,42 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     else if (a == "SET_FORCE_MONO_UPPER") {
         reg_offset_6000 = 63
         reg_write_value = b
-        c = payload.machine.roller.set_force_mono_upper
+        c = payload.machine.set_force_mono_upper
         write_regs()
         writelog()
     }
     else if (a == "SET_FORCE_MONO_LOWER") {
         reg_offset_6000 = 64
         reg_write_value = b
-        c = payload.machine.roller.set_force_mono_lower
+        c = payload.machine.set_force_mono_lower
         write_regs()
         writelog()
     }
     else if (a == "SET_FORCE_LHS_UPPER") {
         reg_offset_6000 = 65
         reg_write_value = b
-        c = payload.machine.roller.set_force_LHS_upper
+        c = payload.machine.set_force_LHS_upper
         write_regs()
         writelog()
     }
     else if (a == "SET_FORCE_LHS_LOWER") {
         reg_offset_6000 = 66
         reg_write_value = b
-        c = payload.machine.roller.set_force_LHS_lower
+        c = payload.machine.set_force_LHS_lower
         write_regs()
         writelog()
     }
     else if (a == "SET_FORCE_RHS_UPPER") {
         reg_offset_6000 = 67
         reg_write_value = b
-        c = payload.machine.roller.set_force_RHS_upper
+        c = payload.machine.set_force_RHS_upper
         write_regs()
         writelog()
     }
     else if (a == "SET_FORCE_RHS_LOWER") {
         reg_offset_6000 = 68
         reg_write_value = b
-        c = payload.machine.roller.set_force_RHS_lower
+        c = payload.machine.set_force_RHS_lower
         write_regs()
         writelog()
     }
