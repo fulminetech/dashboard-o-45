@@ -635,12 +635,12 @@
                     document.getElementById("samp_inter").value = payload.stats.sampling.SAMPLING_TIME_MINS
                     document.getElementById("mul_factor").value = payload.stats.TABLET_MULTIPLICATION_FACTOR
                     
-                    document.getElementById("SF_UL").value = payload.machine.roller.set_force_mono_upper
-                    document.getElementById("SF_LL").value = payload.machine.roller.set_force_mono_lower
-                    document.getElementById("LSF_UL").value =payload.machine.roller.set_force_LHS_upper
-                    document.getElementById("LSF_LL").value =payload.machine.roller.set_force_LHS_lower
-                    document.getElementById("RSF_UL").value =payload.machine.roller.set_force_RHS_upper
-                    document.getElementById("RSF_LL").value =payload.machine.roller.set_force_RHS_lower
+                    document.getElementById("SF_UL").value = payload.machine.set_force_mono_upper
+                    document.getElementById("SF_LL").value = payload.machine.set_force_mono_lower
+                    document.getElementById("LSF_UL").value =payload.machine.set_force_LHS_upper
+                    document.getElementById("LSF_LL").value =payload.machine.set_force_LHS_lower
+                    document.getElementById("RSF_UL").value =payload.machine.set_force_RHS_upper
+                    document.getElementById("RSF_LL").value =payload.machine.set_force_RHS_lower
                     
                     // document.getElementById("roller_freq").value = payload.stats.roller.frequency
                     // document.getElementById("roller_mode").value = payload.stats.roller.motor
