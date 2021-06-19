@@ -622,11 +622,12 @@ var read_coils = function () {
             payload.button.PRESSURE_ACK_BUTTON = stats_data.data[2],
             payload.button.DRAIN_BUTTON = stats_data.data[3],
             payload.button.PRESSURE_SET_BUTTON = stats_data.data[4],
+            payload.button.SERVO_CALIBRATION_MODE = stats_data.data[7],
 
             payload.button.MACHINE_INCHING_BUTTON = stats_data.data[10],
             payload.button.MACHINE_START_BUTTON = stats_data.data[15],
             payload.button.MACHINE_STOP_BUTTON = stats_data.data[16],
-
+            
             payload.button.FORCE_FEEDER_START_BUTTON = stats_data.data[18],
             payload.button.FORCE_FEEDER_STOP_BUTTON = stats_data.data[19],
 
@@ -795,11 +796,11 @@ var read_coils = function () {
                     payload.alarm.DOZER_RHS = 'ACTIVE'
                     R_pre_correction = payload.machine.RHS.dozer_position
                 }
-                if (stats_data.data[6] === true && payload.alarm.set_force_LHS_overlimit === '') {
+                if (stats_data.data[7] === true && payload.alarm.set_force_LHS_overlimit === '') {
                     writealarm("Set Force Pre Out of range", true)
                     payload.alarm.set_force_LHS_overlimit = 'ACTIVE' // pre
                 }
-                if (stats_data.data[7] === true && payload.alarm.set_force_RHS_overlimit === '') {
+                if (stats_data.data[8] === true && payload.alarm.set_force_RHS_overlimit === '') {
                     writealarm("Set Force Main Out of range", true)
                     payload.alarm.set_force_RHS_overlimit = 'ACTIVE' // Main
                 }
@@ -966,7 +967,7 @@ var read_coils = function () {
             payload.button.LHS_HOME_OFFSET_WRITE = data.data[33]
             payload.button.LHS_EEPROM_WRITE = data.data[34]
             payload.button.FORCE_OVERRIDE = data.data[35]
-            payload.button.SERVO_CALIBRATION_MODE = data.data[36]
+            
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
@@ -1045,12 +1046,12 @@ var read_regs = function () {
 
             payload.stats.roller.motor = data.data[62];
 
-            payload.machine.set_force_mono_upper = data.data[63];
-            payload.machine.set_force_mono_lower = data.data[64];
-            payload.machine.set_force_LHS_upper = data.data[65];
-            payload.machine.set_force_LHS_lower = data.data[66];
-            payload.machine.set_force_RHS_upper = data.data[67];
-            payload.machine.set_force_RHS_lower = data.data[68];
+            payload.machine.set_force_mono_upper = data.data[64] / 100;
+            payload.machine.set_force_mono_lower = data.data[65] / 100;
+            payload.machine.set_force_LHS_upper = data.data[66] / 100;
+            payload.machine.set_force_LHS_lower = data.data[67] / 100;
+            payload.machine.set_force_RHS_upper = data.data[68] / 100;
+            payload.machine.set_force_RHS_lower = data.data[69] / 100;
 
             
             
@@ -1674,43 +1675,43 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "SET_FORCE_MONO_UPPER") {
-        reg_offset_6000 = 63
-        reg_write_value = b
+        reg_offset_6000 = 64
+        reg_write_value = b * 100
         c = payload.machine.set_force_mono_upper
         write_regs()
         writelog()
     }
     else if (a == "SET_FORCE_MONO_LOWER") {
-        reg_offset_6000 = 64
-        reg_write_value = b
+        reg_offset_6000 = 65
+        reg_write_value = b * 100
         c = payload.machine.set_force_mono_lower
         write_regs()
         writelog()
     }
     else if (a == "SET_FORCE_LHS_UPPER") {
-        reg_offset_6000 = 65
-        reg_write_value = b
+        reg_offset_6000 = 66
+        reg_write_value = b * 100
         c = payload.machine.set_force_LHS_upper
         write_regs()
         writelog()
     }
     else if (a == "SET_FORCE_LHS_LOWER") {
-        reg_offset_6000 = 66
-        reg_write_value = b
+        reg_offset_6000 = 67
+        reg_write_value = b * 100
         c = payload.machine.set_force_LHS_lower
         write_regs()
         writelog()
     }
     else if (a == "SET_FORCE_RHS_UPPER") {
-        reg_offset_6000 = 67
-        reg_write_value = b
+        reg_offset_6000 = 68
+        reg_write_value = b * 100
         c = payload.machine.set_force_RHS_upper
         write_regs()
         writelog()
     }
     else if (a == "SET_FORCE_RHS_LOWER") {
-        reg_offset_6000 = 68
-        reg_write_value = b
+        reg_offset_6000 = 69
+        reg_write_value = b * 100
         c = payload.machine.set_force_RHS_lower
         write_regs()
         writelog()
@@ -2397,7 +2398,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "SERVO_CALIBRATION_MODE" && b == "true") {
-        coil_offset_410 = 126
+        coil_offset_410 = 7
         set_button = true
         c = payload.button.SERVO_CALIBRATION_MODE
         
@@ -2405,7 +2406,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "SERVO_CALIBRATION_MODE" && b == "false") {
-        coil_offset_410 = 126
+        coil_offset_410 = 7
         set_button = false
         c = payload.button.SERVO_CALIBRATION_MODE
         

@@ -726,7 +726,7 @@ async function updatestatsbatch() {
             console.log('[ BATCH UPDATED ]')
         })
         .catch(err => {
-            console.error("[ MODBUS SERVER OFFLINE ]");
+            console.error("[ MODBUS SERVER STATS OFFLINE ]");
         });
 };
 
@@ -742,7 +742,7 @@ async function processed_() {
         })
         .catch(function (error) {
             // If there is any error you will catch them here
-            console.log("[ PAYLOAD FETCH ERROR ]", error)
+            console.log("[ PAYLOAD FETCH PROCESSED ERROR ]", error)
         });
 };
 
@@ -772,7 +772,7 @@ async function stats_() {
             // stats.mbstatus == false || stats.connection == false ? restart :
         })
         .catch(err => {
-            console.error("[ MODBUS SERVER OFFLINE ]");
+            console.error("[ MODBUS SERVER STATS OFFLINE ]", err);
         });
 };
 
@@ -784,9 +784,9 @@ function checkrtn(old, neww) {
     }
 }
 
-setInterval(() => {
-    stats_()
-}, 300);
+// setInterval(() => {
+//     stats_()
+// }, 300);
 
 // Updated with each rotation
 var writeHistory = (rtn) => {
@@ -795,6 +795,10 @@ var writeHistory = (rtn) => {
         })
         .field({
             rotation: rtn,
+            turretrpm: stats.stats.turret.RPM,
+            dwelltime: stats.stats.dwell,
+            dozerLHS: stats.stats.awc.actual_RHS,
+            dozerRHS: stats.stats.awc.actual_LHS,
             p1LHSpre: processed.pLHS_data[0],
             p2LHSpre: processed.pLHS_data[1],
             p3LHSpre: processed.pLHS_data[2],
@@ -1105,6 +1109,8 @@ var writeAverage = (rtn) => {
             ejnRHSavg: payload.ejectionRHS_avg,
             turretrpm: stats.stats.turret.RPM,
             dwelltime: stats.stats.dwell,
+            // dozerLHS: stats.stats.awc.actual_RHS,
+            // dozerRHS: stats.stats.awc.actual_LHS,
         })
         .then(() => console.info(`[ AVERAGE WRITE SUCESSFUL ${payload.batch} ${payload.data_number} ]`))
         .catch(console.error);
