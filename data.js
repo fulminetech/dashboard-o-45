@@ -1109,8 +1109,8 @@ var writeAverage = (rtn) => {
             ejnRHSavg: payload.ejectionRHS_avg,
             turretrpm: stats.stats.turret.RPM,
             dwelltime: stats.stats.dwell,
-            // dozerLHS: stats.stats.awc.actual_RHS,
-            // dozerRHS: stats.stats.awc.actual_LHS,
+            dozerLHS: stats.stats.awc.actual_RHS,
+            dozerRHS: stats.stats.awc.actual_LHS,
         })
         .then(() => console.info(`[ AVERAGE WRITE SUCESSFUL ${payload.batch} ${payload.data_number} ]`))
         .catch(console.error);
