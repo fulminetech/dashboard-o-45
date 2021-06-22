@@ -205,7 +205,7 @@
 
     <!-- Average Compression Graph -->
     <script>
-        var avg_his_graphcanvas = document.getElementById("avg_his_compression_graph");
+        var avg_his_graphcanvas = document.getElementById("avg_his_compression_graph");        
         var avg_his_graphdata = {
             labels: [],
             datasets: [
@@ -216,13 +216,6 @@
                     lineTension: 0.1,
                     backgroundColor: "palegreen",
                     borderColor: "palegreen",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHitRadius: 10,
                     data: [],
                 },
                 {
@@ -232,13 +225,6 @@
                     lineTension: 0.1,
                     backgroundColor: "olivedrab",
                     borderColor: "olivedrab",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHitRadius: 10,
                     data: [],
                 },
                 {
@@ -248,13 +234,6 @@
                     lineTension: 0.1,
                     backgroundColor: "plum",
                     borderColor: "plum",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHitRadius: 10,
                     data: [],
                 },
                 {
@@ -264,13 +243,6 @@
                     lineTension: 0.1,
                     backgroundColor: "RebeccaPurple",
                     borderColor: "RebeccaPurple",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHitRadius: 10,
                     data: [],
                 },
                 {
@@ -280,13 +252,6 @@
                     lineTension: 0.1,
                     backgroundColor: "lightblue",
                     borderColor: "lightblue",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHitRadius: 10,
                     data: [],
                 },
                 {
@@ -296,13 +261,6 @@
                     lineTension: 0.1,
                     backgroundColor: "darkblue",
                     borderColor: "darkblue",
-                    pointBorderColor: "rgba(75,192,192,1)",
-                    pointHoverRadius: 5,
-                    pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                    pointHoverBorderColor: "rgba(220,220,220,1)",
-                    pointHoverBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHitRadius: 10,
                     data: [],
                 },
             ],
@@ -323,18 +281,31 @@
                     type: 'linear',
                     position: 'left',
                     ticks: {
-                        // beginAtZero: true,
+                        beginAtZero: true,
                         fontSize: 20,
-                        // max: 100
+                        max: 100
                     }
                 }],
                 xAxes: [{
-                    type: 'time',
-                    display: false,
-                    time: {
-                        displayFormats: {
-                            millisecond: 'YYYY-MM-DDTHH:mm:ss'
-                        }
+                    // offset: true,
+                    // type: 'time',
+                    // display: true,
+                    // time: {
+                    //     displayFormats: {
+                    //         millisecond: 'YYYY-MM-DDTHH:mm:ss'
+                    //     }
+                    // }
+                    barPercentage: 0.5,
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'ROTATION NUMBER'
+                    },
+                    ticks: {
+                        fontSize: 14,
+                        // max: 5,
+                        // autoSkip: true,
+                        // maxTicksLimit: 10
                     }
                 }],
             },
@@ -473,103 +444,125 @@
                 });
             };
 
-            var currentBatch;
-            var currentrotation;
+        var currentBatch;
+        var currentrotation;
+        var i = 0
 
-            async function fetchcompression() {
-                fetch(payloadURL)
-                    .then((resp) => resp.json())
-                    .then(function (data) {
-                        payload = data
+        async function fetchcompression() {
+            fetch(payloadURL)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    payload = data
 
-                        document.getElementById("batch_number_metric").innerHTML = payload.batch;
-                        currentBatch = payload.batch;
-                        // console.log(payload.rotation_no)
+                    document.getElementById("batch_number_metric").innerHTML = payload.batch;
+                    currentBatch = payload.batch;
+                    // console.log(payload.rotation_no)
 
-                        if (payload.rotation_no > currentrotation) {
-                            date = new Date()
-                            //RFC 3339 format
-                            formatted = date.toISOString()
-                            // console.log(currentrotation)
-                            // console.log(payload.data_number)
-                            // console.log(formatted)
+                    if (payload.rotation_no > currentrotation) {
+                        date = new Date()
+                        //RFC 3339 format
+                        formatted = date.toISOString()
+                        // console.log(currentrotation)
+                        // console.log(payload.data_number)
+                        // console.log(formatted)
+                        i++
+                        
+                        avg_his_compression_graph.data.labels.push(payload.rotation_no);
 
-                            avg_his_compression_graph.data.labels.push(formatted);
+                        avg_his_compression_graph.data.datasets[0].data.push(parseFloat(payload.precompressionLHS_avg));
+                        avg_his_compression_graph.data.datasets[1].data.push(parseFloat(payload.precompressionRHS_avg));
+                        avg_his_compression_graph.data.datasets[2].data.push(parseFloat(payload.maincompressionLHS_avg));
+                        avg_his_compression_graph.data.datasets[3].data.push(parseFloat(payload.maincompressionRHS_avg));
+                        avg_his_compression_graph.data.datasets[4].data.push(parseFloat(payload.ejectionLHS_avg));
+                        avg_his_compression_graph.data.datasets[5].data.push(parseFloat(payload.ejectionRHS_avg));
+                        avg_his_compression_graph.update();
+                    }
 
-                            avg_his_compression_graph.data.datasets[0].data.push(parseFloat(payload.precompressionLHS_avg));
-                            avg_his_compression_graph.data.datasets[1].data.push(parseFloat(payload.precompressionRHS_avg));
-                            avg_his_compression_graph.data.datasets[2].data.push(parseFloat(payload.maincompressionLHS_avg));
-                            avg_his_compression_graph.data.datasets[3].data.push(parseFloat(payload.maincompressionRHS_avg));
-                            avg_his_compression_graph.data.datasets[4].data.push(parseFloat(payload.ejectionLHS_avg));
-                            avg_his_compression_graph.data.datasets[5].data.push(parseFloat(payload.ejectionRHS_avg));
-                            avg_his_compression_graph.update();
-                        }
+                    if (i == 10) {
+                        console.log(i)
+                        // avg_his_compression_graph.data.labels.pop(payload.rotation_no);
+                        avg_his_compression_graph.data.labels.pop(payload.rotation_no - 1);
+                        avg_his_compression_graph.data.labels.pop(payload.rotation_no - 2);
+                        avg_his_compression_graph.data.labels.pop(payload.rotation_no- 3);
+                        avg_his_compression_graph.data.labels.pop(payload.rotation_no- 4);
+                        avg_his_compression_graph.data.labels.pop(payload.rotation_no- 5);
+                        avg_his_compression_graph.data.labels.pop(payload.rotation_no- 6);
+                        avg_his_compression_graph.data.labels.pop(payload.rotation_no- 7);
+                        avg_his_compression_graph.data.labels.pop(payload.rotation_no- 8);
+                        avg_his_compression_graph.data.labels.pop(payload.rotation_no- 9);
+                        avg_his_compression_graph.data.labels.pop(payload.rotation_no- 10);
+                        
+                        avg_his_compression_graph.update();
+                        i = 0
+                    }
 
-                        var selection = document.getElementById("select").innerHTML
-                        if (selection == 'RHS') {
-                            document.getElementById("pre_kn").innerHTML = payload.precompressionRHS_avg;
-                            document.getElementById("main_kn").innerHTML = payload.maincompressionRHS_avg;
-                            document.getElementById("ejn_kg").innerHTML = payload.ejectionRHS_avg;
-                        } else {
-                            document.getElementById("pre_kn").innerHTML = payload.precompressionLHS_avg;
-                            document.getElementById("main_kn").innerHTML = payload.maincompressionLHS_avg;
-                            document.getElementById("ejn_kg").innerHTML = payload.ejectionLHS_avg;
-                        }
+                    var selection = document.getElementById("select").innerHTML
+                    if (selection == 'RHS') {
+                        document.getElementById("pre_kn").innerHTML = payload.precompressionRHS_avg;
+                        document.getElementById("main_kn").innerHTML = payload.maincompressionRHS_avg;
+                        document.getElementById("ejn_kg").innerHTML = payload.ejectionRHS_avg;
+                    } else {
+                        document.getElementById("pre_kn").innerHTML = payload.precompressionLHS_avg;
+                        document.getElementById("main_kn").innerHTML = payload.maincompressionLHS_avg;
+                        document.getElementById("ejn_kg").innerHTML = payload.ejectionLHS_avg;
+                    }
 
-                        currentrotation = payload.rotation_no
+                    currentrotation = payload.rotation_no
 
-                    })
-                    .catch(function (error) {
-                        console.log("[ PAYLOAD FETCH ERROR ]", error)
-                    });
-            };
-
-            
-                async function fetchmain() {
-                    fetch(rawpayload)
-                        .then((resp) => resp.json()) // Transform the data into json
-                        .then(function (data) {
-                            // Here you get the data to modify as you please
-                            // data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : 
-
-                            payload = data
-                            // console.log(payload.alarm[0])
-
-                            if (payload.output[0] === true) {
-                                const div = document.getElementById("0").classList.add('bg-orangeish');
-                            } else {
-                                const div = document.getElementById("0").classList.remove('bg-orangeish');
-                            }
-                            
-                            if (payload.output[1] === true) {
-                                const div = document.getElementById("0").classList.add('bg-orangeish');
-                            } else {
-                                const div = document.getElementById("0").classList.remove('bg-orangeish');
-                            }
-                            
-                            if (payload.output[2] === true) {
-                                const div = document.getElementById("0").classList.add('bg-orangeish');
-                            } else {
-                                const div = document.getElementById("0").classList.remove('bg-orangeish');
-                            }
-
-                        })
-                        .catch(function (error) {
-                            // console.log("[ PAYLOAD FETCH ERROR ]", error)
-                        });
-                };
+                })
+                .catch(function (error) {
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
 
 
-            function updatedata() {
-                setInterval(() => {
-                    fetchcompression()
-                    fetchstats()
-                }, 400);
-            }
+        async function fetchmain() {
+            fetch(rawpayload)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    // data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : 
 
-            updatedata()
+                    payload = data
+                    // console.log(payload.alarm[0])
+
+                    if (payload.output[0] === true) {
+                        const div = document.getElementById("0").classList.add('bg-orangeish');
+                    } else {
+                        const div = document.getElementById("0").classList.remove('bg-orangeish');
+                    }
+                    
+                    if (payload.output[1] === true) {
+                        const div = document.getElementById("0").classList.add('bg-orangeish');
+                    } else {
+                        const div = document.getElementById("0").classList.remove('bg-orangeish');
+                    }
+                    
+                    if (payload.output[2] === true) {
+                        const div = document.getElementById("0").classList.add('bg-orangeish');
+                    } else {
+                        const div = document.getElementById("0").classList.remove('bg-orangeish');
+                    }
+
+                })
+                .catch(function (error) {
+                    // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+
+        function updatedata() {
+            setInterval(() => {
+                fetchcompression()
+                fetchstats()
+            }, 400);
+        }
+        
+
+        updatedata()
 
     </script>
+
     <!-- alarm-icon check -->
     <script>
         async function fetchalarm() {
@@ -597,18 +590,18 @@
 
     <!-- Check PLC connection -->
     <script>
-        async function fetchcompression() {
+        async function fetchcompression1() {
             fetch(payloadURL)
                 .then((resp) => resp.json())
                 .then(function (data) {
-                    // data.connection == false ? disconnect() : data.connection
+                    data.connection == false ? disconnect() : data.connection
 
-                    // function disconnect() {
-                    //     setTimeout(() => {
-                    //         alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
-                    //         location.href = "/"
-                    //     }, 200);
-                    // }
+                    function disconnect() {
+                        setTimeout(() => {
+                            alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
+                            location.href = "/"
+                        }, 200);
+                    }
                 })
                 .catch(function (error) {
                     console.log("[ PAYLOAD FETCH ERROR ]", error)
@@ -616,7 +609,7 @@
         };
 
         setInterval(() => {
-            fetchcompression()
+            // fetchcompression1()
         }, 2000);
 
     </script>
