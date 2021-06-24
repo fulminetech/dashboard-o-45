@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/env/env.js"></script>
+
+</head>
+
+<body onload="level()">
+
+    <div class="px-10 pt-2 pb-5 text-sm">
+        <table class="table-fixed w-full text-center text-black" height="170rem">
+            <thead>
+                <tr>
+                    <th class="text-center border-b py-3">Sr. No.</th>
+                    <th class="text-center border-b py-3">Recipie Name</th>
+                    <th class="text-center border-b py-3">Product Name</th>
+                    <th class="text-center border-b py-3">Tooling Drg. No.</th>
+                    <th class="text-center border-b py-3">Size</th>
+                    <th class="text-center border-b py-3">Thickness Range</th>
+                    <th class="text-center border-b py-3">Weight Range</th>
+                    <th class="text-center border-b py-3">Tablet Hardness</th>
+                    <th class="text-center border-b py-3">Fill Depth LHS</th>
+                    <th class="text-center border-b py-3">Fill Depth RHS</th>
+                    <th class="text-center border-b py-3">Comp Force LHS</th>
+                    <th class="text-center border-b py-3">Comp Force RHS</th>
+                    <th class="text-center border-b py-3">Roller Position Pre LHS</th>
+                    <th class="text-center border-b py-3">Roller Position Pre RHS</th>
+                    <th class="text-center border-b py-3">Roller Position Main LHS</th>
+                    <th class="text-center border-b py-3">Roller Position Main RHS</th>
+                </tr>
+            </thead>
+
+            <tbody id="userlist">
+
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Time -->
+    <script>
+        time = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+        document.getElementById("time").innerHTML = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+    </script>
+
+    <!-- Populate Table -->
+    <script>
+        // level()
+        async function level() {
+
+            let submiturl = `http://localhost:3000/recipies`
+            var batchlistt
+
+            await fetch(submiturl)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    batchlistt = data
+                    console.log(data)
+                })
+                .catch(console.error);
+
+            // console.log(batch);
+
+
+            loadbatchlist();
+
+            function loadbatchlist() {
+                const batchListBody = document.getElementById('userlist');
+                let batchHTML = '';
+                var i = 0
+                var dataa
+                for (let batchh of batchlistt) {
+                    dataa = batchlistt[i]
+                    // console.log(dataa.id)
+                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${i+1}</td><td class="border border-gray-400 px-4 py-2">${dataa.recn}</td><td class="border border-gray-400 px-4 py-2">${dataa.pname}</td><td class="border border-gray-400 px-4 py-2">${dataa.tooldrg}</td><td class="border border-gray-400 px-4 py-2">${dataa.size}</td><td class="border border-gray-400 px-4 py-2">${dataa.thickness}</td><td class="border border-gray-400 px-4 py-2">${dataa.weight}</td><td class="border border-gray-400 px-4 py-2">${dataa.hardness}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthL}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthR}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceR}</td><td class="border border-gray-400 px-4 py-2">${dataa.preL}</td><td class="border border-gray-400 px-4 py-2">${dataa.preR}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainL}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainR}</td></tr>`
+                    i++
+                }
+
+                batchListBody.innerHTML = batchHTML;
+            }
+        }
+
+        // level()
+
+    </script>
+</body>
+
+</html>

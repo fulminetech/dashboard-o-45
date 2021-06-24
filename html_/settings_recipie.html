@@ -69,7 +69,7 @@
             <li class="my-2 md:my-0">
                 <a href="/settings_recipie"
                     class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fas fa-medkit fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Recipies
+                    <i class="fas fa-medkit fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Recipes
                         </span>
                 </a>
             </li>
@@ -134,7 +134,7 @@
                                     <button id="generatepdfreport"
                                         class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                         onclick="addrec()">
-                                        Add Recipie
+                                        Add Recipe
                                     </button>
                                 </div>
                             </div>
@@ -159,13 +159,13 @@
                             </div>
                         </div> -->
 
-                        <!-- <div class="flex flex-wrap p-3">    
+                        <div class="flex flex-wrap p-3">    
                             <div class="py-3">
-                                <button
+                                <button id="generatepdfreport1"
                                     class="modal1-open text-center text-xl bg-blue-100 uppercase text-gray-800 font-semibold py-2 px-5 border border-blue-500 rounded"
-                                    onclick="reportrec()">Recipie PDF</button>
+                                    onclick="reportrec()">Recipe PDF</button>
                             </div>
-                        </div> -->
+                        </div>
 
                         </div>
 
@@ -177,7 +177,7 @@
                         <div class="flex p-3 ">
 
                             <div class="flex flex-col">
-                                <h3> Recipie Name </h3>
+                                <h3> Recipe Name </h3>
                                 <div class="flex flex-row">
                                     <div class="py-3">
                                         <input id="susername"
@@ -200,7 +200,7 @@
                             <div class="flex grid grid-cols-5 px-3 ">
 
                                 <div class="flex flex-col">
-                                    <h3> Recipie Name </h3>
+                                    <h3> Recipe Name </h3>
                                     <div class="flex flex-row">
                                         <div class="py-3 pr-2">
                                             <input id="recn"
@@ -451,7 +451,7 @@
                                             <thead>
                                                 <tr>
                                                     <th class="text-center border-b py-3">Sr. No.</th>
-                                                    <th class="text-center border-b py-3">Recipie Name</th>
+                                                    <th class="text-center border-b py-3">Recipe Name</th>
                                                     <th class="text-center border-b py-3">Product Name</th>
                                                     <th class="text-center border-b py-3">Tooling Drg. No.</th>
                                                     <th class="text-center border-b py-3">Size</th>
@@ -560,7 +560,7 @@
                 .then(function (data) {
                     if (isEmpty(data) == false) {
                         console.log(data)
-                        alert("Recipie already exists.")
+                        alert("Recipe already exists.")
                     } else if (isEmpty(data) == true) {
                         udata.recn = document.getElementById("recn").value
                         udata.pname = document.getElementById("pname").value
@@ -589,7 +589,7 @@
                             body: JSON.stringify(udata),
                         })
                             .then(() => {
-                                alert("Recipie added.")
+                                alert("Recipe added.")
                                 setTimeout(() => {
                                     location.reload();
                                 }, 200);
@@ -643,7 +643,7 @@
                         document.getElementById("mainL").value = data[0].mainL
                         document.getElementById("mainR").value = data[0].mainR
                     } else if (isEmpty(data) == true) {
-                        alert("Recipie does not exist.")
+                        alert("Recipe does not exist.")
                     }
                 })
                 .catch(console.error);
@@ -690,7 +690,7 @@
                 body: JSON.stringify(udata),
             })
                 .then(() => {
-                    alert("Recipie updated.")
+                    alert("Recipe updated.")
                     setTimeout(() => {
                         location.reload();
                     }, 200);
@@ -715,7 +715,7 @@
                 // body: JSON.stringify(udata),
             })
                 .then(() => {
-                    alert("Recipie deleted.")
+                    alert("Recipe deleted.")
                     setTimeout(() => {
                         location.reload();
                     }, 200);
@@ -727,6 +727,25 @@
 
     </script>
 
+    <!-- export pdf -->
+
+    <script>
+        var element1 = document.getElementById("generatepdfreport1");
+
+        async function reportrec() {
+            let pdfgenerationtime = 5000
+            document.getElementById("generatepdfreport1").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+            element1.classList.add("cursor-not-allowed");
+
+            await fetch(reportRecipeGenURL);
+
+            setTimeout(() => {
+                location.href = "/report/recipe/download"
+                document.getElementById("generatepdfreport1").innerText = "Recipe PDF";
+                element1.classList.remove("cursor-not-allowed");
+            }, pdfgenerationtime);
+        }
+    </script>
 </body>
 
 </html>
