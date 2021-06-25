@@ -777,11 +777,15 @@ async function stats_() {
 };
 
 function checkrtn(old, neww) {
-    if (neww > old) {
+    if (neww == old+1) {
+        // if (neww > old) {
         // console.log("inc")
         writeHistory(old);
         writeAverage(old);
+    } else if (neww > old + 1) {
+        
     }
+
 }
 
 // setInterval(() => {
