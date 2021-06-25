@@ -734,7 +734,8 @@
 
         async function reportrec() {
             let pdfgenerationtime = 5000
-            document.getElementById("generatepdfreport1").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+            // document.getElementById("generatepdfreport1").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+            document.getElementById("generatepdfreport1").innerText = `PLEASE WAIT`;
             element1.classList.add("cursor-not-allowed");
 
             await fetch(reportRecipeGenURL);
