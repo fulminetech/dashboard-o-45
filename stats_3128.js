@@ -3349,7 +3349,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "SAFETY_MULTIPLICATION_FACTOR") {
-        reg_offset_6000 = 1098*10;
+        reg_offset_6000 = 1099*10;
         reg_write_value = b
         c = payload.stats.SAFETY_MULTIPLICATION_FACTOR
         write_regs()
