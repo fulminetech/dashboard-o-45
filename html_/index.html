@@ -2569,15 +2569,15 @@
                     // document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
                     document.getElementById("count_metric").innerHTML = payload.production;
                     document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
-                    document.getElementById("rpm_metric").value = payload.stats.turret.RPM;
+                    // document.getElementById("rpm_metric").value = payload.stats.turret.RPM;
                     document.getElementById("turret_amp_metric").innerHTML = payload.stats.turret.A;
-                    document.getElementById("feederRHS_metric").value = payload.stats.RHS_FF.RPM;
+                    // document.getElementById("feederRHS_metric").value = payload.stats.RHS_FF.RPM;
                     document.getElementById("feederRHS_amp_metric").innerHTML = payload.stats.RHS_FF.A;
-                    document.getElementById("feederLHS_metric").value = payload.stats.LHS_FF.RPM;
+                    // document.getElementById("feederLHS_metric").value = payload.stats.LHS_FF.RPM;
                     document.getElementById("feederLHS_amp_metric").innerHTML = payload.stats.LHS_FF.A;
                     document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
-                    document.getElementById("pressure_metric").value = payload.stats.pressure.pressure_set
-                    document.getElementById("lube_metric").value = payload.stats.lubrication.set_delay_min;
+                    // document.getElementById("pressure_metric").value = payload.stats.pressure.pressure_set
+                    // document.getElementById("lube_metric").value = payload.stats.lubrication.set_delay_min;
 
                     document.getElementById("LHS_depth_metric").innerHTML = payload.stats.awc.actual_RHS
                     document.getElementById("RHS_depth_metric").innerHTML = payload.stats.awc.actual_LHS
@@ -2889,13 +2889,18 @@
                     .then((resp) => resp.json()) // Transform the data into json
                     .then(function (data) {
                         payload = data
-                        document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
+                        // document.getElementById("roller_freq_").innerHTML = payload.stats.roller.frequency
+                        document.getElementById("rpm_metric").value = payload.stats.turret.RPM;
+                        document.getElementById("feederRHS_metric").value = payload.stats.RHS_FF.RPM;
+                        document.getElementById("feederLHS_metric").value = payload.stats.LHS_FF.RPM;
+                        document.getElementById("pressure_metric").value = payload.stats.pressure.pressure_set
+                        document.getElementById("lube_metric").value = payload.stats.lubrication.set_delay_min;
 
-                        if (payload.button.MACHINE_INCHING_BUTTON == true) {
-                            document.getElementById("inch").checked = true;
-                        } else if (payload.button.MACHINE_INCHING_BUTTON == false) {
-                            document.getElementById("inch").checked = false;
-                        }
+                        // if (payload.button.MACHINE_INCHING_BUTTON == true) {
+                        //     document.getElementById("inch").checked = true;
+                        // } else if (payload.button.MACHINE_INCHING_BUTTON == false) {
+                        //     document.getElementById("inch").checked = false;
+                        // }
                     })
                     .catch(function (error) {
                         // console.log("[ PAYLOAD FETCH ERROR ]", error)
@@ -3155,9 +3160,7 @@
                         .then(setTimeout(() => {
                             console.log(" [ Request Sent // pending confirmation ] ")
                         }, 100))
-                        .then(
-                            
-                        )
+                        .then(check())
                         .catch(console.error);
                 }
                 else {
@@ -3184,6 +3187,7 @@
                     .then(setTimeout(() => {
                         console.log(" [ UPDATED lubetime tolerance ] ")
                     }, 100))
+                    .then(check())
                     .catch(console.error);
                 }
                 else {
@@ -3212,6 +3216,7 @@
                         .then(setTimeout(() => {
                             console.log(" [ UPDATED rpmTurret tolerance ] ")
                         }, 100))
+                        .then(check())
                         .catch(console.error);
                 } 
                 else {
@@ -3239,6 +3244,7 @@
                         .then(setTimeout(() => {
                             console.log(" [ UPDATED rpmFeederLHS tolerance ] ")
                         }, 100))
+                        .then(check())
                         .catch(console.error);
                 }
                 else {
@@ -3264,6 +3270,7 @@
                         .then(setTimeout(() => {
                             console.log(" [ UPDATED rpmFeederRHS tolerance ] ")
                         }, 100))
+                        .then(check())
                         .catch(console.error);
                 }
                 else {
