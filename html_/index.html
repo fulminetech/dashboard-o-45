@@ -3441,8 +3441,8 @@
         }
         
         async function startfeeder(){
-            const div1 = document.getElementById("feeder_start").classList.add('bg-green-300');
             const div2 = document.getElementById("feeder_start").classList.remove('bg-red-300');
+            const div1 = document.getElementById("feeder_start").classList.add('bg-green-300');
             let submiturl = `${seturl}/FORCE_FEEDER_START_BUTTON/true`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Drain ] "))
@@ -3461,7 +3461,7 @@
         async function stopfeeder(){
             const div2 = document.getElementById("feeder_start").classList.remove('bg-green-300');
             const div1 = document.getElementById("feeder_start").classList.add('bg-red-300');
-            let submiturl = `${seturl}/FORCE_FEEDER_STOP_BUTTON/true`
+            let submiturl = `${seturl}/FORCE_FEEDER_STOP_BUTTON/false`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Drain ] "))
                 .catch(console.error);
