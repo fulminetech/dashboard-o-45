@@ -707,6 +707,18 @@
                             </div>
                         </div>
                     
+                        <div class="flex flex-col">
+                            <h3> SAFETY MULTIPLICATION FACTOR </h3>
+                            <div class="flex flex-row">
+                                <div class="py-3">
+                                    <input id="SAFETY_MULTIPLICATION_FACTOR"
+                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) SAFETY_MULTIPLICATION_FACTOR()">
+                                </div>
+                                
+                            </div>
+                        </div>
+                    
                     </div>
 
                     <!-- Search: Parameters -->
@@ -1425,6 +1437,7 @@
                     document.getElementById("RHS_FORCE_FEEDER_MAX_RPM").value = payload.stats.RHS_FF.max_rpm
                     document.getElementById("RHS_FORCE_FEEDER_MAX_FREQ").value = payload.stats.RHS_FF.max_freq
                     document.getElementById("TABLET_MULTIPLICATION_FACTOR").value = payload.stats.TABLET_MULTIPLICATION_FACTOR
+                    document.getElementById("SAFETY_MULTIPLICATION_FACTOR").value = payload.stats.SAFETY_MULTIPLICATION_FACTOR
                     document.getElementById("LHS_PRE_OFFSET").value = payload.stats.punch_offset_position.L_PRE 
                     document.getElementById("LHS_MAIN_OFFSET").value = payload.stats.punch_offset_position.L_MAIN
                     document.getElementById("LHS_EJN_OFFSET").value = payload.stats.punch_offset_position.L_EJN 
@@ -1736,7 +1749,8 @@
         async function LHS_FILL_DEPTH_MAX_ANALOG() {
             var a = document.getElementById("LHS_FILL_DEPTH_MAX_ANALOG").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_FILL_DEPTH_MAX_ANALOG/${a}`
+            // let submiturl = `${seturl}/LHS_FILL_DEPTH_MAX_ANALOG/${a}`
+            let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX_MM/${a}`
             if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1750,7 +1764,8 @@
         async function LHS_FILL_DEPTH_MIN_ANALOG() {
             var a = document.getElementById("LHS_FILL_DEPTH_MIN_ANALOG").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_FILL_DEPTH_MIN_ANALOG/${a}`
+            // let submiturl = `${seturl}/LHS_FILL_DEPTH_MIN_ANALOG/${a}`
+            let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN_MM/${a}`
             if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1764,7 +1779,8 @@
         async function LHS_FILL_DEPTH_MAX() {
             var a = document.getElementById("LHS_FILL_DEPTH_MAX").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_FILL_DEPTH_MAX/${a}`
+            // let submiturl = `${seturl}/LHS_FILL_DEPTH_MAX/${a}`
+            let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX_DEPTH/${a}`
             if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1778,7 +1794,8 @@
         async function LHS_FILL_DEPTH_MIN() {
             var a = document.getElementById("LHS_FILL_DEPTH_MIN").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_FILL_DEPTH_MIN/${a}`
+            // let submiturl = `${seturl}/LHS_FILL_DEPTH_MIN/${a}`
+            let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN_DEPTH/${a}`
             if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1792,7 +1809,8 @@
         async function RHS_FILL_DEPTH_MAX_ANALOG() {
             var a = document.getElementById("RHS_FILL_DEPTH_MAX_ANALOG").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX_ANALOG/${a}`
+            // let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX_ANALOG/${a}`
+            let submiturl = `${seturl}/LHS_FILL_DEPTH_MAX_MM/${a}`
             if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1806,7 +1824,8 @@
         async function RHS_FILL_DEPTH_MIN_ANALOG() {
             var a = document.getElementById("RHS_FILL_DEPTH_MIN_ANALOG").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN_ANALOG/${a}`
+            // let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN_ANALOG/${a}`
+            let submiturl = `${seturl}/LHS_FILL_DEPTH_MIN_MM/${a}`
             if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1820,7 +1839,8 @@
         async function RHS_FILL_DEPTH_MAX() {
             var a = document.getElementById("RHS_FILL_DEPTH_MAX").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX/${a}`
+            // let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX/${a}`
+            let submiturl = `${seturl}/LHS_FILL_DEPTH_MAX_DEPTH/${a}`
             if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1834,7 +1854,8 @@
         async function RHS_FILL_DEPTH_MIN() {
             var a = document.getElementById("RHS_FILL_DEPTH_MIN").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN/${a}`
+            // let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN/${a}`
+            let submiturl = `${seturl}/LHS_FILL_DEPTH_MIN_DEPTH/${a}`
             if (a <= 25 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1848,7 +1869,8 @@
         async function LHS_WEIGHT_MAX_ANALOG() {
             var a = document.getElementById("LHS_WEIGHT_MAX_ANALOG").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_WEIGHT_MAX_ANALOG/${a}`
+            // let submiturl = `${seturl}/LHS_WEIGHT_MAX_ANALOG/${a}`
+            let submiturl = `${seturl}/LHS_PRE_MAX_ANALOG_K_VALUE/${a}`
             if (a <= 32767 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1862,7 +1884,8 @@
         async function LHS_WEIGHT_MIN_ANALOG() {
             var a = document.getElementById("LHS_WEIGHT_MIN_ANALOG").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_WEIGHT_MIN_ANALOG/${a}`
+            // let submiturl = `${seturl}/LHS_WEIGHT_MIN_ANALOG/${a}`
+            let submiturl = `${seturl}/LHS_PRE_MIN_ANALOG_K_VALUE/${a}`
             if (a <= 32767 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1876,7 +1899,8 @@
         async function LHS_WEIGHT_MAX() {
             var a = document.getElementById("LHS_WEIGHT_MAX").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_WEIGHT_MAX/${a}`
+            // let submiturl = `${seturl}/LHS_WEIGHT_MAX/${a}`
+            let submiturl = `${seturl}/LHS_PRE_MAX_DEPTH_MM/${a}`
             if (a <= 60 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1890,7 +1914,8 @@
         async function LHS_WEIGHT_MIN() {
             var a = document.getElementById("LHS_WEIGHT_MIN").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_WEIGHT_MIN/${a}`
+            // let submiturl = `${seturl}/LHS_WEIGHT_MIN/${a}`
+            let submiturl = `${seturl}/LHS_PRE_MIN_DEPTH_MM/${a}`
             if (a <= 60 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1904,7 +1929,7 @@
         async function RHS_WEIGHT_MAX_ANALOG() {
             var a = document.getElementById("RHS_WEIGHT_MAX_ANALOG").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_WEIGHT_MAX_ANALOG/${a}`
+            let submiturl = `${seturl}/LHS_MAIN_MAX_ANALOG_K_VALUE/${a}`
             if (a <= 32767 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1918,7 +1943,7 @@
         async function RHS_WEIGHT_MIN_ANALOG() {
             var a = document.getElementById("RHS_WEIGHT_MIN_ANALOG").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_WEIGHT_MIN_ANALOG/${a}`
+            let submiturl = `${seturl}/LHS_MAIN_MIN_ANALOG_K_VALUE/${a}`
             if (a <= 32767 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1932,7 +1957,7 @@
         async function RHS_WEIGHT_MAX() {
             var a = document.getElementById("RHS_WEIGHT_MAX").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_WEIGHT_MAX/${a}`
+            let submiturl = `${seturl}/LHS_MAIN_MAX_DEPTH_MM/${a}`
             if (a <= 60 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1946,7 +1971,7 @@
         async function RHS_WEIGHT_MIN() {
             var a = document.getElementById("RHS_WEIGHT_MIN").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_WEIGHT_MIN/${a}`
+            let submiturl = `${seturl}/LHS_MAIN_MIN_DEPTH_MM/${a}`
             if (a <= 60 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1960,7 +1985,7 @@
         async function LHS_THICKNESS_MAX_ANALOG() {
             var a = document.getElementById("LHS_THICKNESS_MAX_ANALOG").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_THICKNESS_MAX_ANALOG/${a}`
+            let submiturl = `${seturl}/RHS_PRE_MAX_ANALOG_K_VALUE/${a}`
             if (a <= 32767 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1974,7 +1999,7 @@
         async function LHS_THICKNESS_MIN_ANALOG() {
             var a = document.getElementById("LHS_THICKNESS_MIN_ANALOG").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_THICKNESS_MIN_ANALOG/${a}`
+            let submiturl = `${seturl}/RHS_PRE_MIN_ANALOG_K_VALUE/${a}`
             if (a <= 32767 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -1989,7 +2014,7 @@
             var a = document.getElementById("LHS_THICKNESS_MAX").value;
             // console.log(a)
             if (a <= 60 && a >= 0) {
-            let submiturl = `${seturl}/LHS_THICKNESS_MAX/${a}`
+            let submiturl = `${seturl}/RHS_PRE_MAX_DEPTH_MM/${a}`
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
@@ -2003,7 +2028,7 @@
             var a = document.getElementById("LHS_THICKNESS_MIN").value;
             // console.log(a)
             if (a <= 60 && a >= 0) {
-            let submiturl = `${seturl}/LHS_THICKNESS_MIN/${a}`
+            let submiturl = `${seturl}/RHS_PRE_MIN_DEPTH_MM/${a}`
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
@@ -2016,7 +2041,7 @@
         async function RHS_THICKNESS_MAX_ANALOG() {
             var a = document.getElementById("RHS_THICKNESS_MAX_ANALOG").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_THICKNESS_MAX_ANALOG/${a}`
+            let submiturl = `${seturl}/RHS_MAIN_MAX_ANALOG_K_VALUE/${a}`
             if (a <= 32767 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -2030,7 +2055,7 @@
         async function RHS_THICKNESS_MIN_ANALOG() {
             var a = document.getElementById("RHS_THICKNESS_MIN_ANALOG").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_THICKNESS_MIN_ANALOG/${a}`
+            let submiturl = `${seturl}/RHS_MAIN_MIN_ANALOG_K_VALUE/${a}`
             if (a <= 32767 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -2044,7 +2069,7 @@
         async function RHS_THICKNESS_MAX() {
             var a = document.getElementById("RHS_THICKNESS_MAX").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_THICKNESS_MAX/${a}`
+            let submiturl = `${seturl}/RHS_MAIN_MAX_DEPTH_MM/${a}`
             if (a <= 60 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -2058,7 +2083,7 @@
         async function RHS_THICKNESS_MIN() {
             var a = document.getElementById("RHS_THICKNESS_MIN").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_THICKNESS_MIN/${a}`
+            let submiturl = `${seturl}/RHS_MAIN_MIN_DEPTH_MM/${a}`
             if (a <= 60 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -2100,7 +2125,7 @@
         async function LHS_FORCE_FEEDER_MAX_RPM() {
             var a = document.getElementById("LHS_FORCE_FEEDER_MAX_RPM").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_FORCE_FEEDER_MAX_RPM/${a}`
+            let submiturl = `${seturl}/RHS_FORCE_FEEDER_MAX_RPM/${a}`
             if (a <= 100 && a >= 1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -2115,7 +2140,7 @@
         async function LHS_FORCE_FEEDER_MAX_FREQ() {
             var a = document.getElementById("LHS_FORCE_FEEDER_MAX_FREQ").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_FORCE_FEEDER_MAX_FREQ/${a}`
+            let submiturl = `${seturl}/RHS_FORCE_FEEDER_MAX_FREQ/${a}`
             if (a <= 99.99 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -2129,7 +2154,7 @@
         async function RHS_FORCE_FEEDER_MAX_RPM() {
             var a = document.getElementById("RHS_FORCE_FEEDER_MAX_RPM").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_FORCE_FEEDER_MAX_RPM/${a}`
+            let submiturl = `${seturl}/LHS_FORCE_FEEDER_MAX_RPM/${a}`
             if (a <= 100 && a >= 1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -2143,7 +2168,7 @@
         async function RHS_FORCE_FEEDER_MAX_FREQ() {
             var a = document.getElementById("RHS_FORCE_FEEDER_MAX_FREQ").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_FORCE_FEEDER_MAX_FREQ/${a}`
+            let submiturl = `${seturl}/LHS_FORCE_FEEDER_MAX_FREQ/${a}`
             if (a <= 99.99 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -2563,7 +2588,8 @@
         async function RTN_1_MM() {
             var a = document.getElementById("RTN_1_MM").value;
             // console.log(a)
-            let submiturl = `${seturl}/RTN_1_MM/${a}`
+            // let submiturl = `${seturl}/RTN_1_MM/${a}`
+            let submiturl = `${seturl}/SINGLE_TURN_MM/${a}`
             if (a <= 999.99 && a >= 0) { 
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -2577,7 +2603,8 @@
         async function RTN_1_PPR() {
             var a = document.getElementById("RTN_1_PPR").value;
             // console.log(a)
-            let submiturl = `${seturl}/RTN_1_PPR/${a}`
+            // let submiturl = `${seturl}/RTN_1_PPR/${a}`
+            let submiturl = `${seturl}/SINGLE_TURN_PPR/${a}`
             if (a <= 2147483647 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -2627,6 +2654,34 @@
                 .catch(console.error);
             } else {
                 alert("Please set value between 0 and 9999.")
+            }
+        }
+
+        async function TABLET_MULTIPLICATION_FACTOR() {
+            var a = document.getElementById("TABLET_MULTIPLICATION_FACTOR").value;
+            // console.log(a)
+            let submiturl = `${seturl}/TABLET_MULTIPLICATION_FACTOR/${a}`
+            if (a <= 100 && a >= 0) {
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED! ] "))
+                .then(check())
+                .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 100.")
+            }
+        }
+
+        async function SAFETY_MULTIPLICATION_FACTOR() {
+            var a = document.getElementById("SAFETY_MULTIPLICATION_FACTOR").value;
+            // console.log(a)
+            let submiturl = `${seturl}/SAFETY_MULTIPLICATION_FACTOR/${a}`
+            if (a <= 100 && a >= 0) {
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED! ] "))
+                .then(check())
+                .catch(console.error);
+            } else {
+                alert("Please set value between 0 and 100.")
             }
         }
 

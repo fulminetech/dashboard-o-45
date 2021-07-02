@@ -297,21 +297,19 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Set Force Upperlimit</td>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Safety Upperlimit</td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="SF_UL"
-                                                class="bg-white border-gray-500 shadow text-center focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Upperlimit"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_MSFUL()">
+                                            <a id="SF_UL"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                            
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Set Force Lowerlimit</td>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Safety Lowerlimit</td>
                                         <td id="preLHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="SF_LL"
-                                                class="bg-white border-gray-500 shadow text-center focus:outline-none focus:shadow-outline border  rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Lowerlimit"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_MSFLL()">
+                                            <a id="SF_LL"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                            
                                         </td>
                                     </tr>
                                     <tr>
@@ -394,34 +392,28 @@
                                         
                                     </tr>
                                     <tr>
-                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Set Force Upperlimit</td>
+                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Safety Upperlimit</td>
                                         <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="LSF_UL"
-                                                class="bg-white border-gray-500 shadow text-center focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="PRE LHS FORCE LINE UPPER"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_LSFUL()">
+                                            <a id="LSF_UL"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                                
                                         </td>
                                         <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="RSF_UL"
-                                                class="bg-white border-gray-500 shadow text-center focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Pre RHS FORCE LINE UPPER"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_RSFUL()">
+                                            <a id="RSF_UL"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                         
                                     </tr>
                                     <tr>
-                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Set Force Lowerlimit</td>
+                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Safety Lowerlimit</td>
                                         <td id="preRHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="LSF_LL"
-                                                class="bg-white border-gray-500 shadow text-center focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="PRE LHS FORCE LINE LOWER"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_LSFLL()">
+                                            <a id="LSF_LL"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                            
                                         </td>
                                         <td id="mainRHS_fl" class=" pb-5 px-3 text-center">
-                                            <input id="RSF_LL"
-                                                class="bg-white border-gray-500 shadow text-center focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="number" placeholder="Pre RHS FORCE LINE LOWER"
-                                                onkeydown="if (event.keyCode == 13) updatelimits_RSFLL()">
+                                            <a id="RSF_LL"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
                                         </td>
                                         
                                     </tr>
@@ -635,12 +627,12 @@
                     document.getElementById("samp_inter").value = payload.stats.sampling.SAMPLING_TIME_MINS
                     document.getElementById("mul_factor").value = payload.stats.TABLET_MULTIPLICATION_FACTOR
                     
-                    document.getElementById("SF_UL").value = payload.machine.set_force_mono_upper
-                    document.getElementById("SF_LL").value = payload.machine.set_force_mono_lower
-                    document.getElementById("LSF_UL").value =payload.machine.set_force_LHS_upper
-                    document.getElementById("LSF_LL").value =payload.machine.set_force_LHS_lower
-                    document.getElementById("RSF_UL").value =payload.machine.set_force_RHS_upper
-                    document.getElementById("RSF_LL").value =payload.machine.set_force_RHS_lower
+                    document.getElementById("SF_UL").innerText = payload.machine.set_force_mono_upper
+                    document.getElementById("SF_LL").innerText = payload.machine.set_force_mono_lower
+                    document.getElementById("LSF_UL").innerText =payload.machine.set_force_LHS_upper
+                    document.getElementById("LSF_LL").innerText =payload.machine.set_force_LHS_lower
+                    document.getElementById("RSF_UL").innerText =payload.machine.set_force_RHS_upper
+                    document.getElementById("RSF_LL").innerText =payload.machine.set_force_RHS_lower
                     
                     // document.getElementById("roller_freq").value = payload.stats.roller.frequency
                     // document.getElementById("roller_mode").value = payload.stats.roller.motor
@@ -774,7 +766,8 @@
             submitt(parseInt(mainLHSup))
 
             async function submitt(mainLHSup) {
-                let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_UPPER/${mainLHSup}`
+                // let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_UPPER/${mainLHSup}`
+                let submiturl = `${seturl}/MONO_REJN_HIGH/${mainLHSup}`
 
                 await fetch(submiturl)
                     .then(check)
@@ -789,7 +782,8 @@
                 submitt(parseInt(mainLHSlow))
 
                 async function submitt(mainLHSlow) {
-                    let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_LOWER/${mainLHSlow}`
+                    // let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_LOWER/${mainLHSlow}`
+                    let submiturl = `${seturl}/MONO_REJN_LOW/${mainLHSlow}`
 
                     await fetch(submiturl)
                         .then(check())
@@ -816,7 +810,8 @@
 
             console.log(preLHSup)
 
-            let submiturl = `${seturl}/LHS_PRE_TOLERANCE_UPPER/${preLHSup}`
+            // let submiturl = `${seturl}/LHS_PRE_TOLERANCE_UPPER/${preLHSup}`
+            let submiturl = `${seturl}/LHS_REJN_HIGH/${preLHSup}`
             await fetch(submiturl)
                 .then(check())
                 .catch(console.error);
@@ -827,7 +822,7 @@
 
             console.log(preLHSup)
 
-            let submiturl = `${seturl}/RHS_PRE_TOLERANCE_UPPER/${preLHSup}`
+            let submiturl = `${seturl}/RHS_REJN_HIGH/${preLHSup}`
             await fetch(submiturl)
                 .then(check())
                 .catch(console.error);
@@ -839,7 +834,7 @@
             submitt(parseInt(preLHSlow))
 
             async function submitt(preLHSlow) {
-                let submiturl = `${seturl}/LHS_PRE_TOLERANCE_LOWER/${preLHSlow}`
+                let submiturl = `${seturl}/LHS_REJN_LOW/${preLHSlow}`
 
                 await fetch(submiturl)
                     .then(check())
@@ -854,7 +849,7 @@
             submitt(parseInt(preLHSlow))
 
             async function submitt(preLHSlow) {
-                let submiturl = `${seturl}/RHS_PRE_TOLERANCE_LOWER/${preLHSlow}`
+                let submiturl = `${seturl}/RHS_REJN_LOW/${preLHSlow}`
 
                 await fetch(submiturl)
                     .then(check())
@@ -869,7 +864,8 @@
                 submitt(parseInt(preLHSfl))
 
                 async function submitt(preLHSfl) {
-                    let submiturl = `${seturl}/BI_PRE_FORCE/${preLHSfl}`
+                    // let submiturl = `${seturl}/BI_PRE_FORCE/${preLHSfl}`
+                    let submiturl = `${seturl}/LHS_SET_FORCE/${preLHSfl}`
 
                     await fetch(submiturl)
                         .then(check())
@@ -883,7 +879,8 @@
                 submitt(parseInt(preLHSfl))
 
                 async function submitt(preLHSfl) {
-                    let submiturl = `${seturl}/BI_MAIN_FORCE/${preLHSfl}`
+                    // let submiturl = `${seturl}/BI_MAIN_FORCE/${preLHSfl}`
+                    let submiturl = `${seturl}/RHS_SET_FORCE/${preLHSfl}`
 
                     await fetch(submiturl)
                         .then(check())
@@ -1161,7 +1158,7 @@
         };
 
         setInterval(() => {
-            fetchcompression()
+            // fetchcompression()
         }, 2000);
 
     </script>
