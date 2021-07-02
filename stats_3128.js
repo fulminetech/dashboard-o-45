@@ -1195,7 +1195,7 @@ var read_regs = function () {
             
             payload.stats.TABLET_MULTIPLICATION_FACTOR = data.data[97]
 
-            payload.stats.SAFETY_MULTIPLICATION_FACTOR = data.data[98]/10
+            payload.stats.SAFETY_MULTIPLICATION_FACTOR = data.data[98]
             
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -3350,7 +3350,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "SAFETY_MULTIPLICATION_FACTOR") {
         reg_offset_6000 = 1098
-        reg_write_value = b * 10;
+        reg_write_value = b
         c = payload.stats.SAFETY_MULTIPLICATION_FACTOR
         write_regs()
         writelog()
