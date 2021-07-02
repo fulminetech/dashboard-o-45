@@ -658,7 +658,7 @@
                                     <div class="">
                                         <button id="feeder_start"
                                             class="bg-green-300 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded"
-                                            onmousedown="startfeeder()" onmouseup="unstartfeeder()">
+                                            onclick="feeder()">
                                             Feeder START
                                         </button>
                                     </div>
@@ -3449,14 +3449,14 @@
                 .catch(console.error);
         }
 
-        async function unstartfeeder(){
-            const div1 = document.getElementById("feeder_start").classList.add('bg-green-200');
-            const div2 = document.getElementById("feeder_start").classList.remove('bg-green-500');
-            let submiturl = `${seturl}/FORCE_FEEDER_START_BUTTON/false`
-            await fetch(submiturl)
-                .then(console.log("[ AWC_DISABLE ] "))
-                .catch(console.error);
-        }
+        // async function unstartfeeder(){
+        //     const div1 = document.getElementById("feeder_start").classList.add('bg-green-200');
+        //     const div2 = document.getElementById("feeder_start").classList.remove('bg-green-500');
+        //     let submiturl = `${seturl}/FORCE_FEEDER_START_BUTTON/false`
+        //     await fetch(submiturl)
+        //         .then(console.log("[ AWC_DISABLE ] "))
+        //         .catch(console.error);
+        // }
 
         async function stopfeeder(){
             const div2 = document.getElementById("feeder_start").classList.remove('bg-green-300');
@@ -3467,14 +3467,14 @@
                 .catch(console.error);
         }
 
-        async function unstopfeeder(){
-            const div2 = document.getElementById("feeder_stop").classList.remove('bg-red-500');
-            const div1 = document.getElementById("feeder_stop").classList.add('bg-red-200');
-            let submiturl = `${seturl}/FORCE_FEEDER_STOP_BUTTON/false`
-            await fetch(submiturl)
-                .then(console.log("[ AWC_DISABLE ] "))
-                .catch(console.error);
-        }
+        // async function unstopfeeder(){
+        //     const div2 = document.getElementById("feeder_stop").classList.remove('bg-red-500');
+        //     const div1 = document.getElementById("feeder_stop").classList.add('bg-red-200');
+        //     let submiturl = `${seturl}/FORCE_FEEDER_STOP_BUTTON/false`
+        //     await fetch(submiturl)
+        //         .then(console.log("[ AWC_DISABLE ] "))
+        //         .catch(console.error);
+        // }
 
         async function button1(){
             let submiturl = `${seturl}/AWC_DISABLE/true`
