@@ -971,8 +971,7 @@
                                                 <i class="fas fa-chevron-down  fa-fw text-3xl text-white"></i>
                                             </button>
                                         </td>
-                                        <td class="text-center  text-2xl border bg-white border bg-white border-gray-700">0
-                                            <a id="LHS_main_roller" class="text-2xl"></a>
+                                        <td  id="LHS_main_roller" class="text-center  text-2xl border bg-white border bg-white border-gray-700">0
                                             <div class="flex-shrink p-3">
                                                 <div id="52" class="rounded p-2"></div>
                                             </div>
@@ -993,7 +992,7 @@
                                         </td>
                                         <td  id="LHS_pre_roller"  class="text-center  text-2xl  border bg-white border-gray-700">0
                                             <div class="flex-shrink p-3">
-                                                <div id="51" class="rounded  p-2"></div>
+                                                <div id="51" class="rounded p-2"></div>
                                             </div>
                                         </td>
                                         <td class="text-center text-2xl  border-gray-700">
@@ -2838,6 +2837,13 @@
                         // clearInterval(cycle);
                         // cycle_status = false
                     }
+
+                    console.log(payload.output[23])
+                    console.log(payload.output[18])
+                    console.log(payload.output[35])
+                    console.log(payload.output[36])
+                    console.log(payload.output[37])
+                    console.log(payload.output[38])
 
                     if (payload.output[23] === true) {
                         const div = document.getElementById("23").classList.add('bg-red-600');
