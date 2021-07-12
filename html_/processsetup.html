@@ -672,7 +672,8 @@
                     console.log("[ PAYLOAD FETCH ERROR ]", error)
                 });
         };
-        var maindata
+        
+        var maindata;
 
         async function fetchpayloadapiHF1() {
             fetch(statsurl)
@@ -803,40 +804,40 @@
                     await fetch(submiturl)
                         .catch(console.error);
                 } else {
-                    let submiturl = `${seturl}/LHS_PRE_DISABLE/false`
+                    let submiturl = `${seturl}/LHS_PRE_DISABLE/true`
                     await fetch(submiturl)
                         .catch(console.error);
                 }
             }
-            async function l_main_mm_dis() {
-                if (maindata.button.LHS_MAIN_DISABLE == true) {
-                    let submiturl = `${seturl}/LHS_MAIN_DISABLE/false`
-                    await fetch(submiturl)
-                        .catch(console.error);
-                } else {
-                    let submiturl = `${seturl}/LHS_MAIN_DISABLE/false`
-                    await fetch(submiturl)
-                        .catch(console.error);
-                }
+        async function l_main_mm_dis() {
+            if (maindata.button.LHS_MAIN_DISABLE == true) {
+                let submiturl = `${seturl}/LHS_MAIN_DISABLE/false`
+                await fetch(submiturl)
+                    .catch(console.error);
+            } else {
+                let submiturl = `${seturl}/LHS_MAIN_DISABLE/true`
+                await fetch(submiturl)
+                    .catch(console.error);
             }
-            async function r_pre_mm_dis() {
-                if (maindata.button.RHS_PRE_DISABLE == true) {
-                    let submiturl = `${seturl}/RHS_PRE_DISABLE/false`
-                    await fetch(submiturl)
-                        .catch(console.error);
-                } else {
-                    let submiturl = `${seturl}/RHS_PRE_DISABLE/false`
-                    await fetch(submiturl)
-                        .catch(console.error);
-                }
+        }
+        async function r_pre_mm_dis() {
+            if (maindata.button.RHS_PRE_DISABLE == true) {
+                let submiturl = `${seturl}/RHS_PRE_DISABLE/false`
+                await fetch(submiturl)
+                    .catch(console.error);
+            } else {
+                let submiturl = `${seturl}/RHS_PRE_DISABLE/true`
+                await fetch(submiturl)
+                    .catch(console.error);
             }
-            async function r_main_mm_dis() {
+        }
+        async function r_main_mm_dis() {
                 if (maindata.button.RHS_MAIN_DISABLE == true) {
                     let submiturl = `${seturl}/RHS_MAIN_DISABLE/false`
                     await fetch(submiturl)
                         .catch(console.error);
                 } else {
-                    let submiturl = `${seturl}/RHS_MAIN_DISABLE/false`
+                    let submiturl = `${seturl}/RHS_MAIN_DISABLE/true`
                     await fetch(submiturl)
                         .catch(console.error);
                 }
