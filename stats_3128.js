@@ -1351,7 +1351,7 @@ app.use("/api/machine/stats", (req, res) => {
 });
 
 app.get("/api/set/status/:punch/:value", (req, res) => {
-    const a = parseInt(req.params.punch);
+    var a = parseInt(req.params.punch);
     const b = req.params.value;
 
     writelog = () => {
