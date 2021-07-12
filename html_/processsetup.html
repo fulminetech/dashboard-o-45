@@ -1191,7 +1191,7 @@
 
     <!-- Update System info -->
     <script>
-        function l_pre_mm_dis() {
+        async function l_pre_mm_dis() {
             if (maindata.button.LHS_PRE_DISABLE == true) {
                 let submiturl = `${seturl}/LHS_PRE_DISABLE/false`
                 await fetch(submiturl)
@@ -1202,7 +1202,7 @@
                     .catch(console.error);
             }
         }
-        function l_main_mm_dis() {
+        async function l_main_mm_dis() {
             if (maindata.button.LHS_MAIN_DISABLE == true) {
                 let submiturl = `${seturl}/LHS_MAIN_DISABLE/false`
                 await fetch(submiturl)
@@ -1213,7 +1213,7 @@
                     .catch(console.error);
             }
         }
-        function r_pre_mm_dis() {
+        async function r_pre_mm_dis() {
             if (maindata.button.RHS_PRE_DISABLE == true) {
                 let submiturl = `${seturl}/RHS_PRE_DISABLE/false`
                 await fetch(submiturl)
@@ -1224,7 +1224,7 @@
                     .catch(console.error);
             }
         }
-        function r_main_mm_dis() {
+        async function r_main_mm_dis() {
             if (maindata.button.RHS_MAIN_DISABLE == true) {
                 let submiturl = `${seturl}/RHS_MAIN_DISABLE/false`
                 await fetch(submiturl)
