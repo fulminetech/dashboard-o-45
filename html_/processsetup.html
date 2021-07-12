@@ -756,35 +756,37 @@
         };
 
         async function check() {
-            fetch(statsurl)
-                .then((resp) => resp.json()) // Transform the data into json
-                .then(function (data) {
-                    // Here you get the data to modify as you please
-                    payload = data
-                    
-                    document.getElementById("samp_tab_no").value = payload.stats.sampling.NO_TABLET_SAMPLING
-                    document.getElementById("samp_inter").value = payload.stats.sampling.SAMPLING_TIME_MINS
-                    document.getElementById("mul_factor").value = payload.stats.TABLET_MULTIPLICATION_FACTOR
-                    
-                    document.getElementById("mainUP").value = payload.machine.LHS.maincompression_upperlimit
-                    document.getElementById("mainLOW").value = payload.machine.LHS.maincompression_lowerlimit
-                    document.getElementById("mainFL").value = payload.stats.awc.MONO_MAIN_FORCE
-
-                    document.getElementById("preLHSup").value = payload.machine.LHS.precompression_upperlimit
-                    document.getElementById("preRHSup").value = payload.machine.RHS.precompression_upperlimit
-                    document.getElementById("preLHSlow").value = payload.machine.LHS.precompression_lowerlimit
-                    document.getElementById("preRHSlow").value = payload.machine.RHS.precompression_lowerlimit
-
-                    document.getElementById("preLHSfl").value = payload.stats.awc.BI_PRE_FORCE
-                    document.getElementById("preRHSfl").value = payload.stats.awc.BI_MAIN_FORCE
-
-                    document.getElementById("SAFETY_MULTIPLICATION_FACTOR").value = payload.stats.SAFETY_MULTIPLICATION_FACTOR
-                    document.getElementById("MACHINE_STOP_DELAY").value = payload.stats.MACHINE_STOP_DELAY
-                })
-                .catch(function (error) {
-                    // If there is any error you will catch them here
-                    console.log("[ PAYLOAD FETCH ERROR ]", error)
-                });
+            setTimeout(() => {
+                fetch(statsurl)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        // Here you get the data to modify as you please
+                        payload = data
+                        
+                        document.getElementById("samp_tab_no").value = payload.stats.sampling.NO_TABLET_SAMPLING
+                        document.getElementById("samp_inter").value = payload.stats.sampling.SAMPLING_TIME_MINS
+                        document.getElementById("mul_factor").value = payload.stats.TABLET_MULTIPLICATION_FACTOR
+                        
+                        document.getElementById("mainUP").value = payload.machine.LHS.maincompression_upperlimit
+                        document.getElementById("mainLOW").value = payload.machine.LHS.maincompression_lowerlimit
+                        document.getElementById("mainFL").value = payload.stats.awc.MONO_MAIN_FORCE
+    
+                        document.getElementById("preLHSup").value = payload.machine.LHS.precompression_upperlimit
+                        document.getElementById("preRHSup").value = payload.machine.RHS.precompression_upperlimit
+                        document.getElementById("preLHSlow").value = payload.machine.LHS.precompression_lowerlimit
+                        document.getElementById("preRHSlow").value = payload.machine.RHS.precompression_lowerlimit
+    
+                        document.getElementById("preLHSfl").value = payload.stats.awc.BI_PRE_FORCE
+                        document.getElementById("preRHSfl").value = payload.stats.awc.BI_MAIN_FORCE
+    
+                        document.getElementById("SAFETY_MULTIPLICATION_FACTOR").value = payload.stats.SAFETY_MULTIPLICATION_FACTOR
+                        document.getElementById("MACHINE_STOP_DELAY").value = payload.stats.MACHINE_STOP_DELAY
+                    })
+                    .catch(function (error) {
+                        // If there is any error you will catch them here
+                        console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            }, 2000);
         };
 
         fetchpayloadapiHF1();
