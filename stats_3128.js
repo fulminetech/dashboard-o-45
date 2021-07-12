@@ -1401,7 +1401,7 @@ app.get("/api/set/status/:punch/:value", (req, res) => {
 
 
 app.get("/api/set/:parameter/:value", (req, res) => {
-    const a = req.params.parameter;
+    var a = req.params.parameter;
     const b = req.params.value;
     var c;
 
