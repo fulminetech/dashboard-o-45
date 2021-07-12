@@ -1205,7 +1205,7 @@ var read_regs = function () {
             payload.stats.TABLET_MULTIPLICATION_FACTOR = data.data[97]
 
             payload.stats.SAFETY_MULTIPLICATION_FACTOR = data.data[98]
-            payload.stats.MACHINE_STOP_DELAY = data.data[99]
+            payload.stats.MACHINE_STOP_DELAY = data.data[99] / 10 
             
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -3637,7 +3637,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "MACHINE_STOP_DELAY") {
         reg_offset_6000 = 1099
-        reg_write_value = b
+        reg_write_value = b*10
         c = payload.stats.MACHINE_STOP_DELAY
         write_regs()
         writelog()
