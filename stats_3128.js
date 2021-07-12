@@ -294,7 +294,6 @@ var payload = {
             R_PRE: 0,
             R_MAIN: 0,
             R_EJN: 0,
-
             L_AIR_MONO: 0,
             L_FLAP_MONO: 0,
             R_AIR_MONO: 0,
@@ -2544,6 +2543,78 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         coil_offset_410 = 125
         set_button = false
         c = payload.button.FORCE_OVERRIDE
+        
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "RHS_MAIN_DISABLE" && b == "true") {
+        a = "RHS_MAIN_DISABLE"
+        coil_offset_410 = 183
+        set_button = true
+        c = payload.button.RHS_MAIN_DISABLE
+        
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "RHS_MAIN_DISABLE" && b == "false") {
+        a = "RHS_MAIN_DISABLE"
+        coil_offset_410 = 183
+        set_button = false
+        c = payload.button.RHS_MAIN_DISABLE
+        
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "RHS_PRE_DISABLE" && b == "true") {
+        a = "RHS_PRE_DISABLE"
+        coil_offset_410 = 182
+        set_button = true
+        c = payload.button.RHS_PRE_DISABLE
+        
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "RHS_PRE_DISABLE" && b == "false") {
+        a = "RHS_PRE_DISABLE"
+        coil_offset_410 = 182
+        set_button = false
+        c = payload.button.RHS_PRE_DISABLE
+        
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "LHS_MAIN_DISABLE" && b == "true") {
+        a = "LHS_MAIN_DISABLE"
+        coil_offset_410 = 181
+        set_button = true
+        c = payload.button.LHS_MAIN_DISABLE
+        
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "LHS_MAIN_DISABLE" && b == "false") {
+        a = "LHS_MAIN_DISABLE"
+        coil_offset_410 = 181
+        set_button = false
+        c = payload.button.LHS_MAIN_DISABLE
+        
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "LHS_PRE_DISABLE" && b == "true") {
+        a = "LHS_PRE_DISABLE"
+        coil_offset_410 = 180
+        set_button = true
+        c = payload.button.LHS_PRE_DISABLE
+        
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "LHS_PRE_DISABLE" && b == "false") {
+        a = "LHS_PRE_DISABLE"
+        coil_offset_410 = 180
+        set_button = false
+        c = payload.button.LHS_PRE_DISABLE
         
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
