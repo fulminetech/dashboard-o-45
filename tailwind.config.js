@@ -11,6 +11,10 @@ module.exports = {
         'blueish': '#1687a7'
       },
       spacing: {
+        '16': '4rem',
+        '18': '4.5rem',
+        '20': '5rem',
+        '24': '6rem',
         '26': '6.5rem',
         '28': '7rem',
         '30': '7.5rem',

@@ -750,6 +750,10 @@ app.get("/report/recipe", (req, res) => {
     res.sendFile(path.join(__dirname + "/report/recipe.html"));
 });
 
+app.get("/report/recipe_single", (req, res) => {
+    res.sendFile(path.join(__dirname + "/report/recipe_single.html"));
+});
+
 app.get("/report/average/now", (req, res) => {
     res.send(report);
 })
@@ -768,8 +772,6 @@ app.get("/checkuserlevel/:batch", (req, res) => {
         .catch(console.error);
     res.json(report);
 })
-
-
 
 app.get("/report/average/generate", (req, res) => {
     (async () => {
@@ -1142,6 +1144,43 @@ app.get("/report/recipe/generate", (req, res) => {
     return res.json({ message: 'EXPORTED preRHS' });
 })
 
+app.get("/report/recipe_single/generate", (req, res) => {
+    (async () => {
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' }); // For MAC
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+        const page = await browser.newPage();
+        await page.goto(`http://${host}:5000/report/recipe_single`, { waitUntil: 'networkidle0' });
+        await page.pdf({
+            path: `recipe.pdf`, format: 'A4', landscape: false,
+            displayHeaderFooter: true,
+            headerTemplate: `
+            <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">RECIPE</div>
+                <p style="text-align:right; padding-right: 30px; font-size: 8px;">
+                    Created on (mm/dd/yyyy): <span class="date">
+                </p>
+            </div>
+            `,
+            footerTemplate: `
+            <div style="width: 100%; font-size: 12px; font-family: Verdana, sans-serif; padding: 5px 5px 0;">
+                <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
+                    Prepared By:
+                    <span style="float:right;">
+                        Checked By:
+                    </span>
+                </p>
+                <div style="text-align: center; center: 5px; top: 5px;">Page: <span class="pageNumber"></span> of <span class="totalPages"></span></div>
+            </div>
+            `,
+            // this is needed to prevent content from being placed over the footer
+            margin: { bottom: '80px', top: '120px' },
+        });
+        await browser.close();
+    })();
+
+    return res.json({ message: 'EXPORTED recipe_name' });
+})
+
 app.get("/report/audit/download", (req, res) => {
     var file = path.join(__dirname, `batch_${report.batch}_audit.pdf`);
     res.download(file, function (err) {
@@ -1252,6 +1291,18 @@ app.get("/report/ejnRHS/download", (req, res) => {
 
 app.get("/report/recipe/download", (req, res) => {
     var file = path.join(__dirname, `recipe_list.pdf`);
+    res.download(file, function (err) {
+        if (err) {
+            console.log("Error");
+            console.log(err);
+        } else {
+            console.log("Success");
+        }
+    });
+})
+
+app.get("/report/recipe_single/download", (req, res) => {
+    var file = path.join(__dirname, `recipe.pdf`);
     res.download(file, function (err) {
         if (err) {
             console.log("Error");

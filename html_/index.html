@@ -659,7 +659,7 @@
                                         <button id="feeder_start"
                                             class="bg-green-300 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded"
                                             onclick="feeder()">
-                                            Feeder START
+                                            Feeder Run
                                         </button>
                                     </div>
                                 </div>
@@ -721,9 +721,7 @@
                                         </button>
                                     </div>
                                 </div> -->
-                             
-                                
-                        </div>
+                            </div>
                         </div>
 
                         <!-- Search: Parameters -->
@@ -3175,7 +3173,7 @@
                     
                     pressureset()
 
-                    let submiturl = `${seturl}/PRESSURE_TON/${pressure}`
+                    let submiturl = `${seturl}/HYDRAULIC_PRESSURE_CHANGE/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
                         .then(setTimeout(() => {
@@ -3200,7 +3198,7 @@
 
             async function submitt(lubetime) {
                 // hidekeyboard()
-                let submiturl = `${seturl}/LUBE_TIME_DELAY_MINUTES/${lubetime}`
+                let submiturl = `${seturl}/LUBRICATION_OFF_TIME_CHANGE/${lubetime}`
 
                 console.log(submiturl)
                 if (lubetime <= 99 && lubetime >= 1) {
@@ -3228,7 +3226,7 @@
             async function submitt(rpmTurret) {
 
                 // hidekeyboard()
-                let submiturl = `${seturl}/TURRET_RPM/${rpmTurret}`
+                let submiturl = `${seturl}/TURRET_RPM_CHANGE/${rpmTurret}`
 
                 console.log(submiturl)
 
@@ -3256,7 +3254,7 @@
             submitt(parseInt(rpmFeederLHS))
 
             async function submitt(rpmFeederLHS) {
-                let submiturl = `${seturl}/RHS_FORCE_FEEDER_RPM/${rpmFeederLHS}`
+                let submiturl = `${seturl}/RHS_FEEDER_RPM_CHANGE/${rpmFeederLHS}`
 
                 console.log(submiturl)
 
@@ -3282,7 +3280,7 @@
             
             submitt(parseInt(rpmFeederRHS))
             async function submitt(rpmFeederRHS) {
-                let submiturl = `${seturl}/LHS_FORCE_FEEDER_RPM/${rpmFeederRHS}`
+                let submiturl = `${seturl}/LHS_FEEDER_RPM_CHANGE/${rpmFeederRHS}`
 
                 console.log(submiturl)
 
@@ -3309,7 +3307,7 @@
         async function start(){
             const div1 = document.getElementById("start_m").classList.remove('bg-green-200');
             const div2 = document.getElementById("start_m").classList.add('bg-green-500');
-            let submiturl = `${seturl}/MACHINE_START_BUTTON/true`
+            let submiturl = `${seturl}/START_BUTTON/true`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
@@ -3318,7 +3316,7 @@
         async function unstart(){
             const div1 = document.getElementById("start_m").classList.add('bg-green-200');
             const div2 = document.getElementById("start_m").classList.remove('bg-green-500');
-            let submiturl = `${seturl}/MACHINE_START_BUTTON/false`
+            let submiturl = `${seturl}/START_BUTTON/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Start ] "))
                 .catch(console.error);
@@ -3327,7 +3325,7 @@
         async function stop(){
             const div1 = document.getElementById("stop_m").classList.remove('bg-red-200');
             const div2 = document.getElementById("stop_m").classList.add('bg-red-500');
-            let submiturl = `${seturl}/MACHINE_STOP_BUTTON/true`
+            let submiturl = `${seturl}/STOP_BUTTON/true`
             await fetch(submiturl)
                 .then(console.log("[ Machine Stop ] "))
                 .catch(console.error);
@@ -3337,7 +3335,7 @@
         async function unstop(){
             const div2 = document.getElementById("stop_m").classList.remove('bg-red-500');
             const div1 = document.getElementById("stop_m").classList.add('bg-red-200');
-            let submiturl = `${seturl}/MACHINE_STOP_BUTTON/false`
+            let submiturl = `${seturl}/STOP_BUTTON/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Stop ] "))
                 .catch(console.error);
@@ -3348,7 +3346,7 @@
             var x = !document.getElementById("inch").checked;
 
             if (x == false) {
-                let submiturl = `${seturl}/MACHINE_INCHING_BUTTON/${!x}`
+                let submiturl = `${seturl}/INCHING_BUTTON/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -3357,7 +3355,7 @@
                     .catch(console.error);
 
             } else if (x == true) {
-                let submiturl = `${seturl}/MACHINE_INCHING_BUTTON/${!x}`
+                let submiturl = `${seturl}/INCHING_BUTTON/${!x}`
                 console.log(submiturl)
 
                 await fetch(submiturl)
@@ -3370,7 +3368,7 @@
         async function inch(){
             const div1 = document.getElementById("inching").classList.remove('bg-blue-100');
             const div2 = document.getElementById("inching").classList.add('bg-green-300');
-            let submiturl = `${seturl}/MACHINE_INCHING_BUTTON/true`
+            let submiturl = `${seturl}/INCHING_BUTTON/true`
             await fetch(submiturl)
                 .then(console.log("[ Machine Inch ] "))
                 .catch(console.error);
@@ -3380,7 +3378,7 @@
         async function uninch(){
             const div1 = document.getElementById("inching").classList.add('bg-blue-100');
             const div2 = document.getElementById("inching").classList.remove('bg-green-300');
-            let submiturl = `${seturl}/MACHINE_INCHING_BUTTON/false`
+            let submiturl = `${seturl}/INCHING_BUTTON/false`
             await fetch(submiturl)
                 .then(console.log("[ Machine Inch Stop] "))
                 .catch(console.error);
@@ -3389,7 +3387,7 @@
         async function startpower(){
             const div1 = document.getElementById("start_pp").classList.remove('bg-green-200');
             const div2 = document.getElementById("start_pp").classList.add('bg-green-500');
-            let submiturl = `${seturl}/POWER_PACK_START_BUTTON/true`
+            let submiturl = `${seturl}/POWER_PACK_START/true`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Start ] "))
                 .catch(console.error);
@@ -3398,7 +3396,7 @@
         async function unstartpower(){
             const div1 = document.getElementById("start_pp").classList.add('bg-green-200');
             const div2 = document.getElementById("start_pp").classList.remove('bg-green-500');
-            let submiturl = `${seturl}/POWER_PACK_START_BUTTON/false`
+            let submiturl = `${seturl}/POWER_PACK_START/false`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Start ] "))
                 .catch(console.error);
@@ -3407,7 +3405,7 @@
         async function stoppower(){
             const div1 = document.getElementById("stop_pp").classList.remove('bg-red-200');
             const div2 = document.getElementById("stop_pp").classList.add('bg-red-500');
-            let submiturl = `${seturl}/POWER_PACK_STOP_BUTTON/true`
+            let submiturl = `${seturl}/POWER_PACK_STOP/true`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Stop ] "))
                 .catch(console.error);
@@ -3416,7 +3414,7 @@
         async function unstoppower(){
             const div2 = document.getElementById("stop_pp").classList.remove('bg-red-500');
             const div1 = document.getElementById("stop_pp").classList.add('bg-red-200');
-            let submiturl = `${seturl}/POWER_PACK_STOP_BUTTON/false`
+            let submiturl = `${seturl}/POWER_PACK_STOP/false`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Stop ] "))
                 .catch(console.error);
@@ -3425,7 +3423,7 @@
         async function drain(){
             const div1 = document.getElementById("drain").classList.remove('bg-red-300');
             const div2 = document.getElementById("drain").classList.add('bg-red-500');
-            let submiturl = `${seturl}/DRAIN_BUTTON/true`
+            let submiturl = `${seturl}/DRAIN/true`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Drain ] "))
                 .catch(console.error);
@@ -3434,7 +3432,7 @@
         async function undrain(){
             const div1 = document.getElementById("drain").classList.add('bg-red-300');
             const div2 = document.getElementById("drain").classList.remove('bg-red-500');
-            let submiturl = `${seturl}/DRAIN_BUTTON/false`
+            let submiturl = `${seturl}/DRAIN/false`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Drain ] "))
                 .catch(console.error);
@@ -3450,7 +3448,7 @@
         async function startfeeder(){
             const div2 = document.getElementById("feeder_start").classList.remove('bg-red-300');
             const div1 = document.getElementById("feeder_start").classList.add('bg-green-300');
-            let submiturl = `${seturl}/FORCE_FEEDER_START_BUTTON/true`
+            let submiturl = `${seturl}/FEEDER_RUN/true`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Drain ] "))
                 .catch(console.error);
@@ -3468,7 +3466,7 @@
         async function stopfeeder(){
             const div2 = document.getElementById("feeder_start").classList.remove('bg-green-300');
             const div1 = document.getElementById("feeder_start").classList.add('bg-red-300');
-            let submiturl = `${seturl}/FORCE_FEEDER_START_BUTTON/false`
+            let submiturl = `${seturl}/FEEDER_RUN/false`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Drain ] "))
                 .catch(console.error);
@@ -3527,14 +3525,14 @@
 
         async function button4(){
             
-            let submiturl = `${seturl}/REJECTION_BUTTON_HMI/true`
+            let submiturl = `${seturl}/REJECTION/true`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Drain ] "))
                 .catch(console.error);
         }
 
         async function button4x(){
-            let submiturl = `${seturl}/REJECTION_BUTTON_HMI/false`
+            let submiturl = `${seturl}/REJECTION/false`
             await fetch(submiturl)
                 .then(console.log("[ AWC_DISABLE ] "))
                 .catch(console.error);
@@ -3615,14 +3613,14 @@
         }
 
         async function button10(){
-            let submiturl = `${seturl}/FIRST_LAYER_SAMPLING/true`
+            let submiturl = `${seturl}/1ST_LAYER_EJECTION/true`
             await fetch(submiturl)
                 .then(console.log("[ Powerpack Drain ] "))
                 .catch(console.error);
         }
 
         async function button10x(){
-            let submiturl = `${seturl}/FIRST_LAYER_SAMPLING/false`
+            let submiturl = `${seturl}/1ST_LAYER_EJECTION/false`
             await fetch(submiturl)
                 .then(console.log("[ AWC_DISABLE ] "))
                 .catch(console.error);
@@ -3659,7 +3657,7 @@
         async function button13(){
             const div1 = document.getElementById("man_samp").classList.remove('bg-red-300');
             const div2 = document.getElementById("man_samp").classList.add('bg-green-300');
-            let submiturl = `${seturl}/MANUAL_SAMPLE/true`
+            let submiturl = `${seturl}/MANUAL_SAMPLING/true`
             await fetch(submiturl)
                 .then(console.log("[ MANUAL_SAMPLE ] "))
                 .catch(console.error);
@@ -3668,7 +3666,7 @@
         async function button13x(){
             const div1 = document.getElementById("man_samp").classList.add('bg-red-300');
             const div2 = document.getElementById("man_samp").classList.remove('bg-green-300');
-            let submiturl = `${seturl}/MANUAL_SAMPLE/false`
+            let submiturl = `${seturl}/MANUAL_SAMPLING/false`
             await fetch(submiturl)
                 .then(console.log("[ MANUAL_SAMPLE ] "))
                 .catch(console.error);

@@ -132,6 +132,7 @@ var payload = {
         fault_active_flash: 0,
         TABLET_MULTIPLICATION_FACTOR:0,
         SAFETY_MULTIPLICATION_FACTOR:0,
+        MACHINE_STOP_DELAY: 0,
         turret: {
             F: 0,
             H: 0,
@@ -403,7 +404,11 @@ var payload = {
         LHS_HOME_OFFSET_WRITE: '',
         LHS_EEPROM_WRITE: '',
         FORCE_OVERRIDE: '',
-        SERVO_CALIBRATION_MODE: ''
+        SERVO_CALIBRATION_MODE: '',
+        LHS_PRE_DISABLE: '',
+        LHS_MAIN_DISABLE: '',
+        RHS_PRE_DISABLE: '',
+        RHS_MAIN_DISABLE: ''
     },
     alarm:{
         EMERGENCY_STOP_PRESSED: '',
@@ -951,7 +956,7 @@ var read_coils = function () {
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
 
-    client.readCoils(coil_500, 38)
+    client.readCoils(coil_500, 95)
         .then(function (data) {
             // console.log("coil_500: ", data.data)
             payload.button.DIRECT__RAMP = data.data[0]
@@ -981,6 +986,10 @@ var read_coils = function () {
             payload.button.LHS_HOME_OFFSET_WRITE = data.data[33]
             payload.button.LHS_EEPROM_WRITE = data.data[34]
             payload.button.FORCE_OVERRIDE = data.data[35]
+            payload.button.LHS_PRE_DISABLE = data.data[90]
+            payload.button.LHS_MAIN_DISABLE = data.data[91]
+            payload.button.RHS_PRE_DISABLE = data.data[92]
+            payload.button.RHS_MAIN_DISABLE = data.data[93]
             
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -1090,7 +1099,7 @@ var read_regs = function () {
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
     
-    client.readHoldingRegisters(reg_7000, 99)
+    client.readHoldingRegisters(reg_7000, 100)
         .then(function (data) {
             // console.log("STATS: ",data.data)
             
@@ -1136,11 +1145,11 @@ var read_regs = function () {
             payload.stats.RHSthickness.thickness_min = data.data[39] / 10;
 
             payload.stats.turret.max_rpm = data.data[40]
-            payload.stats.turret.max_freq = data.data[41] /100;
+            payload.stats.turret.max_freq = data.data[41];
             payload.stats.LHS_FF.max_rpm = data.data[42]
-            payload.stats.LHS_FF.max_freq = data.data[43] /100;
+            payload.stats.LHS_FF.max_freq = data.data[43];
             payload.stats.RHS_FF.max_rpm = data.data[44]
-            payload.stats.RHS_FF.max_freq = data.data[45] /100;
+            payload.stats.RHS_FF.max_freq = data.data[45];
 
             payload.stats.punch_offset_position.L_PRE = data.data[46]
             payload.stats.punch_offset_position.L_MAIN = data.data[47]
@@ -1196,6 +1205,7 @@ var read_regs = function () {
             payload.stats.TABLET_MULTIPLICATION_FACTOR = data.data[97]
 
             payload.stats.SAFETY_MULTIPLICATION_FACTOR = data.data[98]
+            payload.stats.MACHINE_STOP_DELAY = data.data[99]
             
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -1345,6 +1355,36 @@ app.get("/api/set/status/:punch/:value", (req, res) => {
     const a = parseInt(req.params.punch);
     const b = req.params.value;
 
+    writelog = () => {
+
+        if (b == 'true') {
+            console.log(typeof (Number(0)))
+            _new.write(`${batchinfo.name}.operationlogs`)
+                .tag({
+                })
+                .field({
+                    operator: batchinfo.operator,  // 2
+                    parameter: `PUNCH ${a} ENABLE`,  // 2
+                    oldvalue: Number(0),  // 2
+                    newvalue: Number(1),  // 2
+                })
+                .then(() => console.info(`[ LOG ENTRY DONE ${batchinfo.name} ]`))
+                .catch(console.error);
+        } else if (b == 'false') {
+            console.log(typeof (Number(0)))
+            _new.write(`${batchinfo.name}.operationlogs`)
+                .tag({
+                })
+                .field({
+                    operator: batchinfo.operator,  // 2
+                    parameter: `PUNCH ${a} ENABLE`,  // 2
+                    oldvalue: Number(1),  // 2
+                    newvalue: Number(0),  // 2
+                })
+                .then(() => console.info(`[ LOG ENTRY DONE ${batchinfo.name} ]`))
+                .catch(console.error);
+        }
+    }
     coil_offset_500 = 40 + a -1;
 
     if (b == 'true') {
@@ -1354,6 +1394,7 @@ app.get("/api/set/status/:punch/:value", (req, res) => {
     }
 
     write_coil_500()
+    writelog()
 
     res.header('Access-Control-Allow-Origin', '*');
     return res.json({ message: `[ UPDATED ${a} to ${b} ]` });
@@ -1423,21 +1464,21 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_regs_32()
         // writelog()
     }
-    else if (a == "TURRET_RPM") {
+    else if (a == "TURRET_RPM_CHANGE") {
         reg_offset_6000 = 0
         reg_write_value = b
         c = payload.stats.turret.RPM
         write_regs()
         writelog()
     }
-    else if (a == "RHS_FORCE_FEEDER_RPM") {
+    else if (a == "RHS_FEEDER_RPM_CHANGE") {
         reg_offset_6000 = 1
         reg_write_value = b
         c = payload.stats.LHS_FF.RPM
         write_regs()
         writelog()
     } 
-    else if (a == "LHS_FORCE_FEEDER_RPM") {
+    else if (a == "LHS_FEEDER_RPM_CHANGE") {
         reg_offset_6000 = 2
         reg_write_value = b
         c = payload.stats.RHS_FF.RPM
@@ -1449,37 +1490,49 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         reg_write_value = b
         c = payload.stats.FF_MODE
         write_regs()
-        writelog()
+        // writelog()
+        if (a == 0) {
+            a = "FEEDER_GRAVITY"
+            b = "true"
+            c = "false"
+            writelog()
+        }
+        else if (a == 1) {
+            a = "FEEDER_FORCE"
+            b = "true"
+            c = "false"
+            writelog()
+        }
     } 
-    else if (a == "LUBE_TIME_DELAY_MINUTES") {
+    else if (a == "LUBRICATION_OFF_TIME_CHANGE") {
         reg_offset_6000 = 4
         reg_write_value = b
         c = payload.stats.lubrication.set_delay_min
         write_regs()
         writelog()
     } 
-    else if (a == "LUBE_TIME_DELAY_SECONDS") {
+    else if (a == "LUBRICATION_ON_TIME_CHANGE") {
         reg_offset_6000 = 5
         reg_write_value = b * 10
         c = payload.stats.lubrication.set_delay_sec
         write_regs()
         writelog()
     } 
-    else if (a == "PRESSURE_TON") {
+    else if (a == "HYDRAULIC_PRESSURE_CHANGE") {
         reg_offset_6000 = 7
         reg_write_value = b 
         c = payload.stats.pressure.pressure_set
         write_regs()
         writelog()
     } 
-    else if (a == "HYDRAULIC_HIGH_PRESSURE_CUTOFF_PERCENT") {
+    else if (a == "HYDRAULIC_HIGH_PRESSURE_CUTOFF") {
         reg_offset_6000 = 8
         reg_write_value = b
         c = payload.stats.hydraulic.high_cutoff
         write_regs()
         writelog()
     } 
-    else if (a == "HYDRAULIC_LOW_PRESSURE_CUTOFF_PERCENT") {
+    else if (a == "HYDRAULIC_LOW_PRESSURE_CUTOFF") {
         reg_offset_6000 = 9
         reg_write_value = b
         c = payload.stats.hydraulic.low_cutoff
@@ -1487,6 +1540,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "LHS_REJN_HIGH") {
+        a = "LHS BILAYER REJCTION HIGH"
         reg_offset_6000 = 10
         reg_write_value = b * 100
         c = payload.machine.LHS.precompression_upperlimit
@@ -1494,6 +1548,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "LHS_REJN_LOW") {
+        a = "LHS BILAYER REJCTION LOW"
         reg_offset_6000 = 11
         reg_write_value = b * 100
         c = payload.machine.LHS.precompression_lowerlimit
@@ -1501,6 +1556,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "MONO_REJN_HIGH") {
+        a = "MONO LAYER REJCTION HIGH"
         reg_offset_6000 = 12
         reg_write_value = b * 100
         c = payload.machine.LHS.maincompression_upperlimit
@@ -1508,6 +1564,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "MONO_REJN_LOW") {
+        a = "MONO LAYER REJCTION LOW"
         reg_offset_6000 = 13
         reg_write_value = b * 100
         c = payload.machine.LHS.maincompression_lowerlimit
@@ -1529,6 +1586,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "RHS_REJN_HIGH") {
+        a = "RHS BILAYER REJCTION HIGH"
         reg_offset_6000 = 16
         reg_write_value = b * 100
         c = payload.machine.RHS.precompression_upperlimit
@@ -1536,6 +1594,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "RHS_REJN_LOW") {
+        a = "RHS BILAYER REJCTION LOW"
         reg_offset_6000 = 17
         reg_write_value = b * 100
         c = payload.machine.RHS.precompression_lowerlimit
@@ -1613,6 +1672,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "MONO_MAIN_FORCE") {
+        a = "MONO LAYER SET FORCE"
         reg_offset_6000 = 36
         reg_write_value = Math.round(b * 100);
         c = payload.stats.awc.MONO_MAIN_FORCE
@@ -1620,6 +1680,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "LHS_SET_FORCE") {
+        a = "LHS BILAYER SET FORCE"
         reg_offset_6000 = 37
         reg_write_value = b * 100
         c = payload.stats.awc.BI_PRE_FORCE
@@ -1627,6 +1688,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "RHS_SET_FORCE") {
+        a = "RHS BILAYER SET FORCE"
         reg_offset_6000 = 38
         reg_write_value = b * 100
         c = payload.stats.awc.BI_MAIN_FORCE
@@ -1634,6 +1696,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "RHS_DOZER") {
+        a = "RHS DOZZER POSITION"
         reg_offset_6000 = 39
         reg_write_value = Math.round(b * 100);
         c = payload.machine.RHS.dozer_position
@@ -1641,6 +1704,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "LHS_DOZER") {
+        a = "LHS DOZZER POSITION"
         reg_offset_6000 = 40
         reg_write_value = Math.round(b * 100);
         c = payload.machine.LHS.dozer_position
@@ -1648,6 +1712,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "AVG_RTN") {
+        a = "NUMBER OF ROTATION"
         reg_offset_6000 = 41
         reg_write_value = b
         c = payload.stats.awc.AVG_RTN
@@ -1655,6 +1720,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "AWC_TOLERANCE") {
+        a = "AVERAGE TOLERANCE %"
         reg_offset_6000 = 42
         reg_write_value = b
         c = payload.stats.awc.AWC_TOLERANCE
@@ -1662,6 +1728,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "AWC_MAX_CORRECTION") {
+        a = "AWC MAX CORRECTION %"
         reg_offset_6000 = 43
         reg_write_value = b
         c = payload.stats.awc.AWC_MAX_CORRECTION
@@ -1669,6 +1736,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "AWC_32bit_CORRECTION") {
+        a = "AWC CORRECTION MM"
         reg_offset_6000 = 44
         reg_write_value = b * 100
         c = payload.stats.awc.AWC_32bit_CORRECTION
@@ -1676,6 +1744,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "NO_TABLET_SAMPLING") {
+        a = "NO. OF SAMPLE TABLET"
         reg_offset_6000 = 57
         reg_write_value = b
         c = payload.stats.sampling.NO_TABLET_SAMPLING
@@ -1683,6 +1752,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     } 
     else if (a == "SAMPLING_TIME_MINS") {
+        a = "SAMPLING INTERVAL (mins)"
         reg_offset_6000 = 58
         reg_write_value = b
         c = payload.stats.sampling.SAMPLING_TIME_MINS
@@ -1699,9 +1769,29 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     else if (a == "ROLLER_MOTOR_SELECTION") {
         reg_offset_6000 = 62
         reg_write_value = b
-        c = payload.stats.roller.motor
+        // c = payload.stats.roller.motor
         write_regs()
-        writelog()
+        if (a == 1) {
+            a = "LHS_PRE_ROLLER"
+            b = "true"
+            c = 'false'
+            writelog()
+        } else if (a == 2) {
+            a = "LHS_MAIN_ROLLER"
+            b = "true"
+            c = 'false'
+            writelog()
+        } else if (a == 3) {
+            a = "RHS_PRE_ROLLER"
+            b = "true"
+            c = 'false'
+            writelog()
+        } else if (a == 4) {
+            a = "RHS_MAIN_ROLLER"
+            b = "true"
+            c = 'false'
+            writelog()
+        }
     }
     else if (a == "SET_FORCE_MONO_UPPER") {
         reg_offset_6000 = 64
@@ -1747,28 +1837,28 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
         
         
-    else if (a == "POWER_PACK_START_BUTTON" && b == "true") {
+    else if (a == "POWER_PACK_START" && b == "true") {
         coil_offset_410 = 0
         set_button = true
         c = payload.button.POWER_PACK_START_BUTTON
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "POWER_PACK_START_BUTTON" && b == "false") {
+    else if (a == "POWER_PACK_START" && b == "false") {
         coil_offset_410 = 0
         set_button = false
         c = payload.button.POWER_PACK_START_BUTTON
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "POWER_PACK_STOP_BUTTON" && b == "true") {
+    else if (a == "POWER_PACK_STOP" && b == "true") {
         coil_offset_410 = 1
         set_button = true
         c = payload.button.POWER_PACK_STOP_BUTTON
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "POWER_PACK_STOP_BUTTON" && b == "false") {
+    else if (a == "POWER_PACK_STOP" && b == "false") {
         coil_offset_410 = 1
         set_button = false
         c = payload.button.POWER_PACK_STOP_BUTTON
@@ -1789,7 +1879,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "DRAIN_BUTTON" && b == "true") {
+    else if (a == "DRAIN" && b == "true") {
         coil_offset_410 = 3
         set_button = true
         c = payload.button.DRAIN_BUTTON_HMI
@@ -1797,7 +1887,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "DRAIN_BUTTON" && b == "false") {
+    else if (a == "DRAIN" && b == "false") {
         coil_offset_410 = 3
         set_button = false
         c = payload.button.DRAIN_BUTTON_HMI
@@ -1821,7 +1911,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "MACHINE_INCHING_BUTTON" && b == "true") {
+    else if (a == "INCHING_BUTTON" && b == "true") {
         coil_offset_410 = 10
         set_button = true
         c = payload.button.MACHINE_INCHING_BUTTON
@@ -1829,7 +1919,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "MACHINE_INCHING_BUTTON" && b == "false") {
+    else if (a == "INCHING_BUTTON" && b == "false") {
         coil_offset_410 = 10
         set_button = false
         c = payload.button.MACHINE_INCHING_BUTTON
@@ -1837,7 +1927,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()   
     }
-    else if (a == "MACHINE_START_BUTTON" && b == "true") {
+    else if (a == "START_BUTTON" && b == "true") {
         coil_offset_410 = 15
         set_button = true
         c = payload.button.MACHINE_START_BUTTON
@@ -1847,7 +1937,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         c == false ? oldv = 1 : newv = 0
         b == "false" & c == false || b == "true" & c == true ? c : writelog()   
     }
-    else if (a == "MACHINE_START_BUTTON" && b == "false") {
+    else if (a == "START_BUTTON" && b == "false") {
         coil_offset_410 = 15
         set_button = false
         c = payload.button.MACHINE_START_BUTTON
@@ -1855,7 +1945,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         
         write_coil_410()
     }
-    else if (a == "MACHINE_STOP_BUTTON" && b == "true") {
+    else if (a == "STOP_BUTTON" && b == "true") {
         coil_offset_410 = 16
         set_button = true
         c = payload.button.MACHINE_STOP_BUTTON
@@ -1863,7 +1953,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "MACHINE_STOP_BUTTON" && b == "false") {
+    else if (a == "STOP_BUTTON" && b == "false") {
         coil_offset_410 = 16
         set_button = false
         c = payload.button.MACHINE_STOP_BUTTON
@@ -1871,7 +1961,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "FORCE_FEEDER_START_BUTTON" && b == "true") {
+    else if (a == "FEEDER_RUN" && b == "true") {
         coil_offset_410 = 18
         set_button = true
         c = payload.button.FORCE_FEEDER_START_BUTTON
@@ -1879,7 +1969,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "FORCE_FEEDER_START_BUTTON" && b == "false") {
+    else if (a == "FEEDER_RUN" && b == "false") {
         coil_offset_410 = 18
         set_button = false
         c = payload.button.FORCE_FEEDER_START_BUTTON
@@ -1967,7 +2057,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "MANUAL_SAMPLE" && b == "true") {
+    else if (a == "MANUAL_SAMPLING" && b == "true") {
         coil_offset_410 = 28
         set_button = true
         c = payload.button.MANUAL_SAMPLE
@@ -1975,7 +2065,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "MANUAL_SAMPLE" && b == "false") {
+    else if (a == "MANUAL_SAMPLING" && b == "false") {
         coil_offset_410 = 28
         set_button = false
         c = payload.button.MANUAL_SAMPLE
@@ -1983,7 +2073,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "FIRST_LAYER_SAMPLING" && b == "true") {
+    else if (a == "1ST_LAYER_EJECTION" && b == "true") {
         coil_offset_410 = 30
         set_button = true
         c = payload.button.FIRST_LAYER_SAMPLING
@@ -1991,7 +2081,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "FIRST_LAYER_SAMPLING" && b == "false") {
+    else if (a == "1ST_LAYER_EJECTION" && b == "false") {
         coil_offset_410 = 30
         set_button = false
         c = payload.button.FIRST_LAYER_SAMPLING
@@ -2000,6 +2090,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "DIRECT__RAMP" && b == "true") {
+        a = "MODE OFF:DIRECT/ ON: RAMP"
         coil_offset_410 = 90
         set_button = true
         c = payload.button.DIRECT__RAMP
@@ -2008,6 +2099,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "DIRECT__RAMP" && b == "false") {
+        a = "MODE OFF:DIRECT/ ON: RAMP"
         coil_offset_410 = 90
         set_button = false
         c = payload.button.DIRECT__RAMP
@@ -2016,14 +2108,16 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "WITH_DOOR__BYPASS" && b == "true") {
+        a = "GUARD BYPASS"
         coil_offset_410 = 92
         set_button = true
         c = payload.button.WITH_DOOR__BYPASS
-
+        
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "WITH_DOOR__BYPASS" && b == "false") {
+        a = "GUARD BYPASS"
         coil_offset_410 = 92
         set_button = false
         c = payload.button.WITH_DOOR__BYPASS
@@ -2048,6 +2142,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "B_TYPE__D_TYPE" && b == "true") {
+        a = "PUNCH TYPE OFF B TYPE ON DTYPE"
         coil_offset_410 = 98
         set_button = true
         c = payload.button.B_TYPE__D_TYPE
@@ -2056,6 +2151,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "B_TYPE__D_TYPE" && b == "false") {
+        a = "PUNCH TYPE OFF B TYPE ON DTYPE"
         coil_offset_410 = 98
         set_button = false
         c = payload.button.B_TYPE__D_TYPE
@@ -2064,14 +2160,16 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "POWDER_SENSOR_ENABLE" && b == "true") {
+        a = "POWDER SENSOR ACTIVE"
         coil_offset_410 = 100
         set_button = true
         c = payload.button.POWDER_SENSOR_ENABLE
-
+        
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "POWDER_SENSOR_ENABLE" && b == "false") {
+        a = "POWDER SENSOR ACTIVE"
         coil_offset_410 = 100
         set_button = false
         c = payload.button.POWDER_SENSOR_ENABLE
@@ -2111,7 +2209,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "REJECTION_BUTTON_HMI" && b == "true") {
+    else if (a == "REJECTION" && b == "true") {
         coil_offset_410 = 104
         set_button = true
         c = payload.button.REJECTION_BUTTON_HMI
@@ -2119,7 +2217,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
-    else if (a == "REJECTION_BUTTON_HMI" && b == "false") {
+    else if (a == "REJECTION" && b == "false") {
         coil_offset_410 = 104
         set_button = false
         c = payload.button.REJECTION_BUTTON_HMI
@@ -2128,6 +2226,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "REJN_AIR_FLAP" && b == "true") {
+        a = "REJECTION_BY_FLAP"
         coil_offset_410 = 105
         set_button = true
         c = payload.button.REJN_AIR_FLAP
@@ -2135,6 +2234,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "REJN_AIR_FLAP" && b == "false") {
+        a = "REJECTION_BY_AIR"
         coil_offset_410 = 105
         set_button = false
         c = payload.button.REJN_AIR_FLAP
@@ -2142,6 +2242,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "MONO_BI" && b == "true") {
+        a = "BILAYER"
         coil_offset_410 = 106
         set_button = true
         c = payload.button.MONO_BI
@@ -2149,6 +2250,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "MONO_BI" && b == "false") {
+        a = "BILAYER"
         coil_offset_410 = 106
         set_button = false
         c = payload.button.MONO_BI
@@ -2171,6 +2273,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "AWC_ENABLE" && b == "true") {
+        a = "AWC"
         coil_offset_410 = 110
         set_button = true
         c = payload.button.AWC_ENABLE
@@ -2179,6 +2282,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "AWC_ENABLE" && b == "false") {
+        a = "AWC"
         coil_offset_410 = 110
         set_button = false
         c = payload.button.AWC_ENABLE
@@ -2187,6 +2291,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_FORCE_FEEDER_BUTTON_HMI" && b == "true") {
+        a = "RHS DOZZER POSITION RUN"
         coil_offset_410 = 111
         set_button = true
         c = payload.button.LHS_FORCE_FEEDER_BUTTON_HMI
@@ -2195,6 +2300,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_FORCE_FEEDER_BUTTON_HMI" && b == "false") {
+        a = "RHS DOZZER POSITION RUN"
         coil_offset_410 = 111
         set_button = false
         c = payload.button.LHS_FORCE_FEEDER_BUTTON_HMI
@@ -2203,6 +2309,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_FORCE_FEEDER_BUTTON_HMI" && b == "true") {
+        a = "LHS DOZZER POSITION RUN"
         coil_offset_410 = 112
         set_button = true
         c = payload.button.RHS_FORCE_FEEDER_BUTTON_HMI
@@ -2211,6 +2318,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_FORCE_FEEDER_BUTTON_HMI" && b == "false") {
+        a = "LHS DOZZER POSITION RUN"
         coil_offset_410 = 112
         set_button = false
         c = payload.button.RHS_FORCE_FEEDER_BUTTON_HMI
@@ -2219,6 +2327,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_WEIGHT_INC" && b == "true") {
+        a = "RHS_DOZZER_DOWN"
         coil_offset_410 = 113
         set_button = true
         c = payload.button.RHS_WEIGHT_INC
@@ -2227,6 +2336,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_WEIGHT_INC" && b == "false") {
+        a = "RHS_DOZZER_DOWN"
         coil_offset_410 = 113
         set_button = false
         c = payload.button.RHS_WEIGHT_INC
@@ -2235,6 +2345,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_WEIGHT_DEC" && b == "true") {
+        a = "RHS_DOZZER_UP"
         coil_offset_410 = 114
         set_button = true
         c = payload.button.RHS_WEIGHT_DEC
@@ -2243,6 +2354,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_WEIGHT_DEC" && b == "false") {
+        a = "RHS_DOZZER_UP"
         coil_offset_410 = 114
         set_button = false
         c = payload.button.RHS_WEIGHT_DEC
@@ -2251,6 +2363,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_WEIGHT_INC" && b == "true") {
+        a = "LHS_DOZZER_DOWN"
         coil_offset_410 = 115
         set_button = true
         c = payload.button.LHS_WEIGHT_INC
@@ -2259,6 +2372,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_WEIGHT_INC" && b == "false") {
+        a = "LHS_DOZZER_DOWN"
         coil_offset_410 = 115
         set_button = false
         c = payload.button.LHS_WEIGHT_INC
@@ -2267,6 +2381,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_WEIGHT_DEC" && b == "true") {
+        a = "LHS_DOZZER_UP"
         coil_offset_410 = 116
         set_button = true
         c = payload.button.LHS_WEIGHT_DEC
@@ -2275,6 +2390,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_WEIGHT_DEC" && b == "false") {
+        a = "LHS_DOZZER_UP"
         coil_offset_410 = 116
         set_button = false
         c = payload.button.LHS_WEIGHT_DEC
@@ -2315,6 +2431,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_HOME_OFFSET_WRITE" && b == "true") {
+        a = "RHS HOME OFFSET 1 SET"
         coil_offset_410 = 119
         set_button = true
         c = payload.button.RHS_HOME_OFFSET_WRITE
@@ -2323,6 +2440,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "RHS_HOME_OFFSET_WRITE" && b == "false") {
+        a = "RHS HOME OFFSET 1 SET"
         coil_offset_410 = 119
         set_button = false
         c = payload.button.RHS_HOME_OFFSET_WRITE
@@ -2379,6 +2497,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_HOME_OFFSET_WRITE" && b == "true") {
+        a = "LHS HOME OFFSET 1 SET"
         coil_offset_410 = 123
         set_button = true
         c = payload.button.LHS_HOME_OFFSET_WRITE
@@ -2387,6 +2506,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "LHS_HOME_OFFSET_WRITE" && b == "false") {
+        a = "LHS HOME OFFSET 1 SET"
         coil_offset_410 = 123
         set_button = false
         c = payload.button.LHS_HOME_OFFSET_WRITE
@@ -2411,6 +2531,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "FORCE_OVERRIDE" && b == "true") {
+        a = "SAFETY LIMIT ENABLE"
         coil_offset_410 = 125
         set_button = true
         c = payload.button.FORCE_OVERRIDE
@@ -2419,6 +2540,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "FORCE_OVERRIDE" && b == "false") {
+        a = "SAFETY LIMIT ENABLE"
         coil_offset_410 = 125
         set_button = false
         c = payload.button.FORCE_OVERRIDE
@@ -2444,315 +2566,404 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     
     else if (a == "Y0_0" && b == "true") {
+        a = "MAIN TURRET VFD RUN"
         coil_offset_410 = 7490
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_0" && b == "false") {
+        a = "MAIN TURRET VFD RUN"
         coil_offset_410 = 7490
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_1" && b == "true") {
+        a = "RHS FORCE FEEDER VFD"
         coil_offset_410 = 7491
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_1" && b == "false") {
+        a = "RHS FORCE FEEDER VFD"
         coil_offset_410 = 7491
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_2" && b == "true") {
+        a = "LHS FORCE FEEDER VFD"
         coil_offset_410 = 7492
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_2" && b == "false") {
+        a = "LHS FORCE FEEDER VFD"
         coil_offset_410 = 7492
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_3" && b == "true") {
+        a = "LUBRICATION PUMP"
         coil_offset_410 = 7493
         set_button = true
         
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_3" && b == "false") {
+        a = "LUBRICATION PUMP"
         coil_offset_410 = 7493
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_4" && b == "true") {
+        a = "POWER PACK MOTOR"
         coil_offset_410 = 7494
         set_button = true
         
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_4" && b == "false") {
+        a = "POWER PACK MOTOR"
         coil_offset_410 = 7494
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_5" && b == "true") {
+        a = "DRAIN VALVE"
         coil_offset_410 = 7495
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_5" && b == "false") {
+        a = "DRAIN VALVE"
         coil_offset_410 = 7495
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_6" && b == "true") {
+        a = "1ST LAYER EJECTION"
         coil_offset_410 = 7496
         set_button = true
-
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_6" && b == "false") {
+        a = "1ST LAYER EJECTION"
         coil_offset_410 = 7496
         set_button = false
-
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_7" && b == "true") {
+        a = "PANEL FAN"
         coil_offset_410 = 7497
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_7" && b == "false") {
+        a = "PANEL FAN"
         coil_offset_410 = 7497
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_11" && b == "true") {
+        a = "LHS SAMPLING TABLET"
         coil_offset_410 = 7501
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_11" && b == "false") {
+        a = "LHS SAMPLING TABLET"
         coil_offset_410 = 7501
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_12" && b == "true") {
+        a = "RHS SAMPLING TABLET"
         coil_offset_410 = 7502
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_12" && b == "false") {
+        a = "RHS SAMPLING TABLET"
         coil_offset_410 = 7502
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_13" && b == "true") {
+        a = "LHS REJECTION BY FLAP"
         coil_offset_410 = 7503
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_13" && b == "false") {
+        a = "LHS REJECTION BY FLAP"
         coil_offset_410 = 7503
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_14" && b == "true") {
+        a = "RHS REJECTION BY FLAP"
         coil_offset_410 = 7504
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_14" && b == "false") {
+        a = "RHS REJECTION BY FLAP"
         coil_offset_410 = 7504
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_15" && b == "true") {
+        a = "LHS REJECTION BY AIR"
         coil_offset_410 = 7505
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y0_15" && b == "false") {
+        a = "LHS REJECTION BY AIR"
         coil_offset_410 = 7505
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y1_0" && b == "true") {
+        a = "RHS REJECTION BY AIR"
         coil_offset_410 = 7506
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y1_0" && b == "false") {
+        a = "RHS REJECTION BY AIR"
         coil_offset_410 = 7506
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_1" && b == "true") {
+        a = "LHS PRE ROLLER UP"
         coil_offset_410 = 7515
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_1" && b == "false") {
+        a = "LHS PRE ROLLER UP"
         coil_offset_410 = 7515
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_2" && b == "true") {
+        a = "LHS PRE ROLLER DOWN"
         coil_offset_410 = 7516
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_2" && b == "false") {
+        a = "LHS PRE ROLLER DOWN"
         coil_offset_410 = 7516
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_3" && b == "true") {
+        a = "LHS MAIN ROLLER UP"
         coil_offset_410 = 7517
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_3" && b == "false") {
+        a = "LHS MAIN ROLLER UP"
         coil_offset_410 = 7517
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_4" && b == "true") {
+        a = "LHS MAIN ROLLER DOWN"
         coil_offset_410 = 7518
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_4" && b == "false") {
+        a = "LHS MAIN ROLLER DOWN"
         coil_offset_410 = 7518
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_5" && b == "true") {
+        a = "RHS PRE ROLLER UP"
         coil_offset_410 = 7519
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_5" && b == "false") {
+        a = "RHS PRE ROLLER UP"
         coil_offset_410 = 7519
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_6" && b == "true") {
+        a = "RHS PRE ROLLER DOWN"
         coil_offset_410 = 7520
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_6" && b == "false") {
+        a = "RHS PRE ROLLER DOWN"
         coil_offset_410 = 7520
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_7" && b == "true") {
+        a = "RHS MAIN ROLLER UP"
         coil_offset_410 = 7521
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y2_7" && b == "false") {
+        a = "RHS MAIN ROLLER UP"
         coil_offset_410 = 7521
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     else if (a == "Y3_0" && b == "true") {
+        a = "RHS MAIN ROLLER DOWN"
         coil_offset_410 = 7522
         set_button = true
-        
+        c = 'false'
         write_coil_410()
+        writelog()
     }
     else if (a == "Y3_0" && b == "false") {
+        a = "RHS MAIN ROLLER DOWN"
         coil_offset_410 = 7522
         set_button = false
-        
+        c = 'false'
         write_coil_410()
+        writelog()
         
     }
     
     
     else if (a == "LHS_PRE_MAX") {
+        a = "LHS PRE MAX COMP LIMIT"
         reg_offset_6000 = 1000
         reg_write_value = Math.round(b * 100);
         c = payload.machine.LHS.precompression_max
@@ -2760,6 +2971,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_MAIN_MAX") {
+        a = "LHS MAIN MAX COMP LIMIT"
         reg_offset_6000 = 1001
         reg_write_value = Math.round(b * 100);
         c = payload.machine.LHS.maincompression_max
@@ -2767,6 +2979,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_EJN_MAX") {
+        a = "LHS EJN MAX COMP LIMIT"
         reg_offset_6000 = 1002
         reg_write_value = b*10
         c = payload.machine.LHS.ejection_max
@@ -2774,6 +2987,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_PRE_MAX") {
+        a = "RHS PRE MAX COMP LIMIT"
         reg_offset_6000 = 1003
         reg_write_value = Math.round(b * 100);
         c = payload.machine.RHS.precompression_max
@@ -2781,6 +2995,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_MAIN_MAX") {
+        a = "RHS MAIN MAX COMP LIMIT"
         reg_offset_6000 = 1004
         reg_write_value = Math.round(b * 100);
         c = payload.machine.RHS.maincompression_max
@@ -2788,6 +3003,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_EJN_MAX") {
+        a = "RHS EJN MAX COMP LIMIT"
         reg_offset_6000 = 1005
         reg_write_value = b*10
         c = payload.machine.RHS.ejection_max
@@ -2795,6 +3011,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "B_TYPE_HEAD_FLAT") {
+        a = "HEAD FLAT B MM"
         reg_offset_6000 = 1006
         reg_write_value = Math.round(b * 100);
         c = payload.stats.B_HEAD
@@ -2802,6 +3019,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "B_TYPE_PCD") {
+        a = "PCD B MM"
         reg_offset_6000 = 1008
         reg_write_value = Math.round(b * 100);
         c = payload.stats.B_PCD
@@ -2809,6 +3027,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "D_TYPE_HEAD_FLAT") {
+        a = "HEAD FLAT D MM"
         reg_offset_6000 = 1010
         reg_write_value = Math.round(b * 100);
         c = payload.stats.D_HEAD
@@ -2816,6 +3035,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "D_TYPE_PCD") {
+        a = "PCD D MM"
         reg_offset_6000 = 1012
         reg_write_value = Math.round(b * 100);
         c = payload.stats.D_PCD
@@ -2823,6 +3043,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "TOTAL_PUNCHES") {
+        a = "TOTAL PUNCHES"
         reg_offset_6000 = 1014
         reg_write_value = b
         c = payload.stats.total_punches
@@ -2893,6 +3114,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_PRE_MAX_ANALOG_K_VALUE") {
+        a = "LHS PRE ROLLER MAX ANALOG VALUE"
         reg_offset_6000 = 1024
         reg_write_value = b
         c = payload.stats.LHSweight.analog_max
@@ -2901,6 +3123,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_PRE_MIN_ANALOG_K_VALUE") {
+        a = "LHS PRE ROLLER MIN ANALOG VALUE"
         reg_offset_6000 = 1025
         reg_write_value = b
         c = payload.stats.LHSweight.analog_min
@@ -2909,6 +3132,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_PRE_MAX_DEPTH_MM") {
+        a = "LHS PRE ROLLER MAX DEPTH MM"
         reg_offset_6000 = 1026
         reg_write_value = b*10
         c = payload.stats.LHSweight.weight_max
@@ -2917,6 +3141,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_PRE_MIN_DEPTH_MM") {
+        a = "LHS PRE ROLLER MIN DEPTH MM"
         reg_offset_6000 = 1027
         reg_write_value = b*10
         c = payload.stats.LHSweight.weight_min
@@ -2925,6 +3150,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_MAIN_MAX_ANALOG_K_VALUE") {
+        a = "LHS MAIN ROLLER MAX ANALOG VALUE"
         reg_offset_6000 = 1028
         reg_write_value = b
         c = payload.stats.RHSweight.analog_max
@@ -2933,6 +3159,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_MAIN_MIN_ANALOG_K_VALUE") {
+        a = "LHS MAIN ROLLER MIN ANALOG VALUE"
         reg_offset_6000 = 1029
         reg_write_value = b
         c = payload.stats.RHSweight.analog_max
@@ -2941,6 +3168,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_MAIN_MAX_DEPTH_MM") {
+        a = "LHS MAIN ROLLER MAX DEPTH MM"
         reg_offset_6000 = 1030
         reg_write_value = b*10
         c = payload.stats.RHSweight.weight_max
@@ -2949,6 +3177,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_MAIN_MIN_DEPTH_MM") {
+        a = "LHS MAIN ROLLER MIN DEPTH MM"
         reg_offset_6000 = 1031
         reg_write_value = b*10
         c = payload.stats.RHSweight.weight_max
@@ -2957,6 +3186,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_PRE_MAX_ANALOG_K_VALUE") {
+        a = "RHS PRE ROLLER MAX ANALOG VALUE"
         reg_offset_6000 = 1032
         reg_write_value = b
         c = payload.stats.LHSthickness.analog_max
@@ -2965,6 +3195,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_PRE_MIN_ANALOG_K_VALUE") {
+        a = "RHS PRE ROLLER MIN ANALOG VALUE"
         reg_offset_6000 = 1033
         reg_write_value = b
         c = payload.stats.LHSthickness.analog_max
@@ -2973,6 +3204,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_PRE_MAX_DEPTH_MM") {
+        a = "RHS PRE ROLLER MAX DEPTH MM"
         reg_offset_6000 = 1034
         reg_write_value = b*10
         c = payload.stats.LHSthickness.thickness_max
@@ -2981,6 +3213,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_PRE_MIN_DEPTH_MM") {
+        a = "RHS PRE ROLLER MIN DEPTH MM"
         reg_offset_6000 = 1035
         reg_write_value = b*10
         c = payload.stats.LHSthickness.thickness_min
@@ -2989,6 +3222,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_MAIN_MAX_ANALOG_K_VALUE") {
+        a = "RHS MAIN ROLLER MAX ANALOG VALUE"
         reg_offset_6000 = 1036
         reg_write_value = b
         c = payload.stats.RHSthickness.analog_max
@@ -2997,6 +3231,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_MAIN_MIN_ANALOG_K_VALUE") {
+        a = "RHS MAIN ROLLER MIN ANALOG VALUE"
         reg_offset_6000 = 1037
         reg_write_value = b
         c = payload.stats.RHSthickness.analog_min
@@ -3005,6 +3240,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_MAIN_MAX_DEPTH_MM") {
+        a = "RHS MAIN ROLLER MAX DEPTH MM"
         reg_offset_6000 = 1038
         reg_write_value = b*10
         c = payload.stats.RHSthickness.thickness_max
@@ -3013,6 +3249,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_MAIN_MIN_DEPTH_MM") {
+        a = "RHS MAIN ROLLER MIN DEPTH MM"
         reg_offset_6000 = 1039
         reg_write_value = b*10
         c = payload.stats.RHSthickness.thickness_min
@@ -3021,6 +3258,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "TURRET_MAX_RPM") {
+        a = "TURRET MAX RPM"
         reg_offset_6000 = 1040
         reg_write_value = b
         c = payload.stats.turret.max_rpm
@@ -3029,14 +3267,17 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "TURRET_MAX_FREQ") {
+        a = "TURRET MAX ANALOG VALUE"
         reg_offset_6000 = 1041
-        reg_write_value = Math.round(b * 100);
+        // reg_write_value = Math.round(b * 100);
+        reg_write_value = b;
         c = payload.stats.turret.max_freq
         payload.stats.turret.max_freq = b;
         write_regs()
         writelog()
     }
     else if (a == "RHS_FORCE_FEEDER_MAX_RPM") {
+        a = "RHS FEEDER MAX RPM"
         reg_offset_6000 = 1042
         reg_write_value = b
         c = payload.stats.LHS_FF.max_rpm
@@ -3045,14 +3286,17 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_FORCE_FEEDER_MAX_FREQ") {
+        a = "RHS FEEDER MAX ANALOG VALUE"
         reg_offset_6000 = 1043
-        reg_write_value = Math.round(b * 100);
+        // reg_write_value = Math.round(b * 100);
+        reg_write_value = b;
         c = payload.stats.LHS_FF.max_freq
         payload.stats.LHS_FF.max_freq = b;
         write_regs()
         writelog()
     }
     else if (a == "LHS_FORCE_FEEDER_MAX_RPM") {
+        a = "LHS FEEDER MAX RPM"
         reg_offset_6000 = 1044
         reg_write_value = b
         c = payload.stats.RHS_FF.max_rpm
@@ -3061,14 +3305,17 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_FORCE_FEEDER_MAX_FREQ") {
+        a = "LHS FEEDER MAX ANALOG VALUE"
         reg_offset_6000 = 1045
-        reg_write_value = Math.round(b * 100);
+        // reg_write_value = Math.round(b * 100);
+        reg_write_value = b;
         c = payload.stats.RHS_FF.max_freq
         payload.stats.RHS_FF.max_freq = b;
         write_regs()
         writelog()
     }
     else if (a == "LHS_PRE_OFFSET") {
+        a = "LHS PCM PUNCH OFFSET"
         reg_offset_6000 = 1046
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_PRE
@@ -3077,6 +3324,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_MAIN_OFFSET") {
+        a = "LHS MCM PUNCH OFFSET"
         reg_offset_6000 = 1047
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_MAIN
@@ -3085,6 +3333,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "LHS_EJN_OFFSET") {
+        a = "LHS EJECTION PUNCH OFFSET"
         reg_offset_6000 = 1048
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_EJN
@@ -3093,6 +3342,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_PRE_OFFSET") {
+        a = "RHS PCM PUNCH OFFSET"
         reg_offset_6000 = 1049
         reg_write_value = b
         c = payload.stats.punch_offset_position.R_PRE
@@ -3101,6 +3351,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_MAIN_OFFSET") {
+        a = "RHS MCM PUNCH OFFSET"
         reg_offset_6000 = 1050
         reg_write_value = b
         c = payload.stats.punch_offset_position.R_MAIN
@@ -3109,6 +3360,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "RHS_EJN_OFFSET") {
+        a = "RHS EJECTION PUNCH OFFSET"
         reg_offset_6000 = 1051
         reg_write_value = b
         c = payload.stats.punch_offset_position.R_EJN
@@ -3117,6 +3369,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "HYDRAULIC_PRESSURE_MAX") {
+        a = "SET MAX HYDRAULIC PRESSURE"
         reg_offset_6000 = 1052
         reg_write_value = b
         c = payload.stats.hydraulic.max_pressure
@@ -3125,6 +3378,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_AIR_MONO") {
+        a = "MONOLAYER LHS AIR REJECTION PUNCH OFFSET"
         reg_offset_6000 = 1053
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_AIR_MONO
@@ -3132,6 +3386,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_FLAP_MONO") {
+        a = "MONOLAYER LHS FLAP REJECTION PUNCH OFFSET"
         reg_offset_6000 = 1054
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_FLAP_MONO
@@ -3139,6 +3394,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "R_AIR_MONO") {
+        a = "MONOLAYER RHS AIR REJECTION PUNCH OFFSET"
         reg_offset_6000 = 1055
         reg_write_value = b
         c = payload.stats.punch_offset_position.R_AIR_MONO
@@ -3146,6 +3402,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "R_FLAP_MONO") {
+        a = "MONOLAYER RHS FLAP REJECTION PUNCH OFFSET"
         reg_offset_6000 = 1056
         reg_write_value = b
         c = payload.stats.punch_offset_position.R_FLAP_MONO
@@ -3153,6 +3410,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_AIR_BI") {
+        a = "BILAYER LHS AIR REJECTION PUNCH OFFSET"
         reg_offset_6000 = 1057
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_AIR_BI
@@ -3160,6 +3418,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_FLAP_BI") {
+        a = "BILAYER LHS FLAP REJECTION PUNCH OFFSET"
         reg_offset_6000 = 1058
         reg_write_value = b
         c = payload.stats.punch_offset_position.L_FLAP_BI
@@ -3167,6 +3426,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "R_AIR_BI") {
+        a = "BILAYER RHS AIR REJECTION PUNCH OFFSET"
         reg_offset_6000 = 1059
         reg_write_value = b
         c = payload.stats.punch_offset_position.R_AIR_BI
@@ -3174,6 +3434,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "R_FLAP_BI") {
+        a = "BILAYER RHS FLAP REJECTION PUNCH OFFSET"
         reg_offset_6000 = 1060
         reg_write_value = b
         c = payload.stats.punch_offset_position.R_FLAP_BI
@@ -3181,6 +3442,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_AIR_ON") {
+        a = " LHS AIR REJECTION ON PULSE"
         reg_offset_6000 = 1061
         reg_write_value = b
         c = payload.stats.rejection.pulse.L_AIR_ON
@@ -3188,6 +3450,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_AIR_OFF") {
+        a = " LHS AIR REJECTION OFF PULSE"
         reg_offset_6000 = 1062
         reg_write_value = b
         c = payload.stats.rejection.pulse.L_AIR_OFF
@@ -3195,6 +3458,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_FLAP_ON") {
+        a = " LHS FLAP REJECTION ON PULSE"
         reg_offset_6000 = 1063
         reg_write_value = b
         c = payload.stats.rejection.pulse.L_FLAP_ON
@@ -3202,6 +3466,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_FLAP_OFF") {
+        a = " LHS FLAP REJECTION OFF PULSE"
         reg_offset_6000 = 1064
         reg_write_value = b
         c = payload.stats.rejection.pulse.L_FLAP_OFF
@@ -3209,6 +3474,8 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "R_AIR_ON") {
+        a = "RHS AIR REJECTION ON PULSE"
+
         reg_offset_6000 = 1065
         reg_write_value = b
         c = payload.stats.rejection.pulse.R_AIR_ON
@@ -3216,6 +3483,8 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "R_AIR_OFF") {
+        a = "RHS AIR REJECTION OFF PULSE"
+
         reg_offset_6000 = 1066
         reg_write_value = b
         c = payload.stats.rejection.pulse.R_AIR_OFF
@@ -3223,6 +3492,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "R_FLAP_ON") {
+        a = "RHS FLAP REJECTION ON PULSE"
         reg_offset_6000 = 1067
         reg_write_value = b
         c = payload.stats.rejection.pulse.R_FLAP_ON
@@ -3230,6 +3500,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "R_FLAP_OFF") {
+        a = "RHS FLAP REJECTION OFF PULSE"
         reg_offset_6000 = 1068
         reg_write_value = b
         c = payload.stats.rejection.pulse.R_FLAP_OFF
@@ -3237,6 +3508,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_AIR_OFF_TIME") {
+        a = " LHS AIR REJECTION OFF TIME"
         reg_offset_6000 = 1069
         reg_write_value = b
         c = payload.stats.rejection.air.L_AIR_OFF_TIME
@@ -3244,6 +3516,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "L_FLAP_OFF_TIME") {
+        a = " LHS FLAP REJECTION OFF TIME"
         reg_offset_6000 = 1070
         reg_write_value = b
         c = payload.stats.rejection.air.L_FLAP_OFF_TIME
@@ -3251,6 +3524,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "R_AIR_OFF_TIME") {
+        a = "RHS AIR REJECTION OFF TIME"
         reg_offset_6000 = 1071
         reg_write_value = b
         c = payload.stats.rejection.air.R_AIR_OFF_TIME
@@ -3258,6 +3532,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "R_FLAP_OFF_TIME") {
+        a = "RHS FLAP REJECTION OFF TIME"
         reg_offset_6000 = 1072
         reg_write_value = b
         c = payload.stats.rejection.air.R_FLAP_OFF_TIME
@@ -3278,7 +3553,8 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_regs()
         writelog()
     }
-    else if (a == "RTN_1_PPR") {
+    else if (a == "SINGLE_TURN_DATA_PPR") {
+        a = "SINGLE TURN DATA PPR"
         reg_offset_6000 = 1076
         reg_write_value = b
         c = payload.stats.awc.RTN_1_PPR
@@ -3314,6 +3590,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "SERVO_RHS_UPPERLIMIT") {
+        a = "RHS SERVO UPPER LIMIT"
         reg_offset_6000 = 1089
         reg_write_value = b
         c = payload.stats.L_HOMING_UPPERLIMIT
@@ -3321,6 +3598,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "SERVO_RHS_LOWERLIMIT") {
+        a = "RHS SERVO LOWER LIMIT"
         reg_offset_6000 = 1091
         reg_write_value = b
         c = payload.stats.L_HOMING_LOWERLIMIT
@@ -3328,6 +3606,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "SERVO_LHS_UPPERLIMIT") {
+        a = "LHS SERVO UPPER LIMIT"
         reg_offset_6000 = 1093
         reg_write_value = b
         c = payload.stats.R_HOMING_UPPERLIMIT
@@ -3335,6 +3614,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "SERVO_LHS_LOWERLIMIT") {
+        a = "LHS SERVO LOWER LIMIT"
         reg_offset_6000 = 1095
         reg_write_value = b
         c = payload.stats.R_HOMING_LOWERLIMIT
@@ -3352,6 +3632,13 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         reg_offset_6000 = 1098
         reg_write_value = b
         c = payload.stats.SAFETY_MULTIPLICATION_FACTOR
+        write_regs()
+        writelog()
+    }
+    else if (a == "MACHINE_STOP_DELAY") {
+        reg_offset_6000 = 1099
+        reg_write_value = b
+        c = payload.stats.MACHINE_STOP_DELAY
         write_regs()
         writelog()
     }

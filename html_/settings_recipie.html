@@ -365,7 +365,7 @@
                                 </div>
                             </div>
 
-                            <div id="formedit" class="flex grid grid-cols-2 hidden">
+                            <div id="formedit" class="flex grid grid-cols-3 hidden">
 
                                 <div class="flex flex-wrap p-3">
                                     <div class="">
@@ -403,6 +403,16 @@
                                             class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
                                             onclick="deleterec()">
                                             Delete
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-wrap p-3">
+                                    <div class="">
+                                        <button id="generatepdfreport2"
+                                            class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="pdfsinglerec()">
+                                            PDF 
                                         </button>
                                     </div>
                                 </div>
@@ -617,6 +627,9 @@
         var searchid
         async function srec() {
             var username = document.getElementById("susername").value
+            let url1 = `http://localhost:3000/api/searchedrecipe_name/${username}`
+            fetch(url1)
+                .catch(console.error);
 
             let url = `http://localhost:3000/recipiename/${username}`
 
@@ -731,6 +744,7 @@
 
     <script>
         var element1 = document.getElementById("generatepdfreport1");
+        var element2 = document.getElementById("generatepdfreport2");
 
         async function reportrec() {
             let pdfgenerationtime = 5000
@@ -744,6 +758,21 @@
                 location.href = "/report/recipe/download"
                 document.getElementById("generatepdfreport1").innerText = "Recipe PDF";
                 element1.classList.remove("cursor-not-allowed");
+            }, pdfgenerationtime);
+        }
+        
+        async function pdfsinglerec() {
+            let pdfgenerationtime = 5000
+            // document.getElementById("generatepdfreport1").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+            document.getElementById("generatepdfreport2").innerText = `PLEASE WAIT`;
+            element2.classList.add("cursor-not-allowed");
+
+            await fetch(reportRecipeSingleGenURL);
+
+            setTimeout(() => {
+                location.href = "/report/recipe_single/download"
+                document.getElementById("generatepdfreport2").innerText = "PDF";
+                element2.classList.remove("cursor-not-allowed");
             }, pdfgenerationtime);
         }
     </script>

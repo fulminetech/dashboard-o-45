@@ -51,6 +51,24 @@ async function reduceexpiry() {
 
 var currentuserid
 
+var recipe_name = ''
+
+app.get("/api/searchedrecipe_name/:param", (req, res) => {
+  recipe_name = req.params.param
+});
+
+app.get("/recipie_single", async (req, res) => {
+  const result = await Recipies.findAll({
+    where: {
+      recn: recipe_name
+    }
+  });
+  // console.log(User.classLevelMethod())
+  // console.log(result)
+
+  res.json(result);
+});
+
 app.get("/currentuserid", async (req, res) => {
   res.send(currentuserid);
 })

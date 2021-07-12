@@ -52,6 +52,7 @@ const reportmainRHSGenURL = `${hostname}/report/mainRHS/generate`
 const reportejnLHSGenURL = `${hostname}/report/ejnLHS/generate`
 const reportejnRHSGenURL = `${hostname}/report/ejnRHS/generate`
 const reportRecipeGenURL = `${hostname}/report/recipe/generate`
+const reportRecipeSingleGenURL = `${hostname}/report/recipe_single/generate`
 
 const reportcsvURL = `${hostname}/api/csv`
 

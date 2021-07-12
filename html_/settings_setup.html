@@ -274,8 +274,8 @@
                         
                     </div>
 
-                    <!-- Search: Parameters -->
-                    <div class="border-b mt-2 p-3">
+                    
+                    <!-- <div class="border-b mt-2 p-3">
                         <h5 class="font-bold text-black">RHS DISCHARGE FILL DEPTH:</h5>
                     </div>
                     
@@ -331,7 +331,7 @@
                     
                     </div>
 
-                    <!-- Search: Parameters -->
+                    
                     <div class="border-b mt-2 p-3">
                         <h5 class="font-bold text-black">LHS DISCHARGE FILL DEPTH:</h5>
                     </div>
@@ -386,7 +386,7 @@
                             </div>
                         </div>
                     
-                    </div>
+                    </div> -->
 
                     <!-- Search: Parameters -->
                     <div class="border-b mt-2 p-3">
@@ -636,7 +636,7 @@
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> TURRET MAX FREQUENCY </h3>
+                            <h3> TURRET MAX ANALOG VALUE </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="TURRET_MAX_FREQ"
@@ -660,7 +660,7 @@
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> RHS DISCHARGE MAX FREQUENCY </h3>
+                            <h3> RHS DISCHARGE MAX ANALOG VALUE </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="LHS_FORCE_FEEDER_MAX_FREQ"
@@ -684,7 +684,7 @@
                         </div>
                     
                         <div class="flex flex-col">
-                            <h3> LHS DISCHARGE MAX FREQUENCY </h3>
+                            <h3> LHS DISCHARGE MAX ANALOG VALUE </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="RHS_FORCE_FEEDER_MAX_FREQ"
@@ -695,7 +695,7 @@
                             </div>
                         </div>
                     
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <h3> TABLET MULTIPLICATION FACTOR </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
@@ -717,7 +717,7 @@
                                 </div>
                                 
                             </div>
-                        </div>
+                        </div> -->
                     
                     </div>
 
@@ -1060,7 +1060,7 @@
                             </div>
                         </div>
                     
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <h3> LHS AIR REJECTION OFF TIME (MILI SECOND) </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
@@ -1106,7 +1106,7 @@
                                 </div>
                                 
                             </div>
-                        </div>
+                        </div> -->
                     
                     
                         <div class="flex flex-col">
@@ -1130,7 +1130,7 @@
                     
                     <div class="flex grid grid-cols-4 p-3 ">
                     
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <h3> SINGLE TURN DATA MM </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
@@ -1140,7 +1140,7 @@
                                 </div>
                                 
                             </div>
-                        </div>
+                        </div> -->
                     
                         <div class="flex flex-col">
                             <h3> SINGLE TURN DATA PPR </h3>
@@ -1437,7 +1437,6 @@
                     document.getElementById("RHS_FORCE_FEEDER_MAX_RPM").value = payload.stats.RHS_FF.max_rpm
                     document.getElementById("RHS_FORCE_FEEDER_MAX_FREQ").value = payload.stats.RHS_FF.max_freq
                     document.getElementById("TABLET_MULTIPLICATION_FACTOR").value = payload.stats.TABLET_MULTIPLICATION_FACTOR
-                    document.getElementById("SAFETY_MULTIPLICATION_FACTOR").value = payload.stats.SAFETY_MULTIPLICATION_FACTOR
                     document.getElementById("LHS_PRE_OFFSET").value = payload.stats.punch_offset_position.L_PRE 
                     document.getElementById("LHS_MAIN_OFFSET").value = payload.stats.punch_offset_position.L_MAIN
                     document.getElementById("LHS_EJN_OFFSET").value = payload.stats.punch_offset_position.L_EJN 
@@ -2112,13 +2111,13 @@
             var a = document.getElementById("TURRET_MAX_FREQ").value;
             // console.log(a)
             let submiturl = `${seturl}/TURRET_MAX_FREQ/${a}`
-            if (a <= 99.99 && a >= 1) {
+            if (a <= 32000 && a >= 1) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
             } else {
-                alert("Please set value between 0 and 99.99.")
+                alert("Please set value between 0 and 32000.")
             }
         }
 
@@ -2141,13 +2140,13 @@
             var a = document.getElementById("LHS_FORCE_FEEDER_MAX_FREQ").value;
             // console.log(a)
             let submiturl = `${seturl}/RHS_FORCE_FEEDER_MAX_FREQ/${a}`
-            if (a <= 99.99 && a >= 0) {
+            if (a <= 32000 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
             } else {
-                alert("Please set value between 0 and 99.99.")
+                alert("Please set value between 0 and 32000.")
             }
         }
 
@@ -2169,13 +2168,13 @@
             var a = document.getElementById("RHS_FORCE_FEEDER_MAX_FREQ").value;
             // console.log(a)
             let submiturl = `${seturl}/LHS_FORCE_FEEDER_MAX_FREQ/${a}`
-            if (a <= 99.99 && a >= 0) {
+            if (a <= 32000 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
                 .catch(console.error);
             } else {
-                alert("Please set value between 0 and 99.99.")
+                alert("Please set value between 0 and 32000.")
             }
         }
 
@@ -2604,7 +2603,7 @@
             var a = document.getElementById("RTN_1_PPR").value;
             // console.log(a)
             // let submiturl = `${seturl}/RTN_1_PPR/${a}`
-            let submiturl = `${seturl}/SINGLE_TURN_PPR/${a}`
+            let submiturl = `${seturl}/SINGLE_TURN_DATA_PPR/${a}`
             if (a <= 2147483647 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
@@ -2661,20 +2660,6 @@
             var a = document.getElementById("TABLET_MULTIPLICATION_FACTOR").value;
             // console.log(a)
             let submiturl = `${seturl}/TABLET_MULTIPLICATION_FACTOR/${a}`
-            if (a <= 100 && a >= 0) {
-            await fetch(submiturl)
-                .then(console.log("[ UPDATED! ] "))
-                .then(check())
-                .catch(console.error);
-            } else {
-                alert("Please set value between 0 and 100.")
-            }
-        }
-
-        async function SAFETY_MULTIPLICATION_FACTOR() {
-            var a = document.getElementById("SAFETY_MULTIPLICATION_FACTOR").value;
-            // console.log(a)
-            let submiturl = `${seturl}/SAFETY_MULTIPLICATION_FACTOR/${a}`
             if (a <= 100 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))

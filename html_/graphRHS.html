@@ -883,21 +883,21 @@
         }, 100);
 
         async function start() {
-                let submiturl = `${seturl}/MACHINE_START_BUTTON/true`
+                let submiturl = `${seturl}/START_BUTTON/true`
                 await fetch(submiturl)
                     .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
 
             async function unstart() {
-                let submiturl = `${seturl}/MACHINE_START_BUTTON/false`
+                let submiturl = `${seturl}/START_BUTTON/false`
                 await fetch(submiturl)
                     .then(console.log("[ Machine Start ] "))
                     .catch(console.error);
             }
 
             async function stop() {
-                let submiturl = `${seturl}/MACHINE_STOP_BUTTON/true`
+                let submiturl = `${seturl}/STOP_BUTTON/true`
                 await fetch(submiturl)
                     .then(console.log("[ Machine Stop ] "))
                     .catch(console.error);
@@ -905,7 +905,7 @@
             }
 
             async function unstop() {
-                let submiturl = `${seturl}/MACHINE_STOP_BUTTON/false`
+                let submiturl = `${seturl}/STOP_BUTTON/false`
                 await fetch(submiturl)
                     .then(console.log("[ Machine Stop ] "))
                     .catch(console.error);
@@ -913,7 +913,7 @@
             }
 
             async function inch() {
-                let submiturl = `${seturl}/MACHINE_INCHING_BUTTON/true`
+                let submiturl = `${seturl}/INCHING_BUTTON/true`
                 await fetch(submiturl)
                     .then(console.log("[ Machine Inch ] "))
                     .catch(console.error);
@@ -921,7 +921,7 @@
             }
 
             async function uninch() {
-                let submiturl = `${seturl}/MACHINE_INCHING_BUTTON/false`
+                let submiturl = `${seturl}/INCHING_BUTTON/false`
                 await fetch(submiturl)
                     .then(console.log("[ Machine Inch Stop] "))
                     .catch(console.error);

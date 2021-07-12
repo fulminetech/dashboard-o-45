@@ -1386,10 +1386,6 @@ var readinput = function () {
 var readoutput = function () {
     client.readCoils(output_address, 70)
         .then(function (output) {
-            console.log("23", output.data[23])
-            console.log("18", output.data[18])
-            console.log("35", output.data[35])
-            console.log("38", output.data[38])
             payload.output = output.data;
             
             mbsState = MBS_STATE_GOOD_READ_OUTPUT;

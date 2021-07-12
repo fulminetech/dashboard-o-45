@@ -967,7 +967,7 @@
 
                 function submitt(pressure) {
                     if (pressure <= 10000 && pressure >= 0.1) {
-                        let submiturl = `${seturl}/LUBE_TIME_DELAY_SECONDS/${pressure}`
+                        let submiturl = `${seturl}/LUBRICATION_ON_TIME_CHANGE/${pressure}`
                         fetch(submiturl)
                             .then(check())
                             .catch(console.error);
@@ -986,7 +986,7 @@
 
                 function submitt(pressure) {
                     if (pressure <= 1000000 && pressure >= 1) {
-                        let submiturl = `${seturl}/LUBE_TIME_DELAY_MINUTES/${pressure}`
+                        let submiturl = `${seturl}/LUBRICATION_OFF_TIME_CHANGE/${pressure}`
 
                         fetch(submiturl)
                             .then(check())
@@ -1006,7 +1006,7 @@
 
                 function submitt(pressure) {
                     if (pressure <= 1000000 && pressure >= 0) {
-                        let submiturl = `${seturl}/HYDRAULIC_HIGH_PRESSURE_CUTOFF_PERCENT/${pressure}`
+                        let submiturl = `${seturl}/HYDRAULIC_HIGH_PRESSURE_CUTOFF/${pressure}`
 
                         fetch(submiturl)
                             .then(check())
@@ -1026,7 +1026,7 @@
 
                 function submitt(pressure) {
                     if (pressure <= 10000000 && pressure >= 0) {
-                        let submiturl = `${seturl}/HYDRAULIC_LOW_PRESSURE_CUTOFF_PERCENT/${pressure}`
+                        let submiturl = `${seturl}/HYDRAULIC_LOW_PRESSURE_CUTOFF/${pressure}`
 
                         fetch(submiturl)
                             .then(check())

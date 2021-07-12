@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/env/env.js"></script>
+
+</head>
+
+<body onload="level()">
+
+    <div class="px-10 pt-2 pb-5 text-sm">
+        <table class="table-fixed w-full text-black" height="170rem">
+            <thead>
+            </thead>
+            
+            <!-- <tbody id="userlist"> -->
+                <tbody>
+                    <tr>
+                        <th class="border py-3">Sr. No.</th>
+                        <th class="border py-3">1</th>
+                    </tr><tr>
+                        <th class="border py-3">Recipie Name</th>
+                        <th id="2" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Product Name</th>
+                        <th id="3" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Tooling Drg. No.</th>
+                        <th id="4" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Size</th>
+                        <th id="5" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Thickness Range</th>
+                        <th id="6" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Weight Range</th>
+                        <th id="7" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Tablet Hardness</th>
+                        <th id="8" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Fill Depth LHS</th>
+                        <th id="9" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Fill Depth RHS</th>
+                        <th id="10" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Comp Force LHS</th>
+                        <th id="11" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Comp Force RHS</th>
+                        <th id="12" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Roller Position Pre LHS</th>
+                        <th id="13" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Roller Position Pre RHS</th>
+                        <th id="14" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Roller Position Main LHS</th>
+                        <th id="15" class="border py-3"></th>
+                    </tr>
+                    <tr>
+                        <th class="border py-3">Roller Position Main RHS</th>
+                        <th id="16" class="border py-3"></th>
+                    </tr>
+                    
+                </tbody>
+        </table>
+    </div>
+
+    <!-- Time -->
+    <!-- <script>
+        time = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+        document.getElementById("time").innerHTML = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+    </script> -->
+
+    <!-- Populate Table -->
+    <script>
+        async function level() {
+                // var username = document.getElementById("susername").value
+
+                let url = `http://localhost:3000/recipie_single`
+                
+                function isEmpty(obj) {
+                for (let key in obj) {
+                    return false;
+                }
+                return true;
+                }
+
+                fetch(url)
+                    .then((resp) => resp.json())
+                    .then(function (data) {
+                        if (isEmpty(data) == false) {
+                            // searchuser()
+                            // console.log(data)
+                            searchid = data[0].id
+                            document.getElementById("2").innerText = data[0].recn
+                            document.getElementById("3").innerText = data[0].pname
+                            document.getElementById("4").innerText = data[0].tooldrg
+                            document.getElementById("5").innerText = data[0].size
+                            document.getElementById("6").innerText = data[0].thickness
+                            document.getElementById("7").innerText = data[0].weight
+                            document.getElementById("8").innerText = data[0].hardness
+                            document.getElementById("9").innerText = data[0].depthL
+                            document.getElementById("10").innerText = data[0].depthR
+                            document.getElementById("11").innerText = data[0].forceL
+                            document.getElementById("12").innerText = data[0].forceR
+                            document.getElementById("13").innerText = data[0].preL
+                            document.getElementById("14").innerText = data[0].preR
+                            document.getElementById("15").innerText = data[0].mainL
+                            document.getElementById("16").innerText = data[0].mainR
+                        } else if (isEmpty(data) == true) {
+                            alert("Recipe does not exist.")
+                        }
+                    })
+                    .catch(console.error);
+
+            }
+
+        // // level()
+        // async function level() {
+
+        //     let submiturl = `http://localhost:3000/recipies`
+        //     var batchlistt
+
+        //     await fetch(submiturl)
+        //         .then((resp) => resp.json())
+        //         .then(function (data) {
+        //             batchlistt = data
+        //             console.log(data)
+        //         })
+        //         .catch(console.error);
+
+        //     // console.log(batch);
+
+
+        //     loadbatchlist();
+
+        //     function loadbatchlist() {
+        //         const batchListBody = document.getElementById('userlist');
+        //         let batchHTML = '';
+        //         var i = 0
+        //         var dataa
+        //         for (let batchh of batchlistt) {
+        //             dataa = batchlistt[i]
+        //             // console.log(dataa.id)
+        //             batchHTML += 
+                    
+        //                 document.getElementById("recn").innerText = dataa.recn      
+        //                 document.getElementById("recn").innerText = dataa.pname
+        //                 document.getElementById("recn").innerText = dataa.tooldrg
+        //                 document.getElementById("recn").innerText = dataa.size
+        //                 document.getElementById("recn").innerText = dataa.thickness
+        //                 document.getElementById("recn").innerText = dataa.weight
+        //                 document.getElementById("recn").innerText = dataa.hardness
+        //                 document.getElementById("recn").innerText = dataa.depthL
+        //                 document.getElementById("recn").innerText = dataa.depthR
+        //                 document.getElementById("recn").innerText = dataa.forceL
+        //                 document.getElementById("recn").innerText = dataa.forceR
+        //                 document.getElementById("recn").innerText = dataa.preL
+        //                 document.getElementById("recn").innerText = dataa.preR
+        //                 document.getElementById("recn").innerText = dataa.mainL
+        //                 document.getElementById("recn").innerText = dataa.mainR
+                        
+        //             i++
+        //         }
+
+        //         batchListBody.innerHTML = batchHTML;
+        //     }
+        // }
+
+        // // level()
+
+    </script>
+</body>
+
+</html>
