@@ -817,13 +817,13 @@
                         let avgdataa = avggbatch[l]
                         // console.log(`RTN:${avgdataa[8]},PRELHS:${avgdataa[6]},PRERHS:${avgdataa[7]},MAINLHS:${avgdataa[4]},MAINRHS:${avgdataa[5]},EJNLHS:${avgdataa[2]},MAINRHS:${avgdataa[3]}`);
 
-                        graph3.data.labels[k] = avgdataa[8];
-                        graph3.data.datasets[0].data[k] = avgdataa[6];
-                        graph3.data.datasets[1].data[k] = avgdataa[7];
-                        graph3.data.datasets[2].data[k] = avgdataa[4];
-                        graph3.data.datasets[3].data[k] = avgdataa[5];
-                        graph3.data.datasets[4].data[k] = avgdataa[2];
-                        graph3.data.datasets[5].data[k] = avgdataa[3];
+                        graph3.data.labels[k] = avgdataa[10];
+                        graph3.data.datasets[0].data[k] = avgdataa[8];
+                        graph3.data.datasets[1].data[k] = avgdataa[9];
+                        graph3.data.datasets[2].data[k] = avgdataa[6];
+                        graph3.data.datasets[3].data[k] = avgdataa[7];
+                        graph3.data.datasets[4].data[k] = avgdataa[4];
+                        graph3.data.datasets[5].data[k] = avgdataa[5];
 
                         graph3.update();
                         k++;
