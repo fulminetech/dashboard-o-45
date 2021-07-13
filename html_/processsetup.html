@@ -653,7 +653,7 @@
                     // Here you get the data to modify as you please
                     payload = data
 
-                    console.log(payload.limit)
+                    // console.log(payload.limit)
 
                     AWC_PLHS_UL = payload.limit[18]
                     AWC_PLHS_LL = payload.limit[19]
@@ -838,10 +838,11 @@
         fetchpayloadapiHF1();
         fetchpayloadapiHF();
         check()
-        setTimeout(() => {
+        
+        setInterval(() => {
             fetchpayloadapiHF();
             fetchpayloadapiHF1()
-        }, 2000);
+        }, 500);
 
         async function l_pre_mm_dis() {
                 if (maindata.button.LHS_PRE_DISABLE == true) {
