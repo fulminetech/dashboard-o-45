@@ -831,10 +831,12 @@
                 if (maindata.button.LHS_PRE_DISABLE == true) {
                     let submiturl = `${seturl}/LHS_PRE_DISABLE/false`
                     await fetch(submiturl)
+                        .then(check())
                         .catch(console.error);
                 } else {
                     let submiturl = `${seturl}/LHS_PRE_DISABLE/true`
                     await fetch(submiturl)
+                        .then(check())
                         .catch(console.error);
                 }
             }
@@ -842,10 +844,12 @@
             if (maindata.button.LHS_MAIN_DISABLE == true) {
                 let submiturl = `${seturl}/LHS_MAIN_DISABLE/false`
                 await fetch(submiturl)
+                    .then(check())
                     .catch(console.error);
             } else {
                 let submiturl = `${seturl}/LHS_MAIN_DISABLE/true`
                 await fetch(submiturl)
+                    .then(check())
                     .catch(console.error);
             }
         }
@@ -853,10 +857,12 @@
             if (maindata.button.RHS_PRE_DISABLE == true) {
                 let submiturl = `${seturl}/RHS_PRE_DISABLE/false`
                 await fetch(submiturl)
+                    .then(check())
                     .catch(console.error);
             } else {
                 let submiturl = `${seturl}/RHS_PRE_DISABLE/true`
                 await fetch(submiturl)
+                    .then(check())
                     .catch(console.error);
             }
         }
@@ -864,10 +870,12 @@
                 if (maindata.button.RHS_MAIN_DISABLE == true) {
                     let submiturl = `${seturl}/RHS_MAIN_DISABLE/false`
                     await fetch(submiturl)
+                        .then(check())
                         .catch(console.error);
                 } else {
                     let submiturl = `${seturl}/RHS_MAIN_DISABLE/true`
                     await fetch(submiturl)
+                        .then(check())
                         .catch(console.error);
                 }
             }
