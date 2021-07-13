@@ -1146,8 +1146,8 @@ app.get("/report/recipe/generate", (req, res) => {
 
 app.get("/report/recipe_single/generate", (req, res) => {
     (async () => {
-        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' }); // For MAC
-        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium' }); // For MAC
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
         const page = await browser.newPage();
         await page.goto(`http://${host}:5000/report/recipe_single`, { waitUntil: 'networkidle0' });
         await page.pdf({
