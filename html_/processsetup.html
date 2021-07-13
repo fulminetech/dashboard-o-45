@@ -720,42 +720,42 @@
                         document.getElementById("punch3").checked = false;
                     }
 
-                    if (payload.button.LHS_PRE_DISABLE == true) {
-                        document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM DISABLE";
-                        const div1 = document.getElementById("l_pre_mm_dis").classList.remove('bg-red-300');
-                        const div2 = document.getElementById("l_pre_mm_dis").classList.add('bg-green-300');
-                    } else {
-                        document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM ENABLE";
-                        const div1 = document.getElementById("l_pre_mm_dis").classList.add('bg-red-300');
-                        const div2 = document.getElementById("l_pre_mm_dis").classList.remove('bg-green-300');
-                    }
-                    if (payload.button.LHS_MAIN_DISABLE == true) {
-                        document.getElementById("l_main_mm_dis").innerHTML = "LHS MAIN ROLLER MM DISABLE";
-                        const div1 = document.getElementById("l_main_mm_dis").classList.remove('bg-red-300');
-                        const div2 = document.getElementById("l_main_mm_dis").classList.add('bg-green-300');
-                    } else {
-                        document.getElementById("l_main_mm_dis").innerHTML = "LHS MAIN ROLLER MM ENABLE";
-                        const div1 = document.getElementById("l_main_mm_dis").classList.add('bg-red-300');
-                        const div2 = document.getElementById("l_main_mm_dis").classList.remove('bg-green-300');
-                    }
-                    if (payload.button.RHS_PRE_DISABLE == true) {
-                        document.getElementById("r_pre_mm_dis").innerHTML = "RHS PRE ROLLER MM DISABLE";
-                        const div1 = document.getElementById("r_pre_mm_dis").classList.remove('bg-red-300');
-                        const div2 = document.getElementById("r_pre_mm_dis").classList.add('bg-green-300');
-                    } else {
-                        document.getElementById("r_pre_mm_dis").innerHTML = "RHS PRE ROLLER MM ENABLE";
-                        const div1 = document.getElementById("r_pre_mm_dis").classList.add('bg-red-300');
-                        const div2 = document.getElementById("r_pre_mm_dis").classList.remove('bg-green-300');
-                    }
-                    if (payload.button.RHS_MAIN_DISABLE == true) {
-                        document.getElementById("r_main_mm_dis").innerHTML = "RHS MAIN ROLLER MM DISABLE";
-                        const div1 = document.getElementById("r_main_mm_dis").classList.remove('bg-red-300');
-                        const div2 = document.getElementById("r_main_mm_dis").classList.add('bg-green-300');
-                    } else {
-                        document.getElementById("r_main_mm_dis").innerHTML = "RHS MAIN ROLLER MM ENABLE";
-                        const div1 = document.getElementById("r_main_mm_dis").classList.add('bg-red-300');
-                        const div2 = document.getElementById("r_main_mm_dis").classList.remove('bg-green-300');
-                    }
+                    // if (payload.button.LHS_PRE_DISABLE == true) {
+                    //     document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM DISABLE";
+                    //     const div1 = document.getElementById("l_pre_mm_dis").classList.remove('bg-red-300');
+                    //     const div2 = document.getElementById("l_pre_mm_dis").classList.add('bg-green-300');
+                    // } else {
+                    //     document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM ENABLE";
+                    //     const div1 = document.getElementById("l_pre_mm_dis").classList.add('bg-red-300');
+                    //     const div2 = document.getElementById("l_pre_mm_dis").classList.remove('bg-green-300');
+                    // }
+                    // if (payload.button.LHS_MAIN_DISABLE == true) {
+                    //     document.getElementById("l_main_mm_dis").innerHTML = "LHS MAIN ROLLER MM DISABLE";
+                    //     const div1 = document.getElementById("l_main_mm_dis").classList.remove('bg-red-300');
+                    //     const div2 = document.getElementById("l_main_mm_dis").classList.add('bg-green-300');
+                    // } else {
+                    //     document.getElementById("l_main_mm_dis").innerHTML = "LHS MAIN ROLLER MM ENABLE";
+                    //     const div1 = document.getElementById("l_main_mm_dis").classList.add('bg-red-300');
+                    //     const div2 = document.getElementById("l_main_mm_dis").classList.remove('bg-green-300');
+                    // }
+                    // if (payload.button.RHS_PRE_DISABLE == true) {
+                    //     document.getElementById("r_pre_mm_dis").innerHTML = "RHS PRE ROLLER MM DISABLE";
+                    //     const div1 = document.getElementById("r_pre_mm_dis").classList.remove('bg-red-300');
+                    //     const div2 = document.getElementById("r_pre_mm_dis").classList.add('bg-green-300');
+                    // } else {
+                    //     document.getElementById("r_pre_mm_dis").innerHTML = "RHS PRE ROLLER MM ENABLE";
+                    //     const div1 = document.getElementById("r_pre_mm_dis").classList.add('bg-red-300');
+                    //     const div2 = document.getElementById("r_pre_mm_dis").classList.remove('bg-green-300');
+                    // }
+                    // if (payload.button.RHS_MAIN_DISABLE == true) {
+                    //     document.getElementById("r_main_mm_dis").innerHTML = "RHS MAIN ROLLER MM DISABLE";
+                    //     const div1 = document.getElementById("r_main_mm_dis").classList.remove('bg-red-300');
+                    //     const div2 = document.getElementById("r_main_mm_dis").classList.add('bg-green-300');
+                    // } else {
+                    //     document.getElementById("r_main_mm_dis").innerHTML = "RHS MAIN ROLLER MM ENABLE";
+                    //     const div1 = document.getElementById("r_main_mm_dis").classList.add('bg-red-300');
+                    //     const div2 = document.getElementById("r_main_mm_dis").classList.remove('bg-green-300');
+                    // }
 
                 })
                 .catch(function (error) {
@@ -845,11 +845,13 @@
 
         async function l_pre_mm_dis() {
                 if (maindata.button.LHS_PRE_DISABLE == true) {
+                    console.log("true")
                     let submiturl = `${seturl}/LHS_PRE_DISABLE/false`
                     await fetch(submiturl)
-                        .then(check())
+                    .then(check())
                         .catch(console.error);
                 } else {
+                    console.log("false")
                     let submiturl = `${seturl}/LHS_PRE_DISABLE/true`
                     await fetch(submiturl)
                         .then(check())
