@@ -541,7 +541,7 @@
                                             type="number" placeholder="" onkeydown="if (event.keyCode == 13) SAFETY_MULTIPLICATION_FACTOR()">
                                     </div>
                                     
-                                    <h3 class="font-bold mt-5 text-lg">Machine Stop Delay Time after Powder Low Detection:</h3>
+                                    <h3 class="font-bold mt-5 text-lg">Machine Stop Delay Time after Powder Low Detection (secs):</h3>
                                     <div class="py-3">
                                         <input id="MACHINE_STOP_DELAY"
                                             class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
@@ -720,34 +720,42 @@
                         document.getElementById("punch3").checked = false;
                     }
 
-                    // if (payload.button.LHS_PRE_DISABLE == true) {
-                    //     const div1 = document.getElementById("l_pre_mm_dis").classList.remove('bg-red-300');
-                    //     const div2 = document.getElementById("l_pre_mm_dis").classList.add('bg-green-300');
-                    // } else {
-                    //     const div1 = document.getElementById("l_pre_mm_dis").classList.add('bg-red-300');
-                    //     const div2 = document.getElementById("l_pre_mm_dis").classList.remove('bg-green-300');
-                    // }
-                    // if (payload.button.LHS_MAIN_DISABLE == true) {
-                    //     const div1 = document.getElementById("l_main_mm_dis").classList.remove('bg-red-300');
-                    //     const div2 = document.getElementById("l_main_mm_dis").classList.add('bg-green-300');
-                    // } else {
-                    //     const div1 = document.getElementById("l_main_mm_dis").classList.add('bg-red-300');
-                    //     const div2 = document.getElementById("l_main_mm_dis").classList.remove('bg-green-300');
-                    // }
-                    // if (payload.button.RHS_PRE_DISABLE == true) {
-                    //     const div1 = document.getElementById("r_pre_mm_dis").classList.remove('bg-red-300');
-                    //     const div2 = document.getElementById("r_pre_mm_dis").classList.add('bg-green-300');
-                    // } else {
-                    //     const div1 = document.getElementById("r_pre_mm_dis").classList.add('bg-red-300');
-                    //     const div2 = document.getElementById("r_pre_mm_dis").classList.remove('bg-green-300');
-                    // }
-                    // if (payload.button.RHS_MAIN_DISABLE == true) {
-                    //     const div1 = document.getElementById("r_main_mm_dis").classList.remove('bg-red-300');
-                    //     const div2 = document.getElementById("r_main_mm_dis").classList.add('bg-green-300');
-                    // } else {
-                    //     const div1 = document.getElementById("r_main_mm_disn  ").classList.add('bg-red-300');
-                    //     const div2 = document.getElementById("r_main_mm_disn  ").classList.remove('bg-green-300');
-                    // }
+                    if (payload.button.LHS_PRE_DISABLE == true) {
+                        document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM DISABLE";
+                        const div1 = document.getElementById("l_pre_mm_dis").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("l_pre_mm_dis").classList.add('bg-green-300');
+                    } else {
+                        document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM ENABLE";
+                        const div1 = document.getElementById("l_pre_mm_dis").classList.add('bg-red-300');
+                        const div2 = document.getElementById("l_pre_mm_dis").classList.remove('bg-green-300');
+                    }
+                    if (payload.button.LHS_MAIN_DISABLE == true) {
+                        document.getElementById("l_main_mm_dis").innerHTML = "LHS MAIN ROLLER MM DISABLE";
+                        const div1 = document.getElementById("l_main_mm_dis").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("l_main_mm_dis").classList.add('bg-green-300');
+                    } else {
+                        document.getElementById("l_main_mm_dis").innerHTML = "LHS MAIN ROLLER MM ENABLE";
+                        const div1 = document.getElementById("l_main_mm_dis").classList.add('bg-red-300');
+                        const div2 = document.getElementById("l_main_mm_dis").classList.remove('bg-green-300');
+                    }
+                    if (payload.button.RHS_PRE_DISABLE == true) {
+                        document.getElementById("r_pre_mm_dis").innerHTML = "RHS PRE ROLLER MM DISABLE";
+                        const div1 = document.getElementById("r_pre_mm_dis").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("r_pre_mm_dis").classList.add('bg-green-300');
+                    } else {
+                        document.getElementById("r_pre_mm_dis").innerHTML = "RHS PRE ROLLER MM ENABLE";
+                        const div1 = document.getElementById("r_pre_mm_dis").classList.add('bg-red-300');
+                        const div2 = document.getElementById("r_pre_mm_dis").classList.remove('bg-green-300');
+                    }
+                    if (payload.button.RHS_MAIN_DISABLE == true) {
+                        document.getElementById("r_main_mm_dis").innerHTML = "RHS MAIN ROLLER MM DISABLE";
+                        const div1 = document.getElementById("r_main_mm_dis").classList.remove('bg-red-300');
+                        const div2 = document.getElementById("r_main_mm_dis").classList.add('bg-green-300');
+                    } else {
+                        document.getElementById("r_main_mm_dis").innerHTML = "RHS MAIN ROLLER MM ENABLE";
+                        const div1 = document.getElementById("r_main_mm_dis").classList.add('bg-red-300');
+                        const div2 = document.getElementById("r_main_mm_dis").classList.remove('bg-green-300');
+                    }
 
                 })
                 .catch(function (error) {
@@ -784,32 +792,40 @@
                         document.getElementById("MACHINE_STOP_DELAY").value = payload.stats.MACHINE_STOP_DELAY
 
                         if (payload.button.LHS_PRE_DISABLE == true) {
+                            document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM DISABLE";
                             const div1 = document.getElementById("l_pre_mm_dis").classList.remove('bg-red-300');
                             const div2 = document.getElementById("l_pre_mm_dis").classList.add('bg-green-300');
                         } else {
-                            const div2 = document.getElementById("l_pre_mm_dis").classList.remove('bg-green-300');
+                            document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM ENABLE";
                             const div1 = document.getElementById("l_pre_mm_dis").classList.add('bg-red-300');
+                            const div2 = document.getElementById("l_pre_mm_dis").classList.remove('bg-green-300');
                         }
                         if (payload.button.LHS_MAIN_DISABLE == true) {
+                            document.getElementById("l_main_mm_dis").innerHTML = "LHS MAIN ROLLER MM DISABLE";
                             const div1 = document.getElementById("l_main_mm_dis").classList.remove('bg-red-300');
                             const div2 = document.getElementById("l_main_mm_dis").classList.add('bg-green-300');
                         } else {
-                            const div2 = document.getElementById("l_main_mm_dis").classList.remove('bg-green-300');
+                            document.getElementById("l_main_mm_dis").innerHTML = "LHS MAIN ROLLER MM ENABLE";
                             const div1 = document.getElementById("l_main_mm_dis").classList.add('bg-red-300');
+                            const div2 = document.getElementById("l_main_mm_dis").classList.remove('bg-green-300');
                         }
                         if (payload.button.RHS_PRE_DISABLE == true) {
+                            document.getElementById("r_pre_mm_dis").innerHTML = "RHS PRE ROLLER MM DISABLE";
                             const div1 = document.getElementById("r_pre_mm_dis").classList.remove('bg-red-300');
                             const div2 = document.getElementById("r_pre_mm_dis").classList.add('bg-green-300');
                         } else {
-                            const div2 = document.getElementById("r_pre_mm_dis").classList.remove('bg-green-300');
+                            document.getElementById("r_pre_mm_dis").innerHTML = "RHS PRE ROLLER MM ENABLE";
                             const div1 = document.getElementById("r_pre_mm_dis").classList.add('bg-red-300');
+                            const div2 = document.getElementById("r_pre_mm_dis").classList.remove('bg-green-300');
                         }
                         if (payload.button.RHS_MAIN_DISABLE == true) {
+                            document.getElementById("r_main_mm_dis").innerHTML = "RHS MAIN ROLLER MM DISABLE";
                             const div1 = document.getElementById("r_main_mm_dis").classList.remove('bg-red-300');
                             const div2 = document.getElementById("r_main_mm_dis").classList.add('bg-green-300');
                         } else {
-                            const div2 = document.getElementById("r_main_mm_dis").classList.remove('bg-green-300');
+                            document.getElementById("r_main_mm_dis").innerHTML = "RHS MAIN ROLLER MM ENABLE";
                             const div1 = document.getElementById("r_main_mm_dis").classList.add('bg-red-300');
+                            const div2 = document.getElementById("r_main_mm_dis").classList.remove('bg-green-300');
                         }
                     })
                     .catch(function (error) {

@@ -78,7 +78,7 @@
             <li class="my-2 md:my-0">
                 <a href="/settings_homing"
                     class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
-                    <i class="fa fa-wrench fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full inline-block text-lg">Homing</span>
+                    <i class="fa fa-wrench fa-fw mr-3 text-indigo-400 text-xl"></i><span class="w-full inline-block text-lg">Servo Calib</span>
                 </a>
             </li>
             <li class="my-2 md:my-0">
@@ -148,6 +148,37 @@
                                             </button>
                                         </td>
 
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center  py-2  text-xl uppercase text-blue-900">
+                                        </td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <!-- <h3 class="font-bold text-lg">ACTUAL: <a id="pressure_act_metric">0</a></h3> -->
+                                        
+                                            <button id="Rweight_dec"
+                                                class="bg-blue-600 uppercase mt-2 text-2xl text-white font-semibold py-3 px-16 mx-5 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Rweight_dec()" onmouseup="Rweight_decx()">
+                                                <i class="fas fa-chevron-up fa-fw text-3xl text-white"></i>
+                                            </button>
+                                            <button id="Rweight_inc"
+                                                class="bg-blue-600 uppercase mt-2 text-2xl text-white font-semibold  py-3 px-16 mx-5 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Rweight_inc()" onmouseup="Rweight_incx()">
+                                                <i class="fas fa-chevron-down  fa-fw text-3xl text-white"></i>
+                                            </button>
+                                        </td>
+                                        <td id="preRHS_upper" class="border-b  text-center pb-5 px-3 ">
+                                            <!-- <h3 class="font-bold text-lg">ACTUAL: <a id="pressure_act_metric">0</a></h3> -->
+                                            <button id="Lweight_dec"
+                                                class="bg-blue-600 uppercase text-2xl text-white font-semibold  py-3 px-16 mx-5 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Lweight_dec()" onmouseup="Lweight_decx()">
+                                                <i class="fas fa-chevron-up fa-fw text-3xl text-white"></i>
+                                            </button>
+                                            <button id="Lweight_inc"
+                                                class="bg-blue-600 uppercase text-2xl text-white font-semibold  py-3 px-16 mx-5 border border-blue-500 hover:border-transparent rounded"
+                                                onmousedown="Lweight_inc()" onmouseup="Lweight_incx()">
+                                                <i class="fas fa-chevron-down  fa-fw text-3xl text-white"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="text-center py-2  text-xl uppercase text-blue-900">Single Turn</td>
@@ -355,7 +386,6 @@
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
 
                 </div>
@@ -578,6 +608,40 @@
         function EEPROM_LHS_process_touchend() {
             EEPROM_LHSx()
         }
+
+        async function Rweight_dec() {
+                const div1 = document.getElementById("Rweight_dec").classList.remove('bg-blue-600');
+                const div2 = document.getElementById("Rweight_dec").classList.add('bg-blue-900');
+                let submiturl = `${seturl}/RHS_WEIGHT_DEC/true`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+
+            async function Rweight_decx() {
+                const div1 = document.getElementById("Rweight_dec").classList.remove('bg-blue-900');
+                const div2 = document.getElementById("Rweight_dec").classList.add('bg-blue-600');
+                let submiturl = `${seturl}/RHS_WEIGHT_DEC/false`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+            async function Lweight_dec() {
+                const div1 = document.getElementById("Lweight_dec").classList.remove('bg-blue-600');
+                const div2 = document.getElementById("Lweight_dec").classList.add('bg-blue-900');
+                let submiturl = `${seturl}/LHS_WEIGHT_DEC/true`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
+
+
+            async function Lweight_decx() {
+                const div1 = document.getElementById("Lweight_dec").classList.remove('bg-blue-900');
+                const div2 = document.getElementById("Lweight_dec").classList.add('bg-blue-600');
+                let submiturl = `${seturl}/LHS_WEIGHT_DEC/false`
+                await fetch(submiturl)
+                    .catch(console.error);
+            }
     </script>
 
     <!-- Update Values -->
