@@ -2547,7 +2547,8 @@
                     console.log("[ PAYLOAD FETCH ERROR ]", error)
                 });
         };
-
+        var mode;
+        
         async function fetchstats() {
             fetch(statsurl)
                 .then((resp) => resp.json()) // Transform the data into json
