@@ -251,6 +251,12 @@
                             </div>
                         </div>
                         <!-- Search Button -->
+                        <div class="p-2 ml-1">
+                            <button id="TRIAL_PRODUCTION"
+                                class="text-center bg-indigo-200 uppercase text-xl font-bold text-gray-800 font-semibold  py-2 px-12 border border-purple-500  rounded"
+                                onclick="trial()"> TRIAL</button>
+                        </div>
+                        <!-- Search Button -->
                         <div class="p-3 ml-1">
                             <button id="start_m"
                                 class="text-center bg-green-200 uppercase text-2xl font-bold text-gray-800 font-semibold  py-2 px-12 border border-purple-500  rounded"
@@ -2690,6 +2696,20 @@
                         const div7 = document.getElementById("disable_awc").classList.remove('text-white');
                         const div8 = document.getElementById("disable_awc").classList.add('text-gray-800');
                     }
+                    
+                    if (payload.button.TRIAL_PRODUCTION == true) {
+                        document.getElementById("TRIAL_PRODUCTION").innerHTML = "PROD";
+                        const div1 = document.getElementById("TRIAL_PRODUCTION").classList.remove('bg-indigo-200');
+                        const div2 = document.getElementById("TRIAL_PRODUCTION").classList.add('bg-indigo-600');
+                        const div7 = document.getElementById("TRIAL_PRODUCTION").classList.remove('text-gray-800');
+                        const div8 = document.getElementById("TRIAL_PRODUCTION").classList.add('text-white');
+                    } else {
+                        document.getElementById("TRIAL_PRODUCTION").innerHTML = "TRIAL";
+                        const div1 = document.getElementById("TRIAL_PRODUCTION").classList.add('bg-indigo-200');
+                        const div2 = document.getElementById("TRIAL_PRODUCTION").classList.remove('bg-indigo-600');
+                        const div7 = document.getElementById("TRIAL_PRODUCTION").classList.remove('text-white');
+                        const div8 = document.getElementById("TRIAL_PRODUCTION").classList.add('text-gray-800');
+                    }
 
                     if (payload.button.FORCE_FEEDER_START_BUTTON == true) {
                         document.getElementById("feeder_start").innerHTML = "FEEDER RUN";
@@ -3655,6 +3675,20 @@
                 .catch(console.error);
         }
         
+        async function button16(){
+            let submiturl = `${seturl}/TRIAL_PRODUCTION/true`
+            await fetch(submiturl)
+                .then(console.log("[ Powerpack Drain ] "))
+                .catch(console.error);
+        }
+
+        async function button16x(){
+            let submiturl = `${seturl}/TRIAL_PRODUCTION/false`
+            await fetch(submiturl)
+                .then(console.log("[ AWC_DISABLE ] "))
+                .catch(console.error);
+        }
+        
         async function button13(){
             const div1 = document.getElementById("man_samp").classList.remove('bg-red-300');
             const div2 = document.getElementById("man_samp").classList.add('bg-green-300');
@@ -3738,6 +3772,15 @@
                 button12x()
             } else {
                 button12()
+            }
+        }
+
+        function trial(){
+            
+            if (maindata.button.TRIAL_PRODUCTION  === true ) {
+                button16x()
+            } else {
+                button16()
             }
         }
 

@@ -407,7 +407,8 @@ var payload = {
         LHS_PRE_DISABLE: '',
         LHS_MAIN_DISABLE: '',
         RHS_PRE_DISABLE: '',
-        RHS_MAIN_DISABLE: ''
+        RHS_MAIN_DISABLE: '',
+        TRIAL_PRODUCTION: ''
     },
     alarm:{
         EMERGENCY_STOP_PRESSED: '',
@@ -989,6 +990,7 @@ var read_coils = function () {
             payload.button.LHS_MAIN_DISABLE = data.data[91]
             payload.button.RHS_PRE_DISABLE = data.data[92]
             payload.button.RHS_MAIN_DISABLE = data.data[93]
+            payload.button.TRIAL_PRODUCTION = data.data[94]
             
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -2544,6 +2546,24 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         set_button = false
         c = payload.button.FORCE_OVERRIDE
         
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "TRIAL_PRODUCTION" && b == "true") {
+        a = "TRIAL_PRODUCTION"
+        coil_offset_410 = 184
+        set_button = true
+        c = payload.button.TRIAL_PRODUCTION
+
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "TRIAL_PRODUCTION" && b == "false") {
+        a = "TRIAL_PRODUCTION"
+        coil_offset_410 = 184
+        set_button = false
+        c = payload.button.TRIAL_PRODUCTION
+
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
