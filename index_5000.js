@@ -32,9 +32,11 @@ app.use('/charts/plugin', express.static(__dirname + '/node_modules/chartjs-plug
 app.use('/plugin', express.static(__dirname + '/node_modules/hammerjs/'));
 app.use('/css', express.static(__dirname + '/build/'));
 app.use('/font', express.static(__dirname + '/node_modules/@fortawesome/fontawesome-free/'));
+app.use('/printjs', express.static(__dirname + '/node_modules/print-js/'));
 app.use('/env', express.static(__dirname + '/html_/'));
 app.use('/favicon_io', express.static(__dirname + '/favicon_io/'));
 app.use('/guage', express.static(__dirname + '/html_/guage/'));
+app.use('/base', express.static(__dirname + '/'));
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/login.html"));
@@ -1287,6 +1289,70 @@ app.get("/report/ejnRHS/download", (req, res) => {
             console.log("Success");
         }
     });
+})
+
+app.get("/path/audit/download", (req, res) => {
+    var file = `batch_${report.batch}_audit.pdf`;
+    return res.json({ path: file });
+
+})
+
+app.get("/path/alarm/download", (req, res) => {
+    var file = `batch_${report.batch}_alarm.pdf`;
+    return res.json({ path: file });
+
+})
+
+app.get("/path/average/download", (req, res) => {
+    var file = `batch_${report.batch}_from_${report.from}_to_${report.to}.pdf`;
+    return res.json({ path: file });
+})
+
+app.get("/path/preLHS/download", (req, res) => {
+    var file = `batch_${report.batch}_preLHS_from_${report.from}_to_${report.to}.pdf`;
+        return res.json({ path: file });
+
+})
+
+app.get("/path/preRHS/download", (req, res) => {
+    var file = `batch_${report.batch}_preRHS_from_${report.from}_to_${report.to}.pdf`;
+        return res.json({ path: file });
+
+})
+
+app.get("/path/mainLHS/download", (req, res) => {
+    var file = `batch_${report.batch}_mainLHS_from_${report.from}_to_${report.to}.pdf`;
+        return res.json({ path: file });
+
+})
+
+app.get("/path/mainRHS/download", (req, res) => {
+    var file =  `batch_${report.batch}_mainRHS_from_${report.from}_to_${report.to}.pdf`;
+        return res.json({ path: file });
+
+})
+
+app.get("/path/ejnLHS/download", (req, res) => {
+    var file = `batch_${report.batch}_ejnLHS_from_${report.from}_to_${report.to}.pdf`;
+        return res.json({ path: file });
+
+})
+
+app.get("/path/ejnRHS/download", (req, res) => {
+    var file = `batch_${report.batch}_ejnRHS_from_${report.from}_to_${report.to}.pdf`;
+        return res.json({ path: file });
+
+})
+
+app.get("/path/recipe/download", (req, res) => {
+    var file = `recipe_list.pdf`;
+    return res.json({ path: file });
+    
+})
+
+app.get("/path/recipe_single/download", (req, res) => {
+    var file = `recipe.pdf`;
+    return res.json({ path: file });
 })
 
 app.get("/report/recipe/download", (req, res) => {

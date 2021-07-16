@@ -29,6 +29,7 @@
     "influxdb-nodejs": "^3.1.0",
     "modbus-serial": "^8.0.1",
     "nodemon": "^2.0.7",
+    "print-js": "^1.6.0",
     "puppeteer": "^5.3.1",
     "sequelize": "^6.6.2",
     "sqlite3": "^5.0.2",

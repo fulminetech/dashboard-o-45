@@ -14,6 +14,7 @@
     <link href="/font/css/all.css" rel="stylesheet">
     <link href="/css/tailwind.css" rel="stylesheet">
     <script src="/env/env.js"></script>
+    <script src="/printjs/dist/print.js"></script>
 
     <!-- sidebar -->
     <style>
@@ -164,6 +165,14 @@
                                 <button id="generatepdfreport1"
                                     class="modal1-open text-center text-xl bg-blue-100 uppercase text-gray-800 font-semibold py-2 px-5 border border-blue-500 rounded"
                                     onclick="reportrec()">Recipe PDF</button>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap p-3">    
+                            <div class="py-3">
+                                <button id="reportandprintrecid"
+                                    class="modal1-open text-center text-xl bg-blue-100 uppercase text-gray-800 font-semibold py-2 px-5 border border-blue-500 rounded"
+                                    onclick="reportandprintrec()">Print Recipe</button>
                             </div>
                         </div>
 
@@ -365,7 +374,7 @@
                                 </div>
                             </div>
 
-                            <div id="formedit" class="flex grid grid-cols-3 hidden">
+                            <div id="formedit" class="flex grid grid-cols-4 hidden">
 
                                 <div class="flex flex-wrap p-3">
                                     <div class="">
@@ -413,6 +422,16 @@
                                             class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
                                             onclick="pdfsinglerec()">
                                             PDF 
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-wrap p-3">
+                                    <div class="">
+                                        <button id="pdfsingleandprintrecid"
+                                            class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="pdfsingleandprintrec()">
+                                            Print PDF 
                                         </button>
                                     </div>
                                 </div>
@@ -772,6 +791,54 @@
             setTimeout(() => {
                 location.href = "/report/recipe_single/download"
                 document.getElementById("generatepdfreport2").innerText = "PDF";
+                element2.classList.remove("cursor-not-allowed");
+            }, pdfgenerationtime);
+        }
+
+        async function reportandprintrec() {
+            let pdfgenerationtime = 5000
+            // document.getElementById("generatepdfreport1").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+            document.getElementById("reportandprintrecid").innerText = `PLEASE WAIT`;
+            element1.classList.add("cursor-not-allowed");
+
+            await fetch(reportRecipeGenURL);
+
+            setTimeout(() => {
+                var download = `${hostname}/path/recipe/download`
+                fetch(download)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        console.log(data.path);
+                        printJS({ printable: `${hostname}/base/${data.path}`, type: 'pdf' });
+                    })
+                    .catch(function (error) {
+                    });
+                // location.href = "/report/recipe/download"
+                document.getElementById("reportandprintrecid").innerText = "Print Recipe";
+                element1.classList.remove("cursor-not-allowed");
+            }, pdfgenerationtime);
+        }
+        
+        async function pdfsingleandprintrec() {
+            let pdfgenerationtime = 5000
+            // document.getElementById("generatepdfreport1").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+            document.getElementById("pdfsingleandprintrecid").innerText = `PLEASE WAIT`;
+            element2.classList.add("cursor-not-allowed");
+
+            await fetch(reportRecipeSingleGenURL);
+
+            setTimeout(() => {
+                var download = `${hostname}/path/recipe_single/download`
+                fetch(download)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        console.log(data.path);
+                        printJS({ printable: `${hostname}/base/${data.path}`, type: 'pdf' });
+                    })
+                    .catch(function (error) {
+                    });
+                // location.href = "/report/recipe_single/download"
+                document.getElementById("pdfsingleandprintrecid").innerText = "Print PDF";
                 element2.classList.remove("cursor-not-allowed");
             }, pdfgenerationtime);
         }

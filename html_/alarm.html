@@ -14,7 +14,7 @@
     <link href="/font/css/all.css" rel="stylesheet">
     <link href="/css/tailwind.css" rel="stylesheet">
     <script src="/env/env.js"></script>
-
+    <script src="/printjs/dist/print.js"></script>
     <!-- sidebar -->
     <style>
         #sidebar {
@@ -193,10 +193,18 @@
                                     PDF report
                                 </button>
                             </div>
+                    
                         </div>
                     
                         <div class="flex flex-wrap p-3">
-                    
+                            <!-- PDF report Button -->
+                            <div class="py-3">
+                                <button id="generateandprintReportid"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateandprintReport()">
+                                    Print report
+                                </button>
+                            </div>
                             <!-- Excel Button -->
                             <!-- <div class="py-3">
                                 <button
@@ -384,7 +392,7 @@
             var c = document.getElementById("batchname").value;
             var bname = c;
             
-            document.getElementById("generatepdfreport").innerText = `PLEASE WAIT ${pdfgenerationtime / 1000} secs`;
+            document.getElementById("generatepdfreport").innerText = `PLEASE WAIT`;
             element.classList.add("cursor-not-allowed");
 
             var queryAvgURL = `${reportAvgURL}/${bname}/0/0`
@@ -394,6 +402,36 @@
             setTimeout(() => {
                     location.href = "/report/alarm/download"
                     document.getElementById("generatepdfreport").innerText = "PDF REPORT";
+                    element.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+
+        }
+
+        async function generateandprintReport() {
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+            document.getElementById("generateandprintReportid").innerText = `PLEASE WAIT`;
+
+            element.classList.add("cursor-not-allowed");
+
+            var queryAvgURL = `${reportAvgURL}/${bname}/0/0`
+            await fetch(queryAvgURL);
+            await fetch(reportAlarmGenURL);
+
+            setTimeout(() => {
+                    var download = `${hostname}/path/alarm/download`
+                    fetch(download)
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function (data) {
+                            console.log(data.path);
+                            printJS({ printable: `${hostname}/base/${data.path}`, type: 'pdf' });
+                        })
+                        .catch(function (error) {
+                        });
+                    // location.href = "/report/alarm/download"
+                    document.getElementById("generateandprintReportid").innerText = "Print REPORT";
                     element.classList.remove("cursor-not-allowed");
                 }, pdfgenerationtime);
 
