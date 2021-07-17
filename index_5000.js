@@ -18,6 +18,7 @@ const restartraw = "pm2 restart main_5000"
 const shutdown = "gnome-session-quit --power-off"
 const reboot = "gnome-session-quit --reboot"
 const fetch = require('cross-fetch');
+var ks = require('node-key-sender');
 
 const {
     payload, startmodbus, watchproxy, updatestatsbatch
@@ -156,6 +157,13 @@ app.get("/error", (req, res) => {
 
 app.get("/overview", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/overview.html"));
+});
+
+app.get("/desktop", (req, res) => {
+    // ks.sendCombination(['control', 'shift', 'v']);
+    // ks.sendCombination(['alt', 'tab']);
+    ks.sendCombination(['control','alt', 'down']);
+    res.sendFile(path.join(__dirname + "/html_/login.html"));
 });
 
 function restartserver(arg) {
