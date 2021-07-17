@@ -2,7 +2,10 @@ var ModbusRTU = require("modbus-serial");
 const express = require("express");
 const { exec } = require('child_process');
 const { fail } = require("assert");
-const restart1Command = "pm2 reload stats_3128 && pm2 reload main_5000 && pm2 reload compression_3129"
+
+const restart1Command = "./restart.sh"
+
+// const restart1Command = "pm2 reload stats_3128 && pm2 reload main_5000 && pm2 reload compression_3129"
 // const restart1Command = "pm2 restart stats_3128"
 // const restart2Command = "pm2 restart main_5000"
 // const restart3Command = "pm2 restart compression_3129"
@@ -788,6 +791,7 @@ var connectClient = function () {
             
             if (connectfailed > connectcounter) {
                 restartprodmodbus()
+                connectfailed=0
             }
             
             console.log(`[ FAILED TO CONNECT ]`)

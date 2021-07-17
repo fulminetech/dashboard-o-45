@@ -162,7 +162,10 @@ app.get("/overview", (req, res) => {
 app.get("/desktop", (req, res) => {
     // ks.sendCombination(['control', 'shift', 'v']);
     // ks.sendCombination(['alt', 'tab']);
-    ks.sendCombination(['control','alt', 'down']);
+    ks.sendCombination(['control','d']);
+    // ks.sendCombination(['control','alt', 'down']);
+    // ks.sendCombination(['control','alt', 'down']);
+    // ks.sendCombination(['control','alt', 'down']);
     res.sendFile(path.join(__dirname + "/html_/login.html"));
 });
 
