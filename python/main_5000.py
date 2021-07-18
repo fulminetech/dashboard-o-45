@@ -2,7 +2,7 @@ import logging
 import threading
 import json
 import time
-ms = time.clock_gettime_ns() // 1000000
+# ms = time.time_ns() // 1000000
 
 # Python script for Modbus Read / Write
 from pyModbusTCP.client import ModbusClient
@@ -206,10 +206,12 @@ def pstatus():
         x = 'stats'
  
 def end():
-    print("End: ",+int(time.time_ns() // 1000000 - ms))
+    print("End")
+    # print("End: ",+int(time.time_ns() // 1000000 - ms))
  
 def start():
-    print("Start: ",+int(time.time_ns() // 1000000 - ms))
+    print("Start")
+    # print("Start: ",+int(time.time_ns() // 1000000 - ms))
 
 def xyz(name):
     logging.info("Thread %s: starting", name)
