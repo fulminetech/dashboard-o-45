@@ -6,7 +6,7 @@ app = Flask(__name__)
 api = Api(app)
 CORS(app)
 
-import numpy as np
+# import numpy as np
 
 import requests
 

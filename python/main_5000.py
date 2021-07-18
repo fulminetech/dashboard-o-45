@@ -2,7 +2,7 @@ import logging
 import threading
 import json
 import time
-ms = time.time_ns() // 1000000
+ms = time.clock_gettime_ns() // 1000000
 
 # Python script for Modbus Read / Write
 from pyModbusTCP.client import ModbusClient
