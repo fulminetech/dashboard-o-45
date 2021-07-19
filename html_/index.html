@@ -2234,12 +2234,12 @@
 
                     data.connection == false ? disconnect() : data.connection
 
-                    // function disconnect(){
-                    //     setTimeout(() => {
-                    //         alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
-                    //         location.href = "/"
-                    //     }, 200);
-                    // }
+                    function disconnect(){
+                        setTimeout(() => {
+                                // alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
+                                location.href = "/"
+                        }, 200);
+                    }
 
                     payload = data
                     // console.log(payload)
@@ -2558,7 +2558,6 @@
                     console.log("[ PAYLOAD FETCH ERROR ]", error)
                 });
         };
-        var mode;
         
         async function fetchstats() {
             fetch(statsurl)
@@ -2862,12 +2861,12 @@
                         // cycle_status = false
                     }
 
-                    console.log("23" ,payload.output[23])
-                    console.log("18" ,payload.output[18])
-                    console.log("35" ,payload.output[35])
-                    console.log("36" ,payload.output[36])
-                    console.log("37" ,payload.output[37])
-                    console.log("38" ,payload.output[38])
+                    // console.log("23" ,payload.output[23])
+                    // console.log("18" ,payload.output[18])
+                    // console.log("35" ,payload.output[35])
+                    // console.log("36" ,payload.output[36])
+                    // console.log("37" ,payload.output[37])
+                    // console.log("38" ,payload.output[38])
 
                     if (payload.output[23] === true) {
                         const div = document.getElementById("23").classList.add('bg-red-600');
@@ -4785,7 +4784,7 @@
 
     <!-- Graph RHS  -->
     <script>
-
+        
         async function fetchpayloadapiHF() {
             fetch(processedurl)
                 .then((resp) => resp.json()) // Transform the data into json
@@ -4825,7 +4824,7 @@
                     AWC_MLHS_UL = Array(45).fill(payload.limit[20])
                     AWC_MLHS_LL = Array(45).fill(payload.limit[21])
 
-                    
+                    console.log(mode)
                     if (mode == true) {
                         maingraph.data.datasets[0].backgroundColor = payload.mLHS_processed
 
