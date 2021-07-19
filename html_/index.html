@@ -2618,7 +2618,7 @@
                     document.getElementById("rej_low_RHS").innerHTML = payload.machine.rej_low_RHS
                     document.getElementById("safety_low_RHS").innerHTML = payload.machine.safety_low_RHS
 
-                    mode = payload.stats.FF_MODE 
+                    mode = payload.stats.FF_MODE
                     console.log(payload.stats.FF_MODE)
                     if (payload.stats.FF_MODE == 0) {
                         // document.getElementById("feeder_mode").innerHTML = "GRAVITY";
@@ -3002,7 +3002,7 @@
                     AWC_MLHS_UL = Array(45).fill(payload.limit[20])
                     AWC_MLHS_LL = Array(45).fill(payload.limit[21])
 
-                    console.log(mode)
+                    // console.log(mode)
                     if (mode == false) {
                         maingraph.data.datasets[0].backgroundColor = payload.mLHS_processed
 
