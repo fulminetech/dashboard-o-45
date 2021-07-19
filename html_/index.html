@@ -2618,8 +2618,8 @@
                     document.getElementById("rej_low_RHS").innerHTML = payload.machine.rej_low_RHS
                     document.getElementById("safety_low_RHS").innerHTML = payload.machine.safety_low_RHS
 
-                    mode = payload.stats.FF_MODE
-                    console.log(payload.stats.FF_MODE)
+                    
+                    
                     if (payload.stats.FF_MODE == 0) {
                         // document.getElementById("feeder_mode").innerHTML = "GRAVITY";
                         const div1 = document.getElementById("feeder_g").classList.remove('bg-gray-600');
@@ -2655,7 +2655,9 @@
                         const div7 = document.getElementById("rejn_dsbl").classList.remove('text-white');
                         const div8 = document.getElementById("rejn_dsbl").classList.add('text-gray-800');
                     }
-                    
+
+                    mode = payload.button.MONO_BI
+
                     if (payload.button.MONO_BI == true) {
                         document.getElementById("bi_mode").innerHTML = "BILAYER";
                         const div1 = document.getElementById("bi_mode").classList.remove('bg-gray-600');
@@ -3003,7 +3005,7 @@
                     AWC_MLHS_LL = Array(45).fill(payload.limit[21])
 
                     // console.log(mode)
-                    if (mode == false) {
+                    if (mode == true) {
                         maingraph.data.datasets[0].backgroundColor = payload.mLHS_processed
 
                         maingraph.data.datasets[1].data = MLHS_UL  //  // Upper 
@@ -3770,14 +3772,14 @@
         async function button11(){
             let submiturl = `${seturl}/MONO_BI/true`
             await fetch(submiturl)
-                .then(console.log("[ Powerpack Drain ] "))
+                .then(() => location.reload())
                 .catch(console.error);
         }
 
         async function button11x(){
             let submiturl = `${seturl}/MONO_BI/false`
             await fetch(submiturl)
-                .then(console.log("[ AWC_DISABLE ] "))
+                .then(() => location.reload())
                 .catch(console.error);
         }
         
