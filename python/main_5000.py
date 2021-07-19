@@ -10,8 +10,11 @@ from pyModbusTCP.client import ModbusClient
 # Server Imports
 from flask import Flask
 from flask_restful import reqparse, abort, Api, Resource
+from flask_cors import CORS
+
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 # Modbus TCP parameters
 SERVER_HOST = "192.168.1.5"
