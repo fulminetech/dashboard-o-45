@@ -2213,6 +2213,58 @@
         }
     </script>
 
+    <!-- Hide Section -->
+    <script>
+        // function myFunction() {
+        //     var x = document.getElementById("myDIV");
+        //     if (x.style.display === "none") {
+        //         x.style.display = "block";
+        //     } else {
+        //         x.style.display = "none";
+        //     }
+        // }
+
+        var alarm
+        var alarm_status = false
+
+        function alarm_active() {
+            alarm_status = true
+            alarm = setInterval(() => {
+                const div1 = document.getElementById("alarm_page").classList.toggle('hidden');
+            }, 1000);
+        }
+
+        var guard
+        var guard_status = false
+
+        function guard_active() {
+            guard_status = true
+            guard = setInterval(() => {
+                const div1 = document.getElementById("guard_page").classList.toggle('hidden');
+            }, 1000);
+        }
+
+        var hyd
+        var hyd_status = false
+
+        function hyd_active() {
+            hyd_status = true
+            hyd = setInterval(() => {
+                const div1 = document.getElementById("hyd_page").classList.toggle('hidden');
+            }, 1000);
+        }
+
+        var cycle
+        var cycle_status = false
+
+        function cycle_active() {
+            cycle_status = true
+            cycle = setInterval(() => {
+                // const div1 = document.getElementById("cycle_page").classList.remove('hidden');
+            }, 1000);
+        }
+    </script>
+
     <!-- API FETCHES -->
     <script>
 
@@ -3148,58 +3200,6 @@
             permissions.recipiesettings == true ? document.getElementById("settings_recipie").classList.remove('hidden') : true
                 })
                 .catch(console.error);
-        }
-    </script>
-
-    <!-- Hide Section -->
-    <script>
-        // function myFunction() {
-        //     var x = document.getElementById("myDIV");
-        //     if (x.style.display === "none") {
-        //         x.style.display = "block";
-        //     } else {
-        //         x.style.display = "none";
-        //     }
-        // }
-
-        var alarm
-        var alarm_status = false
-
-        function alarm_active() {
-            alarm_status = true
-            alarm = setInterval(() => {
-                const div1 = document.getElementById("alarm_page").classList.toggle('hidden');
-            }, 1000);
-        }
-        
-        var guard
-        var guard_status = false
-
-        function guard_active() {
-            guard_status = true
-            guard = setInterval(() => {
-                const div1 = document.getElementById("guard_page").classList.toggle('hidden');
-            }, 1000);
-        }
-        
-        var hyd
-        var hyd_status = false
-
-        function hyd_active() {
-            hyd_status = true
-            hyd = setInterval(() => {
-                const div1 = document.getElementById("hyd_page").classList.toggle('hidden');
-            }, 1000);
-        }
-        
-        var cycle
-        var cycle_status = false
-
-        function cycle_active() {
-            cycle_status = true
-            cycle = setInterval(() => {
-                // const div1 = document.getElementById("cycle_page").classList.remove('hidden');
-            }, 1000);
         }
     </script>
 
