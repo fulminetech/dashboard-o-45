@@ -1463,6 +1463,7 @@
                         // Here you get the data to modify as you please
                         payload = data
                         mode1 = payload.stats.MONO_BI
+                        alert(`MODE: ${payload.stats.MONO_BI}`)
                         maindata = data
                         document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
                         document.getElementById("count_metric").innerHTML = payload.production;
