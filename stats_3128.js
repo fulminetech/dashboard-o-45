@@ -281,10 +281,10 @@ var payload = {
         D_PCD: 0,
         Z_PHASE_COUNT: 0,
         Z_PHASE_COUNTER: 0,
-        L_HOMING_UPPERLIMIT: 0,
-        L_HOMING_LOWERLIMIT: 0,
-        R_HOMING_UPPERLIMIT: 0,
-        R_HOMING_LOWERLIMIT: 0,
+        SERVO_RHS_UPPERLIMIT: 0,
+        SERVO_RHS_LOWERLIMIT: 0,
+        SERVO_LHS_UPPERLIMIT: 0,
+        SERVO_LHS_LOWERLIMIT: 0,
         total_punches: 0,
         encoder_PPR: 0,
         punch_offset_position: {
@@ -1198,10 +1198,10 @@ var read_regs = function () {
             payload.stats.Z_PHASE_COUNTER = data.data[86];
             payload.stats.Z_PHASE_COUNT = data.data[87];
             
-            payload.stats.L_HOMING_UPPERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[89], data.data[90]))
-            payload.stats.L_HOMING_LOWERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[91], data.data[92]))
-            payload.stats.R_HOMING_UPPERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[93], data.data[94]))
-            payload.stats.R_HOMING_LOWERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[95], data.data[96]))
+            payload.stats.SERVO_RHS_UPPERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[89], data.data[90]))
+            payload.stats.SERVO_RHS_LOWERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[91], data.data[92]))
+            payload.stats.SERVO_LHS_UPPERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[93], data.data[94]))
+            payload.stats.SERVO_LHS_LOWERLIMIT = signedDecToDec(_2x16bitTo32bit(data.data[95], data.data[96]))
             
             payload.stats.TABLET_MULTIPLICATION_FACTOR = data.data[97]
 
@@ -3684,7 +3684,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         a = "RHS SERVO UPPER LIMIT"
         reg_offset_6000 = 1089
         reg_write_value = b
-        c = payload.stats.L_HOMING_UPPERLIMIT
+        c = payload.stats.SERVO_RHS_UPPERLIMIT
         write_regs_32()
         writelog()
     }
@@ -3692,7 +3692,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         a = "RHS SERVO LOWER LIMIT"
         reg_offset_6000 = 1091
         reg_write_value = b
-        c = payload.stats.L_HOMING_LOWERLIMIT
+        c = payload.stats.SERVO_RHS_LOWERLIMIT
         write_regs_32()
         writelog()
     }
@@ -3700,7 +3700,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         a = "LHS SERVO UPPER LIMIT"
         reg_offset_6000 = 1093
         reg_write_value = b
-        c = payload.stats.R_HOMING_UPPERLIMIT
+        c = payload.stats.SERVO_LHS_UPPERLIMIT
         write_regs_32()
         writelog()
     }
@@ -3708,7 +3708,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         a = "LHS SERVO LOWER LIMIT"
         reg_offset_6000 = 1095
         reg_write_value = b
-        c = payload.stats.R_HOMING_LOWERLIMIT
+        c = payload.stats.SERVO_LHS_LOWERLIMIT
         write_regs_32()
         writelog()
     }

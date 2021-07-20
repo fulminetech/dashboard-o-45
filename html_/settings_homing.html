@@ -442,11 +442,11 @@
                     document.getElementById("home2_LHS").value = payload.stats.awc.LHS_HOME_OFFSET_2
                     document.getElementById("home2_RHS").value = payload.stats.awc.RHS_HOME_OFFSET_2
                     
-                    document.getElementById("upper_RHS").value = payload.stats.R_HOMING_UPPERLIMIT
-                    document.getElementById("upper_LHS").value = payload.stats.L_HOMING_UPPERLIMIT
+                    document.getElementById("upper_RHS").value = payload.stats.SERVO_RHS_UPPERLIMIT
+                    document.getElementById("upper_LHS").value = payload.stats.SERVO_LHS_UPPERLIMIT
                     
-                    document.getElementById("lower_RHS").value = payload.stats.R_HOMING_LOWERLIMIT
-                    document.getElementById("lower_LHS").value = payload.stats.L_HOMING_LOWERLIMIT
+                    document.getElementById("lower_RHS").value = payload.stats.SERVO_RHS_LOWERLIMIT
+                    document.getElementById("lower_LHS").value = payload.stats.SERVO_LHS_LOWERLIMIT
 
                     document.getElementById("RHS_FILL_DEPTH_MAX").value = payload.stats.RHSdepth.depth_max
                     document.getElementById("RHS_FILL_DEPTH_MIN").value = payload.stats.RHSdepth.depth_min
@@ -809,7 +809,7 @@
 
             function submitt(pressure) {
                 if (pressure <= 1000000000000 && pressure >= -200000000000) {
-                    let submiturl = `${seturl}/R_HOMING_UPPERLIMIT/${pressure}`
+                    let submiturl = `${seturl}/SERVO_RHS_UPPERLIMIT/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
                         .then(setTimeout(() => {
@@ -834,7 +834,7 @@
             function submitt(pressure) {
                 if (pressure <= 1000000000000 && pressure >= -200000000000) {
                     // let submiturl = `${seturl}/L_HOMING_UPPERLIMIT/${pressure}`
-                    let submiturl = `${seturl}/SERVO_RHS_UPPERLIMIT/${pressure}`
+                    let submiturl = `${seturl}/SERVO_LHS_UPPERLIMIT/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
                         .then(setTimeout(() => {
@@ -859,7 +859,7 @@
             function submitt(pressure) {
                 if (pressure <= 1000000000000 && pressure >= -200000000000) {
                     // let submiturl = `${seturl}/R_HOMING_LOWERLIMIT/${pressure}`
-                    let submiturl = `${seturl}/SERVO_LHS_UPPERLIMIT/${pressure}`
+                    let submiturl = `${seturl}/SERVO_RHS_LOWERLIMIT/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
                         .then(setTimeout(() => {
@@ -884,7 +884,7 @@
             function submitt(pressure) {
                 if (pressure <= 1000000000000 && pressure >= -200000000000) {
                     // let submiturl = `${seturl}/L_HOMING_LOWERLIMIT/${pressure}`
-                    let submiturl = `${seturl}/SERVO_RHS_LOWERLIMIT/${pressure}`
+                    let submiturl = `${seturl}/SERVO_LHS_LOWERLIMIT/${pressure}`
                     console.log(submiturl)
                     fetch(submiturl)
                         .then(setTimeout(() => {
