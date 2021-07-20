@@ -541,133 +541,7 @@
 
     <script>
 
-        time = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
-        setInterval(() => {
-            document.getElementById("time").innerHTML = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
-            // document.getElementById("feeder_activity_metric").innerHTML = time;
-            //  document.getElementById("machine_activity_metric").innerHTML = time;
-        }, 1000);
-        function switchh() {
-            var val = document.getElementById("select").innerHTML
-            if ( val == 'LHS') {
-                document.getElementById("select").innerHTML = 'RHS'
-            } else {
-                document.getElementById("select").innerHTML = 'LHS'
-            }
-        }
-
-        var mode;
-        async function fetchstats() {
-            fetch(statsurl)
-                .then((resp) => resp.json()) // Transform the data into json
-                .then(function (data) {
-                    // Here you get the data to modify as you please
-                    payload = data
-                    mode = payload.stats.MONO_BI
-                    maindata = data
-                    document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
-                    document.getElementById("count_metric").innerHTML = payload.production;
-                    document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
-                    document.getElementById("rpm_metric").innerHTML = payload.stats.turret.RPM;
-                    document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
-                    document.getElementById("feederLHS_metric").innerHTML = payload.stats.LHS_FF.RPM;
-                    document.getElementById("feederRHS_metric").innerHTML = payload.stats.RHS_FF.RPM;
-
-                    var selection = document.getElementById("select").innerHTML
-                    // console.log(selection)
-
-                    if(selection == 'RHS') {
-                        document.getElementById("fill_d").innerHTML = payload.stats.awc.actual_RHS
-                        document.getElementById("pre_mm").innerHTML = payload.stats.RHSweight.value
-                        document.getElementById("main_mm").innerHTML = payload.stats.RHSthickness.value                        
-                    } else {
-                        document.getElementById("fill_d").innerHTML = payload.stats.awc.actual_LHS
-                        document.getElementById("pre_mm").innerHTML = payload.stats.LHSweight.value
-                        document.getElementById("main_mm").innerHTML = payload.stats.LHSthickness.value
-                    }
-                })
-                .catch(function (error) {
-                    // console.log("[ PAYLOAD FETCH ERROR ]", error)
-                });
-            };
-
-        var currentBatch;
-        var currentrotation;
-        var i = 0
-
-        async function fetchcompression() {
-            fetch(payloadURL)
-                .then((resp) => resp.json())
-                .then(function (data) {
-                    payload = data
-
-                    document.getElementById("batch_number_metric").innerHTML = payload.batch;
-                    currentBatch = payload.batch;
-                    // console.log(payload.rotation_no)
-                    var selection = document.getElementById("select").innerHTML
-                    if (selection == 'RHS') {
-                        document.getElementById("pre_kn").innerHTML = payload.precompressionRHS_avg;
-                        document.getElementById("main_kn").innerHTML = payload.maincompressionRHS_avg;
-                        document.getElementById("ejn_kg").innerHTML = payload.ejectionRHS_avg;
-                    } else {
-                        document.getElementById("pre_kn").innerHTML = payload.precompressionLHS_avg;
-                        document.getElementById("main_kn").innerHTML = payload.maincompressionLHS_avg;
-                        document.getElementById("ejn_kg").innerHTML = payload.ejectionLHS_avg;
-                    }
-
-                    currentrotation = payload.rotation_no
-
-                })
-                .catch(function (error) {
-                    console.log("[ PAYLOAD FETCH ERROR ]", error)
-                });
-        };
-
-
-        async function fetchmain() {
-            fetch(rawpayload)
-                .then((resp) => resp.json()) // Transform the data into json
-                .then(function (data) {
-                    // Here you get the data to modify as you please
-                    // data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : 
-
-                    payload = data
-                    // console.log(payload.alarm[0])
-
-                    if (payload.output[0] === true) {
-                        const div = document.getElementById("0").classList.add('bg-orangeish');
-                    } else {
-                        const div = document.getElementById("0").classList.remove('bg-orangeish');
-                    }
-                    
-                    if (payload.output[1] === true) {
-                        const div = document.getElementById("0").classList.add('bg-orangeish');
-                    } else {
-                        const div = document.getElementById("0").classList.remove('bg-orangeish');
-                    }
-                    
-                    if (payload.output[2] === true) {
-                        const div = document.getElementById("0").classList.add('bg-orangeish');
-                    } else {
-                        const div = document.getElementById("0").classList.remove('bg-orangeish');
-                    }
-
-                })
-                .catch(function (error) {
-                    // console.log("[ PAYLOAD FETCH ERROR ]", error)
-                });
-        };
-
-
-        function updatedata() {
-            setInterval(() => {
-                fetchcompression()
-                fetchstats()
-            }, 400);
-        }
         
-
-        updatedata()
 
     </script>
 
@@ -1566,6 +1440,134 @@
     <!-- Graph RHS  -->
     <script>
 
+        time = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+            setInterval(() => {
+                document.getElementById("time").innerHTML = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+                // document.getElementById("feeder_activity_metric").innerHTML = time;
+                //  document.getElementById("machine_activity_metric").innerHTML = time;
+            }, 1000);
+            function switchh() {
+                var val = document.getElementById("select").innerHTML
+                if (val == 'LHS') {
+                    document.getElementById("select").innerHTML = 'RHS'
+                } else {
+                    document.getElementById("select").innerHTML = 'LHS'
+                }
+            }
+
+            var mode1;
+            async function fetchstats() {
+                fetch(statsurl)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        // Here you get the data to modify as you please
+                        payload = data
+                        mode1 = payload.stats.MONO_BI
+                        maindata = data
+                        document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
+                        document.getElementById("count_metric").innerHTML = payload.production;
+                        document.getElementById("production_per_hour_metric").innerHTML = payload.stats.tablets_per_hour;
+                        document.getElementById("rpm_metric").innerHTML = payload.stats.turret.RPM;
+                        document.getElementById("dwell_metric").innerHTML = payload.stats.dwell;
+                        document.getElementById("feederLHS_metric").innerHTML = payload.stats.LHS_FF.RPM;
+                        document.getElementById("feederRHS_metric").innerHTML = payload.stats.RHS_FF.RPM;
+
+                        var selection = document.getElementById("select").innerHTML
+                        // console.log(selection)
+
+                        if (selection == 'RHS') {
+                            document.getElementById("fill_d").innerHTML = payload.stats.awc.actual_RHS
+                            document.getElementById("pre_mm").innerHTML = payload.stats.RHSweight.value
+                            document.getElementById("main_mm").innerHTML = payload.stats.RHSthickness.value
+                        } else {
+                            document.getElementById("fill_d").innerHTML = payload.stats.awc.actual_LHS
+                            document.getElementById("pre_mm").innerHTML = payload.stats.LHSweight.value
+                            document.getElementById("main_mm").innerHTML = payload.stats.LHSthickness.value
+                        }
+                    })
+                    .catch(function (error) {
+                        // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            };
+
+            var currentBatch;
+            var currentrotation;
+            var i = 0
+
+            async function fetchcompression() {
+                fetch(payloadURL)
+                    .then((resp) => resp.json())
+                    .then(function (data) {
+                        payload = data
+
+                        document.getElementById("batch_number_metric").innerHTML = payload.batch;
+                        currentBatch = payload.batch;
+                        // console.log(payload.rotation_no)
+                        var selection = document.getElementById("select").innerHTML
+                        if (selection == 'RHS') {
+                            document.getElementById("pre_kn").innerHTML = payload.precompressionRHS_avg;
+                            document.getElementById("main_kn").innerHTML = payload.maincompressionRHS_avg;
+                            document.getElementById("ejn_kg").innerHTML = payload.ejectionRHS_avg;
+                        } else {
+                            document.getElementById("pre_kn").innerHTML = payload.precompressionLHS_avg;
+                            document.getElementById("main_kn").innerHTML = payload.maincompressionLHS_avg;
+                            document.getElementById("ejn_kg").innerHTML = payload.ejectionLHS_avg;
+                        }
+
+                        currentrotation = payload.rotation_no
+
+                    })
+                    .catch(function (error) {
+                        console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            };
+
+
+            async function fetchmain() {
+                fetch(rawpayload)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        // Here you get the data to modify as you please
+                        // data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : 
+
+                        payload = data
+                        // console.log(payload.alarm[0])
+
+                        if (payload.output[0] === true) {
+                            const div = document.getElementById("0").classList.add('bg-orangeish');
+                        } else {
+                            const div = document.getElementById("0").classList.remove('bg-orangeish');
+                        }
+
+                        if (payload.output[1] === true) {
+                            const div = document.getElementById("0").classList.add('bg-orangeish');
+                        } else {
+                            const div = document.getElementById("0").classList.remove('bg-orangeish');
+                        }
+
+                        if (payload.output[2] === true) {
+                            const div = document.getElementById("0").classList.add('bg-orangeish');
+                        } else {
+                            const div = document.getElementById("0").classList.remove('bg-orangeish');
+                        }
+
+                    })
+                    .catch(function (error) {
+                        // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            };
+
+
+            function updatedata() {
+                setInterval(() => {
+                    fetchcompression()
+                    fetchstats()
+                }, 400);
+            }
+
+
+            updatedata()
+
         async function fetchpayloadapiHF() {
             fetch(processedurl)
                 .then((resp) => resp.json()) // Transform the data into json
@@ -1606,7 +1608,8 @@
                     AWC_MLHS_LL = Array(45).fill(payload.limit[21])
 
 
-                    if (mode == true) {
+                    if (mode1 == true) {
+                        alert("Bilayer")
                         maingraph.data.datasets[0].backgroundColor = payload.mLHS_processed
 
                         maingraph.data.datasets[1].data = MLHS_UL  //  // Upper 
@@ -1627,6 +1630,7 @@
                         maingraph_R.data.datasets[4].data = AWC_MRHS_UL
                         maingraph_R.data.datasets[5].data = AWC_MRHS_LL
                     } else {
+                        alert("Mono")
                         pregraph.data.datasets[0].backgroundColor = payload.pLHS_processed
 
                         pregraph.data.datasets[1].data = PLHS_UL // payload.limit[0] // Upper 
