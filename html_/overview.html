@@ -1463,7 +1463,7 @@
                         // Here you get the data to modify as you please
                         payload = data
                         mode1 = payload.button.MONO_BI
-                        alert(`MODE: ${payload.stats.MONO_BI}`)
+                        // alert(`MODE: ${payload.button.MONO_BI}`)
                         maindata = data
                         document.getElementById("rotation_number_metric").innerHTML = payload.rotation_no;
                         document.getElementById("count_metric").innerHTML = payload.production;
@@ -1560,11 +1560,11 @@
 
 
             function updatedata() {
-                fetchstats()
-                // setInterval(() => {
-                //     fetchcompression()
-                //     fetchstats()
-                // }, 400);
+                // fetchstats()
+                setInterval(() => {
+                    fetchcompression()
+                    fetchstats()
+                }, 400);
             }
 
 
@@ -1656,13 +1656,13 @@
 
                     pregraph.data.datasets[0].data = payload.pLHS_data
                     maingraph.data.datasets[0].data = payload.mLHS_data
-                    ejngraph.data.datasets[0].data = payload.eLHS_data
-                    ejngraph.data.datasets[0].backgroundColor = payload.eLHS_processed
+                    // ejngraph.data.datasets[0].data = payload.eLHS_data
+                    // ejngraph.data.datasets[0].backgroundColor = payload.eLHS_processed
 
                     pregraph_R.data.datasets[0].data = payload.pRHS_data
                     maingraph_R.data.datasets[0].data = payload.mRHS_data
-                    ejngraph_R.data.datasets[0].data = payload.eRHS_data
-                    ejngraph_R.data.datasets[0].backgroundColor = payload.eRHS_processed
+                    // ejngraph_R.data.datasets[0].data = payload.eRHS_data
+                    // ejngraph_R.data.datasets[0].backgroundColor = payload.eRHS_processed
 
                     // ejngraph.data.datasets[1].data = ERHS_UL // payload.limit[0] // Upper 
                     // ejngraph.data.datasets[2].data = ERHS_LL // payload.limit[0] // Lower
@@ -1670,10 +1670,10 @@
 
                     pregraph.update();
                     maingraph.update();
-                    ejngraph.update();
+                    // ejngraph.update();
                     pregraph_R.update();
                     maingraph_R.update();
-                    ejngraph_R.update();
+                    // ejngraph_R.update();
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
@@ -1684,11 +1684,11 @@
                 // fetchpayloadapiHF();
 
         setTimeout(() => {
-            fetchpayloadapiHF();
-            // setInterval(() => {
-            //     fetchpayloadapiHF();
-            // }, 100);
-        }, 1500);
+            // fetchpayloadapiHF();
+            setInterval(() => {
+                fetchpayloadapiHF();
+            }, 100);
+        }, 1000);
 
     </script>
 
