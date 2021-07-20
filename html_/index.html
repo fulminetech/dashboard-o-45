@@ -2225,7 +2225,7 @@
         var currentrotation;
         var currentrpm;
         var maindata;
-        var mode;
+        var mode1;
 
         async function fetchcompression() {
             fetch(payloadURL)
@@ -2656,7 +2656,7 @@
                         const div8 = document.getElementById("rejn_dsbl").classList.add('text-gray-800');
                     }
 
-                    mode = payload.button.MONO_BI
+                    mode1 = payload.button.MONO_BI
 
                     if (payload.button.MONO_BI == true) {
                         document.getElementById("bi_mode").innerHTML = "BILAYER";
@@ -2823,15 +2823,17 @@
                     }
 
                     if (payload.alarm[30] === true) {
+                        const div1 = document.getElementById("alarm_icon").classList.remove('hidden');
                         if (alarm_status === false) {
                             alarm_active()
                         }
                     } else if (payload.alarm[30] === false) {
+                        const div2 = document.getElementById("alarm_icon").classList.add('hidden');
                         const div1 = document.getElementById("alarm_page").classList.add('hidden');
                         clearInterval(alarm);
                         alarm_status = false
                     }
-                    
+
                     if (payload.alarm[16] === true) {
                         if (guard_status === false) {
                             guard_active()
@@ -2907,28 +2909,6 @@
                 });
         };
 
-        async function fetchalarm() {
-                fetch(rawpayload)
-                    .then((resp) => resp.json()) // Transform the data into json
-                    .then(function (data) {
-                        // Here you get the data to modify as you please
-                        // data.connection == false ? alert("[ CHECK PLC CONNECTION ]") : 
-
-                        var payload = data
-                        // console.log(payload.alarm[0])
-
-                        if (payload.alarm[30] === true) {
-                            const div1 = document.getElementById("alarm_icon").classList.remove('hidden');
-                        } else if (payload.alarm[30] === false) {
-                            const div1 = document.getElementById("alarm_icon").classList.add('hidden');
-                        }
-
-                    })
-                    .catch(function (error) {
-                        // console.log("[ PAYLOAD FETCH ERROR ]", error)
-                    });
-            };
-
         async function check() {
             setTimeout(() => {
                 fetch(statsurl)
@@ -2961,10 +2941,9 @@
                 fetchstats();
                 fetchmain();
                 fetchcompression();
-                fetchalarm()
             }, 400);
         }
-        
+
         async function fetchpayloadapiHF() {
             fetch(processedurl)
                 .then((resp) => resp.json()) // Transform the data into json
@@ -3004,8 +2983,38 @@
                     AWC_MLHS_UL = Array(45).fill(payload.limit[20])
                     AWC_MLHS_LL = Array(45).fill(payload.limit[21])
 
-                    // console.log(mode)
-                    if (mode == true) {
+                    alert(mode1)
+                    if (mode1 == true) {
+                        pregraph.data.datasets[0].backgroundColor = payload.pLHS_processed
+
+                        pregraph.data.datasets[1].data = PLHS_UL // payload.limit[0] // Upper 
+                        pregraph.data.datasets[2].data = PLHS_LL // payload.limit[0] // Lower
+
+                        pregraph.data.datasets[3].data = PLHS_FL
+
+                        pregraph.data.datasets[4].data = AWC_PLHS_UL
+                        pregraph.data.datasets[5].data = AWC_PLHS_LL
+
+                        // maingraph.data.datasets[0].backgroundColor = payload.mLHS_processed
+
+                        // maingraph.data.datasets[1].data = MLHS_UL  //  // Upper 
+                        // maingraph.data.datasets[2].data = MLHS_LL //  // Lower
+
+                        // maingraph.data.datasets[3].data = MLHS_FL
+
+                        // maingraph.data.datasets[4].data = AWC_MLHS_UL
+                        // maingraph.data.datasets[5].data = AWC_MLHS_LL
+
+                        maingraph_R.data.datasets[0].backgroundColor = payload.mRHS_processed
+
+                        maingraph_R.data.datasets[1].data = MRHS_UL // payload.limit[0] // Upper 
+                        maingraph_R.data.datasets[2].data = MRHS_LL // payload.limit[0] // Lower
+
+                        maingraph_R.data.datasets[3].data = MRHS_FL
+
+                        maingraph_R.data.datasets[4].data = AWC_MRHS_UL
+                        maingraph_R.data.datasets[5].data = AWC_MRHS_LL
+                    } else {
                         maingraph.data.datasets[0].backgroundColor = payload.mLHS_processed
 
                         maingraph.data.datasets[1].data = MLHS_UL  //  // Upper 
@@ -3025,37 +3034,17 @@
 
                         maingraph_R.data.datasets[4].data = AWC_MRHS_UL
                         maingraph_R.data.datasets[5].data = AWC_MRHS_LL
-                    } else {
-                        pregraph.data.datasets[0].backgroundColor = payload.pLHS_processed
-
-                        pregraph.data.datasets[1].data = PLHS_UL // payload.limit[0] // Upper 
-                        pregraph.data.datasets[2].data = PLHS_LL // payload.limit[0] // Lower
-
-                        pregraph.data.datasets[3].data = PLHS_FL
-
-                        pregraph.data.datasets[4].data = AWC_PLHS_UL
-                        pregraph.data.datasets[5].data = AWC_PLHS_LL
-
-                        pregraph_R.data.datasets[0].backgroundColor = payload.pRHS_processed
-
-                        pregraph_R.data.datasets[1].data = PRHS_UL // payload.limit[0] // Upper 
-                        pregraph_R.data.datasets[2].data = PRHS_LL // payload.limit[0] // Lower
-
-                        pregraph_R.data.datasets[3].data = PRHS_FL
-
-                        pregraph_R.data.datasets[4].data = AWC_PRHS_UL
-                        pregraph_R.data.datasets[5].data = AWC_PRHS_LL
                     }
 
                     pregraph.data.datasets[0].data = payload.pLHS_data
                     maingraph.data.datasets[0].data = payload.mLHS_data
-                    ejngraph.data.datasets[0].data = payload.eLHS_data
-                    ejngraph.data.datasets[0].backgroundColor = payload.eLHS_processed
+                    // ejngraph.data.datasets[0].data = payload.eLHS_data
+                    // ejngraph.data.datasets[0].backgroundColor = payload.eLHS_processed
     
                     pregraph_R.data.datasets[0].data = payload.pRHS_data
                     maingraph_R.data.datasets[0].data = payload.mRHS_data
-                    ejngraph_R.data.datasets[0].data = payload.eRHS_data
-                    ejngraph_R.data.datasets[0].backgroundColor = payload.eRHS_processed
+                    // ejngraph_R.data.datasets[0].data = payload.eRHS_data
+                    // ejngraph_R.data.datasets[0].backgroundColor = payload.eRHS_processed
 
                     // ejngraph.data.datasets[1].data = ERHS_UL // payload.limit[0] // Upper 
                     // ejngraph.data.datasets[2].data = ERHS_LL // payload.limit[0] // Lower
@@ -3063,10 +3052,10 @@
 
                     pregraph.update();
                     maingraph.update();
-                    ejngraph.update();
+                    // ejngraph.update();
                     pregraph_R.update();
                     maingraph_R.update();
-                    ejngraph_R.update();
+                    // ejngraph_R.update();
                 })
                 .catch(function (error) {
                     // If there is any error you will catch them here
@@ -3074,11 +3063,13 @@
                 });
         };
 
-        setInterval(() => {
+        setTimeout(() => {
             fetchpayloadapiHF();
-        }, 100);
+            // setInterval(() => {
+            //     fetchpayloadapiHF();
+            // }, 100);
+        }, 1000);
 
-    
     </script>
 
     <!-- Get user details -->
