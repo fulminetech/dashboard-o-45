@@ -2983,7 +2983,7 @@
                     AWC_MLHS_UL = Array(45).fill(payload.limit[20])
                     AWC_MLHS_LL = Array(45).fill(payload.limit[21])
 
-                    alert(mode1)
+                    // alert(mode1)
                     if (mode1 == true) {
                         pregraph.data.datasets[0].backgroundColor = payload.pLHS_processed
 
@@ -3065,10 +3065,10 @@
 
         setTimeout(() => {
             fetchpayloadapiHF();
-            // setInterval(() => {
-            //     fetchpayloadapiHF();
-            // }, 100);
-        }, 1000);
+            setInterval(() => {
+                fetchpayloadapiHF();
+            }, 100);
+        }, 500);
 
     </script>
 
