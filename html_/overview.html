@@ -1675,9 +1675,11 @@
                 });
         };
 
-        setInterval(() => {
-            fetchpayloadapiHF();
-        }, 100);
+        setTimeout(() => {
+            setInterval(() => {
+                fetchpayloadapiHF();
+            }, 100);
+        }, 300);
 
     </script>
 
