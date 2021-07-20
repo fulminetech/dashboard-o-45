@@ -642,6 +642,40 @@
                 await fetch(submiturl)
                     .catch(console.error);
             }
+
+             async function Rweight_inc() {
+                    const div1 = document.getElementById("Rweight_inc").classList.remove('bg-blue-600');
+                    const div2 = document.getElementById("Rweight_inc").classList.add('bg-blue-900');
+                    let submiturl = `${seturl}/RHS_WEIGHT_INC/true`
+                    await fetch(submiturl)
+                        .catch(console.error);
+                }
+
+
+                async function Rweight_incx() {
+                    const div1 = document.getElementById("Rweight_inc").classList.remove('bg-blue-900');
+                    const div2 = document.getElementById("Rweight_inc").classList.add('bg-blue-600');
+                    let submiturl = `${seturl}/RHS_WEIGHT_INC/false`
+                    await fetch(submiturl)
+                        .catch(console.error);
+                }
+
+                async function Lweight_inc() {
+                    const div1 = document.getElementById("Lweight_inc").classList.remove('bg-blue-600');
+                    const div2 = document.getElementById("Lweight_inc").classList.add('bg-blue-900');
+                    let submiturl = `${seturl}/LHS_WEIGHT_INC/true`
+                    await fetch(submiturl)
+                        .catch(console.error);
+                }
+
+
+                async function Lweight_incx() {
+                    const div1 = document.getElementById("Lweight_inc").classList.remove('bg-blue-900');
+                    const div2 = document.getElementById("Lweight_inc").classList.add('bg-blue-600');
+                    let submiturl = `${seturl}/LHS_WEIGHT_INC/false`
+                    await fetch(submiturl)
+                        .catch(console.error);
+                }
     </script>
 
     <!-- Update Values -->
