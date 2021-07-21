@@ -43,6 +43,7 @@ const userlistURL = `${hostname}/api/userlist`
 const usersearchURL = `${hostname}/api/usersearch`
 const reportAvgURL = `${hostname}/report/average`
 const reportAvgGenURL = `${hostname}/report/average/generate`
+const reportAvgGraphGenURL = `${hostname}/report/averagegraph/generate`
 const reportAlarmGenURL = `${hostname}/report/alarm/generate`
 const reportAuditGenURL = `${hostname}/report/audit/generate`
 const reportpreLHSGenURL = `${hostname}/report/preLHS/generate`

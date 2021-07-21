@@ -220,12 +220,12 @@
                         <h5 class="font-bold text-black">Export Average Compression:</h5>
                     </div>
                     
-                    <div class="flex grid grid-cols-5 p-3 ">
+                    <div class="flex grid grid-row-1 p-3 ">
                     
                         <div class="flex flex-wrap p-3">
 
                             <!-- PDF report Button -->
-                            <div class="py-3">
+                            <div class="py-3 pr-5">
                                 <button id="generatepdfreport"
                                     class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="generateReport()">
@@ -234,11 +234,29 @@
                             </div>
 
                             <!-- PDF report Button -->
-                            <div class="py-3">
+                            <div class="py-3 px-5">
                                 <button id="generateandprintavgReportid"
                                     class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="generateandprintavgReport()">
                                     Print report
+                                </button>
+                            </div>
+
+                            <!-- PDF report Button -->
+                            <div class="py-3 px-5">
+                                <button id="generateavggraphReportid"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateavggraphReport()">
+                                    PDF Avg Graph
+                                </button>
+                            </div>
+
+                            <!-- PDF report Button -->
+                            <div class="py-3 px-5">
+                                <button id="generateandprintavggraphReportid"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    onclick="generateandprintavggraphReport()">
+                                    Print Avg Graph
                                 </button>
                             </div>
                         </div>
@@ -775,6 +793,7 @@
         var element6 = document.getElementById("generatepdfreport6");
         
         var pdfgenerationtime = 20000;
+        // var pdfgenerationtime = 5000;
 
         async function generateReport() {
 
@@ -789,7 +808,7 @@
             
 
             if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
-                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number ");
             } else {
                 // document.getElementById("generatepdfreport").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
                 document.getElementById("generatepdfreport").innerText = `PLEASE WAIT`;
@@ -841,6 +860,76 @@
                         .catch(function (error) {
                         });
                     document.getElementById("generateandprintavgReportid").innerText = "PRINT REPORT";
+                    element.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+        
+
+        async function generateavggraphReport() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+            var totalrtns = document.getElementById("totalrotations").innerHTML 
+
+            if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generateavggraphReportid").innerText = `PLEASE WAIT`;
+                element.classList.add("cursor-not-allowed");
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportAvgGraphGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/averagegraph/download"
+                    document.getElementById("generateavggraphReportid").innerText = "PDF AVG GRAPH";
+                    element.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtime);
+            }
+        }
+
+        async function generateandprintavggraphReport() {
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+            
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+            
+             if (fromname == "" || toname == "" || bname == "" || parseInt(fromname) > parseInt(toname)) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generateandprintavggraphReportid").innerText = `PLEASE WAIT`;
+                element.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportAvgGraphGenURL);
+
+                setTimeout(() => {
+                    var download = `${hostname}/path/averagegraph/download`
+                    printJS(download)
+                    fetch(download)
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function (data) {
+                            console.log(data.path);
+                            printJS({ printable:`${hostname}/base/${data.path}`, type: 'pdf'});
+                        })
+                        .catch(function (error) {
+                        });
+                    document.getElementById("generateandprintavggraphReportid").innerText = "PRINT AVG GRAPH";
                     element.classList.remove("cursor-not-allowed");
                 }, pdfgenerationtime);
             }

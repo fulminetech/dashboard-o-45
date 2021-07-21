@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/env/env.js"></script>
+    <script src="/charts/Chart.bundle.min.js"></script>
+    <script src="/charts/plugin/chartjs-plugin-zoom.min.js"></script>
+
+</head>
+
+<body onload="searchBatch()">
+
+    <h3 class="px-10 pb-2 text-gray-700 text-left">Batch Number:
+        <a id="batch_number_metric" class="font-bold text-gray-900">
+        </a>
+    </h3>
+    <h3 class="px-10 py-2 text-gray-700 text-left">Total rotations :
+        <a id="total" class="font-bold text-gray-900">
+        </a>
+    </h3>
+    
+    <h3 class="px-10 py-2 text-gray-700 text-left">Mode :
+        <a id="mode_metric" class="font-bold text-gray-900">
+        </a>
+    </h3>
+    
+    <div id="pre" class="px-10 py-2">
+        <h5 class="font-bold text-black">Average Pre Compression Trend:</h5>
+        <canvas id="avg_his_compression_graph" class="chartjs"></canvas>
+    </div>
+    
+    <div class="px-10 py-2">
+        <h5 class="font-bold text-black">Average Main Compression Trend:</h5>
+        <canvas id="avg_his_compression_graph2" class="chartjs"></canvas>
+    </div>
+    <!-- <h3 class="px-10 py-2 text-gray-700 text-left">To (rotation number):
+        <a id="to" class="font-bold text-gray-900">
+        </a>
+    </h3>
+
+    
+    <div class="px-10 pt-2 pb-5 text-sm">
+        <table class="table-fixed w-full text-center text-gray-900" height="170rem">
+            <thead>
+                <tr>
+                    <th class="text-center border-b py-3">Rotation</th>
+                    <th class="text-center border-b py-3">PRE LHS AVG<br> (kN)</th>
+                    <th class="text-center border-b py-3">MAIN LHS AVG<br> (kN)</th>
+                    <th class="text-center border-b py-3">EJN LHS AVG<br> (kg)</th>
+                    <th class="text-center border-b py-3">PRE RHS AVG<br> (kN)</th>
+                    <th class="text-center border-b py-3">MAIN RHS AVG<br> (kN)</th>
+                    <th class="text-center border-b py-3">EJN RHS AVG<br> (kg)</th>
+                    <th class="text-center border-b py-3">Dwell Time</th>
+                    <th class="text-center border-b py-3">Turret RPM</th>
+                    <th class="text-center border-b py-3">Dozer LHS (mm)</th>
+                    <th class="text-center border-b py-3">Dozer RHS (mm)</th>
+                </tr>
+            </thead>
+            <tbody id="avgtable">
+            </tbody>
+        </table>
+    </div> -->
+
+    <!-- Time -->
+    <!-- <script>
+        time = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+        document.getElementById("time").innerHTML = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+    </script> -->
+
+    <!-- Generate report -->
+    <script>
+
+        async function searchBatch() {
+
+            const reportData1 = await fetch(reportdetailsURL);
+            const report = await reportData1.json();
+
+            console.log(report)
+
+            let from = report.from;
+            let to = report.to;
+
+            let total = report.to;
+
+            document.getElementById("total").innerHTML = total;
+            
+            document.getElementById("batch_number_metric").innerHTML = report.batch;
+
+            let requesturl6 = `${hostname}/api/csv/info/${report.batch}/${total}/${total}`
+            const searchResponse6 = await fetch(requesturl6);
+            inf = await searchResponse6.json();
+            info = inf.data[0]
+            
+            csvdata = ['time', 'bi_L_force_line', 'bi_L_rjn_high', 'bi_L_rjn_low', 'bi_R_force_line', 'bi_R_rjn_high', 'bi_R_rjn_low', 'mode', 'mono_force_line', 'mono_rjn_high', 'mono_rjn_low', 'p10LHSejn', 'p10LHSmain', 'p10LHSpre', 'p10RHSejn', 'p10RHSmain', 'p10RHSpre', 'p11LHSejn', 'p11LHSmain', 'p11LHSpre', 'p11RHSejn', 'p11RHSmain', 'p11RHSpre', 'p12LHSejn', 'p12LHSmain', 'p12LHSpre', 'p12RHSejn', 'p12RHSmain', 'p12RHSpre', 'p13LHSejn', 'p13LHSmain', 'p13LHSpre', 'p13RHSejn', 'p13RHSmain', 'p13RHSpre', 'p14LHSejn', 'p14LHSmain', 'p14LHSpre', 'p14RHSejn', 'p14RHSmain', 'p14RHSpre', 'p15LHSejn', 'p15LHSmain', 'p15LHSpre', 'p15RHSejn', 'p15RHSmain', 'p15RHSpre', 'p16LHSejn', 'p16LHSmain', 'p16LHSpre', 'p16RHSejn', 'p16RHSmain', 'p16RHSpre', 'p17LHSejn', 'p17LHSmain', 'p17LHSpre', 'p17RHSejn', 'p17RHSmain', 'p17RHSpre', 'p18LHSejn', 'p18LHSmain', 'p18LHSpre', 'p18RHSejn', 'p18RHSmain', 'p18RHSpre', 'p19LHSejn', 'p19LHSmain', 'p19LHSpre', 'p19RHSejn', 'p19RHSmain', 'p19RHSpre', 'p1LHSejn', 'p1LHSmain', 'p1LHSpre', 'p1RHSejn', 'p1RHSmain', 'p1RHSpre', 'p20LHSejn', 'p20LHSmain', 'p20LHSpre', 'p20RHSejn', 'p20RHSmain', 'p20RHSpre', 'p21LHSejn', 'p21LHSmain', 'p21LHSpre', 'p21RHSejn', 'p21RHSmain', 'p21RHSpre', 'p22LHSejn', 'p22LHSmain', 'p22LHSpre', 'p22RHSejn', 'p22RHSmain', 'p22RHSpre', 'p23LHSejn', 'p23LHSmain', 'p23LHSpre', 'p23RHSejn', 'p23RHSmain', 'p23RHSpre', 'p24LHSejn', 'p24LHSmain', 'p24LHSpre', 'p24RHSejn', 'p24RHSmain', 'p24RHSpre', 'p25LHSejn', 'p25LHSmain', 'p25LHSpre', 'p25RHSejn', 'p25RHSmain', 'p25RHSpre', 'p26LHSejn', 'p26LHSmain', 'p26LHSpre', 'p26RHSejn', 'p26RHSmain', 'p26RHSpre', 'p27LHSejn', 'p27LHSmain', 'p27LHSpre', 'p27RHSejn', 'p27RHSmain', 'p27RHSpre', 'p28LHSejn', 'p28LHSmain', 'p28LHSpre', 'p28RHSejn', 'p28RHSmain', 'p28RHSpre', 'p29LHSejn', 'p29LHSmain', 'p29LHSpre', 'p29RHSejn', 'p29RHSmain', 'p29RHSpre', 'p2LHSejn', 'p2LHSmain', 'p2LHSpre', 'p2RHSejn', 'p2RHSmain', 'p2RHSpre', 'p30LHSejn', 'p30LHSmain', 'p30LHSpre', 'p30RHSejn', 'p30RHSmain', 'p30RHSpre', 'p31LHSejn', 'p31LHSmain', 'p31LHSpre', 'p31RHSejn', 'p31RHSmain', 'p31RHSpre', 'p32LHSejn', 'p32LHSmain', 'p32LHSpre', 'p32RHSejn', 'p32RHSmain', 'p32RHSpre', 'p33LHSejn', 'p33LHSmain', 'p33LHSpre', 'p33RHSejn', 'p33RHSmain', 'p33RHSpre', 'p34LHSejn', 'p34LHSmain', 'p34LHSpre', 'p34RHSejn', 'p34RHSmain', 'p34RHSpre', 'p35LHSejn', 'p35LHSmain', 'p35LHSpre', 'p35RHSejn', 'p35RHSmain', 'p35RHSpre', 'p36LHSejn', 'p36LHSmain', 'p36LHSpre', 'p36RHSejn', 'p36RHSmain', 'p36RHSpre', 'p37LHSejn', 'p37LHSmain', 'p37LHSpre', 'p37RHSejn', 'p37RHSmain', 'p37RHSpre', 'p38LHSejn', 'p38LHSmain', 'p38LHSpre', 'p38RHSejn', 'p38RHSmain', 'p38RHSpre', 'p39LHSejn', 'p39LHSmain', 'p39LHSpre', 'p39RHSejn', 'p39RHSmain', 'p39RHSpre', 'p3LHSejn', 'p3LHSmain', 'p3LHSpre', 'p3RHSejn', 'p3RHSmain', 'p3RHSpre', 'p40LHSejn', 'p40LHSmain', 'p40LHSpre', 'p40RHSejn', 'p40RHSmain', 'p40RHSpre', 'p41LHSejn', 'p41LHSmain', 'p41LHSpre', 'p41RHSejn', 'p41RHSmain', 'p41RHSpre', 'p42LHSejn', 'p42LHSmain', 'p42LHSpre', 'p42RHSejn', 'p42RHSmain', 'p42RHSpre', 'p43LHSejn', 'p43LHSmain', 'p43LHSpre', 'p43RHSejn', 'p43RHSmain', 'p43RHSpre', 'p44LHSejn', 'p44LHSmain', 'p44LHSpre', 'p44RHSejn', 'p44RHSmain', 'p44RHSpre', 'p45LHSejn', 'p45LHSmain', 'p45LHSpre', 'p45RHSejn', 'p45RHSmain', 'p45RHSpre', 'p4LHSejn', 'p4LHSmain', 'p4LHSpre', 'p4RHSejn', 'p4RHSmain', 'p4RHSpre', 'p5LHSejn', 'p5LHSmain', 'p5LHSpre', 'p5RHSejn', 'p5RHSmain', 'p5RHSpre', 'p6LHSejn', 'p6LHSmain', 'p6LHSpre', 'p6RHSejn', 'p6RHSmain', 'p6RHSpre', 'p7LHSejn', 'p7LHSmain', 'p7LHSpre', 'p7RHSejn', 'p7RHSmain', 'p7RHSpre', 'p8LHSejn', 'p8LHSmain', 'p8LHSpre', 'p8RHSejn', 'p8RHSmain', 'p8RHSpre', 'p9LHSejn', 'p9LHSmain', 'p9LHSpre', 'p9RHSejn', 'p9RHSmain', 'p9RHSpre', 'rotation']
+            var mode = info[csvdata.indexOf("mode")] 
+            // var mode = false
+            
+            // const queryAvgURL = `${hostname}/api/search/average/csv/${report.batch}`
+            // var queryAvgURL = `${dbsearchURL}/${report.batch}/average`
+            const queryAvgURL = `${hostname}/api/search/average/csv/${report.batch}`
+
+            const avgData = await fetch(queryAvgURL);
+            const avggbatch = await avgData.json();
+
+            console.log(avggbatch)
+
+            let avglistt = avggbatch;
+
+            function loadavglist() {
+
+                let i = -1;
+                let j = 1;
+                let l = 0;
+                let k = 0;
+                for (let avgg of avglistt) {
+                    i++;
+                    if (i >= from && i <= to) {
+                        from++;
+                        l = i;
+                        let avgdataa = avggbatch[l]
+                        // console.log(`RTN:${avgdataa[8]},PRELHS:${avgdataa[6]},PRERHS:${avgdataa[7]},MAINLHS:${avgdataa[4]},MAINRHS:${avgdataa[5]},EJNLHS:${avgdataa[2]},MAINRHS:${avgdataa[3]}`);
+                        // console.log()
+                        avg_his_compression_graph.data.labels[k] = avgdataa[8];
+                        avg_his_compression_graph2.data.labels[k] = avgdataa[8];
+                        if (mode == true) {
+                            document.getElementById("mode_metric").innerHTML = "BI-LAYER";
+                            avg_his_compression_graph2.data.datasets[1].data[k] = avgdataa[5];
+                            avg_his_compression_graph.data.datasets[0].data[k] = avgdataa[6];
+                        }
+                        else if (mode == false) {
+                            const div7 = document.getElementById("pre").classList.add('hidden');
+                            document.getElementById("mode_metric").innerHTML = "MONO";
+                            avg_his_compression_graph2.data.datasets[0].data[k] = avgdataa[4];
+                            avg_his_compression_graph2.data.datasets[1].data[k] = avgdataa[5];
+                        }
+                        // avg_his_compression_graph.data.datasets[4].data[k] = avgdataa[4];
+                        // avg_his_compression_graph.data.datasets[5].data[k] = avgdataa[5];
+
+                        avg_his_compression_graph.update();
+                        avg_his_compression_graph2.update();
+                        k++;
+                        j++;
+                    } else if (i > to) {
+                        // await fetch(generatereportURL);
+                    }
+                    
+                }
+
+            }
+
+            loadavglist();
+
+        }
+
+
+    </script>
+
+    <!-- Average Compression Graph -->
+    <script>
+        var avg_his_graphcanvas = document.getElementById("avg_his_compression_graph");        
+        var avg_his_graphdata = {
+            labels: [],
+            datasets: [
+                {
+                    label: "Pre Compression LHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "palegreen",
+                    borderColor: "palegreen",
+                    data: [],
+                },
+                {
+                    label: "Pre Compression RHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "olivedrab",
+                    borderColor: "olivedrab",
+                    data: [],
+                }
+            ],
+        };
+        var avg_his_graphoptions = {
+            animation: false,
+            responsive: true,
+            showTooltips: true,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 18,
+                        labelString: 'COMPRESSION'
+                    },
+                    id: 'A',
+                    type: 'linear',
+                    position: 'left',
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 20,
+                        max: 100
+                    }
+                }],
+                xAxes: [{
+                    // offset: true,
+                    // type: 'time',
+                    // display: true,
+                    // time: {
+                    //     displayFormats: {
+                    //         millisecond: 'YYYY-MM-DDTHH:mm:ss'
+                    //     }
+                    // }
+                    barPercentage: 0.5,
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'ROTATIONS'
+                    },
+                    ticks: {
+                        fontSize: 14,
+                        // max: 5,
+                        // autoSkip: true,
+                        // maxTicksLimit: 10
+                    }
+                }],
+            },
+            plugins: {
+                zoom: {
+                    // Container for pan options
+                    pan: {
+                        // Boolean to enable panning
+                        enabled: true,
+
+                        // Panning directions. Remove the appropriate direction to disable
+                        // Eg. 'y' would only allow panning in the y direction
+                        // A function that is called as the user is panning and returns the
+                        // available directions can also be used:
+                        //   mode: function({ chart }) {
+                        //     return 'xy';
+                        //   },
+                        mode: 'x',
+
+                        // On category scale, factor of pan velocity
+                        speed: 20,
+
+                        // Minimal pan distance required before actually applying pan
+                        threshold: 10,
+
+                    },
+
+                    // Container for zoom options
+                    zoom: {
+                        // Boolean to enable zooming
+                        enabled: true,
+
+                        // Zooming directions. Remove the appropriate direction to disable 
+                        // Eg. 'y' would only allow zooming in the y direction
+                        mode: 'x',
+
+                        // Speed of zoom via mouse wheel
+                        // (percentage of zoom on a wheel event)
+                        speed: 0.1,
+
+                        // On category scale, minimal zoom level before actually applying zoom
+                        sensitivity: 3,
+                    }
+                }
+            },
+            legend: {
+                onClick: function (e, legendItem) {
+                    var index = legendItem.datasetIndex;
+                    var ci = this.chart;
+                    var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
+
+                    console.log(index)
+
+                    ci.data.datasets.forEach(function (e, i) {
+                        var meta = ci.getDatasetMeta(i);
+
+                        if (i !== index) {
+                            if (!alreadyHidden) {
+                                meta.hidden = meta.hidden === null ? !meta.hidden : null;
+                            } else if (meta.hidden === null) {
+                                meta.hidden = true;
+                            }
+                        } else if (i === index) {
+                            meta.hidden = null;
+                        }
+
+                    });
+
+                    ci.update();
+                },
+                display: true,
+                position: 'top',
+                labels: {
+                    fontSize: 20,
+                }
+            },
+        };
+        var avg_his_compression_graph = Chart.Line(avg_his_graphcanvas, {
+            data: avg_his_graphdata,
+            options: avg_his_graphoptions,
+        });
+
+    </script>
+
+    <!-- Average Compression Graph -->
+    <script>
+        var avg_his_graphcanvas2 = document.getElementById("avg_his_compression_graph2");        
+        var avg_his_graphdata2 = {
+            labels: [],
+            datasets: [
+                {
+                    label: "Main Compression LHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "plum",
+                    borderColor: "plum",
+                    data: [],
+                },
+                {
+                    label: "Main Compression RHS",
+                    yAxisID: 'A',
+                    fill: false,
+                    lineTension: 0.1,
+                    backgroundColor: "RebeccaPurple",
+                    borderColor: "RebeccaPurple",
+                    data: [],
+                }
+            ],
+        };
+        var avg_his_graphoptions2 = {
+            animation: false,
+            responsive: true,
+            showTooltips: true,
+            showLines: true,
+            scales: {
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 18,
+                        labelString: 'COMPRESSION'
+                    },
+                    id: 'A',
+                    type: 'linear',
+                    position: 'left',
+                    ticks: {
+                        beginAtZero: true,
+                        fontSize: 20,
+                        max: 100
+                    }
+                }],
+                xAxes: [{
+                    // offset: true,
+                    // type: 'time',
+                    // display: true,
+                    // time: {
+                    //     displayFormats: {
+                    //         millisecond: 'YYYY-MM-DDTHH:mm:ss'
+                    //     }
+                    // }
+                    barPercentage: 0.5,
+                    scaleLabel: {
+                        display: true,
+                        fontSize: 20,
+                        labelString: 'ROTATIONS'
+                    },
+                    ticks: {
+                        fontSize: 14,
+                        // max: 5,
+                        // autoSkip: true,
+                        // maxTicksLimit: 10
+                    }
+                }],
+            },
+            plugins: {
+                zoom: {
+                    // Container for pan options
+                    pan: {
+                        // Boolean to enable panning
+                        enabled: true,
+
+                        // Panning directions. Remove the appropriate direction to disable
+                        // Eg. 'y' would only allow panning in the y direction
+                        // A function that is called as the user is panning and returns the
+                        // available directions can also be used:
+                        //   mode: function({ chart }) {
+                        //     return 'xy';
+                        //   },
+                        mode: 'x',
+
+                        // On category scale, factor of pan velocity
+                        speed: 20,
+
+                        // Minimal pan distance required before actually applying pan
+                        threshold: 10,
+
+                    },
+
+                    // Container for zoom options
+                    zoom: {
+                        // Boolean to enable zooming
+                        enabled: true,
+
+                        // Zooming directions. Remove the appropriate direction to disable 
+                        // Eg. 'y' would only allow zooming in the y direction
+                        mode: 'x',
+
+                        // Speed of zoom via mouse wheel
+                        // (percentage of zoom on a wheel event)
+                        speed: 0.1,
+
+                        // On category scale, minimal zoom level before actually applying zoom
+                        sensitivity: 3,
+                    }
+                }
+            },
+            legend: {
+                onClick: function (e, legendItem) {
+                    var index = legendItem.datasetIndex;
+                    var ci = this.chart;
+                    var alreadyHidden = (ci.getDatasetMeta(index).hidden === null) ? false : ci.getDatasetMeta(index).hidden;
+
+                    console.log(index)
+
+                    ci.data.datasets.forEach(function (e, i) {
+                        var meta = ci.getDatasetMeta(i);
+
+                        if (i !== index) {
+                            if (!alreadyHidden) {
+                                meta.hidden = meta.hidden === null ? !meta.hidden : null;
+                            } else if (meta.hidden === null) {
+                                meta.hidden = true;
+                            }
+                        } else if (i === index) {
+                            meta.hidden = null;
+                        }
+
+                    });
+
+                    ci.update();
+                },
+                display: true,
+                position: 'top',
+                labels: {
+                    fontSize: 20,
+                }
+            },
+        };
+        var avg_his_compression_graph2 = Chart.Line(avg_his_graphcanvas2, {
+            data: avg_his_graphdata2,
+            options: avg_his_graphoptions2,
+        });
+
+    </script>
+</body>
+
+</html>
