@@ -941,7 +941,7 @@
                                         </td>
                                         <td  id="RHS_pre_roller"  class="text-center  text-2xl border bg-white border-gray-700">0
                                             <div class="flex-shrink p-3">
-                                                <a id="pre_lhs" class="rounded p-2 bg-red-600"></a>
+                                                <a id="pre_lhs" class="rounded p-2"></a>
                                             </div>
                                         </td>
                                         <td class="text-center text-2xl  border-gray-700">
@@ -2882,9 +2882,9 @@
                     // console.log("dozer_rhs" ,payload.output[18])
                     // console.log("dozer_lhs" ,payload.output[23])
 
-                    console.log("pre_lhs" ,payload.output[35])
                     if (payload.output[35] === true) {
                         // console.log("35 true")
+                        console.log("pre_lhs" ,payload.output[35])
                         const div1 = document.getElementById("pre_lhs").classList.add('bg-red-600');
                     } else {
                         // console.log("35 false")
