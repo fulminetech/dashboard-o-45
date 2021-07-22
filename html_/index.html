@@ -2874,7 +2874,6 @@
                         const div = document.getElementById("0").classList.remove('bg-orangeish');
                     }
 
-                    console.log("pre_lhs" ,payload.output[35])
                     // console.log("pre_rhs" ,payload.output[37])
                     
                     // console.log("main_lhs" ,payload.output[36])
@@ -2883,13 +2882,14 @@
                     // console.log("dozer_rhs" ,payload.output[18])
                     // console.log("dozer_lhs" ,payload.output[23])
 
-                    const div1 = document.getElementById("pre_lhs").classList.add('bg-red-600');
+                    console.log("pre_lhs" ,payload.output[35])
+                    document.getElementById("pre_lhs").classList.add('bg-red-600');
                     
                     if (payload.output[35] === true) {
-                        console.log("35 true")
+                        // console.log("35 true")
                         const div1 = document.getElementById("pre_lhs").classList.add('bg-red-600');
                     } else {
-                        console.log("35 false")
+                        // console.log("35 false")
                         const div1 = document.getElementById("pre_lhs").classList.remove('bg-red-600');
                     }
                     // if (payload.output[37] === true) {
