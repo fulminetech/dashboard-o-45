@@ -939,9 +939,9 @@
                                                 <i class="fas fa-chevron-down fa-fw text-3xl text-white"></i>
                                             </button>
                                         </td>
-                                        <td  id="RHS_pre_roller"  class="text-center  text-2xl border bg-white border-gray-700">0
+                                        <td  id="RHS_pre_roller"  class="text-center  text-2xl border border-gray-700">0
                                             <div class="flex-shrink p-3">
-                                                <a id="pre_lhs" class="rounded p-2"></a>
+                                                <div id="pre_lhs" class="rounded p-2"></div>
                                             </div>
                                         </td>
                                         <td class="text-center text-2xl  border-gray-700">
@@ -999,7 +999,7 @@
                                                 <i class="fas fa-chevron-down fa-fw text-3xl text-white"></i>
                                             </button>
                                         </td>
-                                        <td class="text-center  text-2xl  border bg-white border-gray-700"><a id="LHS_pre_roller">0</a>
+                                        <td  id="LHS_pre_roller"  class="text-center  text-2xl  border bg-white border-gray-700">0
                                             <div class="flex-shrink p-3">
                                                 <div id="pre_rhs" class="rounded p-2"></div>
                                             </div>
@@ -2882,13 +2882,14 @@
                     // console.log("dozer_rhs" ,payload.output[18])
                     // console.log("dozer_lhs" ,payload.output[23])
 
+                    
                     if (payload.output[35] === true) {
+                        // console.log("pre_lhs" ,payload.output[35])
                         // console.log("35 true")
-                        console.log("pre_lhs" ,payload.output[35])
-                        const div1 = document.getElementById("pre_lhs").classList.add('bg-red-600');
+                        const div1 = document.getElementById("RHS_pre_roller").classList.add('bg-red-300');
                     } else {
                         // console.log("35 false")
-                        const div1 = document.getElementById("pre_lhs").classList.remove('bg-red-600');
+                        const div1 = document.getElementById("RHS_pre_roller").classList.remove('bg-red-300');
                     }
                     // if (payload.output[37] === true) {
                     //     const div1 = document.getElementById("pre_rhs").classList.add('bg-red-600');
