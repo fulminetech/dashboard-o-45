@@ -941,7 +941,7 @@
                                         </td>
                                         <td  id="RHS_pre_roller"  class="text-center  text-2xl border bg-white border-gray-700">0
                                             <div class="flex-shrink p-3">
-                                                <div id="pre_lhs" class="rounded p-2"></div>
+                                                <div id="pre_lhs" class="rounded p-2 bg-red-600"></div>
                                             </div>
                                         </td>
                                         <td class="text-center text-2xl  border-gray-700">
@@ -2875,7 +2875,6 @@
                     }
 
                     console.log("pre_lhs" ,payload.output[35])
-                    console.log("pre_lhs" , typeof(payload.output[35]))
                     // console.log("pre_rhs" ,payload.output[37])
                     
                     // console.log("main_lhs" ,payload.output[36])
@@ -2886,10 +2885,10 @@
 
                     if (payload.output[35] === true) {
                         console.log("35 true")
-                        const div1 = document.getElementById("pre_lhs").classList.add('bg-red-600');
+                        const div1 = document.getElementById("pre_lhs").classList.remove('hidden');
                     } else {
                         console.log("35 false")
-                        const div1 = document.getElementById("pre_lhs").classList.remove('bg-red-600');
+                        const div1 = document.getElementById("pre_lhs").classList.add('hidden');
                     }
                     // if (payload.output[37] === true) {
                     //     const div1 = document.getElementById("pre_rhs").classList.add('bg-red-600');
