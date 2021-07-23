@@ -123,20 +123,21 @@
                         from++;
                         l = i;
                         let avgdataa = avggbatch[l]
-                        // console.log(`RTN:${avgdataa[8]},PRELHS:${avgdataa[6]},PRERHS:${avgdataa[7]},MAINLHS:${avgdataa[4]},MAINRHS:${avgdataa[5]},EJNLHS:${avgdataa[2]},MAINRHS:${avgdataa[3]}`);
+                        // console.log(`RTN:${avgdataa[10]},PRELHS:${avgdataa[8]},PRERHS:${avgdataa[9]},MAINLHS:${avgdataa[6]},MAINRHS:${avgdataa[7]},
                         // console.log()
-                        avg_his_compression_graph.data.labels[k] = avgdataa[8];
-                        avg_his_compression_graph2.data.labels[k] = avgdataa[8];
+                        
+                        avg_his_compression_graph.data.labels[k] = avgdataa[10];
+                        avg_his_compression_graph2.data.labels[k] = avgdataa[10];
                         if (mode == true) {
                             document.getElementById("mode_metric").innerHTML = "BI-LAYER";
-                            avg_his_compression_graph2.data.datasets[1].data[k] = avgdataa[5];
-                            avg_his_compression_graph.data.datasets[0].data[k] = avgdataa[6];
+                            avg_his_compression_graph2.data.datasets[1].data[k] = avgdataa[7];
+                            avg_his_compression_graph.data.datasets[0].data[k] = avgdataa[8];
                         }
                         else if (mode == false) {
                             const div7 = document.getElementById("pre").classList.add('hidden');
                             document.getElementById("mode_metric").innerHTML = "MONO";
-                            avg_his_compression_graph2.data.datasets[0].data[k] = avgdataa[4];
-                            avg_his_compression_graph2.data.datasets[1].data[k] = avgdataa[5];
+                            avg_his_compression_graph2.data.datasets[0].data[k] = avgdataa[6];
+                            avg_his_compression_graph2.data.datasets[1].data[k] = avgdataa[7];
                         }
                         // avg_his_compression_graph.data.datasets[4].data[k] = avgdataa[4];
                         // avg_his_compression_graph.data.datasets[5].data[k] = avgdataa[5];
