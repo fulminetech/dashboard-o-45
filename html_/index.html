@@ -2649,6 +2649,22 @@
 
                     document.getElementById("LHS_depth_metric").innerHTML = payload.stats.awc.actual_RHS
                     document.getElementById("RHS_depth_metric").innerHTML = payload.stats.awc.actual_LHS
+
+                    
+                    if (( payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || 
+                        payload.button.LHS_WEIGHT_INC || payload.button.LHS_WEIGHT_DEC) && ( LHS_depth_metric >=19 || LHS_depth_metric<=2 || RHS_depth_metric >=19 || RHS_depth_metric<=2
+                    )) {
+                        alert("Range is 2-19 mm.")
+                    }
+
+                    if((payload.button.ROLLER_FORWARD || payload.button.ROLLER_REVERSE) && (
+                        payload.stats.RHSweight.value <= 6 || payload.stats.RHSweight.value <= 18 ||
+                        payload.stats.LHSweight.value <= 6 || payload.stats.LHSweight.value <= 18 ||
+                        payload.stats.RHSthickness.value <= 6 || payload.stats.RHSthickness.value <= 18 ||
+                        payload.stats.LHSthickness.value <= 6 || payload.stats.LHSthickness.value <= 18
+                    )) { 
+                        alert("Range is 6-18 mm.")
+                    }
                     
                     // document.getElementById("pressure_act_metric").innerHTML = payload.stats.pressure.value;
                     // document.getElementById("lube_act_metric").innerHTML = payload.stats.lubrication.remaining_time;
