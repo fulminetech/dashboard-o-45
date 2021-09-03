@@ -3246,6 +3246,9 @@
                             .then(function (data) {
                                 userdata = data
                                 document.getElementById("user_metric").innerHTML = data.username
+                                if (data.userlevel == 4 ){
+                                    document.getElementById("desktop").classList.remove('hidden')
+                                }
                                 console.log(userdata)
                                 updatepermission()
                                 // document.getElementById("name").value = data.username
