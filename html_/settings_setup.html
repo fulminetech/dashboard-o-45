@@ -84,6 +84,12 @@
                 </a>
             </li>
             <li class="my-2 md:my-0">
+                <a href="/settings_loadcell"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3  text-xl"></i><span class="w-full inline-block text-lg">Loadcell Calib</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
                 <a href="/settings"
                     class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <i class="fa fa-wrench fa-fw mr-3  text-xl"></i><span
@@ -964,7 +970,7 @@
                     
                     <div class="flex grid grid-cols-4 p-3 ">
                     
-                        <div class="flex flex-col">
+                        <!-- <div class="flex flex-col">
                             <h3> LHS AIR REJECTION ON PULSE </h3>
                             <div class="flex flex-row">
                                 <div class="py-3">
@@ -1058,7 +1064,7 @@
                                 </div>
                                 
                             </div>
-                        </div>
+                        </div> -->
                     
                         <!-- <div class="flex flex-col">
                             <h3> LHS AIR REJECTION OFF TIME (MILI SECOND) </h3>
@@ -1452,15 +1458,15 @@
                     document.getElementById("L_FLAP_BI").value = payload.stats.punch_offset_position.R_AIR_BI 
                     document.getElementById("R_AIR_BI").value = payload.stats.punch_offset_position.L_FLAP_BI
                     document.getElementById("R_FLAP_BI").value = payload.stats.punch_offset_position.R_FLAP_BI
-                    document.getElementById("L_AIR_ON").value =   payload.stats.rejection.pulse.L_AIR_ON 
-                    document.getElementById("L_AIR_OFF").value = payload.stats.rejection.pulse.L_AIR_OFF 
-                    document.getElementById("L_FLAP_ON").value = payload.stats.rejection.pulse.L_FLAP_ON 
-                    document.getElementById("L_FLAP_OFF").value = payload.stats.rejection.pulse.L_FLAP_OFF 
-                    document.getElementById("R_AIR_ON").value = payload.stats.rejection.pulse.R_AIR_ON 
-                    document.getElementById("R_AIR_OFF").value = payload.stats.rejection.pulse.R_AIR_OFF 
-                    document.getElementById("R_FLAP_ON").value = payload.stats.rejection.pulse.R_FLAP_ON 
-                    document.getElementById("R_FLAP_OFF").value = payload.stats.rejection.pulse.R_FLAP_OFF 
-                    // document.getElementById("L_AIR_OFF_TIME").value =  payload.stats.rejection.air.L_AIR_OFF_TIME 
+                    // document.getElementById("L_AIR_ON").value =   payload.stats.rejection.pulse.L_AIR_ON 
+                    // document.getElementById("L_AIR_OFF").value = payload.stats.rejection.pulse.L_AIR_OFF 
+                    // document.getElementById("L_FLAP_ON").value = payload.stats.rejection.pulse.L_FLAP_ON 
+                    // document.getElementById("L_FLAP_OFF").value = payload.stats.rejection.pulse.L_FLAP_OFF 
+                    // document.getElementById("R_AIR_ON").value = payload.stats.rejection.pulse.R_AIR_ON 
+                    // document.getElementById("R_AIR_OFF").value = payload.stats.rejection.pulse.R_AIR_OFF 
+                    // document.getElementById("R_FLAP_ON").value = payload.stats.rejection.pulse.R_FLAP_ON 
+                    // document.getElementById("R_FLAP_OFF").value = payload.stats.rejection.pulse.R_FLAP_OFF 
+                    // // document.getElementById("L_AIR_OFF_TIME").value =  payload.stats.rejection.air.L_AIR_OFF_TIME 
                     // document.getElementById("L_FLAP_OFF_TIME").value = payload.stats.rejection.air.L_FLAP_OFF_TIME
                     // document.getElementById("R_AIR_OFF_TIME").value = payload.stats.rejection.air.R_AIR_OFF_TIME 
                     // document.getElementById("R_FLAP_OFF_TIME").value = payload.stats.rejection.air.R_FLAP_OFF_TIME
