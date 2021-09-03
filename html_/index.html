@@ -2667,8 +2667,7 @@
                     
 
                     if (check_once == false) {
-                        check_once = true
-
+                        
                         if ((payload.button.ROLLER_FORWARD || payload.button.ROLLER_REVERSE) && (
                             payload.stats.RHSweight.value <= 6.1 || payload.stats.RHSweight.value >= 18 ||
                             payload.stats.LHSweight.value <= 6.1 || payload.stats.LHSweight.value >= 18 ||
@@ -2688,13 +2687,17 @@
                             alert("RHS Ejection Force Out of range.")
                         }
 
-                        if ((payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || 
-                            payload.button.LHS_WEIGHT_INC || payload.button.LHS_WEIGHT_DEC) && 
-                            (payload.stats.awc.actual_RHS >=19 || payload.stats.awc.actual_RHS <=2 || payload.stats.awc.actual_LHS >=19 || payload.stats.awc.actual_LHS<=2
-                        )) {
+                        if ((payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || payload.button.LHS_WEIGHT_INC || payload.button.LHS_WEIGHT_DEC) && 
+                        (payload.stats.awc.actual_RHS >=19 || payload.stats.awc.actual_RHS <=2 || payload.stats.awc.actual_LHS >=19 || payload.stats.awc.actual_LHS<=2 )) 
+                        {
+                            Rweight_incx()
+                            Lweight_incx()
+                            Rweight_decx()
+                            Lweight_decx()
                             alert("Range is 2-19 mm.")
                         }
                         
+                        check_once = true
                     }
 
                     
