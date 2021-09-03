@@ -2669,23 +2669,23 @@
                     document.getElementById("LHS_depth_metric").innerHTML = payload.stats.awc.actual_RHS
                     document.getElementById("RHS_depth_metric").innerHTML = payload.stats.awc.actual_LHS
 
-                    if ( check_once == false && payload.stats.EJECTION_LHS == 1) {
-                        alarm("LHS Ejection Force out of range.")
+                    // if ( check_once == false && payload.stats.EJECTION_LHS == 1) {
+                    //     alarm("LHS Ejection Force out of range.")
                         
-                    }
-                    if ( check_once == false && payload.stats.EJECTION_RHS == 1) {
-                        alarm("RHS Ejection Force out of range.")
-                    }
+                    // }
+                    // if ( check_once == false && payload.stats.EJECTION_RHS == 1) {
+                    //     alarm("RHS Ejection Force out of range.")
+                    // }
                     
-                    if (check_once == false && ( payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || 
-                        payload.button.LHS_WEIGHT_INC || payload.button.LHS_WEIGHT_DEC) && 
-                        (payload.stats.awc.actual_RHS >=19 || payload.stats.awc.actual_RHS <=2 || payload.stats.awc.actual_LHS >=19 || payload.stats.awc.actual_LHS<=2
-                    )) {
-                        alert("Range is 2-19 mm.")
-                        check_once = true
-                    }
+                    // if (check_once == false && ( payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || 
+                    //     payload.button.LHS_WEIGHT_INC || payload.button.LHS_WEIGHT_DEC) && 
+                    //     (payload.stats.awc.actual_RHS >=19 || payload.stats.awc.actual_RHS <=2 || payload.stats.awc.actual_LHS >=19 || payload.stats.awc.actual_LHS<=2
+                    // )) {
+                    //     alert("Range is 2-19 mm.")
+                    //     check_once = true
+                    // }
 
-                    check_function()
+                    // check_function()
                     
                     // document.getElementById("pressure_act_metric").innerHTML = payload.stats.pressure.value;
                     // document.getElementById("lube_act_metric").innerHTML = payload.stats.lubrication.remaining_time;
