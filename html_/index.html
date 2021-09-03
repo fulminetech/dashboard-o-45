@@ -3206,7 +3206,7 @@
                 .then((resp) => resp.json())
                 .then(function (data) {
                     // console.log(data)
-                    if (data == 4){
+                    if (data == 4 || data == 3){
                         document.getElementById("user_metric").innerHTML = "ADMIN"
                         document.getElementById("overview").classList.remove('hidden') 
                         document.getElementById("graphLHS").classList.remove('hidden') 
