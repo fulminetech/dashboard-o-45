@@ -373,6 +373,7 @@
                                                 <th class="text-center border-b py-3">Name</th>
                                                 <th class="text-center border-b py-3">Login Attempts</th>
                                                 <th class="text-center border-b py-3">Password Expiry (days)</th>
+                                                <th class="text-center border-b py-3">Status</th>
                                             </tr>
                                         </thead>
 
@@ -722,8 +723,16 @@
                     } else if (dataa.userlevel == 3) {
                         ulevel = 'Supervisor'
                     }
-                    // console.log(dataa.id)
-                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${ulevel}</td><td class="border border-gray-400 px-4 py-2">${dataa.username}</td><td class="border border-gray-400 px-4 py-2">${dataa.name}</td><td class="border border-gray-400 px-4 py-2">${dataa.attempts}</td><td class="border border-gray-400 px-4 py-2">${dataa.expiry}</td></tr>`
+                    
+                    var status = "ACTIVE"
+                    if (dataa.attempts == 0 || dataa.expiry == 0) {
+                        status = "BLOCKED"
+                        // batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${ulevel}</td><td class="border border-gray-400 px-4 py-2">${dataa.username}</td><td class="border border-gray-400 px-4 py-2">${dataa.name}</td><td class="border border-gray-400 px-4 py-2">${dataa.attempts}</td><td class="border border-gray-400 px-4 py-2">${status}</td><td class="border border-gray-400 px-4 py-2">${dataa.expiry}</td></tr>`
+                    }
+
+                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${ulevel}</td><td class="border border-gray-400 px-4 py-2">${dataa.username}</td><td class="border border-gray-400 px-4 py-2">${dataa.name}</td><td class="border border-gray-400 px-4 py-2">${dataa.attempts}</td><td class="border border-gray-400 px-4 py-2">${dataa.expiry}</td><td class="border border-gray-400 px-4 py-2">${status}</td></tr>`
+                                
+
                     i++
                 }
 

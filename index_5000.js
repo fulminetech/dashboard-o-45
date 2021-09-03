@@ -20,6 +20,8 @@ const reboot = "gnome-session-quit --reboot"
 const fetch = require('cross-fetch');
 var ks = require('node-key-sender');
 
+const killchrome = "killall chromium-browser"
+
 const {
     payload, startmodbus, watchproxy, updatestatsbatch
 } = require('./data.js');
@@ -38,6 +40,14 @@ app.use('/env', express.static(__dirname + '/html_/'));
 app.use('/favicon_io', express.static(__dirname + '/favicon_io/'));
 app.use('/guage', express.static(__dirname + '/html_/guage/'));
 app.use('/base', express.static(__dirname + '/'));
+
+app.get("/desktop", (req, res) => {
+
+    exec(killchrome, (err, stdout, stderr) => {
+        console.log(`[ RESTARTING ${stdout} ]`);
+        console.log(`${stdout}`);
+    });
+});
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/login.html"));
@@ -139,6 +149,10 @@ app.get("/settings_homing", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/settings_homing.html"));
 });
 
+app.get("/settings_loadcell", (req, res) => {
+    res.sendFile(path.join(__dirname + "/html_/settings_loadcell.html"));
+});
+
 app.get("/settings_limit", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/settings_limit.html"));
 });
@@ -159,15 +173,15 @@ app.get("/overview", (req, res) => {
     res.sendFile(path.join(__dirname + "/html_/overview.html"));
 });
 
-app.get("/desktop", (req, res) => {
-    // ks.sendCombination(['control', 'shift', 'v']);
-    // ks.sendCombination(['alt', 'tab']);
-    ks.sendCombination(['control','d']);
-    // ks.sendCombination(['control','alt', 'down']);
-    // ks.sendCombination(['control','alt', 'down']);
-    // ks.sendCombination(['control','alt', 'down']);
-    res.sendFile(path.join(__dirname + "/html_/login.html"));
-});
+// app.get("/desktop", (req, res) => {
+//     // ks.sendCombination(['control', 'shift', 'v']);
+//     // ks.sendCombination(['alt', 'tab']);
+//     ks.sendCombination(['control','d']);
+//     // ks.sendCombination(['control','alt', 'down']);
+//     // ks.sendCombination(['control','alt', 'down']);
+//     // ks.sendCombination(['control','alt', 'down']);
+//     res.sendFile(path.join(__dirname + "/html_/login.html"));
+// });
 
 function restartserver(arg) {
     exec(arg, (err, stdout, stderr) => {

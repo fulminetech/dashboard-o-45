@@ -133,6 +133,12 @@ var payload = {
         TABLET_MULTIPLICATION_FACTOR:0,
         SAFETY_MULTIPLICATION_FACTOR:0,
         MACHINE_STOP_DELAY: 0,
+        lc_m_LHS: 0,
+        lc_m_RHS: 0,
+        lc_p_LHS: 0,
+        lc_p_RHS: 0,
+        lc_e_LHS: 0,
+        lc_e_RHS: 0,
         turret: {
             F: 0,
             H: 0,
@@ -1005,7 +1011,7 @@ var read_coils = function () {
 var read_regs = function () {
     mbsState = PASS_READ_REGS;
 
-    client.readHoldingRegisters(reg_6000, 85)
+    client.readHoldingRegisters(reg_6000, 99)
         .then(function (data) {
             // console.log("STATS: ",data)
             // New stats! 
@@ -1091,6 +1097,13 @@ var read_regs = function () {
             payload.machine.rej_low_RHS = data.data[81] / 100;
             payload.machine.safety_low_LHS = data.data[82] / 100;
             payload.machine.safety_low_RHS = data.data[83] / 100;
+
+            payload.stats.lc_p_LHS = data.data[89] / 100;
+            payload.stats.lc_m_LHS = data.data[90] / 100;
+            payload.stats.lc_e_LHS = data.data[91] / 100;
+            payload.stats.lc_p_RHS = data.data[92] / 100;
+            payload.stats.lc_m_RHS = data.data[93] / 100;
+            payload.stats.lc_e_RHS = data.data[94] / 100;
             
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -1867,6 +1880,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         b == "false" & c == false || b == "true" & c == true ? c : writelog()
     }
     else if (a == "PRESSURE_ACK_BUTTON" && b == "true") {
+        a="ALARM ACKNOWLEDGE"
         coil_offset_410 = 2
         set_button = true
         c = payload.button.PRESSURE_ACK_BUTTON

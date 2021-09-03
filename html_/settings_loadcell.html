@@ -1,0 +1,349 @@
+<!--This template is based on: https://dribbble.com/shots/6531694-Marketing-Dashboard by Gregoire Vella -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard - 45</title>
+    <meta name="description" content="description here">
+    <meta name="keywords" content="keywords,here">
+
+    <link href="/font/css/all.css" rel="stylesheet">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/charts/Chart.bundle.min.js"></script>
+    <script src="/env/env.js"></script>
+
+    <!-- sidebar -->
+    <style>
+        #sidebar {
+            transition: ease-in-out all .1s;
+            z-index: 9999;
+        }
+
+        #sidebar span {
+            opacity: 0;
+            position: absolute;
+            transition: ease-in-out all .1s;
+        }
+
+        #sidebar:hover {
+            width: 180px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            /*shadow-2xl*/
+        }
+
+        #sidebar:hover span {
+            opacity: 1;
+        }
+    </style>
+
+    <!-- Toggle Button CSS -->
+    <style>
+        .toggle__dot {
+            top: -.25rem;
+            left: -.25rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:checked~.toggle__dot {
+            transform: translateX(100%);
+            background-color: #48bb78;
+        }
+    </style>
+
+</head>
+
+<body class="flex bg-gray-100 select-none font-sans">
+
+    <!-- Side bar-->
+    <div id="sidebar" class="h-screen w-16 menu bg-white text-white px-4 flex items-center nunito static fixed shadow">
+
+        <ul class="list-reset">
+            <li class="my-2 md:my-0">
+                <a href="/dashboard"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fas fa-home fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Dashboard</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings_setup"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3  text-xl"></i><span
+                        class="w-full inline-block text-lg">Adept Setup</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings_homing"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3 text-xl"></i><span class="w-full inline-block text-lg">Servo Calib</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings_loadcell"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3 text-indigo-400 text-xl"></i><span
+                        class="w-full inline-block text-lg">Loadcell Calib</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a href="/settings"
+                    class="block my-3 md:py-3 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                    <i class="fa fa-wrench fa-fw mr-3  text-xl"></i><span class="w-full inline-block text-lg">Settings</span>
+                </a>
+            </li>
+            <li class="my-2 md:my-0">
+                <a id="alarm_icon" href="/io_alarm"
+                    class="block my-3 md:py-3 pl-1 uppercase hidden align-middle text-gray-900 no-underline hover:text-indigo-400">
+                    <i class="fa fa-exclamation-triangle mr-3 text-2xl text-red-500"></i>
+                </a>
+            </li>
+        
+        </ul>
+
+    </div>
+
+    <div class="flex flex-row flex-wrap flex-1 flex-grow content-start pl-16">
+
+        <!--Graph Content -->
+        <div id="main-content" class="w-full flex-1">
+
+            <div class="flex ">
+                <div class="w-full p-6 ">
+
+
+                    <div class="flex mb-64">
+
+                        <!-- BI LAYER SETTING-->
+                        <div
+                            class="p-5 mb-5 ml-5 w-full border bg-gray-200 border-gray-500 rounded shadowborder border-gray-400 rounded shadow">
+                            <h5 class="font-bold uppercase mb-5 text-center text-2xl text-gray-700">LOADCELL CALIBRATION
+                            </h5>
+                            <table class="w-full p-3 text-gray-700 table-fixed">
+                                <thead>
+                                    <tr>
+                                        <!-- <th class="text-center text-blue-900">
+                                            <button id="CALIB"
+                                                class="bg-red-300 text-2xl uppercase text-gray-800 font-semibold  py-3 px-12 border border-blue-500 rounded"
+                                                onclick="CALIB()">
+                                                CALIBRATION MODE
+                                            </button>
+                                        </th> -->
+                                        <!-- <th class="text-center text-2xl pb-3 text-blue-900">RHS Discharge</th> -->
+                                        <!-- <th class="text-center text-2xl pb-3 text-blue-900">LHS Discharge</th> -->
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    
+                                    <tr>
+                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Main Compression (kN) LHS </td>
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="lc_m_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                        <!-- <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="single_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td> -->
+                                        
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Pre Compression (kN) LHS</td>
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="lc_p_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                        <!-- <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="multi_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td> -->
+                                        
+
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Ejection Compression (kg) LHS</td>
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="lc_e_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                        <!-- <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="encoder_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                         -->
+
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Main Compression (kN) RHS </td>
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="lc_m_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                        <!-- <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="single_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td> -->
+                                        
+
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center py-2  text-xl uppercase text-blue-900">Pre Compression (kN) RHS</td>
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="lc_p_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                        <!-- <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="multi_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td> -->
+                                        
+
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="text-center  py-2 uppercase text-xl text-blue-900">Ejection Compression (kg) RHS</td>
+                                        <td id="mainLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="lc_e_RHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                        <!-- <td id="preLHS_fl" class=" pb-5 px-3 text-center">
+                                            <a id="encoder_LHS"
+                                                class="bg-gray-400 border-gray-500 select-none text-center text-gray-900 shadow focus:outline-none focus:shadow-outline border rounded-lg py-2 block w-full">-</a>
+                                        </td>
+                                         -->
+
+                                    </tr>
+                                    
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="h-64">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- alarm-icon check -->
+    <script>
+        async function fetchalarm() {
+            fetch(rawpayload)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    payload = data
+                    if (payload.alarm[30] === true) {
+                        const div1 = document.getElementById("alarm_icon").classList.remove('hidden');
+                    } else if (payload.alarm[30] === false) {
+                        const div1 = document.getElementById("alarm_icon").classList.add('hidden');
+                    }
+                })
+                .catch(function (error) {
+                });
+        };
+
+        function checkalarm() {
+            setInterval(() => {
+                fetchalarm()
+            }, 400);
+        }
+        checkalarm()
+    </script>
+
+    <!-- Tolerance Values script -->
+    <script>
+
+        var servo_LHS 
+        var servo_RHS 
+        var calibrate
+
+        async function fetchpayloadapiHF2() {
+            fetch(statusurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    payload = data
+
+                    // servo_LHS = payload.button.LHS_SERVO_ON
+                    // if (servo_LHS == true) {
+                    //     document.getElementById("servoLHS").innerHTML = "SERVO OFF"
+                    //     const div1 = document.getElementById("servoLHS").classList.remove('bg-red-300');
+                    //     const div2 = document.getElementById("servoLHS").classList.add('bg-green-300');
+                    // } else {
+                    //     document.getElementById("servoLHS").innerHTML = "SERVO ON"
+                    //     const div2 = document.getElementById("servoLHS").classList.remove('bg-green-300');
+                    //     const div1 = document.getElementById("servoLHS").classList.add('bg-red-300');
+                    // }
+                    
+                    // document.getElementById("single_LHS").innerHTML = payload.stats.home.LHS.single_turn
+                    // document.getElementById("single_RHS").innerHTML = payload.stats.home.RHS.single_turn
+                    
+                    // document.getElementById("multi_LHS").innerHTML = payload.stats.home.LHS.multi_turn
+                    // document.getElementById("multi_RHS").innerHTML = payload.stats.home.RHS.multi_turn
+                    document.getElementById("lc_m_LHS").innerHTML = payload.stats.lc_m_LHS
+                    document.getElementById("lc_m_RHS").innerHTML = payload.stats.lc_m_RHS
+                    document.getElementById("lc_p_LHS").innerHTML = payload.stats.lc_p_LHS
+                    document.getElementById("lc_p_RHS").innerHTML = payload.stats.lc_p_RHS
+                    document.getElementById("lc_e_LHS").innerHTML = payload.stats.lc_e_LHS
+                    document.getElementById("lc_e_RHS").innerHTML = payload.stats.lc_e_RHS
+
+                    // document.getElementById("encoder_LHS").innerHTML = payload.stats.home.LHS.encoder_ppr
+                    // document.getElementById("encoder_RHS").innerHTML = payload.stats.home.RHS.encoder_ppr
+                    
+
+                    // document.getElementById("avgg-mainRHS").innerHTML = ;
+                    // document.getElementById("avgg-ejnLHS").innerHTML = payload.ejectionLHS_avg;
+                    // document.getElementById("avgg-ejnRHS").innerHTML = ;
+                })
+                .catch(function (error) {
+                    // If there is any error you will catch them here
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        fetchpayloadapiHF2();
+
+        setInterval(() => {
+            fetchpayloadapiHF2();
+        }, 300);
+    </script>
+
+    <!-- Check PLC connection -->
+    <script>
+        async function fetchcompression() {
+            fetch(payloadURL)
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    data.connection == false ? disconnect() : data.connection
+
+                    function disconnect() {
+                        setTimeout(() => {
+                            alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
+                            location.href = "/"
+                        }, 200);
+                    }
+                })
+                .catch(function (error) {
+                    console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
+        setInterval(() => {
+            fetchcompression()
+        }, 2000);
+
+    </script>
+
+</body>
+
+</html>
