@@ -2618,6 +2618,12 @@
                 });
         };
         
+        var check_once = false
+
+        setInterval(() => {
+                check_once = false
+            }, 3000);
+
         async function fetchstats() {
             fetch(statsurl)
                 .then((resp) => resp.json()) // Transform the data into json
@@ -2650,21 +2656,31 @@
                     document.getElementById("LHS_depth_metric").innerHTML = payload.stats.awc.actual_RHS
                     document.getElementById("RHS_depth_metric").innerHTML = payload.stats.awc.actual_LHS
 
+                    if ( check_once = false && payload.stats.EJECTION_LHS == 1) {
+                        alarm("LHS Ejection Force out of range.")
+                        check_once = true
+                    }
+                    if ( check_once = false && payload.stats.EJECTION_RHS == 1) {
+                        alarm("RHS Ejection Force out of range.")
+                        check_once = true
+                    }
                     
-                    if (( payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || 
+                    if (check_once = false && ( payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || 
                         payload.button.LHS_WEIGHT_INC || payload.button.LHS_WEIGHT_DEC) && 
                         (payload.stats.awc.actual_RHS >=19 || payload.stats.awc.actual_RHS <=2 || payload.stats.awc.actual_LHS >=19 || payload.stats.awc.actual_LHS<=2
                     )) {
                         alert("Range is 2-19 mm.")
+                        check_once = true
                     }
 
-                    if((payload.button.ROLLER_FORWARD || payload.button.ROLLER_REVERSE) && (
+                    if(check_once = false && (payload.button.ROLLER_FORWARD || payload.button.ROLLER_REVERSE) && (
                         payload.stats.RHSweight.value <= 6 || payload.stats.RHSweight.value >= 18 ||
                         payload.stats.LHSweight.value <= 6 || payload.stats.LHSweight.value >= 18 ||
                         payload.stats.RHSthickness.value <= 6 || payload.stats.RHSthickness.value >= 18 ||
                         payload.stats.LHSthickness.value <= 6 || payload.stats.LHSthickness.value >= 18
                     )) { 
                         alert("Range is 6-18 mm.")
+                        check_once = true
                     }
                     
                     // document.getElementById("pressure_act_metric").innerHTML = payload.stats.pressure.value;
