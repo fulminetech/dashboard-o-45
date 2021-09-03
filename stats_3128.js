@@ -416,7 +416,10 @@ var payload = {
         LHS_MAIN_DISABLE: '',
         RHS_PRE_DISABLE: '',
         RHS_MAIN_DISABLE: '',
-        TRIAL_PRODUCTION: ''
+        TRIAL_PRODUCTION: '',
+        EJECTION_ERROR_LHS: '',
+        EJECTION_ERROR_RHS: '',
+        FIRST_LAYER_SAMPLING: ''
     },
     alarm:{
         EMERGENCY_STOP_PRESSED: '',
@@ -640,7 +643,7 @@ function writealarm(param, value) {
 var read_coils = function () {
     mbsState = PASS_READ_COILS;
 
-    client.readCoils(coil_410, 31)
+    client.readCoils(coil_410, 35)
         .then(function (stats_data) {
             // console.log("STATS: ",stats_data.data)
 
@@ -665,8 +668,11 @@ var read_coils = function () {
             payload.button.ROLLER_REVERSE = stats_data.data[26],
 
             payload.button.MANUAL_SAMPLE = stats_data.data[28],
-            payload.button.FIRST_LAYER_SAMPLING = stats_data.data[30]
+            payload.button.FIRST_LAYER_SAMPLING = stats_data.data[30],
 
+            payload.button.EJECTION_ERROR_LHS = stats_data.data[31],
+            payload.button.EJECTION_ERROR_RHS = stats_data.data[32]
+            
         })
         .catch(function (e) {
             console.error('[ coil_410 Garbage ]')
@@ -1100,15 +1106,16 @@ var read_regs = function () {
             payload.machine.safety_low_LHS = data.data[82] / 100;
             payload.machine.safety_low_RHS = data.data[83] / 100;
 
-            payload.stats.lc_p_LHS = data.data[89] / 100;
-            payload.stats.lc_m_LHS = data.data[90] / 100;
-            payload.stats.lc_e_LHS = data.data[91] / 100;
-            payload.stats.lc_p_RHS = data.data[92] / 100;
-            payload.stats.lc_m_RHS = data.data[93] / 100;
-            payload.stats.lc_e_RHS = data.data[94] / 100;
+            payload.stats.EJECTION_LHS = data.data[85] / 100;
+            payload.stats.EJECTION_RHS = data.data[88]/100;
+
+            payload.stats.lc_p_LHS = data.data[91] / 10;
+            payload.stats.lc_m_LHS = data.data[92] / 10;
+            payload.stats.lc_e_LHS = data.data[93] / 10;
+            payload.stats.lc_p_RHS = data.data[94] / 10;
+            payload.stats.lc_m_RHS = data.data[95] / 10;
+            payload.stats.lc_e_RHS = data.data[96] / 10;
             
-            payload.stats.EJECTION_LHS = data.data[95]/100;
-            payload.stats.EJECTION_RHS = data.data[96]/100;
 
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
@@ -3753,14 +3760,14 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         writelog()
     }
     else if (a == "EJECTION_LHS") {
-        reg_offset_6000 = 95
+        reg_offset_6000 = 85
         reg_write_value = b*100
         c = payload.stats.EJECTION_LHS
         write_regs()
         writelog()
     }
     else if (a == "EJECTION_RHS") {
-        reg_offset_6000 = 96
+        reg_offset_6000 = 88
         reg_write_value = b*100
         c = payload.stats.EJECTION_RHS
         write_regs()
