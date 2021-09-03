@@ -2656,16 +2656,15 @@
                     document.getElementById("LHS_depth_metric").innerHTML = payload.stats.awc.actual_RHS
                     document.getElementById("RHS_depth_metric").innerHTML = payload.stats.awc.actual_LHS
 
-                    if ( check_once = false && payload.stats.EJECTION_LHS == 1) {
+                    if ( check_once == false && payload.stats.EJECTION_LHS == 1) {
                         alarm("LHS Ejection Force out of range.")
-                        check_once = true
+                        
                     }
-                    if ( check_once = false && payload.stats.EJECTION_RHS == 1) {
+                    if ( check_once == false && payload.stats.EJECTION_RHS == 1) {
                         alarm("RHS Ejection Force out of range.")
-                        check_once = true
                     }
                     
-                    if (check_once = false && ( payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || 
+                    if (check_once == false && ( payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || 
                         payload.button.LHS_WEIGHT_INC || payload.button.LHS_WEIGHT_DEC) && 
                         (payload.stats.awc.actual_RHS >=19 || payload.stats.awc.actual_RHS <=2 || payload.stats.awc.actual_LHS >=19 || payload.stats.awc.actual_LHS<=2
                     )) {
@@ -2673,7 +2672,7 @@
                         check_once = true
                     }
 
-                    if(check_once = false && (payload.button.ROLLER_FORWARD || payload.button.ROLLER_REVERSE) && (
+                    if(check_once == false && (payload.button.ROLLER_FORWARD || payload.button.ROLLER_REVERSE) && (
                         payload.stats.RHSweight.value <= 6 || payload.stats.RHSweight.value >= 18 ||
                         payload.stats.LHSweight.value <= 6 || payload.stats.LHSweight.value >= 18 ||
                         payload.stats.RHSthickness.value <= 6 || payload.stats.RHSthickness.value >= 18 ||
