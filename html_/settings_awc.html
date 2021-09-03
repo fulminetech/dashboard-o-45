@@ -514,12 +514,31 @@
                 });
         };
 
+        var check_once = false
+
+        setInterval(() => {
+            check_once = false
+        }, 10000);
+
         async function fetchpayloadapiHF2() {
             setInterval(() => {
                 fetch(statsurl)
                     .then((resp) => resp.json()) // Transform the data into json
                     .then(function (data) {
                         payload = data
+
+                        if (check_once == false) {
+                            if ((payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || payload.button.LHS_WEIGHT_INC || payload.button.LHS_WEIGHT_DEC) &&
+                                (payload.stats.awc.actual_RHS >= 19 || payload.stats.awc.actual_RHS <= 2 || payload.stats.awc.actual_LHS >= 19 || payload.stats.awc.actual_LHS <= 2)) {
+                                Rweight_incx()
+                                Lweight_incx()
+                                Rweight_decx()
+                                Lweight_decx()
+                                alert("Range is 2-19 mm.")
+                            }
+                            check_once = true
+                        }
+                        
                         document.getElementById("LHS_actual").innerHTML = payload.stats.awc.actual_LHS
                         document.getElementById("RHS_actual").innerHTML = payload.stats.awc.actual_RHS
 
