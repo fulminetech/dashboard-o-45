@@ -820,6 +820,12 @@
                     AWC_MLHS_UL = Array(45).fill(payload.limit[20])
                     AWC_MLHS_LL = Array(45).fill(payload.limit[21])
 
+                    var che1 = pregraph.options.scales.yAxes[0]
+                    che1.ticks.max = payload.limit[12] + 15
+
+                    var che = maingraph.options.scales.yAxes[0]
+                    che.ticks.max = payload.limit[13] + 15
+
                     const mode1 = mode
 
                     console.log(mode1)
