@@ -20,7 +20,7 @@ const reboot = "gnome-session-quit --reboot"
 const fetch = require('cross-fetch');
 var ks = require('node-key-sender');
 
-const killchrome = "killall chromium-browser"
+const killchrome = "killall /snap/chromium/1732/usr/lib/chromium-browser/chrome"
 
 const {
     payload, startmodbus, watchproxy, updatestatsbatch
