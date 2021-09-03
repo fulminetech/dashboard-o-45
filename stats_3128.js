@@ -133,6 +133,8 @@ var payload = {
         TABLET_MULTIPLICATION_FACTOR:0,
         SAFETY_MULTIPLICATION_FACTOR:0,
         MACHINE_STOP_DELAY: 0,
+        EJECTION_LHS: 0,
+        EJECTION_RHS: 0,
         lc_m_LHS: 0,
         lc_m_RHS: 0,
         lc_p_LHS: 0,
@@ -1105,6 +1107,9 @@ var read_regs = function () {
             payload.stats.lc_m_RHS = data.data[93] / 100;
             payload.stats.lc_e_RHS = data.data[94] / 100;
             
+            payload.stats.EJECTION_LHS = data.data[95]/100;
+            payload.stats.EJECTION_RHS = data.data[96]/100;
+
             // console.log(`${(+ new Date() - startTime) / 1000} : ${mbsState}`)
         })
         .catch(function (e) {
@@ -3744,6 +3749,20 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         reg_offset_6000 = 1099
         reg_write_value = b*10
         c = payload.stats.MACHINE_STOP_DELAY
+        write_regs()
+        writelog()
+    }
+    else if (a == "EJECTION_LHS") {
+        reg_offset_6000 = 95
+        reg_write_value = b*100
+        c = payload.stats.EJECTION_LHS
+        write_regs()
+        writelog()
+    }
+    else if (a == "EJECTION_RHS") {
+        reg_offset_6000 = 96
+        reg_write_value = b*100
+        c = payload.stats.EJECTION_RHS
         write_regs()
         writelog()
     }

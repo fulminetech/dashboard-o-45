@@ -492,7 +492,171 @@
 
                     <div class="flex mb-64">
                         <!-- Sampling -->
-                    <div class="w-1/3 align-left">
+
+                    <div class="w-3/5 ml-5 align-left">
+                        <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
+                            <div class="flex flex-col">
+                                <div class="flex-1 items-left text-gray-700">
+                                    <h5 class="font-bold uppercase text-center text-2xl">Rejection Setting</h5>
+                    
+                                    <div class="flex grid font-bold text-l grid-cols-2 p-3 ">
+                    
+                                        <div class="flex flex-col">
+                                            <h3> LHS AIR REJECTION ON PULSE </h3>
+                                            <div class="flex flex-row">
+                                                <div class="py-3">
+                                                    <input id="L_AIR_ON"
+                                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) L_AIR_ON()">
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                    
+                                        <div class="flex flex-col">
+                                            <h3> LHS AIR REJECTION OFF PULSE </h3>
+                                            <div class="flex flex-row">
+                                                <div class="py-3">
+                                                    <input id="L_AIR_OFF"
+                                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) L_AIR_OFF()">
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                    
+                                        <div class="flex flex-col">
+                                            <h3> LHS FLAP REJECTION ON PULSE </h3>
+                                            <div class="flex flex-row">
+                                                <div class="py-3">
+                                                    <input id="L_FLAP_ON"
+                                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) L_FLAP_ON()">
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                    
+                                        <div class="flex flex-col">
+                                            <h3> LHS FLAP REJECTION OFF PULSE </h3>
+                                            <div class="flex flex-row">
+                                                <div class="py-3">
+                                                    <input id="L_FLAP_OFF"
+                                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) L_FLAP_OFF()">
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                    
+                                        <div class="flex flex-col">
+                                            <h3> RHS AIR REJECTION ON PULSE </h3>
+                                            <div class="flex flex-row">
+                                                <div class="py-3">
+                                                    <input id="R_AIR_ON"
+                                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) R_AIR_ON()">
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                    
+                                        <div class="flex flex-col">
+                                            <h3> RHS AIR REJECTION OFF PULSE </h3>
+                                            <div class="flex flex-row">
+                                                <div class="py-3">
+                                                    <input id="R_AIR_OFF"
+                                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) R_AIR_OFF()">
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                    
+                                        <div class="flex flex-col">
+                                            <h3> RHS FLAP REJECTION ON PULSE </h3>
+                                            <div class="flex flex-row">
+                                                <div class="py-3">
+                                                    <input id="R_FLAP_ON"
+                                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) R_FLAP_ON()">
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                    
+                                        <div class="flex flex-col">
+                                            <h3> RHS FLAP REJECTION OFF PULSE </h3>
+                                            <div class="flex flex-row">
+                                                <div class="py-3">
+                                                    <input id="R_FLAP_OFF"
+                                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) R_FLAP_OFF()">
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                    
+                                        <!-- <div class="flex flex-col">
+                                                <h3> LHS AIR REJECTION OFF TIME (MILI SECOND) </h3>
+                                                <div class="flex flex-row">
+                                                    <div class="py-3">
+                                                        <input id="L_AIR_OFF_TIME"
+                                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                            type="number" placeholder="" onkeydown="if (event.keyCode == 13) L_AIR_OFF_TIME()">
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="flex flex-col">
+                                                <h3> LHS FLAP REJECTION OFF TIME (MILI SECOND) </h3>
+                                                <div class="flex flex-row">
+                                                    <div class="py-3">
+                                                        <input id="L_FLAP_OFF_TIME"
+                                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                            type="number" placeholder="" onkeydown="if (event.keyCode == 13) L_FLAP_OFF_TIME()">
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="flex flex-col">
+                                                <h3> RHS AIR REJECTION OFF TIME (MILI SECOND) </h3>
+                                                <div class="flex flex-row">
+                                                    <div class="py-3">
+                                                        <input id="R_AIR_OFF_TIME"
+                                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                            type="number" placeholder="" onkeydown="if (event.keyCode == 13) R_AIR_OFF_TIME()">
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="flex flex-col">
+                                                <h3> RHS FLAP REJECTION OFF TIME (MILI SECOND) </h3>
+                                                <div class="flex flex-row">
+                                                    <div class="py-3">
+                                                        <input id="R_FLAP_OFF_TIME"
+                                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                            type="number" placeholder="" onkeydown="if (event.keyCode == 13) R_FLAP_OFF_TIME()">
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div> -->
+                    
+                    
+                    
+                    
+                                    </div>
+                    
+                                </div>
+                            </div>
+                    
+                        </div>
+                    </div>
+
+                    <div class="w-1/5 align-left">
                         <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                             <div class="flex flex-col">
                                 <div class="flex-1 items-left text-gray-700">
@@ -520,7 +684,7 @@
                         </div>
                     </div>
                     
-                    <div class="w-1/3 align-left ml-5">
+                    <div class="w-1/5 align-left ml-5">
                         <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
                             <div class="flex flex-col">
                                 <div class="flex-1 items-left text-gray-700">
@@ -547,174 +711,26 @@
                                             class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                             type="number" placeholder="" onkeydown="if (event.keyCode == 13) MACHINE_STOP_DELAY()">
                                     </div>
+                                    
+                                    <h3 class="font-bold mt-5 text-lg">Set Ejection Force LHS:</h3>
+                                    <div class="py-3">
+                                        <input id="EJECTION_LHS"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="" onkeydown="if (event.keyCode == 13) EJECTION_LHS()">
+                                    </div>
+                                    
+                                    <h3 class="font-bold mt-5 text-lg">Set Ejection Force RHS:</h3>
+                                    <div class="py-3">
+                                        <input id="EJECTION_RHS"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="" onkeydown="if (event.keyCode == 13) EJECTION_RHS()">
+                                    </div>
                                 </div>
                             </div>
                             
                         </div>
                     </div>
                     
-                    <div class="w-1/3 ml-5 align-left">
-                        <div class="border border-gray-500 bg-indigo-200 shadow-xl hover:shadow-2xl rounded p-5 my-auto mx-auto">
-                            <div class="flex flex-col">
-                                <div class="flex-1 items-left text-gray-700">
-                                    <h5 class="font-bold uppercase text-center text-2xl">Rejection Setting</h5>
-                    
-                                    <div class="flex grid font-bold text-l grid-cols-2 p-3 ">
-                    
-                        <div class="flex flex-col">
-                            <h3> LHS AIR REJECTION ON PULSE </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="L_AIR_ON"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) L_AIR_ON()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> LHS AIR REJECTION OFF PULSE </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="L_AIR_OFF"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) L_AIR_OFF()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> LHS FLAP REJECTION ON PULSE </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="L_FLAP_ON"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) L_FLAP_ON()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> LHS FLAP REJECTION OFF PULSE </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="L_FLAP_OFF"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) L_FLAP_OFF()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> RHS AIR REJECTION ON PULSE </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="R_AIR_ON"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) R_AIR_ON()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> RHS AIR REJECTION OFF PULSE </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="R_AIR_OFF"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) R_AIR_OFF()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> RHS FLAP REJECTION ON PULSE </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="R_FLAP_ON"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) R_FLAP_ON()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> RHS FLAP REJECTION OFF PULSE </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="R_FLAP_OFF"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) R_FLAP_OFF()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <!-- <div class="flex flex-col">
-                            <h3> LHS AIR REJECTION OFF TIME (MILI SECOND) </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="L_AIR_OFF_TIME"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) L_AIR_OFF_TIME()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> LHS FLAP REJECTION OFF TIME (MILI SECOND) </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="L_FLAP_OFF_TIME"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) L_FLAP_OFF_TIME()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> RHS AIR REJECTION OFF TIME (MILI SECOND) </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="R_AIR_OFF_TIME"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) R_AIR_OFF_TIME()">
-                                </div>
-                                
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-col">
-                            <h3> RHS FLAP REJECTION OFF TIME (MILI SECOND) </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="R_FLAP_OFF_TIME"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) R_FLAP_OFF_TIME()">
-                                </div>
-                                
-                            </div>
-                        </div> -->
-                    
-                    
-                        
-                    
-                    </div>
-
-                                </div>
-                            </div>
-                    
-                        </div>
-                    </div>
 
                     <!-- Roller -->
                     <!-- <div class="ml-5 w-1/2 align-left">
@@ -961,6 +977,9 @@
     
                         document.getElementById("SAFETY_MULTIPLICATION_FACTOR").value = payload.stats.SAFETY_MULTIPLICATION_FACTOR
                         document.getElementById("MACHINE_STOP_DELAY").value = payload.stats.MACHINE_STOP_DELAY
+
+                        document.getElementById("EJECTION_LHS").value = payload.stats.EJECTION_LHS
+                        document.getElementById("EJECTION_RHS").value = payload.stats.EJECTION_RHS
 
                         if (payload.button.LHS_PRE_DISABLE == true) {
                             document.getElementById("l_pre_mm_dis").innerHTML = "LHS PRE ROLLER MM DISABLE";
@@ -1619,6 +1638,34 @@
         var a = document.getElementById("MACHINE_STOP_DELAY").value;
         // console.log(a)
         let submiturl = `${seturl}/MACHINE_STOP_DELAY/${a}`
+        if (a <= 100 && a >= 0) {
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED! ] "))
+                .then(check())
+                .catch(console.error);
+        } else {
+            alert("Please set value between 0 and 100.")
+        }
+    }
+    
+    async function EJECTION_LHS() {
+        var a = document.getElementById("EJECTION_LHS").value;
+        // console.log(a)
+        let submiturl = `${seturl}/EJECTION_LHS/${a}`
+        if (a <= 100 && a >= 0) {
+            await fetch(submiturl)
+                .then(console.log("[ UPDATED! ] "))
+                .then(check())
+                .catch(console.error);
+        } else {
+            alert("Please set value between 0 and 100.")
+        }
+    }
+    
+    async function EJECTION_RHS() {
+        var a = document.getElementById("EJECTION_RHS").value;
+        // console.log(a)
+        let submiturl = `${seturl}/EJECTION_RHS/${a}`
         if (a <= 100 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
