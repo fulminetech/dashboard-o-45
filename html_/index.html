@@ -2687,8 +2687,8 @@
                             alert("RHS Ejection Force Out of range.")
                         }
 
-                        if ((payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || payload.button.LHS_WEIGHT_INC || payload.button.LHS_WEIGHT_DEC) && 
-                        (payload.stats.awc.actual_RHS >=19 || payload.stats.awc.actual_RHS <=2 || payload.stats.awc.actual_LHS >=19 || payload.stats.awc.actual_LHS<=2 )) 
+                        if ((payload.stats.awc.actual_RHS >=19 || payload.stats.awc.actual_RHS <=2 || 
+                            payload.stats.awc.actual_LHS >=19 || payload.stats.awc.actual_LHS<=2 )) 
                         {
                             Rweight_incx()
                             Lweight_incx()
