@@ -2672,15 +2672,15 @@
                         check_once = true
                     }
 
-                    if(check_once == false && (payload.button.ROLLER_FORWARD || payload.button.ROLLER_REVERSE) && (
-                        payload.stats.RHSweight.value <= 6 || payload.stats.RHSweight.value >= 18 ||
-                        payload.stats.LHSweight.value <= 6 || payload.stats.LHSweight.value >= 18 ||
-                        payload.stats.RHSthickness.value <= 6 || payload.stats.RHSthickness.value >= 18 ||
-                        payload.stats.LHSthickness.value <= 6 || payload.stats.LHSthickness.value >= 18
-                    )) { 
-                        alert("Range is 6-18 mm.")
-                        check_once = true
-                    }
+                    // if(check_once == false && (payload.button.ROLLER_FORWARD || payload.button.ROLLER_REVERSE) && (
+                    //     payload.stats.RHSweight.value <= 6 || payload.stats.RHSweight.value >= 18 ||
+                    //     payload.stats.LHSweight.value <= 6 || payload.stats.LHSweight.value >= 18 ||
+                    //     payload.stats.RHSthickness.value <= 6 || payload.stats.RHSthickness.value >= 18 ||
+                    //     payload.stats.LHSthickness.value <= 6 || payload.stats.LHSthickness.value >= 18
+                    // )) { 
+                    //     alert("Range is 6-18 mm.")
+                    //     check_once = true
+                    // }
                     
                     // document.getElementById("pressure_act_metric").innerHTML = payload.stats.pressure.value;
                     // document.getElementById("lube_act_metric").innerHTML = payload.stats.lubrication.remaining_time;
