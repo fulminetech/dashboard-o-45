@@ -3106,6 +3106,10 @@
 
                     // alert(mode1)
                     if (mode1 == true) {
+                        
+                        var che1 = pregraph.options.scales.yAxes[0]
+                        che1.ticks.max = payload.limit[12] + 15
+                        
                         pregraph.data.datasets[0].backgroundColor = payload.pLHS_processed
 
                         pregraph.data.datasets[1].data = PLHS_UL // payload.limit[0] // Upper 
@@ -3136,6 +3140,10 @@
                         maingraph_R.data.datasets[4].data = AWC_PRHS_UL
                         maingraph_R.data.datasets[5].data = AWC_PRHS_LL
                     } else {
+                        
+                        var che = maingraph.options.scales.yAxes[0]
+                        che.ticks.max = payload.limit[13] + 15
+
                         maingraph.data.datasets[0].backgroundColor = payload.mLHS_processed
 
                         maingraph.data.datasets[1].data = MLHS_UL  //  // Upper 
