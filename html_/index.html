@@ -3206,8 +3206,8 @@
                 .then((resp) => resp.json())
                 .then(function (data) {
                     // console.log(data)
-                    if (data == 4 || data == 3){
-                        document.getElementById("user_metric").innerHTML = "ADMIN"
+                    if (data == 5){
+                        document.getElementById("user_metric").innerHTML = "ADEPT"
                         document.getElementById("overview").classList.remove('hidden') 
                         document.getElementById("graphLHS").classList.remove('hidden') 
                         document.getElementById("graphRHS").classList.remove('hidden') 
@@ -3222,6 +3222,23 @@
                         document.getElementById("settings_setup").classList.remove('hidden') 
                         document.getElementById("settings_recipie").classList.remove('hidden') 
                         document.getElementById("desktop").classList.remove('hidden') 
+                    } else if (data == 4){
+                        document.getElementById("user_metric").innerHTML = "ADMIN"
+                        document.getElementById("overview").classList.remove('hidden')
+                        document.getElementById("graphLHS").classList.remove('hidden')
+                        document.getElementById("graphRHS").classList.remove('hidden')
+                        document.getElementById("history").classList.remove('hidden')
+                        document.getElementById("dido").classList.remove('hidden')
+                        document.getElementById("io_alarm").classList.remove('hidden')
+                        document.getElementById("analytics").classList.remove('hidden')
+                        document.getElementById("processsetup").classList.remove('hidden')
+                        document.getElementById("settings_awc").classList.remove('hidden')
+                        document.getElementById("io_maintanience").classList.remove('hidden')
+                        document.getElementById("settings_user").classList.remove('hidden')
+                        // document.getElementById("settings_setup").classList.remove('hidden')
+                        document.getElementById("settings_recipie").classList.remove('hidden')
+                        document.getElementById("desktop").classList.remove('hidden')
+                    
                     } else {
                         let url = `http://localhost:3000/users/${data}`
                         fetch(url)
