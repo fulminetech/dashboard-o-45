@@ -2653,7 +2653,7 @@
                     
                     if (( payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || 
                         payload.button.LHS_WEIGHT_INC || payload.button.LHS_WEIGHT_DEC) && 
-                        (LHS_depth_metric >=19 || LHS_depth_metric<=2 || RHS_depth_metric >=19 || RHS_depth_metric<=2
+                        (payload.stats.awc.actual_RHS >=19 || payload.stats.awc.actual_RHS <=2 || payload.stats.awc.actual_LHS >=19 || payload.stats.awc.actual_LHS<=2
                     )) {
                         alert("Range is 2-19 mm.")
                     }
