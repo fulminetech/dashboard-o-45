@@ -128,7 +128,8 @@ def processor():
 
     # MLHS_LL, MLHS_UL, MRHS_LL, MRHS_UL, PLHS_LL, PLHS_UL, PRHS_LL, PRHS_UL, ELHS_LL, ELHS_UL, ERHS_LL, ERHS_UL
     payload['mLHS_processed'] = process(mLHS_data, limit_new[0], limit_new[1])
-    payload['mRHS_processed'] = process(mRHS_data, limit_new[2], limit_new[3])
+    # payload['mRHS_processed'] = process(mRHS_data, limit_new[2], limit_new[3])
+    payload['mRHS_processed'] = process(mRHS_data, limit_new[17], limit_new[16])
     payload['pLHS_processed'] = process(pLHS_data, limit_new[4], limit_new[5])
     payload['pRHS_processed'] = process(pRHS_data, limit_new[6], limit_new[7])
     payload['eLHS_processed'] = process(eLHS_data, limit_new[8], limit_new[9])
