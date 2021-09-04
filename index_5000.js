@@ -815,8 +815,8 @@ app.get("/report/average/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">AVERAGE COMPRESSION REPORT</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 10px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">AVERAGE COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 12px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -835,7 +835,7 @@ app.get("/report/average/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '135px' },
+            margin: { bottom: '80px', top: '130px' },
         });
         await browser.close();
     })();
@@ -854,8 +854,8 @@ app.get("/report/alarm/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ALARM REPORT</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 10px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">ALARM REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 12px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -873,7 +873,7 @@ app.get("/report/alarm/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '135px' },
+            margin: { bottom: '80px', top: '130px' },
         });
         await browser.close();
     })();
@@ -892,8 +892,8 @@ app.get("/report/audit/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">AUDIT TRAIL REPORT</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 10px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">AUDIT TRAIL REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 12px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -911,7 +911,7 @@ app.get("/report/audit/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '135px' },
+            margin: { bottom: '80px', top: '130px' },
         });
         await browser.close();
     })();
@@ -930,8 +930,8 @@ app.get("/report/preLHS/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">PRE LHS COMPRESSION REPORT</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 10px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">PRE LHS COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -949,7 +949,7 @@ app.get("/report/preLHS/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '135px' },
+            margin: { bottom: '80px', top: '130px' },
         });
         await browser.close();
     })();
@@ -968,8 +968,8 @@ app.get("/report/preRHS/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">PRE RHS COMPRESSION REPORT</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 10px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">PRE RHS COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -987,7 +987,7 @@ app.get("/report/preRHS/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '135px' },
+            margin: { bottom: '80px', top: '130px' },
         });
         await browser.close();
     })();
@@ -1006,8 +1006,8 @@ app.get("/report/mainLHS/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">MAIN LHS COMPRESSION REPORT</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 10px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">MAIN LHS COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -1025,7 +1025,7 @@ app.get("/report/mainLHS/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '135px' },
+            margin: { bottom: '80px', top: '130px' },
         });
         await browser.close();
     })();
@@ -1044,8 +1044,8 @@ app.get("/report/mainRHS/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">MAIN RHS COMPRESSION REPORT</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 10px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">MAIN RHS COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -1063,7 +1063,7 @@ app.get("/report/mainRHS/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '135px' },
+            margin: { bottom: '80px', top: '130px' },
         });
         await browser.close();
     })();
@@ -1082,8 +1082,8 @@ app.get("/report/ejnLHS/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">EJN LHS COMPRESSION REPORT</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 10px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">EJN LHS COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -1101,7 +1101,7 @@ app.get("/report/ejnLHS/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '135px' },
+            margin: { bottom: '80px', top: '130px' },
         });
         await browser.close();
     })();
@@ -1120,8 +1120,8 @@ app.get("/report/ejnRHS/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">EJN RHS COMPRESSION REPORT</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 10px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">EJN RHS COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -1139,7 +1139,7 @@ app.get("/report/ejnRHS/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '135px' },
+            margin: { bottom: '80px', top: '130px' },
         });
         await browser.close();
     })();
@@ -1158,8 +1158,8 @@ app.get("/report/recipe/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">RECIPE LIST</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 10px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">RECIPE LIST</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -1177,7 +1177,7 @@ app.get("/report/recipe/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '135px' },
+            margin: { bottom: '80px', top: '130px' },
         });
         await browser.close();
     })();
@@ -1196,8 +1196,8 @@ app.get("/report/recipe_single/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">RECIPE</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 10px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">RECIPE</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -1215,7 +1215,7 @@ app.get("/report/recipe_single/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '135px' },
+            margin: { bottom: '80px', top: '130px' },
         });
         await browser.close();
     })();
@@ -1235,8 +1235,8 @@ app.get("/report/averagegraph/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">AVERAGE COMPRESSION GRAPH REPORT</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 10px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">AVERAGE COMPRESSION GRAPH REPORT</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -1254,7 +1254,7 @@ app.get("/report/averagegraph/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '135px' },
+            margin: { bottom: '80px', top: '130px' },
         });
         await browser.close();
     })();
