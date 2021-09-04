@@ -233,6 +233,18 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
                 .then(() => console.info(`[ LOG ENTRY DONE ${a} ]`))
                 .catch(console.error);
         })
+        .then(function () {
+            _new.write(`${payload.batch}.operationlogs`)
+            .tag({
+            })
+            .field({
+                operator: a,  // 2
+                parameter: "RECIPE",  // 2
+                newvalue: c
+                })
+                .then(() => console.info(`[ LOG ENTRY DONE ${a} ]`))
+                .catch(console.error);
+        })
         .catch(console.error);
     
     watchproxy();
