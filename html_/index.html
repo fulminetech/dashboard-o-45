@@ -3110,6 +3110,9 @@
                         var che1 = pregraph.options.scales.yAxes[0]
                         che1.ticks.max = payload.limit[12] + 15
                         
+                        var che2 = maingraph_R.options.scales.yAxes[0]
+                        che2.ticks.max = payload.limit[16] + 15
+                        
                         pregraph.data.datasets[0].backgroundColor = payload.pLHS_processed
 
                         pregraph.data.datasets[1].data = PLHS_UL // payload.limit[0] // Upper 
@@ -3143,6 +3146,9 @@
                         
                         var che = maingraph.options.scales.yAxes[0]
                         che.ticks.max = payload.limit[13] + 15
+                        
+                        var che3 = maingraph_R.options.scales.yAxes[0]
+                        che3.ticks.max = payload.limit[16] + 15
 
                         maingraph.data.datasets[0].backgroundColor = payload.mLHS_processed
 
