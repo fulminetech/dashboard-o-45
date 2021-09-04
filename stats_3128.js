@@ -1106,8 +1106,8 @@ var read_regs = function () {
             payload.machine.safety_low_LHS = data.data[82] / 100;
             payload.machine.safety_low_RHS = data.data[83] / 100;
 
-            payload.stats.EJECTION_LHS = data.data[85] / 100;
-            payload.stats.EJECTION_RHS = data.data[88]/100;
+            payload.stats.EJECTION_LHS = data.data[85] / 10;
+            payload.stats.EJECTION_RHS = data.data[88]/10;
 
             payload.stats.lc_p_LHS = data.data[91] / 10;
             payload.stats.lc_m_LHS = data.data[92] / 10;
@@ -3761,14 +3761,14 @@ app.get("/api/set/:parameter/:value", (req, res) => {
     }
     else if (a == "EJECTION_LHS") {
         reg_offset_6000 = 85
-        reg_write_value = b*100
+        reg_write_value = b*10
         c = payload.stats.EJECTION_LHS
         write_regs()
         writelog()
     }
     else if (a == "EJECTION_RHS") {
         reg_offset_6000 = 88
-        reg_write_value = b*100
+        reg_write_value = b*10
         c = payload.stats.EJECTION_RHS
         write_regs()
         writelog()
