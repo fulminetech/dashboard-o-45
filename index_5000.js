@@ -239,8 +239,7 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
             })
             .field({
                 operator: a,  // 2
-                parameter: "RECIPE",  // 2
-                newvalue: c
+                parameter: `RECIPE: ${c}`,  // 2
                 })
                 .then(() => console.info(`[ LOG ENTRY DONE ${a} ]`))
                 .catch(console.error);
