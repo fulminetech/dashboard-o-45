@@ -831,9 +831,9 @@
                     AWC_PRHS_LL = Array(45).fill(payload.limit[23])
                     AWC_MRHS_UL = Array(45).fill(payload.limit[24])
                     AWC_MRHS_LL = Array(45).fill(payload.limit[25])
-                    
+
                     var che1 = maingraph.options.scales.yAxes[0]
-                    che1.ticks.max = payload.limit[16] + 15
+                    che1.ticks.max = payload.limit[16]+15
                     
                     if (document.getElementById("mode_metric").innerHTML == "MONO") {
                         
@@ -862,8 +862,6 @@
                     pregraph.data.datasets[0].data = payload.pRHS_data
 
                     maingraph.data.datasets[0].data = payload.mRHS_data
-
-                    
 
                     ejngraph.data.datasets[0].data = payload.eRHS_data
                     ejngraph.data.datasets[0].backgroundColor = payload.eRHS_processed
