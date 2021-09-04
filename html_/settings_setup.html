@@ -2580,7 +2580,7 @@
             var a = document.getElementById("MAXIMUM_REJECT_TABLET").value;
             // console.log(a)
             let submiturl = `${seturl}/MAXIMUM_REJECT_TABLET/${a}`
-            if (a <= 45 && a >= 0) {
+            if (a <= 10000000000 && a >= 0) {
             await fetch(submiturl)
                 .then(console.log("[ UPDATED! ] "))
                 .then(check())
