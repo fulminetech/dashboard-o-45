@@ -1490,6 +1490,14 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_regs_32()
         // writelog()
     }
+    else if (a == "BATCH_COMPLETE") {
+        // reg_offset_6000 = 88
+        // reg_write_value = b*10
+        // write_regs()
+        b = 0
+        c = 0
+        writelog()
+    }
     else if (a == "TURRET_RPM_CHANGE") {
         reg_offset_6000 = 0
         reg_write_value = b
