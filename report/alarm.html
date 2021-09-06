@@ -17,6 +17,10 @@
         <a id="batch_number_metric" class="font-bold text-gray-900">
         </a>
     </h3>
+    <h3 class="px-10 py-2 text-gray-700 text-left">Recipe:
+        <a id="recipe_metric" class="font-bold text-gray-900">
+        </a>
+    </h3>
     <h3 class="px-10 py-2 text-gray-700 text-left">From Date:
         <a id="date_from" class="font-bold text-gray-900">
         </a>
@@ -73,6 +77,7 @@
             const report2 = await reportData2.json();
 
             document.getElementById("batch_number_metric").innerHTML = report.batch;
+            document.getElementById("recipe_metric").innerHTML = report.recipe;
 
             // const queryAvgURL = `${hostname}/api/search/average/csv/${report.batch}`
             var queryAvgURL = `${dbsearchURL}/${report.batch}/alarm`

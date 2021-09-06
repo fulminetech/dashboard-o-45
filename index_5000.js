@@ -219,6 +219,7 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
             batch: d,  // 2
             operator: a,  // 2
             parameter: "operator",  // 2
+            recipe: c,  // 2
             // newvalue: ""
         })
         .then(() => console.info('[ BATCH ENTRY DONE ]'))
@@ -481,6 +482,7 @@ var report = {
     batch: 0,
     from: 0,
     to: 0,
+    recipe: '',
     userlevel: '',
     username: ''
 }
@@ -803,12 +805,12 @@ app.get("/report/average/now", (req, res) => {
 app.get("/checkuserlevel/:batch", (req, res) => {
     const b = req.params.batch
 
-
-    _perm.queryRaw(`select "parameter", "operator" from "batchlist" WHERE "batch" = '${b}'`)
+    _perm.queryRaw(`select "parameter", "operator", "recipe" from "batchlist" WHERE "batch" = '${b}'`)
         .then(data => {
             var response = data.results[0].series[0].values[0];
             report.userlevel = response[1]
             report.username = response[2]
+            report.recipe = response[3]
             // console.log(response[1])
         })
         .catch(console.error);
@@ -827,10 +829,11 @@ app.get("/report/average/generate", (req, res) => {
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
             <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">AVERAGE COMPRESSION REPORT</div>
-                <p style="text-align:right; padding-right: 30px; font-size: 12px;">
-                    Created on (mm/dd/yyyy): <span class="date">
-                </p>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">AVERAGE COMPRESSION REPORT</div>
+            <p style="text-align:right; padding-right: 30px; font-size: 12px;">
+            Created on (mm/dd/yyyy): <span class="date">
+            </p>
             </div>
             `,
             footerTemplate: `
@@ -866,6 +869,7 @@ app.get("/report/alarm/generate", (req, res) => {
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
             <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">ALARM REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 12px;">
                     Created on (mm/dd/yyyy): <span class="date">
@@ -904,6 +908,7 @@ app.get("/report/audit/generate", (req, res) => {
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
             <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">AUDIT TRAIL REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 12px;">
                     Created on (mm/dd/yyyy): <span class="date">
@@ -942,6 +947,7 @@ app.get("/report/preLHS/generate", (req, res) => {
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
             <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">PRE LHS COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
@@ -980,6 +986,7 @@ app.get("/report/preRHS/generate", (req, res) => {
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
             <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">PRE RHS COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
@@ -1018,6 +1025,7 @@ app.get("/report/mainLHS/generate", (req, res) => {
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
             <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">MAIN LHS COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
@@ -1056,6 +1064,7 @@ app.get("/report/mainRHS/generate", (req, res) => {
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
             <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">MAIN RHS COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
@@ -1094,6 +1103,7 @@ app.get("/report/ejnLHS/generate", (req, res) => {
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
             <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">EJN LHS COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
@@ -1132,6 +1142,7 @@ app.get("/report/ejnRHS/generate", (req, res) => {
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
             <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">EJN RHS COMPRESSION REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
@@ -1170,6 +1181,7 @@ app.get("/report/recipe/generate", (req, res) => {
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
             <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">RECIPE LIST</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
@@ -1209,6 +1221,7 @@ app.get("/report/recipe_single/generate", (req, res) => {
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">RECIPE</div>
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -1248,6 +1261,7 @@ app.get("/report/averagegraph/generate", (req, res) => {
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">AVERAGE COMPRESSION GRAPH REPORT</div>
                 <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
