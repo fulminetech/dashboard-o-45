@@ -1239,7 +1239,7 @@ app.get("/report/recipe_single/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '140px' },
+            margin: { bottom: '80px', top: '155px' },
         });
         await browser.close();
     })();
