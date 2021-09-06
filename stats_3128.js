@@ -1494,8 +1494,7 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         // reg_offset_6000 = 88
         // reg_write_value = b*10
         // write_regs()
-        b = 0
-        c = 0
+        c = false
         writelog()
     }
     else if (a == "TURRET_RPM_CHANGE") {
