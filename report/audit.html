@@ -82,6 +82,7 @@
 
 
             document.getElementById("batch_number_metric").innerHTML = report.batch;
+            document.getElementById("recipe_metric").innerHTML = report.recipe;
 
             // const queryAvgURL = `${hostname}/api/search/average/csv/${report.batch}`
             var queryAvgURL = `${dbsearchURL}/${report.batch}/operationlogs`

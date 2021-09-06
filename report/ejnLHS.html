@@ -105,6 +105,7 @@
             document.getElementById("to").innerHTML = to;
 
             document.getElementById("batch_number_metric").innerHTML = report.batch;
+            document.getElementById("recipe_metric").innerHTML = report.recipe;
 
             // const queryAvgURL = `${hostname}/api/search/average/csv/${report.batch}`
             var queryAvgURL = `${reportcsvURL}/${t}/${report.batch}/${from}/${to}`;

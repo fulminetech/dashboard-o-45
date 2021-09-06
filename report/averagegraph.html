@@ -94,6 +94,7 @@
             document.getElementById("total").innerHTML = total;
             
             document.getElementById("batch_number_metric").innerHTML = report.batch;
+            document.getElementById("recipe_metric").innerHTML = report.recipe;
 
             let requesturl6 = `${hostname}/api/csv/info/${report.batch}/${total}/${total}`
             const searchResponse6 = await fetch(requesturl6);
