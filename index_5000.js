@@ -1219,9 +1219,9 @@ app.get("/report/recipe_single/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">RECIPE</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">RECIPE</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -1259,9 +1259,9 @@ app.get("/report/averagegraph/generate", (req, res) => {
             displayHeaderFooter: true,
             headerTemplate: `
             <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">AVERAGE COMPRESSION GRAPH REPORT</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
-                <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">Machine ID: ADT/EQ/186</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">Machine ID: ADT/EQ/186</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">AVERAGE COMPRESSION GRAPH REPORT</div>
                 <p style="text-align:right; padding-right: 30px; font-size: 8px;">
                     Created on (mm/dd/yyyy): <span class="date">
                 </p>
@@ -1279,7 +1279,7 @@ app.get("/report/averagegraph/generate", (req, res) => {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '80px', top: '130px' },
+            margin: { bottom: '80px', top: '140px' },
         });
         await browser.close();
     })();
