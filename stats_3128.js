@@ -1490,12 +1490,13 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         write_regs_32()
         // writelog()
     }
-    else if (a == "BATCH_COMPLETE") {
-        // reg_offset_6000 = 88
-        // reg_write_value = b*10
-        // write_regs()
-        c = false
+    else if (a == "BATCH_COMPLETE" && b == "true") {
+        // coil_offset_410 = 7490
+        // set_button = true
+        c = 'false'
+        // write_coil_410()
         writelog()
+
     }
     else if (a == "TURRET_RPM_CHANGE") {
         reg_offset_6000 = 0

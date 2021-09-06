@@ -461,6 +461,9 @@
                     </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button id="popup_button" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-10 py-2 bg-green-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm" onclick="pop_up_hide1()">
+                        NO
+                    </button>
                     <button id="popup_button" type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-10 py-2 bg-green-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm" onclick="pop_up_hide()">
                         YES
                     </button>
@@ -2356,7 +2359,7 @@
                     function disconnect(){
                         setTimeout(() => {
                                 // alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
-                                location.href = "/"
+                                // location.href = "/"
                         }, 200);
                     }
 
@@ -4201,6 +4204,10 @@
             await fetch(submiturl)
                 .then(console.log("[ PNEUMATIC_CHECK_ACKNOWLEDGE ] "))
                 .catch(console.error);
+            
+        }
+            async function pop_up_hide1() {
+            const div5 = document.getElementById("poup_1").classList.add('hidden');
             
         }
 
