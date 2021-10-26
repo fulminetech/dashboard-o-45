@@ -11,7 +11,7 @@
 
 </head>
 
-<body onload="searchBatch()">
+<body >
 
     
     <h3 class="px-10 py-2 text-gray-700 text-left">Batch Number:
@@ -79,19 +79,26 @@
 
             const reportData1 = await fetch(reportdetailsURL);
             const report = await reportData1.json();
+            
+            const reportData3 = await fetch(`${userlevelURL}/${report.batch}`);
+            const report2 = await reportData3.json();
 
-
+            console.log(report2)
+            
+            
             document.getElementById("batch_number_metric").innerHTML = report.batch;
             document.getElementById("recipe_metric").innerHTML = report.recipe;
 
             // const queryAvgURL = `${hostname}/api/search/average/csv/${report.batch}`
             var queryAvgURL = `${dbsearchURL}/${report.batch}/operationlogs`
-
+            
             const avgData = await fetch(queryAvgURL);
             const avggbatch = await avgData.json();
-
+            
             const reportData2 = await fetch(`${userlevelURL}/${report.batch}`);
-            const report2 = await reportData2.json();
+            const report3 = await reportData2.json();
+            console.log(report3)
+
             // console.log(avggbatch)
 
             let avglistt = avggbatch.data;
@@ -116,7 +123,7 @@
             loadavglist();
         }
 
-
+        searchBatch()
     </script>
 </body>
 

@@ -529,12 +529,12 @@
 
                         if (check_once == false) {
                             if ((payload.button.RHS_WEIGHT_INC || payload.button.RHS_WEIGHT_DEC || payload.button.LHS_WEIGHT_INC || payload.button.LHS_WEIGHT_DEC) &&
-                                (payload.stats.awc.actual_RHS >= 19 || payload.stats.awc.actual_RHS <= 2 || payload.stats.awc.actual_LHS >= 19 || payload.stats.awc.actual_LHS <= 2)) {
+                                (payload.stats.awc.actual_RHS >= 19 || payload.stats.awc.actual_RHS <= 1.1 || payload.stats.awc.actual_LHS >= 19 || payload.stats.awc.actual_LHS <= 1.1)) {
                                 Rweight_incx()
                                 Lweight_incx()
                                 Rweight_decx()
                                 Lweight_decx()
-                                alert("Range is 2-19 mm.")
+                                alert("Range is 1.1-19 mm.")
                             }
                             check_once = true
                         }
@@ -671,7 +671,7 @@
 
             async function submitt(preLHSlow) {
                 var pressure = preLHSlow;
-                if (pressure <= 19 && pressure >= 2) {
+                if (pressure <= 19 && pressure >= 1.1) {
                     let submiturl = `${seturl}/RHS_DOZER/${preLHSlow}`
                     console.log(submiturl)
                     fetch(submiturl)
@@ -679,7 +679,7 @@
                         .catch(console.error);
                 }
                 else {
-                    alert("Please set value between 2 and 19.")
+                    alert("Please set value between 1.1 and 19.")
                     check()
                 }
             }
@@ -693,7 +693,7 @@
             async function submitt(preLHSlow) {
 
                 var pressure = preLHSlow;
-                if (pressure <= 19 && pressure >= 2) {
+                if (pressure <= 19 && pressure >= 1.1) {
                     let submiturl = `${seturl}/LHS_DOZER/${preLHSlow}`
                     console.log(submiturl)
                     fetch(submiturl)
@@ -701,7 +701,7 @@
                         .catch(console.error);
                 }
                 else {
-                    alert("Please set value between 2 and 19.")
+                    alert("Please set value between 1.1 and 19.")
                     check()
                 }
             }

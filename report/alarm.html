@@ -76,6 +76,8 @@
             const reportData2 = await fetch(`${userlevelURL}/${report.batch}`);
             const report2 = await reportData2.json();
 
+            console.log(report2)
+            
             document.getElementById("batch_number_metric").innerHTML = report.batch;
             document.getElementById("recipe_metric").innerHTML = report.recipe;
 

@@ -60,6 +60,39 @@ Recipies.init({
     mainR: {
         type: DataTypes.STRING
     },
+    setF: {
+        type: DataTypes.STRING
+    },
+    LHSrejnH: {
+        type: DataTypes.STRING
+    },
+    LHSrejnL: {
+        type: DataTypes.STRING
+    },
+    LHSawcH: {
+        type: DataTypes.STRING
+    },
+    LHSawcL: {
+        type: DataTypes.STRING
+    },
+    RHSrejnH: {
+        type: DataTypes.STRING
+    },
+    RHSrejnL: {
+        type: DataTypes.STRING
+    },
+    RHSawcH: {
+        type: DataTypes.STRING
+    },
+    RHSawcL: {
+        type: DataTypes.STRING
+    },
+    rejnON: {
+        type: DataTypes.STRING
+    },
+    awcON: {
+        type: DataTypes.STRING
+    },
 }, {
     sequelize,
     modelName: 'recipies',

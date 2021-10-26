@@ -33,6 +33,17 @@
                     <th class="text-center border-b py-3">Roller Position Pre RHS</th>
                     <th class="text-center border-b py-3">Roller Position Main LHS</th>
                     <th class="text-center border-b py-3">Roller Position Main RHS</th>
+                    <th class="text-center border-b py-3">Set Force</th>
+                    <th class="text-center border-b py-3">Rejection High LHS</th>
+                    <th class="text-center border-b py-3">Rejection Low LHS</th>
+                    <th class="text-center border-b py-3">AWC High LHS</th>
+                    <th class="text-center border-b py-3">AWC Low LHS</th>
+                    <th class="text-center border-b py-3">Rejection High RHS</th>
+                    <th class="text-center border-b py-3">Rejection Low RHS</th>
+                    <th class="text-center border-b py-3">AWC High RHS</th>
+                    <th class="text-center border-b py-3">AWC Low RHS</th>
+                    <th class="text-center border-b py-3">Rejection ON</th>
+                    <th class="text-center border-b py-3">AWC ON</th>
                 </tr>
             </thead>
 
@@ -77,7 +88,7 @@
                 for (let batchh of batchlistt) {
                     dataa = batchlistt[i]
                     // console.log(dataa.id)
-                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${i+1}</td><td class="border border-gray-400 px-4 py-2">${dataa.recn}</td><td class="border border-gray-400 px-4 py-2">${dataa.pname}</td><td class="border border-gray-400 px-4 py-2">${dataa.tooldrg}</td><td class="border border-gray-400 px-4 py-2">${dataa.size}</td><td class="border border-gray-400 px-4 py-2">${dataa.thickness}</td><td class="border border-gray-400 px-4 py-2">${dataa.weight}</td><td class="border border-gray-400 px-4 py-2">${dataa.hardness}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthL}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthR}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceR}</td><td class="border border-gray-400 px-4 py-2">${dataa.preL}</td><td class="border border-gray-400 px-4 py-2">${dataa.preR}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainL}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainR}</td></tr>`
+                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${i+1}</td><td class="border border-gray-400 px-4 py-2">${dataa.recn}</td><td class="border border-gray-400 px-4 py-2">${dataa.pname}</td><td class="border border-gray-400 px-4 py-2">${dataa.tooldrg}</td><td class="border border-gray-400 px-4 py-2">${dataa.size}</td><td class="border border-gray-400 px-4 py-2">${dataa.thickness}</td><td class="border border-gray-400 px-4 py-2">${dataa.weight}</td><td class="border border-gray-400 px-4 py-2">${dataa.hardness}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthL}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthR}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceR}</td><td class="border border-gray-400 px-4 py-2">${dataa.preL}</td><td class="border border-gray-400 px-4 py-2">${dataa.preR}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainL}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainR}</td><td class="border border-gray-400 px-4 py-2">${dataa.setF}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSrejnH}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSrejnL}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSawcH}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSawcL}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSrejnH}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSrejnL}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSawcH}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSawcL}</td><td class="border border-gray-400 px-4 py-2">${dataa.rejnON}</td><td class="border border-gray-400 px-4 py-2">${dataa.awcON}</td></tr>`
                     i++
                 }
 

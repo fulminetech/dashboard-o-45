@@ -83,7 +83,11 @@
 
             const reportData1 = await fetch(reportdetailsURL);
             const report = await reportData1.json();
-
+            
+            const reportData2 = await fetch(`${userlevelURL}/${report.batch}`);
+            const report2 = await reportData2.json();
+            
+            console.log(report2)
             console.log(report)
 
             let from = report.from;

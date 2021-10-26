@@ -1,6 +1,6 @@
 var ModbusRTU = require("modbus-serial");
 const { exec } = require('child_process');
-const restart1Command = "pm2 restart 1"
+const restart1Command = "pm2 restart 2"
 
 // Express
 const express = require("express");
@@ -19,6 +19,8 @@ const _perm  = new Influx(`http://${host}:8086/perm`);
 const fetch = require('cross-fetch'); // To get operator and batch details for logging
 const { connected } = require("process");
 const { response } = require("express");
+
+// const restart1Command = "./restart.sh"
 
 // Modbus 
 const coil_410 = 410;
@@ -55,7 +57,10 @@ var PASS_REGS_WRITE = "PASS_REGS_WRITE";
 var FAIL_REGS_WRITE = "FAIL_REGS_WRITE";
 
 let readfailed = 0;
-let failrestart = 50;
+let failrestart = 15;
+
+let connectfailed = 0
+let connectcounter = 3
 
 let timecheck = 3;
 let timetemp = 0;
@@ -384,6 +389,7 @@ var payload = {
         RHS_POWDER_LOW: '',
         LUBRICATION_PUMP_FAILS: '',
         DIRECT__RAMP: '',
+        HYD_5V: '',
         WITH_DOOR__BYPASS: '',
         INITIAL_REJECTION: '',
         FORCE_MEASUREMENT_ENABLE_BUTTON: '',
@@ -435,6 +441,8 @@ var payload = {
         SYSTEM_OVERLOAD: '',
         SAFETY_GUARD_OPEN: '',
         HYDRAULIC_HIGH_PRESSURE: '',
+        HYD_CHECK: '',
+        LUBRICATION_PUMP: '',
         LHS_POWDER_LEVEL_LOW: '',
         RHS_POWDER_LEVEL_LOW: '',
         LUB_PUMP_FAILS: '',
@@ -533,8 +541,19 @@ var connectClient = function () {
         .catch(function (e) {
             payload.connection = false
             mbsState = FAILED_CONNECT;
+            connectfailed++
+
+            if (connectfailed > connectcounter) {
+                restartprodmodbus1()
+                connectfailed=0
+            }
+
             console.log(`[ FAILED TO CONNECT ]`)
             console.log(e);
+
+            setTimeout(() => {
+                connectClient()
+            }, 10000);
         });
 }
 
@@ -612,6 +631,9 @@ var runModbus = function () {
   
     if (readfailed > failrestart) {
             payload.mbstatus = false;
+        readfailed = 0
+        client.close();
+        restartprodmodbus1()
         } else {
             payload.mbstatus = true;
     }
@@ -624,6 +646,21 @@ var runModbus = function () {
 
     // set for next run
     setTimeout(runModbus, mbsScan);
+}
+
+function restartprodmodbus1() {
+    console.log(`[ RESTARTING: ${restart1Command} ]`);
+    exec(restart1Command, (err, stdout, stderr) => {
+        console.log(`${stdout}`);
+    });
+    // console.log(`[ RESTARTING: ${restart2Command} ]`);
+    // exec(restart2Command, (err, stdout, stderr) => {
+    //     console.log(`${stdout}`);
+    // });
+    // console.log(`[ RESTARTING: ${restart3Command} ]`);
+    // exec(restart3Command, (err, stdout, stderr) => {
+    //     console.log(`${stdout}`);
+    // });
 }
 
 function writealarm(param, value) {
@@ -640,11 +677,51 @@ function writealarm(param, value) {
         .catch(console.error);
 }
 
+function writelublog(param, value) {
+    
+    _new.write(`lubelog`)
+        .tag({
+        })
+        .field({
+            // operator: batchinfo.operator,  // 2
+            parameter: param,  // 2
+            // oldvalue: Number(oldv),  // 2
+            newvalue: parseFloat(value),  // 2
+        })
+        .then(() => console.info(`[ lublog ENTRY DONE ${param} ${value} ]`))
+        .catch(console.error);
+}
+
+// setInterval(() => {
+    
+// }, 30000);
+
 var read_coils = function () {
     mbsState = PASS_READ_COILS;
 
-    client.readCoils(coil_410, 35)
+    client.readCoils(coil_410, 60)
         .then(function (stats_data) {
+
+            writelogg = (param, value) => {
+                var oldv
+                var newv
+                value == true ? oldv = 0 : newv
+                value == true ? newv = 1 : newv
+                value == false ? oldv = 1 : newv
+                value == false ? newv = 0 : newv
+
+                _new.write(`${batchinfo.name}.operationlogs`)
+                    .tag({
+                    })
+                    .field({
+                        operator: batchinfo.operator,  // 2
+                        parameter: param,  // 2
+                        oldvalue: Number(oldv),  // 2
+                        newvalue: Number(newv),  // 2
+                    })
+                    .then(() => console.info(`[ LOG ENTRY DONE ${batchinfo.name} ]`))
+                    .catch(console.error);
+            }
             // console.log("STATS: ",stats_data.data)
 
             payload.button.POWER_PACK_START_BUTTON = stats_data.data[0],
@@ -673,6 +750,38 @@ var read_coils = function () {
             payload.button.EJECTION_ERROR_LHS = stats_data.data[31],
             payload.button.EJECTION_ERROR_RHS = stats_data.data[32]
             
+            // var test
+            // test = setInterval(() => {
+            //     writelublog("HYDRAULIC PRESSURE", payload.stats.pressure.value)
+            // }, 300000);
+            
+            // if (payload.button.MACHINE_START_BUTTON === true) {
+                //     console.log("123")
+                //     test = setInterval(, 1000);
+                // } else if (payload.button.MACHINE_START_BUTTON === false) {
+                    //     clearInterval(test)
+            // }
+            
+            // payload.alarm.LUBRICATION_PUMP = stats_data.data[58]
+            
+            if (stats_data.data[57] === true && payload.alarm.HYD_CHECK == '') {
+                writelublog("HYDRAULIC PRESSURE", payload.stats.pressure.value)
+                payload.alarm.HYD_CHECK = 'ACTIVE'
+            }
+
+            if (stats_data.data[57] === false && payload.alarm.HYD_CHECK == 'ACTIVE') {
+                payload.alarm.HYD_CHECK = ''
+            }
+
+            if (stats_data.data[58] === true && payload.alarm.LUBRICATION_PUMP == '') {
+                writelogg("LUBRICATION PUMP ON", true)
+                payload.alarm.LUBRICATION_PUMP = 'ACTIVE'
+            }
+
+            if (stats_data.data[58] === false && payload.alarm.LUBRICATION_PUMP == 'ACTIVE') {
+                writelogg("LUBRICATION PUMP OFF", false)
+                payload.alarm.LUBRICATION_PUMP = ''
+            }
         })
         .catch(function (e) {
             console.error('[ coil_410 Garbage ]')
@@ -713,7 +822,7 @@ var read_coils = function () {
                     .field({
                         operator: batchinfo.operator,  // 2
                         parameter: param,  // 2
-                        oldvalue: Number(oldv),  // 2
+                        // oldvalue: Number(oldv),  // 2
                         newvalue: Number(newv),  // 2
                     })
                     .then(() => console.info(`[ LOG ENTRY DONE ${batchinfo.name} ]`))
@@ -977,6 +1086,7 @@ var read_coils = function () {
             payload.button.WITH_DOOR__BYPASS = data.data[2]
             payload.button.INITIAL_REJECTION = data.data[6]
             payload.button.B_TYPE__D_TYPE = data.data[8]
+            payload.button.HYD_5V = data.data[9]
             payload.button.POWDER_SENSOR_ENABLE = data.data[10]
             payload.button.Z_PHASE_SELECTION = data.data[11]
             payload.button.AUTO_SAMPLING = data.data[13]
@@ -2190,6 +2300,24 @@ app.get("/api/set/:parameter/:value", (req, res) => {
         coil_offset_410 = 98
         set_button = false
         c = payload.button.B_TYPE__D_TYPE
+
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "HYD_5V" && b == "true") {
+        // a = "PUNCH TYPE OFF B TYPE ON DTYPE"
+        coil_offset_410 = 99
+        set_button = true
+        c = payload.button.HYD_5V
+
+        write_coil_410()
+        b == "false" & c == false || b == "true" & c == true ? c : writelog()
+    }
+    else if (a == "HYD_5V" && b == "false") {
+        // a = "PUNCH TYPE OFF B TYPE ON DTYPE"
+        coil_offset_410 = 99
+        set_button = false
+        c = payload.button.HYD_5V
 
         write_coil_410()
         b == "false" & c == false || b == "true" & c == true ? c : writelog()

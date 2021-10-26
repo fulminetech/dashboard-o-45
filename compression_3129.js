@@ -5,6 +5,8 @@ const { fail } = require("assert");
 
 const restart1Command = "./restart.sh"
 
+const restartt = "gnome-session-quit --power-off --force"
+
 // const restart1Command = "pm2 reload stats_3128 && pm2 reload main_5000 && pm2 reload compression_3129"
 // const restart1Command = "pm2 restart stats_3128"
 // const restart2Command = "pm2 restart main_5000"
@@ -798,7 +800,7 @@ var connectClient = function () {
 
             setTimeout(() => {
                 connectClient()
-            }, 500);
+            }, 10000);
             // console.log(e);
         });
 }
@@ -908,7 +910,7 @@ var runModbus = function () {
         payload.connection = false;
         readfailed = 0
         client.close();
-        restartprodmodbus()
+        restartprodmodbus1()
     }
 
     // execute "next action" function if defined
@@ -1421,6 +1423,23 @@ var readalarm = function () {
 }
 
 function restartprodmodbus() {
+    console.log(`[ RESTARTING: ${restartt} ]`);
+    exec(restartt, (err, stdout, stderr) => {
+        console.log(`${stdout}`);
+    });
+
+    restartprodmodbus1()
+    // console.log(`[ RESTARTING: ${restart2Command} ]`);
+    // exec(restart2Command, (err, stdout, stderr) => {
+    //     console.log(`${stdout}`);
+    // });
+    // console.log(`[ RESTARTING: ${restart3Command} ]`);
+    // exec(restart3Command, (err, stdout, stderr) => {
+    //     console.log(`${stdout}`);
+    // });
+}
+
+function restartprodmodbus1() {
     console.log(`[ RESTARTING: ${restart1Command} ]`);
     exec(restart1Command, (err, stdout, stderr) => {
         console.log(`${stdout}`);

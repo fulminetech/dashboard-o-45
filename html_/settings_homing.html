@@ -690,7 +690,7 @@
         async function LHS_FILL_DEPTH_MAX() {
             var a = document.getElementById("LHS_FILL_DEPTH_MAX").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX/${a}`
+            let submiturl = `${seturl}/RHS_FILL_DEPTH_MAX_DEPTH/${a}`
             if (a <= 25 && a >= 0) {
                 await fetch(submiturl)
                     .then(console.log("[ UPDATED! ] "))
@@ -704,7 +704,7 @@
         async function LHS_FILL_DEPTH_MIN() {
             var a = document.getElementById("LHS_FILL_DEPTH_MIN").value;
             // console.log(a)
-            let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN/${a}`
+            let submiturl = `${seturl}/RHS_FILL_DEPTH_MIN_DEPTH/${a}`
             if (a <= 25 && a >= 0) {
                 await fetch(submiturl)
                     .then(console.log("[ UPDATED! ] "))
@@ -718,7 +718,7 @@
         async function RHS_FILL_DEPTH_MAX() {
             var a = document.getElementById("RHS_FILL_DEPTH_MAX").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_FILL_DEPTH_MAX/${a}`
+            let submiturl = `${seturl}/LHS_FILL_DEPTH_MAX_DEPTH/${a}`
             if (a <= 25 && a >= 0) {
                 await fetch(submiturl)
                     .then(console.log("[ UPDATED! ] "))
@@ -732,7 +732,7 @@
         async function RHS_FILL_DEPTH_MIN() {
             var a = document.getElementById("RHS_FILL_DEPTH_MIN").value;
             // console.log(a)
-            let submiturl = `${seturl}/LHS_FILL_DEPTH_MIN/${a}`
+            let submiturl = `${seturl}/LHS_FILL_DEPTH_MIN_DEPTH/${a}`
             if (a <= 25 && a >= 0) {
                 await fetch(submiturl)
                     .then(console.log("[ UPDATED! ] "))

@@ -1,3 +1,5 @@
+// Note:permission entries to be added manually
+
 const express = require("express");
 const sequelize = require('./database')
 var cors = require('cors')
@@ -170,7 +172,7 @@ app.get("/permissions", async (req, res) => {
 app.put("/permissions/:id", async (req, res) => {
   const requestedid = req.params.id;
   const permissions = await Permissions.findOne({ where: { id: requestedid } });
-  permissions.dashboard = req.body.dashboard
+  // permissions.dashboard = req.body.dashboard
   permissions.overview = req.body.overview
   permissions.graphlhs = req.body.graphlhs
   permissions.graphrhs = req.body.graphrhs
@@ -249,6 +251,19 @@ app.put("/recipies/:id", async (req, res) => {
   recipies.preR =       req.body.preR
   recipies.mainL =      req.body.mainL
   recipies.mainR =      req.body.mainR
+  
+  recipies.setF = req.body.setF
+  recipies.LHSrejnH = req.body.LHSrejnH
+  recipies.LHSrejnL = req.body.LHSrejnL
+  recipies.LHSawcH = req.body.LHSawcH
+  recipies.LHSawcL = req.body.LHSawcL
+  recipies.RHSrejnH = req.body.RHSrejnH
+  recipies.RHSrejnL = req.body.RHSrejnL
+  recipies.RHSawcH = req.body.RHSawcH
+  recipies.RHSawcL = req.body.RHSawcL
+  recipies.rejnON = req.body.rejnON
+  recipies.awcON = req.body.awcON
+  
   await recipies.save()
   res.json(recipies);
 })

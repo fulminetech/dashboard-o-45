@@ -482,6 +482,9 @@
                             <div class="pl-2 w-1/2 text-md text-left">
                             <h3 id="user_metric" class=" text-xl">-</h3>
                             </div>
+                            <div class="pl-2 w-1/2 text-md text-left">
+                            <h3 id="recipe_metric" class=" text-xl">-</h3>
+                            </div>
                             <div class="pr-3 w-1/2 text-md text-right">
                             <h3 id="time" class=" text-xl"></h3>
                         </div>
@@ -2359,7 +2362,7 @@
                     function disconnect(){
                         setTimeout(() => {
                                 // alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
-                                // location.href = "/"
+                                location.href = "/"
                         }, 200);
                     }
 
@@ -2390,6 +2393,8 @@
                     
                     currentrotation = payload.data_number
 
+                    document.getElementById("recipe_metric").innerHTML = payload.stats.recipie_id
+                    
                     document.getElementById("avgg-preLHS").innerHTML = payload.precompressionLHS_avg;
                     document.getElementById("avgg-preRHS").innerHTML = payload.precompressionRHS_avg;
                     document.getElementById("avgg-mainLHS").innerHTML = payload.maincompressionLHS_avg;
@@ -2750,14 +2755,14 @@
                             alert("RHS Ejection Force Out of range.")
                         }
 
-                        if ((payload.stats.awc.actual_RHS >=19 || payload.stats.awc.actual_RHS <=2 || 
-                            payload.stats.awc.actual_LHS >=19 || payload.stats.awc.actual_LHS<=2 )) 
+                        if ((payload.stats.awc.actual_RHS >=19 || payload.stats.awc.actual_RHS <=1.1 || 
+                            payload.stats.awc.actual_LHS >=19 || payload.stats.awc.actual_LHS<=1.1 )) 
                         {
                             Rweight_incx()
                             Lweight_incx()
                             Rweight_decx()
                             Lweight_decx()
-                            alert("Range is 2-19 mm.")
+                            alert("Range is 1.1-19 mm.")
                         }
                         
                         check_once = true
@@ -3448,26 +3453,27 @@
         function updatepressure() {
             var c = document.getElementById("pressure_metric").value;
             
-            submitt( parseFloat(pressure) )
+            submitt(parseFloat(c))
             
-            function submitt(pressure) {
+            async function submitt(pressure) {
                 // hidekeyboard()
                 var pressure = c;
-                if (pressure <= 100 && pressure >= 1) {
+                if (pressure <= 100 && pressure >= 20) {
                     
-                    pressureset()
+                    // pressureset()
 
                     let submiturl = `${seturl}/HYDRAULIC_PRESSURE_CHANGE/${pressure}`
                     console.log(submiturl)
-                    fetch(submiturl)
+                    await fetch(submiturl)
                         .then(setTimeout(() => {
                             console.log(" [ Request Sent // pending confirmation ] ")
                         }, 100))
+                        .then(pressureset())
                         .then(check())
                         .catch(console.error);
                 }
                 else {
-                    alert("Please set value between 1 and 100.")
+                    alert("Please set value between 20 and 100.")
                 }
             }
 
