@@ -151,76 +151,60 @@
             <div class="flex flex-1 flex-wrap">
                 <div class="w-full p-6 ">
 
-                    <!-- Search: Parameters -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Enter Batch Number:</h5>
-                    </div>
-                    
-                    <div class="flex grid grid-cols-3 p-3 ">
-                    
-                        <div class="flex flex-col">
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="batchname"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="text" placeholder="" onkeydown="if (event.keyCode == 13) searchBatch()">
+                    <div class="p-3 m-3 bg-gray-300 border border-gray-700 rounded">
+                        
+                        <div class="flex grid grid-cols-3 p-3 ">
+
+                            <div class="flex grid  p-3 ">
+                                
+                                <h5 class="font-bold text-lg text-black">Enter Batch Number:</h5>
+                                <div class="flex flex-col">
+                                    <div class="flex flex-row">
+                                        <div class="py-3">
+                                            <input id="batchname"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="" onkeydown="if (event.keyCode == 13) searchBatch()">
+                                        </div>
+                                        <div class="p-3">
+                                            <button id="searchbatch"
+                                                class="bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                                onclick="searchBatch()">
+                                                SEARCH
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="p-3">
-                                    <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="searchBatch()">
-                                        SEARCH
+                            
+                            </div>
+
+                            <div class="flex flex-wrap p-3">
+                            
+                                <!-- PDF report Button -->
+                                <div class="py-3">
+                                    <button id="generatepdfreport"
+                                        class="bg-orange-300 uppercase text-xl hover:bg-orange-500 text-gray-800 font-semibold hover:text-white py-5 px-10 border border-gray-500 hover:border-transparent rounded"
+                                        onclick="generateReport()">
+                                        <i class="far fa-file-pdf mr-2"></i>PDF report
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                    
-                    </div>
-                    
-                    <!-- Export:  -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Export:</h5>
-                    </div>
-                    
-                    <div class="flex grid grid-cols-3 p-3 ">
-                    
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- PDF report Button -->
-                            <div class="py-3">
-                                <button id="generatepdfreport"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="generateReport()">
-                                    PDF report
-                                </button>
+                            
+                            <div class="flex flex-wrap p-3">
+                            
+                                <!-- PDF report Button -->
+                                <div class="py-3">
+                                    <button id="generateandprintReportid"
+                                        class="bg-purple-300 uppercase text-xl hover:bg-purple-500 text-gray-800 font-semibold hover:text-white py-5 px-10 border border-gray-500 hover:border-transparent rounded"
+                                        onclick="generateandprintReport()">
+                                        <i class="fas fa-print mr-2"></i>Print report
+                                    </button>
+                                </div>
                             </div>
+                            
                         </div>
-                    
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- PDF report Button -->
-                            <div class="py-3">
-                                <button id="generateandprintReportid"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="generateandprintReport()">
-                                    Print report
-                                </button>
-                            </div>
-                        </div>
-                    
-                        <div class="flex flex-wrap p-3">
-                    
-                            <!-- Excel Button -->
-                            <!-- <div class="py-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="csvexport()">
-                                    Excel EXPORT
-                                </button>
-                            </div> -->
-                        </div>
-                    
+
                     </div>
+
 
                     <!--"Container" for the graphs"-->
                     <div class="max-w-full">
@@ -391,7 +375,7 @@
     <script>
         var element = document.getElementById("generatepdfreport");
 
-        var pdfgenerationtime = 60000;
+        var pdfgenerationtime = 20000;
         // var pdfgenerationtime = 5000;
 
         async function generateReport() {

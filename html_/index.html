@@ -185,12 +185,12 @@
     <div class="flex flex-1 flex-grow content-start pl-48">
 
         <!--Dash Content -->
-        <div id="dash-content" class="bg-gray-700 py-3 w-full xl:w-64 flex flex-wrap content-start">
+        <div id="dash-content" class="bg-blue-800 py-3 w-full xl:w-64 rounded-2xl flex flex-wrap content-start">
 
             <!-- Batch Number -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed  rounded px-3 py-3 mt-3 ">
+                    class="border-b border-gray-400 border-dashed  rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-white">Batch Number</h5>
@@ -206,7 +206,7 @@
                         </div> -->
                         <div class="px-3 py-1">
                             <button
-                                class="text-center bg-red-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded select-none"
+                                class="text-center bg-red-300 uppercase text-xl text-gray-800 font-semibold py-2 w-52 border border-purple-500 rounded select-none"
                                 onclick="boff()">Batch Complete</button>
                         </div>
                     </div>
@@ -216,7 +216,7 @@
             <!-- Batch Number -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed  rounded px-3 py-3 mt-1 ">
+                    class="border-b border-gray-400 border-dashed  rounded px-3 py-3 mt-1 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 mt-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-white">Rotation Number</h5>
@@ -236,8 +236,8 @@
                         </div>
                         <div class="p-3">
                             <button id="reset"
-                                class="text-center bg-red-300 uppercase text-md text-gray-800 font-semibold py-3 px-5 border border-purple-500 rounded select-none"
-                                onmousedown="button7()" onmouseup="button7x()"> Count Reset </button>
+                                class="text-center text-xl bg-red-300 uppercase text-md text-gray-800 font-semibold py-2 w-52 border border-purple-500 rounded select-none"
+                                onmousedown="button7()" onmouseup="button7x()"> <i class="fas fa-retweet mr-2"></i>Count Reset </button>
                         </div>
                     </div>
                 </div>
@@ -245,7 +245,7 @@
 
             <!-- Machine Status -->
             <div class="w-1 w-full">
-                <div class="border-2 border-gray-400 border-dashed  rounded px-3 py-3 mt-3 ">
+                <div class="border-b border-gray-400 border-dashed  rounded px-3 py-3 mt-3 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-white">Machine</h5>
@@ -259,28 +259,28 @@
                         <!-- Search Button -->
                         <div class="p-2 ml-1">
                             <button id="TRIAL_PRODUCTION"
-                                class="text-center bg-indigo-200 uppercase text-xl font-bold text-gray-800 font-semibold  py-2 px-12 border border-purple-500  rounded"
+                                class="text-center bg-indigo-200 uppercase text-2xl font-bold text-gray-800 font-semibold  py-2 w-52 border border-purple-500  rounded"
                                 onclick="trial()"> TRIAL</button>
                         </div>
                         <!-- Search Button -->
-                        <div class="p-3 ml-1">
+                        <div class="p-2 ml-1">
                             <button id="start_m"
-                                class="text-center bg-green-200 uppercase text-2xl font-bold text-gray-800 font-semibold  py-2 px-12 border border-purple-500  rounded"
-                                onmousedown="start()" onmouseup="unstart()"> START </button>
+                                class="text-center bg-green-200 uppercase text-2xl font-bold text-gray-800 font-semibold  py-2 w-52 border border-purple-500  rounded"
+                                onmousedown="start()" onmouseup="unstart()"> <i class="fas fa-cogs mr-2"></i> START </button>
                         </div>
                         
-                        <div class="p-3 ml-1">
+                        <div class="p-2 ml-1">
                             <button id="stop_m"
-                                class="text-center bg-red-200 uppercase text-2xl font-bold  text-gray-800 font-semibold  py-2 px-12 border border-purple-500  rounded"
-                                onmousedown="stop()" onmouseup="unstop()"> STOP </button>
+                                class="text-center bg-red-200 uppercase text-2xl font-bold  text-gray-800 font-semibold  py-2 w-52 border border-purple-500  rounded"
+                                onmousedown="stop()" onmouseup="unstop()"><i class="fas fa-stop-circle mr-2"></i> STOP </button>
                         </div>
                         
                         <!-- Search Button -->
-                        <div class="p-3 ml-2">
+                        <div class="p-2 ml-1">
                             <button id="inching"
-                                class="text-center bg-blue-100 uppercase text-2xl font-bold text-gray-800 font-semibold py-2 px-10 border border-purple-500 rounded select-none"
+                                class="text-center bg-blue-100 uppercase text-2xl font-bold text-gray-800 font-semibold py-2 w-52 border border-purple-500 rounded select-none"
                                 onmousedown="inch()" onmouseup="uninch()">
-                                INCHING </button>
+                                <i class="fab fa-rev mr-2"></i> INCHING </button>
                                 
                         </div>
 
@@ -390,7 +390,7 @@
             <!-- Compression Live Data -->
             <div class="w-1 w-full">
                 <div
-                    class="border-2 border-gray-400 border-dashed  rounded px-3 py-3 mt-1 ">
+                    class="  rounded px-3 py-3 mt-1 ">
                     <div class="flex flex-col text-center">
                         <div class="flex-1 items-center">
                             <h5 class="font-bold uppercase text-xl text-white">Compression Live Data</h5>
@@ -399,7 +399,7 @@
                         <!-- Search Button -->
                         <div class="px-3 py-1">
                             <button
-                                class="modal1-open text-center bg-blue-100 uppercase text-gray-800 font-semibold py-2 px-5 border border-blue-500 rounded"
+                                class="modal1-open text-center text-xl bg-blue-100 uppercase text-gray-800 font-semibold py-2 w-52 border border-blue-500 rounded"
                                 onclick=""> VIEW TABLE </button>
                         </div>
                     </div>
@@ -496,7 +496,7 @@
                                 
                                 <!-- Pressure -->
                                 <div class="px-1 flex items-center">
-                                    <div class="border border-gray-500 bg-yellow-300 shadow-xl hover:shadow-2xl rounded p-3 my-auto mx-auto">
+                                    <div class="border border-yellow-700 bg-yellow-300 shadow-xl hover:shadow-2xl rounded p-3 my-auto mx-auto">
                                         <div class="flex flex-col">
                                             <div class="flex-1 items-left text-gray-700">
                                                 <h5 class="font-bold uppercase text-md">Hydraulic Pressure (kN)</h5>
@@ -513,7 +513,7 @@
     
                                 <!-- Lubrication time -->
                                 <div class="px-1 flex items-center">
-                                    <div class="border border-gray-500 bg-yellow-300 shadow-xl hover:shadow-2xl rounded p-3 my-auto mx-auto">
+                                    <div class="border border-yellow-700 bg-yellow-300 shadow-xl hover:shadow-2xl rounded p-3 my-auto mx-auto">
                                         <div class="flex flex-col">
                                             <div class="flex-1 items-left text-gray-700">
                                                 <h5 class="font-bold uppercase text-md">Lubrication time (mins)</h5>
@@ -533,7 +533,7 @@
     
                                 <!-- Turret -->
                                 <div class="px-1 flex mt-1 items-center">
-                                    <div class="border border-gray-500 bg-blue-300 shadow-xl hover:shadow-2xl rounded p-3 my-auto mx-auto">
+                                    <div class="border border-blue-700 bg-blue-300 shadow-xl hover:shadow-2xl rounded p-3 my-auto mx-auto">
                                         <div class="flex flex-col">
                                             <div class="flex-1 items-left text-gray-700">
                                                 <h3 class="font-bold mb-6 text-md">
@@ -565,16 +565,16 @@
     
                                 <!-- Feeder LHS -->
                                 <div class="px-1 mt-1 flex items-center">
-                                    <div class="border border-gray-500 bg-blue-300 shadow-xl hover:shadow-2xl rounded p-3 my-auto mx-auto">
+                                    <div class="border border-blue-700 bg-blue-300 shadow-xl hover:shadow-2xl rounded p-3 my-auto mx-auto">
                                         <div class="flex flex-col">
                                             <div class="flex-1 items-left text-gray-700">
                                                 <h3 class="font-bold text-md">
                                                     Feeder RPM
                                                     <div class="pb-1 grid grid-cols-2">
                                                         <h3 class="font-bold text-center text-md">
-                                                            LHS</h3>
+                                                            <i class="fas fa-angle-double-left mr-2"></i>LHS</h3>
                                                         <h3 class="font-bold text-center text-md">
-                                                            RHS</h3>
+                                                            <i class="fas fa-angle-double-right mr-2"></i>RHS</h3>
                                                         <input id="feederRHS_metric"
                                                             class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                             type="number" placeholder="Input" onkeydown="if (event.keyCode == 13) updaterpmFR()">
@@ -605,7 +605,7 @@
                                     <!-- PDF report Button -->
                                     <div class="">
                                         <button id="start_pp"
-                                            class="bg-green-200 uppercase text-md text-gray-800 font-semibold w-full py-2 border border-blue-500 rounded"
+                                            class="bg-green-200 uppercase text-md text-gray-800 font-semibold w-full py-2 border border-blue-500 rounded-md"
                                             onmousedown="startpower()" onmouseup="unstartpower()">
                                             Power Pack Start
                                         </button>
@@ -617,7 +617,7 @@
                                     <!-- Excel Button -->
                                     <div class="">
                                         <button id="first_sampl"
-                                            class="bg-indigo-200 uppercase text-md text-gray-800 font-semibold w-full py-2 border border-blue-500 rounded"
+                                            class="bg-indigo-200 uppercase text-md text-gray-800 font-semibold w-full py-2 border border-blue-500 rounded-md"
                                             onclick="firstsampbutton()">
                                             1st Layer Ejection
                                         </button>
@@ -629,7 +629,7 @@
                                     <!-- Excel Button -->
                                     <div class="">
                                         <button id="man_samp"
-                                            class="bg-red-300 uppercase text-md text-gray-800 font-semibold w-full py-2 border border-blue-500 rounded"
+                                            class="bg-red-300 uppercase text-md text-gray-800 font-semibold w-full py-2 border border-blue-500 rounded-md"
                                             onmousedown="button13()" onmouseup="button13x()">
                                             Manual Sampling
                                         </button>
@@ -641,7 +641,7 @@
                                     <!-- Excel Button -->
                                     <div class="">
                                         <button id="rejn_air"
-                                            class="bg-gray-600 uppercase text-md text-gray-800 font-semibold w-full py-2 border border-blue-500 rounded"
+                                            class="bg-gray-600 uppercase text-md text-gray-800 font-semibold w-full py-2 border border-blue-500 rounded-md"
                                             onmousedown="button2x()">
                                             Rejection By Air
                                         </button>
@@ -653,7 +653,7 @@
                                     <!-- Excel Button -->
                                     <div class="">
                                         <button id="rejn_flap"
-                                            class="bg-gray-600 uppercase text-md text-gray-800 font-semibold w-full py-2 border border-blue-500 rounded"
+                                            class="bg-gray-600 uppercase text-md text-gray-800 font-semibold w-full py-2 border border-blue-500 rounded-md"
                                             onmousedown="button2()">
                                             Rejection By Flap
                                         </button>
@@ -675,7 +675,7 @@
                                     <!-- PDF report Button -->
                                     <div class="">
                                         <button id="drain"
-                                            class="bg-red-300 uppercase text-md text-gray-800 font-semibold w-full py-8 border border-blue-500 rounded"
+                                            class="bg-red-300 uppercase text-md text-gray-800 font-semibold w-full py-8 border border-blue-500 rounded-md"
                                             onmousedown="drain()" onmouseup="undrain()">
                                             DRAIN
                                         </button>
@@ -687,7 +687,7 @@
                                     <!-- PDF report Button -->
                                     <div class="">
                                         <button id="disable_awc"
-                                            class="bg-indigo-200 uppercase text-md text-gray-800 font-semibold w-full py-8 border border-blue-500 rounded"
+                                            class="bg-indigo-200 uppercase text-md text-gray-800 font-semibold w-full py-8 border border-blue-500 rounded-md"
                                             onclick="awc()">
                                             AWC OFF
                                         </button>
@@ -699,7 +699,7 @@
                                     <!-- Excel Button -->
                                     <div class="">
                                         <button id="samp"
-                                            class="bg-indigo-200 uppercase text-md text-gray-800 font-semibold w-full py-2 border border-blue-500 rounded"
+                                            class="bg-indigo-200 uppercase text-md text-gray-800 font-semibold w-full py-2 border border-blue-500 rounded-md"
                                             onclick="samp()">
                                             AUTO SAMPLING OFF
                                         </button>
@@ -711,7 +711,7 @@
                                     <!-- PDF report Button -->
                                     <div class="">
                                         <button id="feeder_g"
-                                            class="bg-gray-600 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded"
+                                            class="bg-gray-600 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded-md"
                                             onclick="gravity()">
                                             Feeder Gravity
                                         </button>
@@ -723,7 +723,7 @@
                                     <!-- PDF report Button -->
                                     <div class="">
                                         <button id="feeder_f"
-                                            class="bg-gray-600 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded"
+                                            class="bg-gray-600 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded-md"
                                             onclick="force()">
                                             Feeder Force
                                         </button>
@@ -735,7 +735,7 @@
                                     <!-- PDF report Button -->
                                     <div class="">
                                         <button id="feeder_start"
-                                            class="bg-green-300 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded"
+                                            class="bg-green-300 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded-md"
                                             onclick="feeder()">
                                             Feeder Run
                                         </button>
@@ -746,7 +746,7 @@
     
                                     <div class="">
                                         <button id="rejn_dsbl"
-                                        class="bg-indigo-200 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded"
+                                        class="bg-indigo-200 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded-md"
                                         onmousedown="rejnbutton()">
                                         Rejection OFF
                                         </button>
@@ -758,7 +758,7 @@
                                     <!-- Excel Button -->
                                     <div class="">
                                         <button id="rejn_init"
-                                            class="bg-indigo-200 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded"
+                                            class="bg-indigo-200 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded-md"
                                             onclick="initrejnbutton()">
                                             Initial Rejection
                                         </button>
@@ -771,7 +771,7 @@
                                     <!-- Bi Layer Mode-->
                                     <div class="">
                                         <button id="bi_mode"
-                                            class="bg-gray-600 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded"
+                                            class="bg-gray-600 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded-md"
                                             onclick="button11()">
                                             BILAYER
                                         </button>
@@ -783,7 +783,7 @@
                                     <!-- Bi Layer Mode-->
                                     <div class="">
                                         <button id="mono_mode"
-                                            class="bg-gray-600 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded"
+                                            class="bg-gray-600 uppercase text-md text-gray-800 font-semibold w-full py-5 border border-blue-500 rounded-md"
                                             onclick="button11x()">
                                             MONO LAYER
                                         </button>
@@ -838,7 +838,7 @@
 
                     <a href="/processsetup">
                         <div class="px-2 pt-3">
-                            <div class="p-2 border border-blue-500 bg-blue-200 rounded shadow">
+                            <div class="p-2 border border-blue-700 bg-blue-200 rounded-md shadow">
                                 <!-- <div class="flex">
                                     <h5 class="font-bold w-full text-center text-xl text-black">Average Compression</h5>
                                 </div> -->
@@ -863,7 +863,7 @@
                             
                                     <tbody>
                                         <tr>
-                                            <td class="text-center border  text-xl border-gray-700">LHS</td>
+                                            <td class="text-center border  text-xl border-gray-700"><i class="fas fa-angle-double-left mr-2"></i>LHS</td>
                                             <td id="safety_high_LHS" class="text-center border bg-white text-xl border-gray-700">0</td>
                                             <td id="rejn_high_LHS" class="text-center border bg-white text-xl border-gray-700">0</td>
                                             <td id="awc_high_LHS" class="text-center border bg-white text-xl border-gray-700">0</td>
@@ -874,7 +874,7 @@
                                             
                                         </tr>
                                         <tr>
-                                            <td class="text-center border text-xl border-gray-700">RHS</td>
+                                            <td class="text-center border text-xl border-gray-700"><i class="fas fa-angle-double-right mr-2"></i>RHS</td>
                                             <td id="safety_high_RHS" class="text-center border bg-white text-xl border-gray-700">0</td>
                                             <td id="rejn_high_RHS" class="text-center border bg-white text-xl border-gray-700">0</td>
                                             <td id="awc_high_RHS" class="text-center border bg-white text-xl border-gray-700">0</td>
@@ -944,7 +944,7 @@
                             </div>
 
                         </div>
-                        <div class="w-2/3 p-2 my-1 mt-2 border border-blue-500 bg-purple-200 rounded shadow">
+                        <div class="w-2/3 p-2 my-1 mt-2 border border-purple-700 bg-purple-200 rounded-md shadow">
                             <!-- <div class="flex">
                                 <h5 class="font-bold w-full text-center text-xl text-black">Position</h5>
                             </div> -->
@@ -969,7 +969,7 @@
                         
                                 <tbody>
                                     <tr>
-                                        <td class="text-center  text-2xl border-gray-700"><a href="/settings_awc">LHS</a></td>
+                                        <td class="text-center  text-2xl border-gray-700"><a href="/settings_awc"><i class="fas fa-angle-double-right mr-2"></i>LHS</a></td>
                                         <td id="RHS_depth_metric" class="text-center  text-2xl border  border-gray-700">0
                                             <div id="RHS_depth_metric_l"  class="flex-shrink p-3">
                                                 <div id="dozer_lhs" class="rounded  p-2"></div>
@@ -1027,7 +1027,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-center  text-2xl border-gray-700"><a href="/settings_awc">RHS</a></td>
+                                        <td class="text-center  text-2xl border-gray-700"><a href="/settings_awc"><i class="fas fa-angle-double-left mr-2"></i>RHS</a></td>
                                         <td  id="LHS_depth_metric" class="text-center  text-2xl border  border-gray-700">0
                                             <div  class="flex-shrink p-3">
                                                 <div id="dozer_rhs" class="rounded p-2"></div>
@@ -1246,7 +1246,7 @@
                         <!-- Graphs -->
                         <div class="max-w-full">
                             
-                            <div class="flex grid grid-cols-4 gap-2">
+                            <div class="flex grid grid-cols-4 gap-2 mb-2">
                             
                                 <div class="px-3">
 <!--                             
@@ -1259,9 +1259,9 @@
                                     <!-- PDF report Button -->
                                     <div class="py-1">
                                         <div id="graph_pL"
-                                            class="bg-green-200 text-center uppercase text-lg text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded"
+                                            class="bg-green-200 text-center uppercase text-lg text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded-md"
                                             onclick="graph_pL()">
-                                            Pre Compression LHS Avg:
+                                            Pre Comp LHS Avg:
                                             <a id="avgg-preLHS">0</a>
                                         </div>
                                         
@@ -1273,9 +1273,9 @@
                                     <!-- PDF report Button -->
                                     <div class="py-1">
                                         <button id="graph_mL"
-                                            class="bg-red-200 uppercase text-lg text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded"
+                                            class="bg-red-200 uppercase text-lg text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded-md"
                                             onclick="graph_mL()">
-                                            Main Compression LHS Avg:
+                                            Main Comp LHS Avg:
                                             <a id="avgg-mainLHS">0</a>
                                         </button>
                                     </div>
@@ -1286,9 +1286,9 @@
                                     <!-- PDF report Button -->
                                     <div class="py-1">
                                         <button id="graph_pR"
-                                            class="bg-red-200 uppercase text-lg text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded"
+                                            class="bg-red-200 uppercase text-lg text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded-md"
                                             onclick="graph_pR()">
-                                            Pre Compression RHS Avg:
+                                            Pre Comp RHS Avg:
                                             <a id="avgg-preRHS">0</a>
                                         </button>
                                     </div>
@@ -1299,9 +1299,9 @@
                                     <!-- PDF report Button -->
                                     <div class="py-1">
                                         <button id="graph_mR"
-                                            class="bg-red-200 uppercase text-lg text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded"
+                                            class="bg-red-200 uppercase text-lg text-gray-800 font-semibold w-full py-1 border border-blue-500 rounded-md"
                                             onclick="graph_mR()">
-                                            Main Compression RHS Avg:
+                                            Main Comp RHS Avg:
                                             <a id="avgg-mainRHS">0</a>
                                         </button>
                                     </div>
@@ -1312,7 +1312,7 @@
                             <!-- <div class="border-b p-3">
                                 <h5 class="font-bold text-black">Pre Compression LHS:</h5>
                             </div> -->
-                            <div id="precompression_graph1" class="">
+                            <div id="precompression_graph1" class=" border border-gray-700 rounded-md p-3">
                                 <canvas id="precompression_graph" class="chartjs" height="70rem"></canvas>
                             </div>
                         
@@ -1320,7 +1320,7 @@
                             <!-- <div class="border-b p-3">
                                 <h5 class="font-bold text-black">Main Compression LHS:</h5>
                             </div> -->
-                            <div id="maincompression_graph1" class="hidden">
+                            <div id="maincompression_graph1" class="hidden border border-gray-700 rounded-md p-3">
                                 <canvas id="maincompression_graph" class="chartjs" height="70rem"></canvas>
                             </div>
                         
@@ -1328,7 +1328,7 @@
                             <!-- <div class="border-b p-3">
                                 <h5 class="font-bold text-black">Ejection Compression LHS:</h5>
                             </div> -->
-                            <div id="ejncompression_graph1" class="hidden">
+                            <div id="ejncompression_graph1" class="hidden border border-gray-700 rounded-md p-3">
                                 <canvas id="ejncompression_graph" class="chartjs" height="70rem"></canvas>
                             </div>
 
@@ -1336,7 +1336,7 @@
                             <!-- <div class="border-b p-3">
                                 <h5 class="font-bold text-black">Pre Compression RHS:</h5>
                             </div> -->
-                            <div id="precompression_graph_R1" class=" hidden">
+                            <div id="precompression_graph_R1" class=" hidden border border-gray-700 rounded-md p-3">
                                 <canvas id="precompression_graph_R" class="chartjs" height="70rem"></canvas>
                             </div>
 
@@ -2362,7 +2362,7 @@
                     function disconnect(){
                         setTimeout(() => {
                                 // alert("[ PLC CONNECTION ERROR. RESTART SYSTEM. ]")
-                                location.href = "/"
+                                // location.href = "/"
                         }, 200);
                     }
 
@@ -2692,6 +2692,8 @@
                 check_once = false
             }, 10000);
 
+        var graphforce
+
         async function fetchstats() {
             fetch(statsurl)
                 .then((resp) => resp.json()) // Transform the data into json
@@ -2784,6 +2786,7 @@
                     document.getElementById("rejn_high_LHS").innerHTML = payload.machine.rejn_high_LHS
                     document.getElementById("awc_high_LHS").innerHTML = payload.machine.awc_high_LHS
                     document.getElementById("set_force_LHS").innerHTML = payload.machine.set_force_LHS
+                    graphforce = payload.machine.set_force_LHS
                     document.getElementById("awc_low_LHS").innerHTML = payload.machine.awc_low_LHS
                     document.getElementById("rej_low_LHS").innerHTML = payload.machine.rej_low_LHS
                     document.getElementById("safety_low_LHS").innerHTML = payload.machine.safety_low_LHS
@@ -3175,11 +3178,18 @@
                     // alert(mode1)
                     if (mode1 == true) {
                         
+                        var myscale 
+                        if (graphforce < 1) {
+                            myscale = 4
+                        } else {
+                            myscale = 15
+                        }
+
                         var che1 = pregraph.options.scales.yAxes[0]
-                        che1.ticks.max = payload.limit[12] + 15
+                        che1.ticks.max = payload.limit[12] + myscale
                         
                         var che2 = maingraph_R.options.scales.yAxes[0]
-                        che2.ticks.max = payload.limit[16] + 15
+                        che2.ticks.max = payload.limit[16] + myscale
                         
                         pregraph.data.datasets[0].backgroundColor = payload.pLHS_processed
 
