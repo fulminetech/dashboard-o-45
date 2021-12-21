@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script src="/env/env.js"></script>
+
+</head>
+
+<body onload="level()">
+
+    <div class="px-10 pt-10 pb-5 text-sm">
+
+        <div id="reportform" class="">
+            <div class="flex grid grid-cols-3 px-3 bg-white">
+        
+                <div class="flex flex-col">
+                    <h3> User Name </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="user"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Batch Name </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="bname"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Recipe Name </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="recname"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Batch Size </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="bsize"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Batch Start Time </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="bstart"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Batch Stop Time </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="bstop"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Turret RPM </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="rpm"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Force Feeder RPM - LHS </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="ff_lhs_rpm"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Force Feeder RPM - RHS </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="ff_rhs_rpm"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Set Force LHS (kN) </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="forceL"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Set Force RHS (kN) </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="forceR"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Set Force (Mono) (kN) </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="setF"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Rejection High LHS (kN)</h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="LHSrejnH"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Rejection Low LHS (kN)</h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="LHSrejnL"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Rejection High RHS (kN)</h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="RHSrejnH"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Rejection Low RHS (kN)</h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="RHSrejnL"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Roller Position Pre LHS (mm)</h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="preL"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Roller Position Pre RHS (mm)</h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="preR"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Roller Position Main LHS (mm)</h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="mainL"
+                                class="bg-white  focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Roller Position Main RHS (mm)</h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="mainR"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> LHS AWC High </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="LHSawcH"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> LHS AWC Low </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="LHSawcL"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> RHS AWC High </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="RHSawcH"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> RHS AWC Low </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="RHSawcL"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> AWC Tolerance % </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="awctol" class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full" type="text"
+                                placeholder="">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col">
+                    <h3> Hydraulic Pressure (kN) </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="hydp"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Tablet Shape </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="shape"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Thickness Range (mm)</h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="thickness"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Weight Range (mg) </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="weight"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex flex-col">
+                    <h3> Tablet Hardness (kg) </h3>
+                    <div class="flex flex-row">
+                        <div class="py-3 pr-2">
+                            <input id="hardness"
+                                class="bg-white border border-gray-400 rounded-lg py-2 px-2 w-full"
+                                type="text" placeholder="">
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        
+        </div>
+    </div>
+
+    <!-- Time -->
+    <!-- <script>
+        time = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+        document.getElementById("time").innerHTML = new Date().toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium', hour12: true, timeZone: 'Asia/Kolkata' });
+    </script> -->
+
+    <!-- Populate Table -->
+    <script>
+        async function fetchstats() {
+                fetch(statsurl)
+                    .then((resp) => resp.json()) // Transform the data into json
+                    .then(function (data) {
+                        // Here you get the data to modify as you please
+                        var payload = data
+
+                        document.getElementById("bsize").value = payload.production;
+                        document.getElementById("rpm").value = payload.stats.turret.RPM
+                        document.getElementById("ff_lhs_rpm").value = payload.stats.LHS_FF.RPM;
+                        document.getElementById("ff_rhs_rpm").value = payload.stats.RHS_FF.RPM;
+                        document.getElementById("hydp").value = payload.stats.pressure.pressure_set
+                        document.getElementById("forceL").value = payload.machine.set_force_LHS
+                        document.getElementById("forceR").value = payload.machine.set_force_RHS
+                        document.getElementById("setF").value = payload.stats.awc.MONO_MAIN_FORCE
+
+                        document.getElementById("LHSrejnH").value = payload.machine.rejn_high_LHS
+                        document.getElementById("LHSrejnL").value = payload.machine.rej_low_LHS
+                        document.getElementById("RHSrejnH").value = payload.machine.rejn_high_RHS
+                        document.getElementById("RHSrejnL").value = payload.machine.rej_low_RHS
+                        document.getElementById("LHSawcL").value = payload.machine.awc_low_LHS
+                        document.getElementById("LHSawcH").value = payload.machine.awc_high_LHS
+                        document.getElementById("RHSawcH").value = payload.machine.awc_high_RHS
+                        document.getElementById("RHSawcL").value = payload.machine.awc_low_RHS
+                        document.getElementById("preL").value = payload.stats.LHSweight.value
+                        document.getElementById("preR").value = payload.stats.RHSweight.value
+                        document.getElementById("mainL").value = payload.stats.LHSthickness.value
+                        document.getElementById("mainR").value = payload.stats.RHSthickness.value
+                        document.getElementById("awctol").value = payload.stats.awc.AWC_TOLERANCE
+                    })
+                    .catch(function (error) {
+                        // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                    });
+            };
+
+        async function level() {
+            const reportData1 = await fetch(reportdetailsURL);
+            const report = await reportData1.json();
+            var name = report.batch;
+
+            var queryLogsURL = `${hostname}/checkuserlevel/${name}`
+            // console.log(queryLogsURL)
+            const Logs1 = await fetch(queryLogsURL);
+            const Logs = await Logs1.json();
+            console.log(Logs)
+
+            document.getElementById("user").value = Logs.username;
+            document.getElementById("bname").value = name;
+            document.getElementById("recname").value = Logs.recipe;
+
+            var queryTimeURL = `${hostname}/startandend/${name}`
+            // console.log(queryLogsURL)
+            const Time1 = await fetch(queryTimeURL);
+            const Time = await Time1.json();
+            console.log(Time)
+
+            document.getElementById("bstart").value = Time.starttime;
+            document.getElementById("bstop").value = Time.endtime;
+
+            // document.getElementById("bstart").value = Logs.recipe;
+            // document.getElementById("bstop").value = Logs.recipe;
+
+            var queryRecipeURL = `${sqliteserver}/recipiename/${Logs.recipe}`
+            // console.log(queryRecipeURL)
+            const Recn1 = await fetch(queryRecipeURL);
+            const Recipe = await Recn1.json();
+            console.log(Recipe[0])
+
+            document.getElementById("thickness").value = Recipe[0].thickness;
+            document.getElementById("shape").value = Recipe[0].shape;
+            document.getElementById("weight").value = Recipe[0].weight;
+            document.getElementById("hardness").value = Recipe[0].hardness;
+
+            fetchstats()
+
+        }
+
+        // // level()
+        // async function level() {
+
+        //     let submiturl = `http://localhost:3000/recipies`
+        //     var batchlistt
+
+        //     await fetch(submiturl)
+        //         .then((resp) => resp.json())
+        //         .then(function (data) {
+        //             batchlistt = data
+        //             console.log(data)
+        //         })
+        //         .catch(console.error);
+
+        //     // console.log(batch);
+
+
+        //     loadbatchlist();
+
+        //     function loadbatchlist() {
+        //         const batchListBody = document.getElementById('userlist');
+        //         let batchHTML = '';
+        //         var i = 0
+        //         var dataa
+        //         for (let batchh of batchlistt) {
+        //             dataa = batchlistt[i]
+        //             // console.log(dataa.id)
+        //             batchHTML += 
+                    
+        //                 document.getElementById("recn").innerText = dataa.recn      
+        //                 document.getElementById("recn").innerText = dataa.pname
+        //                 document.getElementById("recn").innerText = dataa.tooldrg
+        //                 document.getElementById("recn").innerText = dataa.size
+        //                 document.getElementById("recn").innerText = dataa.thickness
+        //                 document.getElementById("recn").innerText = dataa.weight
+        //                 document.getElementById("recn").innerText = dataa.hardness
+        //                 document.getElementById("recn").innerText = dataa.depthL
+        //                 document.getElementById("recn").innerText = dataa.depthR
+        //                 document.getElementById("recn").innerText = dataa.forceL
+        //                 document.getElementById("recn").innerText = dataa.forceR
+        //                 document.getElementById("recn").innerText = dataa.preL
+        //                 document.getElementById("recn").innerText = dataa.preR
+        //                 document.getElementById("recn").innerText = dataa.mainL
+        //                 document.getElementById("recn").innerText = dataa.mainR
+                        
+        //             i++
+        //         }
+
+        //         batchListBody.innerHTML = batchHTML;
+        //     }
+        // }
+
+        // // level()
+
+    </script>
+</body>
+
+</html>

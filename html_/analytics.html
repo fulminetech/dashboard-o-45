@@ -145,117 +145,112 @@
         <div id="main-content" class="w-full h-screen flex-1">
 
             <div class="flex flex-1 flex-wrap">
-                <div class="w-full p-6 ">
+                <div class="w-full ">
 
-                    <!-- Search: Parameters -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Enter Batch Number:</h5>
-                    </div>
+                    <div class="p-3 m-6 bg-gray-300 border border-gray-700 rounded">
                     
-                    <div class="flex grid grid-cols-3 p-3 ">
                     
+                    <div class="flex grid grid-cols-2 p-3 ">
+                        
                         <div class="flex flex-col">
+                            <h5 class="font-bold text-lg text-black">Enter Batch Number:</h5>
                             <div class="flex flex-row">
                                 <div class="py-3">
                                     <input id="batchname"
                                         class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="text" placeholder="" onkeydown="if (event.keyCode == 13) searchBatch()">
+                                        type="text" placeholder="*Required" onkeydown="if (event.keyCode == 13) searchBatch()">
                                 </div>
                                 <div class="p-3">
                                     <button id="searchbatch"
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                        class="bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
                                         onclick="searchBatch()">
-                                        SEARCH
+                                        <i class="fas fa-search mr-2"></i>SEARCH
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    
-                    </div>
+                        <div class="flex flex-row">
+                            <div class="flex flex-col mr-5">
+                                <h3 class="font-bold  text-lg"> From Rotation</h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3">
+                                        <input id="fromRotationNumber"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="*Required" onkeydown="if (event.keyCode == 13) filterbutton()">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col">
+                                <h3 class="font-bold  text-lg"> To Rotation </h3>
+                                <div class="flex flex-row">
+                                    <div class="py-3">
+                                        <input id="toRotationNumber"
+                                            class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            type="number" placeholder="*Required" onkeydown="if (event.keyCode == 13) filterbutton()">
+                                    </div>
+                                    <div class="p-3">
+                                        <button
+                                            class="bg-blue-100 uppercase text-md hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-30 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="filterbutton()">
+                                            <i class="fas fa-filter mr-2"></i>Filter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
 
-                    <!-- Search: Parameters -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Enter Rotation Number Range:</h5>
-                    </div>
-                    
+                        
+
                     <div class="flex grid p-3">
-                        <h3 class="font-bold mt-2 text-lg">Total Data points: <a id="total_data">0</a></h3>
-                    
+                        <h3 class="font-bold text-lg">Total Rotations: <a id="total_data">0</a></h3>
                     </div>
-
-                    <div class="flex grid grid-cols-3 p-3 ">
-
-                        <div class="flex flex-col">
-                            <h3> From Data  </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="fromRotationNumber"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) filterbutton()">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-col">
-                            <h3> To Data </h3>
-                            <div class="flex flex-row">
-                                <div class="py-3">
-                                    <input id="toRotationNumber"
-                                        class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                        type="number" placeholder="" onkeydown="if (event.keyCode == 13) filterbutton()">
-                                </div>
-                                <div class="p-3">
-                                    <button
-                                        class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="filterbutton()">
-                                        Filter
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                    </div>
-
                     <!-- Export:  -->
                     <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Export Average Compression:</h5>
+                        <h5 class="font-bold text-lg ">Average Compression Reports:</h5>
                     </div>
                     
-                    <div class="flex   p-3 ">
+                    <div class="w-full flex">
                     
-                        <div class="flex grid grid-cols-4 flex-wrap p-3">
+                        <div class="flex grid grid-cols-4 flex-wrap px-3">
 
                             <!-- PDF report Button -->
-                            <div class="py-3 pr-5">
+                            <div class="flex flex-wrap py-3 pr-5">
                                 <button id="generatepdfreport"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="generateReport()">
+                                class="bg-orange-300 uppercase text-xl hover:bg-orange-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
+                                onclick="generateReport()">
+                                <i class="far fa-file-pdf mr-2"></i>
                                     PDF report
                                 </button>
                             </div>
 
                             <!-- PDF report Button -->
-                            <div class="py-3 px-5">
+                            <div class="flex flex-wrap py-3 px-5">
                                 <button id="generateandprintavgReportid"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-purple-300 uppercase text-xl hover:bg-purple-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-gray-500 hover:border-transparent rounded"
                                     onclick="generateandprintavgReport()">
+                                    <i class="fas fa-print mr-2"></i>
                                     Print report
                                 </button>
                             </div>
 
                             <!-- PDF report Button -->
-                            <div class="py-3 px-5">
+                            <div class="flex flex-wrap py-3 px-5">
                                 <button id="generateavggraphReportid"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-orange-300 uppercase text-xl hover:bg-orange-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-gray-500 hover:border-transparent rounded"
                                     onclick="generateavggraphReport()">
+                                    <i class="far fa-file-pdf mr-2"></i>
                                     PDF Avg Graph
                                 </button>
                             </div>
 
                             <!-- PDF report Button -->
-                            <div class="py-3 px-5">
+                            <div class="flex flex-wrap py-3 px-5">
                                 <button id="generateandprintavggraphReportid"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-purple-300 uppercase text-xl hover:bg-purple-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-gray-500 hover:border-transparent rounded"
                                     onclick="generateandprintavggraphReport()">
+                                    <i class="fas fa-print mr-2"></i>
                                     Print Avg Graph
                                 </button>
                             </div>
@@ -264,18 +259,18 @@
                     </div>
 
                     <!-- Export:  -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Print Load Cell Data (PDF):</h5>
+                    <div class="border-b mt-2 px-3">
+                        <h5 class="font-bold text-lg text-black">Print Load Cell Data:</h5>
                     </div>
                     
-                    <div class="flex grid grid-cols-5 p-3 ">
+                    <div class="flex grid grid-cols-6">
                     
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button id="pdfexportandprintPreLHSid"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-purple-300 uppercase text-xl hover:bg-purple-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
                                     onclick="pdfexportandprintPreLHS()">
-                                    Pre LHS
+                                    <i class="fas fa-print mr-2"></i>Pre LHS
                                 </button>
                             </div>
                         </div>
@@ -283,9 +278,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button id="pdfexportandprintPreRHSid"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-purple-300 uppercase text-xl hover:bg-purple-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
                                     onclick="pdfexportandprintPreRHS()">
-                                    Pre RHS
+                                    <i class="fas fa-print mr-2"></i>Pre RHS
                                 </button>
                             </div>
                         </div>
@@ -293,9 +288,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button id="pdfexportandprintMainLHSid"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-purple-300 uppercase text-xl hover:bg-purple-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
                                     onclick="pdfexportandprintMainLHS()">
-                                    Main LHS
+                                    <i class="fas fa-print mr-2"></i>Main LHS
                                 </button>
                             </div>
                         </div>
@@ -303,9 +298,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button id="pdfexportandprintMainRHSid"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-purple-300 uppercase text-xl hover:bg-purple-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
                                     onclick="pdfexportandprintMainRHS()">
-                                    Main RHS
+                                    <i class="fas fa-print mr-2"></i>Main RHS
                                 </button>
                             </div>
                         </div>
@@ -313,9 +308,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button id="pdfexportandprintEjnLHSid"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-purple-300 uppercase text-xl hover:bg-purple-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
                                     onclick="pdfexportandprintEjnLHS()">
-                                    Ejn LHS
+                                    <i class="fas fa-print mr-2"></i>Ejn LHS
                                 </button>
                             </div>
                         </div>
@@ -323,9 +318,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button id="pdfexportandprintEjnRHSid"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-purple-300 uppercase text-xl hover:bg-purple-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
                                     onclick="pdfexportandprintEjnRHS()">
-                                    Ejn RHS
+                                    <i class="fas fa-print mr-2"></i>Ejn RHS
                                 </button>
                             </div>
                         </div>
@@ -342,7 +337,7 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexportPreLHS()">
                                     Pre LHS  
                                 </button>
@@ -352,7 +347,7 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexportPreRHS()">
                                     Pre RHS  
                                 </button>
@@ -362,7 +357,7 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexportMainLHS()">
                                     Main LHS  
                                 </button>
@@ -372,7 +367,7 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexportMainRHS()">
                                     Main RHS  
                                 </button>
@@ -382,7 +377,7 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexportEjnLHS()">
                                     Ejn LHS  
                                 </button>
@@ -392,7 +387,7 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-blue-500 hover:border-transparent rounded"
                                     onclick="csvexportEjnRHS()">
                                     Ejn RHS  
                                 </button>
@@ -404,18 +399,18 @@
                     </div> -->
 
                     <!-- Export:  -->
-                    <div class="border-b mt-2 p-3">
-                        <h5 class="font-bold text-black">Download Load Cell Data (PDF):</h5>
+                    <div class="border-b px-3">
+                        <h5 class="font-bold text-lg text-black">Download PDF Load Cell Data:</h5>
                     </div>
                     
-                    <div class="flex grid grid-cols-5 p-3 ">
+                    <div class="flex grid grid-cols-6">
                     
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button id="generatepdfreport1"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-orange-300 uppercase text-xl hover:bg-orange-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
                                     onclick="pdfexportPreLHS()">
-                                    Pre LHS  
+                                    <i class="far fa-file-pdf mr-2"></i>Pre LHS  
                                 </button>
                             </div>
                         </div>
@@ -423,9 +418,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button id="generatepdfreport2"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-orange-300 uppercase text-xl hover:bg-orange-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
                                     onclick="pdfexportPreRHS()">
-                                    Pre RHS  
+                                    <i class="far fa-file-pdf mr-2"></i>Pre RHS  
                                 </button>
                             </div>
                         </div>
@@ -433,9 +428,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button id="generatepdfreport3"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-orange-300 uppercase text-xl hover:bg-orange-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
                                     onclick="pdfexportMainLHS()">
-                                    Main LHS  
+                                    <i class="far fa-file-pdf mr-2"></i>Main LHS  
                                 </button>
                             </div>
                         </div>
@@ -443,9 +438,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button id="generatepdfreport4"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-orange-300 uppercase text-xl hover:bg-orange-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
                                     onclick="pdfexportMainRHS()">
-                                    Main RHS  
+                                    <i class="far fa-file-pdf mr-2"></i>Main RHS  
                                 </button>
                             </div>
                         </div>
@@ -453,9 +448,9 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button id="generatepdfreport5"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-orange-300 uppercase text-xl hover:bg-orange-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
                                     onclick="pdfexportEjnLHS()">
-                                    Ejn LHS  
+                                    <i class="far fa-file-pdf mr-2"></i>Ejn LHS  
                                 </button>
                             </div>
                         </div>
@@ -463,17 +458,464 @@
                         <div class="flex flex-wrap p-3">
                             <div class="py-3">
                                 <button id="generatepdfreport6"
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                    class="bg-orange-300 uppercase text-xl hover:bg-orange-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
                                     onclick="pdfexportEjnRHS()">
-                                    Ejn RHS  
+                                    <i class="far fa-file-pdf mr-2"></i>Ejn RHS  
                                 </button>
                             </div>
                         </div>
 
-                        
-                    
                     </div>
 
+                    <!-- Export:  -->
+                    <div class="border-b mt-2 px-3">
+                        <h5 class="font-bold text-lg text-black">Generate Batch Report:</h5>
+                    </div>
+
+                    <div class="border-b mt-2 p-3">
+                        <!-- <div class="flex flex-wrap p-3">
+                            <div class="py-3">
+                                <button id="openhidden"
+                                    class="bg-blue-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-3 px-10 border border-gray-500 hover:border-transparent rounded"
+                                    onclick="openhidden()">
+                                    <i class="far fa-file-pdf mr-2"></i>Open
+                                </button>
+                            </div>
+                        </div> -->
+
+                        <script>
+                            function openhidden() { const hunihde = document.getElementById("reportform").classList.remove('hidden') }
+                        </script>
+
+                        <div id="reportform" class="hidden">
+                            <div class="flex grid grid-cols-6 px-3">
+                        
+                                <div class="flex flex-col">
+                                    <h3> User Name </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="user"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Batch Name </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="bname"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Recipe Name </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="recname"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Batch Size </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="bsize"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="flex flex-col">
+                                    <h3> Batch Start Time </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="bstart"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="flex flex-col">
+                                    <h3> Batch Stop Time </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="bstop"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Turret RPM </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="rpm"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Force Feeder RPM - LHS </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="ff_lhs_rpm"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Force Feeder RPM - RHS </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="ff_rhs_rpm"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Set Force LHS </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="forceL"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Set Force RHS </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="forceR"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Set Force (Mono) </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="setF"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Rejection High LHS </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="LHSrejnH"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Rejection Low LHS</h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="LHSrejnL"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Rejection High RHS</h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="RHSrejnH"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Rejection Low RHS</h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="RHSrejnL"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="flex flex-col">
+                                    <h3> Roller Position Pre LHS </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="preL"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Roller Position Pre RHS </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="preR"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Roller Position Main LHS </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="mainL"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Roller Position Main RHS </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="mainR"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> AWC Tolerance % </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="awctol"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> LHS AWC High </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="LHSawcH"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> LHS AWC Low </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="LHSawcL"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> RHS AWC High </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="RHSawcH"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> RHS AWC Low </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="RHSawcL"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Hydraulic Pressure </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="hydp"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Tablet Shape </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="shape"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="flex flex-col">
+                                    <h3> Thickness Range (mm)</h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="thickness"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="flex flex-col">
+                                    <h3> Weight Range (mg) </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="weight"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="flex flex-col">
+                                    <h3> Tablet Hardness (kg) </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="hardness"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="flex flex-col">
+                                    <h3> Fill Depth LHS </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3">
+                                            <input id="depthL"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="flex flex-col">
+                                    <h3> Fill Depth RHS </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="depthR"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div> -->
+                        
+                                <!-- <div class="flex flex-col">
+                                    <h3> Rejection ON </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3">
+                                            <input id="rejnON"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="flex flex-col">
+                                    <h3> AWC ON </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3">
+                                            <input id="awcON"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                        
+                                <div class="flex flex-col">
+                                    <h3> AWC Tolerance % </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3">
+                                            <input id="awctol"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        
+                            <div id="formadd" class="flex grid grid-cols-2 hidden">
+                        
+                                <div class="flex flex-wrap p-3">
+                                    <div class="">
+                                        <button
+                                            class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="submitrec()">
+                                            ADD
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="formedit" class="flex grid grid-cols-3 ">
+                        
+                            <!-- PDF report Button -->
+                            <div class="flex flex-wrap py-3 px-3">
+                                <button id="generatbatchreportReportid"
+                                    class="bg-orange-300 uppercase text-xl hover:bg-orange-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-gray-500 hover:border-transparent rounded"
+                                    onclick="generatbatchreportReport()">
+                                    <i class="far fa-file-pdf mr-2"></i>
+                                    PDF Batch Report
+                                </button>
+                            </div>
+                        
+                            <!-- PDF report Button -->
+                            <div class="flex flex-wrap py-3 px-5">
+                                <button id="generateandprintbatchreportReportid"
+                                    class="bg-purple-300 uppercase text-xl hover:bg-purple-500 text-gray-800 font-semibold hover:text-white py-3 px-5 border border-gray-500 hover:border-transparent rounded"
+                                    onclick="generateandprintbatchreportReport()">
+                                    <i class="fas fa-print mr-2"></i>
+                                    Print Batch Report
+                                </button>
+                            </div>
+                        
+                        </div>
+                    
+                    </div>
+                    </div>
                     <!--"Container" for the graphs"-->
                     <div class="max-w-full">
 
@@ -679,6 +1121,41 @@
         //     }
         // });
 
+        
+        async function fetchstats() {
+            fetch(statsurl)
+                .then((resp) => resp.json()) // Transform the data into json
+                .then(function (data) {
+                    // Here you get the data to modify as you please
+                    var payload = data
+
+                    document.getElementById("bsize").value = payload.production;
+                    document.getElementById("rpm").value = payload.stats.turret.RPM
+                    document.getElementById("ff_lhs_rpm").value = payload.stats.LHS_FF.RPM;
+                    document.getElementById("ff_rhs_rpm").value = payload.stats.RHS_FF.RPM;
+                    document.getElementById("hydp").value = payload.stats.pressure.pressure_set
+                    document.getElementById("forceL").value = payload.machine.set_force_LHS
+                    document.getElementById("forceR").value = payload.machine.set_force_RHS
+
+                    document.getElementById("LHSrejnH").value = payload.machine.rejn_high_LHS
+                    document.getElementById("LHSrejnL").value = payload.machine.rej_low_LHS
+                    document.getElementById("RHSrejnH").value = payload.machine.rejn_high_RHS
+                    document.getElementById("RHSrejnL").value = payload.machine.rej_low_RHS
+                    document.getElementById("LHSawcL").value = payload.machine.awc_low_LHS
+                    document.getElementById("LHSawcH").value = payload.machine.awc_high_LHS
+                    document.getElementById("RHSawcH").value = payload.machine.awc_high_RHS
+                    document.getElementById("RHSawcL").value = payload.machine.awc_low_RHS
+                    document.getElementById("preL").value = payload.stats.LHSweight.value
+                    document.getElementById("preR").value = payload.stats.RHSweight.value
+                    document.getElementById("mainL").value = payload.stats.LHSthickness.value
+                    document.getElementById("mainR").value = payload.stats.RHSthickness.value
+                    document.getElementById("awctol").value = payload.stats.awc.AWC_TOLERANCE
+                })
+                .catch(function (error) {
+                    // console.log("[ PAYLOAD FETCH ERROR ]", error)
+                });
+        };
+
         var element2 = document.getElementById("searchbatch");
 
         async function searchBatch() {
@@ -691,6 +1168,32 @@
 
             } else {
 
+                var queryLogsURL = `${hostname}/checkuserlevel/${name}`
+                // console.log(queryLogsURL)
+                const Logs1 = await fetch(queryLogsURL);
+                const Logs = await Logs1.json();
+                console.log(Logs)
+
+                document.getElementById("user").value = Logs.username;
+                document.getElementById("bname").value = name;
+                document.getElementById("recname").value = Logs.recipe;
+                
+                // document.getElementById("bstart").value = Logs.recipe;
+                // document.getElementById("bstop").value = Logs.recipe;
+
+                var queryRecipeURL = `${sqliteserver}/recipiename/${Logs.recipe}`
+                // console.log(queryRecipeURL)
+                const Recn1 = await fetch(queryRecipeURL);
+                const Recipe = await Recn1.json();
+                console.log(Recipe[0])
+                
+                document.getElementById("thickness").value = Recipe[0].thickness;
+                document.getElementById("shape").value = Recipe[0].shape;
+                document.getElementById("weight").value = Recipe[0].weight;
+                document.getElementById("hardness").value = Recipe[0].hardness;
+
+                // fetchstats()
+                
                 document.getElementById("searchbatch").innerText = "PLEASE WAIT";
                 element2.classList.add("cursor-not-allowed");
 
@@ -791,9 +1294,79 @@
         var element4 = document.getElementById("generatepdfreport4");
         var element5 = document.getElementById("generatepdfreport5");
         var element6 = document.getElementById("generatepdfreport6");
-        
+
         var pdfgenerationtime = 60000;
+        var pdfgenerationtimeshort = 5000;
         // var pdfgenerationtime = 5000;
+
+        async function generatbatchreportReport() {
+
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+
+            var totalrtns = document.getElementById("totalrotations").innerHTML
+
+            if (bname == "" ) {
+                window.alert("Enter valid Batch Name, Start and Stop Rotation Number  ");
+            } else {
+                // document.getElementById("generatepdfreport").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generatbatchreportReportid").innerText = `PLEASE WAIT`;
+                // element.classList.add("cursor-not-allowed");
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportBatchReportGenURL);
+
+                setTimeout(() => {
+                    location.href = "/report/batchreport/download"
+                    document.getElementById("generatbatchreportReportid").innerText = "PDF BATCH REPORT";
+                    // element.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtimeshort);
+            }
+        }
+
+        async function generateandprintbatchreportReport() {
+            var a = document.getElementById("fromRotationNumber").value;
+            var fromname = a;
+
+            var b = document.getElementById("toRotationNumber").value;
+            var toname = b;
+
+            var c = document.getElementById("batchname").value;
+            var bname = c;
+
+            if (bname == "" ) {
+                window.alert("Enter valid Batch Name.");
+            } else {
+                // document.getElementById("generatepdfreport").innerText = `PLEASE WAIT ${pdfgenerationtime/1000} secs`;
+                document.getElementById("generateandprintavggraphReportid").innerText = `PLEASE WAIT`;
+                // element.classList.add("cursor-not-allowed");
+
+                var queryAvgURL = `${reportAvgURL}/${bname}/${fromname}/${toname}`
+                await fetch(queryAvgURL);
+                await fetch(reportBatchReportGenURL);
+
+                setTimeout(() => {
+                    var download = `${hostname}/path/batchreport/download`
+                    printJS(download)
+                    fetch(download)
+                        .then((resp) => resp.json()) // Transform the data into json
+                        .then(function (data) {
+                            console.log(data.path);
+                            printJS({ printable: `${hostname}/base/${data.path}`, type: 'pdf' });
+                        })
+                        .catch(function (error) {
+                        });
+                    document.getElementById("generateandprintavggraphReportid").innerText = "PRINT BATCH REPORT";
+                    // element.classList.remove("cursor-not-allowed");
+                }, pdfgenerationtimeshort);
+            }
+        }
 
         async function generateReport() {
 
