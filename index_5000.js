@@ -20,7 +20,7 @@ const reboot = "gnome-session-quit --reboot"
 const fetch = require('cross-fetch');
 var ks = require('node-key-sender');
 
-const killchrome = "killall /snap/chromium/1732/usr/lib/chromium-browser/chrome"
+const killchrome = "killall /snap/chromium/1781/usr/lib/chromium-browser/chrome"
 
 const {
     payload, startmodbus, watchproxy, updatestatsbatch
@@ -245,6 +245,211 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
                 .then(() => console.info(`[ LOG ENTRY DONE ${a} ]`))
                 .catch(console.error);
         })
+        .then(async function () {
+            const payloadURL = `http://${host}:3128/api/machine/stats`;
+            fetch(payloadURL)
+                .then((resp) => resp.json())
+                .then(data => {
+                    var payload1 = data;
+                    // console.log(payload1)
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `TURRET RPM`,  // 2
+                            oldvalue: Number(payload1.stats.turret.RPM),  // 2
+                            newvalue: Number(payload1.stats.turret.RPM),  // 2
+                        })
+                        .then(() => console.info(`[ logged turret rpm ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `RHS FEEDER RPM`,  // 2
+                            oldvalue: Number(payload1.stats.RHS_FF.RPM),  // 2
+                            newvalue: Number(payload1.stats.RHS_FF.RPM),  // 2
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `LHS FEEDER RPM`,  // 2
+                            oldvalue: Number(payload1.stats.LHS_FF.RPM),  // 2
+                            newvalue: Number(payload1.stats.LHS_FF.RPM),  // 2
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `RHS DOZZER POSITION`,  // 2
+                            oldvalue: Number(payload1.stats.awc.actual_RHS),  // 2
+                            newvalue: Number(payload1.stats.awc.actual_RHS),  // 2
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `LHS DOZZER POSITION`,  // 2
+                            oldvalue: Number(payload1.stats.awc.actual_LHS),  // 2
+                            newvalue: Number(payload1.stats.awc.actual_LHS),  // 2
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `SET FORCE - MONO`,  // 2
+                            oldvalue: Number(payload1.stats.awc.MONO_MAIN_FORCE),  // 2
+                            newvalue: Number(payload1.stats.awc.MONO_MAIN_FORCE),  // 2
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `SET FORCE - LHS`,  // 2
+                            oldvalue: Number(payload1.stats.awc.BI_PRE_FORCE),  // 2
+                            newvalue: Number(payload1.stats.awc.BI_PRE_FORCE),  // 2
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `SET FORCE - RHS`,  // 2
+                            oldvalue: Number(payload1.stats.awc.BI_MAIN_FORCE),  // 2
+                            newvalue: Number(payload1.stats.awc.BI_MAIN_FORCE),  // 2
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `REJECTION HIGH - MONO`,  // 2
+                            oldvalue: Number(payload1.machine.LHS.maincompression_upperlimit),  // ok
+                            newvalue: Number(payload1.machine.LHS.maincompression_upperlimit),  // ok
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `REJECTION HIGH - LHS`,  // 2
+                            oldvalue: Number(payload1.machine.LHS.precompression_upperlimit),  // ok
+                            newvalue: Number(payload1.machine.LHS.precompression_upperlimit),  // ok
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `REJECTION HIGH - RHS`,  // 2
+                            oldvalue: Number(payload1.machine.RHS.precompression_upperlimit),  // ok
+                            newvalue: Number(payload1.machine.RHS.precompression_upperlimit),  // ok
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `REJECTION LOW - MONO`,  // 2
+                            oldvalue: Number(payload1.machine.LHS.maincompression_lowerlimit),  // ok
+                            newvalue: Number(payload1.machine.LHS.maincompression_lowerlimit),  // ok
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `REJECTION LOW - LHS`,  // 2
+                            oldvalue: Number(payload1.machine.LHS.precompression_lowerlimit),  // 2
+                            newvalue: Number(payload1.machine.LHS.precompression_lowerlimit),  // 2
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `REJECTION LOW - RHS`,  // 2
+                            oldvalue: Number(payload1.machine.RHS.precompression_lowerlimit),  // ok
+                            newvalue: Number(payload1.machine.RHS.precompression_lowerlimit),  // ok
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `AWC TOLERANCE %`,  // 2
+                            oldvalue: Number(payload1.stats.awc.AWC_TOLERANCE),  // 2
+                            newvalue: Number(payload1.stats.awc.AWC_TOLERANCE),  // 2
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                    _new.write(`${payload.batch}.operationlogs`)
+                        .tag({
+                        })
+                        .field({
+                            operator: a,  // 2
+                            parameter: `HYDRAULIC PRESSURE (kN)`,  // 2
+                            oldvalue: Number(payload1.stats.pressure.pressure_set),  // 2
+                            newvalue: Number(payload1.stats.pressure.pressure_set),  // 2
+                        })
+                        .then(() => console.info(`[ logged ]`))
+                        .catch(console.error);
+
+                })
+                .catch(err => {
+                    console.error(err)
+                });
+        })
         .catch(console.error);
     
     watchproxy();
@@ -252,6 +457,63 @@ app.get("/onboard/:namee/:machinee/:recepiee/:batchh", (req, res) => {
     updatestatsbatch()
     return res.json({ message: `[ ONBOARDED BATCH: ${d} ]` });
 });
+
+
+async function fetchstats() {
+    
+    
+}
+
+function writeoldconfig(a) {
+      
+}
+
+async function srec() {
+    var username = document.getElementById("susername").value
+    let url1 = `http://localhost:3000/api/searchedrecipe_name/${username}`
+    fetch(url1)
+        .catch(console.error);
+
+    let url = `http://localhost:3000/recipiename/${username}`
+
+    fetch(url)
+        .then((resp) => resp.json())
+        .then(function (data) {
+            if (isEmpty(data) == false) {
+                searchuser()
+                // console.log(data)
+                searchid = data[0].id
+                document.getElementById("recn").value = data[0].recn
+                document.getElementById("pname").value = data[0].pname
+                document.getElementById("tooldrg").value = data[0].tooldrg
+                document.getElementById("size").value = data[0].size
+                document.getElementById("thickness").value = data[0].thickness
+                document.getElementById("weight").value = data[0].weight
+                document.getElementById("hardness").value = data[0].hardness
+                document.getElementById("depthL").value = data[0].depthL
+                document.getElementById("depthR").value = data[0].depthR
+                document.getElementById("forceL").value = data[0].forceL
+                document.getElementById("forceR").value = data[0].forceR
+                document.getElementById("preL").value = data[0].preL
+                document.getElementById("preR").value = data[0].preR
+                document.getElementById("mainL").value = data[0].mainL
+                document.getElementById("mainR").value = data[0].mainR
+                
+                document.getElementById("setF").value = data[0].setF
+                document.getElementById("rejnH").value = data[0].rejnH
+                document.getElementById("rejnL").value = data[0].rejnL
+                document.getElementById("awcH").value = data[0].awcH
+                document.getElementById("awcL").value = data[0].awcL
+                document.getElementById("rejnON").value = data[0].rejnON
+                document.getElementById("awcON").value = data[0].awcON
+
+            } else if (isEmpty(data) == true) {
+                alert("Recipe does not exist.")
+            }
+        })
+        .catch(console.error);
+
+}
 
 app.get("/adduser/:username/:name/:attempts/:password/:expiry/:userlevel", (req, res) => {
     const a = req.params.username;
@@ -377,17 +639,19 @@ app.get("/onboard/continue", (req, res) => {
     var lastBatch
 
     function checkbatch() {
-        _perm.queryRaw(`select "batch", "operator" from "batchlist" ORDER BY time DESC LIMIT 1`)
+        _perm.queryRaw(`select "batch", "operator", "recipe" from "batchlist" ORDER BY time DESC LIMIT 1`)
             .then(data => {
                 var response = data.results[0].series[0].values[0];
                 console.log(response)
 
                 lastBatch = response[1]
                 var lastOperator = response[2]
+                var lastrecipe = response[3]
                 console.log(lastBatch)
                 console.log(lastOperator)
             
                 payload.machine.operator_name = lastOperator;
+                payload.stats.recipie_id = lastrecipe
                 payload.batch = lastBatch
                 payload.stats.status = "ONLINE"
 
@@ -484,7 +748,9 @@ var report = {
     to: 0,
     recipe: '',
     userlevel: '',
-    username: ''
+    username: '',
+    starttime: '',
+    endtime: ''
 }
 
 app.get("/api/batchinfo", (req, res) => {
@@ -688,7 +954,21 @@ app.get("/api/csv/:param/:batch/:from/:to", (req, res) => {
             })
             .catch(console.error);
 
-    } else {
+    } else if (param == "hydcsv") {
+        _new.queryRaw(`select * from "lubelog"`)
+            .then(data => {
+                var response = data.results[0].series[0].values
+                var _data = {
+                    count: response.length,
+                    data: response
+                }
+                res.json(_data)
+                // console.log(_data)
+            })
+            .catch(console.error);
+
+    }
+    else {
         return res.status(400).json({ message: 'Not found' });
     }
 });
@@ -746,6 +1026,7 @@ app.get("/report/average/:batch/:from/:to", (req, res) => {
     report.from = f;
     report.to = t;
 
+    // console.log(report)
     return res.json({ message: `[ READY TO EXPORT ]` });
 
 })
@@ -798,6 +1079,10 @@ app.get("/report/averagegraph", (req, res) => {
     res.sendFile(path.join(__dirname + "/report/averagegraph.html"));
 });
 
+app.get("/report/batchreport", (req, res) => {
+    res.sendFile(path.join(__dirname + "/report/batchreport.html"));
+});
+
 app.get("/report/average/now", (req, res) => {
     res.send(report);
 })
@@ -815,6 +1100,36 @@ app.get("/checkuserlevel/:batch", (req, res) => {
         })
         .catch(console.error);
     res.json(report);
+})
+
+
+app.get("/startandend/:batch", (req, res) => {
+    const b = req.params.batch
+
+    function readabletime(params) {
+        var s = new Date(params).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' });
+        return s
+    }
+
+    _new.queryRaw(`select * from "${b}.average" ORDER BY time DESC LIMIT 1`)
+        .then(data => {
+            var response = data.results[0].series[0].values[0];
+            report.endtime = readabletime(response[0])
+            // console.log(response[1])
+        })
+        .catch(console.error);
+    
+    _new.queryRaw(`select * from "${b}.average" ORDER BY time ASC LIMIT 1`)
+        .then(data => {
+            var response = data.results[0].series[0].values[0];
+            report.starttime = readabletime(response[0])
+            // console.log(response[1])
+        })
+        .catch(console.error);
+    
+    setTimeout(() => {
+        res.json(report);
+    }, 300);
 })
 
 app.get("/report/average/generate", (req, res) => {
@@ -1287,6 +1602,46 @@ app.get("/report/averagegraph/generate", (req, res) => {
     return res.json({ message: 'EXPORTED recipe_name' });
 })
 
+app.get("/report/batchreport/generate", (req, res) => {
+    (async () => {
+        // const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/local/bin/chromium', deviceScaleFactor: 3, }); // For MAC
+        const browser = await puppeteer.launch({ product: 'chrome', executablePath: '/usr/bin/chromium-browser', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+        const page = await browser.newPage();
+        await page.emulateMediaType('screen');
+        await page.goto(`http://${host}:5000/report/batchreport`, { waitUntil: 'networkidle0' });
+        await page.pdf({
+            path: `batchreport_${report.batch}.pdf`, format: 'A4', landscape: false,
+            displayHeaderFooter: true,
+            headerTemplate: `
+            <div style="width: 100%; padding: 5px 5px 0; font-family: Verdana, sans-serif;">
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 20px;">ARISTO PHARMACEUTICALS PRIVATE LIMITED,NANI DAMAN</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">Machine ID: ADT/EQ/186</div>
+            <div style="text-align: center; center: 5px; top: 5px; font-size: 15px;">BATCH REPORT</div>
+                <p style="text-align:right; padding-right: 30px; font-size: 8px;">
+                    Created on (mm/dd/yyyy): <span class="date">
+                </p>
+            </div>
+            `,
+            footerTemplate: `
+            <div style="width: 100%; font-size: 12px; font-family: Verdana, sans-serif; padding: 5px 5px 0;">
+                <p style="text-align:left; padding-right: 100px; padding-left: 30px;">
+                    Prepared By:
+                    <span style="float:right;">
+                        Checked By:
+                    </span>
+                </p>
+                <div style="text-align: center; center: 5px; top: 5px;">Page: <span class="pageNumber"></span> of <span class="totalPages"></span></div>
+            </div>
+            `,
+            // this is needed to prevent content from being placed over the footer
+            margin: { bottom: '80px', top: '140px' },
+        });
+        await browser.close();
+    })();
+
+    return res.json({ message: 'EXPORTED recipe_name' });
+})
+
 app.get("/report/audit/download", (req, res) => {
     var file = path.join(__dirname, `batch_${report.batch}_audit.pdf`);
     res.download(file, function (err) {
@@ -1464,6 +1819,11 @@ app.get("/path/averagegraph/download", (req, res) => {
     return res.json({ path: file });
 })
 
+app.get("/path/batchreport/download", (req, res) => {
+    var file = `batchreport_${report.batch}.pdf`;
+    return res.json({ path: file });
+})
+
 app.get("/report/recipe/download", (req, res) => {
     var file = path.join(__dirname, `recipe_list.pdf`);
     res.download(file, function (err) {
@@ -1490,6 +1850,18 @@ app.get("/report/recipe_single/download", (req, res) => {
 
 app.get("/report/averagegraph/download", (req, res) => {
     var file = path.join(__dirname, `averagegraph_${report.batch}.pdf`);
+    res.download(file, function (err) {
+        if (err) {
+            console.log("Error");
+            console.log(err);
+        } else {
+            console.log("Success");
+        }
+    });
+})
+
+app.get("/report/batchreport/download", (req, res) => {
+    var file = path.join(__dirname, `batchreport_${report.batch}.pdf`);
     res.download(file, function (err) {
         if (err) {
             console.log("Error");

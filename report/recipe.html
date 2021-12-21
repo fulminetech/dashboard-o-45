@@ -21,29 +21,39 @@
                     <th class="text-center border-b py-3">Recipie Name</th>
                     <th class="text-center border-b py-3">Product Name</th>
                     <th class="text-center border-b py-3">Tooling Drg. No.</th>
-                    <th class="text-center border-b py-3">Size</th>
-                    <th class="text-center border-b py-3">Thickness Range</th>
-                    <th class="text-center border-b py-3">Weight Range</th>
-                    <th class="text-center border-b py-3">Tablet Hardness</th>
-                    <th class="text-center border-b py-3">Fill Depth LHS</th>
-                    <th class="text-center border-b py-3">Fill Depth RHS</th>
-                    <th class="text-center border-b py-3">Comp Force LHS</th>
-                    <th class="text-center border-b py-3">Comp Force RHS</th>
-                    <th class="text-center border-b py-3">Roller Position Pre LHS</th>
-                    <th class="text-center border-b py-3">Roller Position Pre RHS</th>
-                    <th class="text-center border-b py-3">Roller Position Main LHS</th>
-                    <th class="text-center border-b py-3">Roller Position Main RHS</th>
-                    <th class="text-center border-b py-3">Set Force</th>
-                    <th class="text-center border-b py-3">Rejection High LHS</th>
-                    <th class="text-center border-b py-3">Rejection Low LHS</th>
-                    <th class="text-center border-b py-3">AWC High LHS</th>
-                    <th class="text-center border-b py-3">AWC Low LHS</th>
-                    <th class="text-center border-b py-3">Rejection High RHS</th>
-                    <th class="text-center border-b py-3">Rejection Low RHS</th>
-                    <th class="text-center border-b py-3">AWC High RHS</th>
-                    <th class="text-center border-b py-3">AWC Low RHS</th>
+                    <th class="text-center border-b py-3">Size (mm)</th>
+                    <th class="text-center border-b py-3">Shape</th>
+                    <th class="text-center border-b py-3">Thickness (mm)</th>
+                    <th class="text-center border-b py-3">Weight (mg)</th>
+                    <th class="text-center border-b py-3">Tablet Hardness (kg)</th>
+                    <th class="text-center border-b py-3">Dozer Pos. LHS (mm)</th>
+                    <th class="text-center border-b py-3">Dozer Pos. RHS (mm)</th>
+                    <th class="text-center border-b py-3">Set Force LHS (kN)</th>
+                    <th class="text-center border-b py-3">Set Force RHS (kN)</th>
+                    <th class="text-center border-b py-3">Set Force (Mono) (kN)</th>
+                    <th class="text-center border-b py-3">Roller Pos. Pre LHS (mm)</th>
+                    <th class="text-center border-b py-3">Roller Pos. Pre RHS (mm)</th>
+                    <th class="text-center border-b py-3">Roller Pos. Main LHS (mm)</th>
+                    <th class="text-center border-b py-3">Roller Pos. Main RHS (mm)</th>
+                    <th class="text-center border-b py-3">Rejn. High LHS (mm)</th>
+                    <th class="text-center border-b py-3">Rejn. Low LHS (mm)</th>
+                    <!-- <th class="text-center border-b py-3">AWC High LHS</th> -->
+                    <!-- <th class="text-center border-b py-3">AWC Low LHS</th> -->
+                    <th class="text-center border-b py-3">Rejn. High RHS (kN)</th>
+                    <th class="text-center border-b py-3">Rejn. Low RHS (kN)</th>
+                    <th class="text-center border-b py-3">Rejn. High (Mono) (kN)</th>
+                    <th class="text-center border-b py-3">Rejn. Low (Mono) (kN)</th>
+                    <!-- <th class="text-center border-b py-3">AWC High RHS</th> -->
+                    <!-- <th class="text-center border-b py-3">AWC Low RHS</th> -->
                     <th class="text-center border-b py-3">Rejection ON</th>
                     <th class="text-center border-b py-3">AWC ON</th>
+                    <th class="text-center border-b py-3">Turret RPM</th>
+                    <th class="text-center border-b py-3">Feeder RPM LHS</th>
+                    <th class="text-center border-b py-3">Feeder RPM RHS</th>
+                    <th class="text-center border-b py-3">AWC Tol %</th>
+                    <th class="text-center border-b py-3">Hydraulic Pressure (kN)</th>
+                    
+
                 </tr>
             </thead>
 
@@ -88,7 +98,7 @@
                 for (let batchh of batchlistt) {
                     dataa = batchlistt[i]
                     // console.log(dataa.id)
-                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${i+1}</td><td class="border border-gray-400 px-4 py-2">${dataa.recn}</td><td class="border border-gray-400 px-4 py-2">${dataa.pname}</td><td class="border border-gray-400 px-4 py-2">${dataa.tooldrg}</td><td class="border border-gray-400 px-4 py-2">${dataa.size}</td><td class="border border-gray-400 px-4 py-2">${dataa.thickness}</td><td class="border border-gray-400 px-4 py-2">${dataa.weight}</td><td class="border border-gray-400 px-4 py-2">${dataa.hardness}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthL}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthR}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceR}</td><td class="border border-gray-400 px-4 py-2">${dataa.preL}</td><td class="border border-gray-400 px-4 py-2">${dataa.preR}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainL}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainR}</td><td class="border border-gray-400 px-4 py-2">${dataa.setF}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSrejnH}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSrejnL}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSawcH}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSawcL}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSrejnH}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSrejnL}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSawcH}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSawcL}</td><td class="border border-gray-400 px-4 py-2">${dataa.rejnON}</td><td class="border border-gray-400 px-4 py-2">${dataa.awcON}</td></tr>`
+                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${i+1}</td><td class="border border-gray-400 px-4 py-2">${dataa.recn}</td><td class="border border-gray-400 px-4 py-2">${dataa.pname}</td><td class="border border-gray-400 px-4 py-2">${dataa.tooldrg}</td><td class="border border-gray-400 px-4 py-2">${dataa.size}</td><td class="border border-gray-400 px-4 py-2">${dataa.shape}</td><td class="border border-gray-400 px-4 py-2">${dataa.thickness}</td><td class="border border-gray-400 px-4 py-2">${dataa.weight}</td><td class="border border-gray-400 px-4 py-2">${dataa.hardness}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthL}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthR}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceR}</td><td class="border border-gray-400 px-4 py-2">${dataa.setF}</td><td class="border border-gray-400 px-4 py-2">${dataa.preL}</td><td class="border border-gray-400 px-4 py-2">${dataa.preR}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainL}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainR}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSrejnH}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSrejnL}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSrejnH}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSrejnL}</td><td class="border border-gray-400 px-4 py-2">${dataa.MonorejnH}</td><td class="border border-gray-400 px-4 py-2">${dataa.MonorejnL}</td><td class="border border-gray-400 px-4 py-2">${dataa.rejnON}</td><td class="border border-gray-400 px-4 py-2">${dataa.awcON}</td><td class="border border-gray-400 px-4 py-2">${dataa.rpm}</td><td class="border border-gray-400 px-4 py-2">${dataa.ff_lhs_rpm}</td><td class="border border-gray-400 px-4 py-2">${dataa.ff_rhs_rpm}</td><td class="border border-gray-400 px-4 py-2">${dataa.awctol}</td><td class="border border-gray-400 px-4 py-2">${dataa.hydp}</td></tr>`
                     i++
                 }
 

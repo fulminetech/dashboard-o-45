@@ -28,6 +28,7 @@ var statusurl = `http://${ip}:3128/set/status`
 
 // 3. index
 var hostname = `http://${ip}:5000`
+var sqliteserver = `http://${ip}:3000`
 
 var payloadURL = `${hostname}/api/payload`;
 // var restartURL = `${hostname}/restart`;
@@ -44,6 +45,7 @@ const usersearchURL = `${hostname}/api/usersearch`
 const reportAvgURL = `${hostname}/report/average`
 const reportAvgGenURL = `${hostname}/report/average/generate`
 const reportAvgGraphGenURL = `${hostname}/report/averagegraph/generate`
+const reportBatchReportGenURL = `${hostname}/report/batchreport/generate`
 const reportAlarmGenURL = `${hostname}/report/alarm/generate`
 const reportAuditGenURL = `${hostname}/report/audit/generate`
 const reportpreLHSGenURL = `${hostname}/report/preLHS/generate`

@@ -13,124 +13,338 @@
 
 <body onload="level()">
 
-    <div class="px-10 pt-2 pb-5 text-sm">
-        <table class="table-fixed w-full text-black" height="170rem">
-            <thead>
-            </thead>
-            
-            <!-- <tbody id="userlist"> -->
-                <tbody>
-                    <tr>
-                        <th class="border py-1">Sr. No.</th>
-                        <th class="border py-1">1</th>
-                    </tr><tr>
-                        <th class="border py-1">Recipie Name</th>
-                        <th id="2" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Product Name</th>
-                        <th id="3" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Tooling Drg. No.</th>
-                        <th id="4" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Size</th>
-                        <th id="5" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Thickness Range</th>
-                        <th id="6" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Weight Range</th>
-                        <th id="7" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Tablet Hardness</th>
-                        <th id="8" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Fill Depth LHS</th>
-                        <th id="9" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Fill Depth RHS</th>
-                        <th id="10" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Comp Force LHS</th>
-                        <th id="11" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Comp Force RHS</th>
-                        <th id="12" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Roller Position Pre LHS</th>
-                        <th id="13" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Roller Position Pre RHS</th>
-                        <th id="14" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Roller Position Main LHS</th>
-                        <th id="15" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Roller Position Main RHS</th>
-                        <th id="16" class="border py-1"></th>
-                    </tr>
-                    
-                    <tr>
-                        <th class="border py-1">Set Force</th>
-                        <th id="17" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Rejection High LHS</th>
-                        <th id="18" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Rejection Low LHS</th>
-                        <th id="19" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">AWC High LHS</th>
-                        <th id="20" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">AWC Low LHS</th>
-                        <th id="21" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Rejection High RHS</th>
-                        <th id="22" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Rejection Low RHS</th>
-                        <th id="23" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">AWC High RHS</th>
-                        <th id="24" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">AWC Low RHS</th>
-                        <th id="25" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">Rejection ON</th>
-                        <th id="26" class="border py-1"></th>
-                    </tr>
-                    <tr>
-                        <th class="border py-1">AWC ON</th>
-                        <th id="27" class="border py-1"></th>
-                    </tr>
-                    
-                </tbody>
-        </table>
+    <div class="pt-5 flex grid grid-cols-3 px-3 text-sm">
+    
+        <div class="flex flex-col">
+            <h3> Recipe Name </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="2"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Product Name </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="3"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Tooling Drg. No. </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="4"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Size (mm) </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="5"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Shape </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="shape"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Thickness (mm) </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="6"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Weight (mg) </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="7"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Tablet Hardness (kg)</h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="8"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Turret RPM </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="rpm"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Feeder RPM - RHS </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="ff_lhs_rpm"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Feeder RPM - LHS </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="ff_rhs_rpm"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Set Force (Mono) (kN) </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="setF"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Set Force LHS (kN) </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="forceL"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Set Force RHS (kN) </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="forceR"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Roller Pre LHS (mm)</h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="preL"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Roller Pre RHS (mm)</h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="preR"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Roller Main LHS (mm)</h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="mainL"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Roller Main RHS (mm)</h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="mainR"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+    
+        <div class="flex flex-col">
+            <h3> Rejection High LHS (kN) </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="LHSrejnH"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Rejection Low LHS (kN)</h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="LHSrejnL"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Rejection High RHS (kN)</h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="RHSrejnH"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Rejection Low RHS (kN)</h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="RHSrejnL"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Rejection High Mono (kN)</h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="MonorejnH"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Rejection Low Mono (kN)</h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="MonorejnL"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> LHS Dozer Position (mm)</h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="depthL"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> RHS Dozer Position (mm) </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="depthR"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Rejection ON </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="rejnON"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> AWC ON </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="awcON"
+                        class="bg-white border border-gray-400 rounded-lg py-2 px-2 mr-2 w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> AWC Tolerance % </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="awctol"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
+    
+        <div class="flex flex-col">
+            <h3> Hydraulic Pressure (kN) </h3>
+            <div class="flex flex-row">
+                <div class="py-3 pr-2">
+                    <input id="hydp"
+                        class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                        type="text" placeholder="">
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Time -->
@@ -160,33 +374,42 @@
                             // searchuser()
                             // console.log(data)
                             searchid = data[0].id
-                            document.getElementById("2").innerText = data[0].recn
-                            document.getElementById("3").innerText = data[0].pname
-                            document.getElementById("4").innerText = data[0].tooldrg
-                            document.getElementById("5").innerText = data[0].size
-                            document.getElementById("6").innerText = data[0].thickness
-                            document.getElementById("7").innerText = data[0].weight
-                            document.getElementById("8").innerText = data[0].hardness
-                            document.getElementById("9").innerText = data[0].depthL
-                            document.getElementById("10").innerText = data[0].depthR
-                            document.getElementById("11").innerText = data[0].forceL
-                            document.getElementById("12").innerText = data[0].forceR
-                            document.getElementById("13").innerText = data[0].preL
-                            document.getElementById("14").innerText = data[0].preR
-                            document.getElementById("15").innerText = data[0].mainL
-                            document.getElementById("16").innerText = data[0].mainR
+                            document.getElementById("2").value = data[0].recn
+                            document.getElementById("3").value = data[0].pname
+                            document.getElementById("4").value = data[0].tooldrg
+                            document.getElementById("5").value = data[0].size
+                            document.getElementById("shape").value = data[0].shape
+                            document.getElementById("6").value = data[0].thickness
+                            document.getElementById("7").value = data[0].weight
+                            document.getElementById("8").value = data[0].hardness
+
+                            document.getElementById("depthL").value = data[0].depthL
+                            document.getElementById("depthR").value = data[0].depthR
+                            document.getElementById("forceL").value = data[0].forceL
+                            document.getElementById("forceR").value = data[0].forceR
+                            document.getElementById("preL").value = data[0].preL
+                            document.getElementById("preR").value = data[0].preR
+                            document.getElementById("mainL").value = data[0].mainL
+                            document.getElementById("mainR").value = data[0].mainR
                             
-                            document.getElementById("17").innerText = data[0].setF
-                            document.getElementById("18").innerText = data[0].LHSrejnH
-                            document.getElementById("19").innerText = data[0].LHSrejnL
-                            document.getElementById("20").innerText = data[0].LHSawcH
-                            document.getElementById("21").innerText = data[0].LHSawcL
-                            document.getElementById("22").innerText = data[0].RHSrejnH
-                            document.getElementById("23").innerText = data[0].RHSrejnL
-                            document.getElementById("24").innerText = data[0].RHSawcH
-                            document.getElementById("25").innerText = data[0].RHSawcL
-                            document.getElementById("26").innerText = data[0].rejnON
-                            document.getElementById("27").innerText = data[0].awcON
+                            document.getElementById("setF").value = data[0].setF
+                            document.getElementById("LHSrejnH").value = data[0].LHSrejnH
+                            document.getElementById("LHSrejnL").value = data[0].LHSrejnL
+                            document.getElementById("RHSrejnH").value = data[0].RHSrejnH
+                            document.getElementById("RHSrejnL").value = data[0].RHSrejnL
+                            document.getElementById("MonorejnH").value = data[0].MonorejnH
+                            document.getElementById("MonorejnL").value = data[0].MonorejnL
+                            // document.getElementById("24").value = data[0].RHSawcH
+                            // document.getElementById("25").value = data[0].RHSawcL
+                            document.getElementById("rejnON").value = data[0].rejnON
+                            document.getElementById("awcON").value = data[0].awcON
+
+                            document.getElementById("rpm").value = data[0].rpm
+                            document.getElementById("ff_lhs_rpm").value = data[0].ff_lhs_rpm
+                            document.getElementById("ff_rhs_rpm").value = data[0].ff_rhs_rpm
+
+                            document.getElementById("awctol").value = data[0].awctol
+                            document.getElementById("hydp").value = data[0].hydp
 
 
                         } else if (isEmpty(data) == true) {

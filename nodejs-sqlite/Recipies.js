@@ -27,6 +27,9 @@ Recipies.init({
     size: {
         type: DataTypes.STRING
     },
+    shape: {
+        type: DataTypes.STRING
+    },
     thickness: {
         type: DataTypes.STRING
     },
@@ -34,6 +37,15 @@ Recipies.init({
         type: DataTypes.STRING
     },
     hardness: {
+        type: DataTypes.STRING
+    },
+    rpm: {
+        type: DataTypes.STRING
+    },
+    ff_lhs_rpm: {
+        type: DataTypes.STRING
+    },
+    ff_rhs_rpm: {
         type: DataTypes.STRING
     },
     depthL: {
@@ -69,10 +81,7 @@ Recipies.init({
     LHSrejnL: {
         type: DataTypes.STRING
     },
-    LHSawcH: {
-        type: DataTypes.STRING
-    },
-    LHSawcL: {
+    awctol: {
         type: DataTypes.STRING
     },
     RHSrejnH: {
@@ -81,16 +90,19 @@ Recipies.init({
     RHSrejnL: {
         type: DataTypes.STRING
     },
-    RHSawcH: {
+    MonorejnH: {
         type: DataTypes.STRING
     },
-    RHSawcL: {
+    MonorejnL: {
         type: DataTypes.STRING
     },
     rejnON: {
         type: DataTypes.STRING
     },
     awcON: {
+        type: DataTypes.STRING
+    },
+    hydp: {
         type: DataTypes.STRING
     },
 }, {

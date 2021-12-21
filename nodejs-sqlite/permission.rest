@@ -1,0 +1,22 @@
+
+POST http://localhost:3000/permissions HTTP/1.1
+# POST http://192.168.1.100:3000/permissions HTTP/1.1
+content-type: application/json
+
+{
+  "dashboard": "true",
+  "overview": "false",
+  "graphlhs": "true",
+  "graphrhs": "true",
+  "history": "true",
+  "dido": "true",
+  "alarm": "true",
+  "reports": "true",
+  "settings": "true",
+  "maintainence": "true",
+  "usersettings": "true",
+  "recipiesettings": "true"
+}
+
+###
+GET http://192.168.1.100:3128/api/machine/stats HTTP/1.1

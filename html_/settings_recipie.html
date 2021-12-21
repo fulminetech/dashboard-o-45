@@ -79,9 +79,9 @@
 
     </div>
 
-    <div class="flex flex-col flex-wrap flex-1 flex-grow content-start pl-16">
+    <div class="flex flex-row flex-wrap flex-1 flex-grow content-start pl-16">
 
-        <div class="">
+        <div class="w-2/5">
 
             <!--Graph Content -->
             <div id="main-content" class="w-full flex-1 ">
@@ -121,66 +121,10 @@
 
 
 
-                        <!-- Action:  -->
-                        <div class="border-b mt-2 px-3">
-                            <h5 class="font-bold text-black">Actions:</h5>
-                        </div>
-
-                        <div class="flex grid grid-cols-5">
-
-                            <div class="flex flex-wrap p-3">
-
-                                <!-- PDF report Button -->
-                                <div class="py-3">
-                                    <button id="generatepdfreport"
-                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                        onclick="addrec()">
-                                        Add Recipe
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- <div class="flex flex-wrap p-3">
-                            <div class="py-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="edituser()">
-                                    Edit User
-                                </button>
-                            </div>
-                        </div> -->
-
-                            <!-- <div class="flex flex-wrap p-3">
-                            <div class="py-3">
-                                <button
-                                    class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
-                                    onclick="deleterec()">
-                                    Deactivate
-                                </button>
-                            </div>
-                        </div> -->
-
-                        <div class="flex flex-wrap p-3">    
-                            <div class="py-3">
-                                <button id="generatepdfreport1"
-                                    class="modal1-open text-center text-xl bg-blue-100 uppercase text-gray-800 font-semibold py-2 px-5 border border-blue-500 rounded"
-                                    onclick="reportrec()">Recipe PDF</button>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-wrap p-3">    
-                            <div class="py-3">
-                                <button id="reportandprintrecid"
-                                    class="modal1-open text-center text-xl bg-blue-100 uppercase text-gray-800 font-semibold py-2 px-5 border border-blue-500 rounded"
-                                    onclick="reportandprintrec()">Print</button>
-                            </div>
-                        </div>
-
-                        </div>
 
                         <!-- Search: Parameters -->
                         <div class="border-b px-3">
-                            <h5 class="font-bold text-black">Search :</h5>
+                            <h5 class="font-bold text-black">Search:</h5>
                         </div>
 
                         <div class="flex p-3 ">
@@ -197,7 +141,7 @@
                                         <button id="searchbatch"
                                             class="bg-blue-100 uppercase text-sm hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-5 border border-blue-500 hover:border-transparent rounded"
                                             onclick="srec()">
-                                            SEARCH
+                                            VIEW
                                         </button>
                                     </div>
                                 </div>
@@ -206,7 +150,10 @@
                         </div>
 
                         <div id="form" class="hidden">
-                            <div class="flex grid grid-cols-5 px-3 ">
+                            <div class="border-b px-3">
+                                <h5 class="font-bold text-black">Details:</h5>
+                            </div>
+                            <div class="flex grid grid-cols-3 px-3 text-sm">
 
                                 <div class="flex flex-col">
                                     <h3> Recipe Name </h3>
@@ -222,7 +169,7 @@
                                 <div class="flex flex-col">
                                     <h3> Product Name </h3>
                                     <div class="flex flex-row">
-                                        <div class="py-3">
+                                        <div class="py-3 pr-2">
                                             <input id="pname"
                                                 class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                 type="text" placeholder="">
@@ -233,7 +180,7 @@
                                 <div class="flex flex-col">
                                     <h3> Tooling Drg. No. </h3>
                                     <div class="flex flex-row">
-                                        <div class="py-3">
+                                        <div class="py-3 pr-2">
                                             <input id="tooldrg"
                                                 class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                 type="text" placeholder="">
@@ -242,9 +189,9 @@
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h3> Size </h3>
+                                    <h3> Size (mm) </h3>
                                     <div class="flex flex-row">
-                                        <div class="py-3">
+                                        <div class="py-3 pr-2">
                                             <input id="size"
                                                 class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                 type="text" placeholder="">
@@ -253,7 +200,18 @@
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h3> Thickness Range </h3>
+                                    <h3> Shape </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="shape"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Thickness (mm) </h3>
                                     <div class="flex flex-row">
                                         <div class="py-3 pr-2">
                                             <input id="thickness"
@@ -264,9 +222,9 @@
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h3> Weight Range </h3>
+                                    <h3> Weight (mg) </h3>
                                     <div class="flex flex-row">
-                                        <div class="py-3">
+                                        <div class="py-3 pr-2">
                                             <input id="weight"
                                                 class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                 type="text" placeholder="">
@@ -275,7 +233,7 @@
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h3> Tablet Hardness </h3>
+                                    <h3> Tablet Hardness (kg) </h3>
                                     <div class="flex flex-row">
                                         <div class="py-3 pr-2">
                                             <input id="hardness"
@@ -286,51 +244,73 @@
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h3> Fill Depth LHS </h3>
-                                    <div class="flex flex-row">
-                                        <div class="py-3">
-                                            <input id="depthL"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
-                                                type="text" placeholder="">
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex flex-col">
-                                    <h3> Fill Depth RHS </h3>
+                                    <h3> Turret RPM </h3>
                                     <div class="flex flex-row">
                                         <div class="py-3 pr-2">
-                                            <input id="depthR"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                            <input id="rpm"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                 type="text" placeholder="">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h3> Comp Force LHS </h3>
+                                    <h3> Feeder RPM - RHS </h3>
                                     <div class="flex flex-row">
-                                        <div class="py-3">
+                                        <div class="py-3 pr-2">
+                                            <input id="ff_lhs_rpm"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Feeder RPM - LHS </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="ff_rhs_rpm"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Set Force (Mono) (kN) </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="setF"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Set Force LHS (kN)</h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
                                             <input id="forceL"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                 type="text" placeholder="">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h3> Comp Force RHS </h3>
+                                    <h3> Set Force RHS (kN)</h3>
                                     <div class="flex flex-row">
-                                        <div class="py-3">
+                                        <div class="py-3 pr-2">
                                             <input id="forceR"
-                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                 type="text" placeholder="">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h3> Roller Position Pre LHS </h3>
+                                    <h3> Roller Pre LHS (mm)</h3>
                                     <div class="flex flex-row">
                                         <div class="py-3 pr-2">
                                             <input id="preL"
@@ -341,9 +321,9 @@
                                 </div>
                                 
                                 <div class="flex flex-col">
-                                    <h3> Roller Position Pre RHS </h3>
+                                    <h3> Roller Pre RHS (mm)</h3>
                                     <div class="flex flex-row">
-                                        <div class="py-3">
+                                        <div class="py-3 pr-2">
                                             <input id="preR"
                                                 class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                 type="text" placeholder="">
@@ -352,7 +332,7 @@
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h3> Roller Position Main LHS </h3>
+                                    <h3> Roller Main LHS (mm)</h3>
                                     <div class="flex flex-row">
                                         <div class="py-3 pr-2">
                                             <input id="mainL"
@@ -363,21 +343,154 @@
                                 </div>
 
                                 <div class="flex flex-col">
-                                    <h3> Roller Position Main RHS </h3>
+                                    <h3> Roller Main RHS (mm)</h3>
                                     <div class="flex flex-row">
-                                        <div class="py-3">
+                                        <div class="py-3 pr-2">
                                             <input id="mainR"
                                                 class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
                                                 type="text" placeholder="">
                                         </div>
                                     </div>
                                 </div>
+                                
+
+                                <div class="flex flex-col">
+                                    <h3> Rejection High LHS (kN)</h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="LHSrejnH"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Rejection Low LHS (kN)</h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="LHSrejnL"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Rejection High RHS (kN)</h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="RHSrejnH"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Rejection Low RHS (kN)</h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="RHSrejnL"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Rejection High Mono (kN)</h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="MonorejnH"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Rejection Low Mono (kN)</h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="MonorejnL"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> LHS Dozer Position (mm) </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="depthL"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> RHS Dozer Position (mm) </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="depthR"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> Rejection ON </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="rejnON"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> AWC ON </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="awcON"
+                                                class="bg-white border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <h3> AWC Tolerance % </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="awctol"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex flex-col">
+                                    <h3> Hydraulic Pressure (kN) </h3>
+                                    <div class="flex flex-row">
+                                        <div class="py-3 pr-2">
+                                            <input id="hydp"
+                                                class="bg-green-300 border-gray-500 shadow focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-2 block w-full"
+                                                type="text" placeholder="">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div id="formedit" class="flex grid grid-cols-4 hidden">
+                            <div id="formedit" class="flex grid grid-cols-2 hidden">
 
                                 <div class="flex flex-wrap p-3">
-                                    <div class="">
+                                    <div id="update" class="hidden">
                                         <button
                                             class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
                                             onclick="updaterec()">
@@ -407,7 +520,7 @@
                                 </div> -->
 
                                 <div class="flex flex-wrap p-3">
-                                    <div class="">
+                                    <div id="delete" class="hidden">
                                         <button
                                             class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
                                             onclick="deleterec()">
@@ -436,6 +549,16 @@
                                     </div>
                                 </div>
 
+                                <div class="flex flex-wrap p-3">
+                                    <div class="">
+                                        <button id="loadrecipe"
+                                            class="bg-red-300 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
+                                            onclick="loadrecipe()">
+                                            Load 
+                                        </button>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div id="formadd" class="flex grid grid-cols-2 hidden">
@@ -453,6 +576,62 @@
                         </div>
 
 
+                        <!-- Action:  -->
+                        <div class="border-b mt-2 px-3">
+                            <h5 class="font-bold text-black">Actions:</h5>
+                        </div>
+                        
+                        <div class="flex grid grid-cols-2">
+                        
+                            <div class="flex flex-wrap p-3">
+                        
+                                <!-- PDF report Button -->
+                                <div class="py-3">
+                                    <button id="generatepdfreport"
+                                        class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 w-44 border border-blue-500 hover:border-transparent rounded"
+                                        onclick="addrec()">
+                                        Add Recipe
+                                    </button>
+                                </div>
+                            </div>
+                        
+                            <!-- <div class="flex flex-wrap p-3">
+                                                    <div class="py-3">
+                                                        <button
+                                                            class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                                            onclick="edituser()">
+                                                            Edit User
+                                                        </button>
+                                                    </div>
+                                                </div> -->
+                        
+                            <!-- <div class="flex flex-wrap p-3">
+                                                    <div class="py-3">
+                                                        <button
+                                                            class="bg-blue-100 uppercase text-xl hover:bg-blue-500 text-gray-800 font-semibold hover:text-white py-2 px-10 border border-blue-500 hover:border-transparent rounded"
+                                                            onclick="deleterec()">
+                                                            Deactivate
+                                                        </button>
+                                                    </div>
+                                                </div> -->
+                        
+                            <div class="flex flex-wrap p-3">
+                                <div class="py-3">
+                                    <button id="generatepdfreport1"
+                                        class="modal1-open text-center text-xl bg-blue-100 uppercase text-gray-800 font-semibold py-2 w-44 border border-blue-500 rounded"
+                                        onclick="reportrec()">Export PDF</button>
+                                </div>
+                            </div>
+                        
+                            <div class="flex flex-wrap p-3">
+                                <div class="py-3">
+                                    <button id="reportandprintrecid"
+                                        class="modal1-open text-center text-xl bg-blue-100 uppercase text-gray-800 font-semibold py-2 w-44 border border-blue-500 rounded"
+                                        onclick="reportandprintrec()">Print All</button>
+                                </div>
+                            </div>
+                        
+                        </div>
 
                     </div>
 
@@ -462,7 +641,7 @@
             </div>
         </div>
 
-        <div class="1">
+        <div class="w-3/5">
 
             <!--Graph Content -->
             <div id="main-content" class="w-full flex-1">
@@ -476,25 +655,40 @@
                             <div class="w-full h-screen max-h-screen p-3">
                                 <div class="border border-gray-400 rounded shadow overflow-auto">
                                     <div class="px-5 pb-5">
-                                        <table class="table-fixed w-full text-center text-black" height="170rem">
+                                        <table class="table-fixed text-sm w-full text-center text-black" height="170rem">
                                             <thead>
                                                 <tr>
                                                     <th class="text-center border-b py-3">Sr. No.</th>
                                                     <th class="text-center border-b py-3">Recipe Name</th>
                                                     <th class="text-center border-b py-3">Product Name</th>
-                                                    <th class="text-center border-b py-3">Tooling Drg. No.</th>
-                                                    <th class="text-center border-b py-3">Size</th>
-                                                    <th class="text-center border-b py-3">Thickness Range</th>
-                                                    <th class="text-center border-b py-3">Weight Range</th>
-                                                    <th class="text-center border-b py-3">Tablet Hardness</th>
-                                                    <th class="text-center border-b py-3">Fill Depth LHS</th>
-                                                    <th class="text-center border-b py-3">Fill Depth RHS</th>
-                                                    <th class="text-center border-b py-3">Comp Force LHS</th>
-                                                    <th class="text-center border-b py-3">Comp Force RHS</th>
-                                                    <th class="text-center border-b py-3">Roller Position Pre LHS</th>
-                                                    <th class="text-center border-b py-3">Roller Position Pre RHS</th>
-                                                    <th class="text-center border-b py-3">Roller Position Main LHS</th>
-                                                    <th class="text-center border-b py-3">Roller Position Main RHS</th>
+                                                    <!-- <th class="text-center border-b py-3">Tooling Drg. No.</th> -->
+                                                    <th class="text-center border-b py-3">Size (mm)</th>
+                                                    <th class="text-center border-b py-3">Thickness (mm)</th>
+                                                    <th class="text-center border-b py-3">Weight (kg)</th>
+                                                    <!-- <th class="text-center border-b py-3">Tablet Hardness</th> -->
+                                                    <!-- <th class="text-center border-b py-3">Turret RPM</th> -->
+                                                    <!-- <th class="text-center border-b py-3">Force Feeder RPM - LHS</th> -->
+                                                    <!-- <th class="text-center border-b py-3">Force Feeder RPM - RHS</th> -->
+                                                    <th class="text-center border-b py-3">Dozer Position LHS (mm)</th>
+                                                    <th class="text-center border-b py-3">Dozer Position RHS (mm)</th>
+                                                    <th class="text-center border-b py-3">Set Force LHS (kN)</th>
+                                                    <th class="text-center border-b py-3">Set Force RHS (kN)</th>
+                                                    <th class="text-center border-b py-3">Set Force Mono (kN)</th>
+                                                    <th class="text-center border-b py-3">AWC Tol %</th>
+                                                    <th class="text-center border-b py-3">Hydraulic Pressure (kN)</th>
+                                                    <!-- <th class="text-center border-b py-3">Roller Position Main RHS</th> -->
+
+                                                    <!-- <th class="text-center border-b py-3">Set Force</th> -->
+                                                    <!-- <th class="text-center border-b py-3">Rejection High LHS</th> -->
+                                                    <!-- <th class="text-center border-b py-3">Rejection Low LHS</th> -->
+                                                    <!-- <th class="text-center border-b py-3">AWC High LHS</th> -->
+                                                    <!-- <th class="text-center border-b py-3">AWC Low LHS</th> -->
+                                                    <!-- <th class="text-center border-b py-3">Rejection High RHS</th> -->
+                                                    <!-- <th class="text-center border-b py-3">Rejection Low RHS</th> -->
+                                                    <!-- <th class="text-center border-b py-3">AWC High RHS</th> -->
+                                                    <!-- <th class="text-center border-b py-3">AWC Low RHS</th> -->
+                                                    <!-- <th class="text-center border-b py-3">Rejection ON</th> -->
+                                                    <!-- <th class="text-center border-b py-3">AWC ON</th> -->
                                                 </tr>
                                             </thead>
 
@@ -514,6 +708,44 @@
             </div>
         </div>
     </div>
+
+        <!-- Get user details -->
+        <script>
+            var userdata
+            
+            async function suser() {
+                let submiturl = `http://localhost:3000/currentuserid`
+
+                await fetch(submiturl)
+                    .then((resp) => resp.json())
+                    .then(function (data) {
+                        // console.log(data)
+                        if (data == 5) {
+                            
+                        } else {
+                            let url = `http://localhost:3000/users/${data}`
+                            fetch(url)
+                                .then((resp) => resp.json())
+                                .then(function (data) {
+                                    userdata = data
+                                    if (data.userlevel == 4) {
+                                        document.getElementById("update").classList.remove('hidden')
+                                        document.getElementById("delete").classList.remove('hidden')
+                                    }
+                                    console.log(userdata)
+                                    // document.getElementById("name").value = data.username
+                                })
+                                .catch(console.error);
+                        }
+
+                    })
+                    .catch(console.error);
+            }
+
+            suser()
+
+        </script>
+
 
     <!-- Hide divs scripts -->
     <script>
@@ -558,7 +790,10 @@
                 for (let batchh of batchlistt) {
                     dataa = batchlistt[i]
                     // console.log(dataa.id)
-                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${i+1}</td><td class="border border-gray-400 px-4 py-2">${dataa.recn}</td><td class="border border-gray-400 px-4 py-2">${dataa.pname}</td><td class="border border-gray-400 px-4 py-2">${dataa.tooldrg}</td><td class="border border-gray-400 px-4 py-2">${dataa.size}</td><td class="border border-gray-400 px-4 py-2">${dataa.thickness}</td><td class="border border-gray-400 px-4 py-2">${dataa.weight}</td><td class="border border-gray-400 px-4 py-2">${dataa.hardness}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthL}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthR}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceR}</td><td class="border border-gray-400 px-4 py-2">${dataa.preL}</td><td class="border border-gray-400 px-4 py-2">${dataa.preR}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainL}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainR}</td></tr>`
+                    
+                    batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${i+1}</td><td class="border border-gray-400 px-4 py-2">${dataa.recn}</td><td class="border border-gray-400 px-4 py-2">${dataa.pname}</td><td class="border border-gray-400 px-4 py-2">${dataa.size}</td><td class="border border-gray-400 px-4 py-2">${dataa.thickness}</td><td class="border border-gray-400 px-4 py-2">${dataa.weight}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthL}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthR}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceR}</td><td class="border border-gray-400 px-4 py-2">${dataa.setF}</td><td class="border border-gray-400 px-4 py-2">${dataa.awctol}</td><td class="border border-gray-400 px-4 py-2">${dataa.hydp}</td></tr>`
+                    // batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${i+1}</td><td class="border border-gray-400 px-4 py-2">${dataa.recn}</td><td class="border border-gray-400 px-4 py-2">${dataa.pname}</td><td class="border border-gray-400 px-4 py-2">${dataa.size}</td><td class="border border-gray-400 px-4 py-2">${dataa.thickness}</td><td class="border border-gray-400 px-4 py-2">${dataa.weight}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthL}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthR}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceR}</td><td class="border border-gray-400 px-4 py-2">${dataa.preL}</td><td class="border border-gray-400 px-4 py-2">${dataa.preR}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainL}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainR}</td><td class="border border-gray-400 px-4 py-2">${dataa.setF}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSrejnH}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSrejnL}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSrejnH}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSrejnL}</td></tr>`
+                    // batchHTML += `<tr><td class="border border-gray-400 px-4 py-2">${i+1}</td><td class="border border-gray-400 px-4 py-2">${dataa.recn}</td><td class="border border-gray-400 px-4 py-2">${dataa.pname}</td><td class="border border-gray-400 px-4 py-2">${dataa.tooldrg}</td><td class="border border-gray-400 px-4 py-2">${dataa.size}</td><td class="border border-gray-400 px-4 py-2">${dataa.thickness}</td><td class="border border-gray-400 px-4 py-2">${dataa.weight}</td><td class="border border-gray-400 px-4 py-2">${dataa.hardness}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthL}</td><td class="border border-gray-400 px-4 py-2">${dataa.depthR}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceL}</td><td class="border border-gray-400 px-4 py-2">${dataa.forceR}</td><td class="border border-gray-400 px-4 py-2">${dataa.preL}</td><td class="border border-gray-400 px-4 py-2">${dataa.preR}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainL}</td><td class="border border-gray-400 px-4 py-2">${dataa.mainR}</td><td class="border border-gray-400 px-4 py-2">${dataa.setF}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSrejnH}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSrejnL}</td><td class="border border-gray-400 px-4 py-2">${dataa.awctol}</td><td class="border border-gray-400 px-4 py-2">${dataa.LHSawcL}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSrejnH}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSrejnL}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSawcH}</td><td class="border border-gray-400 px-4 py-2">${dataa.RHSawcL}</td><td class="border border-gray-400 px-4 py-2">${dataa.rejnON}</td><td class="border border-gray-400 px-4 py-2">${dataa.awcON}</td></tr>`
                     i++
                 }
 
@@ -595,9 +830,13 @@
                         udata.pname = document.getElementById("pname").value
                         udata.tooldrg = document.getElementById("tooldrg").value
                         udata.size = document.getElementById("size").value
+                        udata.shape = document.getElementById("shape").value
                         udata.thickness = document.getElementById("thickness").value
                         udata.weight = document.getElementById("weight").value
                         udata.hardness = document.getElementById("hardness").value
+                        udata.rpm = document.getElementById("rpm").value
+                        udata.ff_lhs_rpm = document.getElementById("ff_lhs_rpm").value
+                        udata.ff_rhs_rpm = document.getElementById("ff_rhs_rpm").value
                         udata.depthL = document.getElementById("depthL").value
                         udata.depthR = document.getElementById("depthR").value
                         udata.forceL = document.getElementById("forceL").value
@@ -606,6 +845,22 @@
                         udata.preR = document.getElementById("preR").value
                         udata.mainL = document.getElementById("mainL").value
                         udata.mainR = document.getElementById("mainR").value
+
+                        udata.setF = document.getElementById("setF").value
+                        udata.LHSrejnH = document.getElementById("LHSrejnH").value
+                        udata.LHSrejnL = document.getElementById("LHSrejnL").value
+                        udata.awctol = document.getElementById("awctol").value
+                        udata.hydp = document.getElementById("hydp").value
+                        // udata.LHSawcL = document.getElementById("LHSawcL").value
+                        udata.RHSrejnH = document.getElementById("RHSrejnH").value
+                        udata.RHSrejnL = document.getElementById("RHSrejnL").value
+                        udata.MonorejnH = document.getElementById("MonorejnH").value
+                        udata.MonorejnL = document.getElementById("MonorejnL").value
+                        // udata.RHSawcH = document.getElementById("RHSawcH").value
+                        // udata.RHSawcL = document.getElementById("RHSawcL").value
+                        udata.rejnON = document.getElementById("rejnON").value
+                        udata.awcON = document.getElementById("awcON").value
+                        
 
                         let url = `http://localhost:3000/recipies`
 
@@ -663,9 +918,13 @@
                         document.getElementById("pname").value = data[0].pname
                         document.getElementById("tooldrg").value = data[0].tooldrg
                         document.getElementById("size").value = data[0].size
+                        document.getElementById("shape").value = data[0].shape
                         document.getElementById("thickness").value = data[0].thickness
                         document.getElementById("weight").value = data[0].weight
                         document.getElementById("hardness").value = data[0].hardness
+                        document.getElementById("rpm").value = data[0].rpm
+                        document.getElementById("ff_lhs_rpm").value = data[0].ff_lhs_rpm
+                        document.getElementById("ff_rhs_rpm").value = data[0].ff_rhs_rpm
                         document.getElementById("depthL").value = data[0].depthL
                         document.getElementById("depthR").value = data[0].depthR
                         document.getElementById("forceL").value = data[0].forceL
@@ -674,6 +933,22 @@
                         document.getElementById("preR").value = data[0].preR
                         document.getElementById("mainL").value = data[0].mainL
                         document.getElementById("mainR").value = data[0].mainR
+                        
+                        document.getElementById("setF").value = data[0].setF
+                        document.getElementById("LHSrejnH").value = data[0].LHSrejnH
+                        document.getElementById("LHSrejnL").value = data[0].LHSrejnL
+                        document.getElementById("awctol").value = data[0].awctol
+                        document.getElementById("hydp").value = data[0].hydp
+                        // document.getElementById("LHSawcL").value = data[0].LHSawcL
+                        document.getElementById("RHSrejnH").value = data[0].RHSrejnH
+                        document.getElementById("RHSrejnL").value = data[0].RHSrejnL
+                        document.getElementById("MonorejnH").value = data[0].MonorejnH
+                        document.getElementById("MonorejnL").value = data[0].MonorejnL
+                        // document.getElementById("RHSawcH").value = data[0].RHSawcH
+                        // document.getElementById("RHSawcL").value = data[0].RHSawcL
+                        document.getElementById("rejnON").value = data[0].rejnON
+                        document.getElementById("awcON").value = data[0].awcON
+
                     } else if (isEmpty(data) == true) {
                         alert("Recipe does not exist.")
                     }
@@ -700,9 +975,13 @@
             udata.pname = document.getElementById("pname").value
             udata.tooldrg = document.getElementById("tooldrg").value
             udata.size = document.getElementById("size").value
+            udata.shape = document.getElementById("shape").value
             udata.thickness = document.getElementById("thickness").value
             udata.weight = document.getElementById("weight").value
             udata.hardness = document.getElementById("hardness").value
+            udata.rpm = document.getElementById("rpm").value
+            udata.ff_lhs_rpm = document.getElementById("ff_lhs_rpm").value
+            udata.ff_rhs_rpm = document.getElementById("ff_rhs_rpm").value
             udata.depthL = document.getElementById("depthL").value
             udata.depthR = document.getElementById("depthR").value
             udata.forceL = document.getElementById("forceL").value
@@ -711,6 +990,22 @@
             udata.preR = document.getElementById("preR").value
             udata.mainL = document.getElementById("mainL").value
             udata.mainR = document.getElementById("mainR").value
+            
+            udata.setF = document.getElementById("setF").value
+            udata.LHSrejnH = document.getElementById("LHSrejnH").value
+            udata.LHSrejnL = document.getElementById("LHSrejnL").value
+            udata.awctol = document.getElementById("awctol").value
+            udata.hydp = document.getElementById("hydp").value
+            // udata.LHSawcL = document.getElementById("LHSawcL").value
+            udata.RHSrejnH = document.getElementById("RHSrejnH").value
+            udata.RHSrejnL = document.getElementById("RHSrejnL").value
+            udata.MonorejnH = document.getElementById("MonorejnH").value
+            udata.MonorejnL = document.getElementById("MonorejnL").value
+            // udata.RHSawcH = document.getElementById("RHSawcH").value
+            // udata.RHSawcL = document.getElementById("RHSawcL").value
+            udata.rejnON = document.getElementById("rejnON").value
+            udata.awcON = document.getElementById("awcON").value
+
 
             let submiturl = `http://localhost:3000/recipies/${searchid}`
 
@@ -760,7 +1055,6 @@
     </script>
 
     <!-- export pdf -->
-
     <script>
         var element1 = document.getElementById("generatepdfreport1");
         var element2 = document.getElementById("generatepdfreport2");
@@ -841,6 +1135,360 @@
                 document.getElementById("pdfsingleandprintrecid").innerText = "Print PDF";
                 element2.classList.remove("cursor-not-allowed");
             }, pdfgenerationtime);
+        }
+    </script>
+
+    <!-- Load settings -->
+    <script>
+        async function loadrecipe(params) {
+            dozerLHS()
+            dozerRHS()
+            updaterpmT()
+            updaterpmFL()
+            updaterpmFR()
+            updatepressure()
+            avg_tol()
+            updatelimits_PLU()
+            updatelimits_PRU()
+            updatelimits_PLL()
+            updatelimits_PRL()
+            updatelimits_PLFL()
+            updatelimits_PRFL()
+            updatelimits_MLU()
+            updatelimits_MLL()
+            updatelimits_MLFL()
+
+            runRHS()
+            runLHS()
+            
+            setTimeout(() => {
+                runRHSx()
+                runLHSx()
+            }, 800);
+            alert("Recipe Loaded.")
+        }
+
+        function updaterpmT() {
+            var e = document.getElementById("rpm").value; //
+
+            var rpmTurret = e;
+
+            submitt(parseInt(rpmTurret))
+
+            async function submitt(rpmTurret) {
+
+                // hidekeyboard()
+                let submiturl = `${seturl}/TURRET_RPM_CHANGE/${rpmTurret}`
+
+                console.log(submiturl)
+
+                if (rpmTurret <= 40 && rpmTurret >= 7) {
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED rpmTurret tolerance ] ")
+                        }, 100))
+                        // .then(check())
+                        .catch(console.error);
+                }
+                else {
+                    alert("Please set value between 7 and 40.")
+                }
+
+            }
+        }
+
+        function updaterpmFL() {
+            // hidekeyboard()
+            var f = document.getElementById("ff_lhs_rpm").value;
+
+            var rpmFeederLHS = f;
+
+            submitt(parseInt(rpmFeederLHS))
+
+            async function submitt(rpmFeederLHS) {
+                let submiturl = `${seturl}/RHS_FEEDER_RPM_CHANGE/${rpmFeederLHS}`
+
+                console.log(submiturl)
+
+                if (rpmFeederLHS <= 70 && rpmFeederLHS >= 1) {
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED rpmFeederLHS tolerance ] ")
+                        }, 100))
+                        .then(check())
+                        .catch(console.error);
+                }
+                else {
+                    alert("Please set value between 1 and 70.")
+                }
+            }
+        }
+
+        function updaterpmFR() {
+            // hidekeyboard()
+            var g = document.getElementById("ff_rhs_rpm").value; // 
+
+            var rpmFeederRHS = g
+
+            submitt(parseInt(rpmFeederRHS))
+            async function submitt(rpmFeederRHS) {
+                let submiturl = `${seturl}/LHS_FEEDER_RPM_CHANGE/${rpmFeederRHS}`
+
+                console.log(submiturl)
+
+                if (rpmFeederRHS <= 70 && rpmFeederRHS >= 1) {
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ UPDATED rpmFeederRHS tolerance ] ")
+                        }, 100))
+                        .then(check())
+                        .catch(console.error);
+                }
+                else {
+                    alert("Please set value between 1 and 70.")
+                }
+            }
+
+        }
+    
+        async function updatelimits_PLU() {
+            var preLHSup = document.getElementById("LHSrejnH").value;
+
+            console.log(preLHSup)
+
+            // let submiturl = `${seturl}/LHS_PRE_TOLERANCE_UPPER/${preLHSup}`
+            let submiturl = `${seturl}/LHS_REJN_HIGH/${preLHSup}`
+            await fetch(submiturl)
+                .then(check())
+                .catch(console.error);
+        }
+
+        async function updatelimits_PRU() {
+            var preLHSup = document.getElementById("RHSrejnH").value;
+
+            console.log(preLHSup)
+
+            let submiturl = `${seturl}/RHS_REJN_HIGH/${preLHSup}`
+            await fetch(submiturl)
+                .then(check())
+                .catch(console.error);
+        }
+
+        function updatelimits_PLL() {
+            var preLHSlow = document.getElementById("LHSrejnL").value;
+
+            submitt(preLHSlow)
+
+            async function submitt(preLHSlow) {
+                let submiturl = `${seturl}/LHS_REJN_LOW/${preLHSlow}`
+
+                await fetch(submiturl)
+                    .then(check())
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_PRL() {
+            var preLHSlow = document.getElementById("RHSrejnL").value;
+
+            submitt(preLHSlow)
+
+            async function submitt(preLHSlow) {
+                let submiturl = `${seturl}/RHS_REJN_LOW/${preLHSlow}`
+
+                await fetch(submiturl)
+                    .then(check())
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_PLFL() {
+            var preLHSfl = document.getElementById("forceL").value;
+
+            submitt(preLHSfl)
+
+            async function submitt(preLHSfl) {
+                // let submiturl = `${seturl}/BI_PRE_FORCE/${preLHSfl}`
+                let submiturl = `${seturl}/LHS_SET_FORCE/${preLHSfl}`
+
+                await fetch(submiturl)
+                    .then(check())
+                    .catch(console.error);
+            }
+        }
+
+        function updatelimits_PRFL() {
+                var preLHSfl = document.getElementById("forceR").value;
+
+                submitt(preLHSfl)
+
+                async function submitt(preLHSfl) {
+                    // let submiturl = `${seturl}/BI_MAIN_FORCE/${preLHSfl}`
+                    let submiturl = `${seturl}/RHS_SET_FORCE/${preLHSfl}`
+
+                    await fetch(submiturl)
+                        .then(check())
+                        .catch(console.error);
+                }
+            }
+    
+        function updatelimits_MLU() {
+            var mainLHSup = document.getElementById("MonorejnH").value;
+
+            submitt(mainLHSup)
+
+            async function submitt(mainLHSup) {
+                // let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_UPPER/${mainLHSup}`
+                let submiturl = `${seturl}/MONO_REJN_HIGH/${mainLHSup}`
+
+                await fetch(submiturl)
+                    .then(check)
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_MLL() {
+            var mainLHSlow = document.getElementById("MonorejnL").value;
+
+            submitt(mainLHSlow)
+
+            async function submitt(mainLHSlow) {
+                // let submiturl = `${seturl}/LHS_MAIN_TOLERANCE_LOWER/${mainLHSlow}`
+                let submiturl = `${seturl}/MONO_REJN_LOW/${mainLHSlow}`
+
+                await fetch(submiturl)
+                    .then(check())
+                    .catch(console.error);
+            }
+
+        }
+
+        function updatelimits_MLFL() {
+            var mainLHSfl = document.getElementById("setF").value;
+
+            submitt(mainLHSfl)
+            async function submitt(mainLHSfl) {
+                let submiturl = `${seturl}/MONO_MAIN_FORCE/${mainLHSfl}`
+
+                await fetch(submiturl)
+                    .then(check())
+                    .catch(console.error);
+            }
+        }
+
+        function updatepressure() {
+            var c = document.getElementById("hydp").value;
+
+            submitt(parseFloat(c))
+
+            async function submitt(pressure) {
+                // hidekeyboard()
+                var pressure = c;
+                if (pressure <= 100 && pressure >= 20) {
+
+                    // pressureset()
+
+                    let submiturl = `${seturl}/HYDRAULIC_PRESSURE_CHANGE/${pressure}`
+                    console.log(submiturl)
+                    await fetch(submiturl)
+                        .then(setTimeout(() => {
+                            console.log(" [ Request Sent // pending confirmation ] ")
+                        }, 100))
+                        .then(pressureset())
+                        .then(check())
+                        .catch(console.error);
+                }
+                else {
+                    alert("Please set value between 20 and 100.")
+                }
+            }
+
+        }
+
+        function avg_tol() {
+            var preLHSlow = document.getElementById("awctol").value;
+
+            submitt(parseInt(preLHSlow))
+
+            async function submitt(preLHSlow) {
+                var pressure = preLHSlow;
+                if (pressure <= 50 && pressure >= 1) {
+                    let submiturl = `${seturl}/AWC_TOLERANCE/${preLHSlow}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .then(check)
+                        .catch(console.error);
+                }
+                else {
+                    alert("Please set value between 1 and 50.")
+                }
+            }
+        }
+
+        function dozerRHS() {
+            var preLHSlow = document.getElementById("depthR").value;
+
+            submitt(parseFloat(preLHSlow))
+
+            async function submitt(preLHSlow) {
+                var pressure = preLHSlow;
+                if (pressure <= 19 && pressure >= 1.1) {
+                    let submiturl = `${seturl}/RHS_DOZER/${preLHSlow}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .catch(console.error);
+                }
+                else {
+                    alert("Please set value between 1.1 and 19.")
+                }
+            }
+        }
+
+        function dozerLHS() {
+            var preLHSlow = document.getElementById("depthL").value;
+
+            submitt(parseFloat(preLHSlow))
+
+            async function submitt(preLHSlow) {
+
+                var pressure = preLHSlow;
+                if (pressure <= 19 && pressure >= 1.1) {
+                    let submiturl = `${seturl}/LHS_DOZER/${preLHSlow}`
+                    console.log(submiturl)
+                    fetch(submiturl)
+                        .catch(console.error);
+                }
+                else {
+                    alert("Please set value between 1.1 and 19.")
+                }
+            }
+        }
+
+        async function runRHS() {
+            let submiturl = `${seturl}/LHS_FORCE_FEEDER_BUTTON_HMI/true`
+            await fetch(submiturl)
+                .catch(console.error);
+        }
+
+        async function runRHSx() {
+            let submiturl = `${seturl}/LHS_FORCE_FEEDER_BUTTON_HMI/false`
+            await fetch(submiturl)
+                .catch(console.error);
+        }
+
+        async function runLHS() {
+            let submiturl = `${seturl}/RHS_FORCE_FEEDER_BUTTON_HMI/true`
+            await fetch(submiturl)
+                .catch(console.error);
+        }
+
+        async function runLHSx() {
+            let submiturl = `${seturl}/RHS_FORCE_FEEDER_BUTTON_HMI/false`
+            await fetch(submiturl)
+                .catch(console.error);
         }
     </script>
 </body>

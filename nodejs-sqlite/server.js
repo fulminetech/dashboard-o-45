@@ -153,7 +153,7 @@ app.delete("/users/:id", async (req, res) => {
 
 app.post("/permissions", async (req, res) => {
   await Permissions.create(req.body);
-  res.send('user is created');
+  res.send('permission updated');
 })
 
 app.get("/permissions/:id", async (req, res) => {
@@ -220,8 +220,8 @@ app.get("/recipies/:id", async (req, res) => {
   res.json(recipies);
 })
 
-app.get("/recipiename/:id", async (req, res) => {
-  const requestedid = req.params.id;
+app.get("/recipiename/:name", async (req, res) => {
+  const requestedid = req.params.name;
   const result = await Recipies.findAll({
     where: {
       recn: requestedid
@@ -240,7 +240,11 @@ app.put("/recipies/:id", async (req, res) => {
   recipies.pname =      req.body.pname
   recipies.tooldrg    = req.body.tooldrg
   recipies.size =       req.body.size
-  recipies.thickness   = req.body.thickness
+  recipies.shape =       req.body.shape
+  recipies.thickness  = req.body.thickness
+  recipies.rpm   =      req.body.rpm
+  recipies.ff_lhs_rpm = req.body.ff_lhs_rpm
+  recipies.ff_rhs_rpm = req.body.ff_rhs_rpm
   recipies.weight =     req.body.weight
   recipies.hardness   = req.body.hardness
   recipies.depthL =     req.body.depthL
@@ -255,14 +259,17 @@ app.put("/recipies/:id", async (req, res) => {
   recipies.setF = req.body.setF
   recipies.LHSrejnH = req.body.LHSrejnH
   recipies.LHSrejnL = req.body.LHSrejnL
-  recipies.LHSawcH = req.body.LHSawcH
-  recipies.LHSawcL = req.body.LHSawcL
+  recipies.awctol = req.body.awctol
+  // recipies.LHSawcL = req.body.LHSawcL
   recipies.RHSrejnH = req.body.RHSrejnH
   recipies.RHSrejnL = req.body.RHSrejnL
-  recipies.RHSawcH = req.body.RHSawcH
-  recipies.RHSawcL = req.body.RHSawcL
+  recipies.MonorejnH = req.body.MonorejnH
+  recipies.MonorejnL = req.body.MonorejnL
+  // recipies.RHSawcH = req.body.RHSawcH
+  // recipies.RHSawcL = req.body.RHSawcL
   recipies.rejnON = req.body.rejnON
   recipies.awcON = req.body.awcON
+  recipies.hydp = req.body.hydp
   
   await recipies.save()
   res.json(recipies);
@@ -273,6 +280,7 @@ app.put("/recipies/:id", async (req, res) => {
 //   "pname":     "",
 //   "tooldrg":   "",
 //   "size":      "",
+//   "shape":      "",
 //   "thickness": "",
 //   "weight":    "",
 //   "hardness":  "",
